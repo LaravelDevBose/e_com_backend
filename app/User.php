@@ -8,7 +8,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    const UserStatus = [
+        0=>'Delete',
+        1=>'Active',
+        2=>'Block',
+        3=>'Un-Verified'
+    ];
+
     use Notifiable;
+
+    protected $table = 'users';
+    protected $primaryKey = 'user_id';
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +26,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'full_name',
+        'user_name',
+        'email',
+        'phone_no',
+        'password',
+        'status',
     ];
 
     /**

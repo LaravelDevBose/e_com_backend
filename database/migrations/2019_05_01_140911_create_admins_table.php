@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateAdminsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -14,7 +15,18 @@ class CreateAdminsTable extends Migration
     public function up()
     {
         Schema::create('admins', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('admin_id');
+            $table->string('full_name')->nullable();
+            $table->string('user_name')->unique()->nullable();
+            $table->string('email')->unique();
+            $table->string('phone_no')->nullable();
+            $table->boolean('admin_role')->default(config('app.admin_default_role'));
+            $table->boolean('admin_status')->default(config('app.admin_default_status'));
+            $table->string('password');
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
+            $table->unsignedInteger('deleted_by')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

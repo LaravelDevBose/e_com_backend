@@ -3,15 +3,16 @@
 
 namespace App\Models;
 
+use App\Traits\ManipulateBy;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, ManipulateBy;
 
-    const AdminType = [
+    const AdminRole = [
         1=>'Super Admin',
         2=>'Admin',
         3=>'Editor'
@@ -34,7 +35,13 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'full_name',
+        'user_name',
+        'email',
+        'phone_no',
+        'admin_role',
+        'admin_status',
+        'password'
     ];
 
     /**
@@ -54,4 +61,21 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeIsActive($query){
+        return $query->where('admin_status', config('app.active'));
+    }
+
+    public function scopeIsDelete($query){
+        return $query->where('admin_status', config('app.delete'));
+    }
+
+    public function scopeRole($query, $role){
+        return $query->where('admin_role', $role);
+    }
+
+    public function scopeIsSuperAdmin($query){
+        return $query->where('admin_role', 1);
+    }
+
 }
