@@ -9,9 +9,9 @@
     <!-- Theme JS files -->
     <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/validation/validate.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/ui/ripple.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('assets/js/core/app.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/pages/login_validation.js')}}"></script>
     <!-- /theme JS files -->
 @endsection
 

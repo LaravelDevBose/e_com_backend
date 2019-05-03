@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AdminLoginController extends Controller
 {
@@ -17,24 +18,45 @@ class AdminLoginController extends Controller
         return view('auth.login');
     }
     public function login( Request $request){
-        //Validate the form date
-        $this->validate($request, [
+
+        $validation = Validator::make($request->all(),[
             'identity'=>'required',
             'password'=>'required|min:6',
         ]);
-        //attempt to log the user in
-        if (Auth::guard('admin')->attempt([$this->username()=>$request->identity, 'password'=>$request->password], $request->remember)) {
+
+        if($validation->passes()){
+            //attempt to log the user in
+            if (Auth::guard('admin')->attempt([$this->username()=>$request->identity, 'password'=>$request->password], $request->remember)) {
+                return response()->json([
+                    'status'=>'success',
+                    'msg'=>'Login Successfully',
+                    'route'=>route('admin.home')
+                ]);
+            }
             return response()->json([
-                'status'=>'success',
-                'message'=>'Login Successfully',
-                'route'=>route('admin.home')
+                'status'=>'error',
+                'msg'=>'Email Or UserName And Password Not Match !',
+                'route'=>0
+            ]);
+        }{
+            $errors = array_values($validation->errors()->getMessages());
+            $message = '';
+
+            foreach ($errors as $error){
+                if($error){
+                    foreach ($error as $value){
+                        $message .= $value .'<br>';
+                    }
+                }
+            }
+
+            return response()->json([
+                'status'=>'warning',
+                'msg'=>(!empty($message))? $message : 'Invalid Information',
             ]);
         }
-        return response()->json([
-            'status'=>'error',
-            'message'=>'Email Or UserName And Password Not Match !',
-            'route'=>0
-        ]);
+
+
     }
     public function logout()
     {
@@ -48,7 +70,7 @@ class AdminLoginController extends Controller
     public function username()
     {
         $identity  = request()->get('identity');
-        $fieldName = filter_var($identity, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $fieldName = filter_var($identity, FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
         request()->merge([$fieldName => $identity]);
         return $fieldName;
     }
