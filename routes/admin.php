@@ -6,7 +6,7 @@ Route::post('admin-panel/login', 'Auth\AdminLoginController@login')->name('admin
 
 Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
 
-    Route::get('home','HomeController@index')->name('home');
+    Route::get('home','HomeController@dashboard')->name('home');
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){

@@ -62,6 +62,25 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends =[
+        'avatar'
+    ];
+
+    public function getRoleAttribute(){
+        return Self::AdminRole[$this->attributes['admin_role']];
+    }
+
+
+    public function getAvatarAttribute(){
+        $path = asset('assets/images/admin.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        return $base64;
+    }
+
+
+
     public function scopeIsActive($query){
         return $query->where('admin_status', config('app.active'));
     }

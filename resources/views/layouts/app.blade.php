@@ -2,79 +2,83 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('PageTitle') | {{ env('APP_NAME') }}</title>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
-    <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/core.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/components.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/colors.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/extras/animate.min.css') }}" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+
+    <!-- Core JS files -->
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/pace.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/core/libraries/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/core/libraries/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/blockui.min.js') }}"></script>
+    <!-- /core JS files -->
+    @yield('PageCss')
+
+    @yield('ThemeJs')
+
+    <script type="text/javascript" src="{{ asset('assets/js/pages/animations_css3.js') }}"></script>
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<body class="navbar-top  pace-done">
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+<div id="app">
 
-                    </ul>
+    @include('includes.nav_bar')
+    <!-- Page container -->
+    <div class="page-container " >
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+        <!-- Page content -->
+        <div class="page-content" >
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+            @include('includes.sidebar')
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                @yield('content')
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+        <!-- Footer -->
+        <div class="navbar navbar-default navbar-fixed-bottom fff">
+            <ul class="nav navbar-nav no-border visible-xs-block">
+                <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second"><i class="icon-circle-up2"></i></a></li>
+            </ul>
+
+            <div class="navbar-collapse collapse" id="navbar-second">
+                <div class="navbar-text col-md-6">
+                    &copy;2019. <span>Design And Develop By:</span> <a href="http://brainchildsoft.com" target="__blank">Brain Child Software</a> <small>Your Ultimate Web Solution</small>
+                </div>
+
+                <div class="navbar-right col-md-6">
+                    <ul class="nav navbar-nav">
+                        <li class="display-block pull-right"><a href="#" class="text-semibold" style="display: inline-block!important;">Email: laravel.devbose@gmail.com</a> <a href="#" class="text-semibold" style="display: inline-block!important;">Phone No: +880 1571-721910</a></li>
                     </ul>
                 </div>
             </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+        </div>
+        <!-- /footer -->
     </div>
+    <!-- /page container -->
+
+</div>
+@yield('PageJs')
 </body>
 </html>
