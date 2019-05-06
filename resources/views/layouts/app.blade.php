@@ -31,6 +31,17 @@
     @yield('ThemeJs')
 
     <script type="text/javascript" src="{{ asset('assets/js/pages/animations_css3.js') }}"></script>
+    <style>
+        .form-control {
+            padding-left: 10px;
+            padding-right: 10px;
+            border-width: 1px;
+            border-color: #ddd;
+            border-radius: 5px;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+    </style>
 </head>
 <body class="navbar-top  pace-done">
 

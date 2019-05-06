@@ -1,16 +1,24 @@
-
+import  Vue from 'vue'
 require('./bootstrap');
 
 window.Vue = require('vue');
 
 import store from './store'
 
-const files = require.context('./', true, /\.vue$/i);
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('dashboard', require('./components/home/Dashboard').default);
+
+import AdminLogin from './components/auth/AdminLogin';
+import Category from './components/category/Category';
+import Color from './components/color/Color';
+
 
 const app = new Vue({
     el: '#app',
-    store:store
+    store:store,
+    components:{
+        AdminLogin,
+        Category,
+        Color,
+    }
 });

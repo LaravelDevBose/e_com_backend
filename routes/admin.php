@@ -7,6 +7,10 @@ Route::post('admin-panel/login', 'Auth\AdminLoginController@login')->name('admin
 Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
 
     Route::get('home','HomeController@dashboard')->name('home');
+
+    Route::get('/category', 'CategoryController@index')->name('category');
+
+    Route::get('/colors', 'ColorController@index')->name('color');
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){
