@@ -12,6 +12,7 @@ import  pNotify from './modules/includes/pNotify'
 import  login from './modules/login'
 import  category from './modules/category'
 import  color from './modules/color'
+import  tag from './modules/tag'
 
 
 
@@ -30,6 +31,7 @@ export default new Vuex.Store({
         login,
         category,
         color,
+        tag,
 
     }
 })

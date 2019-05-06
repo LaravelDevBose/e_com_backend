@@ -11,7 +11,7 @@ Vue.component('dashboard', require('./components/home/Dashboard').default);
 import AdminLogin from './components/auth/AdminLogin';
 import Category from './components/category/Category';
 import Color from './components/color/Color';
-
+import Tag from './components/tag/Tag';
 
 const app = new Vue({
     el: '#app',
@@ -20,5 +20,6 @@ const app = new Vue({
         AdminLogin,
         Category,
         Color,
+        'tag':Tag,
     }
 });
