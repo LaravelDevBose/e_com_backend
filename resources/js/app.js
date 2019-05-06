@@ -12,6 +12,10 @@ import AdminLogin from './components/auth/AdminLogin';
 import Category from './components/category/Category';
 import Color from './components/color/Color';
 import Tag from './components/tag/Tag';
+import Size from './components/size/Size';
+
+
+
 
 const app = new Vue({
     el: '#app',
@@ -21,5 +25,6 @@ const app = new Vue({
         Category,
         Color,
         'tag':Tag,
+        'size':Size,
     }
 });

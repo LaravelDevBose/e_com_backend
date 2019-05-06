@@ -13,7 +13,7 @@ import  login from './modules/login'
 import  category from './modules/category'
 import  color from './modules/color'
 import  tag from './modules/tag'
-
+import size from './modules/size'
 
 
 
@@ -32,6 +32,7 @@ export default new Vuex.Store({
         category,
         color,
         tag,
+        size,
 
     }
 })
