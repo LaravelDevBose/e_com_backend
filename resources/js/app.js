@@ -13,7 +13,7 @@ import Category from './components/category/Category';
 import Color from './components/color/Color';
 import Tag from './components/tag/Tag';
 import Size from './components/size/Size';
-
+import DeliveryCost from './components/deliveryCost/DeliveryCost';
 
 
 
@@ -26,5 +26,6 @@ const app = new Vue({
         Color,
         'tag':Tag,
         'size':Size,
+        'delivery-cost':DeliveryCost,
     }
 });

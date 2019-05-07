@@ -42,6 +42,7 @@
                     <li ><a href="{{ route('admin.color') }}"><i class="icon-brush"></i> <span>Color</span></a></li>
                     <li ><a href="{{ route('admin.tag') }}"><i class="icon-price-tag"></i> <span>Tag</span></a></li>
                     <li ><a href="{{ route('admin.size') }}"><i class="icon-rulers"></i> <span>Size</span></a></li>
+                    <li ><a href="{{ route('admin.delivery.cost') }}"><i class="icon-truck"></i> <span>Delivery Cost</span></a></li>
                     <li>
                         <a href="#"><i class="icon-stack2"></i> <span>Page layouts</span></a>
                         <ul>

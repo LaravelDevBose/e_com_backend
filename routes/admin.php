@@ -13,6 +13,8 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::get('/colors', 'ColorController@index')->name('color');
     Route::get('/tags','TagController@index')->name('tag');
     Route::get('/size', 'SizeController@index')->name('size');
+
+    Route::get('/delivery-cost', 'DeliveryCostController@index')->name('delivery.cost');
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){
