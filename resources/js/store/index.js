@@ -13,9 +13,9 @@ import  login from './modules/login'
 import  category from './modules/category'
 import  color from './modules/color'
 import  tag from './modules/tag'
-import size from './modules/size'
-import delivery_cost from "./modules/delivery_cost";
-
+import  size from './modules/size'
+import  delivery_cost from "./modules/delivery_cost";
+import  campaign from './modules/campaign';
 
 
 
@@ -36,6 +36,7 @@ export default new Vuex.Store({
         tag,
         size,
         delivery_cost,
+        campaign,
 
     }
 })

@@ -14,7 +14,7 @@ import Color from './components/color/Color';
 import Tag from './components/tag/Tag';
 import Size from './components/size/Size';
 import DeliveryCost from './components/deliveryCost/DeliveryCost';
-
+import Campaign from './components/campaign/Campaign';
 
 
 const app = new Vue({
@@ -27,5 +27,6 @@ const app = new Vue({
         'tag':Tag,
         'size':Size,
         'delivery-cost':DeliveryCost,
+        'campaign':Campaign,
     }
 });

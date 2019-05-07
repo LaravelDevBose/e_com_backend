@@ -15,6 +15,8 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::get('/size', 'SizeController@index')->name('size');
 
     Route::get('/delivery-cost', 'DeliveryCostController@index')->name('delivery.cost');
+
+    Route::get('/campaign', 'CampaignController@index')->name('campaign');
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){
