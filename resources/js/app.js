@@ -15,7 +15,8 @@ import Tag from './components/tag/Tag';
 import Size from './components/size/Size';
 import DeliveryCost from './components/deliveryCost/DeliveryCost';
 import Campaign from './components/campaign/Campaign';
-
+import Voucher from  './components/voucher/Voucher';
+import CreateVoucher from './components/voucher/CreateVoucher';
 
 const app = new Vue({
     el: '#app',
@@ -28,5 +29,7 @@ const app = new Vue({
         'size':Size,
         'delivery-cost':DeliveryCost,
         'campaign':Campaign,
+        'voucher':Voucher,
+        'create-voucher':CreateVoucher,
     }
 });

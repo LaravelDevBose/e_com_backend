@@ -16,7 +16,7 @@ import  tag from './modules/tag'
 import  size from './modules/size'
 import  delivery_cost from "./modules/delivery_cost";
 import  campaign from './modules/campaign';
-
+import  voucher from './modules/voucher';
 
 
 export default new Vuex.Store({
@@ -37,6 +37,7 @@ export default new Vuex.Store({
         size,
         delivery_cost,
         campaign,
+        voucher,
 
     }
 })

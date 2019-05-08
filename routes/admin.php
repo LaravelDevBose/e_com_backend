@@ -17,6 +17,8 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::get('/delivery-cost', 'DeliveryCostController@index')->name('delivery.cost');
 
     Route::get('/campaign', 'CampaignController@index')->name('campaign');
+
+    Route::resource('voucher', 'VoucherController');
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){
