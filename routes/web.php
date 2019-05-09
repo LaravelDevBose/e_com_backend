@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -18,3 +20,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('attachment/store', 'AttachmentController@store')->name('attachment.store');
+Route::post('/attachment/delete', 'AttachmentController@delete')->name('attachment.delete');

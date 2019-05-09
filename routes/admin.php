@@ -8,7 +8,11 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
 
     Route::get('home','HomeController@dashboard')->name('home');
 
-    Route::get('/category', 'CategoryController@index')->name('category');
+    Route::post('/category', 'CategoryController@index')->name('category');
+    Route::post('/category/tree_list', 'CategoryController@category_tree')->name('category.tree_list');
+    Route::get('/category/create', 'CategoryController@create')->name('category.create');
+    Route::post('/category/store', 'CategoryController@store')->name('category.store');
+
 
     Route::get('/colors', 'ColorController@index')->name('color');
     Route::get('/tags','TagController@index')->name('tag');
@@ -19,6 +23,8 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::get('/campaign', 'CampaignController@index')->name('campaign');
 
     Route::resource('voucher', 'VoucherController');
+
+
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){

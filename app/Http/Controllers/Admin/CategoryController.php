@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\CategoryCollection;
+use App\Http\Resources\Admin\Category as CategoryResource;
 
 class CategoryController extends Controller
 {
@@ -14,7 +17,15 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('category.index');
+        $categories = Category::isActive()->with(['attachment','parent'=>function($query){
+            $query->isActive()->with('parent');
+        }])->get();
+        return new CategoryCollection($categories);
+    }
+
+    public function category_tree(){
+        $categories = Category::isActive()->isParent()->with('children')->get();
+        return CategoryResource::collection($categories);
     }
 
     /**
@@ -24,7 +35,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.index');
     }
 
     /**
@@ -44,9 +55,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+        return new CategoryResource($category);
     }
 
     /**

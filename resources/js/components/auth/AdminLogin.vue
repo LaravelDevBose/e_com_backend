@@ -88,7 +88,7 @@
         },
         computed:{
             getResponse:()=>{
-                 this.res = this.$store.getters.getResponse;
+                 this.res = this.$store.state.loginRes;
             }
         },
         watch:{
@@ -102,7 +102,7 @@
             },
             res:{
                 handler(newValue){
-                    if(newValue.status == 'success' && newValue.route !==0){
+                    if(newValue.status === 'success' && newValue.route !==0){
                         window.location = newValue.route;
                     }
                 }

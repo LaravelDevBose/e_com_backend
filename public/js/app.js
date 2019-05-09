@@ -6052,7 +6052,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   computed: {
     getResponse: function getResponse() {
-      _this.res = _this.$store.getters.getResponse;
+      _this.res = _this.$store.state.loginRes;
     }
   },
   watch: {
@@ -6066,7 +6066,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     res: {
       handler: function handler(newValue) {
-        if (newValue.status == 'success' && newValue.route !== 0) {
+        if (newValue.status === 'success' && newValue.route !== 0) {
           window.location = newValue.route;
         }
       }
@@ -6199,6 +6199,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import the component
 
  // import the styles
@@ -6211,7 +6241,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Treeselect: _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default.a,
     PNotify: _includes_PNotify__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['categories']))
+  data: function data() {
+    return {
+      form: {
+        parent_id: null,
+        category_name: null
+      },
+      normalizer: function normalizer(node) {
+        return {
+          id: node.id,
+          label: node.label,
+          children: node.children
+        };
+      }
+    };
+  },
+  created: function created() {
+    this.allCategory();
+    this.getTreeListCategories();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['allCategory', 'getTreeListCategories'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['categories', 'treeList']))
 });
 
 /***/ }),
@@ -44647,13 +44697,13 @@ var render = function() {
                 _c("label", [_vm._v("Parent Category:")]),
                 _vm._v(" "),
                 _c("treeselect", {
-                  attrs: { options: _vm.categories },
+                  attrs: { options: _vm.treeList, normalizer: _vm.normalizer },
                   model: {
-                    value: _vm.value,
+                    value: _vm.form.parent_id,
                     callback: function($$v) {
-                      _vm.value = $$v
+                      _vm.$set(_vm.form, "parent_id", $$v)
                     },
-                    expression: "value"
+                    expression: "form.parent_id"
                   }
                 })
               ],
@@ -44663,6 +44713,19 @@ var render = function() {
           _vm._v(" "),
           _vm._m(1),
           _vm._v(" "),
+          _c("div", { staticClass: "col-md-4" }, [
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _c("label", [_vm._v("Category Banner:")]),
+                _vm._v(" "),
+                _c("v-uploader", { attrs: { preview: true } })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
           _vm._m(2),
           _vm._v(" "),
           _vm._m(3)
@@ -44670,7 +44733,76 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(4)
+    _c("div", { staticClass: "panel panel-flat" }, [
+      _vm._m(4),
+      _vm._v(" "),
+      _c("div", { staticClass: "table-responsive" }, [
+        _c(
+          "table",
+          { staticClass: "table table-bordered table-striped table-sm" },
+          [
+            _vm._m(5),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.categories, function(category, index) {
+                return _vm.categories
+                  ? _c("tr", { key: category.id }, [
+                      _c("td", [_vm._v(_vm._s(index))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("img", {
+                          staticClass: "img-xs img-preview img-responsive",
+                          attrs: {
+                            src: category.image_path,
+                            alt: category.label
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("span", { staticClass: "text text-bold" }, [
+                          _vm._v(" " + _vm._s(category.name))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        category.parent !== null
+                          ? _c("span", { staticClass: "text text-center" }, [
+                              _vm._v(_vm._s(category.parent.name))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        category.parent !== null &&
+                        category.parent.parent !== null
+                          ? _c("span", { staticClass: "text text-center" }, [
+                              _vm._v(_vm._s(category.parent.parent.name))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        category.status === 1
+                          ? _c("span", { staticClass: "badge badge-success" }, [
+                              _vm._v("Active")
+                            ])
+                          : _c("span", { staticClass: "badge badge-warning" }, [
+                              _vm._v("De-active")
+                            ])
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(6, true)
+                    ])
+                  : _vm._e()
+              }),
+              0
+            )
+          ]
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -44711,7 +44843,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4 col-md-offset-6" }, [
+    return _c("div", { staticClass: "col-md-4 col-md-offset-2" }, [
       _c("div", { staticClass: "content-group-lg" }, [
         _c("div", { staticClass: "checkbox checkbox-switchery" }, [
           _c("label", [
@@ -44748,51 +44880,65 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel panel-flat" }, [
-      _c("div", { staticClass: "panel-heading" }, [
-        _c("h5", { staticClass: "panel-title" }, [_vm._v("Category List")]),
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Category List")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "heading-elements" }, [
+        _c("ul", { staticClass: "icons-list" }, [
+          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("div", { staticClass: "heading-elements" }, [
-          _c("ul", { staticClass: "icons-list" }, [
-            _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+        _c("th", [_vm._v("Banner Image")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("2nd Parent")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("1rd Parent")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("ul", { staticClass: "icons-list" }, [
+        _c("li", { staticClass: "text-primary-600" }, [
+          _c("a", { attrs: { href: "#" } }, [
+            _c("i", { staticClass: "icon-pencil7" })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "text-danger-600" }, [
+          _c("a", { attrs: { href: "#" } }, [
+            _c("i", { staticClass: "icon-trash" })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "text-teal-600" }, [
+          _c("a", { attrs: { href: "#" } }, [
+            _c("i", { staticClass: "icon-cog7" })
           ])
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "table-responsive" }, [
-        _c(
-          "table",
-          { staticClass: "table table-bordered table-striped table-sm" },
-          [
-            _c("thead", [
-              _c("tr", [
-                _c("th", [_vm._v("#")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("First Name")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Last Name")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Username")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tbody", [
-              _c("tr", [
-                _c("td", [_vm._v("1")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("Eugene")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("Kopyov")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("@Kopyov")])
-              ])
-            ])
-          ]
-        )
       ])
     ])
   }
@@ -60103,34 +60249,116 @@ var mutations = {};
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //declare State
 var state = {
-  options: [{
-    id: 'a',
-    label: 'a',
-    children: [{
-      id: 'aa',
-      label: 'aa'
-    }, {
-      id: 'ab',
-      label: 'ab'
-    }]
-  }, {
-    id: 'b',
-    label: 'b'
-  }, {
-    id: 'c',
-    label: 'c'
-  }]
+  categories: [],
+  treeListCategories: []
 }; //declare Getters
 
 var getters = {
   categories: function categories(state) {
-    return state.options;
+    return state.categories;
+  },
+  treeList: function treeList(state) {
+    return state.treeListCategories;
   }
 };
-var actions = {};
-var mutations = {};
+var actions = {
+  allCategory: function () {
+    var _allCategory = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.prev = 1;
+              _context.next = 4;
+              return axios.post('/admin/category');
+
+            case 4:
+              response = _context.sent;
+              commit('setCategory', response.data.data);
+              _context.next = 11;
+              break;
+
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](1);
+              console.log(_context.t0);
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 8]]);
+    }));
+
+    function allCategory(_x) {
+      return _allCategory.apply(this, arguments);
+    }
+
+    return allCategory;
+  }(),
+  getTreeListCategories: function () {
+    var _getTreeListCategories = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios.post('/admin/category/tree_list');
+
+            case 4:
+              response = _context2.sent;
+              commit('setTreeListCategory', response.data.data);
+              _context2.next = 11;
+              break;
+
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](1);
+              console.log(_context2.t0);
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 8]]);
+    }));
+
+    function getTreeListCategories(_x2) {
+      return _getTreeListCategories.apply(this, arguments);
+    }
+
+    return getTreeListCategories;
+  }()
+};
+var mutations = {
+  setCategory: function setCategory(state, categories) {
+    state.categories = categories;
+  },
+  setTreeListCategory: function setTreeListCategory(state, treeList) {
+    state.treeListCategories = treeList;
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
   getters: getters,

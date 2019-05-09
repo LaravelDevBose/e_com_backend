@@ -1,32 +1,46 @@
 //declare State
 const state = {
-    options: [ {
-        id: 'a',
-        label: 'a',
-        children: [ {
-            id: 'aa',
-            label: 'aa',
-        }, {
-            id: 'ab',
-            label: 'ab',
-        } ],
-    }, {
-        id: 'b',
-        label: 'b',
-    }, {
-        id: 'c',
-        label: 'c',
-    } ],
+    categories:[],
+    treeListCategories:[],
 };
 
 //declare Getters
 const getters = {
-    categories:(state)=>state.options
+    categories:(state)=>state.categories,
+    treeList:(state)=>state.treeListCategories,
 };
 
-const actions = {};
+const actions = {
+    async allCategory({commit}){
 
-const mutations = {};
+        try{
+            const response = await axios.post('/admin/category');
+            commit('setCategory', response.data.data);
+        }catch (error) {
+            console.log(error);
+        }
+
+    },
+    async getTreeListCategories({commit}){
+
+        try{
+            const response = await axios.post('/admin/category/tree_list');
+            commit('setTreeListCategory', response.data.data);
+        }catch (error) {
+            console.log(error);
+        }
+
+    },
+};
+
+const mutations = {
+    setCategory:(state,categories)=>{
+        state.categories = categories;
+    },
+    setTreeListCategory:(state,treeList)=>{
+        state.treeListCategories = treeList;
+    },
+};
 
 export default {
     state,
