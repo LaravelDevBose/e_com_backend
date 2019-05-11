@@ -29,7 +29,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Category Banner:</label>
-                            <v-uploader  :preview="true"></v-uploader>
+                            <attachment :multi_file="multi_file" :folder="folder"></attachment>
                         </div>
                     </div>
                     <div class="col-md-4 col-md-offset-2">
@@ -121,9 +121,10 @@
     import '@riophae/vue-treeselect/dist/vue-treeselect.css';
 
     import {mapGetters, mapActions} from 'vuex'
+    import Attachment from "../attachment/Attachment";
     export default {
         name: "Category",
-        components:{ Treeselect, PNotify},
+        components:{Attachment, Treeselect, PNotify},
         data(){
             return{
                 form:{
@@ -136,7 +137,9 @@
                         label: node.label,
                         children: node.children,
                     }
-                }
+                },
+                multi_file:1,
+                folder:'category',
             }
         },
         created(){

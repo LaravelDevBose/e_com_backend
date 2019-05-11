@@ -23,6 +23,9 @@ class CreateAttachmentsTable extends Migration
             $table->string('file_type')->nullable();
             $table->string('file_size')->nullable();
             $table->string('original_name')->nullable();
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
+            $table->unsignedInteger('deleted_by')->nullable();
             $table->timestamps();
         });
     }

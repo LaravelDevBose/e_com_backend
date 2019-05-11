@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\AttachmentHelper;
 use Exception;
 use App\Models\Attachment;
 use Illuminate\Http\Request;
@@ -18,19 +19,23 @@ class AttachmentController extends Controller
     private $attachmentFolder = 'public/attachments/';
 
     public function store(Request $request) {
-
-        $attachments = $request->except('folder', 'q');
+         return $request->all();
+        $attachments = $request->except('folder');
         if(empty($attachments)){
             return response()->json([
                 'status' => 'error',
                 'message' => 'No file found!'
             ]);
         }
-
+        return response()->json([
+            'status'=>'error',
+            'data'=>$attachments
+        ]);
         $attachmentsArray=['attachment_file' =>[]];
         foreach ($attachments as $key => $attachment){
             array_push($attachmentsArray['attachment_file'],  $attachment);
         }
+
 
 
         $validator = Validator::make(
@@ -46,7 +51,6 @@ class AttachmentController extends Controller
         if ($validator->passes()) {
 
             try {
-                $user = Auth::user();
 
                 $max_number = Attachment::max('attachment_no')+1;
 
@@ -93,8 +97,7 @@ class AttachmentController extends Controller
                         'img' => $attachmentSave->image_path,
                         'id' => $attachmentSave->attachment_id,
                         'no' => $attachmentSave->attachment_no,
-                        'url' => route('master-attachment-download',  $attachmentSave->attachment_id),
-                        'delete_url' => route('master-attachment-delete',  $attachmentSave->attachment_id),
+                        'delete_url' => route('attachment.delete',  $attachmentSave->attachment_id),
                     ]);
                     $max_number++;
                 }

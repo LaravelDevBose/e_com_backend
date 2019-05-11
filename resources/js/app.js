@@ -17,12 +17,15 @@ import DeliveryCost from './components/deliveryCost/DeliveryCost';
 import Campaign from './components/campaign/Campaign';
 import Voucher from  './components/voucher/Voucher';
 import CreateVoucher from './components/voucher/CreateVoucher';
+import Attachment from './components/attachment/Attachment';
+
 
 const app = new Vue({
     el: '#app',
     store:store,
     components:{
         AdminLogin,
+        'attachment':Attachment,
         Category,
         Color,
         'tag':Tag,
@@ -31,5 +34,6 @@ const app = new Vue({
         'campaign':Campaign,
         'voucher':Voucher,
         'create-voucher':CreateVoucher,
+
     }
 });

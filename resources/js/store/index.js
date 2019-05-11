@@ -17,7 +17,7 @@ import  size from './modules/size'
 import  delivery_cost from "./modules/delivery_cost";
 import  campaign from './modules/campaign';
 import  voucher from './modules/voucher';
-
+import  attachment from './modules/attachment';
 
 export default new Vuex.Store({
     state:{},
@@ -31,6 +31,7 @@ export default new Vuex.Store({
         modelNotify,
         pNotify,
         login,
+        attachment,
         category,
         color,
         tag,

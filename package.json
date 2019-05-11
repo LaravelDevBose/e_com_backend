@@ -24,8 +24,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@fancyapps/fancybox": "^3.5.7",
         "@riophae/vue-treeselect": "0.0.38",
-        "v-uploader": "^1.8.0",
         "vue-router": "^3.0.6",
         "vuex": "^3.1.0"
     }
