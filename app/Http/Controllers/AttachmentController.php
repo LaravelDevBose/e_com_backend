@@ -19,7 +19,7 @@ class AttachmentController extends Controller
     private $attachmentFolder = 'public/attachments/';
 
     public function store(Request $request) {
-         return $request->all();
+        // return $request->all();
         $attachments = $request->except('folder');
         if(empty($attachments)){
             return response()->json([
@@ -27,10 +27,7 @@ class AttachmentController extends Controller
                 'message' => 'No file found!'
             ]);
         }
-        return response()->json([
-            'status'=>'error',
-            'data'=>$attachments
-        ]);
+    
         $attachmentsArray=['attachment_file' =>[]];
         foreach ($attachments as $key => $attachment){
             array_push($attachmentsArray['attachment_file'],  $attachment);
@@ -40,7 +37,7 @@ class AttachmentController extends Controller
 
         $validator = Validator::make(
             $attachmentsArray, [
-            'attachment_file.*' => 'required|mimes:jpg,jpeg,png,bmp,pdf,gif,txt,doc,docx,csv,xlsx,xls|max:10000'
+            'attachment_file.*' => 'required'
         ],[
                 'attachment_file.*.required' => 'Please upload an image',
                 'attachment_file.*.mimes' => 'Only Images, Doc, Text, PDF are allowed',

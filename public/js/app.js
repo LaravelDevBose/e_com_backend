@@ -5961,6 +5961,8 @@ function mergeFn (a, b) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var timers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! timers */ "./node_modules/timers-browserify/main.js");
+/* harmony import */ var timers__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(timers__WEBPACK_IMPORTED_MODULE_1__);
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -5993,28 +5995,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['multi_file', 'folder'],
   name: "Attachment",
   data: function data() {
-    return {
-      files: ''
-    };
+    return {};
   },
-  created: function created() {},
+  created: function created() {
+    console.log(this.localFiles);
+  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['uploadAttachment']), {
-    uploadFile: function uploadFile() {
+    uploadFile: function uploadFile(e) {
       this.files = this.$refs.files.files;
       var formData;
       formData = new FormData();
 
       for (var i = 0; i < this.files.length; i++) {
         var file = this.files[i];
-        formData.append('files[' + i + ']', file);
+        formData.append(i, file);
       }
 
       formData.append('folder', this.folder);
-      this.uploadAttachment(formData);
+      var vm = this;
+      Object(timers__WEBPACK_IMPORTED_MODULE_1__["setTimeout"])(function () {
+        vm.uploadAttachment(formData);
+      }, 1500);
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['attachments']))
@@ -44565,11 +44571,7 @@ var render = function() {
               multiple: _vm.multi_file,
               id: "file_upload"
             },
-            on: {
-              change: function($event) {
-                return _vm.uploadFile()
-              }
-            }
+            on: { change: _vm.uploadFile }
           }),
           _vm._v(" "),
           _vm._m(0)
@@ -44584,13 +44586,11 @@ var render = function() {
           _vm._l(_vm.attachments, function(attachment, index) {
             return _c(
               "div",
-              { key: attachment.id, staticClass: "col-lg-2 col-sm-4" },
+              { key: attachment.id, staticClass: "col-lg-4 col-sm-4" },
               [
                 _c("div", { staticClass: "thumbnail" }, [
                   _c("div", { staticClass: "thumb" }, [
-                    _c("img", {
-                      attrs: { src: attachment.image_path, alt: "" }
-                    }),
+                    _c("img", { attrs: { src: attachment.img, alt: "" } }),
                     _vm._v(" "),
                     _c("div", { staticClass: "caption-overflow" }, [
                       _c("span", [
@@ -44600,7 +44600,7 @@ var render = function() {
                             staticClass:
                               "btn border-white text-white btn-flat btn-icon btn-rounded",
                             attrs: {
-                              href: attachment.image_path,
+                              href: attachment.img,
                               "data-fancybox": "images"
                             }
                           },
@@ -60492,14 +60492,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  attachments: [],
+  attachmentsFile: [],
   errors: null,
   attachment_ids: []
 }; //declare Getters
 
 var getters = {
   attachments: function attachments(state) {
-    return state.attachments;
+    return state.attachmentsFile;
   },
   attachment_ids: function attachment_ids(state) {
     return state.attachment_ids;
@@ -60517,19 +60517,20 @@ var actions = {
             case 0:
               commit = _ref.commit;
               _context.prev = 1;
-              _context.next = 4;
+              console.log(formData);
+              _context.next = 5;
               return axios.post('/attachment/store', formData, {
                 headers: {
-                  'Content-Type': 'multipart/form-data'
+                  // 'Content-Type': 'multipart/form-data; boundary=someArbitraryUniqueString',
+                  'Content-Type': 'application/x-www-form-urlencoded'
                 }
               }).then(function (response) {
-                console.log(response);
+                commit('setAttachment', response.data);
               })["catch"](function (errors) {
                 console.log(errors);
               });
 
-            case 4:
-              commit('setAttachment', response.data);
+            case 5:
               _context.next = 10;
               break;
 
@@ -60556,11 +60557,11 @@ var actions = {
 var mutations = {
   setAttachment: function setAttachment(state, response) {
     if (response.status === 'success') {
-      response.forEach(function (file) {
-        state.attachments.unshift(file);
+      response.attachments.forEach(function (file) {
+        console.log(file);
+        state.attachmentsFile.unshift(file);
         state.attachment_ids.push(file.id);
       });
-      console.log(response);
     } else {
       state.errors = response;
     }
@@ -61017,8 +61018,8 @@ var mutations = {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
