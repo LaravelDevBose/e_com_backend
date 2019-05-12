@@ -30,14 +30,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::isActive()->with(['attachment','parent'=>function($query){
-            $query->isActive()->with('parent');
-        }])->get();
+        $categories = Category::notDelete()->with(['attachment','parent'=>function($query){
+            $query->notDelete()->with('parent');
+        }])->latest()->get();
         return new CategoryCollection($categories);
     }
 
     public function category_tree(){
-        $categories = Category::isActive()->isParent()->with('children')->get();
+        $categories = Category::notDelete()->isParent()->with('children')->get();
         return CategoryResource::collection($categories);
     }
 
@@ -74,28 +74,22 @@ class CategoryController extends Controller
                     'category_slug'=>Str::slug($request->category_name),
                     'parent_id'=>(!empty($request->parent_id))?$request->parent_id : null,
                     'attachment_id'=>(!empty($request->attachmentIds))? $request->attachmentIds[0]:null,
-                    'category_status'=>$request->category_status,
+                    'category_status'=>(!empty($request->category_status) && $request->category_status == 1) ? $request->category_status : 2,
                 ]);
                 if($category){
-                    $res =[
-                        'category'=> new CategoryResource($category),
-                        'res'=>[
-                            'status'=>'success',
-                            'url'=>route('admin.category'),
-                        ]
-                    ];
                     DB::commit();
-                    return response()->json($res);
+                    return response()->json([
+                        'status'=>'success',
+                        'msg'=>'Category Store Successfully',
+                        'url'=>route('admin.category'),
+                    ]);
                 }
 
             }catch (Exception $ex){
                 DB::rollBack();
-                $res =[
+                return response()->json([
                     'status' => 'error',
                     'message' => $ex->getMessage()
-                ];
-                return response()->json([
-                    'res'=>$res,
                 ]);
             }
         }else{
@@ -108,12 +102,9 @@ class CategoryController extends Controller
                     }
                 }
             }
-            $res = [
+            return response()->json([
                 'status' => 'validation',
                 'message' => ($message != null) ? $message :'Invalid File!'
-            ];
-            return response()->json([
-                'res'=>$res
             ]);
         }
     }

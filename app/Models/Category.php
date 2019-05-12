@@ -34,6 +34,9 @@ class Category extends Model
     public function scopeIsActive($query){
         return $query->where('category_status', config('app.active'));
     }
+    public function scopeNotDelete($query){
+        return $query->where('category_status', '!=',0);
+    }
 
     public function children(){
         return $this->hasMany(Category::class, 'parent_id', 'category_id');
@@ -44,6 +47,6 @@ class Category extends Model
     }
 
     public function attachment(){
-        return $this->hasOne(Attachment::class,'attachment_id');
+        return $this->hasOne(Attachment::class,'attachment_id')->where('folder', 'category');
     }
 }

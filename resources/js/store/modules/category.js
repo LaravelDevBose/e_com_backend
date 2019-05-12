@@ -35,8 +35,11 @@ const actions = {
     async storeCategory({commit},data){
 
         try{
-            const response = await axios.post('/admin/category/store',data);
-            commit('categoryStore', response.data);
+            return await axios.post('/admin/category/store',data).then(response=>{
+                commit('categoryStore', response.data);
+                return response.data;
+            });
+
         }catch (error) {
             console.log(error);
         }
@@ -52,11 +55,7 @@ const mutations = {
         state.treeListCategories = treeList;
     },
     categoryStore:(state,response)=>{
-        if(response.res.status === 'success'){
-            state.categories.unshift(response.category);
-            
-        }
-        state.resData = response.res;
+        state.resData = response;
     }
 
 };

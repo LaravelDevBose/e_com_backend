@@ -6348,9 +6348,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['allCategory', 'getTreeListCategories', 'storeCategory']), {
     categoryStore: function categoryStore() {
+      var _this = this;
+
       var vm = this;
       vm.formValue.attachmentIds = vm.attachment_ids;
-      vm.storeCategory(vm.formValue);
+      vm.storeCategory(vm.formValue).then(function (response) {
+        if (response.status === 'success') {
+          _this.formValue.parent_id = null;
+          _this.formValue.category_name = '';
+          _this.formValue.category_status = 0;
+          _this.formValue.attachmentIds = '';
+
+          _this.allCategory();
+
+          _this.getTreeListCategories();
+        }
+      });
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['categories', 'treeList', 'attachment_ids']))
@@ -45048,15 +45061,22 @@ var render = function() {
                   ? _c("tr", { key: category.id }, [
                       _c("td", [_vm._v(_vm._s(index))]),
                       _vm._v(" "),
-                      _c("td", [
-                        _c("img", {
-                          staticClass: "img-xs img-preview img-responsive",
-                          attrs: {
-                            src: category.image_path,
-                            alt: category.label
-                          }
-                        })
-                      ]),
+                      _c(
+                        "td",
+                        { staticStyle: { padding: "5px", width: "120px" } },
+                        [
+                          category.attachment
+                            ? _c("img", {
+                                staticClass: "img-preview img-responsive",
+                                staticStyle: { width: "100px", height: "35px" },
+                                attrs: {
+                                  src: category.attachment.image_path,
+                                  alt: category.label
+                                }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
                       _vm._v(" "),
                       _c("td", [
                         _c("span", { staticClass: "text text-bold" }, [
@@ -45165,7 +45185,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Banner Image")]),
+        _c("th", { staticStyle: { padding: "5px" } }, [_vm._v("Banner Image")]),
         _vm._v(" "),
         _c("th", [_vm._v("Category Name")]),
         _vm._v(" "),
@@ -60796,7 +60816,7 @@ var actions = {
     var _storeCategory = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, data) {
-      var commit, response;
+      var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -60804,25 +60824,25 @@ var actions = {
               commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
-              return axios.post('/admin/category/store', data);
+              return axios.post('/admin/category/store', data).then(function (response) {
+                commit('categoryStore', response.data);
+                return response.data;
+              });
 
             case 4:
-              response = _context3.sent;
-              commit('categoryStore', response.data);
-              _context3.next = 11;
-              break;
+              return _context3.abrupt("return", _context3.sent);
 
-            case 8:
-              _context3.prev = 8;
+            case 7:
+              _context3.prev = 7;
               _context3.t0 = _context3["catch"](1);
               console.log(_context3.t0);
 
-            case 11:
+            case 10:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 8]]);
+      }, _callee3, null, [[1, 7]]);
     }));
 
     function storeCategory(_x3, _x4) {
@@ -60840,11 +60860,7 @@ var mutations = {
     state.treeListCategories = treeList;
   },
   categoryStore: function categoryStore(state, response) {
-    if (response.res.status === 'success') {
-      state.categories.unshift(response.category);
-    }
-
-    state.resData = response.res;
+    state.resData = response;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -61146,8 +61162,8 @@ var mutations = {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

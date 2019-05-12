@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Admin;
 
 use App\Http\Resources\Admin\Category as CategoryResource;
-use App\Http\Resources\Attachment;
+use App\Http\Resources\Attachment as AttachmentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Category extends JsonResource
@@ -25,7 +25,7 @@ class Category extends JsonResource
             'status'=>$this->category_status,
             'children'=>CategoryResource::collection($this->whenLoaded('children')),
             'parent'=>new CategoryResource($this->whenLoaded('parent')),
-            'image_path'=> new Attachment($this->whenLoaded('attachment')),
+            'attachment'=> new AttachmentResource($this->whenLoaded('attachment')),
         ];
     }
 }

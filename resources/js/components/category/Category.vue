@@ -70,7 +70,7 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Banner Image</th>
+                        <th style="padding:5px;">Banner Image</th>
                         <th>Category Name</th>
                         <th>2nd Parent</th>
                         <th>1rd Parent</th>
@@ -81,8 +81,8 @@
                     <tbody>
                     <tr v-if="categories" v-for="(category , index) in categories" :key="category.id">
                         <td>{{ index }}</td>
-                        <td>
-                            <img :src="category.image_path" :alt="category.label" class="img-xs img-preview img-responsive">
+                        <td style="padding:5px; width:120px;">
+                            <img v-if="category.attachment" :src="category.attachment.image_path" :alt="category.label" class="img-preview img-responsive" style="width:100px; height:35px;" >
                         </td>
                         <td>
                             <span class="text text-bold"> {{ category.name }}</span>
@@ -122,7 +122,7 @@
     // import the styles
     import '@riophae/vue-treeselect/dist/vue-treeselect.css';
 
-    import {mapGetters, mapActions} from 'vuex'
+    import { mapGetters, mapActions} from 'vuex'
     import Attachment from "../attachment/Attachment";
     export default {
         name: "Category",
@@ -159,8 +159,19 @@
             categoryStore(){
                 let vm = this;
                 vm.formValue.attachmentIds = vm.attachment_ids;
+                vm.storeCategory(vm.formValue).then(response=>{
+                    if(response.status === 'success'){
+                        this.formValue.parent_id = null;
+                        this.formValue.category_name = '';
+                        this.formValue.category_status = 0;
+                        this.formValue.attachmentIds = '';
 
-                vm.storeCategory(vm.formValue);
+
+                        this.allCategory();
+                        this.getTreeListCategories();
+                    }
+                });
+
             }
         },
         computed:{
@@ -168,9 +179,9 @@
                 'categories',
                 'treeList',
                 'attachment_ids',
-            ])
-            
-        }
+
+            ]),
+        },
     }
 </script>
 
