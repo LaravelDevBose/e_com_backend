@@ -6307,6 +6307,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 // import the component
 
  // import the styles
@@ -6323,9 +6325,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      form: {
+      formValue: {
         parent_id: null,
-        category_name: null
+        category_name: null,
+        category_status: 0,
+        attachmentIds: ''
       },
       normalizer: function normalizer(node) {
         return {
@@ -6342,8 +6346,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.allCategory();
     this.getTreeListCategories();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['allCategory', 'getTreeListCategories'])),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['categories', 'treeList']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['allCategory', 'getTreeListCategories', 'storeCategory']), {
+    categoryStore: function categoryStore() {
+      var vm = this;
+      vm.formValue.attachmentIds = vm.attachment_ids;
+      vm.storeCategory(vm.formValue);
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['categories', 'treeList', 'attachment_ids']))
 });
 
 /***/ }),
@@ -44868,62 +44878,168 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "panel-body" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-6" }, [
-            _c(
-              "div",
-              { staticClass: "form-group" },
-              [
-                _c("label", [_vm._v("Parent Category:")]),
-                _vm._v(" "),
-                _c("treeselect", {
-                  attrs: { options: _vm.treeList, normalizer: _vm.normalizer },
-                  model: {
-                    value: _vm.form.parent_id,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "parent_id", $$v)
+        _c(
+          "form",
+          {
+            attrs: { action: "" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.categoryStore($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6" }, [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", [_vm._v("Parent Category:")]),
+                    _vm._v(" "),
+                    _c("treeselect", {
+                      attrs: {
+                        options: _vm.treeList,
+                        normalizer: _vm.normalizer
+                      },
+                      model: {
+                        value: _vm.formValue.parent_id,
+                        callback: function($$v) {
+                          _vm.$set(_vm.formValue, "parent_id", $$v)
+                        },
+                        expression: "formValue.parent_id"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Category Name:")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formValue.category_name,
+                        expression: "formValue.category_name"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Category Name ",
+                      required: ""
                     },
-                    expression: "form.parent_id"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _c(
-              "div",
-              { staticClass: "form-group" },
-              [
-                _c("label", [_vm._v("Category Banner:")]),
-                _vm._v(" "),
-                _c("attachment", {
-                  attrs: { multi_file: _vm.multi_file, folder: _vm.folder }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _vm._m(3)
-        ])
+                    domProps: { value: _vm.formValue.category_name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formValue,
+                          "category_name",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4" }, [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", [_vm._v("Category Banner:")]),
+                    _vm._v(" "),
+                    _c("attachment", {
+                      attrs: { multi_file: _vm.multi_file, folder: _vm.folder }
+                    })
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4 col-md-offset-2" }, [
+                _c("div", { staticClass: "content-group-lg" }, [
+                  _c("div", { staticClass: "checkbox checkbox-switchery" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formValue.category_status,
+                            expression: "formValue.category_status"
+                          }
+                        ],
+                        staticClass: "switchery-primary",
+                        attrs: { type: "checkbox", checked: "checked" },
+                        domProps: {
+                          checked: Array.isArray(_vm.formValue.category_status)
+                            ? _vm._i(_vm.formValue.category_status, null) > -1
+                            : _vm.formValue.category_status
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.formValue.category_status,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.formValue,
+                                    "category_status",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.formValue,
+                                    "category_status",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.formValue, "category_status", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(
+                        "\n                                    Publish\n                                "
+                      )
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
+            ])
+          ]
+        )
       ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "panel panel-flat" }, [
-      _vm._m(4),
+      _vm._m(2),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
         _c(
           "table",
           { staticClass: "table table-bordered table-striped table-sm" },
           [
-            _vm._m(5),
+            _vm._m(3),
             _vm._v(" "),
             _c(
               "tbody",
@@ -44975,7 +45091,7 @@ var render = function() {
                             ])
                       ]),
                       _vm._v(" "),
-                      _vm._m(6, true)
+                      _vm._m(4, true)
                     ])
                   : _vm._e()
               }),
@@ -45002,41 +45118,6 @@ var staticRenderFns = [
           _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
           _vm._v(" "),
           _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", [_vm._v("Category Name:")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Category Name ", required: "" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4 col-md-offset-2" }, [
-      _c("div", { staticClass: "content-group-lg" }, [
-        _c("div", { staticClass: "checkbox checkbox-switchery" }, [
-          _c("label", [
-            _c("input", {
-              staticClass: "switchery-primary",
-              attrs: { type: "checkbox", checked: "checked" }
-            }),
-            _vm._v(
-              "\n                                Publish\n                            "
-            )
-          ])
         ])
       ])
     ])
@@ -60620,7 +60701,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //declare State
 var state = {
   categories: [],
-  treeListCategories: []
+  treeListCategories: [],
+  resData: ''
 }; //declare Getters
 
 var getters = {
@@ -60709,6 +60791,45 @@ var actions = {
     }
 
     return getTreeListCategories;
+  }(),
+  storeCategory: function () {
+    var _storeCategory = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, data) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios.post('/admin/category/store', data);
+
+            case 4:
+              response = _context3.sent;
+              commit('categoryStore', response.data);
+              _context3.next = 11;
+              break;
+
+            case 8:
+              _context3.prev = 8;
+              _context3.t0 = _context3["catch"](1);
+              console.log(_context3.t0);
+
+            case 11:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 8]]);
+    }));
+
+    function storeCategory(_x3, _x4) {
+      return _storeCategory.apply(this, arguments);
+    }
+
+    return storeCategory;
   }()
 };
 var mutations = {
@@ -60717,6 +60838,13 @@ var mutations = {
   },
   setTreeListCategory: function setTreeListCategory(state, treeList) {
     state.treeListCategories = treeList;
+  },
+  categoryStore: function categoryStore(state, response) {
+    if (response.res.status === 'success') {
+      state.categories.unshift(response.category);
+    }
+
+    state.resData = response.res;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

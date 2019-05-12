@@ -13,41 +13,43 @@
             </div>
 
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Parent Category:</label>
-                            <treeselect v-model="form.parent_id" :options="treeList" :normalizer="normalizer" />
+                <form action="" @submit.prevent="categoryStore">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Parent Category:</label>
+                                <treeselect v-model="formValue.parent_id" :options="treeList" :normalizer="normalizer" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Category Name:</label>
-                            <input type="text" class="form-control" placeholder="Category Name " required>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Category Name:</label>
+                                <input type="text" v-model="formValue.category_name" class="form-control" placeholder="Category Name " required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Category Banner:</label>
-                            <attachment :multi_file="multi_file" :folder="folder"></attachment>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Category Banner:</label>
+                                <attachment :multi_file="multi_file" :folder="folder"></attachment>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-md-offset-2">
-                        <div class="content-group-lg">
-                            <div class="checkbox checkbox-switchery">
-                                <label>
-                                    <input type="checkbox" class="switchery-primary" checked="checked">
-                                    Publish
-                                </label>
+                        <div class="col-md-4 col-md-offset-2">
+                            <div class="content-group-lg">
+                                <div class="checkbox checkbox-switchery">
+                                    <label>
+                                        <input type="checkbox" v-model="formValue.category_status" class="switchery-primary" checked="checked">
+                                        Publish
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="text-right form-group">
+                                <button type="submit" class="btn btn-primary">Save Category <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="text-right form-group">
-                            <button type="submit" class="btn btn-primary">Save Category <i class="icon-arrow-right14 position-right"></i></button>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
         <!-- Basic table -->
@@ -127,9 +129,11 @@
         components:{Attachment, Treeselect, PNotify},
         data(){
             return{
-                form:{
+                formValue:{
                     parent_id:null,
                     category_name:null,
+                    category_status:0,
+                    attachmentIds:'',
                 },
                 normalizer(node) {
                     return {
@@ -147,16 +151,25 @@
             this.getTreeListCategories();
         },
         methods:{
-          ...mapActions([
-              'allCategory',
-              'getTreeListCategories',
-          ])
+            ...mapActions([
+                'allCategory',
+                'getTreeListCategories',
+                'storeCategory',
+            ]),
+            categoryStore(){
+                let vm = this;
+                vm.formValue.attachmentIds = vm.attachment_ids;
+
+                vm.storeCategory(vm.formValue);
+            }
         },
         computed:{
             ...mapGetters([
                 'categories',
-                'treeList'
+                'treeList',
+                'attachment_ids',
             ])
+            
         }
     }
 </script>

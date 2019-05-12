@@ -2,6 +2,7 @@
 const state = {
     categories:[],
     treeListCategories:[],
+    resData:'',
 };
 
 //declare Getters
@@ -31,6 +32,16 @@ const actions = {
         }
 
     },
+    async storeCategory({commit},data){
+
+        try{
+            const response = await axios.post('/admin/category/store',data);
+            commit('categoryStore', response.data);
+        }catch (error) {
+            console.log(error);
+        }
+
+    },
 };
 
 const mutations = {
@@ -40,6 +51,14 @@ const mutations = {
     setTreeListCategory:(state,treeList)=>{
         state.treeListCategories = treeList;
     },
+    categoryStore:(state,response)=>{
+        if(response.res.status === 'success'){
+            state.categories.unshift(response.category);
+            
+        }
+        state.resData = response.res;
+    }
+
 };
 
 export default {
