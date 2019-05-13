@@ -15,4 +15,8 @@ class Color extends Model
         'color_code',
         'color_status',
     ];
+
+    public function scopeNotDelete($query){
+        return $query->whereNotIn('color_status', [0]);
+    }
 }

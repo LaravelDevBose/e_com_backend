@@ -80,11 +80,7 @@ const mutations = {
         state.categories = state.categories.filter(category=>{
             return category.id !== parseInt(catID);
         });
-    },
-    setResponse:(state, res)=>{
-        state.resData = res;
     }
-
 };
 
 export default {

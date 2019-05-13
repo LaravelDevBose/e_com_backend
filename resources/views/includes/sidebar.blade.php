@@ -39,7 +39,7 @@
                     <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
                     <li ><a href="index.html"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                     <li ><a href="{{ route('admin.category.create') }}"><i class="icon-list"></i> <span>Category</span></a></li>
-                    <li ><a href="{{ route('admin.color') }}"><i class="icon-brush"></i> <span>Color</span></a></li>
+                    <li ><a href="{{ route('admin.color.create') }}"><i class="icon-brush"></i> <span>Color</span></a></li>
                     <li ><a href="{{ route('admin.tag') }}"><i class="icon-price-tag2"></i> <span>Tag</span></a></li>
                     <li ><a href="{{ route('admin.size') }}"><i class="icon-rulers"></i> <span>Size</span></a></li>
                     <li ><a href="{{ route('admin.delivery.cost') }}"><i class="icon-truck"></i> <span>Delivery Cost</span></a></li>

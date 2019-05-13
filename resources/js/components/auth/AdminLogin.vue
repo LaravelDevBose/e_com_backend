@@ -89,6 +89,16 @@
 
             },
         },
+        watch:{
+            form:{
+                handler(newValue, oldValue){
+                    if(oldValue === newValue){
+                        this.disabled = false;
+                    }
+                },
+                deep:true,
+            },
+        }
 
     }
 </script>

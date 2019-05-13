@@ -20,12 +20,18 @@ import  voucher from './modules/voucher';
 import  attachment from './modules/attachment';
 
 export default new Vuex.Store({
-    state:{},
+    state:{
+        resData:'',
+    },
     getters:{},
     actions:{
 
     },
-    mutations:{},
+    mutations:{
+        setResponse:(state, res)=>{
+            state.resData = res;
+        }
+    },
     modules:{
         alertNotify,
         modelNotify,
