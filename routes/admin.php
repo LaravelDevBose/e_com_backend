@@ -12,7 +12,6 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::post('/category/tree_list', 'CategoryController@category_tree')->name('category.tree_list');
     Route::get('/category/create', 'CategoryController@create')->name('category.create');
     Route::post('/category/store', 'CategoryController@store')->name('category.store');
-
     Route::post('/category/delete', 'CategoryController@destroy')->name('category.delete');
 
     Route::get('/colors', 'ColorController@index')->name('color');
@@ -21,6 +20,10 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::delete('/color/delete/{color}', 'ColorController@destroy')->name('color.delete');
 
     Route::get('/tags','TagController@index')->name('tag');
+    Route::get('/tag/create', 'TagController@create')->name('tag.create');
+    Route::post('/tag/store', 'TagController@store')->name('tag.store');
+    Route::delete('/tag/delete/{tag}', 'TagController@destroy')->name('tag.delete');
+
     Route::get('/size', 'SizeController@index')->name('size');
 
     Route::get('/delivery-cost', 'DeliveryCostController@index')->name('delivery.cost');

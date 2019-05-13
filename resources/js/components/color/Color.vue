@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="text-right form-group">
-                                <button type="submit" :disabled="btnDisabled" class="btn btn-primary">Save Category <i class="icon-arrow-right14 position-right"></i></button>
+                                <button type="submit" :disabled="btnDisabled" class="btn btn-primary">Save Color <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
                     </div>

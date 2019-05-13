@@ -15,4 +15,12 @@ class Tag extends Model
         'tag_slug',
         'tag_status',
     ];
+
+    public function scopeIsActive($query){
+        return $query->where('tag_status', 1);
+    }
+
+    public function scopeNotDelete($query){
+        return $query->where('tag_status','!=', 0);
+    }
 }

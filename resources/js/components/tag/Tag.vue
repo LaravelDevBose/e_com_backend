@@ -13,29 +13,31 @@
             </div>
 
             <div class="panel-body">
-                <div class="row">
-                    <div class="form-group">
-                        <label class="col-lg-1 control-label">Tag Title:</label>
-                        <div class="col-lg-5">
-                            <input type="text" class="form-control" placeholder="Tag Title" required>
-                        </div>
-                        <div class="col-md-2 ">
-                            <div class="content-group-lg">
-                                <div class="checkbox checkbox-switchery">
-                                    <label>
-                                        <input type="checkbox" class="switchery-primary" checked="checked">
-                                        Publish
-                                    </label>
+                <form action="" @submit.prevent="tagStore">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-lg-1 control-label">Tag Title:</label>
+                            <div class="col-lg-5">
+                                <input type="text" v-model="form.tag_title" class="form-control" placeholder="Tag Title" required />
+                            </div>
+                            <div class="col-md-2 ">
+                                <div class="content-group-lg">
+                                    <div class="checkbox checkbox-switchery">
+                                        <label>
+                                            <input type="checkbox" v-model="form.tag_status" class="switchery-primary" checked="checked">
+                                            Publish
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="text-right form-group">
+                                    <button type="submit" :disabled="btnDisabled" class="btn btn-primary">Save Tag <i class="icon-arrow-right14 position-right"></i></button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="text-right form-group">
-                                <button type="submit" class="btn btn-primary">Save Tag <i class="icon-arrow-right14 position-right"></i></button>
-                            </div>
-                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <!-- Basic table -->
@@ -56,17 +58,25 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
+                        <th>Tag Title</th>
+                        <th class="text text-center" style="width: 120px;">Tag Status</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Eugene</td>
-                        <td>Kopyov</td>
-                        <td>@Kopyov</td>
+                    <tr v-if="tags" v-for="(tag,index) in tags" :key="tag.id">
+                        <td>{{ index }}</td>
+                        <td>{{ tag.title }}</td>
+                        <td class="text text-center">
+                            <span class="badge badge-success" v-if="tag.status === 1">Active</span>
+                            <span class="badge badge-warning" v-else>De-active</span>
+                        </td>
+                        <td class="text text-center">
+                            <ul class="icons-list">
+                                <li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
+                                <li class="text-danger-600"><a href="#" @click.prevent="removeTag(tag.id)"><i class="icon-trash"></i></a></li>
+                            </ul>
+                        </td>
                     </tr>
 
                     </tbody>
@@ -78,8 +88,65 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex';
     export default {
         name: "Tag",
+        data(){
+            return {
+                form:{
+                    tag_name:'',
+                    tag_status:false,
+                },
+                btnDisabled:false,
+            }
+        },
+        created() {
+            this.getTags();
+        },
+        methods:{
+            ...mapActions([
+                'getTags',
+                'storeTag',
+                'deleteTag',
+            ]),
+            tagStore(){
+                this.btnDisabled = true;
+                this.storeTag(this.form).then(response=>{
+                    if(response.status === 'success'){
+                        this.resetForm();
+                        this.btnDisabled = false;
+                    }
+                })
+            },
+            resetForm(){
+                this.form.tag_title = '';
+                this.form.tag_status = 0;
+            },
+            removeTag(tagID){
+                if(confirm('Are You Sure..?')){
+                    this.deleteTag(tagID).then(response=>{
+                        if(response.status === 'success'){
+                            alert(response.message);
+                        }
+                    });
+                }
+            }
+        },
+        computed:{
+            ...mapGetters([
+                'tags'
+            ])
+        },
+        watch:{
+            form:{
+                handler(newValue, oldValue){
+                    if(oldValue !== newValue){
+                        this.btnDisabled = false;
+                    }
+                },
+                deep:true,
+            },
+        }
     }
 </script>
 

@@ -6812,6 +6812,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -6891,8 +6896,69 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Tag"
+  name: "Tag",
+  data: function data() {
+    return {
+      form: {
+        tag_name: '',
+        tag_status: false
+      },
+      btnDisabled: false
+    };
+  },
+  created: function created() {
+    this.getTags();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getTags', 'storeTag', 'deleteTag']), {
+    tagStore: function tagStore() {
+      var _this = this;
+
+      this.btnDisabled = true;
+      this.storeTag(this.form).then(function (response) {
+        if (response.status === 'success') {
+          _this.resetForm();
+
+          _this.btnDisabled = false;
+        }
+      });
+    },
+    resetForm: function resetForm() {
+      this.form.tag_title = '';
+      this.form.tag_status = 0;
+    },
+    removeTag: function removeTag(tagID) {
+      if (confirm('Are You Sure..?')) {
+        this.deleteTag(tagID).then(function (response) {
+          if (response.status === 'success') {
+            alert(response.message);
+          }
+        });
+      }
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['tags'])),
+  watch: {
+    form: {
+      handler: function handler(newValue, oldValue) {
+        if (oldValue !== newValue) {
+          this.btnDisabled = false;
+        }
+      },
+      deep: true
+    }
+  }
 });
 
 /***/ }),
@@ -45519,7 +45585,7 @@ var render = function() {
                       attrs: { type: "submit", disabled: _vm.btnDisabled }
                     },
                     [
-                      _vm._v("Save Category "),
+                      _vm._v("Save Color "),
                       _c("i", {
                         staticClass: "icon-arrow-right14 position-right"
                       })
@@ -46174,133 +46240,267 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "content" }, [
+    _c("div", { staticClass: "panel panel-info" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" }, [
+        _c(
+          "form",
+          {
+            attrs: { action: "" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.tagStore($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { staticClass: "col-lg-1 control-label" }, [
+                  _vm._v("Tag Title:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-5" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.tag_title,
+                        expression: "form.tag_title"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Tag Title",
+                      required: ""
+                    },
+                    domProps: { value: _vm.form.tag_title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "tag_title", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-2 " }, [
+                  _c("div", { staticClass: "content-group-lg" }, [
+                    _c("div", { staticClass: "checkbox checkbox-switchery" }, [
+                      _c("label", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.tag_status,
+                              expression: "form.tag_status"
+                            }
+                          ],
+                          staticClass: "switchery-primary",
+                          attrs: { type: "checkbox", checked: "checked" },
+                          domProps: {
+                            checked: Array.isArray(_vm.form.tag_status)
+                              ? _vm._i(_vm.form.tag_status, null) > -1
+                              : _vm.form.tag_status
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.form.tag_status,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "tag_status",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "tag_status",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.form, "tag_status", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(
+                          "\n                                        Publish\n                                    "
+                        )
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-2" }, [
+                  _c("div", { staticClass: "text-right form-group" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit", disabled: _vm.btnDisabled }
+                      },
+                      [
+                        _vm._v("Save Tag "),
+                        _c("i", {
+                          staticClass: "icon-arrow-right14 position-right"
+                        })
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "panel panel-flat" }, [
+      _vm._m(1),
+      _vm._v(" "),
+      _c("div", { staticClass: "table-responsive" }, [
+        _c(
+          "table",
+          { staticClass: "table table-bordered table-striped table-sm" },
+          [
+            _vm._m(2),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.tags, function(tag, index) {
+                return _vm.tags
+                  ? _c("tr", { key: tag.id }, [
+                      _c("td", [_vm._v(_vm._s(index))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(tag.title))]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text text-center" }, [
+                        tag.status === 1
+                          ? _c("span", { staticClass: "badge badge-success" }, [
+                              _vm._v("Active")
+                            ])
+                          : _c("span", { staticClass: "badge badge-warning" }, [
+                              _vm._v("De-active")
+                            ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text text-center" }, [
+                        _c("ul", { staticClass: "icons-list" }, [
+                          _vm._m(3, true),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "text-danger-600" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.removeTag(tag.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-trash" })]
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  : _vm._e()
+              }),
+              0
+            )
+          ]
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content" }, [
-      _c("div", { staticClass: "panel panel-info" }, [
-        _c("div", { staticClass: "panel-heading" }, [
-          _c("h5", { staticClass: "panel-title" }, [
-            _vm._v("Product Tag/Keywords")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "heading-elements" }, [
-            _c("ul", { staticClass: "icons-list" }, [
-              _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "panel-body" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { staticClass: "col-lg-1 control-label" }, [
-                _vm._v("Tag Title:")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-5" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    placeholder: "Tag Title",
-                    required: ""
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-2 " }, [
-                _c("div", { staticClass: "content-group-lg" }, [
-                  _c("div", { staticClass: "checkbox checkbox-switchery" }, [
-                    _c("label", [
-                      _c("input", {
-                        staticClass: "switchery-primary",
-                        attrs: { type: "checkbox", checked: "checked" }
-                      }),
-                      _vm._v(
-                        "\n                                    Publish\n                                "
-                      )
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-2" }, [
-                _c("div", { staticClass: "text-right form-group" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "submit" }
-                    },
-                    [
-                      _vm._v("Save Tag "),
-                      _c("i", {
-                        staticClass: "icon-arrow-right14 position-right"
-                      })
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [
+        _vm._v("Product Tag/Keywords")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "panel panel-flat" }, [
-        _c("div", { staticClass: "panel-heading" }, [
-          _c("h5", { staticClass: "panel-title" }, [_vm._v("Tag List")]),
+      _c("div", { staticClass: "heading-elements" }, [
+        _c("ul", { staticClass: "icons-list" }, [
+          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
           _vm._v(" "),
-          _c("div", { staticClass: "heading-elements" }, [
-            _c("ul", { staticClass: "icons-list" }, [
-              _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "table-responsive" }, [
-          _c(
-            "table",
-            { staticClass: "table table-bordered table-striped table-sm" },
-            [
-              _c("thead", [
-                _c("tr", [
-                  _c("th", [_vm._v("#")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("First Name")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Last Name")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Username")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tbody", [
-                _c("tr", [
-                  _c("td", [_vm._v("1")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("Eugene")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("Kopyov")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("@Kopyov")])
-                ])
-              ])
-            ]
-          )
+          _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { "data-action": "close" } })])
         ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Tag List")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "heading-elements" }, [
+        _c("ul", { staticClass: "icons-list" }, [
+          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tag Title")]),
+        _vm._v(" "),
+        _c(
+          "th",
+          { staticClass: "text text-center", staticStyle: { width: "120px" } },
+          [_vm._v("Tag Status")]
+        ),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "text-primary-600" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "icon-pencil7" })
       ])
     ])
   }
@@ -61628,12 +61828,161 @@ var mutations = {};
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//declare State
-var state = {}; //declare Getters
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
-var getters = {};
-var actions = {};
-var mutations = {};
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//declare State
+var state = {
+  allTags: ''
+}; //declare Getters
+
+var getters = {
+  tags: function tags(state) {
+    return state.allTags;
+  }
+};
+var actions = {
+  getTags: function () {
+    var _getTags = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.prev = 1;
+              _context.next = 4;
+              return axios.get('/admin/tags');
+
+            case 4:
+              response = _context.sent;
+              commit('setTags', response.data.data);
+              _context.next = 12;
+              break;
+
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](1);
+              console.log(_context.t0);
+              commit('setResponse', _context.t0.data);
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 8]]);
+    }));
+
+    function getTags(_x) {
+      return _getTags.apply(this, arguments);
+    }
+
+    return getTags;
+  }(),
+  storeTag: function () {
+    var _storeTag = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, formData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios.post('/admin/tag/store', formData).then(function (response) {
+                commit('tagStore', response.data.tag);
+                commit('setResponse', response.data.res);
+                return response.data.res;
+              })["catch"](function (error) {
+                commit('setResponse', error.data);
+              });
+
+            case 4:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](1);
+              commit('setResponse', _context2.t0.data);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 7]]);
+    }));
+
+    function storeTag(_x2, _x3) {
+      return _storeTag.apply(this, arguments);
+    }
+
+    return storeTag;
+  }(),
+  deleteTag: function () {
+    var _deleteTag = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, tagID) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios["delete"]("/admin/tag/delete/".concat(tagID)).then(function (response) {
+                commit('removeTag', tagID);
+                commit('setResponse', response.data);
+                return response.data;
+              });
+
+            case 4:
+              return _context3.abrupt("return", _context3.sent);
+
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](1);
+              commit('setResponse', _context3.t0.data);
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 7]]);
+    }));
+
+    function deleteTag(_x4, _x5) {
+      return _deleteTag.apply(this, arguments);
+    }
+
+    return deleteTag;
+  }()
+};
+var mutations = {
+  setTags: function setTags(state, response) {
+    return state.allTags = response;
+  },
+  tagStore: function tagStore(state, response) {
+    return state.allTags.unshift(response);
+  },
+  removeTag: function removeTag(state, tagID) {
+    return state.allTags = state.allTags.filter(function (tag) {
+      return tag.id !== parseInt(tagID);
+    });
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
   getters: getters,
@@ -61685,8 +62034,8 @@ var mutations = {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
