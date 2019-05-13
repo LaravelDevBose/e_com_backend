@@ -18,7 +18,7 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::get('/colors', 'ColorController@index')->name('color');
     Route::get('/color/create','ColorController@create')->name('color.create');
     Route::post('/color/store', 'ColorController@store')->name('color.store');
-    Route::post('/color/delete', 'ColorController@destroy')->name('color.delete');
+    Route::delete('/color/delete/{color}', 'ColorController@destroy')->name('color.delete');
 
     Route::get('/tags','TagController@index')->name('tag');
     Route::get('/size', 'SizeController@index')->name('size');

@@ -38,7 +38,7 @@ const actions = {
     },
     async deleteColor({commit},colorID){
         try{
-            return await axios.post('/admin/color/delete', colorID).then(response=>{
+            return await axios.delete(`/admin/color/delete/${colorID}`).then(response=>{
                 commit('colorDelete', colorID);
                 commit('setResponse', response.data);
                 return response.data;

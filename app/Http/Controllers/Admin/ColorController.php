@@ -133,8 +133,36 @@ class ColorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Color $color)
     {
-        //
+        if($color){
+            try{
+                DB::beginTransaction();
+                $color->update([
+                    'color_status'=>0,
+                ]);
+
+                if($color){
+                    DB::commit();
+                    return response()->json([
+                        'status'=>'success',
+                        'message'=>'Color Delete Successfully'
+                    ]);
+                }{
+                    throw new Exception('Invalid Information.!');
+                }
+            }catch(Exception $ex){
+                DB::rollBack();
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $ex->getMessage()
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status'=>'error',
+                'message'=>'Invalid Information.!'
+            ]);
+        }
     }
 }

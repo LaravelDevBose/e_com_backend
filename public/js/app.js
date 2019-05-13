@@ -6505,7 +6505,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     this.getColors();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getColors', 'storeColor']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getColors', 'storeColor', 'deleteColor']), {
     colorStore: function colorStore() {
       var _this = this;
 
@@ -6522,6 +6522,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form.color_code = '#ffffff';
       this.form.color_name = '';
       this.form.color_status = false;
+    },
+    removeColor: function removeColor(colorId) {
+      if (confirm('Are You Sure..?')) {
+        this.deleteColor(colorId);
+      } else {
+        return false;
+      }
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['colors'])),
@@ -45578,7 +45585,7 @@ var render = function() {
                                 on: {
                                   click: function($event) {
                                     $event.preventDefault()
-                                    return _vm.deleteColor(color.id)
+                                    return _vm.removeColor(color.id)
                                   }
                                 }
                               },
@@ -61357,7 +61364,7 @@ var actions = {
               commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
-              return axios.post('/admin/color/delete', colorID).then(function (response) {
+              return axios["delete"]("/admin/color/delete/".concat(colorID)).then(function (response) {
                 commit('colorDelete', colorID);
                 commit('setResponse', response.data);
                 return response.data;

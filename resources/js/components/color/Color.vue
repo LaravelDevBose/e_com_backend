@@ -86,7 +86,7 @@
                         <td class="text text-center">
                             <ul class="icons-list">
                                 <li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
-                                <li class="text-danger-600"><a href="#" @click.prevent="deleteColor(color.id)"><i class="icon-trash"></i></a></li>
+                                <li class="text-danger-600"><a href="#" @click.prevent="removeColor(color.id)"><i class="icon-trash"></i></a></li>
                             </ul>
                         </td>
                     </tr>
@@ -120,6 +120,7 @@
             ...mapActions([
                 'getColors',
                 'storeColor',
+                'deleteColor'
             ]),
             colorStore(){
                 this.btnDisabled = true;
@@ -135,6 +136,13 @@
                 this.form.color_name = '';
                 this.form.color_status = false;
 
+            },
+            removeColor(colorId){
+                if(confirm('Are You Sure..?')){
+                    this.deleteColor(colorId);
+                }else{
+                    return false;
+                }
             }
         },
         computed:{
