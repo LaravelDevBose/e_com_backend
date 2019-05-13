@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('admin-panel/login', 'Auth\AdminLoginController@show_login_page')->name('admin.login');
 Route::post('admin-panel/login', 'Auth\AdminLoginController@login')->name('admin.login');
-
+Route::get('admin/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
 
     Route::get('home','HomeController@dashboard')->name('home');
@@ -13,6 +13,7 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::get('/category/create', 'CategoryController@create')->name('category.create');
     Route::post('/category/store', 'CategoryController@store')->name('category.store');
 
+    Route::post('/category/delete', 'CategoryController@destroy')->name('category.delete');
 
     Route::get('/colors', 'ColorController@index')->name('color');
     Route::get('/tags','TagController@index')->name('tag');

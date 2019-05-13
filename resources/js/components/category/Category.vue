@@ -74,8 +74,8 @@
                         <th>Category Name</th>
                         <th>2nd Parent</th>
                         <th>1rd Parent</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -94,15 +94,14 @@
                             <span class="text text-center" v-if="category.parent !== null && category.parent.parent !== null">{{ category.parent.parent.name }}</span>
 
                         </td>
-                        <td>
+                        <td class="text text-center">
                             <span class="badge badge-success" v-if="category.status === 1">Active</span>
                             <span class="badge badge-warning" v-else>De-active</span>
                         </td>
-                        <td>
+                        <td class="text text-center">
                             <ul class="icons-list">
                                 <li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
-                                <li class="text-danger-600"><a href="#"><i class="icon-trash"></i></a></li>
-                                <li class="text-teal-600"><a href="#"><i class="icon-cog7"></i></a></li>
+                                <li class="text-danger-600"><a href="#" @click.prevent="deleteCategory(category.id)"><i class="icon-trash"></i></a></li>
                             </ul>
                         </td>
                     </tr>
@@ -155,23 +154,37 @@
                 'allCategory',
                 'getTreeListCategories',
                 'storeCategory',
+                'categoryDelete',
             ]),
             categoryStore(){
                 let vm = this;
                 vm.formValue.attachmentIds = vm.attachment_ids;
                 vm.storeCategory(vm.formValue).then(response=>{
                     if(response.status === 'success'){
-                        this.formValue.parent_id = null;
-                        this.formValue.category_name = '';
-                        this.formValue.category_status = 0;
-                        this.formValue.attachmentIds = '';
-
-
+                        this.emptyFormData();
                         this.allCategory();
                         this.getTreeListCategories();
                     }
                 });
 
+            },
+            emptyFormData(){
+                this.formValue.parent_id = null;
+                this.formValue.category_name = '';
+                this.formValue.category_status = 0;
+                this.formValue.attachmentIds = '';
+                this.$store.commit('emptyAttachmentFile');
+            },
+            deleteCategory(cat_id){
+                if(confirm('Are Your Sure..?'+cat_id)){
+                    this.categoryDelete(cat_id).then(response=>{
+                        if(response.status === 'success'){
+                            alert(response.msg)
+                        }
+                    })
+                }else{
+                    return false;
+                }
             }
         },
         computed:{

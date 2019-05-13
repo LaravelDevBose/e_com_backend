@@ -56,7 +56,7 @@ import { setTimeout } from 'timers';
                 let vm = this;
                  setTimeout(()=>{
                      vm.uploadAttachment(formData);
-                 },1500);
+                 },1000);
                  
             },
             

@@ -11,7 +11,6 @@ use App\Http\Resources\Admin\Category as CategoryResource;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use phpDocumentor\Reflection\Types\Null_;
 
 
 class CategoryController extends Controller
@@ -80,7 +79,7 @@ class CategoryController extends Controller
                     DB::commit();
                     return response()->json([
                         'status'=>'success',
-                        'msg'=>'Category Store Successfully',
+                        'message'=>'Category Store Successfully',
                         'url'=>route('admin.category'),
                     ]);
                 }
@@ -149,8 +148,39 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+
+
+        $category = Category::findOrFail($request->category_id);
+        if($category){
+            try{
+                DB::beginTransaction();
+                $category->update([
+                    'category_status'=>0,
+                ]);
+
+                if($category){
+                    DB::commit();
+                    return response()->json([
+                        'status'=>'success',
+                        'message'=>'Category Delete Successfully'
+                    ]);
+                }{
+                    throw new Exception('Invalid Information.!');
+                }
+            }catch(Exception $ex){
+                DB::rollBack();
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $ex->getMessage()
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status'=>'error',
+                'message'=>'Invalid Information.!'
+            ]);
+        }
     }
 }

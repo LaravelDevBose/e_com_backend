@@ -19,6 +19,7 @@ const actions = {
             commit('setCategory', response.data.data);
         }catch (error) {
             console.log(error);
+            commit('setResponse', error.data);
         }
 
     },
@@ -29,6 +30,7 @@ const actions = {
             commit('setTreeListCategory', response.data.data);
         }catch (error) {
             console.log(error);
+            commit('setResponse', error.data);
         }
 
     },
@@ -42,9 +44,26 @@ const actions = {
 
         }catch (error) {
             console.log(error);
+            commit('setResponse', error.data);
         }
 
     },
+    async categoryDelete({commit}, catId){
+        try{
+            return await axios.post('/admin/category/delete',{category_id:catId}).then(response=>{
+
+                commit('deleteCategory', catId);
+                return response.data;
+
+            }).catch(errors=>{
+                console.log(error);
+                commit('setResponse', errors.data);
+            })
+        }catch (error) {
+            console.log(error);
+            commit('setResponse', error.data);
+        }
+    }
 };
 
 const mutations = {
@@ -56,6 +75,14 @@ const mutations = {
     },
     categoryStore:(state,response)=>{
         state.resData = response;
+    },
+    deleteCategory:(state, catID)=>{
+        state.categories = state.categories.filter(category=>{
+            return category.id !== parseInt(catID);
+        });
+    },
+    setResponse:(state, res)=>{
+        state.resData = res;
     }
 
 };

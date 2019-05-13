@@ -50,6 +50,6 @@ class Attachment extends Model
     }
 
     public function category(){
-        return $this->belongsTo(Category::class, 'attachment_id');
+        return $this->belongsTo(Category::class, 'attachment_id','attachment_id');
     }
 }

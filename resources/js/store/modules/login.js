@@ -12,8 +12,11 @@ const getters = {
 
 const actions={
     async login({commit}, formData){
-        const response = await axios.post('/admin-panel/login',formData);
-        commit('loginResponse', response);
+        return  await axios.post('/admin-panel/login',formData).then(response=>{
+            commit('loginResponse', response);
+            return response.data;
+        });
+
     }
 };
 

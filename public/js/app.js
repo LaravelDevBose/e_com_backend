@@ -6020,7 +6020,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var vm = this;
       Object(timers__WEBPACK_IMPORTED_MODULE_1__["setTimeout"])(function () {
         vm.uploadAttachment(formData);
-      }, 1500);
+      }, 1000);
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['attachments']))
@@ -6039,8 +6039,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _includes_AlertNotify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../includes/AlertNotify */ "./resources/js/components/includes/AlertNotify.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-var _this = undefined;
-
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -6099,8 +6097,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         password: 'BrainChildS0ft'
       },
       identError: '',
-      pass_error: '',
-      res: {}
+      pass_error: ''
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['login']), {
@@ -6124,31 +6121,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       this.disabled = true;
-      this.login(this.form);
-    }
-  }),
-  computed: {
-    getResponse: function getResponse() {
-      _this.res = _this.$store.state.loginRes;
-    }
-  },
-  watch: {
-    form: {
-      handler: function handler(newValue, oldValue) {
-        if (oldValue === newValue) {
-          this.disabled = false;
+      this.login(this.form).then(function (response) {
+        if (response.status === 'success') {
+          window.location = response.url;
         }
-      },
-      deep: true
-    },
-    res: {
-      handler: function handler(newValue) {
-        if (newValue.status === 'success' && newValue.route !== 0) {
-          window.location = newValue.route;
-        }
-      }
+      });
     }
-  }
+  })
 });
 
 /***/ }),
@@ -6308,7 +6287,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 // import the component
 
  // import the styles
@@ -6346,7 +6324,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.allCategory();
     this.getTreeListCategories();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['allCategory', 'getTreeListCategories', 'storeCategory']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['allCategory', 'getTreeListCategories', 'storeCategory', 'categoryDelete']), {
     categoryStore: function categoryStore() {
       var _this = this;
 
@@ -6354,16 +6332,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       vm.formValue.attachmentIds = vm.attachment_ids;
       vm.storeCategory(vm.formValue).then(function (response) {
         if (response.status === 'success') {
-          _this.formValue.parent_id = null;
-          _this.formValue.category_name = '';
-          _this.formValue.category_status = 0;
-          _this.formValue.attachmentIds = '';
+          _this.emptyFormData();
 
           _this.allCategory();
 
           _this.getTreeListCategories();
         }
       });
+    },
+    emptyFormData: function emptyFormData() {
+      this.formValue.parent_id = null;
+      this.formValue.category_name = '';
+      this.formValue.category_status = 0;
+      this.formValue.attachmentIds = '';
+      this.$store.commit('emptyAttachmentFile');
+    },
+    deleteCategory: function deleteCategory(cat_id) {
+      if (confirm('Are Your Sure..?' + cat_id)) {
+        this.categoryDelete(cat_id).then(function (response) {
+          if (response.status === 'success') {
+            alert(response.msg);
+          }
+        });
+      } else {
+        return false;
+      }
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['categories', 'treeList', 'attachment_ids']))
@@ -45101,7 +45094,7 @@ var render = function() {
                           : _vm._e()
                       ]),
                       _vm._v(" "),
-                      _c("td", [
+                      _c("td", { staticClass: "text text-center" }, [
                         category.status === 1
                           ? _c("span", { staticClass: "badge badge-success" }, [
                               _vm._v("Active")
@@ -45111,7 +45104,27 @@ var render = function() {
                             ])
                       ]),
                       _vm._v(" "),
-                      _vm._m(4, true)
+                      _c("td", { staticClass: "text text-center" }, [
+                        _c("ul", { staticClass: "icons-list" }, [
+                          _vm._m(4, true),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "text-danger-600" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.deleteCategory(category.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-trash" })]
+                            )
+                          ])
+                        ])
+                      ])
                     ])
                   : _vm._e()
               }),
@@ -45193,9 +45206,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("1rd Parent")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Status")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Action")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
     ])
   },
@@ -45203,25 +45216,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("ul", { staticClass: "icons-list" }, [
-        _c("li", { staticClass: "text-primary-600" }, [
-          _c("a", { attrs: { href: "#" } }, [
-            _c("i", { staticClass: "icon-pencil7" })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "text-danger-600" }, [
-          _c("a", { attrs: { href: "#" } }, [
-            _c("i", { staticClass: "icon-trash" })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "text-teal-600" }, [
-          _c("a", { attrs: { href: "#" } }, [
-            _c("i", { staticClass: "icon-cog7" })
-          ])
-        ])
+    return _c("li", { staticClass: "text-primary-600" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "icon-pencil7" })
       ])
     ])
   }
@@ -45700,7 +45697,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("span", {
-                  domProps: { innerHTML: _vm._s(_vm.getResponse.msg) }
+                  domProps: { innerHTML: _vm._s(_vm.getResponse.message) }
                 })
               ])
             : _vm._e(),
@@ -45714,7 +45711,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("span", {
-                  domProps: { innerHTML: _vm._s(_vm.getResponse.msg) }
+                  domProps: { innerHTML: _vm._s(_vm.getResponse.message) }
                 })
               ])
             : _vm._e(),
@@ -45727,7 +45724,7 @@ var render = function() {
                   _vm._v("Error! ")
                 ]),
                 _c("span", {
-                  domProps: { innerHTML: _vm._s(_vm.getResponse.msg) }
+                  domProps: { innerHTML: _vm._s(_vm.getResponse.message) }
                 })
               ])
             : _vm._e(),
@@ -45740,7 +45737,7 @@ var render = function() {
                   _vm._v("Warning! ")
                 ]),
                 _c("span", {
-                  domProps: { innerHTML: _vm._s(_vm.getResponse.msg) }
+                  domProps: { innerHTML: _vm._s(_vm.getResponse.message) }
                 })
               ])
             : _vm._e()
@@ -60618,8 +60615,7 @@ var actions = {
             case 0:
               commit = _ref.commit;
               _context.prev = 1;
-              console.log(formData);
-              _context.next = 5;
+              _context.next = 4;
               return axios.post('/attachment/store', formData, {
                 headers: {
                   // 'Content-Type': 'multipart/form-data; boundary=someArbitraryUniqueString',
@@ -60631,21 +60627,21 @@ var actions = {
                 console.log(errors);
               });
 
-            case 5:
-              _context.next = 10;
+            case 4:
+              _context.next = 9;
               break;
 
-            case 7:
-              _context.prev = 7;
+            case 6:
+              _context.prev = 6;
               _context.t0 = _context["catch"](1);
               console.log(_context.t0);
 
-            case 10:
+            case 9:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 7]]);
+      }, _callee, null, [[1, 6]]);
     }));
 
     function uploadAttachment(_x, _x2) {
@@ -60659,13 +60655,16 @@ var mutations = {
   setAttachment: function setAttachment(state, response) {
     if (response.status === 'success') {
       response.attachments.forEach(function (file) {
-        console.log(file);
         state.attachmentsFile.unshift(file);
         state.attachment_ids.push(file.id);
       });
     } else {
       state.errors = response;
     }
+  },
+  emptyAttachmentFile: function emptyAttachmentFile(state) {
+    state.attachmentsFile = [];
+    state.attachment_ids = [];
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -60751,15 +60750,16 @@ var actions = {
             case 4:
               response = _context.sent;
               commit('setCategory', response.data.data);
-              _context.next = 11;
+              _context.next = 12;
               break;
 
             case 8:
               _context.prev = 8;
               _context.t0 = _context["catch"](1);
               console.log(_context.t0);
+              commit('setResponse', _context.t0.data);
 
-            case 11:
+            case 12:
             case "end":
               return _context.stop();
           }
@@ -60790,15 +60790,16 @@ var actions = {
             case 4:
               response = _context2.sent;
               commit('setTreeListCategory', response.data.data);
-              _context2.next = 11;
+              _context2.next = 12;
               break;
 
             case 8:
               _context2.prev = 8;
               _context2.t0 = _context2["catch"](1);
               console.log(_context2.t0);
+              commit('setResponse', _context2.t0.data);
 
-            case 11:
+            case 12:
             case "end":
               return _context2.stop();
           }
@@ -60836,8 +60837,9 @@ var actions = {
               _context3.prev = 7;
               _context3.t0 = _context3["catch"](1);
               console.log(_context3.t0);
+              commit('setResponse', _context3.t0.data);
 
-            case 10:
+            case 11:
             case "end":
               return _context3.stop();
           }
@@ -60850,6 +60852,51 @@ var actions = {
     }
 
     return storeCategory;
+  }(),
+  categoryDelete: function () {
+    var _categoryDelete = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, catId) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              _context4.prev = 1;
+              _context4.next = 4;
+              return axios.post('/admin/category/delete', {
+                category_id: catId
+              }).then(function (response) {
+                commit('deleteCategory', catId);
+                return response.data;
+              })["catch"](function (errors) {
+                console.log(error);
+                commit('setResponse', errors.data);
+              });
+
+            case 4:
+              return _context4.abrupt("return", _context4.sent);
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](1);
+              console.log(_context4.t0);
+              commit('setResponse', _context4.t0.data);
+
+            case 11:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 7]]);
+    }));
+
+    function categoryDelete(_x5, _x6) {
+      return _categoryDelete.apply(this, arguments);
+    }
+
+    return categoryDelete;
   }()
 };
 var mutations = {
@@ -60861,6 +60908,14 @@ var mutations = {
   },
   categoryStore: function categoryStore(state, response) {
     state.resData = response;
+  },
+  deleteCategory: function deleteCategory(state, catID) {
+    state.categories = state.categories.filter(function (category) {
+      return category.id !== parseInt(catID);
+    });
+  },
+  setResponse: function setResponse(state, res) {
+    state.resData = res;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -61030,20 +61085,22 @@ var actions = {
     var _login = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref, formData) {
-      var commit, response;
+      var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               commit = _ref.commit;
               _context.next = 3;
-              return axios.post('/admin-panel/login', formData);
+              return axios.post('/admin-panel/login', formData).then(function (response) {
+                commit('loginResponse', response);
+                return response.data;
+              });
 
             case 3:
-              response = _context.sent;
-              commit('loginResponse', response);
+              return _context.abrupt("return", _context.sent);
 
-            case 5:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -61162,8 +61219,8 @@ var mutations = {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

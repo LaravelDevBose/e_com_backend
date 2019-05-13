@@ -30,13 +30,13 @@ class AdminLoginController extends Controller
                 return response()->json([
                     'status'=>'success',
                     'msg'=>'Login Successfully',
-                    'route'=>route('admin.home')
+                    'url'=>route('admin.home')
                 ]);
             }
             return response()->json([
                 'status'=>'error',
-                'msg'=>'Email Or UserName And Password Not Match !',
-                'route'=>0
+                'message'=>'Email Or UserName And Password Not Match !',
+                'url'=>0
             ]);
         }{
             $errors = array_values($validation->errors()->getMessages());
@@ -52,7 +52,7 @@ class AdminLoginController extends Controller
 
             return response()->json([
                 'status'=>'warning',
-                'msg'=>(!empty($message))? $message : 'Invalid Information',
+                'message'=>(!empty($message))? $message : 'Invalid Information',
             ]);
         }
 

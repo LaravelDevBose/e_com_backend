@@ -14,7 +14,6 @@ const getters = {
 const actions = {
     async uploadAttachment({commit},formData){
         try {
-            console.log(formData);
             await axios.post('/attachment/store',formData,{
                             headers: {
                                 // 'Content-Type': 'multipart/form-data; boundary=someArbitraryUniqueString',
@@ -38,7 +37,6 @@ const mutations = {
     setAttachment:(state,response)=>{
         if(response.status === 'success'){
             response.attachments.forEach(file=>{
-                console.log(file);
                 state.attachmentsFile.unshift(file);
                 state.attachment_ids.push(file.id);
             });
@@ -46,7 +44,12 @@ const mutations = {
         }else{
             state.errors = response;
         }
-    }
+    },
+    emptyAttachmentFile:(state)=>{
+        state.attachmentsFile = [];
+        state.attachment_ids = [];
+    },
+
 };
 
 export default {

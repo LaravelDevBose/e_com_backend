@@ -54,7 +54,6 @@
                 },
                 identError:'',
                 pass_error:'',
-                res:{},
 
             }
         },
@@ -64,8 +63,8 @@
                 'login',
             ]),
             checkLoginData:function(){
-                this.identError =''
-                this.pass_error =''
+                this.identError ='';
+                this.pass_error ='';
 
                 if(this.form.identity === ''){
                     this.identError = 'Enter Your Username Or Email';
@@ -82,33 +81,14 @@
                     return false;
                 }
                 this.disabled = true;
-                this.login(this.form)
+                this.login(this.form).then(response=>{
+                    if(response.status === 'success'){
+                        window.location = response.url;
+                    }
+                })
 
             },
         },
-        computed:{
-            getResponse:()=>{
-                 this.res = this.$store.state.loginRes;
-            }
-        },
-        watch:{
-            form:{
-                handler(newValue, oldValue){
-                    if(oldValue === newValue){
-                        this.disabled = false;
-                    }
-                },
-                deep:true,
-            },
-            res:{
-                handler(newValue){
-                    if(newValue.status === 'success' && newValue.route !==0){
-                        window.location = newValue.route;
-                    }
-                }
-            }
-        }
-
 
     }
 </script>

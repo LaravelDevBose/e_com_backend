@@ -47,6 +47,6 @@ class Category extends Model
     }
 
     public function attachment(){
-        return $this->hasOne(Attachment::class,'attachment_id')->where('folder', 'category');
+        return $this->hasOne(Attachment::class,'attachment_id', 'attachment_id')->where('folder', 'category');
     }
 }
