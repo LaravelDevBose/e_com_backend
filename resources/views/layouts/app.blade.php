@@ -17,6 +17,7 @@
     <link href="{{ asset('assets/css/core.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/components.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/colors.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/extras/animate.min.css') }}" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
 
@@ -31,17 +32,6 @@
     @yield('ThemeJs')
 
     <script type="text/javascript" src="{{ asset('assets/js/pages/animations_css3.js') }}"></script>
-    <style>
-        .form-control {
-            padding-left: 10px;
-            padding-right: 10px;
-            border-width: 1px;
-            border-color: #ddd;
-            border-radius: 5px;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-        }
-    </style>
 </head>
 <body class="navbar-top  pace-done">
 

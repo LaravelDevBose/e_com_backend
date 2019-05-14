@@ -44,12 +44,11 @@
                     <li ><a href="{{ route('admin.size') }}"><i class="icon-rulers"></i> <span>Size</span></a></li>
                     <li ><a href="{{ route('admin.delivery_cost.create') }}"><i class="icon-truck"></i> <span>Delivery Cost</span></a></li>
                     <li ><a href="{{ route('admin.campaign') }}"><i class="icon-megaphone"></i> <span>Delivery Cost</span></a></li>
-                    <li ><a href="{{ route('admin.voucher.index') }}"><i class="icon-megaphone"></i> <span>Voucher</span></a></li>
                     <li>
-                        <a href="#"><i class="icon-stack2"></i> <span>Page layouts</span></a>
+                        <a href="#"><i class="icon-ticket"></i> <span>Voucher</span></a>
                         <ul>
-                            <li><a href="layout_navbar_fixed.html">Fixed navbar</a></li>
-                            <li><a href="layout_navbar_sidebar_fixed.html">Fixed navbar &amp; sidebar</a></li>
+                            <li><a href="{{ route('admin.voucher.create') }}">Create Voucher</a></li>
+                            <li><a href="{{ route('admin.voucher.index') }}">Voucher List</a></li>
                         </ul>
                     </li>
                 </ul>
