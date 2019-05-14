@@ -6670,8 +6670,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "DeliveryCost"
+  name: "DeliveryCost",
+  data: function data() {
+    return {
+      btnDisabled: false,
+      form: {
+        cost_title: '',
+        package_weight: '',
+        package_length: '',
+        package_width: '',
+        package_height: '',
+        cost_price: '',
+        cost_status: 0
+      }
+    };
+  }
 });
 
 /***/ }),
@@ -45760,45 +45777,88 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content" }, [
-      _c("div", { staticClass: "panel panel-info" }, [
-        _c("div", { staticClass: "panel-heading" }, [
-          _c("h5", { staticClass: "panel-title" }, [
-            _vm._v("Delivery Costing")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "heading-elements" }, [
-            _c("ul", { staticClass: "icons-list" }, [
-              _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "panel-body" }, [
-          _c("form", { attrs: { action: "" } }, [
+  return _c("div", { staticClass: "content" }, [
+    _c("div", { staticClass: "panel panel-info" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" }, [
+        _c(
+          "form",
+          {
+            attrs: { action: "" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.deliveryCostStore($event)
+              }
+            }
+          },
+          [
             _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-3" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Package Title:")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.cost_title,
+                        expression: "form.cost_title"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Package Title ",
+                      required: ""
+                    },
+                    domProps: { value: _vm.form.cost_title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "cost_title", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
               _c("div", { staticClass: "col-md-3" }, [
                 _c("div", { staticClass: "form-group" }, [
                   _c("label", [_vm._v("Package Weight (Kg):")]),
                   _vm._v(" "),
                   _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.package_weight,
+                        expression: "form.package_weight"
+                      }
+                    ],
                     staticClass: "form-control",
                     attrs: {
                       type: "number",
                       step: "0.01",
                       placeholder: "Package Weight ",
                       required: ""
+                    },
+                    domProps: { value: _vm.form.package_weight },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.form,
+                          "package_weight",
+                          $event.target.value
+                        )
+                      }
                     }
                   })
                 ])
@@ -45809,12 +45869,33 @@ var staticRenderFns = [
                   _c("label", [_vm._v("Package Length (CM):")]),
                   _vm._v(" "),
                   _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.package_length,
+                        expression: "form.package_length"
+                      }
+                    ],
                     staticClass: "form-control",
                     attrs: {
                       type: "number",
                       step: "0.01",
                       placeholder: "Length",
                       required: ""
+                    },
+                    domProps: { value: _vm.form.package_length },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.form,
+                          "package_length",
+                          $event.target.value
+                        )
+                      }
                     }
                   })
                 ])
@@ -45825,12 +45906,29 @@ var staticRenderFns = [
                   _c("label", [_vm._v("Package Width (CM):")]),
                   _vm._v(" "),
                   _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.package_width,
+                        expression: "form.package_width"
+                      }
+                    ],
                     staticClass: "form-control",
                     attrs: {
                       type: "number",
                       step: "0.01",
                       placeholder: "Width",
                       required: ""
+                    },
+                    domProps: { value: _vm.form.package_width },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "package_width", $event.target.value)
+                      }
                     }
                   })
                 ])
@@ -45841,12 +45939,33 @@ var staticRenderFns = [
                   _c("label", [_vm._v("Package Height (CM):")]),
                   _vm._v(" "),
                   _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.package_height,
+                        expression: "form.package_height"
+                      }
+                    ],
                     staticClass: "form-control",
                     attrs: {
                       type: "number",
                       step: "0.01",
                       placeholder: "Height",
                       required: ""
+                    },
+                    domProps: { value: _vm.form.package_height },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.form,
+                          "package_height",
+                          $event.target.value
+                        )
+                      }
                     }
                   })
                 ])
@@ -45857,26 +45976,84 @@ var staticRenderFns = [
                   _c("label", [_vm._v("Cost Price:")]),
                   _vm._v(" "),
                   _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.cost_price,
+                        expression: "form.cost_price"
+                      }
+                    ],
                     staticClass: "form-control",
                     attrs: {
                       type: "number",
                       step: "0.01",
                       placeholder: "Cost",
                       required: ""
+                    },
+                    domProps: { value: _vm.form.cost_price },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "cost_price", $event.target.value)
+                      }
                     }
                   })
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-3 col-md-offset-3" }, [
+              _c("div", { staticClass: "col-md-3" }, [
                 _c("div", { staticClass: "content-group-lg mt-2" }, [
                   _c("label", [_vm._v("Publication Status:")]),
                   _vm._v(" "),
                   _c("div", { staticClass: "checkbox checkbox-switchery" }, [
                     _c("label", [
                       _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.cost_status,
+                            expression: "form.cost_status"
+                          }
+                        ],
                         staticClass: "switchery-primary",
-                        attrs: { type: "checkbox", checked: "checked" }
+                        attrs: { type: "checkbox", checked: "checked" },
+                        domProps: {
+                          checked: Array.isArray(_vm.form.cost_status)
+                            ? _vm._i(_vm.form.cost_status, null) > -1
+                            : _vm.form.cost_status
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.form.cost_status,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.form,
+                                    "cost_status",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.form,
+                                    "cost_status",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.form, "cost_status", $$c)
+                            }
+                          }
+                        }
                       }),
                       _vm._v(
                         "\n                                    Publish\n                                "
@@ -45884,91 +46061,116 @@ var staticRenderFns = [
                     ])
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-3 " })
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "text-right form-group " }, [
               _c(
                 "button",
-                { staticClass: "btn btn-success", attrs: { type: "submit" } },
+                {
+                  staticClass: "btn btn-success",
+                  attrs: { type: "submit", disabled: _vm.btnDisabled }
+                },
                 [
                   _vm._v("Submit "),
                   _c("i", { staticClass: "icon-arrow-right14 position-right" })
                 ]
               )
             ])
+          ]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(1)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Delivery Costing")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "heading-elements" }, [
+        _c("ul", { staticClass: "icons-list" }, [
+          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel panel-flat" }, [
+      _c("div", { staticClass: "panel-heading" }, [
+        _c("h5", { staticClass: "panel-title" }, [
+          _vm._v("Delivery Cost List")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "heading-elements" }, [
+          _c("ul", { staticClass: "icons-list" }, [
+            _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { "data-action": "close" } })])
           ])
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "panel panel-flat" }, [
-        _c("div", { staticClass: "panel-heading" }, [
-          _c("h5", { staticClass: "panel-title" }, [
-            _vm._v("Delivery Cost List")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "heading-elements" }, [
-            _c("ul", { staticClass: "icons-list" }, [
-              _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "table-responsive" }, [
-          _c(
-            "table",
-            { staticClass: "table table-bordered table-striped table-sm" },
-            [
-              _c("thead", [
-                _c("tr", [
-                  _c("th", [_vm._v("#")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Package Weight (KG)")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Package Length (CM)")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Package Width (CM)")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Package Height (CM)")]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-right" }, [
-                    _vm._v("Cost Price")
-                  ]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tbody", [
-                _c("tr", [
-                  _c("td", [_vm._v("1")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("Eugene")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("Kopyov")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("@Kopyov")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("@Kopyov")]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-right" }, [_vm._v("@Kopyov")]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-center" }, [_vm._v("@Kopyov")]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-center" }, [_vm._v("@Kopyov")])
-                ])
+      _c("div", { staticClass: "table-responsive" }, [
+        _c(
+          "table",
+          { staticClass: "table table-bordered table-striped table-sm" },
+          [
+            _c("thead", [
+              _c("tr", [
+                _c("th", [_vm._v("#")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Package Weight (KG)")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Package Length (CM)")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Package Width (CM)")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Package Height (CM)")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-right" }, [_vm._v("Cost Price")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
               ])
-            ]
-          )
-        ])
+            ]),
+            _vm._v(" "),
+            _c("tbody", [
+              _c("tr", [
+                _c("td", [_vm._v("1")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Eugene")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Kopyov")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("@Kopyov")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("@Kopyov")]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-right" }, [_vm._v("@Kopyov")]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-center" }, [_vm._v("@Kopyov")]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-center" }, [_vm._v("@Kopyov")])
+              ])
+            ])
+          ]
+        )
       ])
     ])
   }
@@ -61626,12 +61828,166 @@ var mutations = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//declare State
-var state = {}; //declare Getters
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
-var getters = {};
-var actions = {};
-var mutations = {};
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//declare State
+var state = {
+  allCosts: ''
+}; //declare Getters
+
+var getters = {
+  deliveryCosts: function deliveryCosts(state) {
+    return state.allCosts;
+  }
+};
+var actions = {
+  getDeliveryCost: function () {
+    var _getDeliveryCost = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.prev = 1;
+              _context.next = 4;
+              return axios.get('/admin/delivery-costs').then(function (response) {
+                commit('setDeliveryCost', response.data.data);
+              })["catch"](function (errors) {
+                commit('setResponse', errors.data);
+              });
+
+            case 4:
+              _context.next = 9;
+              break;
+
+            case 6:
+              _context.prev = 6;
+              _context.t0 = _context["catch"](1);
+              commit('setResponse', _context.t0.data);
+
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 6]]);
+    }));
+
+    function getDeliveryCost(_x) {
+      return _getDeliveryCost.apply(this, arguments);
+    }
+
+    return getDeliveryCost;
+  }(),
+  storeDeliveryCost: function () {
+    var _storeDeliveryCost = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, formData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios.post('/admin/delivery-cost/store', formData).then(function (response) {
+                commit('deliveryCostStore', response.data.cost);
+                commit('setResponse', response.data.res);
+                return response.data.res;
+              })["catch"](function (error) {
+                commit('setResponse', error.data);
+                return error.data;
+              });
+
+            case 4:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](1);
+              commit('setResponse', _context2.t0.data);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 7]]);
+    }));
+
+    function storeDeliveryCost(_x2, _x3) {
+      return _storeDeliveryCost.apply(this, arguments);
+    }
+
+    return storeDeliveryCost;
+  }(),
+  deleteDeliveryCost: function () {
+    var _deleteDeliveryCost = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, costID) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios["delete"]("delivery-cost/delete/".concat(costID)).then(function (response) {
+                commit('removeDeliveryCost', costID);
+                commit('setResponse', response.data);
+                return response.data;
+              })["catch"](function (error) {
+                commit('setResponse', error.data);
+                return error.data;
+              });
+
+            case 4:
+              return _context3.abrupt("return", _context3.sent);
+
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](1);
+              commit('setResponse', _context3.t0.data);
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 7]]);
+    }));
+
+    function deleteDeliveryCost(_x4, _x5) {
+      return _deleteDeliveryCost.apply(this, arguments);
+    }
+
+    return deleteDeliveryCost;
+  }()
+};
+var mutations = {
+  setDeliveryCost: function setDeliveryCost(state, response) {
+    return state.allCosts = response;
+  },
+  deliveryCostStore: function deliveryCostStore(state, response) {
+    return state.allCosts.unshift(response);
+  },
+  removeDeliveryCost: function removeDeliveryCost(state, costID) {
+    return state.allCosts = state.allCosts.filter(function (cost) {
+      return cost.id !== parseInt(costID);
+    });
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
   getters: getters,
@@ -62034,8 +62390,8 @@ var mutations = {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

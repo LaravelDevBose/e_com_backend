@@ -19,4 +19,12 @@ class DeliveryCost extends Model
         'cost_price',
         'cost_status',
     ];
+
+    public function scopeIsActive($query){
+        return $query->where('cost_status', 1);
+    }
+
+    public function scopeNotDelete($query){
+        return $query->where('cost_status', '!=', 0);
+    }
 }

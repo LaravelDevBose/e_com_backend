@@ -42,7 +42,7 @@
                     <li ><a href="{{ route('admin.color.create') }}"><i class="icon-brush"></i> <span>Color</span></a></li>
                     <li ><a href="{{ route('admin.tag.create') }}"><i class="icon-price-tag2"></i> <span>Tag</span></a></li>
                     <li ><a href="{{ route('admin.size') }}"><i class="icon-rulers"></i> <span>Size</span></a></li>
-                    <li ><a href="{{ route('admin.delivery.cost') }}"><i class="icon-truck"></i> <span>Delivery Cost</span></a></li>
+                    <li ><a href="{{ route('admin.delivery_cost.create') }}"><i class="icon-truck"></i> <span>Delivery Cost</span></a></li>
                     <li ><a href="{{ route('admin.campaign') }}"><i class="icon-megaphone"></i> <span>Delivery Cost</span></a></li>
                     <li ><a href="{{ route('admin.voucher.index') }}"><i class="icon-megaphone"></i> <span>Voucher</span></a></li>
                     <li>

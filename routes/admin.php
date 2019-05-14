@@ -26,7 +26,11 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
 
     Route::get('/size', 'SizeController@index')->name('size');
 
-    Route::get('/delivery-cost', 'DeliveryCostController@index')->name('delivery.cost');
+    Route::get('/delivery-costs', 'DeliveryCostController@index')->name('delivery_costs');
+    Route::get('/delivery-cost/create', 'DeliveryCostController@create')->name('delivery_cost.create');
+    Route::post('/delivery-cost/store', 'DeliveryCostController@store')->name('delivery_cost.store');
+    Route::delete('/delivery-cost/delete/{deliveryCost}', 'DeliveryCostController@destroy')->name('delivery_cost.delete');
+
 
     Route::get('/campaign', 'CampaignController@index')->name('campaign');
 
