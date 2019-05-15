@@ -37,7 +37,7 @@ import { setTimeout } from 'timers';
             }
         },
         created() {
-            console.log(this.localFiles)
+
         },
         methods:{
             ...mapActions([

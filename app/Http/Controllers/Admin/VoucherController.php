@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Voucher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,6 +18,16 @@ class VoucherController extends Controller
         return view('voucher.index');
     }
 
+    public function formData(){
+        $voucherType = Voucher::VoucherType;
+        $applyTo = Voucher::ApplyTo;
+        return response()->json([
+            'voucherType'=>$voucherType,
+            'applyTo'=>$applyTo,
+            'discountType'=>Voucher::DiscountType,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -24,6 +35,8 @@ class VoucherController extends Controller
      */
     public function create()
     {
+
+
         return view('voucher.create');
     }
 

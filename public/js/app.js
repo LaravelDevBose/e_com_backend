@@ -6002,9 +6002,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {};
   },
-  created: function created() {
-    console.log(this.localFiles);
-  },
+  created: function created() {},
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['uploadAttachment']), {
     uploadFile: function uploadFile(e) {
       this.files = this.$refs.files.files;
@@ -6989,6 +6987,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _attachment_Attachment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../attachment/Attachment */ "./resources/js/components/attachment/Attachment.vue");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -7165,8 +7169,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'CreateVoucher'
+  name: 'CreateVoucher',
+  components: {
+    Attachment: _attachment_Attachment__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      form: {
+        voucher_name: '',
+        start_date: new Date().toISOString().slice(0, 10),
+        start_time: '',
+        end_date: new Date().toISOString().slice(0, 10),
+        end_time: '',
+        voucher_type: '',
+        voucher_code: '',
+        voucher_issued: '',
+        discount_type: '',
+        discount_value: '',
+        max_discount: '',
+        min_order_value: '',
+        usage_limit: '',
+        apply_to: '',
+        attachment_id: ''
+      },
+      multiple: false,
+      folder: 'voucher',
+      btnDisabled: false,
+      maxValue: true
+    };
+  },
+  created: function created() {
+    this.getFormDate();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getFormDate', 'storeVoucher']), {
+    discountTypeChange: function discountTypeChange() {
+      alert(this.form.discount_type);
+
+      if (this.form.discount_type === 2) {
+        this.maxValue = false;
+      } else {
+        this.maxValue = false;
+      }
+    },
+    saveVoucher: function saveVoucher() {},
+    validation: function validation() {},
+    resetData: function resetData() {}
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['applyTo', 'voucherTypes', 'discountTypes', 'attachment_ids'])),
+  watch: {
+    form: {
+      handler: function handler(newValue, oldValue) {
+        if (oldValue !== newValue) {
+          this.btnDisabled = false;
+        }
+      },
+      deep: true
+    }
+  }
 });
 
 /***/ }),
@@ -46911,11 +46973,655 @@ var render = function() {
           on: {
             submit: function($event) {
               $event.preventDefault()
-              return _vm.storeVoucher($event)
+              return _vm.saveVoucher($event)
             }
           }
         },
-        [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)]
+        [
+          _c("div", { staticClass: "panel panel-info" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "panel-body" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Voucher Name:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.voucher_name,
+                          expression: "form.voucher_name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Voucher name",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.voucher_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "voucher_name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Start Date:")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-8" }, [
+                        _c("div", { staticClass: "input-group" }, [
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.start_date,
+                                expression: "form.start_date"
+                              }
+                            ],
+                            staticClass: "form-control daterange-single",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.form.start_date },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "start_date",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.start_time,
+                                expression: "form.start_time"
+                              }
+                            ],
+                            staticClass: "form-control pickatime",
+                            attrs: { type: "text", placeholder: "Start time" },
+                            domProps: { value: _vm.form.start_time },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "start_time",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm._m(2)
+                        ])
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("End Date:")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-8" }, [
+                        _c("div", { staticClass: "input-group" }, [
+                          _vm._m(3),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.end_date,
+                                expression: "form.end_date"
+                              }
+                            ],
+                            staticClass: "form-control daterange-single",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.form.end_date },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "end_date",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.end_time,
+                                expression: "form.end_time"
+                              }
+                            ],
+                            staticClass: "form-control pickatime",
+                            attrs: { type: "text", placeholder: "Start time" },
+                            domProps: { value: _vm.form.end_time },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "end_time",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm._m(4)
+                        ])
+                      ])
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Voucher Type:")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.voucher_type,
+                            expression: "form.voucher_type"
+                          }
+                        ],
+                        staticClass: "select form-control",
+                        attrs: { "data-width": "100%" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "voucher_type",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Select A Type")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.voucherTypes, function(voucherType, index) {
+                          return _vm.voucherTypes
+                            ? _c(
+                                "option",
+                                {
+                                  domProps: {
+                                    value: index,
+                                    selected: index === 1
+                                  }
+                                },
+                                [_vm._v(_vm._s(voucherType))]
+                              )
+                            : _vm._e()
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(5),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Voucher Code:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.voucher_code,
+                          expression: "form.voucher_code"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Voucher Code",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.voucher_code },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "voucher_code",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-4" },
+                  [
+                    _c("label", [_vm._v("Voucher Image:")]),
+                    _vm._v(" "),
+                    _c("attachment", {
+                      attrs: { multi_file: _vm.multiple, folder: _vm.folder }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel panel-info" }, [
+            _vm._m(6),
+            _vm._v(" "),
+            _c("div", { staticClass: "panel-body" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Discount Type:")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.discount_type,
+                            expression: "form.discount_type"
+                          }
+                        ],
+                        staticClass: "select form-control",
+                        attrs: { "data-width": "100%" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "discount_type",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        },
+                        nativeOn: {
+                          change: function($event) {
+                            return _vm.discountTypeChange($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Select A Type")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.discountTypes, function(typeName, index) {
+                          return _vm.discountTypes
+                            ? _c("option", { domProps: { value: index } }, [
+                                _vm._v(_vm._s(typeName))
+                              ])
+                            : _vm._e()
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Discount Value(off):")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.discount_value,
+                          expression: "form.discount_value"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Discount Value",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.discount_value },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "discount_value",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Min Order Value:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.min_order_value,
+                          expression: "form.min_order_value"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder:
+                          "Minimum order value to apply voucher (BDT)",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.min_order_value },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "min_order_value",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-3", class: { hidden: _vm.maxValue } },
+                  [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Maximum Discount:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.max_discount,
+                            expression: "form.max_discount"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Maximum discount in (BDT)",
+                          required: ""
+                        },
+                        domProps: { value: _vm.form.max_discount },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form,
+                              "max_discount",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Total Voucher to be issued:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.voucher_issued,
+                          expression: "form.voucher_issued"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Total voucher to be issued",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.voucher_issued },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "voucher_issued",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("User Limit per Customer:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.usage_limit,
+                          expression: "form.usage_limit"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "User Limit per Customer ",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.usage_limit },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "usage_limit", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Apply To:")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.apply_to,
+                            expression: "form.apply_to"
+                          }
+                        ],
+                        staticClass: "select form-control",
+                        attrs: { "data-width": "100%" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "apply_to",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Select A Type")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.applyTo, function(apply, index) {
+                          return _vm.applyTo
+                            ? _c("option", { domProps: { value: index } }, [
+                                _vm._v(_vm._s(apply))
+                              ])
+                            : _vm._e()
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "sticky-submit-btn" }, [
+            _c("div", { staticClass: "panel panel-default" }, [
+              _c("div", { staticClass: "panel-body" }, [
+                _c("div", { staticClass: "row" }, [
+                  _vm._m(7),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-2" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "text-right form-group",
+                        staticStyle: { "margin-bottom": "0px" }
+                      },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary btn-block",
+                            attrs: { type: "submit", disabled: _vm.btnDisabled }
+                          },
+                          [
+                            _vm._v("Save Voucher "),
+                            _c("i", {
+                              staticClass: "icon-arrow-right14 position-right"
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ]
       )
     ])
   ])
@@ -46925,155 +47631,58 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel panel-info" }, [
-      _c("div", { staticClass: "panel-heading" }, [
-        _c("h5", { staticClass: "panel-title" }, [_vm._v("Voucher Details")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "panel-body" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Voucher Name:")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Voucher name",
-                  required: ""
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Start Date:")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-8" }, [
-                  _c("div", { staticClass: "input-group" }, [
-                    _c("span", { staticClass: "input-group-addon" }, [
-                      _c("i", { staticClass: "icon-calendar22" })
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control daterange-single",
-                      attrs: { type: "text" }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-4" }, [
-                  _c("div", { staticClass: "input-group" }, [
-                    _c("input", {
-                      staticClass: "form-control pickatime",
-                      attrs: { type: "text", placeholder: "Start time" }
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "input-group-addon" }, [
-                      _c("i", { staticClass: "icon-alarm" })
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("End Date:")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-8" }, [
-                  _c("div", { staticClass: "input-group" }, [
-                    _c("span", { staticClass: "input-group-addon" }, [
-                      _c("i", { staticClass: "icon-calendar22" })
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control daterange-single",
-                      attrs: { type: "text" }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-4" }, [
-                  _c("div", { staticClass: "input-group" }, [
-                    _c("input", {
-                      staticClass: "form-control pickatime",
-                      attrs: { type: "text", placeholder: "Start time" }
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "input-group-addon" }, [
-                      _c("i", { staticClass: "icon-alarm" })
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ]),
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Voucher Details")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "icon-calendar22" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "icon-alarm" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "icon-calendar22" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "icon-alarm" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "form-group hidden" }, [
+        _c("label", [_vm._v("Collect Start Time:")]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-6" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Voucher Type:")]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  staticClass: "select form-control",
-                  attrs: { "data-width": "100%" }
-                },
-                [
-                  _c("option", { attrs: { value: "" } }, [
-                    _vm._v("Select A Type")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Supplier" } }, [
-                    _vm._v("Supplier Wise")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Date" } }, [
-                    _vm._v("Date Wise")
-                  ])
-                ]
-              )
-            ])
-          ]),
+        _c("div", { staticClass: "input-group" }, [
+          _c("input", {
+            staticClass: "form-control daterange-single",
+            attrs: { type: "text" }
+          }),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-6" }, [
-            _c("div", { staticClass: "form-group hidden" }, [
-              _c("label", [_vm._v("Collect Start Time:")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group" }, [
-                _c("input", {
-                  staticClass: "form-control daterange-single",
-                  attrs: { type: "text" }
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "input-group-addon" }, [
-                  _c("i", { staticClass: "icon-calendar22" })
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-6" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Voucher Code:")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Voucher Code",
-                  required: ""
-                }
-              })
-            ])
+          _c("span", { staticClass: "input-group-addon" }, [
+            _c("i", { staticClass: "icon-calendar22" })
           ])
         ])
       ])
@@ -47083,201 +47692,35 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel panel-info" }, [
-      _c("div", { staticClass: "panel-heading" }, [
-        _c("h5", { staticClass: "panel-title" }, [_vm._v("Voucher Setting")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "panel-body" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-3" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Discount Type:")]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  staticClass: "select form-control",
-                  attrs: { "data-width": "100%" }
-                },
-                [
-                  _c("option", { attrs: { value: "" } }, [
-                    _vm._v("Select A Type")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Supplier" } }, [
-                    _vm._v("Supplier Wise")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Date" } }, [
-                    _vm._v("Date Wise")
-                  ])
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-3" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Discount Value(off):")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Category Name ",
-                  required: ""
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-3" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Min Order Value:")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Minimum order value to apply voucher (BDT)",
-                  required: ""
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-3" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Maximum Discount:")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Maximum discount in (BDT)",
-                  required: ""
-                }
-              })
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Total Voucher to be issued:")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Total voucher to be issued",
-                  required: ""
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("User Limit per Customer:")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "User Limit per Customer ",
-                  required: ""
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Apply To:")]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  staticClass: "select form-control",
-                  attrs: { "data-width": "100%" }
-                },
-                [
-                  _c("option", { attrs: { value: "Supplier" } }, [
-                    _vm._v("Supplier Wise")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Date" } }, [
-                    _vm._v("Date Wise")
-                  ])
-                ]
-              )
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Voucher Setting")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "sticky-submit-btn" }, [
-      _c("div", { staticClass: "panel panel-default" }, [
-        _c("div", { staticClass: "panel-body" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-2 col-md-offset-8" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "content-group-lg",
-                  staticStyle: { "margin-bottom": "0!important" }
-                },
-                [
-                  _c("div", { staticClass: "checkbox checkbox-switchery" }, [
-                    _c("label", [
-                      _c("input", {
-                        staticClass: "switchery-primary",
-                        attrs: { type: "checkbox", checked: "checked" }
-                      }),
-                      _vm._v(
-                        "\n                                            Publish\n                                        "
-                      )
-                    ])
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-2" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "text-right form-group",
-                  staticStyle: { "margin-bottom": "0px" }
-                },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary btn-block",
-                      attrs: { type: "submit" }
-                    },
-                    [
-                      _vm._v("Save Voucher "),
-                      _c("i", {
-                        staticClass: "icon-arrow-right14 position-right"
-                      })
-                    ]
-                  )
-                ]
+    return _c("div", { staticClass: "col-md-2 col-md-offset-8" }, [
+      _c(
+        "div",
+        {
+          staticClass: "content-group-lg",
+          staticStyle: { "margin-bottom": "0!important" }
+        },
+        [
+          _c("div", { staticClass: "checkbox checkbox-switchery" }, [
+            _c("label", [
+              _c("input", {
+                staticClass: "switchery-primary",
+                attrs: { type: "checkbox", checked: "checked" }
+              }),
+              _vm._v(
+                "\n                                            Publish\n                                        "
               )
             ])
           ])
-        ])
-      ])
+        ]
+      )
     ])
   }
 ]
@@ -62815,12 +63258,119 @@ var mutations = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//declare State
-var state = {}; //declare Getters
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
-var getters = {};
-var actions = {};
-var mutations = {};
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//declare State
+var state = {
+  applyTo: '',
+  voucherTypes: '',
+  discountType: ''
+}; //declare Getters
+
+var getters = {
+  applyTo: function applyTo(state) {
+    return state.applyTo;
+  },
+  voucherTypes: function voucherTypes(state) {
+    return state.voucherTypes;
+  },
+  discountTypes: function discountTypes(state) {
+    return state.discountType;
+  }
+};
+var actions = {
+  getFormDate: function () {
+    var _getFormDate = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.prev = 1;
+              _context.next = 4;
+              return axios.get('/admin/formData/voucher');
+
+            case 4:
+              response = _context.sent;
+              commit('setFormData', response.data);
+              _context.next = 11;
+              break;
+
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](1);
+              commit('setResponse', _context.t0.data);
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 8]]);
+    }));
+
+    function getFormDate(_x) {
+      return _getFormDate.apply(this, arguments);
+    }
+
+    return getFormDate;
+  }(),
+  storeVoucher: function () {
+    var _storeVoucher = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, formData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios.post('/admin/voucher/store', formData).then(function (response) {
+                commit('setResponse', response.data);
+                return response.data;
+              });
+
+            case 4:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](1);
+              commit('setResponse', _context2.t0.data);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 7]]);
+    }));
+
+    function storeVoucher(_x2, _x3) {
+      return _storeVoucher.apply(this, arguments);
+    }
+
+    return storeVoucher;
+  }()
+};
+var mutations = {
+  setFormData: function setFormData(state, response) {
+    state.applyTo = response.applyTo;
+    state.voucherTypes = response.voucherType;
+    state.discountType = response.discountType;
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
   getters: getters,

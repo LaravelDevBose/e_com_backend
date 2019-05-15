@@ -9,11 +9,9 @@ class Attachment extends Model
     const attachmentModels = [
 
         'category' => 1,
-        'cleaner' => 2,
-        'addons' => 3,
-        'service' => 4,
-        'address' => 5,
-        'bookingRequest' => 6,
+        'product' => 2,
+        'user' => 3,
+        'voucher' => 4,
     ];
 
     protected $table = 'attachments';

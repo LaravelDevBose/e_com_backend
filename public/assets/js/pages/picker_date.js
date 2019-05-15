@@ -58,7 +58,11 @@ $(function() {
 
     // Single picker
     $('.daterange-single').daterangepicker({ 
-        singleDatePicker: true
+        singleDatePicker: true,
+        format:'YYYY-MM-DD',
+        locale: {
+            format: 'YYYY-MM-DD'
+        }
     });
 
 

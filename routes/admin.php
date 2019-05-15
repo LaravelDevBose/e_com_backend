@@ -35,7 +35,7 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::get('/campaign', 'CampaignController@index')->name('campaign');
 
     Route::resource('voucher', 'VoucherController');
-
+    Route::get('formData/voucher/', 'VoucherController@formData')->name('voucher.formData');
 
 });
 
