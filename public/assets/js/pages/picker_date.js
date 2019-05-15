@@ -362,7 +362,12 @@ $(function() {
             $('.datepicker').focus();
         }
     });
-
+    var $input_time = $('.pickatime-editable2').pickatime({
+        editable: true,
+        onClose: function() {
+            $('.datepicker').focus();
+        }
+    });
     var picker_time = $input_time.pickatime('picker');
     $input_time.on('click', function(event) { // register events (https://github.com/amsul/pickadate.js/issues/542)
         if (picker_time.get('open')) {

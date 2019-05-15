@@ -27,9 +27,11 @@
     <script type="text/javascript" src="{{ asset('assets/js/core/libraries/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/blockui.min.js') }}"></script>
     <!-- /core JS files -->
+
     @yield('PageCss')
 
     @yield('ThemeJs')
+
 
     <script type="text/javascript" src="{{ asset('assets/js/pages/animations_css3.js') }}"></script>
 </head>
@@ -80,6 +82,8 @@
     <!-- /page container -->
 
 </div>
+
 @yield('PageJs')
+
 </body>
 </html>
