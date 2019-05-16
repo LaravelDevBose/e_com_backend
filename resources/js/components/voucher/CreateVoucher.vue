@@ -58,10 +58,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Voucher Type:</label>
-                                    <select class="select form-control" v-model="form.voucher_type" data-width="100%">
-                                        <option value="">Select A Type</option>
-                                        <option v-if="voucherTypes" v-for="(voucherType,index) in voucherTypes" :value="index" :selected="index===1">{{ voucherType }}</option>
-                                    </select>
+                                    <vue-select2 :options="voucherTypes" v-model.number="form.voucher_type" >
+                                    </vue-select2>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -86,7 +84,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-info">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h5 class="panel-title">Voucher Setting</h5>
                     </div>
@@ -96,10 +94,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Discount Type:</label>
-                                    <select class="select form-control"  @change.native="discountTypeChange" v-model="form.discount_type" data-width="100%">
-                                        <option value="">Select A Type</option>
-                                        <option v-if="discountTypes" v-for="(typeName,index) in discountTypes" :value="index">{{ typeName }}</option>
-                                    </select>
+                                    <vue-select2 :options="discountTypes" v-model.number="form.discount_type" >
+                                    </vue-select2>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -137,13 +133,20 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Apply To:</label>
-                                    <select class="select form-control"  v-model="form.apply_to" data-width="100%">
-                                        <option value="">Select A Type</option>
-                                        <option v-if="applyTo" v-for="(apply, index) in applyTo" :value="index">{{ apply }}</option>
-                                    </select>
+                                    <vue-select2 :options="applyTo" v-model.number="form.apply_to" name="apply">
+                                    </vue-select2>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="panel" v-if="addProductPanel">
+                    <div class="panel-heading bg-teal-700">
+                        <h5 class="panel-title">Voucher Setting</h5>
+                    </div>
+
+                    <div class="panel-body">
+                        <product-list></product-list>
                     </div>
                 </div>
                 <div class="sticky-submit-btn" >
@@ -178,9 +181,17 @@
 
     import {mapGetters, mapActions} from 'vuex';
     import Attachment from "../attachment/Attachment";
+    import VueSelect2 from '../helper/Select2';
+    import ProductList from '../helper/ProductList';
+
     export default {
         name:'CreateVoucher',
-        components: {Attachment},
+        components: {
+            Attachment,
+            'vue-select2':VueSelect2,
+            'product-list':ProductList,
+
+        },
         data(){
             return{
                 form:{
@@ -189,21 +200,22 @@
                     start_time:'',
                     end_date:new Date().toISOString().slice(0,10),
                     end_time:'',
-                    voucher_type:'',
+                    voucher_type:1,
                     voucher_code:'',
                     voucher_issued:'',
-                    discount_type:'',
+                    discount_type:1,
                     discount_value:'',
                     max_discount:'',
                     min_order_value:'',
                     usage_limit:'',
-                    apply_to:'',
+                    apply_to:1,
                     attachment_id:''
                 },
                 multiple:false,
                 folder:'voucher',
                 btnDisabled:false,
                 maxValue:true,
+                addProductPanel:false,
             }
         },
         created() {
@@ -214,15 +226,7 @@
                 'getFormDate',
                 'storeVoucher',
             ]),
-            discountTypeChange(){
-                alert(this.form.discount_type);
-                if(this.form.discount_type === 2){
-                    this.maxValue = false;
-                }else{
-                    this.maxValue = false;
-                }
 
-            },
             saveVoucher(){
 
             },
@@ -252,6 +256,26 @@
                 },
                 deep:true,
             },
+            'form.discount_type':{
+                handler(newValue){
+                    if(newValue === 2){
+                        this.maxValue = false;
+                    }else{
+                        this.maxValue= true;
+                    }
+                },
+                deep:true,
+            },
+            'form.apply_to':{
+                handler(newValue){
+                    if(newValue === 2){
+                        this.addProductPanel = true;
+                    }else{
+                        this.addProductPanel = false;
+                    }
+                },
+                deep:true,
+            }
         }
     };
 </script>

@@ -1,8 +1,8 @@
 //declare State
 const state = {
-    applyTo:'',
-    voucherTypes:'',
-    discountType:'',
+    applyTo:[],
+    voucherTypes:[],
+    discountType:[],
 };
 
 //declare Getters
@@ -36,9 +36,21 @@ const actions = {
 
 const mutations = {
     setFormData:(state, response)=>{
-        state.applyTo = response.applyTo;
-        state.voucherTypes = response.voucherType;
-        state.discountType = response.discountType;
+
+    setTimeout(function () {
+        $.each(response.voucherType,function (key, value) {
+            state.voucherTypes.push({id:key, text:value});
+        });
+        $.each(response.applyTo,function (key, value) {
+            state.applyTo.push({id:key, text:value});
+        });
+        $.each(response.discountType,function (key, value) {
+            state.discountType.push({id:key, text:value});
+        });
+
+    },800)
+
+
     }
 };
 
