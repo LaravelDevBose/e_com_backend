@@ -6735,223 +6735,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ProductList"
+  name: "ProductList",
+  data: function data() {
+    return {
+      image: 'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg'
+    };
+  }
 });
 
 /***/ }),
@@ -46770,643 +46560,83 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "ProductList" }, [
+    _c("table", { staticClass: "table datatable-select-multiple" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("tbody", [
+        _c("tr", [
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "td",
+            { staticClass: "no-padding-right", staticStyle: { width: "70px" } },
+            [
+              _c("a", { attrs: { href: "#" } }, [
+                _c("img", { attrs: { src: _vm.image, height: "60", alt: "" } })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("td", [_vm._v("Marth")]),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _c("td", [_vm._v("Traffic Court Referee")]),
+          _vm._v(" "),
+          _c("td", [_vm._v("22 Jun 1972")]),
+          _vm._v(" "),
+          _vm._m(3)
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "ProductList" }, [
-      _c("table", { staticClass: "table datatable-select-checkbox" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th"),
-            _vm._v(" "),
-            _c("th", [_vm._v("First Name")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Last Name")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Job Title")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("DOB")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Status")]),
-            _vm._v(" "),
-            _c("th", { staticClass: "text-center" }, [_vm._v("Actions")])
-          ])
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th"),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td"),
-            _vm._v(" "),
-            _c("td", [_vm._v("Marth")]),
-            _vm._v(" "),
-            _c("td", [_c("a", { attrs: { href: "#" } }, [_vm._v("Enright")])]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Traffic Court Referee")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("22 Jun 1972")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "label label-success" }, [
-                _vm._v("Active")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", { staticClass: "dropdown" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-toggle",
-                      attrs: { href: "#", "data-toggle": "dropdown" }
-                    },
-                    [_c("i", { staticClass: "icon-menu9" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    { staticClass: "dropdown-menu dropdown-menu-right" },
-                    [
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-pdf" }),
-                          _vm._v(" Export to .pdf")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-excel" }),
-                          _vm._v(" Export to .csv")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-word" }),
-                          _vm._v(" Export to .doc")
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td"),
-            _vm._v(" "),
-            _c("td", [_vm._v("Jackelyn")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Weible")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("Airline Transport Pilot")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", [_vm._v("3 Oct 1981")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "label label-default" }, [
-                _vm._v("Inactive")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", { staticClass: "dropdown" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-toggle",
-                      attrs: { href: "#", "data-toggle": "dropdown" }
-                    },
-                    [_c("i", { staticClass: "icon-menu9" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    { staticClass: "dropdown-menu dropdown-menu-right" },
-                    [
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-pdf" }),
-                          _vm._v(" Export to .pdf")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-excel" }),
-                          _vm._v(" Export to .csv")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-word" }),
-                          _vm._v(" Export to .doc")
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td"),
-            _vm._v(" "),
-            _c("td", [_vm._v("Aura")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Hard")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Business Services Sales Representative")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("19 Apr 1969")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "label label-danger" }, [
-                _vm._v("Suspended")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", { staticClass: "dropdown" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-toggle",
-                      attrs: { href: "#", "data-toggle": "dropdown" }
-                    },
-                    [_c("i", { staticClass: "icon-menu9" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    { staticClass: "dropdown-menu dropdown-menu-right" },
-                    [
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-pdf" }),
-                          _vm._v(" Export to .pdf")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-excel" }),
-                          _vm._v(" Export to .csv")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-word" }),
-                          _vm._v(" Export to .doc")
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td"),
-            _vm._v(" "),
-            _c("td", [_vm._v("Nathalie")]),
-            _vm._v(" "),
-            _c("td", [_c("a", { attrs: { href: "#" } }, [_vm._v("Pretty")])]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Drywall Stripper")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("13 Dec 1977")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "label label-info" }, [
-                _vm._v("Pending")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", { staticClass: "dropdown" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-toggle",
-                      attrs: { href: "#", "data-toggle": "dropdown" }
-                    },
-                    [_c("i", { staticClass: "icon-menu9" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    { staticClass: "dropdown-menu dropdown-menu-right" },
-                    [
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-pdf" }),
-                          _vm._v(" Export to .pdf")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-excel" }),
-                          _vm._v(" Export to .csv")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-word" }),
-                          _vm._v(" Export to .doc")
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td"),
-            _vm._v(" "),
-            _c("td", [_vm._v("Sharan")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Leland")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Aviation Tactical Readiness Officer")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("30 Dec 1991")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "label label-default" }, [
-                _vm._v("Inactive")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", { staticClass: "dropdown" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-toggle",
-                      attrs: { href: "#", "data-toggle": "dropdown" }
-                    },
-                    [_c("i", { staticClass: "icon-menu9" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    { staticClass: "dropdown-menu dropdown-menu-right" },
-                    [
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-pdf" }),
-                          _vm._v(" Export to .pdf")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-excel" }),
-                          _vm._v(" Export to .csv")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-word" }),
-                          _vm._v(" Export to .doc")
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td"),
-            _vm._v(" "),
-            _c("td", [_vm._v("Maxine")]),
-            _vm._v(" "),
-            _c("td", [_c("a", { attrs: { href: "#" } }, [_vm._v("Woldt")])]),
-            _vm._v(" "),
-            _c("td", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("Business Services Sales Representative")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", [_vm._v("17 Oct 1987")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "label label-info" }, [
-                _vm._v("Pending")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", { staticClass: "dropdown" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-toggle",
-                      attrs: { href: "#", "data-toggle": "dropdown" }
-                    },
-                    [_c("i", { staticClass: "icon-menu9" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    { staticClass: "dropdown-menu dropdown-menu-right" },
-                    [
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-pdf" }),
-                          _vm._v(" Export to .pdf")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-excel" }),
-                          _vm._v(" Export to .csv")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-word" }),
-                          _vm._v(" Export to .doc")
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td"),
-            _vm._v(" "),
-            _c("td", [_vm._v("Sylvia")]),
-            _vm._v(" "),
-            _c("td", [_c("a", { attrs: { href: "#" } }, [_vm._v("Mcgaughy")])]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Hemodialysis Technician")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("11 Nov 1983")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "label label-danger" }, [
-                _vm._v("Suspended")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", { staticClass: "dropdown" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-toggle",
-                      attrs: { href: "#", "data-toggle": "dropdown" }
-                    },
-                    [_c("i", { staticClass: "icon-menu9" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    { staticClass: "dropdown-menu dropdown-menu-right" },
-                    [
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-pdf" }),
-                          _vm._v(" Export to .pdf")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-excel" }),
-                          _vm._v(" Export to .csv")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-word" }),
-                          _vm._v(" Export to .doc")
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td"),
-            _vm._v(" "),
-            _c("td", [_vm._v("Lizzee")]),
-            _vm._v(" "),
-            _c("td", [_c("a", { attrs: { href: "#" } }, [_vm._v("Goodlow")])]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Technical Services Librarian")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("1 Nov 1961")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "label label-danger" }, [
-                _vm._v("Suspended")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", { staticClass: "dropdown" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-toggle",
-                      attrs: { href: "#", "data-toggle": "dropdown" }
-                    },
-                    [_c("i", { staticClass: "icon-menu9" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    { staticClass: "dropdown-menu dropdown-menu-right" },
-                    [
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-pdf" }),
-                          _vm._v(" Export to .pdf")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-excel" }),
-                          _vm._v(" Export to .csv")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-word" }),
-                          _vm._v(" Export to .doc")
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td"),
-            _vm._v(" "),
-            _c("td", [_vm._v("Kennedy")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Haley")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Senior Marketing Designer")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("18 Dec 1960")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "label label-success" }, [
-                _vm._v("Active")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", { staticClass: "dropdown" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-toggle",
-                      attrs: { href: "#", "data-toggle": "dropdown" }
-                    },
-                    [_c("i", { staticClass: "icon-menu9" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    { staticClass: "dropdown-menu dropdown-menu-right" },
-                    [
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-pdf" }),
-                          _vm._v(" Export to .pdf")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-excel" }),
-                          _vm._v(" Export to .csv")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-word" }),
-                          _vm._v(" Export to .doc")
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td"),
-            _vm._v(" "),
-            _c("td", [_vm._v("Chantal")]),
-            _vm._v(" "),
-            _c("td", [_c("a", { attrs: { href: "#" } }, [_vm._v("Nailor")])]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Technical Services Librarian")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("10 Jan 1980")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "label label-default" }, [
-                _vm._v("Inactive")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "text-center" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", { staticClass: "dropdown" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-toggle",
-                      attrs: { href: "#", "data-toggle": "dropdown" }
-                    },
-                    [_c("i", { staticClass: "icon-menu9" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    { staticClass: "dropdown-menu dropdown-menu-right" },
-                    [
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-pdf" }),
-                          _vm._v(" Export to .pdf")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-excel" }),
-                          _vm._v(" Export to .csv")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("i", { staticClass: "icon-file-word" }),
-                          _vm._v(" Export to .doc")
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ])
-        ])
+        _c("th", [_vm._v("Image")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("First Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Last Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Job Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("DOB")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "td",
+      { staticClass: "no-padding-right", staticStyle: { width: "20px" } },
+      [_c("input", { staticClass: "styled", attrs: { type: "checkbox" } })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("a", { attrs: { href: "#" } }, [_vm._v("Enright")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("span", { staticClass: "label label-success" }, [_vm._v("Active")])
     ])
   }
 ]
@@ -48507,18 +47737,25 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm.addProductPanel
-            ? _c("div", { staticClass: "panel" }, [
-                _vm._m(7),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "panel-body" },
-                  [_c("product-list")],
-                  1
-                )
-              ])
-            : _vm._e(),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.addProductPanel,
+                  expression: "addProductPanel"
+                }
+              ],
+              staticClass: "panel"
+            },
+            [
+              _vm._m(7),
+              _vm._v(" "),
+              _c("div", { staticClass: "panel-body" }, [_c("product-list")], 1)
+            ]
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "sticky-submit-btn" }, [
             _c("div", { staticClass: "panel panel-default" }, [

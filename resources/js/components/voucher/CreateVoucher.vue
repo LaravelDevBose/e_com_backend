@@ -140,7 +140,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel" v-if="addProductPanel">
+                <div class="panel" v-show="addProductPanel">
                     <div class="panel-heading bg-teal-700">
                         <h5 class="panel-title">Voucher Setting</h5>
                     </div>

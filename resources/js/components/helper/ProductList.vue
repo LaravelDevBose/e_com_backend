@@ -1,0 +1,49 @@
+<template>
+    <div class="ProductList">
+        <table class="table datatable-select-multiple">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Image</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Job Title</th>
+                <th>DOB</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="no-padding-right" style="width: 20px">
+                    <input type="checkbox" class="styled">
+                </td>
+                <td class="no-padding-right" style="width: 70px">
+                    <a href="#">
+                        <img :src="image" height="60" class="" alt="">
+                    </a>
+                </td>
+                <td>Marth</td>
+                <td><a href="#">Enright</a></td>
+                <td>Traffic Court Referee</td>
+                <td>22 Jun 1972</td>
+                <td><span class="label label-success">Active</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "ProductList",
+        data(){
+            return{
+                image:'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg'
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>
