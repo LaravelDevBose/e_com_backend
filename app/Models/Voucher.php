@@ -38,5 +38,27 @@ class Voucher extends Model
         'usage_limit',
         'apply_to',
         'attachment_id',
+        'collect_start',
+        'voucher_status'
     ];
+
+    public function scopeIsActive($query){
+        return $query->where('voucher_status', config('app.active'));
+    }
+
+    public function scopeInactive($query){
+        return $query->where('voucher_status', config('app.inactive'));
+    }
+
+    public function scopeNotDelete($query){
+        return $query->where('voucher_status', '!=', 0);
+    }
+
+    public function voucherProducts(){
+        return $this->hasMany(VoucherProduct::class, 'voucher_id');
+    }
+
+    public function attachment(){
+        return $this->hasOne(Attachment::class, 'attachment_id', 'attachment_id');
+    }
 }

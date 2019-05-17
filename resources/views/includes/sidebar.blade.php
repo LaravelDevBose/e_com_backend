@@ -31,8 +31,9 @@
 
 
         <!-- Main navigation -->
-        <div class="sidebar-category sidebar-category-visible">
-            <div class="category-content no-padding">
+        <div class="sidebar-category sidebar-category-visible ">
+
+            <div class="category-content no-padding ">
                 <ul class="navigation navigation-main navigation-accordion">
 
                     <!-- Main -->
@@ -52,6 +53,7 @@
                         </ul>
                     </li>
                 </ul>
+                <div style="min-height: 70px; width: 100%;"></div>
             </div>
         </div>
         <!-- /main navigation -->

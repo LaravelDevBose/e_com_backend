@@ -12,44 +12,45 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Voucher Name:</label>
-                                    <input type="text" class="form-control" v-model="form.voucher_name" placeholder="Voucher name" required>
+                                    <input type="text" class="form-control" v-model="form.voucher_name"  placeholder="Voucher name" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group" >
                                     <label>Start Date:</label>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="icon-calendar22"></i></span>
-                                                <input type="text" v-model="form.start_date" class="form-control daterange-single" >
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="input-group">
-                                                <input type="text" v-model="form.start_time" class="form-control pickatime" placeholder="Start time">
-                                                <span class="input-group-addon"><i class="icon-alarm"></i></span>
-                                            </div>
-                                        </div>
+                                    <div class="input-group">
+
+                                        <datetime
+                                            type="datetime"
+                                            use12-hour
+                                            v-model="form.voucher_start"
+                                            input-id="startDate"
+                                            input-class="form-control"
+                                            :phrases="{ok: 'Continue', cancel: 'Exit'}"
+                                            :week-start="6"
+                                        >
+                                        </datetime>
+                                        <span class="input-group-addon"><i class="icon-calendar22"></i></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>End Date:</label>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="icon-calendar22"></i></span>
-                                                <input type="text" v-model="form.end_date" class="form-control daterange-single" >
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="input-group">
-                                                <input type="text" v-model="form.end_time" class="form-control pickatime" placeholder="Start time">
-                                                <span class="input-group-addon"><i class="icon-alarm"></i></span>
-                                            </div>
-                                        </div>
+                                    <div class="input-group">
+
+                                        <datetime
+                                            type="datetime"
+                                            use12-hour
+                                            v-model="form.voucher_end"
+                                            input-id="startDate"
+                                            input-class="form-control"
+                                            :phrases="{ok: 'Continue', cancel: 'Exit'}"
+                                            :week-start="6"
+                                            class="theme-orange"
+                                        >
+                                        </datetime>
+                                        <span class="input-group-addon"><i class="icon-calendar22"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -66,7 +67,18 @@
                                 <div class="form-group hidden">
                                     <label>Collect Start Time:</label>
                                     <div class="input-group">
-                                        <input type="text"  class="form-control daterange-single" >
+
+                                        <datetime
+                                            type="datetime"
+                                            use12-hour
+                                            v-model="form.collect_start"
+                                            input-id="startDate"
+                                            input-class="form-control"
+                                            :phrases="{ok: 'Continue', cancel: 'Exit'}"
+                                            :week-start="6"
+                                            class="theme-orange"
+                                        >
+                                        </datetime>
                                         <span class="input-group-addon"><i class="icon-calendar22"></i></span>
                                     </div>
                                 </div>
@@ -196,10 +208,8 @@
             return{
                 form:{
                     voucher_name:'',
-                    start_date: new Date().toISOString().slice(0,10),
-                    start_time:'',
-                    end_date:new Date().toISOString().slice(0,10),
-                    end_time:'',
+                    voucher_start: new Date().toISOString().slice(0,10),
+                    voucher_end:new Date().toISOString().slice(0,10),
                     voucher_type:1,
                     voucher_code:'',
                     voucher_issued:'',
@@ -209,7 +219,8 @@
                     min_order_value:'',
                     usage_limit:'',
                     apply_to:1,
-                    attachment_id:''
+                    attachment_id:'',
+                    collect_start:''
                 },
                 multiple:false,
                 folder:'voucher',
@@ -228,13 +239,26 @@
             ]),
 
             saveVoucher(){
+                // #TODO check Validation
+
+                // change btnDisabled
+                this.btnDisabled = true;
+                this.resetData();
+                //submit the form
+                this.storeVoucher(form)
+                    .then(response=>{
+                        if(response.status === 'success'){
+                            // reset form data
+                        }
+                    })
+
 
             },
             validation(){
 
             },
             resetData(){
-
+                this.form.reset();
             },
 
         },
@@ -285,5 +309,9 @@
         position: -webkit-sticky;
         position: sticky;
         bottom: 50px;
+    }
+    .input-group-addon{
+        border-color: #dddddd;
+        padding:10px;
     }
 </style>

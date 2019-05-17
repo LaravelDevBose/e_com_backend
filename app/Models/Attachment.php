@@ -50,4 +50,8 @@ class Attachment extends Model
     public function category(){
         return $this->belongsTo(Category::class, 'attachment_id','attachment_id');
     }
+
+    public function voucher(){
+        return $this->belongsTo(Voucher::class, 'attachment_id','attachment_id');
+    }
 }
