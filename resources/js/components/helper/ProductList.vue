@@ -64,6 +64,8 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex';
+
     export default {
         name: "ProductList",
         data(){
@@ -73,10 +75,18 @@
             }
         },
         methods:{
-
+            ...mapActions([
+                'addedProducts'
+            ])
         },
         watch:{
-
+            productIDs:{
+                handler(newValue, oldValue){
+                    if(newValue === oldValue){
+                        this.addedProducts(this.productIDs);
+                    }
+                }
+            }
         }
     }
 </script>

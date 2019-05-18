@@ -222,6 +222,7 @@
                     attachment_id:'',
                     collect_start:'',
                     voucher_status:0,
+                    productIds:[],
                 },
                 multiple:false,
                 folder:'voucher',
@@ -237,6 +238,7 @@
             ...mapActions([
                 'getFormDate',
                 'storeVoucher',
+                'addedProducts'
             ]),
 
             saveVoucher(){
@@ -245,6 +247,18 @@
                 // change btnDisabled
                 this.btnDisabled = true;
                 //submit the form
+
+                //check apply to option
+                if(this.form.apply_to === 2){
+                    if(this.selectedProductIDs === '' || this.selectedProductIDs.length === 0){
+                        alert('Select Product SKU');
+                        return false;
+                    }
+                    this.form.productIds = this.selectedProductIDs;
+                }else{
+                    this.form.productIds = [];
+                    this.addedProducts([]);
+                }
                 this.storeVoucher(this.form)
                     .then(response=>{
                         if(response.status === 'success'){
@@ -269,7 +283,8 @@
                 'applyTo',
                 'voucherTypes',
                 'discountTypes',
-                'attachment_ids'
+                'attachment_ids',
+                'selectedProductIDs'
             ]),
 
         },

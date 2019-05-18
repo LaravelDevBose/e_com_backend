@@ -18,6 +18,8 @@ import  delivery_cost from "./modules/delivery_cost";
 import  campaign from './modules/campaign';
 import  voucher from './modules/voucher';
 import  attachment from './modules/attachment';
+import  productHelper from './modules/helper/productHelper';
+
 
 export default new Vuex.Store({
     state:{
@@ -45,6 +47,7 @@ export default new Vuex.Store({
         delivery_cost,
         campaign,
         voucher,
+        productHelper,
 
     }
 })

@@ -44,8 +44,6 @@ class VoucherController extends Controller
      */
     public function create()
     {
-
-
         return view('voucher.create');
     }
 
@@ -57,6 +55,7 @@ class VoucherController extends Controller
      */
     public function store(Request $request)
     {
+
         $validateArray = [
             'voucher_name'=>'required|string|max:190',
             'voucher_start'=>'required|date|after:yesterday',
@@ -91,8 +90,8 @@ class VoucherController extends Controller
 
                 $voucher = Voucher::create([
                     'voucher_name'=>$request->voucher_name,
-                    'voucher_start'=>Carbon::parse($request->voucher_start)->format('Y-m-d H:i:s'),
-                    'voucher_end'=>Carbon::parse($request->voucher_end)->format('Y-m-d H:i:s'),
+                    'voucher_start'=>Carbon::parse(substr($request->voucher_start,0,10).' '.substr($request->voucher_start, 11, 18))->format('Y-m-d H:i:s'),
+                    'voucher_end'=>Carbon::parse(substr($request->voucher_end,0,10).' '.substr($request->voucher_end, 11, 18))->format('Y-m-d H:i:s'),
                     'voucher_type'=>$request->voucher_type,
                     'voucher_code'=>$request->voucher_code,
                     'voucher_issued'=>$request->voucher_issued,
@@ -102,7 +101,7 @@ class VoucherController extends Controller
                     'min_order_value'=>$request->min_order_value,
                     'usage_limit'=>$request->usage_limit,
                     'apply_to'=>$request->apply_to,
-                    'collect_start'=>(!empty($request->collect_start))? Carbon::parse($request->collect_start)->format('Y-m-d H:i:s'):null,
+                    'collect_start'=>(!empty($request->collect_start))? Carbon::parse(substr($request->collect_start,0,10).' '.substr($request->collect_start, 11, 18))->format('Y-m-d H:i:s'):null,
                     'attachment_id'=>(!empty($request->attachment_id))? $request->attachment_id[0]:null,
                     'voucher_status'=>(!empty($request->voucher_status) && $request->voucher_status == 1) ? $request->voucher_status : 2,
                 ]);
@@ -207,7 +206,7 @@ class VoucherController extends Controller
         }else{
             return response()->json([
                 'status'=>'error',
-                'message'=>'Invalid Information.!'
+                'message'=>'Invalid Information.!       '
             ]);
         }
     }
