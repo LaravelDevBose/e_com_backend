@@ -106,7 +106,7 @@ class VoucherController extends Controller
                     return response()->json([
                         'status'=>'success',
                         'message'=>'Voucher Store Successfully',
-                        'url'=>route('admin.voucher'),
+                        'url'=>route('admin.voucher.index'),
                     ]);
                 }
 

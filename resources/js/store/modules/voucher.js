@@ -23,7 +23,7 @@ const actions = {
     },
     async storeVoucher({commit},formData){
         try {
-            return await axios.post('/admin/voucher/store',formData)
+            return await axios.post('/admin/voucher',formData)
                 .then(response=>{
                     commit('setResponse', response.data);
                     return response.data;

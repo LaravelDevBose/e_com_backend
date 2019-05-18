@@ -7353,12 +7353,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         usage_limit: '',
         apply_to: 1,
         attachment_id: '',
-        collect_start: ''
+        collect_start: '',
+        voucher_status: 0
       },
       multiple: false,
       folder: 'voucher',
       btnDisabled: false,
-      maxValue: true,
+      maxValue: false,
       addProductPanel: false
     };
   },
@@ -7369,11 +7370,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     saveVoucher: function saveVoucher() {
       // #TODO check Validation
       // change btnDisabled
-      this.btnDisabled = true;
-      this.resetData(); //submit the form
+      this.btnDisabled = true; //submit the form
 
-      this.storeVoucher(form).then(function (response) {
-        if (response.status === 'success') {// reset form data
+      this.storeVoucher(this.form).then(function (response) {
+        if (response.status === 'success') {
+          // reset form data
+          alert('Voucher Store Success');
+          window.location = response.url;
         }
       });
     },
@@ -7386,7 +7389,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   watch: {
     form: {
       handler: function handler(newValue, oldValue) {
-        if (oldValue !== newValue) {
+        if (oldValue === newValue) {
           this.btnDisabled = false;
         }
       },
@@ -7395,9 +7398,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     'form.discount_type': {
       handler: function handler(newValue) {
         if (newValue === 2) {
-          this.maxValue = false;
-        } else {
           this.maxValue = true;
+        } else {
+          this.maxValue = false;
         }
       },
       deep: true
@@ -56832,45 +56835,43 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-md-3", class: { hidden: _vm.maxValue } },
-                  [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Maximum Discount:")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.max_discount,
-                            expression: "form.max_discount"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          placeholder: "Maximum discount in (BDT)",
-                          required: ""
-                        },
-                        domProps: { value: _vm.form.max_discount },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                _vm.maxValue
+                  ? _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Maximum Discount:")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.max_discount,
+                              expression: "form.max_discount"
                             }
-                            _vm.$set(
-                              _vm.form,
-                              "max_discount",
-                              $event.target.value
-                            )
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Maximum discount in (BDT)",
+                            required: ""
+                          },
+                          domProps: { value: _vm.form.max_discount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "max_discount",
+                                $event.target.value
+                              )
+                            }
                           }
-                        }
-                      })
+                        })
+                      ])
                     ])
-                  ]
-                )
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
@@ -56950,7 +56951,7 @@ var render = function() {
                       _c("label", [_vm._v("Apply To:")]),
                       _vm._v(" "),
                       _c("vue-select2", {
-                        attrs: { options: _vm.applyTo, name: "apply" },
+                        attrs: { options: _vm.applyTo },
                         model: {
                           value: _vm.form.apply_to,
                           callback: function($$v) {
@@ -56991,7 +56992,77 @@ var render = function() {
             _c("div", { staticClass: "panel panel-default" }, [
               _c("div", { staticClass: "panel-body" }, [
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(6),
+                  _c("div", { staticClass: "col-md-2 col-md-offset-8" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "content-group-lg",
+                        staticStyle: { "margin-bottom": "0!important" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "checkbox checkbox-switchery" },
+                          [
+                            _c("label", [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.voucher_status,
+                                    expression: "form.voucher_status"
+                                  }
+                                ],
+                                staticClass: "switchery-primary",
+                                attrs: { type: "checkbox", checked: "checked" },
+                                domProps: {
+                                  checked: Array.isArray(
+                                    _vm.form.voucher_status
+                                  )
+                                    ? _vm._i(_vm.form.voucher_status, null) > -1
+                                    : _vm.form.voucher_status
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.form.voucher_status,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = null,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.form,
+                                            "voucher_status",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.form,
+                                            "voucher_status",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(_vm.form, "voucher_status", $$c)
+                                    }
+                                  }
+                                }
+                              }),
+                              _vm._v(
+                                "\n                                            Publish\n                                        "
+                              )
+                            ])
+                          ]
+                        )
+                      ]
+                    )
+                  ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-2" }, [
                     _c(
@@ -57073,33 +57144,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "panel-heading bg-teal-700" }, [
       _c("h5", { staticClass: "panel-title" }, [_vm._v("Voucher Setting")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 col-md-offset-8" }, [
-      _c(
-        "div",
-        {
-          staticClass: "content-group-lg",
-          staticStyle: { "margin-bottom": "0!important" }
-        },
-        [
-          _c("div", { staticClass: "checkbox checkbox-switchery" }, [
-            _c("label", [
-              _c("input", {
-                staticClass: "switchery-primary",
-                attrs: { type: "checkbox", checked: "checked" }
-              }),
-              _vm._v(
-                "\n                                            Publish\n                                        "
-              )
-            ])
-          ])
-        ]
-      )
     ])
   }
 ]
@@ -73302,7 +73346,7 @@ var actions = {
               commit = _ref2.commit;
               _context2.prev = 1;
               _context2.next = 4;
-              return axios.post('/admin/voucher/store', formData).then(function (response) {
+              return axios.post('/admin/voucher', formData).then(function (response) {
                 commit('setResponse', response.data);
                 return response.data;
               });
@@ -73381,8 +73425,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

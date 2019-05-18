@@ -122,7 +122,7 @@
                                     <input type="text" v-model="form.min_order_value" class="form-control" placeholder="Minimum order value to apply voucher (BDT)" required>
                                 </div>
                             </div>
-                            <div class="col-md-3" :class="{hidden:maxValue}">
+                            <div class="col-md-3" v-if="maxValue">
                                 <div class="form-group">
                                     <label>Maximum Discount:</label>
                                     <input type="text" v-model="form.max_discount" class="form-control" placeholder="Maximum discount in (BDT)" required>
@@ -145,7 +145,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Apply To:</label>
-                                    <vue-select2 :options="applyTo" v-model.number="form.apply_to" name="apply">
+                                    <vue-select2 :options="applyTo" v-model.number="form.apply_to" >
                                     </vue-select2>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                                     <div class="content-group-lg"  style="margin-bottom:0!important;">
                                         <div class="checkbox checkbox-switchery">
                                             <label>
-                                                <input type="checkbox" class="switchery-primary" checked="checked">
+                                                <input type="checkbox" v-model="form.voucher_status" class="switchery-primary" checked="checked">
                                                 Publish
                                             </label>
                                         </div>
@@ -220,12 +220,13 @@
                     usage_limit:'',
                     apply_to:1,
                     attachment_id:'',
-                    collect_start:''
+                    collect_start:'',
+                    voucher_status:0,
                 },
                 multiple:false,
                 folder:'voucher',
                 btnDisabled:false,
-                maxValue:true,
+                maxValue:false,
                 addProductPanel:false,
             }
         },
@@ -243,12 +244,13 @@
 
                 // change btnDisabled
                 this.btnDisabled = true;
-                this.resetData();
                 //submit the form
-                this.storeVoucher(form)
+                this.storeVoucher(this.form)
                     .then(response=>{
                         if(response.status === 'success'){
                             // reset form data
+                            alert('Voucher Store Success');
+                            window.location = response.url;
                         }
                     })
 
@@ -274,7 +276,7 @@
         watch:{
             form:{
                 handler(newValue, oldValue){
-                    if(oldValue !== newValue){
+                    if(oldValue === newValue){
                         this.btnDisabled = false;
                     }
                 },
@@ -283,9 +285,9 @@
             'form.discount_type':{
                 handler(newValue){
                     if(newValue === 2){
-                        this.maxValue = false;
+                        this.maxValue = true;
                     }else{
-                        this.maxValue= true;
+                        this.maxValue= false;
                     }
                 },
                 deep:true,
