@@ -59,6 +59,6 @@ class Voucher extends Model
     }
 
     public function attachment(){
-        return $this->hasOne(Attachment::class, 'attachment_id', 'attachment_id');
+        return $this->hasOne(Attachment::class, 'attachment_id', 'attachment_id')->whereNotNull('attachment_id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Resources\Admin\VoucherCollection;
 use App\Models\Voucher;
 use Carbon\Carbon;
 use Exception;
@@ -30,6 +31,10 @@ class VoucherController extends Controller
             'applyTo'=>$applyTo,
             'discountType'=>Voucher::DiscountType,
         ]);
+    }
+
+    public function voucherList(){
+        return new VoucherCollection(Voucher::notDelete()->with('attachment')->latest()->get());
     }
 
     /**
@@ -97,9 +102,9 @@ class VoucherController extends Controller
                     'min_order_value'=>$request->min_order_value,
                     'usage_limit'=>$request->usage_limit,
                     'apply_to'=>$request->apply_to,
-                    'collect_start'=>(!empty($request->collect_start))? Carbon::parse($request->voucher_start)->format('Y-m-d H:i:s'):null,
-                    'attachment_id'=>(!empty($request->attachmentIds))? $request->attachmentIds[0]:null,
-                    'voucher_status'=>(!empty($request->category_status) && $request->category_status == 1) ? $request->category_status : 2,
+                    'collect_start'=>(!empty($request->collect_start))? Carbon::parse($request->collect_start)->format('Y-m-d H:i:s'):null,
+                    'attachment_id'=>(!empty($request->attachment_id))? $request->attachment_id[0]:null,
+                    'voucher_status'=>(!empty($request->voucher_status) && $request->voucher_status == 1) ? $request->voucher_status : 2,
                 ]);
                 if($voucher){
                     DB::commit();
@@ -174,8 +179,36 @@ class VoucherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Voucher $voucher)
     {
-        //
+        if($voucher){
+            try{
+                DB::beginTransaction();
+                $voucher->update([
+                    'voucher_status'=>0,
+                ]);
+
+                if($voucher){
+                    DB::commit();
+                    return response()->json([
+                        'status'=>'success',
+                        'message'=>'Voucher Delete Successfully'
+                    ]);
+                }{
+                    throw new Exception('Invalid Information.!');
+                }
+            }catch(Exception $ex){
+                DB::rollBack();
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $ex->getMessage()
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status'=>'error',
+                'message'=>'Invalid Information.!'
+            ]);
+        }
     }
 }

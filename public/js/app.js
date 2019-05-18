@@ -7369,7 +7369,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getFormDate', 'storeVoucher']), {
     saveVoucher: function saveVoucher() {
       // #TODO check Validation
-      // change btnDisabled
+      this.form.attachment_id = this.attachment_ids; // change btnDisabled
+
       this.btnDisabled = true; //submit the form
 
       this.storeVoucher(this.form).then(function (response) {
@@ -7429,6 +7430,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -7479,13 +7485,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Voucher",
-  methods: {
+  created: function created() {
+    this.getVoucherList();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getVoucherList', 'voucherDelete']), {
     voucher_create_url: function voucher_create_url() {
       window.location = '/admin/voucher/create';
+    },
+    removeVoucher: function removeVoucher(voucherID) {
+      if (confirm('Are You Sure..??')) {
+        this.voucherDelete(voucherID).then(function (response) {
+          if (response.status === 'success') {
+            alert(response.message);
+          }
+        });
+      } else {
+        return false;
+      }
     }
-  }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['vouchers']))
 });
 
 /***/ }),
@@ -57171,13 +57204,9 @@ var render = function() {
   return _c("div", { staticClass: "content" }, [
     _c("div", { staticClass: "panel panel-flat" }, [
       _c("div", { staticClass: "panel-heading" }, [
-        _c("h5", { staticClass: "panel-title" }, [
-          _vm._v("Delivery Cost List")
-        ]),
+        _c("h5", { staticClass: "panel-title" }, [_vm._v("Voucher List")]),
         _vm._v(" "),
         _c("div", { staticClass: "heading-elements" }, [
-          _vm._m(0),
-          _vm._v(" "),
           _c(
             "button",
             {
@@ -57197,7 +57226,98 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(1)
+      _c("div", { staticClass: "table-responsive" }, [
+        _c(
+          "table",
+          { staticClass: "table table-bordered table-striped table-sm" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.vouchers, function(voucher, index) {
+                return _vm.vouchers
+                  ? _c("tr", { key: voucher.id }, [
+                      _c("td", [_vm._v(_vm._s(index))]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass: "text-center",
+                          staticStyle: { width: "70px" }
+                        },
+                        [
+                          voucher.voucher_image !== null
+                            ? _c("img", {
+                                attrs: {
+                                  src: voucher.voucher_image.image_path,
+                                  height: "60",
+                                  alt: ""
+                                }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(voucher.title))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(voucher.start_date))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(voucher.end_date))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(voucher.code))]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        _vm._v(_vm._s(voucher.discount_type))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        _vm._v(_vm._s(voucher.use_in))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-right" }, [
+                        _vm._v(_vm._s(voucher.discount_amount))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        voucher.status === 1
+                          ? _c("span", { staticClass: "badge badge-success" }, [
+                              _vm._v(_vm._s(voucher.voucher_status))
+                            ])
+                          : _c("span", { staticClass: "badge badge-warning" }, [
+                              _vm._v(_vm._s(voucher.voucher_status))
+                            ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text text-center" }, [
+                        _c("ul", { staticClass: "icons-list" }, [
+                          _vm._m(1, true),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "text-danger-600" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.removeVoucher(voucher.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-trash" })]
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  : _vm._e()
+              }),
+              0
+            )
+          ]
+        )
+      ])
     ])
   ])
 }
@@ -57206,64 +57326,40 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "icons-list" }, [
-      _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-      _vm._v(" "),
-      _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-      _vm._v(" "),
-      _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Banner")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Voucher Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Start Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("End Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Voucher Code")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Discount Type")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Apply In")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Discount Value")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "table-responsive" }, [
-      _c(
-        "table",
-        { staticClass: "table table-bordered table-striped table-sm" },
-        [
-          _c("thead", [
-            _c("tr", [
-              _c("th", [_vm._v("#")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Package Weight (KG)")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Package Length (CM)")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Package Width (CM)")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Package Height (CM)")]),
-              _vm._v(" "),
-              _c("th", { staticClass: "text-right" }, [_vm._v("Cost Price")]),
-              _vm._v(" "),
-              _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
-              _vm._v(" "),
-              _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tbody", [
-            _c("tr", [
-              _c("td", [_vm._v("1")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Eugene")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Kopyov")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("@Kopyov")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("@Kopyov")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-right" }, [_vm._v("@Kopyov")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("@Kopyov")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [_vm._v("@Kopyov")])
-            ])
-          ])
-        ]
-      )
+    return _c("li", { staticClass: "text-primary-600" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "icon-pencil7" })
+      ])
     ])
   }
 ]
@@ -73280,7 +73376,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var state = {
   applyTo: [],
   voucherTypes: [],
-  discountType: []
+  discountType: [],
+  voucherList: ''
 }; //declare Getters
 
 var getters = {
@@ -73292,11 +73389,14 @@ var getters = {
   },
   discountTypes: function discountTypes(state) {
     return state.discountType;
+  },
+  vouchers: function vouchers(state) {
+    return state.voucherList;
   }
 };
 var actions = {
-  getFormDate: function () {
-    var _getFormDate = _asyncToGenerator(
+  getVoucherList: function () {
+    var _getVoucherList = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
       var commit, response;
@@ -73305,30 +73405,61 @@ var actions = {
           switch (_context.prev = _context.next) {
             case 0:
               commit = _ref.commit;
-              _context.prev = 1;
-              _context.next = 4;
-              return axios.get('/admin/formData/voucher');
+              _context.next = 3;
+              return axios.get('/admin/voucher_list');
 
-            case 4:
+            case 3:
               response = _context.sent;
-              commit('setFormData', response.data);
-              _context.next = 11;
-              break;
+              commit('setVoucherList', response.data.data);
 
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](1);
-              commit('setResponse', _context.t0.data);
-
-            case 11:
+            case 5:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 8]]);
+      }, _callee);
     }));
 
-    function getFormDate(_x) {
+    function getVoucherList(_x) {
+      return _getVoucherList.apply(this, arguments);
+    }
+
+    return getVoucherList;
+  }(),
+  getFormDate: function () {
+    var _getFormDate = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios.get('/admin/formData/voucher');
+
+            case 4:
+              response = _context2.sent;
+              commit('setFormData', response.data);
+              _context2.next = 11;
+              break;
+
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](1);
+              commit('setResponse', _context2.t0.data);
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 8]]);
+    }));
+
+    function getFormDate(_x2) {
       return _getFormDate.apply(this, arguments);
     }
 
@@ -73337,41 +73468,87 @@ var actions = {
   storeVoucher: function () {
     var _storeVoucher = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, formData) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, formData) {
       var commit;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              commit = _ref2.commit;
-              _context2.prev = 1;
-              _context2.next = 4;
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
               return axios.post('/admin/voucher', formData).then(function (response) {
                 commit('setResponse', response.data);
                 return response.data;
               });
 
             case 4:
-              return _context2.abrupt("return", _context2.sent);
+              return _context3.abrupt("return", _context3.sent);
 
             case 7:
-              _context2.prev = 7;
-              _context2.t0 = _context2["catch"](1);
-              commit('setResponse', _context2.t0.data);
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](1);
+              commit('setResponse', _context3.t0.data);
 
             case 10:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2, null, [[1, 7]]);
+      }, _callee3, null, [[1, 7]]);
     }));
 
-    function storeVoucher(_x2, _x3) {
+    function storeVoucher(_x3, _x4) {
       return _storeVoucher.apply(this, arguments);
     }
 
     return storeVoucher;
+  }(),
+  voucherDelete: function () {
+    var _voucherDelete = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, voucherID) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              _context4.prev = 1;
+              _context4.next = 4;
+              return axios["delete"]("/admin/voucher/".concat(voucherID)).then(function (response) {
+                if (response.data.status === 'success') {
+                  commit('deleteVoucher', voucherID);
+                  commit('setResponse', response.data);
+                  return response.data;
+                } else {
+                  commit('setResponse', response.data);
+                  return response.data;
+                }
+              });
+
+            case 4:
+              _context4.next = 9;
+              break;
+
+            case 6:
+              _context4.prev = 6;
+              _context4.t0 = _context4["catch"](1);
+              commit('setResponse', _context4.t0.data);
+
+            case 9:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 6]]);
+    }));
+
+    function voucherDelete(_x5, _x6) {
+      return _voucherDelete.apply(this, arguments);
+    }
+
+    return voucherDelete;
   }()
 };
 var mutations = {
@@ -73396,6 +73573,14 @@ var mutations = {
         });
       });
     }, 800);
+  },
+  setVoucherList: function setVoucherList(state, response) {
+    state.voucherList = response;
+  },
+  deleteVoucher: function deleteVoucher(state, voucherID) {
+    state.voucherList = state.voucherList.filter(function (voucher) {
+      return voucher.id !== parseInt(voucherID);
+    });
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

@@ -9,8 +9,10 @@ return [
     */
 
     'active'=>1,
-    'delete'=>0,
+    'activeView'=>'Active',
     'inactive'=>2,
+    'inactiveView'=>'Inactive',
+    'delete'=>0,
     'user_default_status'=>3,
     'admin_default_status'=>1,
     'admin_default_role'=>2,

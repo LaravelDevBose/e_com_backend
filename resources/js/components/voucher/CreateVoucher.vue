@@ -241,7 +241,7 @@
 
             saveVoucher(){
                 // #TODO check Validation
-
+                this.form.attachment_id = this.attachment_ids;
                 // change btnDisabled
                 this.btnDisabled = true;
                 //submit the form
