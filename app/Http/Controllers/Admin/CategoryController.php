@@ -36,7 +36,14 @@ class CategoryController extends Controller
     }
 
     public function category_tree(){
-        $categories = Category::notDelete()->isParent()->with('children')->get();
+        $categories = Category::notDelete()->isParent()->with(['children'])->get();
+        return CategoryResource::collection($categories);
+    }
+
+    public function all_category_tree(){
+        $categories = Category::notDelete()->isParent()->with(['children'=>function($query){
+            return $query->with('children');
+        }])->get();
         return CategoryResource::collection($categories);
     }
 

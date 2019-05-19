@@ -13,18 +13,18 @@
             </div>
 
             <div class="panel-body">
-                <form action="" @submit.prevent="categoryStore">
+                <form action="" @submit.prevent="sizeGroupStore">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Categories:</label>
-                                <treeselect v-model="form.categoryIDs" :options="treeList" :normalizer="normalizer" />
+                                <treeselect v-model="form.categoryIDs" :multiple="true" :options="treeList" :normalizer="normalizer" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Category Name:</label>
-                                <input type="text" v-model="form.size_group_title" class="form-control" placeholder="Category Name " required>
+                                <label>Size Group Name:</label>
+                                <input type="text" v-model="form.size_group_title" class="form-control" placeholder="Size Group Name" required>
                             </div>
                         </div>
                         <div class="col-md-4 col-md-offset-2">
@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="text-right form-group">
-                                <button type="submit" class="btn btn-primary">Save Category <i class="icon-arrow-right14 position-right"></i></button>
+                                <button type="submit" class="btn btn-primary">Save Size Group <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -122,27 +122,80 @@
                     size_group_title:'',
                     categoryIDs:[],
                     size_group_status:0
-                }
+                },
+                btnDisabled:false,
+                normalizer(node) {
+                    return {
+                        id: node.id,
+                        label: node.label,
+                        children: node.children,
+                    }
+                },
             }
         },
         created() {
+            this.allTreeListCategories();
+            this.getAllSizeGroups();
 
         },
         methods:{
             ...mapActions([
-                'getCategoryList',
+                'getAllSizeGroups',
                 'storeSizeGroup',
                 'deleteSizeGroup',
-            ])
+                'allTreeListCategories',
+            ]),
+            sizeGroupStore(){
+                //#TODO form validation
+                this.storeSizeGroup(this.form)
+                    .then(response=>{
+                        if(response.status === "status"){
+                            alert(response.message);
+                            this.formReset();
+                        }else{
+                            alert(response.message);
+                        }
+                    })
+                    .catch(error=>{
+                        alert(error.message);
+                    })
+            },
+            formReset(){
+                this.form.size_group_title = '';
+                this.form.categoryIDs = [];
+                this.form.size_group_status = 0;
+            },
+            removeSizeGroup(groupId){
+                if(confirm('Are You Sure..?')){
+                    this.deleteSizeGroup(groupId)
+                        .then(response=>{
+                            if(response.status === "success"){
+                                alert(response.message);
+                            }else{
+                                alert(response.message);
+                            }
+                        })
+                        .catch(error=>{
+                            alert(error.message);
+                        })
+                }
+            }
         },
         computed:{
             ...mapGetters([
-               'categoryList',
+                'treeList',
                 'sizeGroups'
             ]),
         },
         watch:{
-
+            form:{
+                handler(newValue, oldValue){
+                    if(oldValue !== newValue){
+                        this.btnDisabled = false;
+                    }
+                },
+                deep:true,
+            }
         }
     }
 </script>

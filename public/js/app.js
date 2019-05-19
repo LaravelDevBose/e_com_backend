@@ -7063,12 +7063,199 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @riophae/vue-treeselect */ "./node_modules/@riophae/vue-treeselect/dist/vue-treeselect.js");
+/* harmony import */ var _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "SizeGroup"
+  name: "SizeGroup",
+  components: {
+    Treeselect: _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
+  data: function data() {
+    return {
+      form: {
+        size_group_title: '',
+        categoryIDs: [],
+        size_group_status: 0
+      },
+      btnDisabled: false,
+      normalizer: function normalizer(node) {
+        return {
+          id: node.id,
+          label: node.label,
+          children: node.children
+        };
+      }
+    };
+  },
+  created: function created() {
+    this.allTreeListCategories();
+    this.getAllSizeGroups();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getAllSizeGroups', 'storeSizeGroup', 'deleteSizeGroup', 'allTreeListCategories']), {
+    sizeGroupStore: function sizeGroupStore() {
+      var _this = this;
+
+      //#TODO form validation
+      this.storeSizeGroup(this.form).then(function (response) {
+        if (response.status === "status") {
+          alert(response.message);
+
+          _this.formReset();
+        } else {
+          alert(response.message);
+        }
+      })["catch"](function (error) {
+        alert(error.message);
+      });
+    },
+    formReset: function formReset() {
+      this.form.size_group_title = '';
+      this.form.categoryIDs = [];
+      this.form.size_group_status = 0;
+    },
+    removeSizeGroup: function removeSizeGroup(groupId) {
+      if (confirm('Are You Sure..?')) {
+        this.deleteSizeGroup(groupId).then(function (response) {
+          if (response.status === "success") {
+            alert(response.message);
+          } else {
+            alert(response.message);
+          }
+        })["catch"](function (error) {
+          alert(error.message);
+        });
+      }
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['treeList', 'sizeGroups'])),
+  watch: {
+    form: {
+      handler: function handler(newValue, oldValue) {
+        if (oldValue !== newValue) {
+          this.btnDisabled = false;
+        }
+      },
+      deep: true
+    }
+  }
 });
 
 /***/ }),
@@ -56516,9 +56703,248 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", { staticClass: "content" }, [
+    _c("div", { staticClass: "panel panel-info" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" }, [
+        _c(
+          "form",
+          {
+            attrs: { action: "" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.sizeGroupStore($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6" }, [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", [_vm._v("Categories:")]),
+                    _vm._v(" "),
+                    _c("treeselect", {
+                      attrs: {
+                        multiple: true,
+                        options: _vm.treeList,
+                        normalizer: _vm.normalizer
+                      },
+                      model: {
+                        value: _vm.form.categoryIDs,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "categoryIDs", $$v)
+                        },
+                        expression: "form.categoryIDs"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Size Group Name:")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.size_group_title,
+                        expression: "form.size_group_title"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Size Group Name",
+                      required: ""
+                    },
+                    domProps: { value: _vm.form.size_group_title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.form,
+                          "size_group_title",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4 col-md-offset-2" }, [
+                _c("div", { staticClass: "content-group-lg" }, [
+                  _c("div", { staticClass: "checkbox checkbox-switchery" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.size_group_status,
+                            expression: "form.size_group_status"
+                          }
+                        ],
+                        staticClass: "switchery-primary",
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: _vm.form.size_group_status,
+                          checked: Array.isArray(_vm.form.size_group_status)
+                            ? _vm._i(_vm.form.size_group_status, null) > -1
+                            : _vm.form.size_group_status
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.form.size_group_status,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.form,
+                                    "size_group_status",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.form,
+                                    "size_group_status",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.form, "size_group_status", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.form.size_group_status
+                        ? _c(
+                            "span",
+                            { staticClass: "text-success text-bold" },
+                            [_vm._v("Enable")]
+                          )
+                        : _c("span", { staticClass: "text-danger text-bold" }, [
+                            _vm._v("Disable")
+                          ])
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
+            ])
+          ]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(2)
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Product Size Group")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "heading-elements" }, [
+        _c("ul", { staticClass: "icons-list" }, [
+          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2" }, [
+      _c("div", { staticClass: "text-right form-group" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+          [
+            _vm._v("Save Size Group "),
+            _c("i", { staticClass: "icon-arrow-right14 position-right" })
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel panel-flat" }, [
+      _c("div", { staticClass: "panel-heading" }, [
+        _c("h5", { staticClass: "panel-title" }, [_vm._v("Category List")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "heading-elements" }, [
+          _c("ul", { staticClass: "icons-list" }, [
+            _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "table-responsive" }, [
+        _c(
+          "table",
+          { staticClass: "table table-bordered table-striped table-sm" },
+          [
+            _c("thead", [
+              _c("tr", [
+                _c("th", [_vm._v("#")]),
+                _vm._v(" "),
+                _c("th", { staticStyle: { padding: "5px" } }, [
+                  _vm._v("Banner Image")
+                ]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Category Name")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("2nd Parent")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("1rd Parent")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tbody")
+          ]
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -72883,8 +73309,8 @@ var actions = {
 
     return allCategory;
   }(),
-  getTreeListCategories: function () {
-    var _getTreeListCategories = _asyncToGenerator(
+  allTreeListCategories: function () {
+    var _allTreeListCategories = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
       var commit, response;
@@ -72895,7 +73321,7 @@ var actions = {
               commit = _ref2.commit;
               _context2.prev = 1;
               _context2.next = 4;
-              return axios.post('/admin/category/tree_list');
+              return axios.post('/admin/all_category/tree_list');
 
             case 4:
               response = _context2.sent;
@@ -72917,7 +73343,47 @@ var actions = {
       }, _callee2, null, [[1, 8]]);
     }));
 
-    function getTreeListCategories(_x2) {
+    function allTreeListCategories(_x2) {
+      return _allTreeListCategories.apply(this, arguments);
+    }
+
+    return allTreeListCategories;
+  }(),
+  getTreeListCategories: function () {
+    var _getTreeListCategories = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios.post('/admin/category/tree_list');
+
+            case 4:
+              response = _context3.sent;
+              commit('setTreeListCategory', response.data.data);
+              _context3.next = 12;
+              break;
+
+            case 8:
+              _context3.prev = 8;
+              _context3.t0 = _context3["catch"](1);
+              console.log(_context3.t0);
+              commit('setResponse', _context3.t0.data);
+
+            case 12:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 8]]);
+    }));
+
+    function getTreeListCategories(_x3) {
       return _getTreeListCategories.apply(this, arguments);
     }
 
@@ -72926,47 +73392,7 @@ var actions = {
   storeCategory: function () {
     var _storeCategory = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, data) {
-      var commit;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              commit = _ref3.commit;
-              _context3.prev = 1;
-              _context3.next = 4;
-              return axios.post('/admin/category/store', data).then(function (response) {
-                commit('categoryStore', response.data);
-                return response.data;
-              });
-
-            case 4:
-              return _context3.abrupt("return", _context3.sent);
-
-            case 7:
-              _context3.prev = 7;
-              _context3.t0 = _context3["catch"](1);
-              console.log(_context3.t0);
-              commit('setResponse', _context3.t0.data);
-
-            case 11:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, null, [[1, 7]]);
-    }));
-
-    function storeCategory(_x3, _x4) {
-      return _storeCategory.apply(this, arguments);
-    }
-
-    return storeCategory;
-  }(),
-  categoryDelete: function () {
-    var _categoryDelete = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, catId) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, data) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
@@ -72975,14 +73401,9 @@ var actions = {
               commit = _ref4.commit;
               _context4.prev = 1;
               _context4.next = 4;
-              return axios.post('/admin/category/delete', {
-                category_id: catId
-              }).then(function (response) {
-                commit('deleteCategory', catId);
+              return axios.post('/admin/category/store', data).then(function (response) {
+                commit('categoryStore', response.data);
                 return response.data;
-              })["catch"](function (errors) {
-                console.log(error);
-                commit('setResponse', errors.data);
               });
 
             case 4:
@@ -73002,7 +73423,52 @@ var actions = {
       }, _callee4, null, [[1, 7]]);
     }));
 
-    function categoryDelete(_x5, _x6) {
+    function storeCategory(_x4, _x5) {
+      return _storeCategory.apply(this, arguments);
+    }
+
+    return storeCategory;
+  }(),
+  categoryDelete: function () {
+    var _categoryDelete = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, catId) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit;
+              _context5.prev = 1;
+              _context5.next = 4;
+              return axios.post('/admin/category/delete', {
+                category_id: catId
+              }).then(function (response) {
+                commit('deleteCategory', catId);
+                return response.data;
+              })["catch"](function (errors) {
+                console.log(error);
+                commit('setResponse', errors.data);
+              });
+
+            case 4:
+              return _context5.abrupt("return", _context5.sent);
+
+            case 7:
+              _context5.prev = 7;
+              _context5.t0 = _context5["catch"](1);
+              console.log(_context5.t0);
+              commit('setResponse', _context5.t0.data);
+
+            case 11:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[1, 7]]);
+    }));
+
+    function categoryDelete(_x6, _x7) {
       return _categoryDelete.apply(this, arguments);
     }
 
@@ -74043,8 +74509,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

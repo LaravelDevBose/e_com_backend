@@ -10,6 +10,7 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
 
     Route::post('/category', 'CategoryController@index')->name('category');
     Route::post('/category/tree_list', 'CategoryController@category_tree')->name('category.tree_list');
+    Route::post('/all_category/tree_list', 'CategoryController@all_category_tree')->name('all_category.tree_list');
     Route::get('/category/create', 'CategoryController@create')->name('category.create');
     Route::post('/category/store', 'CategoryController@store')->name('category.store');
     Route::post('/category/delete', 'CategoryController@destroy')->name('category.delete');

@@ -23,6 +23,16 @@ const actions = {
         }
 
     },
+    async allTreeListCategories({commit}){
+        try{
+            const response = await axios.post('/admin/all_category/tree_list');
+            commit('setTreeListCategory', response.data.data);
+
+        }catch (error) {
+            console.log(error);
+            commit('setResponse', error.data);
+        }
+    },
     async getTreeListCategories({commit}){
 
         try{
