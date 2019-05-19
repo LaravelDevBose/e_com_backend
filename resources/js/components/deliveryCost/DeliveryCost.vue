@@ -15,10 +15,23 @@
             <div class="panel-body">
                 <form action="" @submit.prevent="deliveryCostStore">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Package Title:</label>
                                 <input type="text" v-model="form.cost_title" class="form-control" placeholder="Package Title " required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Delivery Area:</label>
+                                <vue-select2 :options="deliveryAreas" v-model.number="form.delivery_area" >
+                                </vue-select2>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Cost Price:</label>
+                                <input type="number" v-model="form.cost_price" step="0.01" class="form-control" placeholder="Cost in (tk)" required>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -46,18 +59,13 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Cost Price:</label>
-                                <input type="number" v-model="form.cost_price" step="0.01" class="form-control" placeholder="Cost" required>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
                             <div class="content-group-lg mt-2">
                                 <label>Publication Status:</label>
                                 <div class="checkbox checkbox-switchery">
                                     <label>
-                                        <input type="checkbox" v-model="form.cost_status" class="switchery-primary" checked="checked">
-                                        Publish
+                                        <input type="checkbox" v-model="form.cost_status" class="switchery-primary" :checked="form.cost_status">
+                                        <span class="text-success text-bold" v-if="form.cost_status">Enable</span>
+                                        <span class="text-danger text-bold" v-else>Disable</span>
                                     </label>
                                 </div>
                             </div>
@@ -87,25 +95,33 @@
                     <thead>
                     <tr>
                         <th>#</th>
+                        <th>Package Name</th>
+                        <th>Delivery Area</th>
                         <th>Package Weight (KG)</th>
-                        <th>Package Length (CM)</th>
-                        <th>Package Width (CM)</th>
-                        <th>Package Height (CM)</th>
+                        <th>Package Dimension (CM)</th>
                         <th class="text-right">Cost Price</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Eugene</td>
-                        <td>Kopyov</td>
-                        <td>@Kopyov</td>
-                        <td>@Kopyov</td>
-                        <td class="text-right">@Kopyov</td>
-                        <td class="text-center">@Kopyov</td>
-                        <td class="text-center">@Kopyov</td>
+                    <tr v-if="deliveryCosts" v-for="(cost,index) in deliveryCosts" :key="cost.id">
+                        <td>{{ index }}</td>
+                        <td>{{ cost.title }}</td>
+                        <td>{{ cost.area }}</td>
+                        <td>{{ cost.weight }}</td>
+                        <td>{{ cost.height }} X {{ cost.width }} X {{ cost.length }}</td>
+                        <td class="text-right">{{ cost.price }}</td>
+                        <td class="text text-center">
+                            <span class="badge badge-success" v-if="cost.status === 1">Enable</span>
+                            <span class="badge badge-warning" v-else>Disable</span>
+                        </td>
+                        <td class="text text-center">
+                            <ul class="icons-list">
+                                <li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
+                                <li class="text-danger-600"><a href="#" @click.prevent="removeDeliveryCost(cost.id)"><i class="icon-trash"></i></a></li>
+                            </ul>
+                        </td>
                     </tr>
 
                     </tbody>
@@ -117,8 +133,14 @@
 </template>
 
 <script>
+    import VueSelect2 from '../helper/Select2';
+    import {mapGetters, mapActions} from 'vuex';
+
     export default {
         name: "DeliveryCost",
+        components:{
+            'vue-select2':VueSelect2,
+        },
         data(){
             return {
                 btnDisabled:false,
@@ -130,12 +152,88 @@
                     package_height:'',
                     cost_price:'',
                     cost_status:0,
+                    delivery_area:1,
                 }
             }
+        },
+        created() {
+            this.getDeliveryCost();
+
+        },
+        computed:{
+            ...mapGetters([
+                'deliveryAreas',
+                'deliveryCosts',
+            ])
+        },
+        methods:{
+            ...mapActions([
+                'getDeliveryCost',
+                'storeDeliveryCost',
+                'deleteDeliveryCost',
+            ]),
+            deliveryCostStore(){
+                //#TODO Validation Check
+                this.btnDisabled = true;
+                this.storeDeliveryCost(this.form)
+                    .then(response=>{
+                        if(response.status === "success"){
+                            alert(response.message);
+                            this.formReset();
+                        }else{
+                            alert('Some Problem Found');
+                        }
+                    })
+
+            },
+            formReset(){
+                this.form.cost_title = '';
+                this.form.package_weight = '';
+                this.form.package_length = '';
+                this.form.package_width = '';
+                this.form.package_height = '';
+                this.form.cost_price = '';
+                this.form.cost_status = 0;
+                this.form.delivery_area = 1;
+
+            },
+            removeDeliveryCost(costId){
+                if(confirm('Are You Sure..??')){
+                    this.deleteDeliveryCost(costId)
+                        .then(response=>{
+                            if(response.status === "success"){
+                                alert(response.message);
+                            }else{
+                                alert(response.message);
+                            }
+                        }).catch(error=>{
+                            alert(error.message);
+                    })
+                }
+            }
+
+        },
+        watch:{
+            form:{
+                handler(newValue, oldValue){
+                    if(oldValue === newValue){
+                        this.btnDisabled = false;
+                    }
+                },
+                deep:true,
+            },
         }
     }
 </script>
 
 <style scoped>
-
+    .sticky-submit-btn{
+        position: -webkit-sticky;
+        position: sticky;
+        bottom: 50px;
+    }
+    .input-group-addon{
+        border-color: #dddddd;
+        padding:10px;
+    }
 </style>

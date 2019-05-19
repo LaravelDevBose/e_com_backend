@@ -43,6 +43,7 @@ class DeliveryCostController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'cost_title'=>'required|string|max:190',
+            'delivery_area'=>'required',
             'package_weight'=>'required',
             'package_length'=>'required',
             'package_width'=>'required',
@@ -57,6 +58,7 @@ class DeliveryCostController extends Controller
 
                 $cost = DeliveryCost::create([
                     'cost_title'=>$request->cost_title,
+                    'delivery_area'=>$request->delivery_area,
                     'package_weight'=>$request->package_weight,
                     'package_length'=>$request->package_length,
                     'package_width'=>$request->package_width,

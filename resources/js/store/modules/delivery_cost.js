@@ -1,10 +1,15 @@
 //declare State
 const state = {
+    deliveryArea:
+        [   {id:1, text:'Inside Of Dhaka'},
+            {id:2, text:'Outside Of Dhaka'},
+        ],
     allCosts:'',
 };
 
 //declare Getters
 const getters = {
+    deliveryAreas:(state)=>state.deliveryArea,
     deliveryCosts:(state)=>state.allCosts,
 };
 
@@ -38,8 +43,10 @@ const actions = {
     },
     async deleteDeliveryCost({commit}, costID){
         try {
-            return await axios.delete(`delivery-cost/delete/${costID}`)
+            return await axios.delete(`/admin/delivery-cost/delete/${costID}`)
                 .then(response=>{
+                    console.log(response);
+
                     commit('removeDeliveryCost', costID);
                     commit('setResponse',response.data);
                     return response.data;

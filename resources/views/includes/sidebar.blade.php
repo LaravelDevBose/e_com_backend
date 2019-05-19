@@ -44,7 +44,13 @@
                     <li ><a href="{{ route('admin.tag.create') }}"><i class="icon-price-tag2"></i> <span>Tag</span></a></li>
                     <li ><a href="{{ route('admin.size') }}"><i class="icon-rulers"></i> <span>Size</span></a></li>
                     <li ><a href="{{ route('admin.delivery_cost.create') }}"><i class="icon-truck"></i> <span>Delivery Cost</span></a></li>
-                    <li ><a href="{{ route('admin.campaign') }}"><i class="icon-megaphone"></i> <span>Delivery Cost</span></a></li>
+                    <li>
+                        <a href="#"><i class="icon-megaphone"></i> <span>Campaign</span></a>
+                        <ul>
+                            <li><a href="{{ route('admin.campaign.create') }}"><i class="icon-plus2"></i> Create Campaign</a></li>
+                            <li><a href="{{ route('admin.campaign.index') }}"><i class="icon-list-numbered"></i> Campaign List</a></li>
+                        </ul>
+                    </li>
                     <li>
                         <a href="#"><i class="icon-ticket"></i> <span>Voucher</span></a>
                         <ul>

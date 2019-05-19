@@ -32,7 +32,7 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::delete('/delivery-cost/delete/{deliveryCost}', 'DeliveryCostController@destroy')->name('delivery_cost.delete');
 
 
-    Route::get('/campaign', 'CampaignController@index')->name('campaign');
+    Route::resource('/campaign', 'CampaignController');
 
     Route::resource('voucher', 'VoucherController');
     Route::get('formData/voucher/', 'VoucherController@formData')->name('voucher.formData');

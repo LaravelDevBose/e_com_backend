@@ -113,19 +113,19 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Discount Value(off):</label>
-                                    <input type="text" v-model="form.discount_value" class="form-control" placeholder="Discount Value" required>
+                                    <input type="number" v-model="form.discount_value" class="form-control" placeholder="Discount Value" required>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Min Order Value:</label>
-                                    <input type="text" v-model="form.min_order_value" class="form-control" placeholder="Minimum order value to apply voucher (BDT)" required>
+                                    <input type="number" v-model="form.min_order_value" class="form-control" placeholder="Minimum order value to apply voucher (BDT)" required>
                                 </div>
                             </div>
                             <div class="col-md-3" v-if="maxValue">
                                 <div class="form-group">
                                     <label>Maximum Discount:</label>
-                                    <input type="text" v-model="form.max_discount" class="form-control" placeholder="Maximum discount in (BDT)" required>
+                                    <input type="number" v-model="form.max_discount" class="form-control" placeholder="Maximum discount in (BDT)" required>
                                 </div>
                             </div>
                         </div>
@@ -133,13 +133,13 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Total Voucher to be issued:</label>
-                                    <input type="text" v-model="form.voucher_issued" class="form-control" placeholder="Total voucher to be issued" required>
+                                    <input type="number" v-model="form.voucher_issued" class="form-control" placeholder="Total voucher to be issued" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>User Limit per Customer:</label>
-                                    <input type="text" v-model="form.usage_limit" class="form-control" placeholder="User Limit per Customer " required>
+                                    <input type="number" v-model="form.usage_limit" class="form-control" placeholder="User Limit per Customer " required>
                                 </div>
                             </div>
                             <div class="col-md-4">

@@ -17,8 +17,9 @@ class DeliveryCost extends JsonResource
         return [
             'id'=>$this->cost_id,
             'title'=>$this->cost_title,
-            'weight'=>$this->packeage_weight,
-            'length'=>$this->package_lenght,
+            'area'=>\App\Models\DeliveryCost::DeliveryArea[$this->delivery_area],
+            'weight'=>$this->package_weight,
+            'length'=>$this->package_length,
             'width'=>$this->package_width,
             'height'=>$this->package_height,
             'price'=>$this->cost_price,

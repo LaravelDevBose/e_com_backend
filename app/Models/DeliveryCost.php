@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class DeliveryCost extends Model
 {
+    const DeliveryArea =[
+        1=>'Inside Of Dhaka',
+        2=>'Outside Of Dhaka'
+    ];
+
+
     protected $table = 'delivery_costs';
 
     protected $primaryKey = 'cost_id';
@@ -18,13 +24,14 @@ class DeliveryCost extends Model
         'package_height',
         'cost_price',
         'cost_status',
+        'delivery_area',
     ];
 
     public function scopeIsActive($query){
-        return $query->where('cost_status', 1);
+        return $query->where('cost_status', config('app.active'));
     }
 
     public function scopeNotDelete($query){
-        return $query->where('cost_status', '!=', 0);
+        return $query->where('cost_status', '!=', config('app.delete'));
     }
 }
