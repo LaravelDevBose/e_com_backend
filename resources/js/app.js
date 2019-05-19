@@ -22,12 +22,12 @@ import Category from './components/category/Category';
 import Color from './components/color/Color';
 import Tag from './components/tag/Tag';
 import Size from './components/size/Size';
+import SizeGroup from './components/size/SizeGroup';
 import DeliveryCost from './components/deliveryCost/DeliveryCost';
 import Campaign from './components/campaign/Campaign';
 import Voucher from  './components/voucher/Voucher';
 import CreateVoucher from './components/voucher/CreateVoucher';
 import Attachment from './components/attachment/Attachment';
-
 
 const app = new Vue({
     el: '#app',
@@ -39,6 +39,7 @@ const app = new Vue({
         Color,
         'tag':Tag,
         'size':Size,
+        'size-group':SizeGroup,
         'delivery-cost':DeliveryCost,
         'campaign':Campaign,
         'voucher':Voucher,

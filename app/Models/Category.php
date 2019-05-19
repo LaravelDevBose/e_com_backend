@@ -49,4 +49,8 @@ class Category extends Model
     public function attachment(){
         return $this->hasOne(Attachment::class,'attachment_id', 'attachment_id')->where('folder', 'category');
     }
+
+    public function sizeGroup(){
+        return $this->hasMany(SizeGroupCategory::class, 'category_id', 'category_id');
+    }
 }
