@@ -141,7 +141,7 @@
                 //#TODO form validation
                 this.storeSizeGroup(this.form)
                     .then(response=>{
-                        if(response.status === "status"){
+                        if(response.status === "success"){
                             alert(response.message);
                             this.formReset();
                         }else{
@@ -161,13 +161,17 @@
                 if(confirm('Are You Sure..?')){
                     this.deleteSizeGroup(groupId)
                         .then(response=>{
+
                             if(response.status === "success"){
+
                                 alert(response.message);
                             }else{
+
                                 alert(response.message);
                             }
                         })
                         .catch(error=>{
+
                             alert(error.message);
                         })
                 }

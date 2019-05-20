@@ -22,7 +22,7 @@ class SizeGroupController extends Controller
      */
     public function index()
     {
-        $sizeGroups= SizeGroup::with(['categories'=>function($query){ return $query->with(['category']); }])->latest()->get();
+        $sizeGroups= SizeGroup::notDelete()->with(['categories'=>function($query){ return $query->with(['category']); }])->latest()->get();
         return new SizeGroupCollection($sizeGroups);
     }
 
@@ -145,8 +145,39 @@ class SizeGroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(SizeGroup $sizeGroup)
     {
-        //
+        if($sizeGroup){
+            try{
+                DB::beginTransaction();
+                $sizeGroup->update([
+                    'size_group_status'=>0,
+                ]);
+
+                if($sizeGroup){
+                    $sizeGroupCatIDs = SizeGroupCategory::where('size_group_id',$sizeGroup->size_group_id)->pluck('id');
+                    SizeGroupCategory::where('id', $sizeGroupCatIDs)->update(['sgc_status'=>0 ]);
+
+                    DB::commit();
+                    return response()->json([
+                        'status'=>'success',
+                        'message'=>'Size Group Delete Successfully'
+                    ]);
+                }{
+                    throw new Exception('Invalid Information.!');
+                }
+            }catch(Exception $ex){
+                DB::rollBack();
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $ex->getMessage()
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status'=>'error',
+                'message'=>'Invalid Information.!'
+            ]);
+        }
     }
 }

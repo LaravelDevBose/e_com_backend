@@ -7207,7 +7207,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       //#TODO form validation
       this.storeSizeGroup(this.form).then(function (response) {
-        if (response.status === "status") {
+        if (response.status === "success") {
           alert(response.message);
 
           _this.formReset();
@@ -74241,20 +74241,19 @@ var actions = {
               });
 
             case 4:
-              _context3.next = 9;
-              break;
+              return _context3.abrupt("return", _context3.sent);
 
-            case 6:
-              _context3.prev = 6;
+            case 7:
+              _context3.prev = 7;
               _context3.t0 = _context3["catch"](1);
               commit('setResponse', _context3.t0.data);
 
-            case 9:
+            case 10:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 6]]);
+      }, _callee3, null, [[1, 7]]);
     }));
 
     function storeSizeGroup(_x2, _x3) {
@@ -74296,7 +74295,7 @@ var actions = {
               commit = _ref3.commit;
               _context5.prev = 1;
               _context5.next = 4;
-              return axios["delete"]("/admin/size_group/delete/".concat(SGroupId)).then(function (response) {
+              return axios["delete"]("/admin/size_group/".concat(SGroupId)).then(function (response) {
                 if (response.data.status === "success") {
                   commit('removeSizeGroup', SGroupId);
                   commit('setResponse', response.data);
@@ -74308,20 +74307,19 @@ var actions = {
               });
 
             case 4:
-              _context5.next = 9;
-              break;
+              return _context5.abrupt("return", _context5.sent);
 
-            case 6:
-              _context5.prev = 6;
+            case 7:
+              _context5.prev = 7;
               _context5.t0 = _context5["catch"](1);
               commit('setResponse', _context5.t0.data);
 
-            case 9:
+            case 10:
             case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, null, [[1, 6]]);
+      }, _callee5, null, [[1, 7]]);
     }));
 
     function deleteSizeGroup(_x4, _x5) {
@@ -74361,7 +74359,7 @@ var mutations = {
   },
   removeSizeGroup: function removeSizeGroup(state, SGroupId) {
     return state.allSizeGroups = state.allSizeGroups.filter(function (sizeGroup) {
-      return sizeGroup.id === parseInt(SGroupId);
+      return sizeGroup.id !== parseInt(SGroupId);
     });
   }
 };
@@ -74802,8 +74800,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

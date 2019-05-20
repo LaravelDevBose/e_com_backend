@@ -28,7 +28,7 @@ const actions = {
     },
     async storeSizeGroup({commit},formData){
         try {
-            await axios.post('/admin/size_group', formData)
+            return await axios.post('/admin/size_group', formData)
                 .then(response=>{
                     if(response.data.res.status === "success"){
                         commit('addSizeGroup', response.data.sizeGroup);
@@ -36,7 +36,7 @@ const actions = {
                         return response.data.res;
                     }else{
                         commit('setResponse', response.data);
-                        return  response.data;
+                        return response.data;
                     }
                 })
                 .catch(error=>{
@@ -51,7 +51,7 @@ const actions = {
     },
     async deleteSizeGroup({commit},SGroupId){
         try{
-            await axios.delete(`/admin/size_group/delete/${SGroupId}`)
+            return await axios.delete(`/admin/size_group/${SGroupId}`)
                 .then(response=>{
                     if(response.data.status === "success"){
                         commit('removeSizeGroup', SGroupId);
@@ -74,7 +74,7 @@ const actions = {
 const mutations = {
     setSizeGroups:(state,response)=>state.allSizeGroups = response,
     addSizeGroup:(state, response)=> state.allSizeGroups.unshift(response),
-    removeSizeGroup:(state, SGroupId)=> state.allSizeGroups = state.allSizeGroups.filter(sizeGroup => sizeGroup.id === parseInt(SGroupId))
+    removeSizeGroup:(state, SGroupId)=> state.allSizeGroups = state.allSizeGroups.filter(sizeGroup => sizeGroup.id !== parseInt(SGroupId))
 };
 
 export default {
