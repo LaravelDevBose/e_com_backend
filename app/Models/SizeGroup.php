@@ -28,7 +28,7 @@ class SizeGroup extends Model
         return $query->where('size_group_status','!=', config('app.delete'));
     }
 
-    public function category(){
+    public function categories(){
         return $this->hasMany(SizeGroupCategory::class, 'size_group_id', 'size_group_id');
     }
 }

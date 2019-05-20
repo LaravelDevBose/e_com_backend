@@ -4,7 +4,7 @@ namespace App\Http\Resources\Admin;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class SizeGroupCollection extends ResourceCollection
+class SizeGroupCategoryCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

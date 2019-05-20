@@ -7173,14 +7173,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -56855,7 +56847,81 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(2)
+    _c("div", { staticClass: "panel panel-flat" }, [
+      _vm._m(2),
+      _vm._v(" "),
+      _c("div", { staticClass: "table-responsive" }, [
+        _c(
+          "table",
+          { staticClass: "table table-bordered table-striped table-sm" },
+          [
+            _vm._m(3),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.sizeGroups, function(sizeGroup, index) {
+                return _vm.sizeGroups
+                  ? _c("tr", { key: sizeGroup.id }, [
+                      _c("td", [_vm._v(_vm._s(index))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("span", { staticClass: "text text-bold" }, [
+                          _vm._v(" " + _vm._s(sizeGroup.name))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        _vm._l(sizeGroup.categories, function(SG_cat) {
+                          return _c(
+                            "span",
+                            { staticClass: "badge badge-info" },
+                            [_vm._v(_vm._s(SG_cat.category.name))]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text text-center" }, [
+                        sizeGroup.status === 1
+                          ? _c("span", { staticClass: "badge badge-success" }, [
+                              _vm._v("Active")
+                            ])
+                          : _c("span", { staticClass: "badge badge-warning" }, [
+                              _vm._v("De-active")
+                            ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text text-center" }, [
+                        _c("ul", { staticClass: "icons-list" }, [
+                          _vm._m(4, true),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "text-danger-600" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.removeSizeGroup(sizeGroup.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-trash" })]
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  : _vm._e()
+              }),
+              0
+            )
+          ]
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -56898,49 +56964,47 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel panel-flat" }, [
-      _c("div", { staticClass: "panel-heading" }, [
-        _c("h5", { staticClass: "panel-title" }, [_vm._v("Category List")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "heading-elements" }, [
-          _c("ul", { staticClass: "icons-list" }, [
-            _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-          ])
-        ])
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [
+        _vm._v("Product Size Group List")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "table-responsive" }, [
-        _c(
-          "table",
-          { staticClass: "table table-bordered table-striped table-sm" },
-          [
-            _c("thead", [
-              _c("tr", [
-                _c("th", [_vm._v("#")]),
-                _vm._v(" "),
-                _c("th", { staticStyle: { padding: "5px" } }, [
-                  _vm._v("Banner Image")
-                ]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Category Name")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("2nd Parent")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("1rd Parent")]),
-                _vm._v(" "),
-                _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
-                _vm._v(" "),
-                _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tbody")
-          ]
-        )
+      _c("div", { staticClass: "heading-elements" }, [
+        _c("ul", { staticClass: "icons-list" }, [
+          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { staticStyle: { padding: "5px" } }, [_vm._v("Group Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category Name")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "text-primary-600" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "icon-pencil7" })
       ])
     ])
   }
@@ -74066,12 +74130,241 @@ var mutations = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//declare State
-var state = {}; //declare Getters
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
-var getters = {};
-var actions = {};
-var mutations = {};
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//declare State
+var state = {
+  allSizeGroups: '',
+  allSizes: ''
+}; //declare Getters
+
+var getters = {
+  sizeGroups: function sizeGroups(state) {
+    return state.allSizeGroups;
+  },
+  productSizes: function productSizes(state) {
+    return state.allSizes;
+  }
+};
+var actions = {
+  getAllSizeGroups: function () {
+    var _getAllSizeGroups = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.prev = 1;
+              _context.next = 4;
+              return axios.get('/admin/size_group').then(function (response) {
+                commit('setSizeGroups', response.data.data);
+              })["catch"](function (error) {
+                commit('setResponse', error.data);
+              });
+
+            case 4:
+              _context.next = 9;
+              break;
+
+            case 6:
+              _context.prev = 6;
+              _context.t0 = _context["catch"](1);
+              commit('setResponse', _context.t0.data);
+
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 6]]);
+    }));
+
+    function getAllSizeGroups(_x) {
+      return _getAllSizeGroups.apply(this, arguments);
+    }
+
+    return getAllSizeGroups;
+  }(),
+  getAllSizes: function () {
+    var _getAllSizes = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    function getAllSizes() {
+      return _getAllSizes.apply(this, arguments);
+    }
+
+    return getAllSizes;
+  }(),
+  storeSizeGroup: function () {
+    var _storeSizeGroup = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref2, formData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios.post('/admin/size_group', formData).then(function (response) {
+                if (response.data.res.status === "success") {
+                  commit('addSizeGroup', response.data.sizeGroup);
+                  commit('setResponse', response.data.res);
+                  return response.data.res;
+                } else {
+                  commit('setResponse', response.data);
+                  return response.data;
+                }
+              })["catch"](function (error) {
+                commit('setResponse', error.data);
+              });
+
+            case 4:
+              _context3.next = 9;
+              break;
+
+            case 6:
+              _context3.prev = 6;
+              _context3.t0 = _context3["catch"](1);
+              commit('setResponse', _context3.t0.data);
+
+            case 9:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 6]]);
+    }));
+
+    function storeSizeGroup(_x2, _x3) {
+      return _storeSizeGroup.apply(this, arguments);
+    }
+
+    return storeSizeGroup;
+  }(),
+  storeProductSize: function () {
+    var _storeProductSize = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    function storeProductSize() {
+      return _storeProductSize.apply(this, arguments);
+    }
+
+    return storeProductSize;
+  }(),
+  deleteSizeGroup: function () {
+    var _deleteSizeGroup = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref3, SGroupId) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context5.prev = 1;
+              _context5.next = 4;
+              return axios["delete"]("/admin/size_group/delete/".concat(SGroupId)).then(function (response) {
+                if (response.data.status === "success") {
+                  commit('removeSizeGroup', SGroupId);
+                  commit('setResponse', response.data);
+                  return response.data;
+                } else {
+                  commit('setResponse', response.data);
+                  return response.data;
+                }
+              });
+
+            case 4:
+              _context5.next = 9;
+              break;
+
+            case 6:
+              _context5.prev = 6;
+              _context5.t0 = _context5["catch"](1);
+              commit('setResponse', _context5.t0.data);
+
+            case 9:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[1, 6]]);
+    }));
+
+    function deleteSizeGroup(_x4, _x5) {
+      return _deleteSizeGroup.apply(this, arguments);
+    }
+
+    return deleteSizeGroup;
+  }(),
+  deleteSize: function () {
+    var _deleteSize = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+
+    function deleteSize() {
+      return _deleteSize.apply(this, arguments);
+    }
+
+    return deleteSize;
+  }()
+};
+var mutations = {
+  setSizeGroups: function setSizeGroups(state, response) {
+    return state.allSizeGroups = response;
+  },
+  addSizeGroup: function addSizeGroup(state, response) {
+    return state.allSizeGroups.unshift(response);
+  },
+  removeSizeGroup: function removeSizeGroup(state, SGroupId) {
+    return state.allSizeGroups = state.allSizeGroups.filter(function (sizeGroup) {
+      return sizeGroup.id === parseInt(SGroupId);
+    });
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
   getters: getters,
@@ -74509,8 +74802,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

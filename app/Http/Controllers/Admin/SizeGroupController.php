@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Resources\Admin\SizeGroupCollection;
+use Exception;
 use App\Models\SizeGroup;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\SizeGroupCategory;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\Admin\SizeGroup as SizeGroupResource;
+use App\Http\Resources\Admin\SizeGroupCollection;
 
 class SizeGroupController extends Controller
 {
@@ -16,7 +22,8 @@ class SizeGroupController extends Controller
      */
     public function index()
     {
-        return new SizeGroupCollection(SizeGroup::notDelete()->latest()->get());
+        $sizeGroups= SizeGroup::with(['categories'=>function($query){ return $query->with(['category']); }])->latest()->get();
+        return new SizeGroupCollection($sizeGroups);
     }
 
     /**
@@ -37,7 +44,65 @@ class SizeGroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'size_group_title'=>'required',
+            'size_group_status'=>'required',
+            'categoryIDs'=>'required|array'
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+
+                $sizeGroup = SizeGroup::create([
+                    'size_group_title'=>$request->size_group_title,
+                    'size_group_slug'=>Str::slug($request->size_group_title),
+                    'size_group_status'=>(!empty($request->size_group_status) && $request->size_group_status == 1) ? $request->size_group_status : 2,
+                ]);
+                if($sizeGroup){
+
+                    if($request->categoryIDs){
+                        foreach ($request->categoryIDs as $key=> $categoryId){
+                            SizeGroupCategory::create([
+                                'size_group_id'=>$sizeGroup->size_group_id,
+                                'category_id'=>$categoryId,
+                                'sgc_status'=> config('app.active')
+                            ]);
+                        }
+                    }
+                    DB::commit();
+                    $SGroup = SizeGroup::with(['categories'=>function($query){ return $query->with('category'); }])->find($sizeGroup->size_group_id);
+                    return response()->json([
+                        'sizeGroup'=>new SizeGroupResource($SGroup),
+                        'res'=>[
+                            'status'=>'success',
+                            'message'=>'Size Group Store Successfully',
+                        ]
+                    ]);
+                }
+
+            }catch (Exception $ex){
+                DB::rollBack();
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $ex->getMessage()
+                ]);
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            $message = null;
+            foreach ($errors as $error){
+                if(!empty($error)){
+                    foreach ($error as $errorItem){
+                        $message .=  $errorItem .' ';
+                    }
+                }
+            }
+            return response()->json([
+                'status' => 'validation',
+                'message' => ($message != null) ? $message :'Invalid File!'
+            ]);
+        }
     }
 
     /**

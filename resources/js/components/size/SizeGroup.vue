@@ -50,7 +50,7 @@
         <!-- Basic table -->
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title">Category List</h5>
+                <h5 class="panel-title">Product Size Group List</h5>
                 <div class="heading-elements">
                     <ul class="icons-list">
                         <li><a data-action="collapse"></a></li>
@@ -65,41 +65,33 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th style="padding:5px;">Banner Image</th>
+                        <th style="padding:5px;">Group Name</th>
                         <th>Category Name</th>
-                        <th>2nd Parent</th>
-                        <th>1rd Parent</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-<!--                    <tr v-if="categories" v-for="(category , index) in categories" :key="category.id">-->
-<!--                        <td>{{ index }}</td>-->
-<!--                        <td style="padding:5px; width:120px;">-->
-<!--                            <img v-if="category.attachment" :src="category.attachment.image_path" :alt="category.label" class="img-preview img-responsive" style="width:100px; height:35px;" >-->
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            <span class="text text-bold"> {{ category.name }}</span>-->
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            <span class="text text-center" v-if="category.parent !== null">{{ category.parent.name }}</span>-->
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            <span class="text text-center" v-if="category.parent !== null && category.parent.parent !== null">{{ category.parent.parent.name }}</span>-->
+                    <tr v-if="sizeGroups" v-for="(sizeGroup , index) in sizeGroups" :key="sizeGroup.id">
+                        <td>{{ index }}</td>
 
-<!--                        </td>-->
-<!--                        <td class="text text-center">-->
-<!--                            <span class="badge badge-success" v-if="category.status === 1">Active</span>-->
-<!--                            <span class="badge badge-warning" v-else>De-active</span>-->
-<!--                        </td>-->
-<!--                        <td class="text text-center">-->
-<!--                            <ul class="icons-list">-->
-<!--                                <li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>-->
-<!--                                <li class="text-danger-600"><a href="#" @click.prevent="deleteCategory(category.id)"><i class="icon-trash"></i></a></li>-->
-<!--                            </ul>-->
-<!--                        </td>-->
-<!--                    </tr>-->
+                        <td>
+                            <span class="text text-bold"> {{ sizeGroup.name }}</span>
+                        </td>
+                        <td>
+                            <span class="badge badge-info" v-for="SG_cat in sizeGroup.categories">{{ SG_cat.category.name }}</span>
+                        </td>
+                        <td class="text text-center">
+                            <span class="badge badge-success" v-if="sizeGroup.status === 1">Active</span>
+                            <span class="badge badge-warning" v-else>De-active</span>
+                        </td>
+                        <td class="text text-center">
+                            <ul class="icons-list">
+                                <li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
+                                <li class="text-danger-600"><a href="#" @click.prevent="removeSizeGroup(sizeGroup.id)"><i class="icon-trash"></i></a></li>
+                            </ul>
+                        </td>
+                    </tr>
 
                     </tbody>
                 </table>
