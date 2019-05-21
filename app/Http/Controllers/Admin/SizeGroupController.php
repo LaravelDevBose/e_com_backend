@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Size;
 use Exception;
 use App\Models\SizeGroup;
 use Illuminate\Support\Str;
@@ -22,7 +23,11 @@ class SizeGroupController extends Controller
      */
     public function index()
     {
-        $sizeGroups= SizeGroup::notDelete()->with(['categories'=>function($query){ return $query->with(['category']); }])->latest()->get();
+        $sizeGroups= SizeGroup::notDelete()->with(
+            [
+                'categories'=>function($query){ return $query->with(['category']); },
+                'sizes'=>function($query){ return $query->isActive();},
+            ])->latest()->get();
         return new SizeGroupCollection($sizeGroups);
     }
 
@@ -47,7 +52,8 @@ class SizeGroupController extends Controller
         $validator = Validator::make($request->all(),[
             'size_group_title'=>'required',
             'size_group_status'=>'required',
-            'categoryIDs'=>'required|array'
+            'categoryIDs'=>'required|array',
+            'sizeNames'=>'required|array',
         ]);
 
         if($validator->passes()){
@@ -70,8 +76,26 @@ class SizeGroupController extends Controller
                             ]);
                         }
                     }
+
+//                    return $request->sizeNames;
+                    if($request->sizeNames){
+                        $sizeNames = $request->sizeNames;
+
+                        for ($i=1; $i< count($sizeNames); $i++){
+                            Size::create([
+                                'size_group_id'=>$sizeGroup->size_group_id,
+                                'size_name'=>$sizeNames[$i],
+                                'size_status'=> config('app.active')
+                            ]);
+                        }
+                    }
                     DB::commit();
-                    $SGroup = SizeGroup::with(['categories'=>function($query){ return $query->with('category'); }])->find($sizeGroup->size_group_id);
+                    $SGroup = SizeGroup::with(
+                        [
+                            'categories'=>function($query){ return $query->with('category'); },
+                            'sizes'=>function($query){ return $query->isActive(); }
+                        ])->find($sizeGroup->size_group_id);
+
                     return response()->json([
                         'sizeGroup'=>new SizeGroupResource($SGroup),
                         'res'=>[
@@ -157,6 +181,9 @@ class SizeGroupController extends Controller
                 if($sizeGroup){
                     $sizeGroupCatIDs = SizeGroupCategory::where('size_group_id',$sizeGroup->size_group_id)->pluck('id');
                     SizeGroupCategory::where('id', $sizeGroupCatIDs)->update(['sgc_status'=>0 ]);
+
+                    $sizeIDs = Size::where('size_group_id',$sizeGroup->size_group_id)->pluck('size_id');
+                    Size::where('size_id', $sizeIDs)->update(['size_status'=>0 ]);
 
                     DB::commit();
                     return response()->json([

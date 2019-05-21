@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Admin;
 use App\Http\Resources\Admin\SizeGroupCategory as SizeGroupCategoryResource;
+use App\Http\Resources\Admin\Size as SizeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SizeGroup extends JsonResource
@@ -19,6 +20,7 @@ class SizeGroup extends JsonResource
             'name'=>$this->size_group_title,
             'status'=>$this->size_group_status,
             'categories'=>SizeGroupCategoryResource::collection($this->whenLoaded('categories')),
+            'sizes'=>SizeResource::collection($this->whenLoaded('sizes')),
         ];
     }
 }

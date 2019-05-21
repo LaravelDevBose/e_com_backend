@@ -31,4 +31,7 @@ class SizeGroup extends Model
     public function categories(){
         return $this->hasMany(SizeGroupCategory::class, 'size_group_id', 'size_group_id');
     }
+    public function sizes(){
+        return $this->hasMany(Size::class, 'size_group_id', 'size_group_id');
+    }
 }

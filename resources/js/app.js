@@ -21,7 +21,6 @@ import AdminLogin from './components/auth/AdminLogin';
 import Category from './components/category/Category';
 import Color from './components/color/Color';
 import Tag from './components/tag/Tag';
-import Size from './components/size/Size';
 import SizeGroup from './components/size/SizeGroup';
 import DeliveryCost from './components/deliveryCost/DeliveryCost';
 import Campaign from './components/campaign/Campaign';
@@ -38,7 +37,6 @@ const app = new Vue({
         Category,
         Color,
         'tag':Tag,
-        'size':Size,
         'size-group':SizeGroup,
         'delivery-cost':DeliveryCost,
         'campaign':Campaign,

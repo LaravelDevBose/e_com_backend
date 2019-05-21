@@ -12,7 +12,7 @@ const getters = {
 };
 
 const actions = {
-    async getAllSizeGroups({commit}){
+    async getAllSizeInfo({commit}){
         try{
             await axios.get('/admin/size_group').then(response=>{
                 commit('setSizeGroups', response.data.data);
@@ -23,10 +23,7 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    async getAllSizes(){
-
-    },
-    async storeSizeGroup({commit},formData){
+    async storeProductSize({commit},formData){
         try {
             return await axios.post('/admin/size_group', formData)
                 .then(response=>{
@@ -46,10 +43,7 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    async storeProductSize(){
-
-    },
-    async deleteSizeGroup({commit},SGroupId){
+    async deleteProductSize({commit},SGroupId){
         try{
             return await axios.delete(`/admin/size_group/${SGroupId}`)
                 .then(response=>{
@@ -66,9 +60,6 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    async deleteSize(){
-
-    }
 };
 
 const mutations = {

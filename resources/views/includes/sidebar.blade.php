@@ -42,13 +42,7 @@
                     <li ><a href="{{ route('admin.category.create') }}"><i class="icon-list"></i> <span>Category</span></a></li>
                     <li ><a href="{{ route('admin.color.create') }}"><i class="icon-brush"></i> <span>Color</span></a></li>
                     <li ><a href="{{ route('admin.tag.create') }}"><i class="icon-price-tag2"></i> <span>Tag</span></a></li>
-                    <li>
-                        <a href="#"><i class="icon-rulers"></i> <span>Product Size</span></a>
-                        <ul>
-                            <li><a href="{{ route('admin.size_group.create') }}"><i class="icon-plus2"></i> Size Group</a></li>
-                            <li><a href="{{ route('admin.size.create') }}"><i class="icon-list-numbered"></i> Product Size</a></li>
-                        </ul>
-                    </li>
+                    <li ><a href="{{ route('admin.size_group.create') }}"><i class="icon-rulers"></i> <span>Product Size</span></a></li>
                     <li ><a href="{{ route('admin.delivery_cost.create') }}"><i class="icon-truck"></i> <span>Delivery Cost</span></a></li>
                     <li>
                         <a href="#"><i class="icon-megaphone"></i> <span>Campaign</span></a>

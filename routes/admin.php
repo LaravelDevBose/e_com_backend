@@ -26,7 +26,6 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::delete('/tag/delete/{tag}', 'TagController@destroy')->name('tag.delete');
 
     Route::resource('size_group', 'SizeGroupController');
-    Route::resource('/size', 'SizeController');
 
     Route::get('/delivery-costs', 'DeliveryCostController@index')->name('delivery_costs');
     Route::get('/delivery-cost/create', 'DeliveryCostController@create')->name('delivery_cost.create');

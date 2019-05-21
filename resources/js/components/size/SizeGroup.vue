@@ -13,7 +13,7 @@
             </div>
 
             <div class="panel-body">
-                <form action="" @submit.prevent="sizeGroupStore">
+                <form action="" @submit.prevent="sizeGroupStore" >
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -27,7 +27,22 @@
                                 <input type="text" v-model="form.size_group_title" class="form-control" placeholder="Size Group Name" required>
                             </div>
                         </div>
-                        <div class="col-md-4 col-md-offset-2">
+                        <div class="col-md-12" >
+                            <div style="margin-bottom:1rem;">
+                                <label style="margin-left:.5rem">Size Name:</label>
+                                <span class="btn btn-sm btn-success " @click="addSizeField"> <i class="icon-plus-circle2"></i></span>
+                                <span class="btn btn-sm btn-danger " @click="removeSizeField"> <i class="icon-minus-circle2"></i></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2" v-for="inputLng in sizeInput" :key="inputLng" :id="'size-'+inputLng">
+                                    <div class="form-group">
+                                        <input type="text" v-model="form.sizeNames[inputLng]" class="form-control" placeholder="Size Name" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-md-offset-9">
                             <div class="content-group-lg">
                                 <div class="checkbox checkbox-switchery">
                                     <label>
@@ -67,6 +82,7 @@
                         <th>#</th>
                         <th style="padding:5px;">Group Name</th>
                         <th>Category Name</th>
+                        <th>Size Name</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -79,11 +95,14 @@
                             <span class="text text-bold"> {{ sizeGroup.name }}</span>
                         </td>
                         <td>
-                            <span class="badge badge-info" v-for="SG_cat in sizeGroup.categories">{{ SG_cat.category.name }}</span>
+                            <span class="label label-info"  v-for="(SG_cat, index) in sizeGroup.categories" :key="index">{{ SG_cat.category.name }}</span>
+                        </td>
+                        <td>
+                            <span class="label bg-teal"  v-for="size in sizeGroup.sizes" :key="size.id">{{ size.size_name }}</span>
                         </td>
                         <td class="text text-center">
-                            <span class="badge badge-success" v-if="sizeGroup.status === 1">Active</span>
-                            <span class="badge badge-warning" v-else>De-active</span>
+                            <span class="label label-success" v-if="sizeGroup.status === 1">Active</span>
+                            <span class="label label-warning" v-else>De-active</span>
                         </td>
                         <td class="text text-center">
                             <ul class="icons-list">
@@ -106,14 +125,15 @@
     import {mapGetters, mapActions} from 'vuex';
 
     export default {
-        name: "SizeGroup",
+        name: "Size",
         components:{Treeselect},
         data(){
             return{
                 form:{
                     size_group_title:'',
                     categoryIDs:[],
-                    size_group_status:0
+                    size_group_status:0,
+                    sizeNames:[],
                 },
                 btnDisabled:false,
                 normalizer(node) {
@@ -123,23 +143,51 @@
                         children: node.children,
                     }
                 },
+                sizeInput:1,
+                sizeRemove:false,
             }
         },
         created() {
             this.allTreeListCategories();
-            this.getAllSizeGroups();
-
+            this.getAllSizeInfo();
+            this.form.sizeNames.splice(0, 1);
         },
         methods:{
             ...mapActions([
-                'getAllSizeGroups',
-                'storeSizeGroup',
-                'deleteSizeGroup',
+                'getAllSizeInfo',
+                'storeProductSize',
+                'deleteProductSize',
                 'allTreeListCategories',
             ]),
+            addSizeField(){
+
+                this.sizeInput++;
+                if(this.sizeInput === 1){
+                    this.sizeRemove = false;
+                }else{
+                    this.sizeRemove = true;
+                }
+
+            },
+            removeSizeField(){
+
+                this.form.sizeNames.splice(this.sizeInput, 1);
+                if(this.sizeInput === 1){
+                    return;
+                }else{
+                    if(this.sizeInput === 1){
+                        this.sizeRemove = false;
+                    }else{
+                        this.sizeRemove = true;
+                        this.sizeInput--;
+                    }
+                    return ;
+                }
+
+            },
             sizeGroupStore(){
                 //#TODO form validation
-                this.storeSizeGroup(this.form)
+                this.storeProductSize(this.form)
                     .then(response=>{
                         if(response.status === "success"){
                             alert(response.message);
@@ -155,11 +203,13 @@
             formReset(){
                 this.form.size_group_title = '';
                 this.form.categoryIDs = [];
+                this.form.sizeNames = [];
                 this.form.size_group_status = 0;
+                this.sizeInput = 1;
             },
             removeSizeGroup(groupId){
                 if(confirm('Are You Sure..?')){
-                    this.deleteSizeGroup(groupId)
+                    this.deleteProductSize(groupId)
                         .then(response=>{
 
                             if(response.status === "success"){
@@ -197,5 +247,7 @@
 </script>
 
 <style scoped>
-
+    .label{
+        margin: 2px;
+    }
 </style>
