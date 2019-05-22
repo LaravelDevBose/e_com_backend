@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1 col-md-offset-9">
+                        <div class="col-md-2 col-md-offset-7">
                             <div class="content-group-lg">
                                 <div class="checkbox checkbox-switchery">
                                     <label>
