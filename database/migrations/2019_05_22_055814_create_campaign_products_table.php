@@ -17,7 +17,8 @@ class CreateCampaignProductsTable extends Migration
             $table->bigIncrements('cam_pro_id');
             $table->unsignedBigInteger('campaign_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedDecimal('discount_price');
+            $table->unsignedDecimal('discount_value');
+            $table->unsignedDecimal('campaign_price');
             $table->boolean('discount_type');
             $table->unsignedInteger('campaign_qty');
             $table->boolean('cam_pro_status')->default(config('app.active'));

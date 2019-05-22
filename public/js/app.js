@@ -6484,6 +6484,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ShowCampaign",
   data: function data() {
@@ -55829,31 +55852,38 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "ShowCampaign" } }, [
     _c("div", { staticClass: "content" }, [
-      _c("div", { staticClass: "panel" }, [
-        _c("div", { staticClass: "panel-body" }, [
-          _c("div", { staticClass: "content-group-lg" }, [
-            _c("div", { staticClass: "content-group text-center" }, [
-              _c(
-                "a",
-                { staticClass: "display-inline-block", attrs: { href: "#" } },
-                [
-                  _c("img", {
-                    staticClass: "img-responsive",
-                    attrs: { src: _vm.image, alt: "" }
-                  })
-                ]
-              )
-            ]),
-            _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "panel panel-info" }, [
             _vm._m(0),
             _vm._v(" "),
-            _vm._m(1)
+            _c("div", { staticClass: "panel-body" }, [
+              _c("div", { staticClass: "content-group text-center" }, [
+                _c("img", {
+                  staticClass: "img-responsive img-thumbnail",
+                  staticStyle: { width: "100%", "max-height": "250px" },
+                  attrs: { src: _vm.image, alt: "" }
+                })
+              ]),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-default" }, [
+                _vm._v(
+                  "asdfasdfasdf asldfasdfjasdkf asdfklasdjfkl asdfjlkasdjf asdjflkasdjfkl asdjfklasdjfsd f"
+                )
+              ])
+            ])
           ])
-        ])
+        ]),
+        _vm._v(" "),
+        _vm._m(3)
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "panel" }, [
-        _vm._m(2),
+        _vm._m(4),
         _vm._v(" "),
         _c("div", { staticClass: "panel-body" }, [
           _c("div", { staticClass: "table-responsive" }, [
@@ -55864,33 +55894,11 @@ var render = function() {
                   "table table-striped table-hover table-bordered dataTable-basic"
               },
               [
-                _vm._m(3),
+                _vm._m(5),
                 _vm._v(" "),
                 _c("tbody", [
                   _c("tr", [
                     _c("td", { staticStyle: { width: "15px" } }, [_vm._v("1")]),
-                    _vm._v(" "),
-                    _c("td", { staticStyle: { width: "70px" } }, [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _c("img", {
-                          attrs: { src: _vm.image, height: "60", alt: "" }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Marth")]),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Traffic Court Referee")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("22 Jun 1972")]),
-                    _vm._v(" "),
-                    _vm._m(5)
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", { staticStyle: { width: "15px" } }, [_vm._v("2")]),
                     _vm._v(" "),
                     _c("td", { staticStyle: { width: "70px" } }, [
                       _c("a", { attrs: { href: "#" } }, [
@@ -55912,7 +55920,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("tr", [
-                    _c("td", { staticStyle: { width: "15px" } }, [_vm._v("3")]),
+                    _c("td", { staticStyle: { width: "15px" } }, [_vm._v("2")]),
                     _vm._v(" "),
                     _c("td", { staticStyle: { width: "70px" } }, [
                       _c("a", { attrs: { href: "#" } }, [
@@ -55931,6 +55939,28 @@ var render = function() {
                     _c("td", [_vm._v("22 Jun 1972")]),
                     _vm._v(" "),
                     _vm._m(9)
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { staticStyle: { width: "15px" } }, [_vm._v("3")]),
+                    _vm._v(" "),
+                    _c("td", { staticStyle: { width: "70px" } }, [
+                      _c("a", { attrs: { href: "#" } }, [
+                        _c("img", {
+                          attrs: { src: _vm.image, height: "60", alt: "" }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Marth")]),
+                    _vm._v(" "),
+                    _vm._m(10),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Traffic Court Referee")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("22 Jun 1972")]),
+                    _vm._v(" "),
+                    _vm._m(11)
                   ])
                 ])
               ]
@@ -55946,9 +55976,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Campaign Details")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("h3", { staticClass: "text-semibold mb-5" }, [
-      _c("a", { staticClass: "text-default", attrs: { href: "#" } }, [
-        _vm._v("Although moreover mistaken kindness me feelings do be marianne")
+      _c("a", { staticClass: "text-purple", attrs: { href: "#" } }, [
+        _vm._v("Although moreover mistaken kindness")
       ])
     ])
   },
@@ -55959,34 +55997,45 @@ var staticRenderFns = [
     return _c(
       "ul",
       {
-        staticClass: "list-inline list-inline-separate text-muted content-group"
+        staticClass:
+          "list-inline list-inline-separate list-unstyled text-muted content-group"
       },
       [
         _c("li", [
-          _vm._v("By "),
-          _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-            _vm._v("Eugene")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [_vm._v("July 5th, 2016")]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-            _vm._v("12 comments")
-          ])
+          _c("i", { staticClass: "icon-calendar52 text-info position-left" }),
+          _vm._v("July 5th, 2016\n                            ")
         ]),
         _vm._v(" "),
         _c("li", [
-          _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-            _c("i", {
-              staticClass: "icon-heart6 text-size-base text-pink position-left"
-            }),
-            _vm._v(" 281")
-          ])
+          _c("i", { staticClass: "icon-calendar52 text-info position-left" }),
+          _vm._v("July 5th, 2016\n                            ")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("span", { staticClass: "label label-info" }, [_vm._v("Live")])
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "panel panel-success" }, [
+        _c("div", { staticClass: "panel-heading" }, [
+          _c("h5", { staticClass: "panel-title" }, [
+            _vm._v("Campaign Sale Chart")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "panel-body" }, [
+          _c("div", { staticClass: "chart-container" }, [
+            _c("h3", [_vm._v("Campaign Chart View")])
+          ])
+        ])
+      ])
+    ])
   },
   function() {
     var _vm = this

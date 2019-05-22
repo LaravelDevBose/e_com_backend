@@ -2,31 +2,54 @@
     <div id="ShowCampaign">
         <!-- Content area -->
         <div class="content">
-            <div class="panel">
-                <div class="panel-body">
-                    <div class="content-group-lg">
-                        <div class="content-group text-center">
-                            <a href="#" class="display-inline-block">
-                                <img :src="image" class="img-responsive" alt="">
-                            </a>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">Campaign Details</h5>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="content-group text-center">
+                                <img :src="image" class="img-responsive img-thumbnail" alt="" style="width:100%; max-height:250px;">
+                            </div>
+
+                            <h3 class="text-semibold mb-5">
+                                <a href="#" class="text-purple">Although moreover mistaken kindness</a>
+                            </h3>
+
+                            <ul class="list-inline list-inline-separate list-unstyled text-muted content-group">
+                                <li>
+                                    <i class="icon-calendar52 text-info position-left"></i>July 5th, 2016
+                                </li>
+                                <li>
+                                    <i class="icon-calendar52 text-info position-left"></i>July 5th, 2016
+                                </li>
+                                <li>
+                                    <span class="label label-info">Live</span>
+                                </li>
+                            </ul>
+                            <p class="text-default">asdfasdfasdf asldfasdfjasdkf asdfklasdjfkl asdfjlkasdjf asdjflkasdjfkl asdjfklasdjfsd f</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">Campaign Sale Chart</h5>
+
                         </div>
 
-                        <h3 class="text-semibold mb-5">
-                            <a href="#" class="text-default">Although moreover mistaken kindness me feelings do be marianne</a>
-                        </h3>
+                        <div class="panel-body">
 
-                        <ul class="list-inline list-inline-separate text-muted content-group">
-                            <li>By <a href="#" class="text-muted">Eugene</a></li>
-                            <li>July 5th, 2016</li>
-                            <li><a href="#" class="text-muted">12 comments</a></li>
-                            <li><a href="#" class="text-muted"><i class="icon-heart6 text-size-base text-pink position-left"></i> 281</a></li>
-                        </ul>
-
-
+                            <div class="chart-container">
+                                <h3>Campaign Chart View</h3>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
             </div>
+
             <div class="panel" >
                 <div class="panel-heading bg-teal-700">
                     <h5 class="panel-title">Add Campaign Products</h5>
