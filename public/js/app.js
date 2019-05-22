@@ -6153,6 +6153,186 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Campaign"
 });
@@ -54955,9 +55135,628 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h2", [_vm._v("Campaign Page")])
+  return _c("div", { staticClass: "Campaign" }, [
+    _c("div", { staticClass: "content" }, [
+      _c(
+        "form",
+        {
+          attrs: { action: "" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.saveVoucher($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "panel panel-info" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "panel-body" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Campaign Name:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.voucher_name,
+                          expression: "form.voucher_name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Voucher name",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.voucher_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "voucher_name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Start Date:")]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "input-group" },
+                      [
+                        _c("datetime", {
+                          attrs: {
+                            type: "datetime",
+                            "use12-hour": "",
+                            "input-id": "startDate",
+                            "input-class": "form-control",
+                            phrases: { ok: "Continue", cancel: "Exit" },
+                            "week-start": 6
+                          },
+                          model: {
+                            value: _vm.form.voucher_start,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "voucher_start", $$v)
+                            },
+                            expression: "form.voucher_start"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(1)
+                      ],
+                      1
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("End Date:")]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "input-group" },
+                      [
+                        _c("datetime", {
+                          staticClass: "theme-orange",
+                          attrs: {
+                            type: "datetime",
+                            "use12-hour": "",
+                            "input-id": "startDate",
+                            "input-class": "form-control",
+                            phrases: { ok: "Continue", cancel: "Exit" },
+                            "week-start": 6
+                          },
+                          model: {
+                            value: _vm.form.voucher_end,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "voucher_end", $$v)
+                            },
+                            expression: "form.voucher_end"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(2)
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group hidden" }, [
+                    _c("label", [_vm._v("Collect Start Time:")]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "input-group" },
+                      [
+                        _c("datetime", {
+                          staticClass: "theme-orange",
+                          attrs: {
+                            type: "datetime",
+                            "use12-hour": "",
+                            "input-id": "startDate",
+                            "input-class": "form-control",
+                            phrases: { ok: "Continue", cancel: "Exit" },
+                            "week-start": 6
+                          },
+                          model: {
+                            value: _vm.form.collect_start,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "collect_start", $$v)
+                            },
+                            expression: "form.collect_start"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(3)
+                      ],
+                      1
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Voucher Code:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.voucher_code,
+                          expression: "form.voucher_code"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Voucher Code",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.voucher_code },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "voucher_code",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-4" },
+                  [
+                    _c("label", [_vm._v("Voucher Image:")]),
+                    _vm._v(" "),
+                    _c("attachment", {
+                      attrs: { multi_file: _vm.multiple, folder: _vm.folder }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel panel-primary" }, [
+            _vm._m(4),
+            _vm._v(" "),
+            _c("div", { staticClass: "panel-body" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", [_vm._v("Discount Type:")]),
+                      _vm._v(" "),
+                      _c("vue-select2", {
+                        attrs: { options: _vm.discountTypes },
+                        model: {
+                          value: _vm.form.discount_type,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "discount_type", _vm._n($$v))
+                          },
+                          expression: "form.discount_type"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Discount Value(off):")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.discount_value,
+                          expression: "form.discount_value"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "number",
+                        placeholder: "Discount Value",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.discount_value },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "discount_value",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Min Order Value:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.min_order_value,
+                          expression: "form.min_order_value"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "number",
+                        placeholder:
+                          "Minimum order value to apply voucher (BDT)",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.min_order_value },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "min_order_value",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm.maxValue
+                  ? _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Maximum Discount:")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.max_discount,
+                              expression: "form.max_discount"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            placeholder: "Maximum discount in (BDT)",
+                            required: ""
+                          },
+                          domProps: { value: _vm.form.max_discount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "max_discount",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Total Voucher to be issued:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.voucher_issued,
+                          expression: "form.voucher_issued"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "number",
+                        placeholder: "Total voucher to be issued",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.voucher_issued },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "voucher_issued",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("User Limit per Customer:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.usage_limit,
+                          expression: "form.usage_limit"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "number",
+                        placeholder: "User Limit per Customer ",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.usage_limit },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "usage_limit", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", [_vm._v("Apply To:")]),
+                      _vm._v(" "),
+                      _c("vue-select2", {
+                        attrs: { options: _vm.applyTo },
+                        model: {
+                          value: _vm.form.apply_to,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "apply_to", _vm._n($$v))
+                          },
+                          expression: "form.apply_to"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.addProductPanel,
+                  expression: "addProductPanel"
+                }
+              ],
+              staticClass: "panel"
+            },
+            [
+              _vm._m(5),
+              _vm._v(" "),
+              _c("div", { staticClass: "panel-body" }, [_c("product-list")], 1)
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "sticky-submit-btn" }, [
+            _c("div", { staticClass: "panel panel-default" }, [
+              _c("div", { staticClass: "panel-body" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-2 col-md-offset-8" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "content-group-lg",
+                        staticStyle: { "margin-bottom": "0!important" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "checkbox checkbox-switchery" },
+                          [
+                            _c("label", [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.voucher_status,
+                                    expression: "form.voucher_status"
+                                  }
+                                ],
+                                staticClass: "switchery-primary",
+                                attrs: { type: "checkbox", checked: "checked" },
+                                domProps: {
+                                  checked: Array.isArray(
+                                    _vm.form.voucher_status
+                                  )
+                                    ? _vm._i(_vm.form.voucher_status, null) > -1
+                                    : _vm.form.voucher_status
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.form.voucher_status,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = null,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.form,
+                                            "voucher_status",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.form,
+                                            "voucher_status",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(_vm.form, "voucher_status", $$c)
+                                    }
+                                  }
+                                }
+                              }),
+                              _vm._v(
+                                "\n                                            Publish\n                                        "
+                              )
+                            ])
+                          ]
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-2" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "text-right form-group",
+                        staticStyle: { "margin-bottom": "0px" }
+                      },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary btn-block",
+                            attrs: { type: "submit", disabled: _vm.btnDisabled }
+                          },
+                          [
+                            _vm._v("Save Voucher "),
+                            _c("i", {
+                              staticClass: "icon-arrow-right14 position-right"
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ]
+      )
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Campaign Details")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "icon-calendar22" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "icon-calendar22" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "icon-calendar22" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Voucher Setting")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading bg-teal-700" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Voucher Setting")])
+    ])
+  }
+]
 render._withStripped = true
 
 
