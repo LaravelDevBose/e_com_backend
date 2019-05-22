@@ -34,6 +34,11 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
 
 
     Route::resource('/campaign', 'CampaignController');
+    Route::get('/campaign/{campaign}/product/manage', 'CampaignController@manage_product_page')->name('campaign.product.manage');
+    Route::put('/campaign/{campaign}/update/product-serial', 'CampaignController@update_product_serial')->name('campaign.update.product-serial');
+
+    Route::get('/details', 'CampaignController@details');
+
 
     Route::resource('voucher', 'VoucherController');
     Route::get('formData/voucher/', 'VoucherController@formData')->name('voucher.formData');

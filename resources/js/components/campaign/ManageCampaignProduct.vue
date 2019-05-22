@@ -1,11 +1,10 @@
 <template>
-
+    
 </template>
 
 <script>
     export default {
-        name: "Campaign",
-
+        name: "ManageCampaignProduct"
     }
 </script>
 

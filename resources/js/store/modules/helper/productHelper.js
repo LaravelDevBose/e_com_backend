@@ -9,7 +9,7 @@ const getters = {
 };
 
 const actions = {
-    addedProducts({commit}, productIds){
+    getActiveProducts({commit}, productIds){
         commit('setProductIds', productIds);
     }
 };

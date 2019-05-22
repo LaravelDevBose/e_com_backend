@@ -23,7 +23,10 @@ import Color from './components/color/Color';
 import Tag from './components/tag/Tag';
 import SizeGroup from './components/size/SizeGroup';
 import DeliveryCost from './components/deliveryCost/DeliveryCost';
+import CreateCampaign from './components/campaign/CreateCampaign';
 import Campaign from './components/campaign/Campaign';
+import ShowCampaign from  './components/campaign/ShowCampaign';
+import ManageCampaignProduct from './components/campaign/ManageCampaignProduct';
 import Voucher from  './components/voucher/Voucher';
 import CreateVoucher from './components/voucher/CreateVoucher';
 import Attachment from './components/attachment/Attachment';
@@ -39,7 +42,10 @@ const app = new Vue({
         'tag':Tag,
         'size-group':SizeGroup,
         'delivery-cost':DeliveryCost,
+        'create-campaign':CreateCampaign,
         'campaign':Campaign,
+        'show-campaign':ShowCampaign,
+        'manage-campaign-product':ManageCampaignProduct,
         'voucher':Voucher,
         'create-voucher':CreateVoucher,
 

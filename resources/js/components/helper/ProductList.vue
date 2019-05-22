@@ -3,7 +3,9 @@
         <table class="table table-striped table-hover table-bordered dataTable-basic">
             <thead>
             <tr>
-                <th></th>
+                <th>
+                    <input type="checkbox" class="styled"  value="1" v-model="productIDs" >
+                </th>
                 <th>Image</th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -14,10 +16,10 @@
             </thead>
             <tbody>
             <tr>
-                <td class="no-padding-right" style="width: 20px">
+                <td style="width: 15px;">
                     <input type="checkbox" class="styled"  value="1" v-model="productIDs" >
                 </td>
-                <td class="no-padding-right" style="width: 70px">
+                <td style="width: 70px">
                     <a href="#">
                         <img :src="image" height="60" class="" alt="">
                     </a>
@@ -32,7 +34,7 @@
                 <td class="no-padding-right" style="width: 20px">
                     <input type="checkbox" class="styled" value="3"  v-model="productIDs">
                 </td>
-                <td class="no-padding-right" style="width: 70px">
+                <td style="width: 70px">
                     <a href="#">
                         <img :src="image" height="60" class="" alt="">
                     </a>
@@ -44,7 +46,7 @@
                 <td><span class="label label-success">Active</span></td>
             </tr>
             <tr>
-                <td class="no-padding-right" style="width: 20px">
+                <td style="width: 20px">
                     <input type="checkbox" class="styled" value="2"  v-model="productIDs">
                 </td>
                 <td class="no-padding-right" style="width: 70px">
@@ -76,14 +78,14 @@
         },
         methods:{
             ...mapActions([
-                'addedProducts'
+                'getActiveProducts'
             ])
         },
         watch:{
             productIDs:{
                 handler(newValue, oldValue){
                     if(newValue === oldValue){
-                        this.addedProducts(this.productIDs);
+                        this.getActiveProducts(this.productIDs);
                     }
                 }
             }
