@@ -1,6 +1,6 @@
 <template>
     <div class="ProductList">
-        <table class="table table-striped table-hover table-bordered dataTable-basic">
+        <table class="table table-striped table-hover table-bordered datatable-multi-sorting">
             <thead>
             <tr>
                 <th>

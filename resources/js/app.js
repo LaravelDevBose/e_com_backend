@@ -30,6 +30,9 @@ import ManageCampaignProduct from './components/campaign/ManageCampaignProduct';
 import Voucher from  './components/voucher/Voucher';
 import CreateVoucher from './components/voucher/CreateVoucher';
 import Attachment from './components/attachment/Attachment';
+import ProductList from './components/product/ProductList';
+import CreateProduct from './components/product/CreateProduct';
+import ShowProduct from './components/product/ShowProduct';
 
 const app = new Vue({
     el: '#app',
@@ -48,6 +51,8 @@ const app = new Vue({
         'manage-campaign-product':ManageCampaignProduct,
         'voucher':Voucher,
         'create-voucher':CreateVoucher,
-
+        'product-list':ProductList,
+        'create-product':CreateProduct,
+        'show-Product':ShowProduct,
     }
 });

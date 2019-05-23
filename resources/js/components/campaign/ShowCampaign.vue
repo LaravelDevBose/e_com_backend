@@ -57,7 +57,7 @@
 
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover table-bordered dataTable-basic">
+                        <table class="table table-striped table-hover table-bordered datatable-multi-sorting">
                             <thead>
                             <tr>
                                 <th>#</th>

@@ -44,6 +44,9 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::get('formData/voucher/', 'VoucherController@formData')->name('voucher.formData');
     Route::get('voucher_list', 'VoucherController@voucherList')->name('voucher.list');
 
+    Route::resource('/product', 'ProductController');
+
+
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){

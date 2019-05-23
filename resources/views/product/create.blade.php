@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('PageTitle','Create New Campaign')
+@section('PageTitle','Create New Product')
 
 @section('PageCss')
 
@@ -21,8 +21,7 @@
 @endsection
 
 @section('content')
-
-    <create-campaign></create-campaign>
+    <create-product></create-product>
 @endsection
 @section('PageJs')
 
