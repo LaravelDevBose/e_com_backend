@@ -20,6 +20,8 @@ import  voucher from './modules/voucher';
 import  attachment from './modules/attachment';
 import  productHelper from './modules/helper/productHelper';
 import  product from './modules/product';
+import  excel_import from './modules/helper/excel_import';
+
 
 export default new Vuex.Store({
     state:{
@@ -49,6 +51,7 @@ export default new Vuex.Store({
         voucher,
         productHelper,
         product,
+        excel_import,
     }
 })
 

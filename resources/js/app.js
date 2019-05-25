@@ -33,6 +33,7 @@ import Attachment from './components/attachment/Attachment';
 import ProductList from './components/product/ProductList';
 import CreateProduct from './components/product/CreateProduct';
 import ShowProduct from './components/product/ShowProduct';
+import ImportData from "./components/helper/ImportData";
 
 const app = new Vue({
     el: '#app',
@@ -40,6 +41,7 @@ const app = new Vue({
     components:{
         AdminLogin,
         'attachment':Attachment,
+        'import-date':ImportData,
         Category,
         Color,
         'tag':Tag,
