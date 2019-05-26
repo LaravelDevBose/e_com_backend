@@ -113,7 +113,7 @@
                 },
                 btnDisabled:false,
                 format_image:'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
-                action_url:'',
+                action_url:'/admin/import/color',
                 format_file:''
             }
         },
@@ -151,18 +151,28 @@
         },
         computed:{
             ...mapGetters([
-                'colors'
+                'colors',
+                'import_status'
             ])
         },
         watch:{
             form:{
                 handler(newValue, oldValue){
-                    if(oldValue !== newValue){
+                    if(oldValue === newValue){
                         this.btnDisabled = false;
                     }
                 },
                 deep:true,
             },
+            'this.import_status':{
+                handler(newValue, oldValue){
+                    alert('yyyy');
+                    if(newValue === 1){
+                        this.getColors();
+                    }
+                },
+                deep:true,
+            }
         }
     }
 </script>

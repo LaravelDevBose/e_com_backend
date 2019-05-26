@@ -19,6 +19,7 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::get('/color/create','ColorController@create')->name('color.create');
     Route::post('/color/store', 'ColorController@store')->name('color.store');
     Route::delete('/color/delete/{color}', 'ColorController@destroy')->name('color.delete');
+    Route::post('/import/color', 'ColorController@import')->name('color.import');
 
     Route::get('/tags','TagController@index')->name('tag');
     Route::get('/tag/create', 'TagController@create')->name('tag.create');

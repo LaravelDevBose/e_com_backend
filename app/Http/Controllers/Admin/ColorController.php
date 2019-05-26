@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ColorController extends Controller
 {
@@ -162,6 +163,51 @@ class ColorController extends Controller
             return response()->json([
                 'status'=>'error',
                 'message'=>'Invalid Information.!'
+            ]);
+        }
+    }
+
+    public function import(Request $request){
+        $file = $request->file('excel_file')->getRealPath();
+
+        $excel_file = Excel::load($file)->ignoreEmpty()->get()->toArray();
+        $result =0;
+        if(!empty($excel_file) && isset($excel_file[0])){
+            foreach ($excel_file as $r =>$row){
+                foreach ($row as $c => $coll){
+                    if(!empty($coll['name']) && !empty($coll['code']) ){
+
+                        if(strpos($coll['code'], '#') === 0){
+                            $color = Color::create([
+                                'color_name'=>$coll['name'],
+                                'color_code'=>$coll['code'],
+                                'color_status'=>$coll['status']?? 2
+                            ]);
+                            if($color){
+                                $result++;
+                            }
+
+                        }
+                    }
+                }
+
+            }
+
+            if($result == count($excel_file)){
+                return response()->json([
+                    'status'=>'success',
+                    'message'=>'All Color Data Store Successfully'
+                ]);
+            }else{
+                return response()->json([
+                    'status'=>'success',
+                    'message'=>'Some of Color Data Not Store Successfully'
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status'=>'error',
+                'message'=>'Uploaded File is Empty. No Data Found.'
             ]);
         }
     }

@@ -6861,7 +6861,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       btnDisabled: false,
       format_image: 'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
-      action_url: '',
+      action_url: '/admin/import/color',
       format_file: ''
     };
   },
@@ -6894,12 +6894,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['colors'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['colors', 'import_status'])),
   watch: {
     form: {
       handler: function handler(newValue, oldValue) {
-        if (oldValue !== newValue) {
+        if (oldValue === newValue) {
           this.btnDisabled = false;
+        }
+      },
+      deep: true
+    },
+    'this.import_status': {
+      handler: function handler(newValue, oldValue) {
+        alert('yyyy');
+
+        if (newValue === 1) {
+          this.getColors();
         }
       },
       deep: true
@@ -7195,21 +7205,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "ImportData",
   data: function data() {
     return {
-      files: '',
       formData: new FormData()
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['importData']), {
     addToFormData: function addToFormData(e) {
-      this.files = this.$refs.files.files;
-
-      for (var i = 0; i < this.files.length; i++) {
-        var file = this.files[i];
-        this.formData.append(i, file);
-      }
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.formData.append('excel_file', files[0]);
     },
-    uploadImportFile: function uploadImportFile() {
-      //TODO Validation
+    uploadImportFile: function uploadImportFile(e) {
+      e.preventDefault(); //TODO Validation
+
       var form = {
         url: this.upload_url,
         formData: this.formData
@@ -57665,7 +57672,7 @@ var render = function() {
               "form",
               {
                 staticClass: "form-horizontal",
-                attrs: { action: "#" },
+                attrs: { action: "", method: "post" },
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
@@ -76569,9 +76576,15 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 //declare State
-var state = {}; //declare Getters
+var state = {
+  excel_status: 0
+}; //declare Getters
 
-var getters = {};
+var getters = {
+  import_status: function import_status(state) {
+    return state.excel_status;
+  }
+};
 var actions = {
   importData: function () {
     var _importData = _asyncToGenerator(
@@ -76590,9 +76603,12 @@ var actions = {
                   'Content-Type': 'application/x-www-form-urlencoded'
                 }
               }).then(function (response) {
+                console.log(response);
+
                 if (response.data.status === "success") {
+                  commit('setImportSuccess', 1);
                   commit('setResponse', response.data.status);
-                  return response.data.status;
+                  return response.data;
                 }
               })["catch"](function (errors) {
                 console.log(errors);
@@ -76621,7 +76637,11 @@ var actions = {
     return importData;
   }()
 };
-var mutations = {};
+var mutations = {
+  setImportSuccess: function setImportSuccess(state, status) {
+    return state.excel_status = status;
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
   getters: getters,

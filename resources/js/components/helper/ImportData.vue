@@ -8,7 +8,7 @@
                         <h5 class="modal-title">Excel Or CVC File Import</h5>
                     </div>
 
-                    <form action="#" class="form-horizontal" @submit.prevent="uploadImportFile">
+                    <form action="" method="post" class="form-horizontal" @submit.prevent="uploadImportFile">
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-5 col-xs-12">
@@ -43,7 +43,6 @@
         name: "ImportData",
         data(){
             return{
-                files:'',
                 formData:new FormData(),
             }
         },
@@ -52,14 +51,14 @@
             ...mapActions(['importData']),
 
             addToFormData(e) {
-                this.files = this.$refs.files.files;
-                for( var i = 0; i < this.files.length; i++ ){
-                    let file = this.files[i];
-                    this.formData.append(i, file);
-                }
+                let files = e.target.files || e.dataTransfer.files;
+                if (!files.length)
+                    return;
 
+                this.formData.append('excel_file', files[0]);
             },
-            uploadImportFile(){
+            uploadImportFile(e){
+                e.preventDefault();
                 //TODO Validation
                 let form = {
                     url:this.upload_url,
