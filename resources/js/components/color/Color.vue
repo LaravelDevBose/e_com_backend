@@ -114,7 +114,7 @@
                 btnDisabled:false,
                 format_image:'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
                 action_url:'/admin/import/color',
-                format_file:''
+                format_file:'http://e_com.pc/excel_demo/color.xlsx'
             }
         },
         created() {

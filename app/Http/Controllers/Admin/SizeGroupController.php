@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\Admin\SizeGroup as SizeGroupResource;
 use App\Http\Resources\Admin\SizeGroupCollection;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SizeGroupController extends Controller
 {
@@ -206,5 +207,64 @@ class SizeGroupController extends Controller
                 'message'=>'Invalid Information.!'
             ]);
         }
+    }
+
+    public function import_size_group(Request $request){
+        $file = $request->file('excel_file')->getRealPath();
+
+        $excel_file = Excel::load($file)->ignoreEmpty()->get()->toArray();
+        $result =0;
+        if(!empty($excel_file) && isset($excel_file[0])){
+            foreach ($excel_file as $r =>$row){
+                foreach ($row as $c => $coll){
+                    if(!empty($coll['size_group_title'])){
+                        $sizeGroup = SizeGroup::create([
+                            'size_group_title'=>$coll['size_group_title'],
+                            'size_group_slug'=>Str::slug($coll['size_group_title']),
+                            'size_group_status'=>$coll['size_group_status']?? config('app.inactive')
+                        ]);
+                        if($sizeGroup){
+                            if(!empty($coll['size_group_categories'])){
+                                $categoryIDs = explode(',',$coll['size_group_categories']);
+                                foreach ($categoryIDs as $key => $categoryID){
+                                    SizeGroupCategory::create([
+                                        'size_group_id'=>$sizeGroup->size_group_id,
+                                        'category_id'=>$categoryID,
+                                        'sgc_status'=> config('app.active')
+                                    ]);
+                                }
+                            }
+
+                            $result++;
+                        }
+
+                    }
+                }
+
+            }
+
+            if($result == count($excel_file)){
+                return response()->json([
+                    'status'=>'success',
+                    'message'=>'All Size Group Data Store Successfully',
+                    'url'=>route('admin.size_group.create'),
+                ]);
+            }else{
+                return response()->json([
+                    'status'=>'success',
+                    'message'=>'Some of Size Group Data Not Store Successfully',
+                    'url'=>route('admin.size_group.create'),
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status'=>'error',
+                'message'=>'Uploaded File is Empty. No Data Found.'
+            ]);
+        }
+    }
+
+    public function import_size(Request $request){
+
     }
 }

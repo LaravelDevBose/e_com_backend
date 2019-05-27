@@ -4,11 +4,8 @@
             <div class="panel-heading">
                 <h5 class="panel-title">Product Size Group</h5>
                 <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+                    <button type="button" class="btn bg-orange-800 btn-sm" @click="bulkSizeGroupModel">Bulk Size Group <i class="icon-play3 position-right"></i></button>
+                    <button type="button" class="btn bg-orange-800 btn-sm" @click="bulkSizeModel">Bulk Size <i class="icon-play3 position-right"></i></button>
                 </div>
             </div>
 
@@ -116,17 +113,20 @@
                 </table>
             </div>
         </div>
+        <import-data :example_image="format_image" :upload_url="action_url" :example_file="format_file" ></import-data>
         <!-- /basic table -->
     </div>
 </template>
 
 <script>
     import Treeselect from '@riophae/vue-treeselect';
+
     import {mapGetters, mapActions} from 'vuex';
+    import ImportData from "../helper/ImportData";
 
     export default {
         name: "Size",
-        components:{Treeselect},
+        components:{Treeselect, 'import-data':ImportData},
         data(){
             return{
                 form:{
@@ -145,6 +145,9 @@
                 },
                 sizeInput:1,
                 sizeRemove:false,
+                format_image:'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
+                action_url:'',
+                format_file:'http://e_com.pc/excel_demo/size_group.xlsx'
             }
         },
         created() {
@@ -186,6 +189,7 @@
 
             },
             sizeGroupStore(){
+                this.btnDisabled=  true;
                 //#TODO form validation
                 this.storeProductSize(this.form)
                     .then(response=>{
@@ -206,6 +210,7 @@
                 this.form.sizeNames = [];
                 this.form.size_group_status = 0;
                 this.sizeInput = 1;
+                this.btnDisabled=  false;
             },
             removeSizeGroup(groupId){
                 if(confirm('Are You Sure..?')){
@@ -225,6 +230,14 @@
                             alert(error.message);
                         })
                 }
+            },
+            bulkSizeGroupModel(){
+                this.action_url = '/admin/import/size-group';
+                $('#modal_import_file').modal('show');
+            },
+            bulkSizeModel(){
+                this.action_url = '/admin/import/size';
+                $('#modal_import_file').modal('show');
             }
         },
         computed:{
@@ -236,7 +249,7 @@
         watch:{
             form:{
                 handler(newValue, oldValue){
-                    if(oldValue !== newValue){
+                    if(oldValue === newValue){
                         this.btnDisabled = false;
                     }
                 },

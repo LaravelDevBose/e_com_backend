@@ -6862,7 +6862,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       btnDisabled: false,
       format_image: 'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
       action_url: '/admin/import/color',
-      format_file: ''
+      format_file: 'http://e_com.pc/excel_demo/color.xlsx'
     };
   },
   created: function created() {
@@ -7158,10 +7158,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -7227,6 +7230,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           alert(response.message);
           setTimeout(function () {
             $('#modal_import_file').modal('hide');
+
+            if (response.url !== 0 && _typeof(response.url) !== undefined) {
+              window.location = response.url;
+            }
           }, 1000);
         }
       })["catch"](function (error) {
@@ -7716,6 +7723,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @riophae/vue-treeselect */ "./node_modules/@riophae/vue-treeselect/dist/vue-treeselect.js");
 /* harmony import */ var _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _helper_ImportData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/ImportData */ "./resources/js/components/helper/ImportData.vue");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -7840,14 +7848,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Size",
   components: {
-    Treeselect: _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default.a
+    Treeselect: _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default.a,
+    'import-data': _helper_ImportData__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -7866,7 +7874,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         };
       },
       sizeInput: 1,
-      sizeRemove: false
+      sizeRemove: false,
+      format_image: 'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
+      action_url: '',
+      format_file: 'http://e_com.pc/excel_demo/size_group.xlsx'
     };
   },
   created: function created() {
@@ -7903,7 +7914,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     sizeGroupStore: function sizeGroupStore() {
       var _this = this;
 
-      //#TODO form validation
+      this.btnDisabled = true; //#TODO form validation
+
       this.storeProductSize(this.form).then(function (response) {
         if (response.status === "success") {
           alert(response.message);
@@ -7922,6 +7934,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form.sizeNames = [];
       this.form.size_group_status = 0;
       this.sizeInput = 1;
+      this.btnDisabled = false;
     },
     removeSizeGroup: function removeSizeGroup(groupId) {
       if (confirm('Are You Sure..?')) {
@@ -7935,13 +7948,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           alert(error.message);
         });
       }
+    },
+    bulkSizeGroupModel: function bulkSizeGroupModel() {
+      this.action_url = '/admin/import/size-group';
+      $('#modal_import_file').modal('show');
+    },
+    bulkSizeModel: function bulkSizeModel() {
+      this.action_url = '/admin/import/size';
+      $('#modal_import_file').modal('show');
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['treeList', 'sizeGroups'])),
   watch: {
     form: {
       handler: function handler(newValue, oldValue) {
-        if (oldValue !== newValue) {
+        if (oldValue === newValue) {
           this.btnDisabled = false;
         }
       },
@@ -57672,7 +57693,7 @@ var render = function() {
               "form",
               {
                 staticClass: "form-horizontal",
-                attrs: { action: "", method: "post" },
+                attrs: { action: _vm.upload_url, method: "post" },
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
@@ -57703,14 +57724,22 @@ var render = function() {
                     _c("div", { staticClass: "col-md-5 col-xs-12" }, [
                       _c("h5", [
                         _vm._v(
-                          "Here is an example of what your csv should look like:"
+                          "Here is an example of what your csv should look like: "
                         )
                       ]),
                       _vm._v(" "),
                       _c("img", {
                         staticClass: "img-responsive",
                         attrs: { src: _vm.example_image }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c(
+                          "a",
+                          { attrs: { href: _vm.example_file, download: "" } },
+                          [_vm._v(" Download Excel")]
+                        )
+                      ])
                     ])
                   ])
                 ]),
@@ -58762,341 +58791,376 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "content" }, [
-    _c("div", { staticClass: "panel panel-info" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "panel-body" }, [
-        _c(
-          "form",
-          {
-            attrs: { action: "" },
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.sizeGroupStore($event)
+  return _c(
+    "div",
+    { staticClass: "content" },
+    [
+      _c("div", { staticClass: "panel panel-info" }, [
+        _c("div", { staticClass: "panel-heading" }, [
+          _c("h5", { staticClass: "panel-title" }, [
+            _vm._v("Product Size Group")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "heading-elements" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn bg-orange-800 btn-sm",
+                attrs: { type: "button" },
+                on: { click: _vm.bulkSizeGroupModel }
+              },
+              [
+                _vm._v("Bulk Size Group "),
+                _c("i", { staticClass: "icon-play3 position-right" })
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn bg-orange-800 btn-sm",
+                attrs: { type: "button" },
+                on: { click: _vm.bulkSizeModel }
+              },
+              [
+                _vm._v("Bulk Size "),
+                _c("i", { staticClass: "icon-play3 position-right" })
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "panel-body" }, [
+          _c(
+            "form",
+            {
+              attrs: { action: "" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.sizeGroupStore($event)
+                }
               }
-            }
-          },
-          [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-6" }, [
-                _c(
-                  "div",
-                  { staticClass: "form-group" },
-                  [
-                    _c("label", [_vm._v("Categories:")]),
-                    _vm._v(" "),
-                    _c("treeselect", {
-                      attrs: {
-                        multiple: true,
-                        options: _vm.treeList,
-                        normalizer: _vm.normalizer
-                      },
-                      model: {
-                        value: _vm.form.categoryIDs,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "categoryIDs", $$v)
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", [_vm._v("Categories:")]),
+                      _vm._v(" "),
+                      _c("treeselect", {
+                        attrs: {
+                          multiple: true,
+                          options: _vm.treeList,
+                          normalizer: _vm.normalizer
                         },
-                        expression: "form.categoryIDs"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-6" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Size Group Name:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.size_group_title,
-                        expression: "form.size_group_title"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Size Group Name",
-                      required: ""
-                    },
-                    domProps: { value: _vm.form.size_group_title },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                        model: {
+                          value: _vm.form.categoryIDs,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "categoryIDs", $$v)
+                          },
+                          expression: "form.categoryIDs"
                         }
-                        _vm.$set(
-                          _vm.form,
-                          "size_group_title",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-12" }, [
-                _c("div", { staticStyle: { "margin-bottom": "1rem" } }, [
-                  _c("label", { staticStyle: { "margin-left": ".5rem" } }, [
-                    _vm._v("Size Name:")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "btn btn-sm btn-success ",
-                      on: { click: _vm.addSizeField }
-                    },
-                    [_c("i", { staticClass: "icon-plus-circle2" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "btn btn-sm btn-danger ",
-                      on: { click: _vm.removeSizeField }
-                    },
-                    [_c("i", { staticClass: "icon-minus-circle2" })]
+                      })
+                    ],
+                    1
                   )
                 ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "row" },
-                  _vm._l(_vm.sizeInput, function(inputLng) {
-                    return _c(
-                      "div",
-                      {
-                        key: inputLng,
-                        staticClass: "col-md-2",
-                        attrs: { id: "size-" + inputLng }
-                      },
-                      [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.sizeNames[inputLng],
-                                expression: "form.sizeNames[inputLng]"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Size Name",
-                              required: ""
-                            },
-                            domProps: { value: _vm.form.sizeNames[inputLng] },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form.sizeNames,
-                                  inputLng,
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ])
-                      ]
-                    )
-                  }),
-                  0
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-2 col-md-offset-7" }, [
-                _c("div", { staticClass: "content-group-lg" }, [
-                  _c("div", { staticClass: "checkbox checkbox-switchery" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.size_group_status,
-                            expression: "form.size_group_status"
-                          }
-                        ],
-                        staticClass: "switchery-primary",
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: _vm.form.size_group_status,
-                          checked: Array.isArray(_vm.form.size_group_status)
-                            ? _vm._i(_vm.form.size_group_status, null) > -1
-                            : _vm.form.size_group_status
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.form.size_group_status,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.form,
-                                    "size_group_status",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.form,
-                                    "size_group_status",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.form, "size_group_status", $$c)
-                            }
-                          }
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Size Group Name:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.size_group_title,
+                          expression: "form.size_group_title"
                         }
-                      }),
-                      _vm._v(" "),
-                      _vm.form.size_group_status
-                        ? _c(
-                            "span",
-                            { staticClass: "text-success text-bold" },
-                            [_vm._v("Enable")]
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Size Group Name",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.size_group_title },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "size_group_title",
+                            $event.target.value
                           )
-                        : _c("span", { staticClass: "text-danger text-bold" }, [
-                            _vm._v("Disable")
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticStyle: { "margin-bottom": "1rem" } }, [
+                    _c("label", { staticStyle: { "margin-left": ".5rem" } }, [
+                      _vm._v("Size Name:")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "btn btn-sm btn-success ",
+                        on: { click: _vm.addSizeField }
+                      },
+                      [_c("i", { staticClass: "icon-plus-circle2" })]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "btn btn-sm btn-danger ",
+                        on: { click: _vm.removeSizeField }
+                      },
+                      [_c("i", { staticClass: "icon-minus-circle2" })]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "row" },
+                    _vm._l(_vm.sizeInput, function(inputLng) {
+                      return _c(
+                        "div",
+                        {
+                          key: inputLng,
+                          staticClass: "col-md-2",
+                          attrs: { id: "size-" + inputLng }
+                        },
+                        [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.sizeNames[inputLng],
+                                  expression: "form.sizeNames[inputLng]"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Size Name",
+                                required: ""
+                              },
+                              domProps: { value: _vm.form.sizeNames[inputLng] },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form.sizeNames,
+                                    inputLng,
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
                           ])
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-2 col-md-offset-7" }, [
+                  _c("div", { staticClass: "content-group-lg" }, [
+                    _c("div", { staticClass: "checkbox checkbox-switchery" }, [
+                      _c("label", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.size_group_status,
+                              expression: "form.size_group_status"
+                            }
+                          ],
+                          staticClass: "switchery-primary",
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: _vm.form.size_group_status,
+                            checked: Array.isArray(_vm.form.size_group_status)
+                              ? _vm._i(_vm.form.size_group_status, null) > -1
+                              : _vm.form.size_group_status
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.form.size_group_status,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "size_group_status",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "size_group_status",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.form, "size_group_status", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.form.size_group_status
+                          ? _c(
+                              "span",
+                              { staticClass: "text-success text-bold" },
+                              [_vm._v("Enable")]
+                            )
+                          : _c(
+                              "span",
+                              { staticClass: "text-danger text-bold" },
+                              [_vm._v("Disable")]
+                            )
+                      ])
                     ])
                   ])
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(1)
-            ])
-          ]
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "panel panel-flat" }, [
-      _vm._m(2),
+                ]),
+                _vm._v(" "),
+                _vm._m(0)
+              ])
+            ]
+          )
+        ])
+      ]),
       _vm._v(" "),
-      _c("div", { staticClass: "table-responsive" }, [
-        _c(
-          "table",
-          { staticClass: "table table-bordered table-striped table-sm" },
-          [
-            _vm._m(3),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.sizeGroups, function(sizeGroup, index) {
-                return _vm.sizeGroups
-                  ? _c("tr", { key: sizeGroup.id }, [
-                      _c("td", [_vm._v(_vm._s(index))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("span", { staticClass: "text text-bold" }, [
-                          _vm._v(" " + _vm._s(sizeGroup.name))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        _vm._l(sizeGroup.categories, function(SG_cat, index) {
-                          return _c(
-                            "span",
-                            { key: index, staticClass: "label label-info" },
-                            [_vm._v(_vm._s(SG_cat.category.name))]
-                          )
-                        }),
-                        0
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        _vm._l(sizeGroup.sizes, function(size) {
-                          return _c(
-                            "span",
-                            { key: size.id, staticClass: "label bg-teal" },
-                            [_vm._v(_vm._s(size.size_name))]
-                          )
-                        }),
-                        0
-                      ),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text text-center" }, [
-                        sizeGroup.status === 1
-                          ? _c("span", { staticClass: "label label-success" }, [
-                              _vm._v("Active")
-                            ])
-                          : _c("span", { staticClass: "label label-warning" }, [
-                              _vm._v("De-active")
-                            ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text text-center" }, [
-                        _c("ul", { staticClass: "icons-list" }, [
-                          _vm._m(4, true),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "text-danger-600" }, [
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.removeSizeGroup(sizeGroup.id)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "icon-trash" })]
+      _c("div", { staticClass: "panel panel-flat" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "table-responsive" }, [
+          _c(
+            "table",
+            { staticClass: "table table-bordered table-striped table-sm" },
+            [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.sizeGroups, function(sizeGroup, index) {
+                  return _vm.sizeGroups
+                    ? _c("tr", { key: sizeGroup.id }, [
+                        _c("td", [_vm._v(_vm._s(index))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("span", { staticClass: "text text-bold" }, [
+                            _vm._v(" " + _vm._s(sizeGroup.name))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          _vm._l(sizeGroup.categories, function(SG_cat, index) {
+                            return _c(
+                              "span",
+                              { key: index, staticClass: "label label-info" },
+                              [_vm._v(_vm._s(SG_cat.category.name))]
                             )
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          _vm._l(sizeGroup.sizes, function(size) {
+                            return _c(
+                              "span",
+                              { key: size.id, staticClass: "label bg-teal" },
+                              [_vm._v(_vm._s(size.size_name))]
+                            )
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text text-center" }, [
+                          sizeGroup.status === 1
+                            ? _c(
+                                "span",
+                                { staticClass: "label label-success" },
+                                [_vm._v("Active")]
+                              )
+                            : _c(
+                                "span",
+                                { staticClass: "label label-warning" },
+                                [_vm._v("De-active")]
+                              )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text text-center" }, [
+                          _c("ul", { staticClass: "icons-list" }, [
+                            _vm._m(3, true),
+                            _vm._v(" "),
+                            _c("li", { staticClass: "text-danger-600" }, [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.removeSizeGroup(sizeGroup.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "icon-trash" })]
+                              )
+                            ])
                           ])
                         ])
                       ])
-                    ])
-                  : _vm._e()
-              }),
-              0
-            )
-          ]
-        )
-      ])
-    ])
-  ])
+                    : _vm._e()
+                }),
+                0
+              )
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("import-data", {
+        attrs: {
+          example_image: _vm.format_image,
+          upload_url: _vm.action_url,
+          example_file: _vm.format_file
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading" }, [
-      _c("h5", { staticClass: "panel-title" }, [_vm._v("Product Size Group")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "heading-elements" }, [
-        _c("ul", { staticClass: "icons-list" }, [
-          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-          _vm._v(" "),
-          _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-          _vm._v(" "),
-          _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

@@ -8,7 +8,7 @@
                         <h5 class="modal-title">Excel Or CVC File Import</h5>
                     </div>
 
-                    <form action="" method="post" class="form-horizontal" @submit.prevent="uploadImportFile">
+                    <form :action="upload_url" method="post" class="form-horizontal" @submit.prevent="uploadImportFile">
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-5 col-xs-12">
@@ -18,8 +18,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-5 col-xs-12">
-                                    <h5>Here is an example of what your csv should look like:</h5>
+                                    <h5>Here is an example of what your csv should look like: </h5>
                                     <img :src="example_image" class="img-responsive">
+                                    <p><a :href="example_file"  download> Download Excel</a></p>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +73,11 @@
                             alert(response.message);
                             setTimeout(function () {
                                 $('#modal_import_file').modal('hide');
+                                if(response.url !== 0 && typeof response.url !== undefined){
+                                    window.location = response.url
+                                }
                             },1000);
+
                         }
 
                     })
