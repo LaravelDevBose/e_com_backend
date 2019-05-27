@@ -4,11 +4,7 @@
             <div class="panel-heading">
                 <h5 class="panel-title">Product Tag/Keywords</h5>
                 <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+                    <button type="button" class="btn bg-orange-800 btn-sm" data-toggle="modal" data-target="#modal_import_file">Bulk Import <i class="icon-play3 position-right"></i></button>
                 </div>
             </div>
 
@@ -84,13 +80,17 @@
             </div>
         </div>
         <!-- /basic table -->
+        <import-data :example_image="format_image" :upload_url="action_url" :example_file="format_file" ></import-data>
     </div>
 </template>
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
+    import ImportData from "../helper/ImportData";
+
     export default {
         name: "Tag",
+        components:{'import-data':ImportData},
         data(){
             return {
                 form:{
@@ -98,6 +98,9 @@
                     tag_status:false,
                 },
                 btnDisabled:false,
+                format_image:'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
+                action_url:'/admin/import/tags',
+                format_file:'http://e_com.pc/excel_demo/tags.xlsx',
             }
         },
         created() {

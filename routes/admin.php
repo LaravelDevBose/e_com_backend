@@ -25,6 +25,8 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::get('/tag/create', 'TagController@create')->name('tag.create');
     Route::post('/tag/store', 'TagController@store')->name('tag.store');
     Route::delete('/tag/delete/{tag}', 'TagController@destroy')->name('tag.delete');
+    Route::post('/import/tags', 'TagController@import_tag')->name('import.tags');
+
 
     Route::resource('size_group', 'SizeGroupController');
     Route::post('/import/size-group/', 'SizeGroupController@import_size_group')->name('import.size_group');
