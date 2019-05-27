@@ -147,7 +147,7 @@
                 sizeRemove:false,
                 format_image:'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
                 action_url:'',
-                format_file:'http://e_com.pc/excel_demo/size_group.xlsx'
+                format_file:''
             }
         },
         created() {
@@ -233,10 +233,12 @@
             },
             bulkSizeGroupModel(){
                 this.action_url = '/admin/import/size-group';
+                this.format_file='http://e_com.pc/excel_demo/size_group.xlsx'
                 $('#modal_import_file').modal('show');
             },
             bulkSizeModel(){
                 this.action_url = '/admin/import/size';
+                this.format_file='http://e_com.pc/excel_demo/size.xlsx'
                 $('#modal_import_file').modal('show');
             }
         },

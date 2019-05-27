@@ -265,6 +265,46 @@ class SizeGroupController extends Controller
     }
 
     public function import_size(Request $request){
+        $file = $request->file('excel_file')->getRealPath();
 
+        $excel_file = Excel::load($file)->ignoreEmpty()->get()->toArray();
+        $result =0;
+        if(!empty($excel_file) && isset($excel_file[0])){
+            foreach ($excel_file as $r =>$row){
+                foreach ($row as $c => $coll){
+                    if(!empty($coll['size_group_id']) && !empty($coll['size_name'])){
+                        $size = Size::create([
+                            'size_group_id'=>$coll['size_group_id'],
+                            'size_name'=>Str::slug($coll['size_name']),
+                            'size_status'=>$coll['size_status'] ?? config('app.inactive')
+                        ]);
+                        if($size){
+                            $result++;
+                        }
+
+                    }
+                }
+
+            }
+
+            if($result == count($excel_file)){
+                return response()->json([
+                    'status'=>'success',
+                    'message'=>'All Size Data Store Successfully',
+                    'url'=>route('admin.size_group.create'),
+                ]);
+            }else{
+                return response()->json([
+                    'status'=>'success',
+                    'message'=>'Some of Size Data Not Store Successfully',
+                    'url'=>route('admin.size_group.create'),
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status'=>'error',
+                'message'=>'Uploaded File is Empty. No Data Found.'
+            ]);
+        }
     }
 }

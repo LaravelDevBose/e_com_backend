@@ -7877,7 +7877,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       sizeRemove: false,
       format_image: 'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
       action_url: '',
-      format_file: 'http://e_com.pc/excel_demo/size_group.xlsx'
+      format_file: ''
     };
   },
   created: function created() {
@@ -7951,10 +7951,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     bulkSizeGroupModel: function bulkSizeGroupModel() {
       this.action_url = '/admin/import/size-group';
+      this.format_file = 'http://e_com.pc/excel_demo/size_group.xlsx';
       $('#modal_import_file').modal('show');
     },
     bulkSizeModel: function bulkSizeModel() {
       this.action_url = '/admin/import/size';
+      this.format_file = 'http://e_com.pc/excel_demo/size.xlsx';
       $('#modal_import_file').modal('show');
     }
   }),
