@@ -36,7 +36,7 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::get('/delivery-cost/create', 'DeliveryCostController@create')->name('delivery_cost.create');
     Route::post('/delivery-cost/store', 'DeliveryCostController@store')->name('delivery_cost.store');
     Route::delete('/delivery-cost/delete/{deliveryCost}', 'DeliveryCostController@destroy')->name('delivery_cost.delete');
-
+    Route::post('/import/delivery_cost', 'DeliveryCostController@import_delivery_cost')->name('import.delivery_cost');
 
     Route::resource('/campaign', 'CampaignController');
     Route::get('/campaign/{campaign}/product/manage', 'CampaignController@manage_product_page')->name('campaign.product.manage');

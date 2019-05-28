@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\Admin\DeliveryCostCollection;
 use App\Http\Resources\Admin\DeliveryCost as DeliveryCostResource;
+use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DeliveryCostController extends Controller
 {
@@ -171,6 +173,63 @@ class DeliveryCostController extends Controller
             return response()->json([
                 'status'=>'error',
                 'message'=>'Invalid Information.!'
+            ]);
+        }
+    }
+
+    public function import_delivery_cost(Request $request){
+        $file = $request->file('excel_file')->getRealPath();
+
+        $excel_file = Excel::load($file)->ignoreEmpty()->get()->toArray();
+        $result =0;
+        if(!empty($excel_file) && isset($excel_file[0])){
+            foreach ($excel_file as $r =>$row){
+                foreach ($row as $c => $coll){
+                    $validate = Validator::make($coll, [
+                                'cost_title'=>'required',
+                                'delivery_area'=>'required',
+                                'package_weight'=>'required',
+                                'package_length'=>'required',
+                                'package_width'=>'required',
+                                'package_height'=>'required',
+                                'cost_price'=>'required'
+                            ]);
+                    if($validate->passes()){
+                        $cost = DeliveryCost::create([
+                            'cost_title'=>$coll['cost_title'],
+                            'package_weight'=>$coll['package_weight'],
+                            'package_length'=>$coll['package_length'],
+                            'package_width'=>$coll['package_width'],
+                            'package_height'=>$coll['package_height'],
+                            'cost_price'=>$coll['cost_price'],
+                            'cost_status'=>$coll['cost_status']?? 2,
+                            'delivery_area'=>$coll['delivery_area'],
+                        ]);
+                        if($cost){
+                            $result++;
+                        }
+                    }
+                }
+
+            }
+
+            if($result == count($excel_file)){
+                return response()->json([
+                    'status'=>'success',
+                    'message'=>'All Delivery Cost Store Successfully',
+                    'url'=>route('admin.delivery_cost.create')
+                ]);
+            }else{
+                return response()->json([
+                    'status'=>'success',
+                    'message'=>'Some of Delivery Cost Data Not Store Successfully',
+                    'url'=>route('admin.delivery_cost.create')
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status'=>'error',
+                'message'=>'Uploaded File is Empty. No Data Found.'
             ]);
         }
     }

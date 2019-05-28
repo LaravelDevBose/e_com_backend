@@ -6930,6 +6930,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helper_Select2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/Select2 */ "./resources/js/components/helper/Select2.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _helper_ImportData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/ImportData */ "./resources/js/components/helper/ImportData.vue");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -7065,15 +7066,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "DeliveryCost",
   components: {
-    'vue-select2': _helper_Select2__WEBPACK_IMPORTED_MODULE_0__["default"]
+    'vue-select2': _helper_Select2__WEBPACK_IMPORTED_MODULE_0__["default"],
+    'import-data': _helper_ImportData__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -7087,7 +7087,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         cost_price: '',
         cost_status: 0,
         delivery_area: 1
-      }
+      },
+      format_image: 'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
+      action_url: '/admin/import/delivery_cost',
+      format_file: 'http://e_com.pc/excel_demo/delivery_cost.xlsx'
     };
   },
   created: function created() {
@@ -57180,419 +57183,446 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "content" }, [
-    _c("div", { staticClass: "panel panel-info" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "panel-body" }, [
-        _c(
-          "form",
-          {
-            attrs: { action: "" },
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.deliveryCostStore($event)
+  return _c(
+    "div",
+    { staticClass: "content" },
+    [
+      _c("div", { staticClass: "panel panel-info" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "panel-body" }, [
+          _c(
+            "form",
+            {
+              attrs: { action: "" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.deliveryCostStore($event)
+                }
               }
-            }
-          },
-          [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-4" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Package Title:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.cost_title,
-                        expression: "form.cost_title"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Package Title ",
-                      required: ""
-                    },
-                    domProps: { value: _vm.form.cost_title },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.form, "cost_title", $event.target.value)
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4" }, [
-                _c(
-                  "div",
-                  { staticClass: "form-group" },
-                  [
-                    _c("label", [_vm._v("Delivery Area:")]),
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Package Title:")]),
                     _vm._v(" "),
-                    _c("vue-select2", {
-                      attrs: { options: _vm.deliveryAreas },
-                      model: {
-                        value: _vm.form.delivery_area,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "delivery_area", _vm._n($$v))
-                        },
-                        expression: "form.delivery_area"
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.cost_title,
+                          expression: "form.cost_title"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Package Title ",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.cost_title },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "cost_title", $event.target.value)
+                        }
                       }
                     })
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Cost Price:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.cost_price,
-                        expression: "form.cost_price"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "number",
-                      step: "0.01",
-                      placeholder: "Cost in (tk)",
-                      required: ""
-                    },
-                    domProps: { value: _vm.form.cost_price },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", [_vm._v("Delivery Area:")]),
+                      _vm._v(" "),
+                      _c("vue-select2", {
+                        attrs: { options: _vm.deliveryAreas },
+                        model: {
+                          value: _vm.form.delivery_area,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "delivery_area", _vm._n($$v))
+                          },
+                          expression: "form.delivery_area"
                         }
-                        _vm.$set(_vm.form, "cost_price", $event.target.value)
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-3" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Package Weight (Kg):")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.package_weight,
-                        expression: "form.package_weight"
-                      }
+                      })
                     ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "number",
-                      step: "0.01",
-                      placeholder: "Package Weight ",
-                      required: ""
-                    },
-                    domProps: { value: _vm.form.package_weight },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Cost Price:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.cost_price,
+                          expression: "form.cost_price"
                         }
-                        _vm.$set(
-                          _vm.form,
-                          "package_weight",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-3" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Package Length (CM):")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.package_length,
-                        expression: "form.package_length"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "number",
-                      step: "0.01",
-                      placeholder: "Length",
-                      required: ""
-                    },
-                    domProps: { value: _vm.form.package_length },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.form,
-                          "package_length",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-3" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Package Width (CM):")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.package_width,
-                        expression: "form.package_width"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "number",
-                      step: "0.01",
-                      placeholder: "Width",
-                      required: ""
-                    },
-                    domProps: { value: _vm.form.package_width },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.form, "package_width", $event.target.value)
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-3" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Package Height (CM):")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.package_height,
-                        expression: "form.package_height"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "number",
-                      step: "0.01",
-                      placeholder: "Height",
-                      required: ""
-                    },
-                    domProps: { value: _vm.form.package_height },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.form,
-                          "package_height",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-3" }, [
-                _c("div", { staticClass: "content-group-lg mt-2" }, [
-                  _c("label", [_vm._v("Publication Status:")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "checkbox checkbox-switchery" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.cost_status,
-                            expression: "form.cost_status"
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "number",
+                        step: "0.01",
+                        placeholder: "Cost in (tk)",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.cost_price },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
                           }
-                        ],
-                        staticClass: "switchery-primary",
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: _vm.form.cost_status,
-                          checked: Array.isArray(_vm.form.cost_status)
-                            ? _vm._i(_vm.form.cost_status, null) > -1
-                            : _vm.form.cost_status
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.form.cost_status,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.form,
-                                    "cost_status",
-                                    $$a.concat([$$v])
-                                  )
+                          _vm.$set(_vm.form, "cost_price", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Package Weight (Kg):")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.package_weight,
+                          expression: "form.package_weight"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "number",
+                        step: "0.01",
+                        placeholder: "Package Weight ",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.package_weight },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "package_weight",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Package Length (CM):")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.package_length,
+                          expression: "form.package_length"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "number",
+                        step: "0.01",
+                        placeholder: "Length",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.package_length },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "package_length",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Package Width (CM):")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.package_width,
+                          expression: "form.package_width"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "number",
+                        step: "0.01",
+                        placeholder: "Width",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.package_width },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "package_width",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Package Height (CM):")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.package_height,
+                          expression: "form.package_height"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "number",
+                        step: "0.01",
+                        placeholder: "Height",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.package_height },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "package_height",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("div", { staticClass: "content-group-lg mt-2" }, [
+                    _c("label", [_vm._v("Publication Status:")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "checkbox checkbox-switchery" }, [
+                      _c("label", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.cost_status,
+                              expression: "form.cost_status"
+                            }
+                          ],
+                          staticClass: "switchery-primary",
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: _vm.form.cost_status,
+                            checked: Array.isArray(_vm.form.cost_status)
+                              ? _vm._i(_vm.form.cost_status, null) > -1
+                              : _vm.form.cost_status
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.form.cost_status,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "cost_status",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "cost_status",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
                               } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.form,
-                                    "cost_status",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
+                                _vm.$set(_vm.form, "cost_status", $$c)
                               }
-                            } else {
-                              _vm.$set(_vm.form, "cost_status", $$c)
                             }
                           }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.form.cost_status
-                        ? _c(
-                            "span",
-                            { staticClass: "text-success text-bold" },
-                            [_vm._v("Enable")]
-                          )
-                        : _c("span", { staticClass: "text-danger text-bold" }, [
-                            _vm._v("Disable")
-                          ])
+                        }),
+                        _vm._v(" "),
+                        _vm.form.cost_status
+                          ? _c(
+                              "span",
+                              { staticClass: "text-success text-bold" },
+                              [_vm._v("Enable")]
+                            )
+                          : _c(
+                              "span",
+                              { staticClass: "text-danger text-bold" },
+                              [_vm._v("Disable")]
+                            )
+                      ])
                     ])
                   ])
                 ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-right form-group " }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { type: "submit", disabled: _vm.btnDisabled }
+                  },
+                  [
+                    _vm._v("Submit "),
+                    _c("i", {
+                      staticClass: "icon-arrow-right14 position-right"
+                    })
+                  ]
+                )
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "text-right form-group " }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-success",
-                  attrs: { type: "submit", disabled: _vm.btnDisabled }
-                },
-                [
-                  _vm._v("Submit "),
-                  _c("i", { staticClass: "icon-arrow-right14 position-right" })
-                ]
-              )
-            ])
-          ]
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "panel panel-flat" }, [
-      _vm._m(1),
+            ]
+          )
+        ])
+      ]),
       _vm._v(" "),
-      _c("div", { staticClass: "table-responsive" }, [
-        _c(
-          "table",
-          { staticClass: "table table-bordered table-striped table-sm" },
-          [
-            _vm._m(2),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.deliveryCosts, function(cost, index) {
-                return _vm.deliveryCosts
-                  ? _c("tr", { key: cost.id }, [
-                      _c("td", [_vm._v(_vm._s(index))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cost.title))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cost.area))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cost.weight))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          _vm._s(cost.height) +
-                            " X " +
-                            _vm._s(cost.width) +
-                            " X " +
-                            _vm._s(cost.length)
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-right" }, [
-                        _vm._v(_vm._s(cost.price))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text text-center" }, [
-                        cost.status === 1
-                          ? _c("span", { staticClass: "badge badge-success" }, [
-                              _vm._v("Enable")
-                            ])
-                          : _c("span", { staticClass: "badge badge-warning" }, [
-                              _vm._v("Disable")
-                            ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text text-center" }, [
-                        _c("ul", { staticClass: "icons-list" }, [
-                          _vm._m(3, true),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "text-danger-600" }, [
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.removeDeliveryCost(cost.id)
+      _c("div", { staticClass: "panel panel-flat" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "table-responsive" }, [
+          _c(
+            "table",
+            { staticClass: "table table-bordered table-striped table-sm" },
+            [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.deliveryCosts, function(cost, index) {
+                  return _vm.deliveryCosts
+                    ? _c("tr", { key: cost.id }, [
+                        _c("td", [_vm._v(_vm._s(index))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(cost.title))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(cost.area))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(cost.weight))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(cost.height) +
+                              " X " +
+                              _vm._s(cost.width) +
+                              " X " +
+                              _vm._s(cost.length)
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          _vm._v(_vm._s(cost.price))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text text-center" }, [
+                          cost.status === 1
+                            ? _c(
+                                "span",
+                                { staticClass: "badge badge-success" },
+                                [_vm._v("Enable")]
+                              )
+                            : _c(
+                                "span",
+                                { staticClass: "badge badge-warning" },
+                                [_vm._v("Disable")]
+                              )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text text-center" }, [
+                          _c("ul", { staticClass: "icons-list" }, [
+                            _vm._m(3, true),
+                            _vm._v(" "),
+                            _c("li", { staticClass: "text-danger-600" }, [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.removeDeliveryCost(cost.id)
+                                    }
                                   }
-                                }
-                              },
-                              [_c("i", { staticClass: "icon-trash" })]
-                            )
+                                },
+                                [_c("i", { staticClass: "icon-trash" })]
+                              )
+                            ])
                           ])
                         ])
                       ])
-                    ])
-                  : _vm._e()
-              }),
-              0
-            )
-          ]
-        )
-      ])
-    ])
-  ])
+                    : _vm._e()
+                }),
+                0
+              )
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("import-data", {
+        attrs: {
+          example_image: _vm.format_image,
+          upload_url: _vm.action_url,
+          example_file: _vm.format_file
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -57603,13 +57633,21 @@ var staticRenderFns = [
       _c("h5", { staticClass: "panel-title" }, [_vm._v("Delivery Costing")]),
       _vm._v(" "),
       _c("div", { staticClass: "heading-elements" }, [
-        _c("ul", { staticClass: "icons-list" }, [
-          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-          _vm._v(" "),
-          _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-          _vm._v(" "),
-          _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-        ])
+        _c(
+          "button",
+          {
+            staticClass: "btn bg-orange-800 btn-sm",
+            attrs: {
+              type: "button",
+              "data-toggle": "modal",
+              "data-target": "#modal_import_file"
+            }
+          },
+          [
+            _vm._v("Bulk Import "),
+            _c("i", { staticClass: "icon-play3 position-right" })
+          ]
+        )
       ])
     ])
   },
