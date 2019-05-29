@@ -30,9 +30,10 @@
     <!-- /core JS files -->
 
     @yield('PageCss')
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/pnotify.min.js') }}"></script>
 
     @yield('ThemeJs')
-
+    <script type="text/javascript" src="{{ asset('assets/js/pages/components_notifications_pnotify.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('assets/js/pages/animations_css3.js') }}"></script>
 </head>
@@ -52,7 +53,9 @@
 
             <!-- Main content -->
             <div class="content-wrapper">
-
+                <div id="loading" style="top: 20%; left: 40%; position: absolute; z-index: 1000000;">
+                    <img src="{{ asset('assets/loader.gif') }}" />
+                </div>
                 @yield('content')
 
             </div>
@@ -83,7 +86,19 @@
     <!-- /page container -->
 
 </div>
-
+<script>
+    var $loading = $('#loading').hide();
+    //Attach the event handler to any element
+    $(document)
+        .ajaxStart(function () {
+            //ajax request went so show the loading image
+            $loading.show();
+        })
+        .ajaxStop(function () {
+            //got response so hide the loading image
+            $loading.hide();
+        });
+</script>
 @yield('PageJs')
 
 </body>
