@@ -13,6 +13,8 @@ Vue.component('datetime', dateTime);
 
 
 import store from './store'
+import Notify from './helper/pNotify'
+window.Notify = Notify;
 
 Vue.component('dashboard', require('./components/home/Dashboard').default);
 

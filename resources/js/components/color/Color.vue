@@ -130,6 +130,7 @@
                 this.btnDisabled = true;
                 this.storeColor(this.form).then(response=>{
                     if(response.status === 'success'){
+                        Notify.success(response.message);
                         this.clearFormData();
                         this.btnDisabled = false;
                     }
@@ -143,7 +144,14 @@
             },
             removeColor(colorId){
                 if(confirm('Are You Sure..?')){
-                    this.deleteColor(colorId);
+                    this.deleteColor(colorId)
+                        .then(response=>{
+                            if(response.status === 'success'){
+                                Notify.success(response.message);
+                            }else {
+                                Notify.error(response.message);
+                            }
+                        });
                 }else{
                     return false;
                 }

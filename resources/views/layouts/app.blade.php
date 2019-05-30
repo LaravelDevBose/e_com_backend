@@ -53,14 +53,14 @@
 
             <!-- Main content -->
             <div class="content-wrapper">
-                <div id="loading" style="top: 20%; left: 40%; position: absolute; z-index: 1000000;">
-                    <img src="{{ asset('assets/loader.gif') }}" />
-                </div>
+
                 @yield('content')
 
             </div>
             <!-- /main content -->
-
+                <div id="loading" style="top: 20%; left: 40%; position: absolute; z-index: 1000000;">
+                    <img src="{{ asset('assets/loader.gif') }}" />
+                </div>
         </div>
         <!-- /page content -->
         <!-- Footer -->

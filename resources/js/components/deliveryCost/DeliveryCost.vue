@@ -180,10 +180,10 @@
                 this.storeDeliveryCost(this.form)
                     .then(response=>{
                         if(response.status === "success"){
-                            alert(response.message);
+                            Notify.success(response.message);
                             this.formReset();
                         }else{
-                            alert('Some Problem Found');
+                            Notify.error(response.message);
                         }
                     })
 
@@ -204,12 +204,12 @@
                     this.deleteDeliveryCost(costId)
                         .then(response=>{
                             if(response.status === "success"){
-                                alert(response.message);
+                                Notify.success(response.message);
                             }else{
-                                alert(response.message);
+                                Notify.error(response.message);
                             }
                         }).catch(error=>{
-                            alert(error.message);
+                            Notify.error(error.message);
                     })
                 }
             }

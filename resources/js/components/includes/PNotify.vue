@@ -3,8 +3,15 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     export default {
-        name: "PNotify"
+        name: "PNotify",
+        computed:{
+            ...mapGetters([
+                'getResponse'
+            ]),
+
+        }
     }
 </script>
 

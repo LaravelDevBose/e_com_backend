@@ -161,6 +161,7 @@
                 vm.formValue.attachmentIds = vm.attachment_ids;
                 vm.storeCategory(vm.formValue).then(response=>{
                     if(response.status === 'success'){
+                        Notify.success(response.message);
                         this.emptyFormData();
                         this.allCategory();
                         this.getTreeListCategories();
@@ -179,7 +180,7 @@
                 if(confirm('Are Your Sure..?'+cat_id)){
                     this.categoryDelete(cat_id).then(response=>{
                         if(response.status === 'success'){
-                            alert(response.msg)
+                            Notify.success(response.message);
                         }
                     })
                 }else{

@@ -70,7 +70,7 @@
                     .then(response=>{
                         //success message and modal close and data show
                         if(response.status === "success"){
-                            alert(response.message);
+                            Notify.success(response.message);
                             setTimeout(function () {
                                 $('#modal_import_file').modal('hide');
                                 if(response.url !== 0 && typeof response.url !== undefined){
@@ -78,11 +78,13 @@
                                 }
                             },1000);
 
+                        }else{
+                            Notify.error(response.message);
                         }
 
                     })
                     .catch(error=>{
-                            alert(error.message);
+                        Notify.success(error.message);
                     })
 
             }

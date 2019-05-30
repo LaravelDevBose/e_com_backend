@@ -116,6 +116,7 @@
                 this.btnDisabled = true;
                 this.storeTag(this.form).then(response=>{
                     if(response.status === 'success'){
+                        Notify.success(response.message);
                         this.resetForm();
                         this.btnDisabled = false;
                     }
@@ -129,7 +130,7 @@
                 if(confirm('Are You Sure..?')){
                     this.deleteTag(tagID).then(response=>{
                         if(response.status === 'success'){
-                            alert(response.message);
+                            Notify.success(response.message);
                         }
                     });
                 }
