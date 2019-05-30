@@ -17,7 +17,11 @@ return [
     'admin_default_status'=>1,
     'admin_default_role'=>2,
 
-
+    'product'=>[
+        'create'=>1,
+        'update'=>1,
+        'delete'=>1,
+    ],
 
 
 

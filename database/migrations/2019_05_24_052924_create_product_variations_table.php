@@ -14,7 +14,13 @@ class CreateProductVariationsTable extends Migration
     public function up()
     {
         Schema::create('product_variations', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('variation_id');
+            $table->unsignedBigInteger('product_id');
+            $table->string('seller_sku');
+            $table->unsignedInteger('reference_id');
+            $table->string('reference_model');
+            $table->unsignedInteger('quantity')->default(1);
+            $table->decimal('price');
             $table->timestamps();
         });
     }
