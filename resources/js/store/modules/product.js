@@ -1,12 +1,40 @@
 //declare State
-const state = {};
+const state = {
+    warrantyType:'',
+    dangersGoods:'',
+    productColors:'',
+    productSizes:'',
+};
 
 //declare Getters
-const getters = {};
+const getters = {
+    warrantyTypes:(state)=> state.warrantyType,
+    dangersGoods:(state)=> state.dangersGoods,
+    productColors:(state)=>state.productColors,
+    sizes:(state)=>state.productSizes,
+};
 
-const actions = {};
+const actions = {
+    async getProductCreateDependency({commit},catID){
+        try {
+            await axios.get(`/admin/create/product/dependency/${catID}`)
+                .then(response=>{
+                    commit('productCreateDependency', response.data);
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    }
+};
 
-const mutations = {};
+const mutations = {
+    productCreateDependency:(state,response)=>{
+        state.warrantyType = response.warrantyType;
+        state.dangersGoods = response.dangersGoods;
+        state.productColors = response.colors;
+        state.productSizes = response.sizes;
+    }
+};
 
 export default {
     state,

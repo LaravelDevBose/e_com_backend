@@ -117,7 +117,6 @@
 <script>
     // import the component
     import Treeselect from '@riophae/vue-treeselect';
-    import PNotify from '../includes/PNotify';
     // import the styles
     import '@riophae/vue-treeselect/dist/vue-treeselect.css';
 
@@ -125,7 +124,7 @@
     import Attachment from "../attachment/Attachment";
     export default {
         name: "Category",
-        components:{Attachment, Treeselect, PNotify},
+        components:{Attachment, Treeselect},
         data(){
             return{
                 formValue:{
@@ -181,6 +180,8 @@
                     this.categoryDelete(cat_id).then(response=>{
                         if(response.status === 'success'){
                             Notify.success(response.message);
+                        }else{
+                            Notify.error(response.message);
                         }
                     })
                 }else{

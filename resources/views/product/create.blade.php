@@ -2,21 +2,53 @@
 @section('PageTitle','Create New Product')
 
 @section('PageCss')
-
+    <style>
+        .note-toolbar > .note-btn-group {
+            margin-top: 5px;
+            margin-right: 5px;
+            margin-left: 0;
+        }
+        .note-editor .note-toolbar{
+            border-bottom: 1px solid #ddd;
+        }
+        .wysihtml5-toolbar{
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        .wysihtml5-toolbar > li {
+            margin: 5px 5px 0 0;
+        }
+    </style>
 @endsection
 
 @section('ThemeJs')
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/core/libraries/jasny_bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/inputs/typeahead/typeahead.bundle.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/inputs/typeahead/handlebars.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/inputs/passy.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/inputs/maxlength.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/editors/summernote/summernote.min.js') }}"></script>
 
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/styling/switchery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/editors/wysihtml5/wysihtml5.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/editors/wysihtml5/toolbar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/editors/wysihtml5/parsers.js') }}"></script>
+
+
+
+
+
     <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/styling/switchery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/styling/switch.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('assets/js/core/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/pages/form_layouts.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/pages/datatables_sorting.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/pages/editor_summernote.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/pages/editor_wysihtml5.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/pages/form_checkboxes_radios.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/pages/form_controls_extended.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/plugins/ui/ripple.min.js') }}"></script>
 @endsection
 

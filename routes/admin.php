@@ -15,6 +15,12 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::post('/category/store', 'CategoryController@store')->name('category.store');
     Route::post('/category/delete', 'CategoryController@destroy')->name('category.delete');
 
+    Route::get('/brands','BrandController@index')->name('brand.index');
+    Route::get('/brand/list','BrandController@brand_list')->name('brand.list');
+    Route::get('brand/create', 'BrandController@create')->name('brand.create');
+    Route::post('brand/store', 'BrandController@store')->name('brand.store');
+    Route::delete('/brand/{brand}', 'BrandController@destroy')->name('brand.delete');
+
     Route::get('/colors', 'ColorController@index')->name('color');
     Route::get('/color/create','ColorController@create')->name('color.create');
     Route::post('/color/store', 'ColorController@store')->name('color.store');
@@ -50,7 +56,7 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::get('voucher_list', 'VoucherController@voucherList')->name('voucher.list');
 
     Route::resource('/product', 'ProductController');
-
+    Route::get('create/product/dependency/{catID}', 'ProductController@product_create_dependency')->name('product.create.dependency');
 
 });
 

@@ -16,6 +16,10 @@ class Color extends Model
         'color_status',
     ];
 
+    public function scopeIsActive($query){
+        return $query->where('color_status', config('app.active'));
+    }
+
     public function scopeNotDelete($query){
         return $query->whereNotIn('color_status', [0]);
     }

@@ -35,6 +35,9 @@ import ProductList from './components/product/ProductList';
 import CreateProduct from './components/product/CreateProduct';
 import ShowProduct from './components/product/ShowProduct';
 import ImportData from "./components/helper/ImportData";
+import Brand from './components/brand/Brand';
+
+
 
 const app = new Vue({
     el: '#app',
@@ -45,6 +48,7 @@ const app = new Vue({
         'import-date':ImportData,
         Category,
         Color,
+        'brand':Brand,
         'tag':Tag,
         'size-group':SizeGroup,
         'delivery-cost':DeliveryCost,

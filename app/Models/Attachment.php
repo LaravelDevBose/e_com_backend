@@ -13,6 +13,7 @@ class Attachment extends Model
         'user' => 3,
         'voucher' => 4,
         'campaign'=>5,
+        'brand'=>6,
     ];
 
     protected $table = 'attachments';
@@ -50,6 +51,10 @@ class Attachment extends Model
 
     public function category(){
         return $this->belongsTo(Category::class, 'attachment_id','attachment_id');
+    }
+
+    public function brand(){
+        return $this->belongsTo(Brand::class, 'attachment_id','attachment_id');
     }
 
     public function voucher(){

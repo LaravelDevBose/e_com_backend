@@ -21,7 +21,7 @@ import  attachment from './modules/attachment';
 import  productHelper from './modules/helper/productHelper';
 import  product from './modules/product';
 import  excel_import from './modules/helper/excel_import';
-
+import  brand from './modules/brand';
 
 export default new Vuex.Store({
     state:{
@@ -52,6 +52,7 @@ export default new Vuex.Store({
         productHelper,
         product,
         excel_import,
+        brand,
     }
 })
 

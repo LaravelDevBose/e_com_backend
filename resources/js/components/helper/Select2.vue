@@ -1,12 +1,12 @@
 <template>
-    <select class="form-control"   :name="name" data-width="100%">
+    <select class="form-control"  :multiple="multiple"  :name="name" data-width="100%">
         <slot></slot>
     </select>
 </template>
 
 <script>
     export default {
-        props:['options', 'value','name'],
+        props:['options', 'value','name','multiple'],
         name: "Select2",
         data(){
             return{

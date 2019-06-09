@@ -46,7 +46,7 @@ $(function() {
     // ------------------------------
 
     // Checkboxes, radios
-    $(".styled").uniform({ radioClass: 'choice' });
+    // $(".styled").uniform({ radioClass: 'choice' });
 
     // File input
     $(".file-styled").uniform({
