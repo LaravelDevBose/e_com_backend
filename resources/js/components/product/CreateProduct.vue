@@ -209,7 +209,7 @@
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Color:</label>
                             <div class="col-lg-4">
-                                <vue-select2 :options="productColors"> </vue-select2>
+                                <vue-select2 v-model="variation.pri_id" :options="productColors"> </vue-select2>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -221,7 +221,7 @@
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Size:</label>
                             <div class="col-lg-4">
-                                <vue-select2 :options="sizes" > </vue-select2>
+                                <vue-select2 v-model="variation.sec_id" :options="sizes" > </vue-select2>
                             </div>
                         </div>
 
@@ -412,6 +412,12 @@
                     warranty_policy_eng:'',
                     warranty_period:'',
                 },
+                variation:{
+                    'pri_id':'',
+                    'pri_model':'',
+                    'sec_id':'',
+                    'sec_model':'',
+                },
                 btnDisabled:false,
                 multiple:true,
                 folder:'product',
@@ -452,6 +458,14 @@
                 handler(newValue, oldValue){
                     if(newValue !== oldValue){
                         this.getProductCreateDependency(this.formData.category_id);
+                    }
+                },
+                deep:true,
+            },
+            variation:{
+                handler(newValue, oldValue){
+                    if(newValue === oldValue){
+                        alert('yesss');
                     }
                 },
                 deep:true,

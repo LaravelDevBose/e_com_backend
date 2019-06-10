@@ -8176,6 +8176,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         warranty_policy_eng: '',
         warranty_period: ''
       },
+      variation: {
+        'pri_id': '',
+        'pri_model': '',
+        'sec_id': '',
+        'sec_model': ''
+      },
       btnDisabled: false,
       multiple: true,
       folder: 'product',
@@ -8200,6 +8206,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       handler: function handler(newValue, oldValue) {
         if (newValue !== oldValue) {
           this.getProductCreateDependency(this.formData.category_id);
+        }
+      },
+      deep: true
+    },
+    variation: {
+      handler: function handler(newValue, oldValue) {
+        if (newValue === oldValue) {
+          alert('yesss');
         }
       },
       deep: true
@@ -60220,7 +60234,18 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "col-lg-4" },
-                [_c("vue-select2", { attrs: { options: _vm.productColors } })],
+                [
+                  _c("vue-select2", {
+                    attrs: { options: _vm.productColors },
+                    model: {
+                      value: _vm.variation.pri_id,
+                      callback: function($$v) {
+                        _vm.$set(_vm.variation, "pri_id", $$v)
+                      },
+                      expression: "variation.pri_id"
+                    }
+                  })
+                ],
                 1
               )
             ]),
@@ -60250,7 +60275,18 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "col-lg-4" },
-                [_c("vue-select2", { attrs: { options: _vm.sizes } })],
+                [
+                  _c("vue-select2", {
+                    attrs: { options: _vm.sizes },
+                    model: {
+                      value: _vm.variation.sec_id,
+                      callback: function($$v) {
+                        _vm.$set(_vm.variation, "sec_id", $$v)
+                      },
+                      expression: "variation.sec_id"
+                    }
+                  })
+                ],
                 1
               )
             ]),
