@@ -31,6 +31,8 @@ class CreateProductsTable extends Migration
             $table->decimal('package_height')->nullable();
             $table->decimal('delivery_cost1')->nullable();
             $table->decimal('delivery_cost2')->nullable();
+            $table->boolean('warranty_type')->nullable();
+            $table->text('video_url')->nullable();
             $table->decimal('product_status')->default(config('app.product_create'));
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();

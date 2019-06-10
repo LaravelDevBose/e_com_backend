@@ -17,8 +17,10 @@ class CreateProductVariationsTable extends Migration
             $table->bigIncrements('variation_id');
             $table->unsignedBigInteger('product_id');
             $table->string('seller_sku');
-            $table->unsignedInteger('reference_id');
-            $table->string('reference_model');
+            $table->string('pri_id')->nullable();
+            $table->string('pri_model')->nullable();
+            $table->string('sec_id')->nullable();
+            $table->string('sec_model')->nullable();
             $table->unsignedInteger('quantity')->default(1);
             $table->decimal('price');
             $table->timestamps();
