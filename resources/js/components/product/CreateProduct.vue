@@ -206,18 +206,24 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Color:</label>
-                            <div class="col-lg-4">
-                                <vue-select2 v-model="variation.pri_id" :options="productColors"> </vue-select2>
+                        <div v-for="i in total" :key="i">
+                            <div class="form-group row">
+                                <label class="col-lg-2 control-label">Color:</label>
+                                <div class="col-lg-4">
+                                    <vue-select2 v-model="variation.pri_id[i]" :options="productColors"> </vue-select2>
+                                </div>
+                                <div class="col-lg-1">
+                                    <span class="text-danger"> <i class="icon-trash"></i></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-2 control-label">Product Model:</label>
+                                <div class="col-lg-10">
+                                    <product-image :multi_file="multi_file" :pri_id="variation.pri_id[i]" :folder="folder"></product-image>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Product Model:</label>
-                            <div class="col-lg-10">
-                                <attachment :multi_file="multi_file" :folder="folder"></attachment>
-                            </div>
-                        </div>
+
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Size:</label>
                             <div class="col-lg-4">
@@ -247,7 +253,7 @@
                                                         <label>
                                                             <input type="checkbox"  class="switchery" checked>
                                                             <span class="text-success text-bold" >Active</span>
-                                                            <!--                                                <span class="text-danger text-bold" >Inactive</span>-->
+                                                            <!--<span class="text-danger text-bold" >Inactive</span>-->
                                                         </label>
                                                     </div>
                                                 </td>
@@ -364,7 +370,7 @@
     // import the styles
     import '@riophae/vue-treeselect/dist/vue-treeselect.css';
     import {mapGetters, mapActions} from 'vuex';
-    import Attachment from "../attachment/Attachment";
+    import ProductImage from "../attachment/ProductImage";
     import VueSelect2 from '../helper/Select2';
     import SummerNote from '../helper/SummerNote';
     import WysiHtml from '../helper/WysiHtml';
@@ -372,7 +378,7 @@
     export default {
         name: "CreateProduct",
         components:{
-            Attachment,
+            ProductImage,
             Treeselect,
             'vue-select2':VueSelect2,
             'summer-note':SummerNote,
@@ -413,10 +419,11 @@
                     warranty_period:'',
                 },
                 variation:{
-                    'pri_id':'',
+                    'pri_id':[],
                     'pri_model':'',
-                    'sec_id':'',
+                    'sec_id':[],
                     'sec_model':'',
+                    'attachmentIds':[],
                 },
                 btnDisabled:false,
                 multiple:true,
@@ -429,6 +436,8 @@
                         children: node.children,
                     }
                 },
+                total:1,
+                pri_id_total:1,
             }
         },
         created() {
@@ -462,10 +471,18 @@
                 },
                 deep:true,
             },
-            variation:{
+            'variation.pri_id':{
                 handler(newValue, oldValue){
-                    if(newValue === oldValue){
-                        alert('yesss');
+                    // if(newValue === oldValue){
+                    //
+                    //     alert('yesss');
+                    // }
+
+                    if(newValue.length > this.pri_id_total){
+                        this.total ++;
+                        this.pri_id_total++;
+                    }else if(newValue.length < this.pri_id_total){
+                        this.total --;
                     }
                 },
                 deep:true,

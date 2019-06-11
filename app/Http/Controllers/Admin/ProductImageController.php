@@ -1,31 +1,32 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Exception;
 use App\Models\Attachment;
 use Illuminate\Http\Request;
 use App\Helpers\AttachmentHelper;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class AttachmentController extends Controller
+class ProductImageController extends Controller
 {
     private $attachmentFolder = 'public/attachments/';
 
     public function store(Request $request) {
         // return $request->all();
-        $attachments = $request->except('folder');
+        $attachments = $request->except(['folder', 'pri_id']);
         if(empty($attachments)){
             return response()->json([
                 'status' => 'error',
                 'message' => 'No file found!'
             ]);
         }
-    
+
         $attachmentsArray=['attachment_file' =>[]];
         foreach ($attachments as $key => $attachment){
             array_push($attachmentsArray['attachment_file'],  $attachment);
@@ -61,9 +62,8 @@ class AttachmentController extends Controller
                     throw new Exception('Invalid Model!', 400);
                 }
 
-                $attachmentData = [];
+                $attachmentData[$request->pri_id] = [];
                 foreach ($attachments as $key => $attachment){
-
 
                     $model = $attachmentModels[$folder];
 
@@ -99,6 +99,7 @@ class AttachmentController extends Controller
                 }
                 return response()->json([
                     'status' => 'success',
+                    'message'=>'Image Uploaded.',
                     'attachments' => $attachmentData
                 ]);
 

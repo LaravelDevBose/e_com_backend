@@ -58,6 +58,8 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
     Route::resource('/product', 'ProductController');
     Route::get('create/product/dependency/{catID}', 'ProductController@product_create_dependency')->name('product.create.dependency');
 
+    Route::post('product/image/store', 'ProductImageController@store')->name('product_image.store');
+    Route::delete('product/image/delete/{id}', 'ProductImageController@delete')->name('product_image.delete');
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){
