@@ -3,19 +3,19 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <input type="file" class="hidden" ref="files" :multiple="multi_file" id="file_upload"  @change="uploadFile">
+                    <input type="file" class="hidden" ref="files" :multiple="multi_file" id="file_upload"   @change="uploadFile">
                     <label for="file_upload" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left"></i> Select File</label>
                 </div>
             </div>
         </div>
-        <div class="row" v-if="productImages[pri_id]">
-            <div class="col-xs-4 col-sm-4 col-lg-3" v-for="(attachment, index) in productImages[pri_id]" :key="attachment.id">
+        <div class="row" v-if="productImages">
+            <div class="col-xs-4 col-sm-4 col-lg-3" v-for="(image, index) in productImages" :key="image.id" v-if="image.pri_id === pri_id">
                 <div class="thumbnail">
                     <div class="thumb">
-                        <img :src="attachment.img" alt="">
+                        <img :src="image.img" alt="">
                         <div class="caption-overflow">
                             <span>
-                                <a :href="attachment.img" data-fancybox="images"  class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-eye"></i></a>
+                                <a :href="image.img" data-fancybox="images"  class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-eye"></i></a>
                             </span>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
     import {mapGetters, mapActions } from 'vuex'
 import { setTimeout } from 'timers';
     export default {
-        props:['multi_file', 'folder', 'pri_id'],
+        props:['multi_file', 'folder'],
         name: "ProductImage",
         data(){
             return{
@@ -53,7 +53,8 @@ import { setTimeout } from 'timers';
                 }
                 formData.append('folder', this.folder);
                 formData.append('pri_id', this.pri_id);
-
+                 console.log(this.pri_id);
+                 console.log('yyyy');
                 let vm = this;
                  setTimeout(()=>{
                      vm.uploadProductImage(formData)
@@ -76,10 +77,11 @@ import { setTimeout } from 'timers';
         },
         computed:{
             ...mapGetters([
-                'productImages'
-            ])
+                'productImages',
+                'pri_id'
+            ]),
+        },
 
-        }
 
     }
 </script>

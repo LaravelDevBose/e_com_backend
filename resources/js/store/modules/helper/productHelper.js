@@ -1,13 +1,10 @@
 //declare State
 const state = {
     addedProductIDs:[],
-    imagesFile:{
-        images:[],
-    },
+    imagesFile:[],
     errors:null,
-    image_ids:{
-        ids:[],
-    },
+    image_ids:[],
+    pri_id:'',
 };
 
 //declare Getters
@@ -15,6 +12,7 @@ const getters = {
     selectedProductIDs:(state)=> state.addedProductIDs,
     productImages:(state)=>state.imagesFile,
     imageIds: (state)=>state.image_ids,
+    pri_id: (state)=>state.pri_id,
 };
 
 const actions = {
@@ -23,17 +21,25 @@ const actions = {
     },
     async uploadProductImage({commit},formData){
         try {
+            console.log(formData);
             return await axios.post('/admin/product/image/store',formData,{
                 headers: {
                     // 'Content-Type': 'multipart/form-data; boundary=someArbitraryUniqueString',
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }).then(function (response) {
-                if(response.data.status === "success"){
-                    commit('setProductImage', response.data.attachments, formData.pri_id);
+
+                if(response.status === 200){
+                    commit('setProductImage', response.data, formData.pri_id);
                 }
-                commit('setResponse', response.data);
-                return response.data;
+                let responseData= {
+                    'status': response.data.status,
+                    'message':response.data.message,
+                };
+                console.log(responseData);
+
+                commit('setResponse', responseData);
+                return responseData;
 
             }).catch(function (errors) {
                 console.log(errors);
@@ -46,20 +52,20 @@ const actions = {
             console.log(error);
         }
     },
+
+    setVariationPriId({commit}, priId){
+        commit('setPriId', priId);
+        console.log(priId);
+    }
 };
 
 const mutations = {
     setProductIds:(state, productIds)=>state.addedProductIDs = productIds,
+    setPriId:(state, priId)=>state.pri_id = priId,
     setProductImage:(state,response, pri_id)=>{
-        if(response.status === 'success'){
-            response.forEach(file=>{
-                state.imagesFile.images[pri_id].push(file);
-                state.image_ids.ids[pri_id].push(file.id);
-            });
-
-        }else{
-            state.errors = response;
-        }
+        response.attachments.forEach(image=>{
+            state.imagesFile.unshift(image);
+        });
     },
     emptyAttachmentFile:(state)=>{
         state.attachmentsFile = [];

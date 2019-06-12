@@ -62,7 +62,7 @@ class ProductImageController extends Controller
                     throw new Exception('Invalid Model!', 400);
                 }
 
-                $attachmentData[$request->pri_id] = [];
+                $attachmentData= [];
                 foreach ($attachments as $key => $attachment){
 
                     $model = $attachmentModels[$folder];
@@ -90,6 +90,7 @@ class ProductImageController extends Controller
                     ]);
 
                     array_push($attachmentData, [
+                        'pri_id'=>$request->pri_id,
                         'img' => $attachmentSave->image_path,
                         'id' => $attachmentSave->attachment_id,
                         'no' => $attachmentSave->attachment_no,

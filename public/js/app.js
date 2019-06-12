@@ -6072,7 +6072,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['multi_file', 'folder', 'pri_id'],
+  props: ['multi_file', 'folder'],
   name: "ProductImage",
   data: function data() {
     return {};
@@ -6091,6 +6091,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       formData.append('folder', this.folder);
       formData.append('pri_id', this.pri_id);
+      console.log(this.pri_id);
+      console.log('yyyy');
       var vm = this;
       Object(timers__WEBPACK_IMPORTED_MODULE_1__["setTimeout"])(function () {
         vm.uploadProductImage(formData).then(function (response) {
@@ -6105,7 +6107,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, 1000);
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['productImages']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['productImages', 'pri_id']))
 });
 
 /***/ }),
@@ -8292,8 +8294,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.allTreeListCategories();
     this.getBrandList();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['allTreeListCategories', 'getBrandList', 'getProductCreateDependency'])),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['allTreeListCategories', 'getBrandList', 'getProductCreateDependency', 'setVariationPriId']), {
+    setPriId: function setPriId() {
+      var priID = $(this).attr('id');
+      alert(priID);
+
+      if (typeof priID !== 'undefined') {
+        this.setVariationPriId(priID);
+      }
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'imageIds'])),
   watch: {
     'formData.category_id': {
       handler: function handler(newValue, oldValue) {
@@ -56191,39 +56202,41 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm.productImages[_vm.pri_id]
+    _vm.productImages
       ? _c(
           "div",
           { staticClass: "row" },
-          _vm._l(_vm.productImages[_vm.pri_id], function(attachment, index) {
-            return _c(
-              "div",
-              { key: attachment.id, staticClass: "col-xs-4 col-sm-4 col-lg-3" },
-              [
-                _c("div", { staticClass: "thumbnail" }, [
-                  _c("div", { staticClass: "thumb" }, [
-                    _c("img", { attrs: { src: attachment.img, alt: "" } }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "caption-overflow" }, [
-                      _c("span", [
-                        _c(
-                          "a",
-                          {
-                            staticClass:
-                              "btn border-white text-white btn-flat btn-icon btn-rounded",
-                            attrs: {
-                              href: attachment.img,
-                              "data-fancybox": "images"
-                            }
-                          },
-                          [_c("i", { staticClass: "icon-eye" })]
-                        )
+          _vm._l(_vm.productImages, function(image, index) {
+            return image.pri_id === _vm.pri_id
+              ? _c(
+                  "div",
+                  { key: image.id, staticClass: "col-xs-4 col-sm-4 col-lg-3" },
+                  [
+                    _c("div", { staticClass: "thumbnail" }, [
+                      _c("div", { staticClass: "thumb" }, [
+                        _c("img", { attrs: { src: image.img, alt: "" } }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "caption-overflow" }, [
+                          _c("span", [
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "btn border-white text-white btn-flat btn-icon btn-rounded",
+                                attrs: {
+                                  href: image.img,
+                                  "data-fancybox": "images"
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-eye" })]
+                            )
+                          ])
+                        ])
                       ])
                     ])
-                  ])
-                ])
-              ]
-            )
+                  ]
+                )
+              : _vm._e()
           }),
           0
         )
@@ -60462,12 +60475,19 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "col-lg-10" },
+                      {
+                        staticClass: "col-lg-10",
+                        attrs: { id: _vm.variation.pri_id[i] },
+                        on: {
+                          click: function($event) {
+                            return _vm.setPriId()
+                          }
+                        }
+                      },
                       [
                         _c("product-image", {
                           attrs: {
                             multi_file: _vm.multi_file,
-                            pri_id: _vm.variation.pri_id[i],
                             folder: _vm.folder
                           }
                         })
@@ -79425,13 +79445,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //declare State
 var state = {
   addedProductIDs: [],
-  imagesFile: {
-    images: []
-  },
+  imagesFile: [],
   errors: null,
-  image_ids: {
-    ids: []
-  }
+  image_ids: [],
+  pri_id: ''
 }; //declare Getters
 
 var getters = {
@@ -79443,6 +79460,9 @@ var getters = {
   },
   imageIds: function imageIds(state) {
     return state.image_ids;
+  },
+  pri_id: function pri_id(state) {
+    return state.pri_id;
   }
 };
 var actions = {
@@ -79461,39 +79481,45 @@ var actions = {
             case 0:
               commit = _ref2.commit;
               _context.prev = 1;
-              _context.next = 4;
+              console.log(formData);
+              _context.next = 5;
               return axios.post('/admin/product/image/store', formData, {
                 headers: {
                   // 'Content-Type': 'multipart/form-data; boundary=someArbitraryUniqueString',
                   'Content-Type': 'application/x-www-form-urlencoded'
                 }
               }).then(function (response) {
-                if (response.data.status === "success") {
-                  commit('setProductImage', response.data.attachments, formData.pri_id);
+                if (response.status === 200) {
+                  commit('setProductImage', response.data, formData.pri_id);
                 }
 
-                commit('setResponse', response.data);
-                return response.data;
+                var responseData = {
+                  'status': response.data.status,
+                  'message': response.data.message
+                };
+                console.log(responseData);
+                commit('setResponse', responseData);
+                return responseData;
               })["catch"](function (errors) {
                 console.log(errors);
                 commit('setResponse', errors.data);
                 return errors.data;
               });
 
-            case 4:
+            case 5:
               return _context.abrupt("return", _context.sent);
 
-            case 7:
-              _context.prev = 7;
+            case 8:
+              _context.prev = 8;
               _context.t0 = _context["catch"](1);
               console.log(_context.t0);
 
-            case 10:
+            case 11:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 7]]);
+      }, _callee, null, [[1, 8]]);
     }));
 
     function uploadProductImage(_x, _x2) {
@@ -79501,21 +79527,24 @@ var actions = {
     }
 
     return uploadProductImage;
-  }()
+  }(),
+  setVariationPriId: function setVariationPriId(_ref3, priId) {
+    var commit = _ref3.commit;
+    commit('setPriId', priId);
+    console.log(priId);
+  }
 };
 var mutations = {
   setProductIds: function setProductIds(state, productIds) {
     return state.addedProductIDs = productIds;
   },
+  setPriId: function setPriId(state, priId) {
+    return state.pri_id = priId;
+  },
   setProductImage: function setProductImage(state, response, pri_id) {
-    if (response.status === 'success') {
-      response.forEach(function (file) {
-        state.imagesFile.images[pri_id].push(file);
-        state.image_ids.ids[pri_id].push(file.id);
-      });
-    } else {
-      state.errors = response;
-    }
+    response.attachments.forEach(function (image) {
+      state.imagesFile.unshift(image);
+    });
   },
   emptyAttachmentFile: function emptyAttachmentFile(state) {
     state.attachmentsFile = [];

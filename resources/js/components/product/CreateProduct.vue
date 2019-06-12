@@ -218,8 +218,8 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-2 control-label">Product Model:</label>
-                                <div class="col-lg-10">
-                                    <product-image :multi_file="multi_file" :pri_id="variation.pri_id[i]" :folder="folder"></product-image>
+                                <div class="col-lg-10" @click="setPriId()" :id="variation.pri_id[i]">
+                                    <product-image  :multi_file="multi_file" :folder="folder"></product-image>
                                 </div>
                             </div>
                         </div>
@@ -449,8 +449,16 @@
             ...mapActions([
                 'allTreeListCategories',
                 'getBrandList',
-                'getProductCreateDependency'
+                'getProductCreateDependency',
+                'setVariationPriId',
             ]),
+            setPriId(){
+                let priID = $(this).attr('id');
+                alert(priID);
+                if(typeof priID !== 'undefined'){
+                    this.setVariationPriId(priID);
+                }
+            }
         },
         computed:{
             ...mapGetters([
@@ -460,6 +468,7 @@
                 'dangersGoods',
                 'productColors',
                 'sizes',
+                'imageIds'
             ])
         },
         watch:{
