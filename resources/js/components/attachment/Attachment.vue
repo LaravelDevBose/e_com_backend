@@ -44,7 +44,9 @@ import { setTimeout } from 'timers';
                 'uploadAttachment'
             ]),
             uploadFile(e) {
+
                 this.files = this.$refs.files.files;
+
                 var formData;
                 formData = new FormData();
                 for( var i = 0; i < this.files.length; i++ ){

@@ -69,7 +69,7 @@ import { setTimeout } from 'timers';
                             Notify.error(error.message);
                      });
                  },1000);
-                 
+
             },
             
 

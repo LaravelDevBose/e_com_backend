@@ -218,8 +218,41 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-2 control-label">Product Model:</label>
-                                <div class="col-lg-10" @click="setPriId()" :id="variation.pri_id[i]">
-                                    <product-image  :multi_file="multi_file" :folder="folder"></product-image>
+                                <div class="col-lg-10" >
+<!--                                    <div id="my-strictly-unique-vue-upload-multiple-image" style="display: flex; justify-content: center;">-->
+<!--                                        <vue-upload-multiple-image-->
+<!--                                                @upload-success="uploadImageSuccess"-->
+<!--                                                @before-remove="beforeRemove"-->
+<!--                                                @edit-image="editImage"-->
+<!--                                                @data-change="dataChange"-->
+<!--                                                :data-images="images"-->
+<!--                                        ></vue-upload-multiple-image>-->
+<!--                                    </div>-->
+
+                                    <div id="productImage">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <input type="file" class="hidden" ref="files" :multiple="multi_file" :id="variation.pri_id[i]"   @change="uploadFile">
+                                                    <label :for="variation.pri_id[i]" @click="changePriId(variation.pri_id[i])" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left"></i> Select File</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" v-if="productImages">
+                                            <div class="col-xs-4 col-sm-4 col-lg-3" v-for="(image, index) in productImages" :key="image.id" v-if="image.pri_id === pri_id">
+                                                <div class="thumbnail">
+                                                    <div class="thumb">
+                                                        <img :src="image.img" alt="">
+                                                        <div class="caption-overflow">
+                                                            <span>
+                                                                <a :href="image.img" data-fancybox="images"  class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-eye"></i></a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -374,11 +407,13 @@
     import VueSelect2 from '../helper/Select2';
     import SummerNote from '../helper/SummerNote';
     import WysiHtml from '../helper/WysiHtml';
+    import VueUploadMultipleImage from 'vue-upload-multiple-image'
 
     export default {
         name: "CreateProduct",
         components:{
             ProductImage,
+            VueUploadMultipleImage,
             Treeselect,
             'vue-select2':VueSelect2,
             'summer-note':SummerNote,
@@ -438,6 +473,9 @@
                 },
                 total:1,
                 pri_id_total:1,
+                files:'',
+                priId:'',
+                images: [],
             }
         },
         created() {
@@ -450,15 +488,73 @@
                 'allTreeListCategories',
                 'getBrandList',
                 'getProductCreateDependency',
-                'setVariationPriId',
+                'uploadProductImage',
             ]),
-            setPriId(){
-                let priID = $(this).attr('id');
-                alert(priID);
-                if(typeof priID !== 'undefined'){
-                    this.setVariationPriId(priID);
+            changePriId(PriID){
+                this.priId = PriID;
+            },
+            uploadFile(e) {
+                console.log(e.dataTransfer);
+                return ;
+                this.files = e.dataTransfer.files;
+
+                var formData;
+                formData = new FormData();
+                for( var i = 0; i < this.files.length; i++ ){
+                    let file = this.files[i];
+                    formData.append(i, file);
                 }
+                formData.append('folder', this.folder);
+                formData.append('pri_id', this.priId);
+                let vm = this;
+                setTimeout(()=>{
+                    vm.uploadProductImage(formData)
+                        .then(response=>{
+                            if(response.status === "success"){
+
+                                Notify.success(response.message);
+                            }else{
+                                Notify.error(response.message);
+                            }
+                        }).catch(error=>{
+                        Notify.error(error.message);
+                    });
+                },1000);
+
+            },
+
+            uploadImageSuccess(formData, index, fileList) {
+                formData.append('pri_id', this.priId);
+                let vm = this;
+                setTimeout(()=>{
+                    vm.uploadProductImage(formData)
+                        .then(response=>{
+                            if(response.status === "success"){
+
+                                Notify.success(response.message);
+                            }else{
+                                Notify.error(response.message);
+                            }
+                        }).catch(error=>{
+                        Notify.error(error.message);
+                    });
+                },1000);
+            },
+            beforeRemove (index, done, fileList) {
+                console.log('index', index, fileList)
+                var r = confirm("remove image")
+                if (r == true) {
+                    done()
+                } else {
+                }
+            },
+            editImage (formData, index, fileList) {
+                console.log('edit data', formData, index, fileList)
+            },
+            dataChange (data) {
+                console.log(data)
             }
+
         },
         computed:{
             ...mapGetters([
@@ -468,7 +564,7 @@
                 'dangersGoods',
                 'productColors',
                 'sizes',
-                'imageIds'
+                'productImages'
             ])
         },
         watch:{
