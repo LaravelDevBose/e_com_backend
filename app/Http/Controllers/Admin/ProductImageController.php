@@ -101,7 +101,7 @@ class ProductImageController extends Controller
                 return response()->json([
                     'status' => 'success',
                     'message'=>'Image Uploaded.',
-                    'attachments' => $attachmentData
+                    'images' => $attachmentData
                 ]);
 
             }catch (Exception $ex) {

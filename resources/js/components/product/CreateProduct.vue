@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel" >
+                <div class="panel" style="display: none;">
                     <div class="panel-heading bg-teal-700">
                         <h5 class="panel-title">Basic Information</h5>
                     </div>
@@ -125,7 +125,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel">
+                <div class="panel" style="display: none;">
                     <div class="panel-heading bg-purple-400">
                         <h5 class="panel-title">Product Info in English</h5>
                     </div>
@@ -154,8 +154,8 @@
                         </div>
 
                     </div>
-                </div>
-                <div class="panel">
+                </div >
+                <div class="panel" style="display: none;">
                     <div class="panel-heading bg-indigo-600">
                         <h5 class="panel-title">More Product Details</h5>
                     </div>
@@ -219,27 +219,17 @@
                             <div class="form-group row">
                                 <label class="col-lg-2 control-label">Product Model:</label>
                                 <div class="col-lg-10" >
-<!--                                    <div id="my-strictly-unique-vue-upload-multiple-image" style="display: flex; justify-content: center;">-->
-<!--                                        <vue-upload-multiple-image-->
-<!--                                                @upload-success="uploadImageSuccess"-->
-<!--                                                @before-remove="beforeRemove"-->
-<!--                                                @edit-image="editImage"-->
-<!--                                                @data-change="dataChange"-->
-<!--                                                :data-images="images"-->
-<!--                                        ></vue-upload-multiple-image>-->
-<!--                                    </div>-->
-
                                     <div id="productImage">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <input type="file" class="hidden" ref="files" :multiple="multi_file" :id="variation.pri_id[i]"   @change="uploadFile">
+                                                    <input type="file" class="hidden" ref="files" :multiple="multi_file" :id="variation.pri_id[i]"   @change="uploadImage">
                                                     <label :for="variation.pri_id[i]" @click="changePriId(variation.pri_id[i])" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left"></i> Select File</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row" v-if="productImages">
-                                            <div class="col-xs-4 col-sm-4 col-lg-3" v-for="(image, index) in productImages" :key="image.id" v-if="image.pri_id === pri_id">
+                                            <div class="col-xs-4 col-sm-4 col-lg-3" v-for="(image, index) in productImages" :key="image.id" v-if="image.pri_id === variation.pri_id[i]" :class="variation.pri_id[i]">
                                                 <div class="thumbnail">
                                                     <div class="thumb">
                                                         <img :src="image.img" alt="">
@@ -403,17 +393,15 @@
     // import the styles
     import '@riophae/vue-treeselect/dist/vue-treeselect.css';
     import {mapGetters, mapActions} from 'vuex';
-    import ProductImage from "../attachment/ProductImage";
+    // import ProductImage from "../attachment/ProductImage";
     import VueSelect2 from '../helper/Select2';
     import SummerNote from '../helper/SummerNote';
     import WysiHtml from '../helper/WysiHtml';
-    import VueUploadMultipleImage from 'vue-upload-multiple-image'
+    // import VueUploadMultipleImage from 'vue-upload-multiple-image'
 
     export default {
         name: "CreateProduct",
         components:{
-            ProductImage,
-            VueUploadMultipleImage,
             Treeselect,
             'vue-select2':VueSelect2,
             'summer-note':SummerNote,
@@ -493,11 +481,9 @@
             changePriId(PriID){
                 this.priId = PriID;
             },
-            uploadFile(e) {
-                console.log(e.dataTransfer);
-                return ;
-                this.files = e.dataTransfer.files;
+            uploadImage(e) {
 
+                this.files = this.$refs.files[0].files;
                 var formData;
                 formData = new FormData();
                 for( var i = 0; i < this.files.length; i++ ){
@@ -506,19 +492,10 @@
                 }
                 formData.append('folder', this.folder);
                 formData.append('pri_id', this.priId);
+
                 let vm = this;
                 setTimeout(()=>{
-                    vm.uploadProductImage(formData)
-                        .then(response=>{
-                            if(response.status === "success"){
-
-                                Notify.success(response.message);
-                            }else{
-                                Notify.error(response.message);
-                            }
-                        }).catch(error=>{
-                        Notify.error(error.message);
-                    });
+                    vm.uploadProductImage(formData);
                 },1000);
 
             },

@@ -30,7 +30,7 @@ const actions = {
             }).then(function (response) {
 
                 if(response.status === 200){
-                    commit('setProductImage', response.data, formData.pri_id);
+                    commit('setProductImage', response.data);
                 }
                 let responseData= {
                     'status': response.data.status,
@@ -62,9 +62,9 @@ const actions = {
 const mutations = {
     setProductIds:(state, productIds)=>state.addedProductIDs = productIds,
     setPriId:(state, priId)=>state.pri_id = priId,
-    setProductImage:(state,response, pri_id)=>{
-        response.attachments.forEach(image=>{
-            state.imagesFile.unshift(image);
+    setProductImage:(state,response)=>{
+        response.images.forEach(image=>{
+            state.imagesFile.push(image);
         });
     },
     emptyAttachmentFile:(state)=>{
