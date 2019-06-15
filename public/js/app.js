@@ -8224,9 +8224,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       total: 1,
       pri_id_total: 1,
-      files: '',
-      priId: '',
-      images: []
+      priId: ''
     };
   },
   created: function created() {
@@ -8238,12 +8236,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.priId = PriID;
     },
     uploadImage: function uploadImage(e) {
-      this.files = this.$refs.files[0].files;
-      var formData;
+      var files = e.target.files || e.dataTransfer.files;
+      console.log(files);
+      var formData = '';
       formData = new FormData();
 
-      for (var i = 0; i < this.files.length; i++) {
-        var file = this.files[i];
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
         formData.append(i, file);
       }
 
@@ -8253,35 +8252,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       setTimeout(function () {
         vm.uploadProductImage(formData);
       }, 1000);
-    },
-    uploadImageSuccess: function uploadImageSuccess(formData, index, fileList) {
-      formData.append('pri_id', this.priId);
-      var vm = this;
-      setTimeout(function () {
-        vm.uploadProductImage(formData).then(function (response) {
-          if (response.status === "success") {
-            Notify.success(response.message);
-          } else {
-            Notify.error(response.message);
-          }
-        })["catch"](function (error) {
-          Notify.error(error.message);
-        });
-      }, 1000);
-    },
-    beforeRemove: function beforeRemove(index, done, fileList) {
-      console.log('index', index, fileList);
-      var r = confirm("remove image");
-
-      if (r == true) {
-        done();
-      } else {}
-    },
-    editImage: function editImage(formData, index, fileList) {
-      console.log('edit data', formData, index, fileList);
-    },
-    dataChange: function dataChange(data) {
-      console.log(data);
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages'])),
@@ -60405,8 +60375,7 @@ var render = function() {
                                       {
                                         key: image.id,
                                         staticClass:
-                                          "col-xs-4 col-sm-4 col-lg-3",
-                                        class: _vm.variation.pri_id[i]
+                                          "col-xs-4 col-sm-4 col-lg-3"
                                       },
                                       [
                                         _c(
@@ -80330,8 +80299,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

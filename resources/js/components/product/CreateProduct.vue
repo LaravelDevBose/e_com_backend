@@ -229,7 +229,7 @@
                                             </div>
                                         </div>
                                         <div class="row" v-if="productImages">
-                                            <div class="col-xs-4 col-sm-4 col-lg-3" v-for="(image, index) in productImages" :key="image.id" v-if="image.pri_id === variation.pri_id[i]" :class="variation.pri_id[i]">
+                                            <div class="col-xs-4 col-sm-4 col-lg-3" v-for="(image, index) in productImages" :key="image.id" v-if="image.pri_id  === variation.pri_id[i]">
                                                 <div class="thumbnail">
                                                     <div class="thumb">
                                                         <img :src="image.img" alt="">
@@ -461,9 +461,7 @@
                 },
                 total:1,
                 pri_id_total:1,
-                files:'',
                 priId:'',
-                images: [],
             }
         },
         created() {
@@ -482,12 +480,13 @@
                 this.priId = PriID;
             },
             uploadImage(e) {
+                let files = e.target.files || e.dataTransfer.files;
+                console.log(files);
 
-                this.files = this.$refs.files[0].files;
-                var formData;
+                let formData = '';
                 formData = new FormData();
-                for( var i = 0; i < this.files.length; i++ ){
-                    let file = this.files[i];
+                for( var i = 0; i < files.length; i++ ){
+                    let file = files[i];
                     formData.append(i, file);
                 }
                 formData.append('folder', this.folder);
@@ -499,39 +498,6 @@
                 },1000);
 
             },
-
-            uploadImageSuccess(formData, index, fileList) {
-                formData.append('pri_id', this.priId);
-                let vm = this;
-                setTimeout(()=>{
-                    vm.uploadProductImage(formData)
-                        .then(response=>{
-                            if(response.status === "success"){
-
-                                Notify.success(response.message);
-                            }else{
-                                Notify.error(response.message);
-                            }
-                        }).catch(error=>{
-                        Notify.error(error.message);
-                    });
-                },1000);
-            },
-            beforeRemove (index, done, fileList) {
-                console.log('index', index, fileList)
-                var r = confirm("remove image")
-                if (r == true) {
-                    done()
-                } else {
-                }
-            },
-            editImage (formData, index, fileList) {
-                console.log('edit data', formData, index, fileList)
-            },
-            dataChange (data) {
-                console.log(data)
-            }
-
         },
         computed:{
             ...mapGetters([
