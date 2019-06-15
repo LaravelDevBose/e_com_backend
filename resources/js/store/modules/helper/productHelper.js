@@ -2,9 +2,7 @@
 const state = {
     addedProductIDs:[],
     imagesFile:[],
-    errors:null,
     image_ids:[],
-    pri_id:'',
 };
 
 //declare Getters
@@ -21,10 +19,8 @@ const actions = {
     },
     async uploadProductImage({commit},formData){
         try {
-            console.log(formData);
             return await axios.post('/admin/product/image/store',formData,{
                 headers: {
-                    // 'Content-Type': 'multipart/form-data; boundary=someArbitraryUniqueString',
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }).then(function (response) {
@@ -36,8 +32,6 @@ const actions = {
                     'status': response.data.status,
                     'message':response.data.message,
                 };
-                console.log(responseData);
-
                 commit('setResponse', responseData);
                 return responseData;
 
@@ -52,19 +46,18 @@ const actions = {
             console.log(error);
         }
     },
-
-    setVariationPriId({commit}, priId){
-        commit('setPriId', priId);
-        console.log(priId);
-    }
 };
 
 const mutations = {
     setProductIds:(state, productIds)=>state.addedProductIDs = productIds,
-    setPriId:(state, priId)=>state.pri_id = priId,
     setProductImage:(state,response)=>{
         response.images.forEach(image=>{
             state.imagesFile.push(image);
+            let d = {
+                'pri_id':image.pri_id,
+                'image_id':image.id,
+            };
+            state.image_ids.push(d);
         });
     },
     emptyAttachmentFile:(state)=>{

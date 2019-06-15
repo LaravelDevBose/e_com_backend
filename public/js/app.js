@@ -8202,15 +8202,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         gift_product_id: '',
         warranty_policy: '',
         warranty_policy_eng: '',
-        warranty_period: ''
+        warranty_period: '',
+        pri_model: 'Color'
       },
-      variation: {
-        'pri_id': [],
-        'pri_model': '',
-        'sec_id': [],
-        'sec_model': '',
-        'attachmentIds': []
-      },
+      variation: {},
       btnDisabled: false,
       multiple: true,
       folder: 'product',
@@ -8224,7 +8219,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       total: 1,
       pri_id_total: 1,
-      priId: ''
+      priId: '',
+      pri_id: [],
+      sec_id: []
     };
   },
   created: function created() {
@@ -8237,7 +8234,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     uploadImage: function uploadImage(e) {
       var files = e.target.files || e.dataTransfer.files;
-      console.log(files);
       var formData = '';
       formData = new FormData();
 
@@ -8254,7 +8250,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, 1000);
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds'])),
   watch: {
     'formData.category_id': {
       handler: function handler(newValue, oldValue) {
@@ -8264,12 +8260,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       deep: true
     },
-    'variation.pri_id': {
+    pri_id: {
       handler: function handler(newValue, oldValue) {
-        // if(newValue === oldValue){
-        //
-        //     alert('yesss');
-        // }
+        if (newValue === oldValue) {
+          alert(newValue);
+        }
+
         if (newValue.length > this.pri_id_total) {
           this.total++;
           this.pri_id_total++;
@@ -60304,11 +60300,11 @@ var render = function() {
                         _c("vue-select2", {
                           attrs: { options: _vm.productColors },
                           model: {
-                            value: _vm.variation.pri_id[i],
+                            value: _vm.pri_id[i],
                             callback: function($$v) {
-                              _vm.$set(_vm.variation.pri_id, i, $$v)
+                              _vm.$set(_vm.pri_id, i, $$v)
                             },
-                            expression: "variation.pri_id[i]"
+                            expression: "pri_id[i]"
                           }
                         })
                       ],
@@ -60320,7 +60316,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group row" }, [
                     _c("label", { staticClass: "col-lg-2 control-label" }, [
-                      _vm._v("Product Model:")
+                      _vm._v("Images:")
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-lg-10" }, [
@@ -60334,8 +60330,9 @@ var render = function() {
                                 staticClass: "hidden",
                                 attrs: {
                                   type: "file",
+                                  accept: "image/*",
                                   multiple: _vm.multi_file,
-                                  id: _vm.variation.pri_id[i]
+                                  id: _vm.pri_id[i]
                                 },
                                 on: { change: _vm.uploadImage }
                               }),
@@ -60344,12 +60341,10 @@ var render = function() {
                                 "label",
                                 {
                                   staticClass: "btn btn-info btn-md btn-block",
-                                  attrs: { for: _vm.variation.pri_id[i] },
+                                  attrs: { for: _vm.pri_id[i] },
                                   on: {
                                     click: function($event) {
-                                      return _vm.changePriId(
-                                        _vm.variation.pri_id[i]
-                                      )
+                                      return _vm.changePriId(_vm.pri_id[i])
                                     }
                                   }
                                 },
@@ -60369,13 +60364,13 @@ var render = function() {
                               "div",
                               { staticClass: "row" },
                               _vm._l(_vm.productImages, function(image, index) {
-                                return image.pri_id === _vm.variation.pri_id[i]
+                                return image.pri_id === _vm.pri_id[i]
                                   ? _c(
                                       "div",
                                       {
                                         key: image.id,
                                         staticClass:
-                                          "col-xs-4 col-sm-4 col-lg-3"
+                                          "col-xs-4 col-sm-4 col-lg-1"
                                       },
                                       [
                                         _c(
@@ -60451,11 +60446,11 @@ var render = function() {
                     _c("vue-select2", {
                       attrs: { options: _vm.sizes },
                       model: {
-                        value: _vm.variation.sec_id,
+                        value: _vm.sec_id,
                         callback: function($$v) {
-                          _vm.$set(_vm.variation, "sec_id", $$v)
+                          _vm.sec_id = $$v
                         },
-                        expression: "variation.sec_id"
+                        expression: "sec_id"
                       }
                     })
                   ],
@@ -79318,9 +79313,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var state = {
   addedProductIDs: [],
   imagesFile: [],
-  errors: null,
-  image_ids: [],
-  pri_id: ''
+  image_ids: []
 }; //declare Getters
 
 var getters = {
@@ -79353,11 +79346,9 @@ var actions = {
             case 0:
               commit = _ref2.commit;
               _context.prev = 1;
-              console.log(formData);
-              _context.next = 5;
+              _context.next = 4;
               return axios.post('/admin/product/image/store', formData, {
                 headers: {
-                  // 'Content-Type': 'multipart/form-data; boundary=someArbitraryUniqueString',
                   'Content-Type': 'application/x-www-form-urlencoded'
                 }
               }).then(function (response) {
@@ -79369,7 +79360,6 @@ var actions = {
                   'status': response.data.status,
                   'message': response.data.message
                 };
-                console.log(responseData);
                 commit('setResponse', responseData);
                 return responseData;
               })["catch"](function (errors) {
@@ -79378,20 +79368,20 @@ var actions = {
                 return errors.data;
               });
 
-            case 5:
+            case 4:
               return _context.abrupt("return", _context.sent);
 
-            case 8:
-              _context.prev = 8;
+            case 7:
+              _context.prev = 7;
               _context.t0 = _context["catch"](1);
               console.log(_context.t0);
 
-            case 11:
+            case 10:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 8]]);
+      }, _callee, null, [[1, 7]]);
     }));
 
     function uploadProductImage(_x, _x2) {
@@ -79399,23 +79389,20 @@ var actions = {
     }
 
     return uploadProductImage;
-  }(),
-  setVariationPriId: function setVariationPriId(_ref3, priId) {
-    var commit = _ref3.commit;
-    commit('setPriId', priId);
-    console.log(priId);
-  }
+  }()
 };
 var mutations = {
   setProductIds: function setProductIds(state, productIds) {
     return state.addedProductIDs = productIds;
   },
-  setPriId: function setPriId(state, priId) {
-    return state.pri_id = priId;
-  },
   setProductImage: function setProductImage(state, response) {
     response.images.forEach(function (image) {
       state.imagesFile.push(image);
+      var d = {
+        'pri_id': image.pri_id,
+        'image_id': image.id
+      };
+      state.image_ids.push(d);
     });
   },
   emptyAttachmentFile: function emptyAttachmentFile(state) {

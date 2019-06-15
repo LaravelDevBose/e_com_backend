@@ -210,26 +210,26 @@
                             <div class="form-group row">
                                 <label class="col-lg-2 control-label">Color:</label>
                                 <div class="col-lg-4">
-                                    <vue-select2 v-model="variation.pri_id[i]" :options="productColors"> </vue-select2>
+                                    <vue-select2 v-model="pri_id[i]" :options="productColors"> </vue-select2>
                                 </div>
                                 <div class="col-lg-1">
                                     <span class="text-danger"> <i class="icon-trash"></i></span>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-2 control-label">Product Model:</label>
+                                <label class="col-lg-2 control-label">Images:</label>
                                 <div class="col-lg-10" >
                                     <div id="productImage">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <input type="file" class="hidden" ref="files" :multiple="multi_file" :id="variation.pri_id[i]"   @change="uploadImage">
-                                                    <label :for="variation.pri_id[i]" @click="changePriId(variation.pri_id[i])" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left"></i> Select File</label>
+                                                    <input type="file" class="hidden" ref="files" accept="image/*" :multiple="multi_file" :id="pri_id[i]"   @change="uploadImage">
+                                                    <label :for="pri_id[i]" @click="changePriId(pri_id[i])" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left"></i> Select File</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row" v-if="productImages">
-                                            <div class="col-xs-4 col-sm-4 col-lg-3" v-for="(image, index) in productImages" :key="image.id" v-if="image.pri_id  === variation.pri_id[i]">
+                                            <div class="col-xs-4 col-sm-4 col-lg-1" v-for="(image, index) in productImages" :key="image.id" v-if="image.pri_id  === pri_id[i]">
                                                 <div class="thumbnail">
                                                     <div class="thumb">
                                                         <img :src="image.img" alt="">
@@ -250,7 +250,7 @@
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Size:</label>
                             <div class="col-lg-4">
-                                <vue-select2 v-model="variation.sec_id" :options="sizes" > </vue-select2>
+                                <vue-select2 v-model="sec_id" :options="sizes" > </vue-select2>
                             </div>
                         </div>
 
@@ -440,13 +440,10 @@
                     warranty_policy:'',
                     warranty_policy_eng:'',
                     warranty_period:'',
+                    pri_model:'Color',
                 },
                 variation:{
-                    'pri_id':[],
-                    'pri_model':'',
-                    'sec_id':[],
-                    'sec_model':'',
-                    'attachmentIds':[],
+
                 },
                 btnDisabled:false,
                 multiple:true,
@@ -462,6 +459,8 @@
                 total:1,
                 pri_id_total:1,
                 priId:'',
+                pri_id:[],
+                sec_id:[],
             }
         },
         created() {
@@ -481,8 +480,6 @@
             },
             uploadImage(e) {
                 let files = e.target.files || e.dataTransfer.files;
-                console.log(files);
-
                 let formData = '';
                 formData = new FormData();
                 for( var i = 0; i < files.length; i++ ){
@@ -507,7 +504,8 @@
                 'dangersGoods',
                 'productColors',
                 'sizes',
-                'productImages'
+                'productImages',
+                'imageIds',
             ])
         },
         watch:{
@@ -519,12 +517,12 @@
                 },
                 deep:true,
             },
-            'variation.pri_id':{
+            pri_id:{
                 handler(newValue, oldValue){
-                    // if(newValue === oldValue){
-                    //
-                    //     alert('yesss');
-                    // }
+                    if(newValue === oldValue){
+
+                        alert(newValue);
+                    }
 
                     if(newValue.length > this.pri_id_total){
                         this.total ++;
