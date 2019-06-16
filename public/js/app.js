@@ -8220,7 +8220,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       total: 1,
       pri_id_total: 1,
       priId: '',
-      pri_id: [],
+      pri_id: {},
       sec_id: []
     };
   },
@@ -8229,7 +8229,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.getBrandList();
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['allTreeListCategories', 'getBrandList', 'getProductCreateDependency', 'uploadProductImage']), {
-    changePriId: function changePriId(PriID) {
+    addPriId: function addPriId(PriID) {
+      alert(PriID);
       this.priId = PriID;
     },
     uploadImage: function uploadImage(e) {
@@ -8250,8 +8251,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, 1000);
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds']), {
+    clonedPrimaryIds: function clonedPrimaryIds() {
+      return JSON.parse(JSON.stringify(this.pri_id));
+    }
+  }),
   watch: {
+    clonedPrimaryIds: function clonedPrimaryIds(newVal, oldVal) {
+      // alert(JSON.stringify(newVal));
+      // alert(JSON.stringify(oldVal));
+      if (newVal !== oldVal) {
+        var pri_count = 0;
+        newVal.forEach(function (id) {
+          pri_count++;
+        });
+
+        if (pri_count > this.pri_id_total) {
+          this.total++;
+          this.pri_id_total++;
+        }
+      }
+    },
     'formData.category_id': {
       handler: function handler(newValue, oldValue) {
         if (newValue !== oldValue) {
@@ -8261,18 +8281,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       deep: true
     },
     pri_id: {
-      handler: function handler(newValue, oldValue) {
-        if (newValue === oldValue) {
-          alert(newValue);
-        }
-
-        if (newValue.length > this.pri_id_total) {
-          this.total++;
-          this.pri_id_total++;
-        } else if (newValue.length < this.pri_id_total) {
-          this.total--;
-        }
-      },
+      handler: function handler(newValue, oldValue) {},
       deep: true
     }
   }
@@ -60299,6 +60308,11 @@ var render = function() {
                       [
                         _c("vue-select2", {
                           attrs: { options: _vm.productColors },
+                          on: {
+                            change: function($event) {
+                              return _vm.changePriId()
+                            }
+                          },
                           model: {
                             value: _vm.pri_id[i],
                             callback: function($$v) {
@@ -60344,7 +60358,7 @@ var render = function() {
                                   attrs: { for: _vm.pri_id[i] },
                                   on: {
                                     click: function($event) {
-                                      return _vm.changePriId(_vm.pri_id[i])
+                                      return _vm.addPriId(_vm.pri_id[i])
                                     }
                                   }
                                 },

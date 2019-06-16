@@ -210,7 +210,7 @@
                             <div class="form-group row">
                                 <label class="col-lg-2 control-label">Color:</label>
                                 <div class="col-lg-4">
-                                    <vue-select2 v-model="pri_id[i]" :options="productColors"> </vue-select2>
+                                    <vue-select2 v-model="pri_id[i]" :options="productColors" @change="changePriId()"> </vue-select2>
                                 </div>
                                 <div class="col-lg-1">
                                     <span class="text-danger"> <i class="icon-trash"></i></span>
@@ -224,7 +224,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <input type="file" class="hidden" ref="files" accept="image/*" :multiple="multi_file" :id="pri_id[i]"   @change="uploadImage">
-                                                    <label :for="pri_id[i]" @click="changePriId(pri_id[i])" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left"></i> Select File</label>
+                                                    <label :for="pri_id[i]" @click="addPriId(pri_id[i])" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left"></i> Select File</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -254,7 +254,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" >
                             <div class="col-md-12">
                                 <div class="table-responsive" style="border:1px solid #ddd">
                                     <table class="table table-striped table-sm">
@@ -459,7 +459,7 @@
                 total:1,
                 pri_id_total:1,
                 priId:'',
-                pri_id:[],
+                pri_id:{},
                 sec_id:[],
             }
         },
@@ -475,7 +475,8 @@
                 'getProductCreateDependency',
                 'uploadProductImage',
             ]),
-            changePriId(PriID){
+            addPriId(PriID){
+                alert(PriID);
                 this.priId = PriID;
             },
             uploadImage(e) {
@@ -506,9 +507,27 @@
                 'sizes',
                 'productImages',
                 'imageIds',
-            ])
+            ]),
+            clonedPrimaryIds(){
+                return JSON.parse(JSON.stringify(this.pri_id))
+            }
         },
         watch:{
+            clonedPrimaryIds: function(newVal, oldVal){
+                // alert(JSON.stringify(newVal));
+                // alert(JSON.stringify(oldVal));
+                if(newVal !== oldVal){
+                    let pri_count=0;
+                    newVal.forEach(id=>{
+                        pri_count++;
+                    });
+                    if(pri_count > this.pri_id_total){
+                        this.total ++;
+                        this.pri_id_total++;
+                    }
+
+                }
+            },
             'formData.category_id':{
                 handler(newValue, oldValue){
                     if(newValue !== oldValue){
@@ -519,17 +538,9 @@
             },
             pri_id:{
                 handler(newValue, oldValue){
-                    if(newValue === oldValue){
 
-                        alert(newValue);
-                    }
 
-                    if(newValue.length > this.pri_id_total){
-                        this.total ++;
-                        this.pri_id_total++;
-                    }else if(newValue.length < this.pri_id_total){
-                        this.total --;
-                    }
+
                 },
                 deep:true,
             }
