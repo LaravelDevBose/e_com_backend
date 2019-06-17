@@ -8218,10 +8218,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         };
       },
       total: 1,
-      pri_id_total: 1,
+      pri_id_total: 0,
       priId: '',
       pri_id: {},
-      sec_id: []
+      sec_id: [],
+      pri_id_index: ''
     };
   },
   created: function created() {
@@ -8230,7 +8231,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['allTreeListCategories', 'getBrandList', 'getProductCreateDependency', 'uploadProductImage']), {
     addPriId: function addPriId(PriID) {
-      alert(PriID);
       this.priId = PriID;
     },
     uploadImage: function uploadImage(e) {
@@ -8249,7 +8249,60 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       setTimeout(function () {
         vm.uploadProductImage(formData);
       }, 1000);
-    }
+    },
+    priIdIndex: function priIdIndex(index) {
+      this.pri_id_index = index;
+    },
+    changeImageData: function changeImageData(newPriID, oldPriID) {
+      var _this = this;
+
+      console.log(newPriID);
+      console.log(oldPriID);
+
+      if (!jQuery.isEmptyObject(this.productImages)) {
+        this.productImages.filter(function (img) {
+          return img.pri_id === oldPriID;
+        }).forEach(function (image) {
+          if (image.pri_id === oldPriID) {
+            var index = _this.productImages.indexOf(image);
+
+            _this.$delete(_this.productImages, index);
+
+            var data = {
+              'pri_id': newPriID,
+              'img': image.img,
+              'id': image.id,
+              'no': image.no,
+              'delete_url': image.delete_url
+            };
+
+            _this.productImages.push(data);
+          }
+        });
+        this.imageIds.filter(function (img) {
+          return img.pri_id === oldPriID;
+        }).forEach(function (imageID) {
+          var index = _this.imageIds.indexOf(imageID);
+
+          console.log(index);
+
+          _this.$delete(_this.imageIds, index);
+
+          var data = {
+            'pri_id': newPriID,
+            'image_id': imageID.image_id
+          };
+
+          _this.imageIds.push(data);
+        });
+      }
+
+      console.log(this.imageIds);
+    },
+    changeVariationTableData: function changeVariationTableData(newPriID, oldPriID) {// console.log(newPriID);
+      // console.log(oldPriID);
+    },
+    generateVariationTableDate: function generateVariationTableDate() {}
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds']), {
     clonedPrimaryIds: function clonedPrimaryIds() {
@@ -8259,17 +8312,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   watch: {
     clonedPrimaryIds: function clonedPrimaryIds(newVal, oldVal) {
       // alert(JSON.stringify(newVal));
-      // alert(JSON.stringify(oldVal));
-      if (newVal !== oldVal) {
-        var pri_count = 0;
-        newVal.forEach(function (id) {
-          pri_count++;
-        });
+      var pri_count = 0;
 
-        if (pri_count > this.pri_id_total) {
-          this.total++;
-          this.pri_id_total++;
+      for (var key in newVal) {
+        pri_count++;
+      }
+
+      if (newVal[this.pri_id_index] !== oldVal[this.pri_id_index]) {
+        if (typeof oldVal[this.pri_id_index] !== "undefined") {
+          console.log('select color id change ' + oldVal[this.pri_id_index]); //TODO imageID, Image view , Table pri id update where old id will match
+
+          this.changeImageData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
+          this.changeVariationTableData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
+        } else {
+          console.log('select color new id ' + oldVal[this.pri_id_index]); // TODO generate Variation table
+
+          this.generateVariationTableDate();
         }
+      }
+
+      if (pri_count > this.pri_id_total) {
+        this.total++;
+        this.pri_id_total++;
       }
     },
     'formData.category_id': {
@@ -60304,15 +60368,17 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "col-lg-4" },
+                      {
+                        staticClass: "col-lg-4",
+                        on: {
+                          click: function($event) {
+                            return _vm.priIdIndex(i)
+                          }
+                        }
+                      },
                       [
                         _c("vue-select2", {
                           attrs: { options: _vm.productColors },
-                          on: {
-                            change: function($event) {
-                              return _vm.changePriId()
-                            }
-                          },
                           model: {
                             value: _vm.pri_id[i],
                             callback: function($$v) {
@@ -60377,68 +60443,54 @@ var render = function() {
                           ? _c(
                               "div",
                               { staticClass: "row" },
-                              _vm._l(_vm.productImages, function(image, index) {
-                                return image.pri_id === _vm.pri_id[i]
-                                  ? _c(
-                                      "div",
-                                      {
-                                        key: image.id,
-                                        staticClass:
-                                          "col-xs-4 col-sm-4 col-lg-1"
-                                      },
-                                      [
-                                        _c(
-                                          "div",
-                                          { staticClass: "thumbnail" },
-                                          [
-                                            _c(
-                                              "div",
-                                              { staticClass: "thumb" },
-                                              [
-                                                _c("img", {
-                                                  attrs: {
-                                                    src: image.img,
-                                                    alt: ""
-                                                  }
-                                                }),
-                                                _vm._v(" "),
+                              _vm._l(
+                                _vm.productImages.filter(function(img) {
+                                  return img.pri_id === _vm.pri_id[i]
+                                }),
+                                function(image, index) {
+                                  return _c(
+                                    "div",
+                                    {
+                                      key: image.id,
+                                      staticClass: "col-xs-4 col-sm-4 col-lg-1"
+                                    },
+                                    [
+                                      _c("div", { staticClass: "thumbnail" }, [
+                                        _c("div", { staticClass: "thumb" }, [
+                                          _c("img", {
+                                            attrs: { src: image.img, alt: "" }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "caption-overflow" },
+                                            [
+                                              _c("span", [
                                                 _c(
-                                                  "div",
+                                                  "a",
                                                   {
                                                     staticClass:
-                                                      "caption-overflow"
+                                                      "btn border-white text-white btn-flat btn-icon btn-rounded",
+                                                    attrs: {
+                                                      href: image.img,
+                                                      "data-fancybox": "images"
+                                                    }
                                                   },
                                                   [
-                                                    _c("span", [
-                                                      _c(
-                                                        "a",
-                                                        {
-                                                          staticClass:
-                                                            "btn border-white text-white btn-flat btn-icon btn-rounded",
-                                                          attrs: {
-                                                            href: image.img,
-                                                            "data-fancybox":
-                                                              "images"
-                                                          }
-                                                        },
-                                                        [
-                                                          _c("i", {
-                                                            staticClass:
-                                                              "icon-eye"
-                                                          })
-                                                        ]
-                                                      )
-                                                    ])
+                                                    _c("i", {
+                                                      staticClass: "icon-eye"
+                                                    })
                                                   ]
                                                 )
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e()
-                              }),
+                                              ])
+                                            ]
+                                          )
+                                        ])
+                                      ])
+                                    ]
+                                  )
+                                }
+                              ),
                               0
                             )
                           : _vm._e()

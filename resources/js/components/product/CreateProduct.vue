@@ -209,8 +209,8 @@
                         <div v-for="i in total" :key="i">
                             <div class="form-group row">
                                 <label class="col-lg-2 control-label">Color:</label>
-                                <div class="col-lg-4">
-                                    <vue-select2 v-model="pri_id[i]" :options="productColors" @change="changePriId()"> </vue-select2>
+                                <div class="col-lg-4" @click="priIdIndex(i)">
+                                    <vue-select2 v-model="pri_id[i]" :options="productColors"> </vue-select2>
                                 </div>
                                 <div class="col-lg-1">
                                     <span class="text-danger"> <i class="icon-trash"></i></span>
@@ -229,7 +229,7 @@
                                             </div>
                                         </div>
                                         <div class="row" v-if="productImages">
-                                            <div class="col-xs-4 col-sm-4 col-lg-1" v-for="(image, index) in productImages" :key="image.id" v-if="image.pri_id  === pri_id[i]">
+                                            <div class="col-xs-4 col-sm-4 col-lg-1" v-for="(image, index) in productImages.filter(img=> img.pri_id === pri_id[i])" :key="image.id" >
                                                 <div class="thumbnail">
                                                     <div class="thumb">
                                                         <img :src="image.img" alt="">
@@ -457,10 +457,11 @@
                     }
                 },
                 total:1,
-                pri_id_total:1,
+                pri_id_total:0,
                 priId:'',
                 pri_id:{},
                 sec_id:[],
+                pri_id_index:'',
             }
         },
         created() {
@@ -476,7 +477,6 @@
                 'uploadProductImage',
             ]),
             addPriId(PriID){
-                alert(PriID);
                 this.priId = PriID;
             },
             uploadImage(e) {
@@ -496,6 +496,49 @@
                 },1000);
 
             },
+            priIdIndex(index){
+                this.pri_id_index = index;
+            },
+            changeImageData(newPriID,oldPriID){
+                console.log(newPriID);
+                console.log(oldPriID);
+                if(!jQuery.isEmptyObject(this.productImages)){
+                    this.productImages.filter(img=>img.pri_id ===oldPriID).forEach(image=>{
+                        if(image.pri_id === oldPriID){
+                            let index = this.productImages.indexOf(image);
+                            this.$delete(this.productImages,index);
+                            let data ={
+                                'pri_id':newPriID,
+                                'img':image.img,
+                                'id':image.id,
+                                'no':image.no,
+                                'delete_url':image.delete_url,
+                            };
+
+                            this.productImages.push(data);
+                        }
+                    });
+                    this.imageIds.filter(img=> img.pri_id === oldPriID).forEach(imageID=>{
+                        let index = this.imageIds.indexOf(imageID);
+                        console.log(index);
+                        this.$delete(this.imageIds,index);
+                        let data ={
+                            'pri_id':newPriID,
+                            'image_id':imageID.image_id,
+                        };
+
+                        this.imageIds.push(data);
+                    });
+                }
+                console.log(this.imageIds);
+            },
+            changeVariationTableData(newPriID,oldPriID){
+                // console.log(newPriID);
+                // console.log(oldPriID);
+            },
+            generateVariationTableDate(){
+
+            }
         },
         computed:{
             ...mapGetters([
@@ -509,24 +552,36 @@
                 'imageIds',
             ]),
             clonedPrimaryIds(){
-                return JSON.parse(JSON.stringify(this.pri_id))
+                return JSON.parse(JSON.stringify(this.pri_id));
             }
         },
         watch:{
             clonedPrimaryIds: function(newVal, oldVal){
                 // alert(JSON.stringify(newVal));
-                // alert(JSON.stringify(oldVal));
-                if(newVal !== oldVal){
-                    let pri_count=0;
-                    newVal.forEach(id=>{
-                        pri_count++;
-                    });
-                    if(pri_count > this.pri_id_total){
-                        this.total ++;
-                        this.pri_id_total++;
+                let pri_count=0;
+                for(var key in newVal){
+                    pri_count++;
+                }
+                if(newVal[this.pri_id_index] !== oldVal[this.pri_id_index]){
+                    if(typeof oldVal[this.pri_id_index] !== "undefined"){
+                        console.log('select color id change '+oldVal[this.pri_id_index]);
+                        //TODO imageID, Image view , Table pri id update where old id will match
+                        this.changeImageData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
+                        this.changeVariationTableData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
+                    }else{
+                        console.log('select color new id '+oldVal[this.pri_id_index]);
+                        // TODO generate Variation table
+                        this.generateVariationTableDate();
                     }
 
                 }
+
+                if(pri_count > this.pri_id_total){
+                    this.total ++;
+                    this.pri_id_total++;
+                }
+
+
             },
             'formData.category_id':{
                 handler(newValue, oldValue){
