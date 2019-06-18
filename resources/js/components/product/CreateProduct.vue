@@ -270,30 +270,30 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr v-if="variations" v-for="(variation, index) in variations" :key="index">
                                                 <td>
                                                     <div class="checkbox checkbox-switchery">
                                                         <label>
-                                                            <input type="checkbox"  class="switchery" checked>
-                                                            <span class="text-success text-bold" >Active</span>
-                                                            <!--<span class="text-danger text-bold" >Inactive</span>-->
+                                                            <input type="checkbox" class="switchery" v-model="variations[index].status" :checked="variation.status">
+                                                            <span class="text-success text-bold" v-if="variation.status">Active</span>
+                                                            <span class="text-danger text-bold" v-else>Inactive</span>
                                                         </label>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span>Red</span>
+                                                    <span v-html="variation.color_name"></span>
                                                 </td>
                                                 <td>
-                                                    <span>35</span>
+                                                    <span v-html="variation.size_name"></span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" maxlength="255" >
+                                                    <input type="text" class="form-control" maxlength="255" v-model="variations[index].seller_sku">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control"  >
+                                                    <input type="number" class="form-control" v-model="variations[index].qty" >
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control" step="0.01" >
+                                                    <input type="number" class="form-control" step="0.01" v-model="variations[index].price">
                                                 </td>
                                                 <td class="text-center">
                                                     <ul class="icons-list">
@@ -302,33 +302,7 @@
                                                     </ul>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="checkbox checkbox-switchery">
-                                                        <label>
-                                                            <input type="checkbox"  class="switchery" checked>
-                                                            <span class="text-success text-bold" >Active</span>
-                                                            <!--                                                <span class="text-danger text-bold" >Inactive</span>-->
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span>Red</span>
-                                                </td>
-                                                <td>
-                                                    <span>35</span>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" maxlength="255" >
-                                                </td>
-                                                <td>
-                                                    <input type="number" class="form-control" >
-                                                </td>
-                                                <td>
-                                                    <input type="number" class="form-control" step="0.01" >
-                                                </td>
-                                                <td></td>
-                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -442,9 +416,7 @@
                     warranty_period:'',
                     pri_model:'Color',
                 },
-                variation:{
-
-                },
+                variations:[],
                 btnDisabled:false,
                 multiple:true,
                 folder:'product',
@@ -460,7 +432,7 @@
                 pri_id_total:0,
                 priId:'',
                 pri_id:{},
-                sec_id:[],
+                sec_id:{},
                 pri_id_index:'',
             }
         },
@@ -500,8 +472,6 @@
                 this.pri_id_index = index;
             },
             changeImageData(newPriID,oldPriID){
-                console.log(newPriID);
-                console.log(oldPriID);
                 if(!jQuery.isEmptyObject(this.productImages)){
                     this.productImages.filter(img=>img.pri_id ===oldPriID).forEach(image=>{
                         if(image.pri_id === oldPriID){
@@ -530,14 +500,38 @@
                         this.imageIds.push(data);
                     });
                 }
-                console.log(this.imageIds);
             },
             changeVariationTableData(newPriID,oldPriID){
                 // console.log(newPriID);
                 // console.log(oldPriID);
             },
-            generateVariationTableDate(){
+            generateVariationTableDate(newPriID){
+                let vm = this;
+                let color = '';
+                this.productColors.filter(pColor=>{
+                    if(pColor.id == parseInt(newPriID)){
+                        color = pColor.text;
+                    }
+                });
 
+                if(!jQuery.isEmptyObject(this.sec_id)){
+                    for (var key in this.sec_id) {
+                        let size = vm.sizes.find(element=> element.id == parseInt(this.sec_id[key]));
+                        let data ={
+                            color_id:newPriID,
+                            color_name:color,
+                            size_id:size.id,
+                            size_name:size.text,
+                            seller_sku:'',
+                            qty:'',
+                            price:'',
+                            gift_product:'',
+                            status:1,
+                        };
+
+                        vm.variations.push(data);
+                    }
+                }
             }
         },
         computed:{
@@ -556,32 +550,30 @@
             }
         },
         watch:{
-            clonedPrimaryIds: function(newVal, oldVal){
-                // alert(JSON.stringify(newVal));
-                let pri_count=0;
-                for(var key in newVal){
-                    pri_count++;
-                }
-                if(newVal[this.pri_id_index] !== oldVal[this.pri_id_index]){
-                    if(typeof oldVal[this.pri_id_index] !== "undefined"){
-                        console.log('select color id change '+oldVal[this.pri_id_index]);
-                        //TODO imageID, Image view , Table pri id update where old id will match
-                        this.changeImageData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
-                        this.changeVariationTableData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
-                    }else{
-                        console.log('select color new id '+oldVal[this.pri_id_index]);
-                        // TODO generate Variation table
-                        this.generateVariationTableDate();
+            clonedPrimaryIds:{
+                handler(newVal, oldVal){
+                    // alert(JSON.stringify(newVal));
+                    let pri_count=0;
+                    for(var key in newVal){
+                        pri_count++;
+                    }
+                    if(newVal[this.pri_id_index] !== oldVal[this.pri_id_index]){
+                        if(typeof oldVal[this.pri_id_index] !== "undefined"){
+                            this.changeImageData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
+                            this.changeVariationTableData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
+                        }else{
+                            // TODO generate Variation table
+                            this.generateVariationTableDate(newVal[this.pri_id_index]);
+                        }
+
                     }
 
-                }
-
-                if(pri_count > this.pri_id_total){
-                    this.total ++;
-                    this.pri_id_total++;
-                }
-
-
+                    if(pri_count > this.pri_id_total){
+                        this.total ++;
+                        this.pri_id_total++;
+                    }
+                },
+                deep:true,
             },
             'formData.category_id':{
                 handler(newValue, oldValue){

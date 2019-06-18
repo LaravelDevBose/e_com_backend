@@ -8126,32 +8126,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 // import the component
  // import the styles
 
@@ -8205,7 +8179,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         warranty_period: '',
         pri_model: 'Color'
       },
-      variation: {},
+      variations: [],
       btnDisabled: false,
       multiple: true,
       folder: 'product',
@@ -8221,7 +8195,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       pri_id_total: 0,
       priId: '',
       pri_id: {},
-      sec_id: [],
+      sec_id: {},
       pri_id_index: ''
     };
   },
@@ -8255,9 +8229,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     changeImageData: function changeImageData(newPriID, oldPriID) {
       var _this = this;
-
-      console.log(newPriID);
-      console.log(oldPriID);
 
       if (!jQuery.isEmptyObject(this.productImages)) {
         this.productImages.filter(function (img) {
@@ -8296,13 +8267,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.imageIds.push(data);
         });
       }
-
-      console.log(this.imageIds);
     },
     changeVariationTableData: function changeVariationTableData(newPriID, oldPriID) {// console.log(newPriID);
       // console.log(oldPriID);
     },
-    generateVariationTableDate: function generateVariationTableDate() {}
+    generateVariationTableDate: function generateVariationTableDate(newPriID) {
+      var _this2 = this;
+
+      var vm = this;
+      var color = '';
+      this.productColors.filter(function (pColor) {
+        if (pColor.id == parseInt(newPriID)) {
+          color = pColor.text;
+        }
+      });
+
+      if (!jQuery.isEmptyObject(this.sec_id)) {
+        for (var key in this.sec_id) {
+          var size = vm.sizes.find(function (element) {
+            return element.id == parseInt(_this2.sec_id[key]);
+          });
+          var data = {
+            color_id: newPriID,
+            color_name: color,
+            size_id: size.id,
+            size_name: size.text,
+            seller_sku: '',
+            qty: '',
+            price: '',
+            gift_product: '',
+            status: 1
+          };
+          vm.variations.push(data);
+        }
+      }
+    }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds']), {
     clonedPrimaryIds: function clonedPrimaryIds() {
@@ -8310,31 +8309,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   watch: {
-    clonedPrimaryIds: function clonedPrimaryIds(newVal, oldVal) {
-      // alert(JSON.stringify(newVal));
-      var pri_count = 0;
+    clonedPrimaryIds: {
+      handler: function handler(newVal, oldVal) {
+        // alert(JSON.stringify(newVal));
+        var pri_count = 0;
 
-      for (var key in newVal) {
-        pri_count++;
-      }
-
-      if (newVal[this.pri_id_index] !== oldVal[this.pri_id_index]) {
-        if (typeof oldVal[this.pri_id_index] !== "undefined") {
-          console.log('select color id change ' + oldVal[this.pri_id_index]); //TODO imageID, Image view , Table pri id update where old id will match
-
-          this.changeImageData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
-          this.changeVariationTableData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
-        } else {
-          console.log('select color new id ' + oldVal[this.pri_id_index]); // TODO generate Variation table
-
-          this.generateVariationTableDate();
+        for (var key in newVal) {
+          pri_count++;
         }
-      }
 
-      if (pri_count > this.pri_id_total) {
-        this.total++;
-        this.pri_id_total++;
-      }
+        if (newVal[this.pri_id_index] !== oldVal[this.pri_id_index]) {
+          if (typeof oldVal[this.pri_id_index] !== "undefined") {
+            this.changeImageData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
+            this.changeVariationTableData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
+          } else {
+            // TODO generate Variation table
+            this.generateVariationTableDate(newVal[this.pri_id_index]);
+          }
+        }
+
+        if (pri_count > this.pri_id_total) {
+          this.total++;
+          this.pri_id_total++;
+        }
+      },
+      deep: true
     },
     'formData.category_id': {
       handler: function handler(newValue, oldValue) {
@@ -60524,7 +60523,252 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(6)
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "table-responsive",
+                      staticStyle: { border: "1px solid #ddd" }
+                    },
+                    [
+                      _c(
+                        "table",
+                        { staticClass: "table table-striped table-sm" },
+                        [
+                          _vm._m(6),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.variations, function(variation, index) {
+                              return _vm.variations
+                                ? _c("tr", { key: index }, [
+                                    _c("td", [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "checkbox checkbox-switchery"
+                                        },
+                                        [
+                                          _c("label", [
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value:
+                                                    _vm.variations[index]
+                                                      .status,
+                                                  expression:
+                                                    "variations[index].status"
+                                                }
+                                              ],
+                                              staticClass: "switchery",
+                                              attrs: { type: "checkbox" },
+                                              domProps: {
+                                                checked: variation.status,
+                                                checked: Array.isArray(
+                                                  _vm.variations[index].status
+                                                )
+                                                  ? _vm._i(
+                                                      _vm.variations[index]
+                                                        .status,
+                                                      null
+                                                    ) > -1
+                                                  : _vm.variations[index].status
+                                              },
+                                              on: {
+                                                change: function($event) {
+                                                  var $$a =
+                                                      _vm.variations[index]
+                                                        .status,
+                                                    $$el = $event.target,
+                                                    $$c = $$el.checked
+                                                      ? true
+                                                      : false
+                                                  if (Array.isArray($$a)) {
+                                                    var $$v = null,
+                                                      $$i = _vm._i($$a, $$v)
+                                                    if ($$el.checked) {
+                                                      $$i < 0 &&
+                                                        _vm.$set(
+                                                          _vm.variations[index],
+                                                          "status",
+                                                          $$a.concat([$$v])
+                                                        )
+                                                    } else {
+                                                      $$i > -1 &&
+                                                        _vm.$set(
+                                                          _vm.variations[index],
+                                                          "status",
+                                                          $$a
+                                                            .slice(0, $$i)
+                                                            .concat(
+                                                              $$a.slice($$i + 1)
+                                                            )
+                                                        )
+                                                    }
+                                                  } else {
+                                                    _vm.$set(
+                                                      _vm.variations[index],
+                                                      "status",
+                                                      $$c
+                                                    )
+                                                  }
+                                                }
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            variation.status
+                                              ? _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "text-success text-bold"
+                                                  },
+                                                  [_vm._v("Active")]
+                                                )
+                                              : _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "text-danger text-bold"
+                                                  },
+                                                  [_vm._v("Inactive")]
+                                                )
+                                          ])
+                                        ]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("span", {
+                                        domProps: {
+                                          innerHTML: _vm._s(
+                                            variation.color_name
+                                          )
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("span", {
+                                        domProps: {
+                                          innerHTML: _vm._s(variation.size_name)
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.variations[index].seller_sku,
+                                            expression:
+                                              "variations[index].seller_sku"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "text",
+                                          maxlength: "255"
+                                        },
+                                        domProps: {
+                                          value:
+                                            _vm.variations[index].seller_sku
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.variations[index],
+                                              "seller_sku",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.variations[index].qty,
+                                            expression: "variations[index].qty"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: { type: "number" },
+                                        domProps: {
+                                          value: _vm.variations[index].qty
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.variations[index],
+                                              "qty",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.variations[index].price,
+                                            expression:
+                                              "variations[index].price"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: { type: "number", step: "0.01" },
+                                        domProps: {
+                                          value: _vm.variations[index].price
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.variations[index],
+                                              "price",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm._m(7, true)
+                                  ])
+                                : _vm._e()
+                            }),
+                            0
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              ])
             ],
             2
           )
@@ -60534,9 +60778,9 @@ var render = function() {
           _c("div", { staticClass: "panel panel-default" }, [
             _c("div", { staticClass: "panel-body" }, [
               _c("div", { staticClass: "row" }, [
-                _vm._m(7),
-                _vm._v(" "),
                 _vm._m(8),
+                _vm._v(" "),
+                _vm._m(9),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-2" }, [
                   _c(
@@ -60569,7 +60813,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(9)
+    _vm._m(10)
   ])
 }
 var staticRenderFns = [
@@ -60631,157 +60875,50 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c(
-          "div",
-          {
-            staticClass: "table-responsive",
-            staticStyle: { border: "1px solid #ddd" }
-          },
-          [
-            _c("table", { staticClass: "table table-striped table-sm" }, [
-              _c("thead", { staticStyle: { "background-color": "#f5f2f2" } }, [
-                _c("tr", [
-                  _c("td", { staticClass: "col-md-1" }, [
-                    _vm._v("Availability")
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "col-md-2" }, [
-                    _vm._v("Color Family")
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "col-md-1" }, [_vm._v("Size")]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "col-md-3" }, [_vm._v("SellerSKU")]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "col-md-1" }, [_vm._v("Quantity")]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "col-md-2" }, [_vm._v("Price")]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "col-md-2 text-center" }, [
-                    _vm._v("Extra")
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tbody", [
-                _c("tr", [
-                  _c("td", [
-                    _c("div", { staticClass: "checkbox checkbox-switchery" }, [
-                      _c("label", [
-                        _c("input", {
-                          staticClass: "switchery",
-                          attrs: { type: "checkbox", checked: "" }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "text-success text-bold" }, [
-                          _vm._v("Active")
-                        ])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_c("span", [_vm._v("Red")])]),
-                  _vm._v(" "),
-                  _c("td", [_c("span", [_vm._v("35")])]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "text", maxlength: "255" }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "number" }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "number", step: "0.01" }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-center" }, [
-                    _c("ul", { staticClass: "icons-list" }, [
-                      _c("li", [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "text-info",
-                            attrs: {
-                              href: "#",
-                              "data-toggle": "modal",
-                              "data-target": "#modal_mini"
-                            }
-                          },
-                          [_c("i", { staticClass: "icon-gift" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c(
-                          "a",
-                          { staticClass: "text-danger", attrs: { href: "#" } },
-                          [_c("i", { staticClass: "icon-trash" })]
-                        )
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("tr", [
-                  _c("td", [
-                    _c("div", { staticClass: "checkbox checkbox-switchery" }, [
-                      _c("label", [
-                        _c("input", {
-                          staticClass: "switchery",
-                          attrs: { type: "checkbox", checked: "" }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "text-success text-bold" }, [
-                          _vm._v("Active")
-                        ])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_c("span", [_vm._v("Red")])]),
-                  _vm._v(" "),
-                  _c("td", [_c("span", [_vm._v("35")])]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "text", maxlength: "255" }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "number" }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "number", step: "0.01" }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("td")
-                ])
-              ])
-            ])
-          ]
-        )
+    return _c("thead", { staticStyle: { "background-color": "#f5f2f2" } }, [
+      _c("tr", [
+        _c("td", { staticClass: "col-md-1" }, [_vm._v("Availability")]),
+        _vm._v(" "),
+        _c("td", { staticClass: "col-md-2" }, [_vm._v("Color Family")]),
+        _vm._v(" "),
+        _c("td", { staticClass: "col-md-1" }, [_vm._v("Size")]),
+        _vm._v(" "),
+        _c("td", { staticClass: "col-md-3" }, [_vm._v("SellerSKU")]),
+        _vm._v(" "),
+        _c("td", { staticClass: "col-md-1" }, [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("td", { staticClass: "col-md-2" }, [_vm._v("Price")]),
+        _vm._v(" "),
+        _c("td", { staticClass: "col-md-2 text-center" }, [_vm._v("Extra")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "text-center" }, [
+      _c("ul", { staticClass: "icons-list" }, [
+        _c("li", [
+          _c(
+            "a",
+            {
+              staticClass: "text-info",
+              attrs: {
+                href: "#",
+                "data-toggle": "modal",
+                "data-target": "#modal_mini"
+              }
+            },
+            [_c("i", { staticClass: "icon-gift" })]
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { staticClass: "text-danger", attrs: { href: "#" } }, [
+            _c("i", { staticClass: "icon-trash" })
+          ])
+        ])
       ])
     ])
   },
