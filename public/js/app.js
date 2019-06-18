@@ -8255,8 +8255,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }).forEach(function (imageID) {
           var index = _this.imageIds.indexOf(imageID);
 
-          console.log(index);
-
           _this.$delete(_this.imageIds, index);
 
           var data = {
@@ -8268,8 +8266,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         });
       }
     },
-    changeVariationTableData: function changeVariationTableData(newPriID, oldPriID) {// console.log(newPriID);
-      // console.log(oldPriID);
+    changeVariationTableData: function changeVariationTableData(newPriID, oldPriID) {
+      var vm = this;
+      var color = '';
+      this.productColors.filter(function (pColor) {
+        if (pColor.id == parseInt(newPriID)) {
+          color = pColor.text;
+        }
+      });
+
+      if (!jQuery.isEmptyObject(vm.variations)) {
+        vm.variations.filter(function (variation) {
+          return variation.color_id === oldPriID;
+        }).forEach(function (variation) {
+          var index = vm.variations.indexOf(variation);
+          vm.$delete(vm.variations, index);
+          var data = {
+            color_id: newPriID,
+            color_name: color,
+            size_id: variation.size_id,
+            size_name: variation.size_name,
+            seller_sku: variation.seller_sku,
+            qty: variation.qty,
+            price: variation.price,
+            gift_product: variation.gift_product,
+            status: variation.status
+          };
+          vm.variations.push(data);
+        });
+      }
     },
     generateVariationTableDate: function generateVariationTableDate(newPriID) {
       var _this2 = this;

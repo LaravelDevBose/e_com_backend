@@ -490,7 +490,6 @@
                     });
                     this.imageIds.filter(img=> img.pri_id === oldPriID).forEach(imageID=>{
                         let index = this.imageIds.indexOf(imageID);
-                        console.log(index);
                         this.$delete(this.imageIds,index);
                         let data ={
                             'pri_id':newPriID,
@@ -502,8 +501,33 @@
                 }
             },
             changeVariationTableData(newPriID,oldPriID){
-                // console.log(newPriID);
-                // console.log(oldPriID);
+                let vm = this;
+                let color = '';
+                this.productColors.filter(pColor=>{
+                    if(pColor.id == parseInt(newPriID)){
+                        color = pColor.text;
+                    }
+                });
+
+                if(!jQuery.isEmptyObject(vm.variations)){
+                    vm.variations.filter(variation=> variation.color_id === oldPriID).forEach(variation=>{
+                        let index = vm.variations.indexOf(variation);
+
+                        vm.$delete(vm.variations,index);
+                        let data ={
+                            color_id:newPriID,
+                            color_name:color,
+                            size_id:variation.size_id,
+                            size_name:variation.size_name,
+                            seller_sku:variation.seller_sku,
+                            qty:variation.qty,
+                            price:variation.price,
+                            gift_product:variation.gift_product,
+                            status:variation.status,
+                        };
+                        vm.variations.push(data);
+                    });
+                }
             },
             generateVariationTableDate(newPriID){
                 let vm = this;
