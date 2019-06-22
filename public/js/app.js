@@ -8330,7 +8330,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         });
       }
     },
-    changeVariationTableData: function changeVariationTableData(newPriID, oldPriID) {
+    changeVariationPriIDWish: function changeVariationPriIDWish(newPriID, oldPriID) {
       var vm = this;
       var color = '';
       this.productColors.filter(function (pColor) {
@@ -8360,7 +8360,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         });
       }
     },
-    generateVariationTableData: function generateVariationTableData(newPriID) {
+    addVariationPriIDWish: function addVariationPriIDWish(newPriID) {
       var _this2 = this;
 
       var vm = this;
@@ -8395,7 +8395,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
     },
-    addNewVariationData: function addNewVariationData(newVal, oldVal) {
+    addNewVariationSizeWish: function addNewVariationSizeWish(newVal, oldVal) {
       var _this3 = this;
 
       var newSize = newVal.filter(function (value) {
@@ -8433,9 +8433,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
     },
-    removeVariationData: function removeVariationData(newVal, oldVal) {
-      var _this4 = this;
-
+    removeVariationSizeWish: function removeVariationSizeWish(newVal, oldVal) {
       var vm = this;
       var oldSize = oldVal.filter(function (value) {
         if (jQuery.isEmptyObject(newVal) || !newVal.includes(value)) {
@@ -8449,9 +8447,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }).forEach(function (variation) {
           var index = vm.variations.indexOf(variation);
           vm.$delete(vm.variations, index);
-          console.log(_this4.variationsData);
         });
       }
+    },
+    removeVariationData: function removeVariationData(index) {
+      this.$delete(this.variations, index);
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds']), {
@@ -8478,9 +8478,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (newVal[this.pri_id_index] !== oldVal[this.pri_id_index]) {
           if (typeof oldVal[this.pri_id_index] !== "undefined") {
             this.changeImageData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
-            this.changeVariationTableData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
+            this.changeVariationPriIDWish(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
           } else {
-            this.generateVariationTableData(newVal[this.pri_id_index]);
+            this.addVariationPriIDWish(newVal[this.pri_id_index]);
           }
         }
 
@@ -8494,9 +8494,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     clonedSecondaryIds: {
       handler: function handler(newVal, oldVal) {
         if (jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length) {
-          this.addNewVariationData(newVal, oldVal);
+          this.addNewVariationSizeWish(newVal, oldVal);
         } else if (jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length) {
-          this.removeVariationData(newVal, oldVal);
+          this.removeVariationSizeWish(newVal, oldVal);
         }
       }
     },
@@ -61010,7 +61010,33 @@ var render = function() {
                                       })
                                     ]),
                                     _vm._v(" "),
-                                    _vm._m(7, true)
+                                    _c("td", { staticClass: "text-center" }, [
+                                      _c("ul", { staticClass: "icons-list" }, [
+                                        _vm._m(7, true),
+                                        _vm._v(" "),
+                                        _c("li", [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "text-danger",
+                                              attrs: { href: "#" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.removeVariationData(
+                                                    index
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "icon-trash"
+                                              })
+                                            ]
+                                          )
+                                        ])
+                                      ])
+                                    ])
                                   ])
                                 : _vm._e()
                             }),
@@ -61150,29 +61176,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("ul", { staticClass: "icons-list" }, [
-        _c("li", [
-          _c(
-            "a",
-            {
-              staticClass: "text-info",
-              attrs: {
-                href: "#",
-                "data-toggle": "modal",
-                "data-target": "#modal_mini"
-              }
-            },
-            [_c("i", { staticClass: "icon-gift" })]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "text-danger", attrs: { href: "#" } }, [
-            _c("i", { staticClass: "icon-trash" })
-          ])
-        ])
-      ])
+    return _c("li", [
+      _c(
+        "a",
+        {
+          staticClass: "text-info",
+          attrs: {
+            href: "#",
+            "data-toggle": "modal",
+            "data-target": "#modal_mini"
+          }
+        },
+        [_c("i", { staticClass: "icon-gift" })]
+      )
     ])
   },
   function() {

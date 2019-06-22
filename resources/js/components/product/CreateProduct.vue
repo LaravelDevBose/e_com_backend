@@ -300,7 +300,7 @@
                                                 <td class="text-center">
                                                     <ul class="icons-list">
                                                         <li><a href="#" class="text-info" data-toggle="modal" data-target="#modal_mini"><i class="icon-gift"></i></a></li>
-                                                        <li><a href="#" class="text-danger"><i class="icon-trash"></i></a></li>
+                                                        <li><a href="#" @click="removeVariationData(index)" class="text-danger"><i class="icon-trash"></i></a></li>
                                                     </ul>
                                                 </td>
                                             </tr>
@@ -502,7 +502,7 @@
                     });
                 }
             },
-            changeVariationTableData(newPriID,oldPriID){
+            changeVariationPriIDWish(newPriID,oldPriID){
                 let vm = this;
                 let color = '';
                 this.productColors.filter(pColor=>{
@@ -531,7 +531,7 @@
                     });
                 }
             },
-            generateVariationTableData(newPriID){
+            addVariationPriIDWish(newPriID){
                 let vm = this;
                 let color = '';
                 this.productColors.filter(pColor=>{
@@ -560,7 +560,7 @@
                 }
             },
 
-            addNewVariationData(newVal, oldVal){
+            addNewVariationSizeWish(newVal, oldVal){
 
                 let newSize = newVal.filter(value=>{
                     if(jQuery.isEmptyObject(oldVal)|| !oldVal.includes(value)){
@@ -589,7 +589,7 @@
                     }
                 }
             },
-            removeVariationData(newVal, oldVal){
+            removeVariationSizeWish(newVal, oldVal){
                 let vm = this;
                 let oldSize = oldVal.filter(value=>{
                     if(jQuery.isEmptyObject(newVal)|| !newVal.includes(value)){
@@ -600,11 +600,12 @@
                     vm.variationsData.filter(variation=> variation.size_id == oldSize[0]).forEach(variation=>{
                             let index = vm.variations.indexOf(variation);
                             vm.$delete(vm.variations,index);
-                            console.log(this.variationsData);
-
                     });
 
                 }
+            },
+            removeVariationData(index){
+                this.$delete(this.variations,index);
             }
 
         },
@@ -640,9 +641,9 @@
                     if(newVal[this.pri_id_index] !== oldVal[this.pri_id_index]){
                         if(typeof oldVal[this.pri_id_index] !== "undefined"){
                             this.changeImageData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
-                            this.changeVariationTableData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
+                            this.changeVariationPriIDWish(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
                         }else{
-                            this.generateVariationTableData(newVal[this.pri_id_index]);
+                            this.addVariationPriIDWish(newVal[this.pri_id_index]);
                         }
 
                     }
@@ -657,9 +658,9 @@
             clonedSecondaryIds:{
                 handler(newVal, oldVal){
                     if(jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length){
-                        this.addNewVariationData(newVal, oldVal);
+                        this.addNewVariationSizeWish(newVal, oldVal);
                     }else if(jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length ){
-                        this.removeVariationData(newVal, oldVal);
+                        this.removeVariationSizeWish(newVal, oldVal);
                     }
                 }
             },
