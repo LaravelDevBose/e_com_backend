@@ -249,8 +249,10 @@
 
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Size:</label>
-                            <div class="col-lg-4">
-                                <vue-select2 v-model="sec_id" :options="sizes" > </vue-select2>
+                            <div class="col-lg-4 selectMulti">
+                                <multi-select2 v-model="sec_id"  :options="sizes" >
+                                    <option disabled value="0">Select one</option>
+                                </multi-select2>
                             </div>
                         </div>
 
@@ -270,7 +272,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-if="variations" v-for="(variation, index) in variations" :key="index">
+                                            <tr v-if="variations" v-for="(variation, index) in variationsData" :key="index">
                                                 <td>
                                                     <div class="checkbox checkbox-switchery">
                                                         <label>
@@ -367,11 +369,10 @@
     // import the styles
     import '@riophae/vue-treeselect/dist/vue-treeselect.css';
     import {mapGetters, mapActions} from 'vuex';
-    // import ProductImage from "../attachment/ProductImage";
     import VueSelect2 from '../helper/Select2';
+    import MultiSelect2 from '../helper/MultipleSelect2';
     import SummerNote from '../helper/SummerNote';
     import WysiHtml from '../helper/WysiHtml';
-    // import VueUploadMultipleImage from 'vue-upload-multiple-image'
 
     export default {
         name: "CreateProduct",
@@ -380,6 +381,7 @@
             'vue-select2':VueSelect2,
             'summer-note':SummerNote,
             'wysi-html':WysiHtml,
+            'multi-select2':MultiSelect2,
         },
         data(){
             return {
@@ -529,7 +531,7 @@
                     });
                 }
             },
-            generateVariationTableDate(newPriID){
+            generateVariationTableData(newPriID){
                 let vm = this;
                 let color = '';
                 this.productColors.filter(pColor=>{
@@ -539,7 +541,7 @@
                 });
 
                 if(!jQuery.isEmptyObject(this.sec_id)){
-                    for (var key in this.sec_id) {
+                    for (let key in this.sec_id) {
                         let size = vm.sizes.find(element=> element.id == parseInt(this.sec_id[key]));
                         let data ={
                             color_id:newPriID,
@@ -556,7 +558,55 @@
                         vm.variations.push(data);
                     }
                 }
+            },
+
+            addNewVariationData(newVal, oldVal){
+
+                let newSize = newVal.filter(value=>{
+                    if(jQuery.isEmptyObject(oldVal)|| !oldVal.includes(value)){
+                        return value;
+                    }
+                });
+
+                let size = this.sizes.find(element=> element.id == newSize);
+
+                if(!jQuery.isEmptyObject(this.pri_id)){
+                    for (let key in this.pri_id) {
+                        let color = this.productColors.find(element=> element.id == this.pri_id[key]);
+                        let data ={
+                            color_id:color.id,
+                            color_name:color.text,
+                            size_id:size.id,
+                            size_name:size.text,
+                            seller_sku:'',
+                            qty:'',
+                            price:'',
+                            gift_product:'',
+                            status:1,
+                        };
+
+                        this.variations.push(data);
+                    }
+                }
+            },
+            removeVariationData(newVal, oldVal){
+                let vm = this;
+                let oldSize = oldVal.filter(value=>{
+                    if(jQuery.isEmptyObject(newVal)|| !newVal.includes(value)){
+                        return value;
+                    }
+                });
+                if(!jQuery.isEmptyObject(this.variationsData)){
+                    vm.variationsData.filter(variation=> variation.size_id == oldSize[0]).forEach(variation=>{
+                            let index = vm.variations.indexOf(variation);
+                            vm.$delete(vm.variations,index);
+                            console.log(this.variationsData);
+
+                    });
+
+                }
             }
+
         },
         computed:{
             ...mapGetters([
@@ -571,12 +621,18 @@
             ]),
             clonedPrimaryIds(){
                 return JSON.parse(JSON.stringify(this.pri_id));
+            },
+            clonedSecondaryIds(){
+                return JSON.parse(JSON.stringify(this.sec_id));
+            },
+            variationsData(){
+                // return this.variations;
+                return _.orderBy(this.variations, 'color_name')
             }
         },
         watch:{
             clonedPrimaryIds:{
                 handler(newVal, oldVal){
-                    // alert(JSON.stringify(newVal));
                     let pri_count=0;
                     for(var key in newVal){
                         pri_count++;
@@ -586,8 +642,7 @@
                             this.changeImageData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
                             this.changeVariationTableData(newVal[this.pri_id_index], oldVal[this.pri_id_index]);
                         }else{
-                            // TODO generate Variation table
-                            this.generateVariationTableDate(newVal[this.pri_id_index]);
+                            this.generateVariationTableData(newVal[this.pri_id_index]);
                         }
 
                     }
@@ -599,6 +654,15 @@
                 },
                 deep:true,
             },
+            clonedSecondaryIds:{
+                handler(newVal, oldVal){
+                    if(jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length){
+                        this.addNewVariationData(newVal, oldVal);
+                    }else if(jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length ){
+                        this.removeVariationData(newVal, oldVal);
+                    }
+                }
+            },
             'formData.category_id':{
                 handler(newValue, oldValue){
                     if(newValue !== oldValue){
@@ -607,14 +671,7 @@
                 },
                 deep:true,
             },
-            pri_id:{
-                handler(newValue, oldValue){
 
-
-
-                },
-                deep:true,
-            }
         },
 
     }

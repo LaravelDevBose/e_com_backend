@@ -1,12 +1,12 @@
 <template>
-    <select class="form-control"  :name="name" data-width="100%">
+    <select class="select" multiple  :name="name" data-width="100%">
         <slot></slot>
     </select>
 </template>
 
 <script>
     export default {
-        props:['options', 'value','name','multiple'],
+        props:['options', 'value','name'],
         name: "Select2",
         data(){
             return{
@@ -24,17 +24,19 @@
                 .trigger('change')
             //emit event on change
                 .on('change', function () {
-                    vm.$emit('input', this.value)
+                    vm.$emit('input', $(this).val())
                 })
         },
         watch:{
             value:function (value) {
                 //update value
-                $(this.$el).val(value).trigger('change');
+                // $(this.$el).val(value).trigger('change');
+                if ([...value].sort().join(",") !== [...$(this.$el).val()].sort().join(","))
+                    $(this.$el).val(value).trigger('change');
             },
             options:function (options) {
                 //update Option
-                $(this.$el).empty().select2({data:options});
+                $(this.$el).select2({data:options});
             }
         },
         destroyed(){
@@ -44,5 +46,7 @@
 </script>
 
 <style scoped>
-
+.selectMulti span{
+    border: 1px solid #ddd!important;
+}
 </style>

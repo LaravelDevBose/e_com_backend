@@ -18,6 +18,12 @@
         .wysihtml5-toolbar > li {
             margin: 5px 5px 0 0;
         }
+        .selectMulti .select2-container{
+            border: 1px solid #ddd!important;
+            border-radius: 5px;
+            line-height: 1;
+            height: auto;
+        }
     </style>
 @endsection
 
