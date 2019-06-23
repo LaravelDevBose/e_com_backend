@@ -437,6 +437,7 @@
                 'getBrandList',
                 'getProductCreateDependency',
                 'uploadProductImage',
+                'storeProductData',
             ]),
             addPriId(PriID){
                 this.priId = PriID;
@@ -641,11 +642,29 @@
 
                 console.log(this.formData);
                 //TODO send Vuex request
-
+                this.storeProductData(formData)
+                    .then(response=>{
+                        if(response.status === "success"){
+                            this.resetForm();
+                            Notify.success(response.message);
+                        }else if(response.status === "validation"){
+                            Notify.validation(response.message);
+                        }else if(response.status === "error"){
+                            Notify.error(response.message);
+                        }else {
+                            Notify.info(response.message);
+                        }
+                    }).catch(error=>{
+                    Notify.error(error.message);
+                })
                     //TODO if Success Reset the form
 
                     // TODO Not Success Show errors
+            },
+            resetForm(){
+                this.btnDisabled= false;
             }
+
         },
         computed:{
             ...mapGetters([
@@ -667,6 +686,9 @@
             variationsData(){
                 // return this.variations;
                 return _.orderBy(this.variations, 'color_name')
+            },
+            formDataCheck(){
+                return JSON.parse(JSON.stringify(this.formData));
             }
         },
         watch:{
@@ -714,6 +736,14 @@
                 },
                 deep:true,
             },
+            formDataCheck:{
+                handler(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        this.btnDisabled = false;
+                    }
+
+                }
+            }
 
         },
 

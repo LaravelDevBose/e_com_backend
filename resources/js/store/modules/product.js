@@ -24,6 +24,18 @@ const actions = {
         }catch (error) {
             commit('setResponse', error.data);
         }
+    },
+    async storeProductData({commit}, fromData){
+        try {
+            return axios.post('admin/product/store', fromData)
+                .then(response=>{
+                    commit('setResponse',response.data);
+                    return response.data;
+
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
     }
 };
 
