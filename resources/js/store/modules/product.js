@@ -27,11 +27,11 @@ const actions = {
     },
     async storeProductData({commit}, fromData){
         try {
-            return axios.post('admin/product/store', fromData)
+            return axios.post('/admin/product', fromData)
                 .then(response=>{
+                    console.log(response);
                     commit('setResponse',response.data);
                     return response.data;
-
                 })
         }catch (error) {
             commit('setResponse', error.data);

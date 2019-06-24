@@ -20,7 +20,6 @@ class ProductDetails extends Model
         'color_shade',
         'skin_type',
         'extra_details',
-        'gift_product_id',
         'warranty_policy',
         'warranty_policy_eng',
         'warranty_period',

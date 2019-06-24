@@ -20,7 +20,8 @@ class ProductVariation extends Model
         'quantity',
         'price',
         'special_price',
-
+        'gift_product_id',
+        'gift_product_sku',
     ];
 
 }
