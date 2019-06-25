@@ -13,8 +13,9 @@ const getters = {
 const actions = {
     async getBrands({commit}){
         try {
-            await axios.get('/admin/brands').then(response=>{
-                commit('setBrands', response.data.data);
+            await axios.get('/admin/brands')
+                .then(response=>{
+                    commit('setBrands', response.data.data);
             })
         }catch (error) {
             commit('setResponse', error.data);
@@ -22,8 +23,9 @@ const actions = {
     },
     async getBrandList({commit}){
         try {
-            await axios.get('/admin/brand/list').then(response=>{
-                commit('setBrandList', response.data);
+            await axios.get('/admin/brand/list')
+                .then(response=>{
+                    commit('setBrandList', response.data);
             })
         }catch (error) {
             commit('setResponse', error.data);

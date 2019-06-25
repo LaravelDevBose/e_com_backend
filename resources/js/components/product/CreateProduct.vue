@@ -82,7 +82,7 @@
                             <label class="col-lg-2 control-label">Dangers Goods:</label>
                             <div class="col-lg-10">
                                 <label class="radio-inline"  v-if="dangersGoods" v-for="(dangersGood ,index) in dangersGoods" :key="index">
-                                    <input type="checkbox" v-model="formData.dangers_goods" class="styled" :value="index">
+                                    <input type="checkbox" name="dangers_goods" v-model="formData.dangers_goods[index]" :checked="formData.dangers_goods[index]"  class="styled" :value="index">
                                     {{ dangersGood }}
                                 </label>
                             </div>
@@ -618,7 +618,7 @@
                         });
                     }
 
-                    // TODO remove variation Table data
+                    //remove variation Table data
                     if(!jQuery.isEmptyObject(this.variationsData)){
                         this.variationsData.filter(variation=> variation.color_id == PRIID).forEach(variation=>{
                             let index = this.variationsData.indexOf(variation);

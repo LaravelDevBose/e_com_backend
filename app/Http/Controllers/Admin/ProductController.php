@@ -59,10 +59,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
-
         #TODO Form Validation
         $validator = Validator::make($request->all(),[
             'category_id'=>'required',
@@ -104,7 +100,7 @@ class ProductController extends Controller
                     'video_url'=>$request->video_url,
                 ]);
                 if($product){
-                    #TODO Store Data in Product Details Table
+                    #Store Data in Product Details Table
                     $details= ProductDetails::create([
                         'product_id'=>$product->product_id,
                         'main_materials'=>$request->main_materials,
@@ -120,7 +116,7 @@ class ProductController extends Controller
                     ]);
 
                     if(!empty($details)){
-                        #TODO Store Data in Product Variation Table
+                        #Store Data in Product Variation Table
                         if(!empty($request->variations)){
                             $variations = $request->variations;
                             foreach ($variations as $variation){
@@ -141,16 +137,17 @@ class ProductController extends Controller
                         }
 
 
-                        #TODO Store Data in Product Image Table
+                        #Store Data in Product Image Table
 
                         if(!empty($request->imageIds)){
                             $imageIds = $request->imageIds;
                             foreach ($imageIds as  $imageId){
                                 ProductImage::create([
-                                    'product_id',
-                                    'variation_id',
-                                    'attachment_id',
-                                    'image_status'
+                                    'product_id'=>$product->product_id,
+                                    'pri_id'=>$imageId->pri_id,
+                                    'model'=>1,
+                                    'attachment_id'=>$imageId->image_id,
+                                    'image_status'=>config('app.active')
                                 ]);
                             }
                         }
@@ -158,11 +155,9 @@ class ProductController extends Controller
                     }
                     DB::commit();
                     return response()->json([
-                        'cost'=>new DeliveryCostResource(DeliveryCost::find($cost->cost_id)),
-                        'res'=>[
-                            'status'=>'success',
-                            'message'=>'Delivery Cost Store Successfully',
-                        ]
+                        'status'=>'success',
+                        'message'=>'Product Store Successfully',
+                        'url'=>route('admin.product.index')
                     ]);
                 }
 

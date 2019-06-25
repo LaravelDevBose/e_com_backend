@@ -8468,7 +8468,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             _this4.$delete(_this4.imageIds, index);
           });
-        } // TODO remove variation Table data
+        } //remove variation Table data
 
 
         if (!jQuery.isEmptyObject(this.variationsData)) {
@@ -60140,24 +60140,30 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.formData.dangers_goods,
-                                  expression: "formData.dangers_goods"
+                                  value: _vm.formData.dangers_goods[index],
+                                  expression: "formData.dangers_goods[index]"
                                 }
                               ],
                               staticClass: "styled",
-                              attrs: { type: "checkbox" },
+                              attrs: {
+                                type: "checkbox",
+                                name: "dangers_goods"
+                              },
                               domProps: {
+                                checked: _vm.formData.dangers_goods[index],
                                 value: index,
                                 checked: Array.isArray(
-                                  _vm.formData.dangers_goods
+                                  _vm.formData.dangers_goods[index]
                                 )
-                                  ? _vm._i(_vm.formData.dangers_goods, index) >
-                                    -1
-                                  : _vm.formData.dangers_goods
+                                  ? _vm._i(
+                                      _vm.formData.dangers_goods[index],
+                                      index
+                                    ) > -1
+                                  : _vm.formData.dangers_goods[index]
                               },
                               on: {
                                 change: function($event) {
-                                  var $$a = _vm.formData.dangers_goods,
+                                  var $$a = _vm.formData.dangers_goods[index],
                                     $$el = $event.target,
                                     $$c = $$el.checked ? true : false
                                   if (Array.isArray($$a)) {
@@ -60166,22 +60172,26 @@ var render = function() {
                                     if ($$el.checked) {
                                       $$i < 0 &&
                                         _vm.$set(
-                                          _vm.formData,
-                                          "dangers_goods",
+                                          _vm.formData.dangers_goods,
+                                          index,
                                           $$a.concat([$$v])
                                         )
                                     } else {
                                       $$i > -1 &&
                                         _vm.$set(
-                                          _vm.formData,
-                                          "dangers_goods",
+                                          _vm.formData.dangers_goods,
+                                          index,
                                           $$a
                                             .slice(0, $$i)
                                             .concat($$a.slice($$i + 1))
                                         )
                                     }
                                   } else {
-                                    _vm.$set(_vm.formData, "dangers_goods", $$c)
+                                    _vm.$set(
+                                      _vm.formData.dangers_goods,
+                                      index,
+                                      $$c
+                                    )
                                   }
                                 }
                               }
@@ -81023,8 +81033,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
