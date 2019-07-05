@@ -59,6 +59,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+
         #TODO Form Validation
         $validator = Validator::make($request->all(),[
             'category_id'=>'required',
@@ -87,7 +89,7 @@ class ProductController extends Controller
                     'lang_product_name'=>$request->lang_product_name,
                     'lang_highlight'=>$request->lang_highlight,
                     'lang_description'=>$request->lang_description,
-                    'dangers_goods'=>$request->dangers_goods,
+                    'dangers_goods'=>implode(',', $request->dangers_goods),
                     'what_in_box'=>$request->what_in_box,
                     'package_weight'=>$request->package_weight,
                     'package_length'=>$request->package_length,
@@ -119,7 +121,11 @@ class ProductController extends Controller
                         #Store Data in Product Variation Table
                         if(!empty($request->variations)){
                             $variations = $request->variations;
+                            for ($i=0; $i< count($variations); $i++){
+                                return $variations[$i]; // response()->json();
+                            }
                             foreach ($variations as $variation){
+
                                 ProductVariation::create([
                                     'product_id'=>$product->product_id,
                                     'seller_sku'=>$variation->seller_sku,

@@ -41,14 +41,14 @@
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Highlights:</label>
                             <div class="col-lg-10">
-                                <wysi-html v-model="formData.highlight"></wysi-html>
+                                <vue-editor id="highlight" v-model="formData.highlight"></vue-editor>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Product Description:</label>
                             <div class="col-lg-10">
-                                <summer-note v-model="formData.description"></summer-note>
+                                <vue-editor id="description" v-model="formData.description"></vue-editor>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -82,7 +82,7 @@
                             <label class="col-lg-2 control-label">Dangers Goods:</label>
                             <div class="col-lg-10">
                                 <label class="radio-inline"  v-if="dangersGoods" v-for="(dangersGood ,index) in dangersGoods" :key="index">
-                                    <input type="checkbox" name="dangers_goods" v-model="formData.dangers_goods[index]" :checked="formData.dangers_goods[index]"  class="styled" :value="index">
+                                    <input type="checkbox" :id="'dng'+index" v-model="formData.dangers_goods"  class="styled" :value="index">
                                     {{ dangersGood }}
                                 </label>
                             </div>
@@ -143,14 +143,14 @@
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Highlights EN:</label>
                             <div class="col-lg-10">
-                                <wysi-html v-model="formData.lang_highlight"></wysi-html>
+                                <vue-editor id="lang_highlight" v-model="formData.lang_highlight"></vue-editor>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Description EN:</label>
                             <div class="col-lg-10">
-                                <summer-note v-model="formData.lang_description"></summer-note>
+                                <vue-editor id="lang_description" v-model="formData.lang_description"></vue-editor>
                             </div>
                         </div>
 
@@ -350,6 +350,7 @@
 <script>
     // import the component
     import Treeselect from '@riophae/vue-treeselect';
+    import { VueEditor } from "vue2-editor";
     // import the styles
     import '@riophae/vue-treeselect/dist/vue-treeselect.css';
     import {mapGetters, mapActions} from 'vuex';
@@ -366,6 +367,7 @@
             'summer-note':SummerNote,
             'wysi-html':WysiHtml,
             'multi-select2':MultiSelect2,
+            VueEditor,
         },
         data(){
             return {
@@ -378,7 +380,7 @@
                     lang_product_name:'',
                     lang_highlight:'',
                     lang_description:'',
-                    dangers_goods:'',
+                    dangers_goods:[],
                     what_in_box:'',
                     package_weight:'',
                     package_length:'',
