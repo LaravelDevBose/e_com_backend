@@ -635,19 +635,21 @@
             submitFrom(){
                 // TODO Form Validation
 
-                // TODO Button Disable
+                //Button Disable
                 this.btnDisabled = true;
 
-                // TODO append variation data and images ids in form Data
+                // append variation data and images ids in form Data
                 this.formData.variations = this.variations;
                 this.formData.imageIds = this.imageIds;
-                //TODO send Vuex request
+                //send Vuex request
                 this.storeProductData(this.formData)
                     .then(response=>{
                         console.log(response);
                         if(response.status === "success"){
-                            this.resetForm();
                             Notify.success(response.message);
+                            setTimeout(function () {
+                                window.location = response.url;
+                            });
                         }else if(response.status === "validation"){
                             Notify.validation(response.message);
                         }else if(response.status === "error"){
@@ -659,11 +661,7 @@
                     Notify.error(error.message);
                 })
 
-            },
-            resetForm(){
-                this.btnDisabled= false;
             }
-
         },
         computed:{
             ...mapGetters([
@@ -743,12 +741,6 @@
 
                 }
             },
-            // variations:{
-            //     handler(){
-            //         return _.orderBy(this.variations, 'color_name');
-            //     },
-            //     deep:true,
-            // }
 
         },
 
