@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductVariation extends Model
 {
+    const VARIATION_MODEL = [
+        'color'=>1,
+        'size'=>2
+    ];
+
     protected $table = 'product_variations';
 
     protected $primaryKey = 'variation_id';

@@ -81,6 +81,7 @@ class ProductController extends Controller
                 DB::beginTransaction();
                 #Store Data in Product Table
                 $product = Product::create([
+                    'product_sku'=>Product::product_sku_generate(),
                     'category_id'=>$request->category_id,
                     'brand_id'=>$request->brand_id,
                     'product_name'=>$request->product_name,
@@ -121,23 +122,26 @@ class ProductController extends Controller
                         #Store Data in Product Variation Table
                         if(!empty($request->variations)){
                             $variations = $request->variations;
-                            for ($i=0; $i< count($variations); $i++){
-                                return $variations[$i]; // response()->json();
-                            }
                             foreach ($variations as $variation){
+
+                                $variation = (object) $variation;
+                                $gift ='';
+                                if(!empty($variation->gift_product)){
+                                    $gift = Product::where('product_sku', $variation->gift_product)->first();
+                                }
 
                                 ProductVariation::create([
                                     'product_id'=>$product->product_id,
                                     'seller_sku'=>$variation->seller_sku,
-                                    'pri_id'=>$variation->pri_id,
-                                    'pri_model'=>$variation->pri_model,
-                                    'sec_id'=>$variation->sec_id,
-                                    'sec_model'=>$variation->sec_model,
-                                    'quantity'=>$variation->quantity,
+                                    'pri_id'=>$variation->color_id,
+                                    'pri_model'=>config('app.variation_model.color'),
+                                    'sec_id'=>$variation->size_id,
+                                    'sec_model'=>config('app.variation_model.size'),
+                                    'quantity'=>$variation->qty,
                                     'price'=>$variation->price,
-                                    'special_price'=>$variation->special_price,
-                                    'gift_product_id'=>$variation->gift_product_id,
-                                    'gift_product_sku'=>$variation->gift_product_sku,
+//                                    'special_price'=>(!empty($variation->special_price))?$variation->special_price:0,
+                                    'gift_product_id'=>(!empty($gift))?$gift->product_id: 0,
+                                    'gift_product_sku'=>(!empty($gift))?$gift->product_sku: '',
                                 ]);
                             }
                         }
@@ -148,10 +152,11 @@ class ProductController extends Controller
                         if(!empty($request->imageIds)){
                             $imageIds = $request->imageIds;
                             foreach ($imageIds as  $imageId){
+                                $imageId = (object)$imageId;
                                 ProductImage::create([
                                     'product_id'=>$product->product_id,
                                     'pri_id'=>$imageId->pri_id,
-                                    'model'=>1,
+                                    'model'=>ProductVariation::VARIATION_MODEL[strtolower($request->pri_model)],
                                     'attachment_id'=>$imageId->image_id,
                                     'image_status'=>config('app.active')
                                 ]);
@@ -235,5 +240,7 @@ class ProductController extends Controller
     {
         //
     }
+
+
 
 }

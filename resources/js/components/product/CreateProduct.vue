@@ -272,7 +272,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-if="variations" v-for="(variation, index) in variationsData" :key="index">
+                                        <tr v-if="variations" v-for="(variation, index) in variations" :key="index">
                                             <td>
                                                 <div class="checkbox checkbox-switchery">
                                                     <label>
@@ -300,7 +300,7 @@
                                             <td class="text-center">
                                                 <ul class="icons-list">
                                                     <li><input type="text" class="form-control" maxlength="255" v-model="variations[index].seller_sku"></li>
-                                                    <li><a href="#" @click="removeVariationData(index)" class="text-danger"><i class="icon-trash"></i></a></li>
+                                                    <li><a href="#" @click.prevent="removeVariationData(index)" class="text-danger"><i class="icon-trash"></i></a></li>
                                                 </ul>
                                             </td>
                                         </tr>
@@ -586,16 +586,17 @@
                         return value;
                     }
                 });
-                if(!jQuery.isEmptyObject(this.variationsData)){
-                    vm.variationsData.filter(variation=> variation.size_id == oldSize[0]).forEach(variation=>{
-                            let index = vm.variationsData.indexOf(variation);
-                            vm.$delete(vm.variationsData,index);
+                if(!jQuery.isEmptyObject(this.variations)){
+                    vm.variations.filter(variation=> variation.size_id == oldSize[0]).forEach(variation=>{
+                            let index = vm.variations.indexOf(variation);
+                            vm.$delete(vm.variations,index);
                     });
 
                 }
             },
             removeVariationData(index){
-                this.$delete(this.variationsData,index);
+                alert(index);
+                this.$delete(this.variations,index);
             },
             removePriIdData(index){
 
@@ -621,10 +622,10 @@
                     }
 
                     //remove variation Table data
-                    if(!jQuery.isEmptyObject(this.variationsData)){
-                        this.variationsData.filter(variation=> variation.color_id == PRIID).forEach(variation=>{
-                            let index = this.variationsData.indexOf(variation);
-                            this.$delete(this.variationsData,index);
+                    if(!jQuery.isEmptyObject(this.variations)){
+                        this.variations.filter(variation=> variation.color_id == PRIID).forEach(variation=>{
+                            let index = this.variations.indexOf(variation);
+                            this.$delete(this.variations,index);
                         });
 
                     }
@@ -681,7 +682,7 @@
             clonedSecondaryIds(){
                 return JSON.parse(JSON.stringify(this.sec_id));
             },
-            variationsData(){
+            variations(){
                 // return this.variations;
                 return _.orderBy(this.variations, 'color_name')
             },
@@ -741,7 +742,13 @@
                     }
 
                 }
-            }
+            },
+            // variations:{
+            //     handler(){
+            //         return _.orderBy(this.variations, 'color_name');
+            //     },
+            //     deep:true,
+            // }
 
         },
 

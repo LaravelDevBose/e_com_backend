@@ -7685,10 +7685,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "SummerNote"
+  name: "SummerNote",
+  props: {
+    model: {
+      required: true
+    }
+  },
+  mounted: function mounted() {
+    var vm = this;
+    var config = this.config;
+    config.callbacks = {
+      onInit: function onInit() {
+        $(vm.$el).summernote("code", vm.model);
+      },
+      onChange: function onChange() {
+        vm.$emit('change', $(vm.$el).summernote('code'));
+      },
+      onBlur: function onBlur() {
+        vm.$emit('change', $(vm.$el).summernote('code'));
+      }
+    };
+    $(this.$el).summernote(config);
+  }
 });
 
 /***/ }),
@@ -8431,17 +8450,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
 
-      if (!jQuery.isEmptyObject(this.variationsData)) {
-        vm.variationsData.filter(function (variation) {
+      if (!jQuery.isEmptyObject(this.variations)) {
+        vm.variations.filter(function (variation) {
           return variation.size_id == oldSize[0];
         }).forEach(function (variation) {
-          var index = vm.variationsData.indexOf(variation);
-          vm.$delete(vm.variationsData, index);
+          var index = vm.variations.indexOf(variation);
+          vm.$delete(vm.variations, index);
         });
       }
     },
     removeVariationData: function removeVariationData(index) {
-      this.$delete(this.variationsData, index);
+      alert(index);
+      this.$delete(this.variations, index);
     },
     removePriIdData: function removePriIdData(index) {
       var _this4 = this;
@@ -8474,13 +8494,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         } //remove variation Table data
 
 
-        if (!jQuery.isEmptyObject(this.variationsData)) {
-          this.variationsData.filter(function (variation) {
+        if (!jQuery.isEmptyObject(this.variations)) {
+          this.variations.filter(function (variation) {
             return variation.color_id == PRIID;
           }).forEach(function (variation) {
-            var index = _this4.variationsData.indexOf(variation);
+            var index = _this4.variations.indexOf(variation);
 
-            _this4.$delete(_this4.variationsData, index);
+            _this4.$delete(_this4.variations, index);
           });
         }
       }
@@ -8524,7 +8544,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     clonedSecondaryIds: function clonedSecondaryIds() {
       return JSON.parse(JSON.stringify(this.sec_id));
     },
-    variationsData: function variationsData() {
+    variations: function variations() {
       // return this.variations;
       return _.orderBy(this.variations, 'color_name');
     },
@@ -8584,7 +8604,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           this.btnDisabled = false;
         }
       }
-    }
+    } // variations:{
+    //     handler(){
+    //         return _.orderBy(this.variations, 'color_name');
+    //     },
+    //     deep:true,
+    // }
+
   }
 });
 
@@ -73126,16 +73152,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("textarea", { staticClass: "summernote-height" })
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("textarea", { staticClass: "summernote-height" })])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -74501,7 +74520,7 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "tbody",
-                              _vm._l(_vm.variationsData, function(
+                              _vm._l(_vm.variations, function(
                                 variation,
                                 index
                               ) {
@@ -74789,6 +74808,7 @@ var render = function() {
                                                   attrs: { href: "#" },
                                                   on: {
                                                     click: function($event) {
+                                                      $event.preventDefault()
                                                       return _vm.removeVariationData(
                                                         index
                                                       )
@@ -95538,8 +95558,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

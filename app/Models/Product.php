@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -30,6 +31,7 @@ class Product extends Model
     protected $primaryKey = 'product_id';
 
     protected $fillable =[
+        'product_sku',
         'category_id',
         'brand_id',
         'product_name',
@@ -50,4 +52,16 @@ class Product extends Model
         'warranty_type',
         'video_url',
     ];
+
+    public static function product_sku_generate(){
+        $sku = '';
+        for ($i=1; $i<=4; $i++){
+            $sku.= Str::random(4);
+            if($i != 4){
+                $sku .= '-';
+            }
+        }
+
+        return $sku;
+    }
 }

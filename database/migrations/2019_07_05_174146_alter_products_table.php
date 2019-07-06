@@ -15,6 +15,7 @@ class AlterProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table){
             $table->string('dangers_goods')->change();
+            $table->string('product_sku');
         });
     }
 
@@ -27,6 +28,7 @@ class AlterProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table){
             $table->boolean('dangers_goods')->change();
+            $table->dropColumn('product_sku');
         });
     }
 }

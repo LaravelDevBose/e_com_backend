@@ -23,7 +23,10 @@ return [
         'delete'=>1,
     ],
 
-
+    'variation_model'=>[
+        'color'=>1,
+        'size'=>2,
+    ],
 
 
 
