@@ -22,6 +22,7 @@ import  productHelper from './modules/helper/productHelper';
 import  product from './modules/product';
 import  excel_import from './modules/helper/excel_import';
 import  brand from './modules/brand';
+import  skin_type from './modules/skin_type';
 
 export default new Vuex.Store({
     state:{
@@ -53,6 +54,7 @@ export default new Vuex.Store({
         product,
         excel_import,
         brand,
+        skin_type,
     }
 })
 

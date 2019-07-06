@@ -25,8 +25,6 @@
     },
     "dependencies": {
         "@fancyapps/fancybox": "^3.5.7",
-        "@fortawesome/fontawesome": "^1.1.8",
-        "@fortawesome/vue-fontawesome": "^0.1.6",
         "@riophae/vue-treeselect": "0.0.38",
         "luxon": "^1.13.2",
         "vue-datetime": "^1.0.0-beta.10",
