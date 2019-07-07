@@ -29,4 +29,8 @@ class Brand extends Model
         return $this->hasOne(Attachment::class,'attachment_id', 'attachment_id')->where('folder', 'brand');
     }
 
+    public function product(){
+        return $this->hasMany(Product::class, 'brand_id', 'brand_id');
+    }
+
 }

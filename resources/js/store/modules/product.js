@@ -5,6 +5,7 @@ const state = {
     productColors:'',
     productSizes:'',
     productSkinTypes:'',
+    allProducts:'',
 };
 
 //declare Getters
@@ -14,6 +15,7 @@ const getters = {
     productColors:(state)=>state.productColors,
     sizes:(state)=>state.productSizes,
     skinTypes:(state)=>state.productSkinTypes,
+    products:(state)=>state.allProducts,
 };
 
 const actions = {
@@ -27,9 +29,21 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
+    async getProducts({commit},tableData){
+
+        try {
+            return await axios.get('/admin/collection/product',{params:tableData})
+                .then(response=>{
+                    commit('getProductData', response.data);
+                    return response;
+                })
+        }catch (error) {
+            commit('getProductData', error.data)
+        }
+    },
     async storeProductData({commit}, fromData){
         try {
-            return axios.post('/admin/product', fromData)
+            return await axios.post('/admin/product', fromData)
                 .then(response=>{
                     console.log(response);
                     commit('setResponse',response.data);
@@ -48,6 +62,9 @@ const mutations = {
         state.productColors = response.colors;
         state.productSizes = response.sizes;
         state.productSkinTypes = response.skinTypes;
+    },
+    getProductData:(state, response)=>{
+        state.allProducts = response.data;
     }
 };
 

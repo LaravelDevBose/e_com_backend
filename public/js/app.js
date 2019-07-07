@@ -8749,6 +8749,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8761,24 +8778,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     var sortOrders = {};
     var columns = [{
-      width: '33%',
-      label: 'Deadline',
-      name: 'deadline'
+      label: 'Product Name',
+      name: 'product_title'
     }, {
-      width: '33%',
-      label: 'Budget',
-      name: 'budget'
+      label: 'Product SKU',
+      name: 'sku'
     }, {
-      width: '33%',
+      label: 'Category',
+      name: 'category'
+    }, {
+      label: 'Brand',
+      name: 'brand'
+    }, {
+      label: 'Quantity',
+      name: 'total_qty'
+    }, {
       label: 'Status',
-      name: 'status'
+      name: 'status_label'
     }];
     columns.forEach(function (column) {
       sortOrders[column.name] = -1;
     });
     return {
       columns: columns,
-      sortKey: 'deadline',
+      sortKey: 'product_title',
       sortOrders: sortOrders,
       perPage: ['10', '20', '30'],
       tableData: {
@@ -8797,29 +8820,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         prevPageUrl: '',
         from: '',
         to: ''
-      }
+      },
+      products: ''
     };
   },
   created: function created() {
-    this.getProducts();
+    this.getProductsData();
   },
-  method: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])([]), {
-    getProducts: function getProducts() {
-      var _this = this;
-
-      this.tableData.draw++;
-      axios.get(url, {
-        params: this.tableData
-      }).then(function (response) {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['getProducts']), {
+    getProductsData: function getProductsData() {
+      var vm = this;
+      vm.tableData.draw++;
+      vm.getProducts(vm.tableData).then(function (response) {
         var data = response.data;
 
-        if (_this.tableData.draw == data.draw) {
-          _this.products = data.data.data;
-
-          _this.configPagination(data.data);
+        if (vm.tableData.draw === data.draw) {
+          vm.products = data.data;
+          vm.configPagination(data.data);
         }
-      })["catch"](function (errors) {
-        console.log(errors);
       });
     },
     configPagination: function configPagination(data) {
@@ -8845,7 +8863,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['products']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])([]))
 });
 
 /***/ }),
@@ -73817,11 +73835,7 @@ var render = function() {
                   }
                 }
               },
-              [
-                _vm._v(
-                  "\n            " + _vm._s(column.label) + ">\n\n        "
-                )
-              ]
+              [_vm._v("\n            " + _vm._s(column.label) + "\n\n        ")]
             )
           }),
           0
@@ -75729,9 +75743,49 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("vue-data-table")
+  return _c("div", { staticClass: "content" }, [
+    _c("div", { staticClass: "panel panel-flat" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "table-responsive" },
+        [
+          _c("vue-data-table", {
+            attrs: {
+              columns: _vm.columns,
+              "sort-key": _vm.sortKey,
+              "sort-orders": _vm.sortOrders
+            }
+          })
+        ],
+        1
+      )
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [
+        _vm._v("Product Size Group List")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "heading-elements" }, [
+        _c("ul", { staticClass: "icons-list" }, [
+          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -96128,7 +96182,8 @@ var state = {
   dangersGoods: '',
   productColors: '',
   productSizes: '',
-  productSkinTypes: ''
+  productSkinTypes: '',
+  allProducts: ''
 }; //declare Getters
 
 var getters = {
@@ -96146,6 +96201,9 @@ var getters = {
   },
   skinTypes: function skinTypes(state) {
     return state.productSkinTypes;
+  },
+  products: function products(state) {
+    return state.allProducts;
   }
 };
 var actions = {
@@ -96188,10 +96246,10 @@ var actions = {
 
     return getProductCreateDependency;
   }(),
-  storeProductData: function () {
-    var _storeProductData = _asyncToGenerator(
+  getProducts: function () {
+    var _getProducts = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, fromData) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, tableData) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
@@ -96199,26 +96257,71 @@ var actions = {
             case 0:
               commit = _ref2.commit;
               _context2.prev = 1;
-              return _context2.abrupt("return", axios.post('/admin/product', fromData).then(function (response) {
-                console.log(response);
-                commit('setResponse', response.data);
-                return response.data;
-              }));
+              _context2.next = 4;
+              return axios.get('/admin/collection/product', {
+                params: tableData
+              }).then(function (response) {
+                commit('getProductData', response.data);
+                return response;
+              });
 
-            case 5:
-              _context2.prev = 5;
+            case 4:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 7:
+              _context2.prev = 7;
               _context2.t0 = _context2["catch"](1);
-              commit('setResponse', _context2.t0.data);
+              commit('getProductData', _context2.t0.data);
 
-            case 8:
+            case 10:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 5]]);
+      }, _callee2, null, [[1, 7]]);
     }));
 
-    function storeProductData(_x3, _x4) {
+    function getProducts(_x3, _x4) {
+      return _getProducts.apply(this, arguments);
+    }
+
+    return getProducts;
+  }(),
+  storeProductData: function () {
+    var _storeProductData = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, fromData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios.post('/admin/product', fromData).then(function (response) {
+                console.log(response);
+                commit('setResponse', response.data);
+                return response.data;
+              });
+
+            case 4:
+              return _context3.abrupt("return", _context3.sent);
+
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](1);
+              commit('setResponse', _context3.t0.data);
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 7]]);
+    }));
+
+    function storeProductData(_x5, _x6) {
       return _storeProductData.apply(this, arguments);
     }
 
@@ -96232,6 +96335,9 @@ var mutations = {
     state.productColors = response.colors;
     state.productSizes = response.sizes;
     state.productSkinTypes = response.skinTypes;
+  },
+  getProductData: function getProductData(state, response) {
+    state.allProducts = response.data;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

@@ -53,4 +53,8 @@ class Category extends Model
     public function sizeGroup(){
         return $this->hasMany(SizeGroupCategory::class, 'category_id', 'category_id');
     }
+
+    public function products(){
+        return $this->hasMany(Product::class, 'category_id', 'category_id');
+    }
 }

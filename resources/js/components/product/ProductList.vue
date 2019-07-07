@@ -1,5 +1,22 @@
 <template>
-    <vue-data-table></vue-data-table>
+    <div class="content">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Product Size Group List</h5>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                        <li><a data-action="reload"></a></li>
+                        <li><a data-action="close"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <vue-data-table :columns="columns" :sort-key="sortKey" :sort-orders="sortOrders"></vue-data-table>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -16,16 +33,19 @@
         data(){
             let sortOrders = {};
             let columns = [
-                {width: '33%', label: 'Deadline', name: 'deadline' },
-                {width: '33%', label: 'Budget', name: 'budget'},
-                {width: '33%', label: 'Status', name: 'status'}
+                {label: 'Product Name', name: 'product_title' },
+                {label: 'Product SKU', name: 'sku'},
+                {label: 'Category', name: 'category'},
+                {label: 'Brand', name: 'brand'},
+                {label: 'Quantity', name: 'total_qty'},
+                {label: 'Status', name: 'status_label'},
             ];
             columns.forEach((column) => {
                 sortOrders[column.name] = -1;
             });
             return {
                 columns: columns,
-                sortKey: 'deadline',
+                sortKey: 'product_title',
                 sortOrders: sortOrders,
                 perPage: ['10', '20', '30'],
                 tableData: {
@@ -45,29 +65,28 @@
                     from: '',
                     to: ''
                 },
+                products:'',
             }
         },
-        created(){
-            this.getProducts();
+        created() {
+            this.getProductsData();
         },
-        method:{
+        methods:{
             ...mapActions([
-
+                'getProducts'
             ]),
 
-            getProducts() {
-                this.tableData.draw++;
-                axios.get(url, {params: this.tableData})
-                    .then(response => {
-                        let data = response.data;
-                        if (this.tableData.draw == data.draw) {
-                            this.products = data.data.data;
-                            this.configPagination(data.data);
-                        }
-                    })
-                    .catch(errors => {
-                        console.log(errors);
-                    });
+            getProductsData(){
+                let vm = this;
+                vm.tableData.draw++;
+                vm.getProducts(vm.tableData).then(response=>{
+                    let data = response.data;
+                    if (vm.tableData.draw === data.draw) {
+
+                        vm.products = data.data;
+                        vm.configPagination(data.data);
+                    }
+                })
             },
             configPagination(data) {
                 this.pagination.lastPage = data.last_page;
@@ -92,7 +111,7 @@
         },
         computed:{
             ...mapGetters([
-                'products'
+
             ])
         }
 

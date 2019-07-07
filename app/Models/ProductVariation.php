@@ -29,4 +29,8 @@ class ProductVariation extends Model
         'gift_product_sku',
     ];
 
+    public function product(){
+        return $this->belongsTo(Product::class, 'product_id', 'product_id');
+    }
+
 }

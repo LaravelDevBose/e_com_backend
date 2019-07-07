@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources\Admin;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Http\Resources\Admin\Category as CategoryResource;
+use App\Http\Resources\Admin\Brand as BrandResource;
+use Illuminate\Http\Resources\Json\Resource;
 
-class ProductCollection extends ResourceCollection
+class ProductCollection extends Resource
 {
     /**
      * Transform the resource collection into an array.
@@ -15,10 +17,31 @@ class ProductCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => $this->collection,
-            'links' => [
-                'self' => 'link-value',
-            ],
+            'id'=>$this->product_id,
+            'product_title'=>$this->product_name,
+            'sku'=>$this->product_sku,
+            'category'=>New CategoryResource($this->whenLoaded('category')),
+            'brand'=>New BrandResource($this->whenLoaded('brand')),
+            'total_qty'=>$this->variations->sum('quantity'),
+            'status'=>$this->product_status,
+            'status_label'=>$this->statusLabel($this->product_status),
         ];
+    }
+
+    private function statusLabel($value){
+        switch ($value):
+            case 0:
+                return 'Delete';
+                break;
+            case 1:
+                return 'Active';
+                break;
+            case 2:
+                return 'Inactive';
+                break;
+            default:
+                return 'Undefined';
+                break;
+        endswitch;
     }
 }

@@ -53,6 +53,10 @@ class Product extends Model
         'video_url',
     ];
 
+    public function scopeNotDelete($query){
+        return $query->where('product_status', '!=', config('app.delete'));
+    }
+
     public static function product_sku_generate(){
         $sku = '';
         for ($i=1; $i<=4; $i++){
@@ -63,5 +67,27 @@ class Product extends Model
         }
 
         return $sku;
+    }
+
+
+
+    public function category(){
+        return $this->belongsTo(Category::class, 'category_id', 'category_id');
+    }
+
+    public function brand(){
+        return $this->belongsTo(Brand::class, 'brand_id', 'brand_id');
+    }
+
+    public function productDetails(){
+        return $this->hasOne(ProductDetails::class, 'product_id', 'product_id');
+    }
+
+    public function variations(){
+        return $this->hasMany(ProductVariation::class, 'product_id', 'product_id');
+    }
+
+    public function productImages(){
+        return $this->hasMany(ProductImage::class, 'product_id', 'product_id');
     }
 }
