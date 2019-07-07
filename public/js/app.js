@@ -8663,10 +8663,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     clonedSecondaryIds: function clonedSecondaryIds() {
       return JSON.parse(JSON.stringify(this.sec_id));
     },
-    variations: function variations() {
-      // return this.variations;
-      return _.orderBy(this.variations, 'color_name');
-    },
+    // variations(){
+    //     // return this.variations;
+    //     return _.orderBy(this.variations, 'color_name')
+    // },
     formDataCheck: function formDataCheck() {
       return JSON.parse(JSON.stringify(this.formData));
     }
@@ -8766,6 +8766,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8778,6 +8801,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     var sortOrders = {};
     var columns = [{
+      label: '#',
+      name: '#'
+    }, {
       label: 'Product Name',
       name: 'product_title'
     }, {
@@ -8794,7 +8820,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       name: 'total_qty'
     }, {
       label: 'Status',
-      name: 'status_label'
+      name: 'status'
     }];
     columns.forEach(function (column) {
       sortOrders[column.name] = -1;
@@ -8855,7 +8881,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.sortOrders[key] = this.sortOrders[key] * -1;
       this.tableData.column = this.getIndex(this.columns, 'name', key);
       this.tableData.dir = this.sortOrders[key] === 1 ? 'asc' : 'desc';
-      this.getProjects();
+      console.log(this.tableData);
+      this.getProductsData();
     },
     getIndex: function getIndex(array, key, value) {
       return array.findIndex(function (i) {
@@ -73812,7 +73839,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "table",
-    { staticClass: "table datatable-basic" },
+    { staticClass: "table table-striped table-bordered table-hover" },
     [
       _c("thead", [
         _c(
@@ -75751,13 +75778,72 @@ var render = function() {
         "div",
         { staticClass: "table-responsive" },
         [
-          _c("vue-data-table", {
-            attrs: {
-              columns: _vm.columns,
-              "sort-key": _vm.sortKey,
-              "sort-orders": _vm.sortOrders
-            }
-          })
+          _c(
+            "vue-data-table",
+            {
+              attrs: {
+                columns: _vm.columns,
+                "sort-key": _vm.sortKey,
+                "sort-orders": _vm.sortOrders
+              },
+              on: { sort: _vm.sortBy }
+            },
+            [
+              _c(
+                "tbody",
+                [
+                  !_vm.products
+                    ? _c("tr", [
+                        _c("td", { attrs: { colspan: _vm.columns.length } }, [
+                          _vm._v(" No Product Found")
+                        ])
+                      ])
+                    : _vm._l(_vm.products, function(product, index) {
+                        return _c("tr", { key: product.id }, [
+                          _c("td", [_vm._v(_vm._s(index + 1))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(product.product_title))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(product.sku))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(product.category.name))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            product.brand
+                              ? _c("span", [
+                                  _vm._v(" " + _vm._s(product.brand.name))
+                                ])
+                              : _c("span")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(product.total_qty))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            product.status == 1
+                              ? _c(
+                                  "span",
+                                  { staticClass: "badge badge-success" },
+                                  [_vm._v(_vm._s(product.status_label))]
+                                )
+                              : product.status == 2
+                              ? _c(
+                                  "span",
+                                  { staticClass: "badge badge-warning" },
+                                  [_vm._v(_vm._s(product.status_label))]
+                                )
+                              : _c(
+                                  "span",
+                                  { staticClass: "badge badge-default" },
+                                  [_vm._v(_vm._s(product.status_label))]
+                                )
+                          ])
+                        ])
+                      })
+                ],
+                2
+              )
+            ]
+          )
         ],
         1
       )
@@ -94172,7 +94258,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************************************************************!*\
   !*** ./resources/js/components/product/ProductList.vue?vue&type=template&id=02f70c72&scoped=true& ***!
   \****************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -97138,8 +97224,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

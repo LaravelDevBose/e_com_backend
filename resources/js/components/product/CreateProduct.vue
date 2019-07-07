@@ -681,10 +681,10 @@
             clonedSecondaryIds(){
                 return JSON.parse(JSON.stringify(this.sec_id));
             },
-            variations(){
-                // return this.variations;
-                return _.orderBy(this.variations, 'color_name')
-            },
+            // variations(){
+            //     // return this.variations;
+            //     return _.orderBy(this.variations, 'color_name')
+            // },
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
             }

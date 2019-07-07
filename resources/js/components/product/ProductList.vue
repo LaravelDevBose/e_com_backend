@@ -13,7 +13,30 @@
             </div>
 
             <div class="table-responsive">
-                <vue-data-table :columns="columns" :sort-key="sortKey" :sort-orders="sortOrders"></vue-data-table>
+                <vue-data-table :columns="columns" :sort-key="sortKey" :sort-orders="sortOrders" @sort="sortBy">
+                    <tbody>
+                        <tr v-if="!products">
+                            <td :colspan="columns.length"> No Product Found</td>
+                        </tr>
+
+                        <tr v-else v-for="(product, index) in products" :key="product.id">
+                            <td>{{ index+1 }}</td>
+                            <td>{{ product.product_title }}</td>
+                            <td>{{ product.sku }}</td>
+                            <td>{{ product.category.name }}</td>
+                            <td>
+                                <span v-if="product.brand"> {{ product.brand.name }}</span>
+                                <span v-else> </span>
+                            </td>
+                            <td>{{ product.total_qty }}</td>
+                            <td>
+                                <span  v-if="product.status == 1" class="badge badge-success">{{ product.status_label }}</span>
+                                <span  v-else-if="product.status == 2" class="badge badge-warning">{{ product.status_label }}</span>
+                                <span v-else class="badge badge-default">{{ product.status_label }}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </vue-data-table>
             </div>
         </div>
     </div>
@@ -33,12 +56,13 @@
         data(){
             let sortOrders = {};
             let columns = [
+                {label: '#', name: '#' },
                 {label: 'Product Name', name: 'product_title' },
                 {label: 'Product SKU', name: 'sku'},
                 {label: 'Category', name: 'category'},
                 {label: 'Brand', name: 'brand'},
                 {label: 'Quantity', name: 'total_qty'},
-                {label: 'Status', name: 'status_label'},
+                {label: 'Status', name: 'status'},
             ];
             columns.forEach((column) => {
                 sortOrders[column.name] = -1;
@@ -99,11 +123,13 @@
                 this.pagination.to = data.to;
             },
             sortBy(key) {
+
                 this.sortKey = key;
                 this.sortOrders[key] = this.sortOrders[key] * -1;
                 this.tableData.column = this.getIndex(this.columns, 'name', key);
                 this.tableData.dir = this.sortOrders[key] === 1 ? 'asc' : 'desc';
-                this.getProjects();
+                console.log(this.tableData);
+                this.getProductsData();
             },
             getIndex(array, key, value) {
                 return array.findIndex(i => i[key] == value)
