@@ -63,7 +63,7 @@
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Warranty Period:</label>
                             <div class="col-lg-10">
-                                <vue-select2 v-model="formData.warranty_period" :options="brandList"> </vue-select2>
+                                <input type="number" v-model="formData.warranty_period" class="form-control" maxlength="2" placeholder="Total Number of Days" >
                             </div>
                         </div>
                         <div class="form-group row">
@@ -189,7 +189,7 @@
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Skin Type:</label>
                             <div class="col-lg-10">
-                                <vue-select2 v-model="formData.skin_type" :options="brandList"> </vue-select2>
+                                <vue-select2 v-model="formData.skin_type" :options="skinTypes"> </vue-select2>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -673,6 +673,7 @@
                 'sizes',
                 'productImages',
                 'imageIds',
+                'skinTypes',
             ]),
             clonedPrimaryIds(){
                 return JSON.parse(JSON.stringify(this.pri_id));

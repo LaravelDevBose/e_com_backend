@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Resources\Admin\SkinTypeCollection;
+use App\Http\Resources\Admin\SkinType as SkinTypeResource;
+use App\Models\SkinType;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SkinTypeController extends Controller
 {
@@ -18,7 +22,7 @@ class SkinTypeController extends Controller
      */
     public function index()
     {
-        return new TagCollection(Tag::notDelete()->latest()->get());
+        return new SkinTypeCollection(SkinType::notDelete()->latest()->get());
     }
 
     /**
@@ -28,7 +32,7 @@ class SkinTypeController extends Controller
      */
     public function create()
     {
-        return view('tag.index');
+        return view('skin_type.index');
     }
 
     /**
@@ -40,26 +44,25 @@ class SkinTypeController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'tag_title'=>'required|string:max:190',
-            'tag_status'=>'required',
+            'skin_type'=>'required|string:max:190',
+            'skin_type_status'=>'required',
         ]);
 
         if($validator->passes()){
             try{
                 DB::beginTransaction();
 
-                $tag = Tag::create([
-                    'tag_title'=>$request->tag_title,
-                    'tag_slug'=>Str::slug($request->tag_title),
-                    'tag_status'=>(!empty($request->tag_status) && $request->tag_status == 1) ? $request->tag_status : 2,
+                $skinType = SkinType::create([
+                    'skin_type'=>$request->skin_type,
+                    'skin_type_status'=>(!empty($request->skin_type_status) && $request->skin_type_status == 1) ? $request->skin_type_status : 2,
                 ]);
-                if($tag){
+                if($skinType){
                     DB::commit();
                     return response()->json([
-                        'tag'=> new TagResource(Tag::find($tag->tag_id)),
+                        'tag'=> new SkinTypeResource(SkinType::find($skinType->skin_type_id)),
                         'res'=>[
                             'status'=>'success',
-                            'message'=>'Category Store Successfully',
+                            'message'=>'Skin Type Store Successfully',
                         ]
                     ]);
                 }
@@ -128,20 +131,20 @@ class SkinTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tag $tag)
+    public function destroy(SkinType $skinType)
     {
-        if($tag){
+        if($skinType){
             try{
                 DB::beginTransaction();
-                $tag->update([
-                    'tag_status'=>0,
+                $skinType->update([
+                    'skin_type_status'=>0,
                 ]);
 
-                if($tag){
+                if($skinType){
                     DB::commit();
                     return response()->json([
                         'status'=>'success',
-                        'message'=>'Tag or Keyword Delete Successfully'
+                        'message'=>'Skin Type Delete Successfully'
                     ]);
                 }{
                     throw new Exception('Invalid Information.!');
@@ -161,7 +164,7 @@ class SkinTypeController extends Controller
         }
     }
 
-    public function import_tag(Request $request){
+    public function import_file(Request $request){
         $file = $request->file('excel_file')->getRealPath();
 
         $excel_file = Excel::load($file)->ignoreEmpty()->get()->toArray();
@@ -169,11 +172,10 @@ class SkinTypeController extends Controller
         if(!empty($excel_file) && isset($excel_file[0])){
             foreach ($excel_file as $r =>$row){
                 foreach ($row as $c => $coll){
-                    if(!empty($coll['tag_title'])){
-                        $color = Tag::create([
-                            'tag_title'=>$coll['tag_title'],
-                            'tag_slug'=>Str::slug($coll['tag_title']),
-                            'tag_status'=>$coll['tag_status']?? 2
+                    if(!empty($coll['skin_type'])){
+                        $color = SkinType::create([
+                            'skin_type'=>$coll['skin_type'],
+                            'skin_type_status'=>$coll['skin_type_status']?? 2
                         ]);
                         if($color){
                             $result++;
@@ -186,14 +188,14 @@ class SkinTypeController extends Controller
             if($result == count($excel_file)){
                 return response()->json([
                     'status'=>'success',
-                    'message'=>'All Tag Data Store Successfully',
-                    'url'=>route('admin.tag.create')
+                    'message'=>'All Data Store Successfully',
+                    'url'=>route('admin.skinType.create')
                 ]);
             }else{
                 return response()->json([
                     'status'=>'success',
-                    'message'=>'Some of Tag Data Not Store Successfully',
-                    'url'=>route('admin.tag.create')
+                    'message'=>'Some of Data Not Store Successfully',
+                    'url'=>route('admin.skinType.create')
                 ]);
             }
         }else{

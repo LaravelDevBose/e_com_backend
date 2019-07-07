@@ -60,6 +60,9 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
 
     Route::post('product/image/store', 'ProductImageController@store')->name('product_image.store');
     Route::delete('product/image/delete/{id}', 'ProductImageController@delete')->name('product_image.delete');
+
+    Route::resource('skinType', 'SkinTypeController');
+    Route::post('/import/skinType', 'SkinTypeController@import_file')->name('import.skinType');
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){

@@ -60,7 +60,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-if="tags" v-for="(skin_type,index) in skin_types" :key="skin_type.id">
+                    <tr v-if="skin_types" v-for="(skin_type,index) in skin_types" :key="skin_type.id">
                         <td>{{ index }}</td>
                         <td>{{ skin_type.skinType_title }}</td>
                         <td class="text text-center">
@@ -99,7 +99,7 @@
                 },
                 btnDisabled:false,
                 format_image:'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
-                action_url:'/admin/import/skin_types',
+                action_url:'/admin/import/skinType',
                 format_file:'http://e_com.pc/excel_demo/skin_types.xlsx',
             }
         },
@@ -127,6 +127,7 @@
                 this.form.skin_type_status = 0;
             },
             removeSkinType(ID){
+
                 if(confirm('Are You Sure..?')){
                     this.deleteSkinType(ID).then(response=>{
                         if(response.status === 'success'){
@@ -139,10 +140,13 @@
         computed:{
             ...mapGetters([
                 'skin_types'
-            ])
+            ]),
+            formData(){
+                return JSON.parse(JSON.stringify(this.form));
+            }
         },
         watch:{
-            form:{
+            formData:{
                 handler(newValue, oldValue){
                     if(oldValue !== newValue){
                         this.btnDisabled = false;

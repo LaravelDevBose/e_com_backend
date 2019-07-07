@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('PageTitle','')
+@section('PageTitle','Skin Type')
 
 @section('PageCss')
 
@@ -17,7 +17,7 @@
 @endsection
 
 @section('content')
-
+<skin-type></skin-type>
 
 @endsection
 @section('PageJs')

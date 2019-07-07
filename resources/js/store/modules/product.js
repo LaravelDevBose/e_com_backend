@@ -4,6 +4,7 @@ const state = {
     dangersGoods:'',
     productColors:'',
     productSizes:'',
+    productSkinTypes:'',
 };
 
 //declare Getters
@@ -12,6 +13,7 @@ const getters = {
     dangersGoods:(state)=> state.dangersGoods,
     productColors:(state)=>state.productColors,
     sizes:(state)=>state.productSizes,
+    skinTypes:(state)=>state.productSkinTypes,
 };
 
 const actions = {
@@ -45,6 +47,7 @@ const mutations = {
         state.dangersGoods = response.dangersGoods;
         state.productColors = response.colors;
         state.productSizes = response.sizes;
+        state.productSkinTypes = response.skinTypes;
     }
 };
 

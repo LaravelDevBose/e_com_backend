@@ -27,7 +27,7 @@ class AlterProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table){
-            $table->boolean('dangers_goods')->change();
+            $table->string('dangers_goods')->change();
             $table->dropColumn('product_sku');
         });
     }

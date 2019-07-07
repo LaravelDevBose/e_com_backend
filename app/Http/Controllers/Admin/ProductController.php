@@ -11,6 +11,7 @@ use App\Models\ProductImage;
 use App\Models\ProductVariation;
 use App\Models\Size;
 use App\Models\SizeGroupCategory;
+use App\Models\SkinType;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -47,7 +48,8 @@ class ProductController extends Controller
             'warrantyType'=>Product::WarrantyType,
             'dangersGoods'=>Product::DangersGoods,
             'colors'=>Color::isActive()->select('color_id as id', 'color_name as text')->latest()->get(),
-            'sizes'=>$sizes
+            'sizes'=>$sizes,
+            'skinTypes'=>SkinType::isActive()->select('skin_type_id as id', 'skin_type as text')->latest()->get(),
         ]);
     }
 

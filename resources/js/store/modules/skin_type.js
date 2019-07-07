@@ -11,7 +11,8 @@ const getters = {
 const actions = {
     async getSkinTypes({commit}){
         try {
-            const response = await axios.get('/admin/skin_types');
+            const response = await axios.get('/admin/skinType');
+
             commit('setSkinTypes', response.data.data);
         }catch (error) {
             console.log(error);
@@ -20,7 +21,7 @@ const actions = {
     },
     async storeSkinType({commit}, formData){
         try {
-            return await axios.post('/admin/skin_types/store',formData).then(response=>{
+            return await axios.post('/admin/skinType',formData).then(response=>{
                 commit('skinTypeStore',response.data.tag);
                 commit('setResponse', response.data.res);
                 return response.data.res;
@@ -33,7 +34,7 @@ const actions = {
     },
     async deleteSkinType({commit},skinTypeID){
         try {
-            return await axios.delete(`/admin/skinTypes/delete/${skinTypeID}`).then(response=>{
+            return await axios.delete(`/admin/skinType/${skinTypeID}`).then(response=>{
                 commit('removeSkinType', skinTypeID);
                 commit('setResponse', response.data);
                 return response.data;

@@ -36,7 +36,7 @@ import CreateProduct from './components/product/CreateProduct';
 import ShowProduct from './components/product/ShowProduct';
 import ImportData from "./components/helper/ImportData";
 import Brand from './components/brand/Brand';
-
+import SkinType from './components/skin_type/SkinType';
 
 
 const app = new Vue({
@@ -61,5 +61,6 @@ const app = new Vue({
         'product-list':ProductList,
         'create-product':CreateProduct,
         'show-Product':ShowProduct,
+        'skin-type':SkinType,
     }
 });
