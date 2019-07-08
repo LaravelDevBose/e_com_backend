@@ -2,7 +2,19 @@
 @section('PageTitle','Create New Product')
 
 @section('PageCss')
-
+    <style>
+        .table > thead > tr > th>.sort{
+            float: right!important;
+        }
+        .table{
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem!important;
+        }
+        .table > thead> tr > th:first-child{
+            width: 50px;
+        }
+    </style>
 @endsection
 
 @section('ThemeJs')

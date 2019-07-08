@@ -32,46 +32,12 @@ class ProductController extends Controller
     }
 
     public function product_collection(Request $request){
-
-        $columns = [
-            'product_id',
-            'product_name',
-            'product_sku',
-            'category_id',
-            'brand_id',
-            'total_qty',
-            'status_label',
-        ];
-
-        $length = $request->input('length');
-        $column = $request->input('column');
-        $dir = $request->input('dir');
-        $searchValue = $request->input('search');
-
-        $query = Product::with(['category'=>function($query){
+        $products = Product::with(['category'=>function($query){
             return $query->with(['parent'=>function($q){
                 return $q->with(['parent']);
             }]);
-        }, 'brand','variations'])->orderBy($columns[$column], $dir);
-
-        if ($searchValue) {
-            $query->where(function($query) use ($searchValue) {
-                $query->where('product_name', 'like', '%' . $searchValue . '%')
-                    ->orWhere('lang_product_name', 'like', '%' . $searchValue . '%')
-                    ->orWhere('product_status', 'like', '%' . $searchValue . '%');
-            });
-        }
-        $products = $query->paginate($length);
-
-
-        return response()->json([
-            'data'=>ProductCollection::collection($products),
-            'draw'=>(!empty($request->tableData))?$request->tableData->draw:1
-        ]);
-
-
-
-
+        }, 'brand','variations'])->latest()->get();
+        return ProductCollection::collection($products);
     }
 
     /**

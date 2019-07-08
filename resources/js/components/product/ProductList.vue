@@ -11,85 +11,85 @@
                     </ul>
                 </div>
             </div>
-
             <div class="table-responsive">
-                <vue-data-table :columns="columns" :sort-key="sortKey" :sort-orders="sortOrders" @sort="sortBy">
-                    <tbody>
-                        <tr v-if="!products">
-                            <td :colspan="columns.length"> No Product Found</td>
-                        </tr>
+                <div class="row">
+                    <div class="col-xs-12 form-inline" style="margin:1em;">
+                        <div class="form-group">
+                            <input type="text" id="filter" class="form-control" v-model="filter" placeholder="Filter">
+                        </div>
+                        <div class="form-group">
+                            <vue-select2 v-model="per_page" :options="perPages"></vue-select2>
+                        </div>
+                    </div>
+                </div>
 
-                        <tr v-else v-for="(product, index) in products" :key="product.id">
-                            <td>{{ index+1 }}</td>
-                            <td>{{ product.product_title }}</td>
-                            <td>{{ product.sku }}</td>
-                            <td>{{ product.category.name }}</td>
-                            <td>
-                                <span v-if="product.brand"> {{ product.brand.name }}</span>
-                                <span v-else> </span>
-                            </td>
-                            <td>{{ product.total_qty }}</td>
-                            <td>
-                                <span  v-if="product.status == 1" class="badge badge-success">{{ product.status_label }}</span>
-                                <span  v-else-if="product.status == 2" class="badge badge-warning">{{ product.status_label }}</span>
-                                <span v-else class="badge badge-default">{{ product.status_label }}</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </vue-data-table>
+                <div class="row">
+                    <div id="table" class="col-xs-12 table-responsive">
+                        <datatable class="table-bordered table-striped" :columns="columns" :data="products" :filter-by="filter"></datatable>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 form-inline">
+                    <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
+                </div>
             </div>
         </div>
+
     </div>
 </template>
 
 <script>
-    import VueDataTable from '../helper/table/VueDataTable'
-    import Pagination from '../helper/table/Pagination'
-    import {mapGetters, mapActions} from 'vuex';
+    import  Vue from 'vue'
+    Vue.component('select-row', {
+        template: `<div>
+                        <span v-if="row.status == 1" class="badge badge-success">{{ row.status_label }}</span>
+                        <span v-else-if="row.status == 2" class="badge badge-warning">{{ row.status_label }}</span>
+                        <span v-else class="badge badge-default">{{ row.status_label }}</span>
+                    </div>`,
+        props: ['row'],
+    });
+    Vue.component('action-btn', {
+        template: `<button class="btn btn-xs btn-primary" @click="goToUpdatePage"> Edit</button>`,
+        props: ['row'],
+        methods: {
+            goToUpdatePage: function(){
+                window.location = '/contact/' + this.row.id + '/update';
+            }
+        }
+    });
 
+    import VueSelect2 from '../helper/Select2';
+    import {mapGetters, mapActions} from 'vuex';
     export default {
         name: "ProductList",
         components:{
-            'vue-data-table':VueDataTable,
-            'vue-pagination':Pagination,
+          'vue-select2':VueSelect2,
         },
         data(){
-            let sortOrders = {};
-            let columns = [
-                {label: '#', name: '#' },
-                {label: 'Product Name', name: 'product_title' },
-                {label: 'Product SKU', name: 'sku'},
-                {label: 'Category', name: 'category'},
-                {label: 'Brand', name: 'brand'},
-                {label: 'Quantity', name: 'total_qty'},
-                {label: 'Status', name: 'status'},
-            ];
-            columns.forEach((column) => {
-                sortOrders[column.name] = -1;
-            });
             return {
-                columns: columns,
-                sortKey: 'product_title',
-                sortOrders: sortOrders,
-                perPage: ['10', '20', '30'],
-                tableData: {
-                    draw: 0,
-                    length: 10,
-                    search: '',
-                    column: 0,
-                    dir: 'desc',
-                },
-                pagination: {
-                    lastPage: '',
-                    currentPage: '',
-                    total: '',
-                    lastPageUrl: '',
-                    nextPageUrl: '',
-                    prevPageUrl: '',
-                    from: '',
-                    to: ''
-                },
+                page: 1,
+                per_page: 10,
                 products:'',
+                filter: '',
+                rows:'',
+                columns: [
+                    { label: '#', field: 'index', align: 'center', filterable: false, sortable:false },
+                    { label: 'Product Name', field: 'product_title',  },
+                    { label: 'Product SKU', field: 'sku' , },
+                    { label: 'Category', field: 'category.name' },
+                    { label: 'Brand', field: 'brand.name', sortable: true },
+                    { label: 'Quantity', field: 'total_qty', align: 'center', sortable: true },
+                    { label: 'Status', component: 'select-row', align: 'center', sortable: false },
+                    { label: 'Action', component: 'action-btn', align: 'center', sortable: false },
+
+                ],
+                perPages: [
+                    {id:5, text:5},
+                    {id:10, text:10},
+                    {id:25, text:25},
+                    {id:50, text:50},
+                    {id:100, text:100},
+                ]
             }
         },
         created() {
@@ -102,14 +102,10 @@
 
             getProductsData(){
                 let vm = this;
-                vm.tableData.draw++;
-                vm.getProducts(vm.tableData).then(response=>{
-                    let data = response.data;
-                    if (vm.tableData.draw === data.draw) {
+                vm.getProducts().then(response=>{
+                    vm.products = response.data.data;
+                    vm.rows = vm.products;
 
-                        vm.products = data.data;
-                        vm.configPagination(data.data);
-                    }
                 })
             },
             configPagination(data) {
@@ -145,5 +141,7 @@
 </script>
 
 <style scoped>
-
+    .table > thead > tr > th>.sort{
+        float: right!important;
+    }
 </style>

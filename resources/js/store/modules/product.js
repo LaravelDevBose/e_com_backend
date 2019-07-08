@@ -29,10 +29,10 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    async getProducts({commit},tableData){
+    async getProducts({commit}){
 
         try {
-            return await axios.get('/admin/collection/product',{params:tableData})
+            return await axios.get('/admin/collection/product')
                 .then(response=>{
                     commit('getProductData', response.data);
                     return response;

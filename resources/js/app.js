@@ -12,6 +12,7 @@ import { dateTime } from 'vue-datetime';
 Vue.component('datetime', dateTime);
 
 
+Vue.use(require('vuejs-datatable'));
 import store from './store'
 import Notify from './helper/pNotify'
 window.Notify = Notify;
