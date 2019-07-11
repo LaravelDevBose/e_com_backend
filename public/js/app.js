@@ -8768,14 +8768,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('select-row', {
   props: ['row']
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
-  template: "<ul class=\"icons-list\">\n                    <li><a href=\"#\" class=\"text text-primary-700\" @click.prevent=\"goToDetailsPage\"><i class=\"icon-eye\"></i></a></li>\n                    <li><a href=\"#\" class=\"text text-info\" @click.prevent=\"goToEditPage\"><i class=\"icon-pencil7\"></i></a></li>\n                    <li><a href=\"#\" class=\"text text-danger\" @click.prevent=\"showDeletePopUp\"><i class=\"icon-trash\"></i></a></li>\n                    <li class=\"dropdown\">\n                        <a href=\"#\" class=\"dropdown-toggle text text-teal-600\" data-toggle=\"dropdown\" aria-expanded=\"false\">\n                            <i class=\"icon-cog7\"></i>\n                            <span class=\"caret\"></span>\n                        </a>\n                        <ul class=\"dropdown-menu\">\n                            <li><a href=\"#\"><i class=\"icon-file-pdf\"></i> Export to PDF</a></li>\n                            <li><a href=\"#\"><i class=\"icon-file-excel\"></i> Export to CSV</a></li>\n                            <li><a href=\"#\"><i class=\"icon-file-word\"></i> Export to DOC</a></li>\n                        </ul>\n                    </li>\n                </ul>",
+  template: "<ul class=\"icons-list\">\n                    <li><a href=\"#\" class=\"text text-primary-700\" @click=\"goToDetailsPage(row.id)\"><i class=\"icon-eye\"></i></a :href=\"\"></li>\n                    <li><a href=\"#\" class=\"text text-info\" @click.prevent=\"goToEditPage(row.id)\"><i class=\"icon-pencil7\"></i></a></li>\n                    <li><a href=\"#\" class=\"text text-danger\" @click.prevent=\"showDeletePopUp(row.id)\"><i class=\"icon-trash\"></i></a></li>\n                    <li class=\"dropdown\">\n                        <a href=\"#\" class=\"dropdown-toggle text text-teal-600\" data-toggle=\"dropdown\" aria-expanded=\"false\">\n                            <i class=\"icon-cog7\"></i>\n                            <span class=\"caret\"></span>\n                        </a>\n                        <ul class=\"dropdown-menu\">\n                            <li><a href=\"#\"><i class=\"icon-file-pdf\"></i> Export to PDF</a></li>\n                            <li><a href=\"#\"><i class=\"icon-file-excel\"></i> Export to CSV</a></li>\n                            <li><a href=\"#\"><i class=\"icon-file-word\"></i> Export to DOC</a></li>\n                        </ul>\n                    </li>\n                </ul>",
   props: ['row'],
   methods: {
-    goToDetailsPage: function goToDetailsPage() {
-      w;
+    goToDetailsPage: function goToDetailsPage(ID) {
+      window.location = '/admin/product/' + ID;
     },
-    goToEditPage: function goToEditPage() {},
-    showDeletePopUp: function showDeletePopUp() {}
+    goToEditPage: function goToEditPage(ID) {
+      window.location = '/admin/product/' + ID + '/edit';
+    },
+    showDeletePopUp: function showDeletePopUp(ID) {}
   }
 });
 
@@ -8894,6 +8896,908 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -75643,9 +76547,2988 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "profile-cover" }, [
+        _c("div", {
+          staticClass: "profile-cover-img",
+          staticStyle: {
+            "background-image": "url(assets/images/demo/cover2.jpg)"
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "media" }, [
+          _c("div", { staticClass: "media-left" }, [
+            _c("a", { staticClass: "profile-thumb", attrs: { href: "#" } }, [
+              _c("img", {
+                staticClass: "img-circle img-md",
+                attrs: { src: "assets/images/placeholder.jpg", alt: "" }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "media-body" }, [
+            _c("h1", [
+              _vm._v("Hanna Dorman "),
+              _c("small", { staticClass: "display-block" }, [
+                _vm._v("UX/UI designer")
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "media-right media-middle" }, [
+            _c(
+              "ul",
+              {
+                staticClass:
+                  "list-inline list-inline-condensed no-margin-bottom text-nowrap"
+              },
+              [
+                _c("li", [
+                  _c(
+                    "a",
+                    { staticClass: "btn btn-default", attrs: { href: "#" } },
+                    [
+                      _c("i", {
+                        staticClass: "icon-file-picture position-left"
+                      }),
+                      _vm._v(" Cover image")
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    { staticClass: "btn btn-default", attrs: { href: "#" } },
+                    [
+                      _c("i", { staticClass: "icon-file-stats position-left" }),
+                      _vm._v(" Statistics")
+                    ]
+                  )
+                ])
+              ]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "navbar navbar-default navbar-xs content-group" },
+        [
+          _c("ul", { staticClass: "nav navbar-nav visible-xs-block" }, [
+            _c("li", { staticClass: "full-width text-center" }, [
+              _c(
+                "a",
+                {
+                  attrs: {
+                    "data-toggle": "collapse",
+                    "data-target": "#navbar-filter"
+                  }
+                },
+                [_c("i", { staticClass: "icon-menu7" })]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "navbar-collapse collapse",
+              attrs: { id: "navbar-filter" }
+            },
+            [
+              _c("ul", { staticClass: "nav navbar-nav" }, [
+                _c("li", { staticClass: "active" }, [
+                  _c(
+                    "a",
+                    { attrs: { href: "#activity", "data-toggle": "tab" } },
+                    [
+                      _c("i", { staticClass: "icon-menu7 position-left" }),
+                      _vm._v(" Activity")
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    { attrs: { href: "#schedule", "data-toggle": "tab" } },
+                    [
+                      _c("i", { staticClass: "icon-calendar3 position-left" }),
+                      _vm._v(" Schedule "),
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "badge badge-success badge-inline position-right"
+                        },
+                        [_vm._v("32")]
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    { attrs: { href: "#settings", "data-toggle": "tab" } },
+                    [
+                      _c("i", { staticClass: "icon-cog3 position-left" }),
+                      _vm._v(" Settings")
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "navbar-right" }, [
+                _c("ul", { staticClass: "nav navbar-nav" }, [
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "icon-stack-text position-left" }),
+                      _vm._v(" Notes")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", {
+                        staticClass: "icon-collaboration position-left"
+                      }),
+                      _vm._v(" Friends")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "icon-images3 position-left" }),
+                      _vm._v(" Photos")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "dropdown" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "dropdown-toggle",
+                        attrs: { href: "#", "data-toggle": "dropdown" }
+                      },
+                      [
+                        _c("i", { staticClass: "icon-gear" }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "visible-xs-inline-block position-right"
+                          },
+                          [_vm._v(" Options")]
+                        ),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "caret" })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "ul",
+                      { staticClass: "dropdown-menu dropdown-menu-right" },
+                      [
+                        _c("li", [
+                          _c("a", { attrs: { href: "#" } }, [
+                            _c("i", { staticClass: "icon-image2" }),
+                            _vm._v(" Update cover")
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("a", { attrs: { href: "#" } }, [
+                            _c("i", { staticClass: "icon-clippy" }),
+                            _vm._v(" Update info")
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("a", { attrs: { href: "#" } }, [
+                            _c("i", { staticClass: "icon-make-group" }),
+                            _vm._v(" Manage sections")
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "divider" }),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("a", { attrs: { href: "#" } }, [
+                            _c("i", { staticClass: "icon-three-bars" }),
+                            _vm._v(" Activity log")
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("a", { attrs: { href: "#" } }, [
+                            _c("i", { staticClass: "icon-cog5" }),
+                            _vm._v(" Profile settings")
+                          ])
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "content" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-9" }, [
+            _c("div", { staticClass: "tabbable" }, [
+              _c("div", { staticClass: "tab-content" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "tab-pane fade in active",
+                    attrs: { id: "activity" }
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "timeline timeline-left content-group" },
+                      [
+                        _c("div", { staticClass: "timeline-container" }, [
+                          _c("div", { staticClass: "timeline-row" }, [
+                            _c("div", { staticClass: "timeline-icon" }, [
+                              _c("a", { attrs: { href: "#" } }, [
+                                _c("img", {
+                                  attrs: {
+                                    src: "assets/images/placeholder.jpg",
+                                    alt: ""
+                                  }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "panel panel-flat timeline-content"
+                              },
+                              [
+                                _c("div", { staticClass: "panel-heading" }, [
+                                  _c("h6", { staticClass: "panel-title" }, [
+                                    _vm._v("Daily statistics")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "heading-elements" },
+                                    [
+                                      _c(
+                                        "span",
+                                        { staticClass: "heading-text" },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "icon-history position-left text-success"
+                                          }),
+                                          _vm._v(" Updated 3 hours ago")
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("ul", { staticClass: "icons-list" }, [
+                                        _c("li", [
+                                          _c("a", {
+                                            attrs: { "data-action": "reload" }
+                                          })
+                                        ])
+                                      ])
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "panel-body" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "chart-container" },
+                                    [
+                                      _c("div", {
+                                        staticClass: "chart has-fixed-height",
+                                        attrs: { id: "sales" }
+                                      })
+                                    ]
+                                  )
+                                ])
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "timeline-row" }, [
+                            _c("div", { staticClass: "timeline-icon" }, [
+                              _c("img", {
+                                attrs: {
+                                  src: "assets/images/placeholder.jpg",
+                                  alt: ""
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "panel panel-flat timeline-content"
+                              },
+                              [
+                                _c("div", { staticClass: "panel-heading" }, [
+                                  _c("h6", { staticClass: "panel-title" }, [
+                                    _vm._v("Himalayan sunset")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "heading-elements" },
+                                    [
+                                      _c(
+                                        "span",
+                                        { staticClass: "heading-text" },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "icon-checkmark-circle position-left text-success"
+                                          }),
+                                          _vm._v(" 49 minutes ago")
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("ul", { staticClass: "icons-list" }, [
+                                        _c("li", { staticClass: "dropdown" }, [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "dropdown-toggle",
+                                              attrs: {
+                                                href: "#",
+                                                "data-toggle": "dropdown"
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "icon-arrow-down12"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "ul",
+                                            {
+                                              staticClass:
+                                                "dropdown-menu dropdown-menu-right"
+                                            },
+                                            [
+                                              _c("li", [
+                                                _c(
+                                                  "a",
+                                                  { attrs: { href: "#" } },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "icon-user-lock"
+                                                    }),
+                                                    _vm._v(" Hide user posts")
+                                                  ]
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("li", [
+                                                _c(
+                                                  "a",
+                                                  { attrs: { href: "#" } },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "icon-user-block"
+                                                    }),
+                                                    _vm._v(" Block user")
+                                                  ]
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("li", [
+                                                _c(
+                                                  "a",
+                                                  { attrs: { href: "#" } },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "icon-user-minus"
+                                                    }),
+                                                    _vm._v(" Unfollow user")
+                                                  ]
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("li", {
+                                                staticClass: "divider"
+                                              }),
+                                              _vm._v(" "),
+                                              _c("li", [
+                                                _c(
+                                                  "a",
+                                                  { attrs: { href: "#" } },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass: "icon-embed"
+                                                    }),
+                                                    _vm._v(" Embed post")
+                                                  ]
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("li", [
+                                                _c(
+                                                  "a",
+                                                  { attrs: { href: "#" } },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "icon-blocked"
+                                                    }),
+                                                    _vm._v(" Report this post")
+                                                  ]
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ])
+                                      ])
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "panel-body" }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "display-block content-group",
+                                      attrs: { href: "#" }
+                                    },
+                                    [
+                                      _c("img", {
+                                        staticClass:
+                                          "img-responsive content-group",
+                                        attrs: {
+                                          src: "assets/images/cover.jpg",
+                                          alt: ""
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("h6", { staticClass: "content-group" }, [
+                                    _c("i", {
+                                      staticClass:
+                                        "icon-comment-discussion position-left"
+                                    }),
+                                    _vm._v(
+                                      "\n                                                        Comment from "
+                                    ),
+                                    _c("a", { attrs: { href: "#" } }, [
+                                      _vm._v("Jason Ansley")
+                                    ]),
+                                    _vm._v(
+                                      ":\n                                                    "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("blockquote", [
+                                    _c("p", [
+                                      _vm._v(
+                                        "When suspiciously goodness labrador understood rethought yawned grew piously endearingly inarticulate oh goodness jeez trout distinct hence cobra despite taped laughed the much audacious less inside tiger groaned darn stuffily metaphoric unihibitedly inside cobra."
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("footer", [
+                                      _vm._v("Jason, "),
+                                      _c(
+                                        "cite",
+                                        { attrs: { title: "Source Title" } },
+                                        [_vm._v("10:39 am")]
+                                      )
+                                    ])
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "panel-footer panel-footer-transparent"
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "heading-elements" },
+                                      [
+                                        _c(
+                                          "ul",
+                                          {
+                                            staticClass:
+                                              "list-inline list-inline-condensed heading-text"
+                                          },
+                                          [
+                                            _c("li", [
+                                              _c(
+                                                "a",
+                                                {
+                                                  staticClass: "text-default",
+                                                  attrs: { href: "#" }
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass:
+                                                      "icon-eye4 position-left"
+                                                  }),
+                                                  _vm._v(" 438")
+                                                ]
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("li", [
+                                              _c(
+                                                "a",
+                                                {
+                                                  staticClass: "text-default",
+                                                  attrs: { href: "#" }
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass:
+                                                      "icon-comment-discussion position-left"
+                                                  }),
+                                                  _vm._v(" 71")
+                                                ]
+                                              )
+                                            ])
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass:
+                                              "heading-btn pull-right"
+                                          },
+                                          [
+                                            _c(
+                                              "a",
+                                              {
+                                                staticClass: "btn btn-link",
+                                                attrs: { href: "#" }
+                                              },
+                                              [
+                                                _vm._v("Read post "),
+                                                _c("i", {
+                                                  staticClass:
+                                                    "icon-arrow-right14 position-right"
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "timeline-date text-muted" },
+                            [
+                              _c("i", {
+                                staticClass: "icon-history position-left"
+                              }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "text-semibold" }, [
+                                _vm._v("Monday")
+                              ]),
+                              _vm._v(
+                                ", April 18\n                                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "timeline-row" }, [
+                            _c("div", { staticClass: "timeline-icon" }, [
+                              _c("div", { staticClass: "bg-warning-400" }, [
+                                _c("i", { staticClass: "icon-cash3" })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-lg-6" }, [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "panel border-left-lg border-left-danger invoice-grid timeline-content"
+                                  },
+                                  [
+                                    _c("div", { staticClass: "panel-body" }, [
+                                      _c("div", { staticClass: "row" }, [
+                                        _c("div", { staticClass: "col-sm-6" }, [
+                                          _c(
+                                            "h6",
+                                            {
+                                              staticClass:
+                                                "text-semibold no-margin-top"
+                                            },
+                                            [_vm._v("Leonardo Fellini")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "ul",
+                                            {
+                                              staticClass: "list list-unstyled"
+                                            },
+                                            [
+                                              _c("li", [
+                                                _vm._v("Invoice #:  0028")
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("li", [
+                                                _vm._v("Issued on: "),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass: "text-semibold"
+                                                  },
+                                                  [_vm._v("2015/01/25")]
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "col-sm-6" }, [
+                                          _c(
+                                            "h6",
+                                            {
+                                              staticClass:
+                                                "text-semibold text-right no-margin-top"
+                                            },
+                                            [_vm._v("$8,750")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "ul",
+                                            {
+                                              staticClass:
+                                                "list list-unstyled text-right"
+                                            },
+                                            [
+                                              _c("li", [
+                                                _vm._v("Method: "),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass: "text-semibold"
+                                                  },
+                                                  [_vm._v("SWIFT")]
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "li",
+                                                { staticClass: "dropdown" },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                                                            Status:  \n                                                                            "
+                                                  ),
+                                                  _c(
+                                                    "a",
+                                                    {
+                                                      staticClass:
+                                                        "label bg-danger-400 dropdown-toggle",
+                                                      attrs: {
+                                                        href: "#",
+                                                        "data-toggle":
+                                                          "dropdown"
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v("Overdue "),
+                                                      _c("span", {
+                                                        staticClass: "caret"
+                                                      })
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "ul",
+                                                    {
+                                                      staticClass:
+                                                        "dropdown-menu dropdown-menu-right"
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "li",
+                                                        {
+                                                          staticClass: "active"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "a",
+                                                            {
+                                                              attrs: {
+                                                                href: "#"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("i", {
+                                                                staticClass:
+                                                                  "icon-alert"
+                                                              }),
+                                                              _vm._v(" Overdue")
+                                                            ]
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c("li", [
+                                                        _c(
+                                                          "a",
+                                                          {
+                                                            attrs: { href: "#" }
+                                                          },
+                                                          [
+                                                            _c("i", {
+                                                              staticClass:
+                                                                "icon-alarm"
+                                                            }),
+                                                            _vm._v(" Pending")
+                                                          ]
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("li", [
+                                                        _c(
+                                                          "a",
+                                                          {
+                                                            attrs: { href: "#" }
+                                                          },
+                                                          [
+                                                            _c("i", {
+                                                              staticClass:
+                                                                "icon-checkmark3"
+                                                            }),
+                                                            _vm._v(" Paid")
+                                                          ]
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("li", {
+                                                        staticClass: "divider"
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c("li", [
+                                                        _c(
+                                                          "a",
+                                                          {
+                                                            attrs: { href: "#" }
+                                                          },
+                                                          [
+                                                            _c("i", {
+                                                              staticClass:
+                                                                "icon-spinner2 spinner"
+                                                            }),
+                                                            _vm._v(" On hold")
+                                                          ]
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("li", [
+                                                        _c(
+                                                          "a",
+                                                          {
+                                                            attrs: { href: "#" }
+                                                          },
+                                                          [
+                                                            _c("i", {
+                                                              staticClass:
+                                                                "icon-cross2"
+                                                            }),
+                                                            _vm._v(" Canceled")
+                                                          ]
+                                                        )
+                                                      ])
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "panel-footer panel-footer-condensed"
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "heading-elements" },
+                                          [
+                                            _c(
+                                              "span",
+                                              { staticClass: "heading-text" },
+                                              [
+                                                _c("span", {
+                                                  staticClass:
+                                                    "status-mark border-danger position-left"
+                                                }),
+                                                _vm._v(" Due: "),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass: "text-semibold"
+                                                  },
+                                                  [_vm._v("2015/02/25")]
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "ul",
+                                              {
+                                                staticClass:
+                                                  "list-inline list-inline-condensed heading-text pull-right"
+                                              },
+                                              [
+                                                _c("li", [
+                                                  _c(
+                                                    "a",
+                                                    {
+                                                      staticClass:
+                                                        "text-default",
+                                                      attrs: {
+                                                        href: "#",
+                                                        "data-toggle": "modal",
+                                                        "data-target":
+                                                          "#invoice"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c("i", {
+                                                        staticClass: "icon-eye8"
+                                                      })
+                                                    ]
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "li",
+                                                  { staticClass: "dropdown" },
+                                                  [
+                                                    _c(
+                                                      "a",
+                                                      {
+                                                        staticClass:
+                                                          "text-default dropdown-toggle",
+                                                        attrs: {
+                                                          href: "#",
+                                                          "data-toggle":
+                                                            "dropdown"
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "icon-menu7"
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c("span", {
+                                                          staticClass: "caret"
+                                                        })
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "ul",
+                                                      {
+                                                        staticClass:
+                                                          "dropdown-menu dropdown-menu-right"
+                                                      },
+                                                      [
+                                                        _c("li", [
+                                                          _c(
+                                                            "a",
+                                                            {
+                                                              attrs: {
+                                                                href: "#"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("i", {
+                                                                staticClass:
+                                                                  "icon-printer"
+                                                              }),
+                                                              _vm._v(
+                                                                " Print invoice"
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]),
+                                                        _vm._v(" "),
+                                                        _c("li", [
+                                                          _c(
+                                                            "a",
+                                                            {
+                                                              attrs: {
+                                                                href: "#"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("i", {
+                                                                staticClass:
+                                                                  "icon-file-download"
+                                                              }),
+                                                              _vm._v(
+                                                                " Download invoice"
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]),
+                                                        _vm._v(" "),
+                                                        _c("li", {
+                                                          staticClass: "divider"
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c("li", [
+                                                          _c(
+                                                            "a",
+                                                            {
+                                                              attrs: {
+                                                                href: "#"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("i", {
+                                                                staticClass:
+                                                                  "icon-file-plus"
+                                                              }),
+                                                              _vm._v(
+                                                                " Edit invoice"
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]),
+                                                        _vm._v(" "),
+                                                        _c("li", [
+                                                          _c(
+                                                            "a",
+                                                            {
+                                                              attrs: {
+                                                                href: "#"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("i", {
+                                                                staticClass:
+                                                                  "icon-cross2"
+                                                              }),
+                                                              _vm._v(
+                                                                " Remove invoice"
+                                                              )
+                                                            ]
+                                                          )
+                                                        ])
+                                                      ]
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-lg-6" }, [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "panel border-left-lg border-left-success invoice-grid timeline-content"
+                                  },
+                                  [
+                                    _c("div", { staticClass: "panel-body" }, [
+                                      _c("div", { staticClass: "row" }, [
+                                        _c("div", { staticClass: "col-sm-6" }, [
+                                          _c(
+                                            "h6",
+                                            {
+                                              staticClass:
+                                                "text-semibold no-margin-top"
+                                            },
+                                            [_vm._v("Rebecca Manes")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "ul",
+                                            {
+                                              staticClass: "list list-unstyled"
+                                            },
+                                            [
+                                              _c("li", [
+                                                _vm._v("Invoice #:  0027")
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("li", [
+                                                _vm._v("Issued on: "),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass: "text-semibold"
+                                                  },
+                                                  [_vm._v("2015/02/24")]
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "col-sm-6" }, [
+                                          _c(
+                                            "h6",
+                                            {
+                                              staticClass:
+                                                "text-semibold text-right no-margin-top"
+                                            },
+                                            [_vm._v("$5,100")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "ul",
+                                            {
+                                              staticClass:
+                                                "list list-unstyled text-right"
+                                            },
+                                            [
+                                              _c("li", [
+                                                _vm._v("Method: "),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass: "text-semibold"
+                                                  },
+                                                  [_vm._v("Paypal")]
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "li",
+                                                { staticClass: "dropdown" },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                                                            Status:  \n                                                                            "
+                                                  ),
+                                                  _c(
+                                                    "a",
+                                                    {
+                                                      staticClass:
+                                                        "label bg-success-400 dropdown-toggle",
+                                                      attrs: {
+                                                        href: "#",
+                                                        "data-toggle":
+                                                          "dropdown"
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v("Paid "),
+                                                      _c("span", {
+                                                        staticClass: "caret"
+                                                      })
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "ul",
+                                                    {
+                                                      staticClass:
+                                                        "dropdown-menu dropdown-menu-right"
+                                                    },
+                                                    [
+                                                      _c("li", [
+                                                        _c(
+                                                          "a",
+                                                          {
+                                                            attrs: { href: "#" }
+                                                          },
+                                                          [
+                                                            _c("i", {
+                                                              staticClass:
+                                                                "icon-alert"
+                                                            }),
+                                                            _vm._v(" Overdue")
+                                                          ]
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("li", [
+                                                        _c(
+                                                          "a",
+                                                          {
+                                                            attrs: { href: "#" }
+                                                          },
+                                                          [
+                                                            _c("i", {
+                                                              staticClass:
+                                                                "icon-alarm"
+                                                            }),
+                                                            _vm._v(" Pending")
+                                                          ]
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "li",
+                                                        {
+                                                          staticClass: "active"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "a",
+                                                            {
+                                                              attrs: {
+                                                                href: "#"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("i", {
+                                                                staticClass:
+                                                                  "icon-checkmark3"
+                                                              }),
+                                                              _vm._v(" Paid")
+                                                            ]
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c("li", {
+                                                        staticClass: "divider"
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c("li", [
+                                                        _c(
+                                                          "a",
+                                                          {
+                                                            attrs: { href: "#" }
+                                                          },
+                                                          [
+                                                            _c("i", {
+                                                              staticClass:
+                                                                "icon-spinner2 spinner"
+                                                            }),
+                                                            _vm._v(" On hold")
+                                                          ]
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("li", [
+                                                        _c(
+                                                          "a",
+                                                          {
+                                                            attrs: { href: "#" }
+                                                          },
+                                                          [
+                                                            _c("i", {
+                                                              staticClass:
+                                                                "icon-cross2"
+                                                            }),
+                                                            _vm._v(" Canceled")
+                                                          ]
+                                                        )
+                                                      ])
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "panel-footer panel-footer-condensed"
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "heading-elements" },
+                                          [
+                                            _c(
+                                              "span",
+                                              { staticClass: "heading-text" },
+                                              [
+                                                _c("span", {
+                                                  staticClass:
+                                                    "status-mark border-success position-left"
+                                                }),
+                                                _vm._v(" Due: "),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass: "text-semibold"
+                                                  },
+                                                  [_vm._v("2015/03/24")]
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "ul",
+                                              {
+                                                staticClass:
+                                                  "list-inline list-inline-condensed heading-text pull-right"
+                                              },
+                                              [
+                                                _c("li", [
+                                                  _c(
+                                                    "a",
+                                                    {
+                                                      staticClass:
+                                                        "text-default",
+                                                      attrs: {
+                                                        href: "#",
+                                                        "data-toggle": "modal",
+                                                        "data-target":
+                                                          "#invoice"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c("i", {
+                                                        staticClass: "icon-eye8"
+                                                      })
+                                                    ]
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "li",
+                                                  { staticClass: "dropdown" },
+                                                  [
+                                                    _c(
+                                                      "a",
+                                                      {
+                                                        staticClass:
+                                                          "text-default dropdown-toggle",
+                                                        attrs: {
+                                                          href: "#",
+                                                          "data-toggle":
+                                                            "dropdown"
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "icon-menu7"
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c("span", {
+                                                          staticClass: "caret"
+                                                        })
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "ul",
+                                                      {
+                                                        staticClass:
+                                                          "dropdown-menu dropdown-menu-right"
+                                                      },
+                                                      [
+                                                        _c("li", [
+                                                          _c(
+                                                            "a",
+                                                            {
+                                                              attrs: {
+                                                                href: "#"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("i", {
+                                                                staticClass:
+                                                                  "icon-printer"
+                                                              }),
+                                                              _vm._v(
+                                                                " Print invoice"
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]),
+                                                        _vm._v(" "),
+                                                        _c("li", [
+                                                          _c(
+                                                            "a",
+                                                            {
+                                                              attrs: {
+                                                                href: "#"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("i", {
+                                                                staticClass:
+                                                                  "icon-file-download"
+                                                              }),
+                                                              _vm._v(
+                                                                " Download invoice"
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]),
+                                                        _vm._v(" "),
+                                                        _c("li", {
+                                                          staticClass: "divider"
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c("li", [
+                                                          _c(
+                                                            "a",
+                                                            {
+                                                              attrs: {
+                                                                href: "#"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("i", {
+                                                                staticClass:
+                                                                  "icon-file-plus"
+                                                              }),
+                                                              _vm._v(
+                                                                " Edit invoice"
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]),
+                                                        _vm._v(" "),
+                                                        _c("li", [
+                                                          _c(
+                                                            "a",
+                                                            {
+                                                              attrs: {
+                                                                href: "#"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("i", {
+                                                                staticClass:
+                                                                  "icon-cross2"
+                                                              }),
+                                                              _vm._v(
+                                                                " Remove invoice"
+                                                              )
+                                                            ]
+                                                          )
+                                                        ])
+                                                      ]
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "timeline-row" }, [
+                            _c("div", { staticClass: "timeline-icon" }, [
+                              _c("div", { staticClass: "bg-info-400" }, [
+                                _c("i", {
+                                  staticClass: "icon-comment-discussion"
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "panel panel-flat timeline-content"
+                              },
+                              [
+                                _c("div", { staticClass: "panel-heading" }, [
+                                  _c("h6", { staticClass: "panel-title" }, [
+                                    _vm._v("Conversation with James")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "heading-elements" },
+                                    [
+                                      _c("ul", { staticClass: "icons-list" }, [
+                                        _c("li", { staticClass: "dropdown" }, [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "dropdown-toggle",
+                                              attrs: {
+                                                href: "#",
+                                                "data-toggle": "dropdown"
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "icon-circle-down2"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "ul",
+                                            {
+                                              staticClass:
+                                                "dropdown-menu dropdown-menu-right"
+                                            },
+                                            [
+                                              _c("li", [
+                                                _c(
+                                                  "a",
+                                                  { attrs: { href: "#" } },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "icon-user-lock"
+                                                    }),
+                                                    _vm._v(" Hide user posts")
+                                                  ]
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("li", [
+                                                _c(
+                                                  "a",
+                                                  { attrs: { href: "#" } },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "icon-user-block"
+                                                    }),
+                                                    _vm._v(" Block user")
+                                                  ]
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("li", [
+                                                _c(
+                                                  "a",
+                                                  { attrs: { href: "#" } },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "icon-user-minus"
+                                                    }),
+                                                    _vm._v(" Unfollow user")
+                                                  ]
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("li", {
+                                                staticClass: "divider"
+                                              }),
+                                              _vm._v(" "),
+                                              _c("li", [
+                                                _c(
+                                                  "a",
+                                                  { attrs: { href: "#" } },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass: "icon-embed"
+                                                    }),
+                                                    _vm._v(" Embed post")
+                                                  ]
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("li", [
+                                                _c(
+                                                  "a",
+                                                  { attrs: { href: "#" } },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "icon-blocked"
+                                                    }),
+                                                    _vm._v(" Report this post")
+                                                  ]
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ])
+                                      ])
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "panel-body" }, [
+                                  _c(
+                                    "ul",
+                                    {
+                                      staticClass:
+                                        "media-list chat-list content-group"
+                                    },
+                                    [
+                                      _c(
+                                        "li",
+                                        { staticClass: "media date-step" },
+                                        [_c("span", [_vm._v("Today")])]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "li",
+                                        { staticClass: "media reversed" },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "media-body" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "media-content"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "Thus superb the tapir the wallaby blank frog execrably much since dalmatian by in hot. Uninspiringly arose mounted stared one curt safe"
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "span",
+                                                {
+                                                  staticClass:
+                                                    "media-annotation display-block mt-10"
+                                                },
+                                                [
+                                                  _vm._v("Tue, 8:12 am "),
+                                                  _c(
+                                                    "a",
+                                                    { attrs: { href: "#" } },
+                                                    [
+                                                      _c("i", {
+                                                        staticClass:
+                                                          "icon-pin-alt position-right text-muted"
+                                                      })
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "media-right" },
+                                            [
+                                              _c(
+                                                "a",
+                                                {
+                                                  attrs: {
+                                                    href:
+                                                      "assets/images/placeholder.jpg"
+                                                  }
+                                                },
+                                                [
+                                                  _c("img", {
+                                                    staticClass:
+                                                      "img-circle img-md",
+                                                    attrs: {
+                                                      src:
+                                                        "assets/images/placeholder.jpg",
+                                                      alt: ""
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("li", { staticClass: "media" }, [
+                                        _c(
+                                          "div",
+                                          { staticClass: "media-left" },
+                                          [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href:
+                                                    "assets/images/placeholder.jpg"
+                                                }
+                                              },
+                                              [
+                                                _c("img", {
+                                                  staticClass:
+                                                    "img-circle img-md",
+                                                  attrs: {
+                                                    src:
+                                                      "assets/images/placeholder.jpg",
+                                                    alt: ""
+                                                  }
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "media-body" },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "media-content" },
+                                              [
+                                                _vm._v(
+                                                  "Tolerantly some understood this stubbornly after snarlingly frog far added insect into snorted more auspiciously heedless drunkenly jeez foolhardy oh."
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "media-annotation display-block mt-10"
+                                              },
+                                              [
+                                                _vm._v("Wed, 4:20 pm "),
+                                                _c(
+                                                  "a",
+                                                  { attrs: { href: "#" } },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "icon-pin-alt position-right text-muted"
+                                                    })
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "li",
+                                        { staticClass: "media reversed" },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "media-body" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "media-content"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "Satisfactorily strenuously while sleazily dear frustratingly insect menially some shook far sardonic badger telepathic much jeepers immature much hey."
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "span",
+                                                {
+                                                  staticClass:
+                                                    "media-annotation display-block mt-10"
+                                                },
+                                                [
+                                                  _vm._v("2 hours ago "),
+                                                  _c(
+                                                    "a",
+                                                    { attrs: { href: "#" } },
+                                                    [
+                                                      _c("i", {
+                                                        staticClass:
+                                                          "icon-pin-alt position-right text-muted"
+                                                      })
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "media-right" },
+                                            [
+                                              _c(
+                                                "a",
+                                                {
+                                                  attrs: {
+                                                    href:
+                                                      "assets/images/placeholder.jpg"
+                                                  }
+                                                },
+                                                [
+                                                  _c("img", {
+                                                    staticClass:
+                                                      "img-circle img-md",
+                                                    attrs: {
+                                                      src:
+                                                        "assets/images/placeholder.jpg",
+                                                      alt: ""
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("li", { staticClass: "media" }, [
+                                        _c(
+                                          "div",
+                                          { staticClass: "media-left" },
+                                          [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href:
+                                                    "assets/images/placeholder.jpg"
+                                                }
+                                              },
+                                              [
+                                                _c("img", {
+                                                  staticClass:
+                                                    "img-circle img-md",
+                                                  attrs: {
+                                                    src:
+                                                      "assets/images/placeholder.jpg",
+                                                    alt: ""
+                                                  }
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "media-body" },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "media-content" },
+                                              [
+                                                _vm._v(
+                                                  "Grunted smirked and grew less but rewound much despite and impressive via alongside out and gosh easy manatee dear ineffective yikes."
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "media-annotation display-block mt-10"
+                                              },
+                                              [
+                                                _vm._v("13 minutes ago "),
+                                                _c(
+                                                  "a",
+                                                  { attrs: { href: "#" } },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "icon-pin-alt position-right text-muted"
+                                                    })
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "li",
+                                        { staticClass: "media reversed" },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "media-body" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "media-content"
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass:
+                                                      "icon-menu display-block"
+                                                  })
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "media-right" },
+                                            [
+                                              _c(
+                                                "a",
+                                                {
+                                                  attrs: {
+                                                    href:
+                                                      "assets/images/placeholder.jpg"
+                                                  }
+                                                },
+                                                [
+                                                  _c("img", {
+                                                    staticClass:
+                                                      "img-circle img-md",
+                                                    attrs: {
+                                                      src:
+                                                        "assets/images/placeholder.jpg",
+                                                      alt: ""
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("textarea", {
+                                    staticClass: "form-control content-group",
+                                    attrs: {
+                                      name: "enter-message",
+                                      rows: "3",
+                                      cols: "1",
+                                      placeholder: "Enter your message..."
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "row" }, [
+                                    _c("div", { staticClass: "col-xs-6" }, [
+                                      _c(
+                                        "ul",
+                                        {
+                                          staticClass:
+                                            "icons-list icons-list-extended mt-10"
+                                        },
+                                        [
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href: "#",
+                                                  "data-popup": "tooltip",
+                                                  title: "Send photo",
+                                                  "data-container": "body"
+                                                }
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass:
+                                                    "icon-file-picture"
+                                                })
+                                              ]
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href: "#",
+                                                  "data-popup": "tooltip",
+                                                  title: "Send video",
+                                                  "data-container": "body"
+                                                }
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "icon-file-video"
+                                                })
+                                              ]
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href: "#",
+                                                  "data-popup": "tooltip",
+                                                  title: "Send file",
+                                                  "data-container": "body"
+                                                }
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "icon-file-plus"
+                                                })
+                                              ]
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "col-xs-6 text-right" },
+                                      [
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn bg-teal-400 btn-labeled btn-labeled-right",
+                                            attrs: { type: "button" }
+                                          },
+                                          [
+                                            _c("b", [
+                                              _c("i", {
+                                                staticClass:
+                                                  "icon-circle-right2"
+                                              })
+                                            ]),
+                                            _vm._v(" Send")
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ])
+                              ]
+                            )
+                          ])
+                        ])
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "tab-pane fade", attrs: { id: "schedule" } },
+                  [
+                    _c("div", { staticClass: "panel panel-flat" }, [
+                      _c("div", { staticClass: "panel-heading" }, [
+                        _c("h6", { staticClass: "panel-title" }, [
+                          _vm._v("Available hours")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "heading-elements" }, [
+                          _c("ul", { staticClass: "icons-list" }, [
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "collapse" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "reload" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "close" } })
+                            ])
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "panel-body" }, [
+                        _c("div", { staticClass: "chart-container" }, [
+                          _c("div", {
+                            staticClass: "chart has-fixed-height",
+                            attrs: { id: "plans" }
+                          })
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "panel panel-flat" }, [
+                      _c("div", { staticClass: "panel-heading" }, [
+                        _c("h6", { staticClass: "panel-title" }, [
+                          _vm._v("My schedule")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "heading-elements" }, [
+                          _c("ul", { staticClass: "icons-list" }, [
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "collapse" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "reload" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "close" } })
+                            ])
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "panel-body" }, [
+                        _c("div", { staticClass: "schedule" })
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "tab-pane fade", attrs: { id: "settings" } },
+                  [
+                    _c("div", { staticClass: "panel panel-flat" }, [
+                      _c("div", { staticClass: "panel-heading" }, [
+                        _c("h6", { staticClass: "panel-title" }, [
+                          _vm._v("Profile information")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "heading-elements" }, [
+                          _c("ul", { staticClass: "icons-list" }, [
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "collapse" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "reload" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "close" } })
+                            ])
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "panel-body" }, [
+                        _c("form", { attrs: { action: "#" } }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", [_vm._v("Username")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { type: "text", value: "Eugene" }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", [_vm._v("Full name")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { type: "text", value: "Kopyov" }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", [_vm._v("Address line 1")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    value: "Ring street 12"
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", [_vm._v("Address line 2")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    value: "building D, flat #67"
+                                  }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-md-4" }, [
+                                _c("label", [_vm._v("City")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { type: "text", value: "Munich" }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-4" }, [
+                                _c("label", [_vm._v("State/Province")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { type: "text", value: "Bayern" }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-4" }, [
+                                _c("label", [_vm._v("ZIP code")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { type: "text", value: "1031" }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", [_vm._v("Email")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    readonly: "readonly",
+                                    value: "eugene@kopyov.com"
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", [_vm._v("Your country")]),
+                                _vm._v(" "),
+                                _c("select", { staticClass: "select" }, [
+                                  _c(
+                                    "option",
+                                    {
+                                      attrs: {
+                                        value: "germany",
+                                        selected: "selected"
+                                      }
+                                    },
+                                    [_vm._v("Germany")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "france" } }, [
+                                    _vm._v("France")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "spain" } }, [
+                                    _vm._v("Spain")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "netherlands" } },
+                                    [_vm._v("Netherlands")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "other" } }, [
+                                    _vm._v("...")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "uk" } }, [
+                                    _vm._v("United Kingdom")
+                                  ])
+                                ])
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", [_vm._v("Phone #")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    value: "+99-99-9999-9999"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("span", { staticClass: "help-block" }, [
+                                  _vm._v("+99-99-9999-9999")
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", { staticClass: "display-block" }, [
+                                  _vm._v("Upload profile image")
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "file-styled",
+                                  attrs: { type: "file" }
+                                }),
+                                _vm._v(" "),
+                                _c("span", { staticClass: "help-block" }, [
+                                  _vm._v(
+                                    "Accepted formats: gif, png, jpg. Max file size 2Mb"
+                                  )
+                                ])
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "text-right" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                attrs: { type: "submit" }
+                              },
+                              [
+                                _vm._v("Save "),
+                                _c("i", {
+                                  staticClass:
+                                    "icon-arrow-right14 position-right"
+                                })
+                              ]
+                            )
+                          ])
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "panel panel-flat" }, [
+                      _c("div", { staticClass: "panel-heading" }, [
+                        _c("h6", { staticClass: "panel-title" }, [
+                          _vm._v("Account settings")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "heading-elements" }, [
+                          _c("ul", { staticClass: "icons-list" }, [
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "collapse" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "reload" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "close" } })
+                            ])
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "panel-body" }, [
+                        _c("form", { attrs: { action: "#" } }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", [_vm._v("Username")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    value: "Kopyov",
+                                    readonly: "readonly"
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", [_vm._v("Current password")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "password",
+                                    value: "password",
+                                    readonly: "readonly"
+                                  }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", [_vm._v("New password")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "password",
+                                    placeholder: "Enter new password"
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", [_vm._v("Repeat password")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "password",
+                                    placeholder: "Repeat new password"
+                                  }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", [_vm._v("Profile visibility")]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "radio" }, [
+                                  _c("label", [
+                                    _c("input", {
+                                      staticClass: "styled",
+                                      attrs: {
+                                        type: "radio",
+                                        name: "visibility",
+                                        checked: "checked"
+                                      }
+                                    }),
+                                    _vm._v(
+                                      "\n                                                                Visible to everyone\n                                                            "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "radio" }, [
+                                  _c("label", [
+                                    _c("input", {
+                                      staticClass: "styled",
+                                      attrs: {
+                                        type: "radio",
+                                        name: "visibility"
+                                      }
+                                    }),
+                                    _vm._v(
+                                      "\n                                                                Visible to friends only\n                                                            "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "radio" }, [
+                                  _c("label", [
+                                    _c("input", {
+                                      staticClass: "styled",
+                                      attrs: {
+                                        type: "radio",
+                                        name: "visibility"
+                                      }
+                                    }),
+                                    _vm._v(
+                                      "\n                                                                Visible to my connections only\n                                                            "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "radio" }, [
+                                  _c("label", [
+                                    _c("input", {
+                                      staticClass: "styled",
+                                      attrs: {
+                                        type: "radio",
+                                        name: "visibility"
+                                      }
+                                    }),
+                                    _vm._v(
+                                      "\n                                                                Visible to my colleagues only\n                                                            "
+                                    )
+                                  ])
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", [_vm._v("Notifications")]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "checkbox" }, [
+                                  _c("label", [
+                                    _c("input", {
+                                      staticClass: "styled",
+                                      attrs: {
+                                        type: "checkbox",
+                                        checked: "checked"
+                                      }
+                                    }),
+                                    _vm._v(
+                                      "\n                                                                Password expiration notification\n                                                            "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "checkbox" }, [
+                                  _c("label", [
+                                    _c("input", {
+                                      staticClass: "styled",
+                                      attrs: {
+                                        type: "checkbox",
+                                        checked: "checked"
+                                      }
+                                    }),
+                                    _vm._v(
+                                      "\n                                                                New message notification\n                                                            "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "checkbox" }, [
+                                  _c("label", [
+                                    _c("input", {
+                                      staticClass: "styled",
+                                      attrs: {
+                                        type: "checkbox",
+                                        checked: "checked"
+                                      }
+                                    }),
+                                    _vm._v(
+                                      "\n                                                                New task notification\n                                                            "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "checkbox" }, [
+                                  _c("label", [
+                                    _c("input", {
+                                      staticClass: "styled",
+                                      attrs: { type: "checkbox" }
+                                    }),
+                                    _vm._v(
+                                      "\n                                                                New contact request notification\n                                                            "
+                                    )
+                                  ])
+                                ])
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "text-right" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                attrs: { type: "submit" }
+                              },
+                              [
+                                _vm._v("Save "),
+                                _c("i", {
+                                  staticClass:
+                                    "icon-arrow-right14 position-right"
+                                })
+                              ]
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-3" }, [
+            _c("div", { staticClass: "panel panel-flat" }, [
+              _c("div", { staticClass: "panel-heading" }, [
+                _c("h6", { staticClass: "panel-title" }, [
+                  _vm._v("Navigation")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "heading-elements" }, [
+                  _c(
+                    "a",
+                    { staticClass: "heading-text", attrs: { href: "#" } },
+                    [_vm._v("See all →")]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "list-group no-border no-padding-top" },
+                [
+                  _c(
+                    "a",
+                    { staticClass: "list-group-item", attrs: { href: "#" } },
+                    [
+                      _c("i", { staticClass: "icon-user" }),
+                      _vm._v(" My profile")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    { staticClass: "list-group-item", attrs: { href: "#" } },
+                    [_c("i", { staticClass: "icon-cash3" }), _vm._v(" Balance")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    { staticClass: "list-group-item", attrs: { href: "#" } },
+                    [
+                      _c("i", { staticClass: "icon-tree7" }),
+                      _vm._v(" Connections "),
+                      _c(
+                        "span",
+                        { staticClass: "badge bg-danger pull-right" },
+                        [_vm._v("29")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    { staticClass: "list-group-item", attrs: { href: "#" } },
+                    [_c("i", { staticClass: "icon-users" }), _vm._v(" Friends")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "list-group-divider" }),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    { staticClass: "list-group-item", attrs: { href: "#" } },
+                    [
+                      _c("i", { staticClass: "icon-calendar3" }),
+                      _vm._v(" Events "),
+                      _c(
+                        "span",
+                        { staticClass: "badge bg-teal-400 pull-right" },
+                        [_vm._v("48")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    { staticClass: "list-group-item", attrs: { href: "#" } },
+                    [
+                      _c("i", { staticClass: "icon-cog3" }),
+                      _vm._v(" Account settings")
+                    ]
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "panel panel-flat" }, [
+              _c("div", { staticClass: "panel-heading" }, [
+                _c("h6", { staticClass: "panel-title" }, [
+                  _vm._v("Share your thoughts")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "heading-elements" }, [
+                  _c("ul", { staticClass: "icons-list" }, [
+                    _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "panel-body" }, [
+                _c("form", { attrs: { action: "#" } }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("textarea", {
+                      staticClass: "form-control mb-15",
+                      attrs: {
+                        name: "enter-message",
+                        rows: "3",
+                        cols: "1",
+                        placeholder: "What's on your mind?"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-xs-6" }, [
+                      _c(
+                        "ul",
+                        { staticClass: "icons-list icons-list-extended mt-10" },
+                        [
+                          _c("li", [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: "#",
+                                  "data-popup": "tooltip",
+                                  title: "Add photo",
+                                  "data-container": "body"
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-images2" })]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: "#",
+                                  "data-popup": "tooltip",
+                                  title: "Add video",
+                                  "data-container": "body"
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-film2" })]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: "#",
+                                  "data-popup": "tooltip",
+                                  title: "Add event",
+                                  "data-container": "body"
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-calendar2" })]
+                            )
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xs-6 text-right" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-primary btn-labeled btn-labeled-right",
+                          attrs: { type: "button" }
+                        },
+                        [
+                          _vm._v("Share "),
+                          _c("b", [
+                            _c("i", { staticClass: "icon-circle-right2" })
+                          ])
+                        ]
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "panel panel-flat" }, [
+              _c("div", { staticClass: "panel-heading" }, [
+                _c("h6", { staticClass: "panel-title" }, [
+                  _vm._v("Balance changes")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "heading-elements" }, [
+                  _c("span", { staticClass: "heading-text" }, [
+                    _c("i", { staticClass: "icon-arrow-down22 text-danger" }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text-semibold" }, [
+                      _vm._v("- 29.4%")
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "panel-body" }, [
+                _c("div", { staticClass: "chart-container" }, [
+                  _c("div", {
+                    staticClass: "chart",
+                    staticStyle: { height: "300px" },
+                    attrs: { id: "visits" }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "panel panel-flat" }, [
+              _c("div", { staticClass: "panel-heading" }, [
+                _c("h6", { staticClass: "panel-title" }, [
+                  _vm._v("Latest connections")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "heading-elements" }, [
+                  _c(
+                    "span",
+                    { staticClass: "badge badge-success heading-text" },
+                    [_vm._v("+32")]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("ul", { staticClass: "media-list media-list-linked pb-5" }, [
+                _c("li", { staticClass: "media-header" }, [
+                  _vm._v("Office staff")
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "media" }, [
+                  _c("a", { staticClass: "media-link", attrs: { href: "#" } }, [
+                    _c("div", { staticClass: "media-left" }, [
+                      _c("img", {
+                        staticClass: "img-circle img-md",
+                        attrs: { src: "assets/images/placeholder.jpg", alt: "" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-body" }, [
+                      _c(
+                        "span",
+                        { staticClass: "media-heading text-semibold" },
+                        [_vm._v("James Alexander")]
+                      ),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "media-annotation" }, [
+                        _vm._v("UI/UX expert")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-right media-middle" }, [
+                      _c("span", { staticClass: "status-mark bg-success" })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "media" }, [
+                  _c("a", { staticClass: "media-link", attrs: { href: "#" } }, [
+                    _c("div", { staticClass: "media-left" }, [
+                      _c("img", {
+                        staticClass: "img-circle img-md",
+                        attrs: { src: "assets/images/placeholder.jpg", alt: "" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-body" }, [
+                      _c(
+                        "span",
+                        { staticClass: "media-heading text-semibold" },
+                        [_vm._v("Jeremy Victorino")]
+                      ),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "media-annotation" }, [
+                        _vm._v("Senior designer")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-right media-middle" }, [
+                      _c("span", { staticClass: "status-mark bg-danger" })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "media" }, [
+                  _c("a", { staticClass: "media-link", attrs: { href: "#" } }, [
+                    _c("div", { staticClass: "media-left" }, [
+                      _c("img", {
+                        staticClass: "img-circle img-md",
+                        attrs: { src: "assets/images/placeholder.jpg", alt: "" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-body" }, [
+                      _c("div", { staticClass: "media-heading" }, [
+                        _c("span", { staticClass: "text-semibold" }, [
+                          _vm._v("Jordana Mills")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text-muted" }, [
+                        _vm._v("Sales consultant")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-right media-middle" }, [
+                      _c("span", { staticClass: "status-mark bg-grey-300" })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "media" }, [
+                  _c("a", { staticClass: "media-link", attrs: { href: "#" } }, [
+                    _c("div", { staticClass: "media-left" }, [
+                      _c("img", {
+                        staticClass: "img-circle img-md",
+                        attrs: { src: "assets/images/placeholder.jpg", alt: "" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-body" }, [
+                      _c("div", { staticClass: "media-heading" }, [
+                        _c("span", { staticClass: "text-semibold" }, [
+                          _vm._v("William Miles")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text-muted" }, [
+                        _vm._v("SEO expert")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-right media-middle" }, [
+                      _c("span", { staticClass: "status-mark bg-success" })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "media-header" }, [_vm._v("Partners")]),
+                _vm._v(" "),
+                _c("li", { staticClass: "media" }, [
+                  _c("a", { staticClass: "media-link", attrs: { href: "#" } }, [
+                    _c("div", { staticClass: "media-left" }, [
+                      _c("img", {
+                        staticClass: "img-circle img-md",
+                        attrs: { src: "assets/images/placeholder.jpg", alt: "" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-body" }, [
+                      _c(
+                        "span",
+                        { staticClass: "media-heading text-semibold" },
+                        [_vm._v("Margo Baker")]
+                      ),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "media-annotation" }, [
+                        _vm._v("Google")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-right media-middle" }, [
+                      _c("span", { staticClass: "status-mark bg-success" })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "media" }, [
+                  _c("a", { staticClass: "media-link", attrs: { href: "#" } }, [
+                    _c("div", { staticClass: "media-left" }, [
+                      _c("img", {
+                        staticClass: "img-circle img-md",
+                        attrs: { src: "assets/images/placeholder.jpg", alt: "" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-body" }, [
+                      _c(
+                        "span",
+                        { staticClass: "media-heading text-semibold" },
+                        [_vm._v("Beatrix Diaz")]
+                      ),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "media-annotation" }, [
+                        _vm._v("Facebook")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-right media-middle" }, [
+                      _c("span", { staticClass: "status-mark bg-warning-400" })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "media" }, [
+                  _c("a", { staticClass: "media-link", attrs: { href: "#" } }, [
+                    _c("div", { staticClass: "media-left" }, [
+                      _c("img", {
+                        staticClass: "img-circle img-md",
+                        attrs: { src: "assets/images/placeholder.jpg", alt: "" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-body" }, [
+                      _c(
+                        "span",
+                        { staticClass: "media-heading text-semibold" },
+                        [_vm._v("Richard Vango")]
+                      ),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "media-annotation" }, [
+                        _vm._v("Microsoft")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-right media-middle" }, [
+                      _c("span", { staticClass: "status-mark bg-grey-300" })
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "footer text-muted" }, [
+          _vm._v("\n                © 2015. "),
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Limitless Web App Kit")]),
+          _vm._v(" by "),
+          _c(
+            "a",
+            {
+              attrs: {
+                href: "http://themeforest.net/user/Kopyov",
+                target: "_blank"
+              }
+            },
+            [_vm._v("Eugene Kopyov")]
+          )
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -96780,8 +100663,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\e_com_backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\e_com_backend\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

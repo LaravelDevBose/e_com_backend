@@ -52,9 +52,9 @@
     });
     Vue.component('action-btn', {
         template: `<ul class="icons-list">
-                        <li><a href="#" class="text text-primary-700" @click.prevent="goToDetailsPage"><i class="icon-eye"></i></a></li>
-                        <li><a href="#" class="text text-info" @click.prevent="goToEditPage"><i class="icon-pencil7"></i></a></li>
-                        <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp"><i class="icon-trash"></i></a></li>
+                        <li><a href="#" class="text text-primary-700" @click="goToDetailsPage(row.id)"><i class="icon-eye"></i></a :href=""></li>
+                        <li><a href="#" class="text text-info" @click.prevent="goToEditPage(row.id)"><i class="icon-pencil7"></i></a></li>
+                        <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp(row.id)"><i class="icon-trash"></i></a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle text text-teal-600" data-toggle="dropdown" aria-expanded="false">
                                 <i class="icon-cog7"></i>
@@ -69,16 +69,16 @@
                     </ul>`,
         props: ['row'],
         methods: {
-            goToDetailsPage: function(){
-                window.location = '/admin/product/'+row.id;
+            goToDetailsPage: function(ID){
+                window.location = '/admin/product/'+ID;
             },
-            goToEditPage:function () {
-                window.location = '/admin/product/'+row.id+'/edit';
+            goToEditPage:function (ID) {
+                window.location = '/admin/product/'+ID+'/edit';
             },
-            showDeletePopUp:function () {
+            showDeletePopUp:function (ID) {
                 
             }
-        }
+        },
     });
 
     import VueSelect2 from '../helper/Select2';
