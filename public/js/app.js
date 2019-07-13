@@ -9865,6 +9865,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ShowProduct",
   data: function data() {
@@ -76630,7 +76663,7 @@ var render = function() {
                   attrs: { id: "profile" }
                 },
                 [
-                  _c("div", { staticClass: "panel panel-flat" }, [
+                  _c("div", { staticClass: "panel panel-info" }, [
                     _vm._m(1),
                     _vm._v(" "),
                     _c("div", { staticClass: "panel-body" }, [
@@ -76646,14 +76679,16 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-md-6" })
+                        _vm._m(2)
                       ])
                     ])
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(3)
                 ]
               ),
               _vm._v(" "),
-              _vm._m(2)
+              _vm._m(4)
             ])
           ])
         ])
@@ -76667,167 +76702,169 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-2" }, [
-      _c("div", { staticClass: "sidebar-detached" }, [
-        _c("div", { staticClass: "sidebar sidebar-default sidebar-separate" }, [
-          _c("div", { staticClass: "sidebar-content" }, [
-            _c("div", { staticClass: "content-group" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "panel-body bg-indigo-400 border-radius-top text-center",
-                  staticStyle: {
-                    "background-image":
-                      "url(http://demo.interface.club/limitless/assets/images/bg.png)",
-                    "background-size": "contain"
-                  }
-                },
-                [
-                  _c("div", { staticClass: "content-group-sm" }, [
-                    _c(
-                      "h6",
-                      { staticClass: "text-semibold no-margin-bottom" },
-                      [
-                        _vm._v(
-                          "\n                                        Victoria Davidson\n                                    "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "display-block" }, [
-                      _vm._v("Head of UX")
-                    ])
+      _c("div", { staticClass: " sidebar-default" }, [
+        _c(
+          "div",
+          {
+            staticClass: "sidebar-content",
+            staticStyle: { "padding-bottom": "0px" }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "panel-body bg-indigo-400 border-radius-top text-center",
+                staticStyle: {
+                  "background-image":
+                    "url(http://demo.interface.club/limitless/assets/images/bg.png)",
+                  "background-size": "contain"
+                }
+              },
+              [
+                _c("div", { staticClass: "content-group-sm" }, [
+                  _c("h6", { staticClass: "text-semibold no-margin-bottom" }, [
+                    _vm._v(
+                      "\n                                        Victoria Davidson\n                                    "
+                    )
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "display-inline-block content-group-sm",
-                      attrs: { href: "#" }
-                    },
-                    [
-                      _c("img", {
-                        staticClass: "img-circle img-responsive",
-                        staticStyle: { width: "110px", height: "110px" },
-                        attrs: { src: "assets/images/placeholder.jpg", alt: "" }
-                      })
-                    ]
-                  ),
+                  _c("span", { staticClass: "display-block" }, [
+                    _vm._v("Head of UX")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "display-inline-block content-group-sm",
+                    attrs: { href: "#" }
+                  },
+                  [
+                    _c("img", {
+                      staticClass: "img-circle img-responsive",
+                      staticStyle: { width: "110px", height: "110px" },
+                      attrs: { src: "assets/images/placeholder.jpg", alt: "" }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  {
+                    staticClass:
+                      "list-inline list-inline-condensed no-margin-bottom"
+                  },
+                  [
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn bg-indigo btn-rounded btn-icon",
+                          attrs: { href: "#" }
+                        },
+                        [_c("i", { staticClass: "icon-google-drive" })]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn bg-indigo btn-rounded btn-icon",
+                          attrs: { href: "#" }
+                        },
+                        [_c("i", { staticClass: "icon-twitter" })]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn bg-indigo btn-rounded btn-icon",
+                          attrs: { href: "#" }
+                        },
+                        [_c("i", { staticClass: "icon-github" })]
+                      )
+                    ])
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "panel no-border-top no-border-radius-top ",
+                staticStyle: { "margin-bottom": "0px" }
+              },
+              [
+                _c("ul", { staticClass: "navigation" }, [
+                  _c("li", { staticClass: "navigation-header" }, [
+                    _vm._v("Navigation")
+                  ]),
                   _vm._v(" "),
-                  _c(
-                    "ul",
-                    {
-                      staticClass:
-                        "list-inline list-inline-condensed no-margin-bottom"
-                    },
-                    [
-                      _c("li", [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn bg-indigo btn-rounded btn-icon",
-                            attrs: { href: "#" }
-                          },
-                          [_c("i", { staticClass: "icon-google-drive" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn bg-indigo btn-rounded btn-icon",
-                            attrs: { href: "#" }
-                          },
-                          [_c("i", { staticClass: "icon-twitter" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn bg-indigo btn-rounded btn-icon",
-                            attrs: { href: "#" }
-                          },
-                          [_c("i", { staticClass: "icon-github" })]
-                        )
-                      ])
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "panel no-border-top no-border-radius-top" },
-                [
-                  _c("ul", { staticClass: "navigation" }, [
-                    _c("li", { staticClass: "navigation-header" }, [
-                      _vm._v("Navigation")
-                    ]),
-                    _vm._v(" "),
-                    _c("li", { staticClass: "active" }, [
-                      _c(
-                        "a",
-                        { attrs: { href: "#profile", "data-toggle": "tab" } },
-                        [
-                          _c("i", { staticClass: "icon-files-empty" }),
-                          _vm._v(" Profile")
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c(
-                        "a",
-                        { attrs: { href: "#schedule", "data-toggle": "tab" } },
-                        [
-                          _c("i", { staticClass: "icon-files-empty" }),
-                          _vm._v(" Schedule")
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c(
-                        "a",
-                        { attrs: { href: "#messages", "data-toggle": "tab" } },
-                        [
-                          _c("i", { staticClass: "icon-files-empty" }),
-                          _vm._v(" Inbox "),
-                          _c("span", { staticClass: "badge bg-warning-400" }, [
-                            _vm._v("23")
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c(
-                        "a",
-                        { attrs: { href: "#orders", "data-toggle": "tab" } },
-                        [
-                          _c("i", { staticClass: "icon-files-empty" }),
-                          _vm._v(" Orders")
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("li", { staticClass: "navigation-divider" }),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "login_advanced.html" } }, [
-                        _c("i", { staticClass: "icon-switch2" }),
-                        _vm._v(" Log out")
-                      ])
+                  _c("li", { staticClass: "active" }, [
+                    _c(
+                      "a",
+                      { attrs: { href: "#profile", "data-toggle": "tab" } },
+                      [
+                        _c("i", { staticClass: "icon-files-empty" }),
+                        _vm._v(" Profile")
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      { attrs: { href: "#schedule", "data-toggle": "tab" } },
+                      [
+                        _c("i", { staticClass: "icon-files-empty" }),
+                        _vm._v(" Schedule")
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      { attrs: { href: "#messages", "data-toggle": "tab" } },
+                      [
+                        _c("i", { staticClass: "icon-files-empty" }),
+                        _vm._v(" Inbox "),
+                        _c("span", { staticClass: "badge bg-warning-400" }, [
+                          _vm._v("23")
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      { attrs: { href: "#orders", "data-toggle": "tab" } },
+                      [
+                        _c("i", { staticClass: "icon-files-empty" }),
+                        _vm._v(" Orders")
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "navigation-divider" }),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "login_advanced.html" } }, [
+                      _c("i", { staticClass: "icon-switch2" }),
+                      _vm._v(" Log out")
                     ])
                   ])
-                ]
-              )
-            ])
-          ])
-        ])
+                ])
+              ]
+            )
+          ]
+        )
       ])
     ])
   },
@@ -76841,6 +76878,118 @@ var staticRenderFns = [
       _c("div", { staticClass: "heading-elements" }, [
         _c("ul", { staticClass: "icons-list" }, [
           _c("li", [_c("a", { attrs: { "data-action": "reload" } })])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c(
+        "h3",
+        { staticClass: "text-semibold", staticStyle: { "margin-top": "0px" } },
+        [
+          _c("a", { staticClass: "text-default", attrs: { href: "#" } }, [
+            _vm._v(
+              "Although moreover mistaken kindness me feelings do be marianne"
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "ul",
+        {
+          staticClass:
+            "list-inline list-inline-separate text-muted content-group"
+        },
+        [
+          _c("li", [
+            _vm._v("By "),
+            _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
+              _vm._v("Eugene")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", [_vm._v("July 5th, 2016")]),
+          _vm._v(" "),
+          _c("li", [
+            _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
+              _vm._v("12 comments")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
+              _c("i", {
+                staticClass:
+                  "icon-heart6 text-size-base text-pink position-left"
+              }),
+              _vm._v(" 281")
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "content-group" }, [
+        _c("p", [
+          _vm._v(
+            "Attachment apartments in delightful by motionless it no. And now she burst sir learn total. Hearing hearted shewing own ask. Solicitude uncommonly use her motionless not collecting age. The properly servants required mistaken outlived bed and. Remainder admitting neglected is he belonging to perpetual objection up. Has widen too you decay begin which asked equal any."
+          )
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "Started his hearted any civilly. So me by marianne admitted speaking. Men bred fine call ask. Cease one miles truth day above seven. Suspicion sportsmen provision suffering mrs saw engrossed something. Snug soon he on plan in be dine some."
+          )
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "Death there mirth way the noisy merit. Piqued shy spring nor six though mutual living ask extent. Replying of dashwood advanced ladyship smallest disposal or. Attempt offices own improve now see. Called person are around county talked her esteem. Those fully these way nay thing seems."
+          )
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel panel-info" }, [
+      _c("div", { staticClass: "panel-heading" }, [
+        _c("h6", { staticClass: "panel-title" }, [
+          _vm._v("Product Full Details")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "heading-elements" }, [
+          _c("ul", { staticClass: "icons-list" }, [
+            _c("li", [_c("a", { attrs: { "data-action": "reload" } })])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" }, [
+        _c("div", { staticClass: "content-group" }, [
+          _c("p", [
+            _vm._v(
+              "Attachment apartments in delightful by motionless it no. And now she burst sir learn total. Hearing hearted shewing own ask. Solicitude uncommonly use her motionless not collecting age. The properly servants required mistaken outlived bed and. Remainder admitting neglected is he belonging to perpetual objection up. Has widen too you decay begin which asked equal any."
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Started his hearted any civilly. So me by marianne admitted speaking. Men bred fine call ask. Cease one miles truth day above seven. Suspicion sportsmen provision suffering mrs saw engrossed something. Snug soon he on plan in be dine some."
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Death there mirth way the noisy merit. Piqued shy spring nor six though mutual living ask extent. Replying of dashwood advanced ladyship smallest disposal or. Attempt offices own improve now see. Called person are around county talked her esteem. Those fully these way nay thing seems."
+            )
+          ])
         ])
       ])
     ])
@@ -98032,8 +98181,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\lara_exc\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\lara_exc\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\lara_example\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\lara_example\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

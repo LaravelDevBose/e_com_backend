@@ -2,7 +2,14 @@
 @section('PageTitle','Product Details ')
 
 @section('PageCss')
-
+    <style>
+        .carousel{
+            min-height: 200px;
+            background: #ddd;
+            border-radius: 5px;
+            border: 1px solid #b3b0b0;
+        }
+    </style>
 @endsection
 
 @section('ThemeJs')
