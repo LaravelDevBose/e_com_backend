@@ -20,6 +20,7 @@
 
                 <a class="dropdown-toggle" data-toggle="dropdown">
                     <img src="{{ auth()->guard('admin')->user()->avatar }}" style="width: 40px; max-height: 40px!important;" alt="{{ auth()->guard('admin')->user()->user_name }}">{{ ucwords(auth()->guard('admin')->user()->full_name)  }}
+{{--                    <img src="" style="width: 40px; max-height: 40px!important;" alt="{{ auth()->guard('admin')->user()->user_name }}">{{ ucwords(auth()->guard('admin')->user()->full_name)  }}--}}
                     <i class="caret"></i>
                 </a>
 
