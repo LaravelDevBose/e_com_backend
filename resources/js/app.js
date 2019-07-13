@@ -10,7 +10,8 @@ import 'vue-datetime/dist/vue-datetime.css'
 Vue.use(Datetime);
 import { dateTime } from 'vue-datetime';
 Vue.component('datetime', dateTime);
-
+import VueCarousel from '@chenfengyuan/vue-carousel';
+Vue.use(VueCarousel);
 
 Vue.use(require('vuejs-datatable'));
 import store from './store'
@@ -61,7 +62,7 @@ const app = new Vue({
         'create-voucher':CreateVoucher,
         'product-list':ProductList,
         'create-product':CreateProduct,
-        'show-Product':ShowProduct,
+        'show-product':ShowProduct,
         'skin-type':SkinType,
     }
 });

@@ -52,7 +52,7 @@
     });
     Vue.component('action-btn', {
         template: `<ul class="icons-list">
-                        <li><a href="#" class="text text-primary-700" @click="goToDetailsPage(row.id)"><i class="icon-eye"></i></a :href=""></li>
+                        <li><a href="#" class="text text-primary-700" @click.prevent="goToDetailsPage(row.id)"><i class="icon-eye"></i></a :href=""></li>
                         <li><a href="#" class="text text-info" @click.prevent="goToEditPage(row.id)"><i class="icon-pencil7"></i></a></li>
                         <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp(row.id)"><i class="icon-trash"></i></a></li>
                         <li class="dropdown">
