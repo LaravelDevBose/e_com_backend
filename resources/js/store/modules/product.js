@@ -6,6 +6,7 @@ const state = {
     productSizes:'',
     productSkinTypes:'',
     allProducts:'',
+    singleProduct:'',
 };
 
 //declare Getters
@@ -16,6 +17,7 @@ const getters = {
     sizes:(state)=>state.productSizes,
     skinTypes:(state)=>state.productSkinTypes,
     products:(state)=>state.allProducts,
+    product:(state)=>state.singleProduct
 };
 
 const actions = {
@@ -52,6 +54,21 @@ const actions = {
         }catch (error) {
             commit('setResponse', error.data);
         }
+    },
+    async singleProduct({commit}, productID){
+        try {
+            return await axios.get(`/admin/single/product/${productID}`)
+                .then(response=>{
+                    console.log(response);
+                    if(response.data.status === 'error'){
+                        return response.data;
+                    }else{
+                        commit('singleProductData', response.data);
+                    }
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
     }
 };
 
@@ -65,6 +82,9 @@ const mutations = {
     },
     getProductData:(state, response)=>{
         state.allProducts = response.data;
+    },
+    singleProductData:(state, response)=>{
+        state.singleProduct = response;
     }
 };
 

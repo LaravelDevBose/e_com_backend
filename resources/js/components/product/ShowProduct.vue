@@ -168,8 +168,10 @@
 </template>
 
 <script>
-
+    import {mapGetters,mapActions} from 'vuex';
     export default {
+        props:['productID'],
+
         name: "ShowProduct",
         data(){
             return{
@@ -179,6 +181,25 @@
                     '<div class="example-slide">Slide 3</div>',
                 ],
             }
+        },
+        created() {
+            this.singleProduct(productID).then(response=>{
+                if(response.status === 'error'){
+                    Notify.error(response.message);
+                }
+            }).catch(error=>{
+                Notify.error(error.message);
+            })
+        },
+        methods:{
+            ...mapActions([
+                'singleProduct',
+            ])
+        },
+        computed:{
+            ...mapGetters([
+                'product'
+            ])
         }
     }
 </script>

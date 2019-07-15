@@ -9729,6 +9729,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -9898,13 +9903,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['productID'],
   name: "ShowProduct",
   data: function data() {
     return {
       data: ['<div class="example-slide">Slide 1</div>', '<div class="example-slide">Slide 2</div>', '<div class="example-slide">Slide 3</div>']
     };
-  }
+  },
+  created: function created() {
+    this.singleProduct(productID).then(function (response) {
+      if (response.status === 'error') {
+        Notify.error(response.message);
+      }
+    })["catch"](function (error) {
+      Notify.error(error.message);
+    });
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['singleProduct'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['product']))
 });
 
 /***/ }),
@@ -97228,7 +97246,8 @@ var state = {
   productColors: '',
   productSizes: '',
   productSkinTypes: '',
-  allProducts: ''
+  allProducts: '',
+  singleProduct: ''
 }; //declare Getters
 
 var getters = {
@@ -97249,6 +97268,9 @@ var getters = {
   },
   products: function products(state) {
     return state.allProducts;
+  },
+  product: function product(state) {
+    return state.singleProduct;
   }
 };
 var actions = {
@@ -97369,6 +97391,50 @@ var actions = {
     }
 
     return storeProductData;
+  }(),
+  singleProduct: function () {
+    var _singleProduct = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, productID) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              _context4.prev = 1;
+              _context4.next = 4;
+              return axios.get("/admin/single/product/".concat(productID)).then(function (response) {
+                console.log(response);
+
+                if (response.data.status === 'error') {
+                  return response.data;
+                } else {
+                  commit('singleProductData', response.data);
+                }
+              });
+
+            case 4:
+              return _context4.abrupt("return", _context4.sent);
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](1);
+              commit('setResponse', _context4.t0.data);
+
+            case 10:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 7]]);
+    }));
+
+    function singleProduct(_x6, _x7) {
+      return _singleProduct.apply(this, arguments);
+    }
+
+    return singleProduct;
   }()
 };
 var mutations = {
@@ -97381,6 +97447,9 @@ var mutations = {
   },
   getProductData: function getProductData(state, response) {
     state.allProducts = response.data;
+  },
+  singleProductData: function singleProductData(state, response) {
+    state.singleProduct = response;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

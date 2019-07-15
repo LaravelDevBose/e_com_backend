@@ -217,7 +217,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('product.show');
+        return view('product.show',[
+            'product_id'=>$product->product_id,
+        ]);
     }
 
     public function single_product(Product $product){

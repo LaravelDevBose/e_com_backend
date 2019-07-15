@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-    <show-product></show-product>
+    <show-product :productID="{{ $product_id }}"></show-product>
 @endsection
 @section('PageJs')
 
