@@ -64,4 +64,8 @@ class Attachment extends Model
     public function campaign(){
         return $this->belongsTo(Campaign::class, 'attachment_id','attachment_id');
     }
+
+    public function product_image(){
+        return $this->hasOne(ProductImage::class, 'attachment_id','attachment_id');
+    }
 }

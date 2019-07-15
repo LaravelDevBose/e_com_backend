@@ -14,6 +14,17 @@ class ProductDetailsResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'materials'=>$this->main_materials,
+            'model'=>$this->product_model,
+            'pieces'=>$this->num_of_pieces,
+            'occasion'=>$this->product_occasion,
+            'color_shade'=>$this->color_shade,
+            'skin_type'=>$this->skin_type,
+            'extra_details'=>$this->extra_details,
+            'warranty_policy'=>$this->warranty_policy,
+            'warranty_policy_eng'=>$this->warranty_policy_eng,
+            'warranty_period'=>$this->warranty_period,
+        ];
     }
 }

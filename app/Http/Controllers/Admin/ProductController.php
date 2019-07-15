@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Resources\Admin\ProductCollection;
+use App\Http\Resources\Admin\Product as ProductResource;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductDetails;
@@ -214,9 +215,18 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
         return view('product.show');
+    }
+
+    public function single_product(Product $product){
+
+        $product = $product->load(['category', 'brand', 'productDetails', 'variations', 'productImages'=>function($query){
+            return $query->with('attachment')->isActive();
+        }]);
+
+        return new ProductResource($product);
     }
 
     /**

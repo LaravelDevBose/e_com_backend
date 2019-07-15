@@ -17,4 +17,12 @@ class ProductImage extends Model
          'attachment_id',
          'image_status'
      ];
+
+     public function scopeIsActive($query){
+         return $query->where('image_status', config('app.active'));
+     }
+
+     public function attachment(){
+         return $this->belongsTo(Attachment::class, 'attachment_id', 'attachment_id');
+     }
 }
