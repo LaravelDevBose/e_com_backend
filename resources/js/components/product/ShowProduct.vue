@@ -143,9 +143,9 @@
                             <div class="tab-pane fade" id="details">
 
                                 <!-- Available hours -->
-                                <div class="panel panel-flat">
-                                    <div class="panel-heading">
-                                        <h6 class="panel-title">Available hours</h6>
+                                <div class="panel ">
+                                    <div class="panel-heading bg-teal-300">
+                                        <h6 class="panel-title">Product Extra Details</h6>
                                         <div class="heading-elements">
                                             <ul class="icons-list">
                                                 <li><a data-action="collapse"></a></li>
@@ -156,7 +156,18 @@
                                     </div>
 
                                     <div class="panel-body">
-
+                                        <div class="content-group">
+                                            <p style="margin-bottom: .5rem;">
+                                                <span class="text-bold">Main Material: </span>
+                                                <span v-html="product.details.materials"></span>
+                                            </p>
+                                        </div>
+                                        <div class="content-group">
+                                            <p style="margin-bottom: .5rem;">
+                                                <span class="text-bold">Product Model: </span>
+                                                <span v-html="product.details.model"></span>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- /available hours -->

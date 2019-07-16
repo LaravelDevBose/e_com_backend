@@ -10014,6 +10014,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ShowProduct",
@@ -77015,11 +77026,51 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm._m(4),
+              _c(
+                "div",
+                { staticClass: "tab-pane fade", attrs: { id: "details" } },
+                [
+                  _c("div", { staticClass: "panel " }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "panel-body" }, [
+                      _c("div", { staticClass: "content-group" }, [
+                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                          _c("span", { staticClass: "text-bold" }, [
+                            _vm._v("Main Material: ")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", {
+                            domProps: {
+                              innerHTML: _vm._s(_vm.product.details.materials)
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "content-group" }, [
+                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                          _c("span", { staticClass: "text-bold" }, [
+                            _vm._v("Product Model: ")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", {
+                            domProps: {
+                              innerHTML: _vm._s(_vm.product.details.model)
+                            }
+                          })
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(5)
+                ]
+              ),
               _vm._v(" "),
-              _vm._m(5),
+              _vm._m(6),
               _vm._v(" "),
-              _vm._m(6)
+              _vm._m(7)
             ])
           ])
         ])
@@ -77244,49 +77295,43 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "tab-pane fade", attrs: { id: "details" } },
-      [
-        _c("div", { staticClass: "panel panel-flat" }, [
-          _c("div", { staticClass: "panel-heading" }, [
-            _c("h6", { staticClass: "panel-title" }, [
-              _vm._v("Available hours")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "heading-elements" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-                _vm._v(" "),
-                _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-                _vm._v(" "),
-                _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-              ])
-            ])
-          ]),
+    return _c("div", { staticClass: "panel-heading bg-teal-300" }, [
+      _c("h6", { staticClass: "panel-title" }, [
+        _vm._v("Product Extra Details")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "heading-elements" }, [
+        _c("ul", { staticClass: "icons-list" }, [
+          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
           _vm._v(" "),
-          _c("div", { staticClass: "panel-body" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "panel panel-flat" }, [
-          _c("div", { staticClass: "panel-heading" }, [
-            _c("h6", { staticClass: "panel-title" }, [_vm._v("My details")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "heading-elements" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-                _vm._v(" "),
-                _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-                _vm._v(" "),
-                _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-              ])
-            ])
-          ]),
+          _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
           _vm._v(" "),
-          _c("div", { staticClass: "panel-body" })
+          _c("li", [_c("a", { attrs: { "data-action": "close" } })])
         ])
-      ]
-    )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel panel-flat" }, [
+      _c("div", { staticClass: "panel-heading" }, [
+        _c("h6", { staticClass: "panel-title" }, [_vm._v("My details")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "heading-elements" }, [
+          _c("ul", { staticClass: "icons-list" }, [
+            _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" })
+    ])
   },
   function() {
     var _vm = this
@@ -98574,8 +98619,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\lara_example\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\lara_example\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\lara_exc\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\lara_exc\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
