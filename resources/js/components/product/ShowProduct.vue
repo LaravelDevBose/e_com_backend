@@ -31,9 +31,9 @@
                                 <div class="panel no-border-top no-border-radius-top " style="margin-bottom:0px;">
                                     <ul class="navigation">
                                         <li class="navigation-header">Navigation</li>
-                                        <li class="active"><a href="#profile" data-toggle="tab"><i class="icon-files-empty"></i> Profile</a></li>
-                                        <li><a href="#schedule" data-toggle="tab"><i class="icon-files-empty"></i> Schedule</a></li>
-                                        <li><a href="#messages" data-toggle="tab"><i class="icon-files-empty"></i> Inbox <span class="badge bg-warning-400">23</span></a></li>
+                                        <li class="active"><a href="#basic" data-toggle="tab"><i class="icon-files-empty"></i> Basic Info</a></li>
+                                        <li><a href="#details" data-toggle="tab"><i class="icon-files-empty"></i> Details</a></li>
+                                        <li><a href="#reviews" data-toggle="tab"><i class="icon-files-empty"></i> Reviews</a></li>
                                         <li><a href="#orders" data-toggle="tab"><i class="icon-files-empty"></i> Orders</a></li>
                                         <li class="navigation-divider"></li>
                                         <li><a href="login_advanced.html"><i class="icon-switch2"></i> Log out</a></li>
@@ -52,7 +52,7 @@
 
                         <!-- Tab content -->
                         <div class="tab-content">
-                            <div class="tab-pane fade in active" id="profile">
+                            <div class="tab-pane fade in active" id="basic">
 
                                 <!-- Daily stats -->
                                 <div class="panel panel-info">
@@ -67,26 +67,30 @@
 
                                     <div class="panel-body">
                                         <div class="row">
-                                            <div class="col-md-5">
-                                                <carousel :data="data" indicators="hover"></carousel>
+                                            <div class="col-md-6">
+                                                <carousel :data="slider" indicators="hover"></carousel>
                                             </div>
                                             <div class="col-md-6">
                                                 <h3 class="text-semibold" style="margin-top: 0px;">
-                                                    <a href="#" class="text-default">Although moreover mistaken kindness me feelings do be marianne</a>
+                                                    <a href="#" class="text-default">{{ product.product_name}}</a>
                                                 </h3>
+                                                <p v-if="product.product_sku !== '' " style="margin-bottom: 5px;" >
+                                                    <i class="icon-barcode2 text-primary" style="margin-right: .5rem;"></i>
+                                                    <span class="text text-bold text-teal ">{{ product.product_sku }}</span>
+                                                </p>
+                                                <p class="text text-bold font-weight-bold text-teal" style="margin-bottom: 5px;" v-if="category !== '' " >
+                                                    <i class="icon-list2 text-primary" style="margin-right: .5rem;"></i>
+                                                    <span v-if="trd_category !== '' " > {{ trd_category.name}} <i class="icon-arrow-right15"></i></span>
+                                                    <span v-if="sec_category !== '' " >{{ sec_category.name}} <i class="icon-arrow-right15"></i></span>
+                                                    <span>{{ category.name}}</span>
+                                                </p>
+                                                <p v-if="product.brand !== null " style="margin-bottom: 5px;">
+                                                    <i class="icon-hammer-wrench text-primary" style="margin-right: .5rem;"></i>
+                                                    <span class="text text-bold text-teal ">{{ product.brand.name }}</span>
+                                                </p>
 
-                                                <ul class="list-inline list-inline-separate text-muted content-group">
-                                                    <li>By <a href="#" class="text-muted">Eugene</a></li>
-                                                    <li>July 5th, 2016</li>
-                                                    <li><a href="#" class="text-muted">12 comments</a></li>
-                                                    <li><a href="#" class="text-muted"><i class="icon-heart6 text-size-base text-pink position-left"></i> 281</a></li>
-                                                </ul>
                                                 <div class="content-group">
-                                                    <p>Attachment apartments in delightful by motionless it no. And now she burst sir learn total. Hearing hearted shewing own ask. Solicitude uncommonly use her motionless not collecting age. The properly servants required mistaken outlived bed and. Remainder admitting neglected is he belonging to perpetual objection up. Has widen too you decay begin which asked equal any.</p>
-
-                                                    <p>Started his hearted any civilly. So me by marianne admitted speaking. Men bred fine call ask. Cease one miles truth day above seven. Suspicion sportsmen provision suffering mrs saw engrossed something. Snug soon he on plan in be dine some.</p>
-
-                                                    <p>Death there mirth way the noisy merit. Piqued shy spring nor six though mutual living ask extent. Replying of dashwood advanced ladyship smallest disposal or. Attempt offices own improve now see. Called person are around county talked her esteem. Those fully these way nay thing seems.</p>
+                                                    <p v-html="product.highlight"></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -95,7 +99,24 @@
 
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
-                                        <h6 class="panel-title">Product Full Details</h6>
+                                        <h6 class="panel-title">Product Full Description</h6>
+                                        <div class="heading-elements">
+                                            <ul class="icons-list">
+                                                <li><a data-action="reload"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body">
+                                        <div class="content-group" v-html="product.description">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h6 class="panel-title">Product Details EN</h6>
                                         <div class="heading-elements">
                                             <ul class="icons-list">
                                                 <li><a data-action="reload"></a></li>
@@ -105,15 +126,21 @@
 
                                     <div class="panel-body">
                                         <div class="content-group">
-                                            <p>Attachment apartments in delightful by motionless it no. And now she burst sir learn total. Hearing hearted shewing own ask. Solicitude uncommonly use her motionless not collecting age. The properly servants required mistaken outlived bed and. Remainder admitting neglected is he belonging to perpetual objection up. Has widen too you decay begin which asked equal any.</p>
-                                            <p>Started his hearted any civilly. So me by marianne admitted speaking. Men bred fine call ask. Cease one miles truth day above seven. Suspicion sportsmen provision suffering mrs saw engrossed something. Snug soon he on plan in be dine some.</p>
-                                            <p>Death there mirth way the noisy merit. Piqued shy spring nor six though mutual living ask extent. Replying of dashwood advanced ladyship smallest disposal or. Attempt offices own improve now see. Called person are around county talked her esteem. Those fully these way nay thing seems.</p>
+                                            <p class="text text-bold">Product Name (EN) : {{product.lang_product_name }}</p>
+                                        </div>
+                                        <div class="content-group">
+                                            <p class="text text-bold" style="margin-bottom: .5rem;">Product Highlight (EN): </p>
+                                            <p v-html="product.lang_highlight"></p>
+                                        </div>
+                                        <div class="content-group" >
+                                            <p class="text text-bold" style="margin-bottom: .5rem;">Product Description (EN): </p>
+                                            <p v-html="product.lang_description" ></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade" id="schedule">
+                            <div class="tab-pane fade" id="details">
 
                                 <!-- Available hours -->
                                 <div class="panel panel-flat">
@@ -138,7 +165,91 @@
                                 <!-- Calendar -->
                                 <div class="panel panel-flat">
                                     <div class="panel-heading">
-                                        <h6 class="panel-title">My schedule</h6>
+                                        <h6 class="panel-title">My details</h6>
+                                        <div class="heading-elements">
+                                            <ul class="icons-list">
+                                                <li><a data-action="collapse"></a></li>
+                                                <li><a data-action="reload"></a></li>
+                                                <li><a data-action="close"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                    </div>
+                                </div>
+                                <!-- /calendar -->
+                            </div>
+
+                            <div class="tab-pane fade" id="reviews">
+
+                                <!-- Available hours -->
+                                <div class="panel panel-flat">
+                                    <div class="panel-heading">
+                                        <h6 class="panel-title">Available hours</h6>
+                                        <div class="heading-elements">
+                                            <ul class="icons-list">
+                                                <li><a data-action="collapse"></a></li>
+                                                <li><a data-action="reload"></a></li>
+                                                <li><a data-action="close"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                    </div>
+                                </div>
+                                <!-- /available hours -->
+
+
+                                <!-- Calendar -->
+                                <div class="panel panel-flat">
+                                    <div class="panel-heading">
+                                        <h6 class="panel-title">My details</h6>
+                                        <div class="heading-elements">
+                                            <ul class="icons-list">
+                                                <li><a data-action="collapse"></a></li>
+                                                <li><a data-action="reload"></a></li>
+                                                <li><a data-action="close"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                    </div>
+                                </div>
+                                <!-- /calendar -->
+                            </div>
+
+                            <div class="tab-pane fade" id="orders">
+
+                                <!-- Available hours -->
+                                <div class="panel panel-flat">
+                                    <div class="panel-heading">
+                                        <h6 class="panel-title">Available hours</h6>
+                                        <div class="heading-elements">
+                                            <ul class="icons-list">
+                                                <li><a data-action="collapse"></a></li>
+                                                <li><a data-action="reload"></a></li>
+                                                <li><a data-action="close"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                    </div>
+                                </div>
+                                <!-- /available hours -->
+
+
+                                <!-- Calendar -->
+                                <div class="panel panel-flat">
+                                    <div class="panel-heading">
+                                        <h6 class="panel-title">My details</h6>
                                         <div class="heading-elements">
                                             <ul class="icons-list">
                                                 <li><a data-action="collapse"></a></li>
@@ -170,25 +281,22 @@
 <script>
     import {mapGetters,mapActions} from 'vuex';
     export default {
-        props:['productID'],
-
         name: "ShowProduct",
         data(){
             return{
-                data: [
-                    '<div class="example-slide">Slide 1</div>',
-                    '<div class="example-slide">Slide 2</div>',
-                    '<div class="example-slide">Slide 3</div>',
-                ],
+                slider: [],
+                category:'',
+                sec_category:'',
+                trd_category:'',
             }
         },
         created() {
-            this.singleProduct(productID).then(response=>{
+            this.singleProduct(this.$attrs['productid']).then(response=>{
                 if(response.status === 'error'){
                     Notify.error(response.message);
                 }
             }).catch(error=>{
-                Notify.error(error.message);
+                // Notify.error(error.message);
             })
         },
         methods:{
@@ -200,6 +308,27 @@
             ...mapGetters([
                 'product'
             ])
+        },
+        watch:{
+            product:{
+                handler(newVal, oldVal){
+                    newVal.productImages.forEach(image=>{
+                        let img = '<img src="'+image.image.image_path+'" class="img-thumbnail">';
+                        this.slider.push(img);
+                    });
+                    if(newVal.category !== null){
+                        this.category = newVal.category
+                    }
+                    if(newVal.category.parent !== null){
+                        this.sec_category = newVal.category.parent;
+                    }
+                    if(newVal.category.parent.parent !== null){
+                        this.trd_category = newVal.category.parent.parent;
+                    }
+
+
+                }
+            }
         }
     }
 </script>

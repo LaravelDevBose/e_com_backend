@@ -15,6 +15,7 @@ use App\Models\Size;
 use App\Models\SizeGroupCategory;
 use App\Models\SkinType;
 use Exception;
+use function foo\func;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -224,7 +225,11 @@ class ProductController extends Controller
 
     public function single_product(Product $product){
 
-        $product = $product->load(['category', 'brand', 'productDetails', 'variations', 'productImages'=>function($query){
+        $product = $product->load(['category'=>function($query){
+            return $query->with(['parent'=>function($q){
+                return $q->with('parent');
+            }]);
+        }, 'brand', 'productDetails', 'variations', 'productImages'=>function($query){
             return $query->with('attachment')->isActive();
         }]);
 

@@ -9903,26 +9903,163 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['productID'],
   name: "ShowProduct",
   data: function data() {
     return {
-      data: ['<div class="example-slide">Slide 1</div>', '<div class="example-slide">Slide 2</div>', '<div class="example-slide">Slide 3</div>']
+      slider: [],
+      category: '',
+      sec_category: '',
+      trd_category: ''
     };
   },
   created: function created() {
-    this.singleProduct(productID).then(function (response) {
+    this.singleProduct(this.$attrs['productid']).then(function (response) {
       if (response.status === 'error') {
         Notify.error(response.message);
       }
-    })["catch"](function (error) {
-      Notify.error(error.message);
+    })["catch"](function (error) {// Notify.error(error.message);
     });
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['singleProduct'])),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['product']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['product'])),
+  watch: {
+    product: {
+      handler: function handler(newVal, oldVal) {
+        var _this = this;
+
+        newVal.productImages.forEach(function (image) {
+          var img = '<img src="' + image.image.image_path + '" class="img-thumbnail">';
+
+          _this.slider.push(img);
+        });
+
+        if (newVal.category !== null) {
+          this.category = newVal.category;
+        }
+
+        if (newVal.category.parent !== null) {
+          this.sec_category = newVal.category.parent;
+        }
+
+        if (newVal.category.parent.parent !== null) {
+          this.trd_category = newVal.category.parent.parent;
+        }
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -76678,7 +76815,7 @@ var render = function() {
                 "div",
                 {
                   staticClass: "tab-pane fade in active",
-                  attrs: { id: "profile" }
+                  attrs: { id: "basic" }
                 },
                 [
                   _c("div", { staticClass: "panel panel-info" }, [
@@ -76688,25 +76825,201 @@ var render = function() {
                       _c("div", { staticClass: "row" }, [
                         _c(
                           "div",
-                          { staticClass: "col-md-5" },
+                          { staticClass: "col-md-6" },
                           [
                             _c("carousel", {
-                              attrs: { data: _vm.data, indicators: "hover" }
+                              attrs: { data: _vm.slider, indicators: "hover" }
                             })
                           ],
                           1
                         ),
                         _vm._v(" "),
-                        _vm._m(2)
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "h3",
+                            {
+                              staticClass: "text-semibold",
+                              staticStyle: { "margin-top": "0px" }
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-default",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v(_vm._s(_vm.product.product_name))]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.product.product_sku !== ""
+                            ? _c(
+                                "p",
+                                { staticStyle: { "margin-bottom": "5px" } },
+                                [
+                                  _c("i", {
+                                    staticClass: "icon-barcode2 text-primary",
+                                    staticStyle: { "margin-right": ".5rem" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass: "text text-bold text-teal "
+                                    },
+                                    [_vm._v(_vm._s(_vm.product.product_sku))]
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.category !== ""
+                            ? _c(
+                                "p",
+                                {
+                                  staticClass:
+                                    "text text-bold font-weight-bold text-teal",
+                                  staticStyle: { "margin-bottom": "5px" }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "icon-list2 text-primary",
+                                    staticStyle: { "margin-right": ".5rem" }
+                                  }),
+                                  _vm._v(" "),
+                                  _vm.trd_category !== ""
+                                    ? _c("span", [
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(_vm.trd_category.name) +
+                                            " "
+                                        ),
+                                        _c("i", {
+                                          staticClass: "icon-arrow-right15"
+                                        })
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.sec_category !== ""
+                                    ? _c("span", [
+                                        _vm._v(
+                                          _vm._s(_vm.sec_category.name) + " "
+                                        ),
+                                        _c("i", {
+                                          staticClass: "icon-arrow-right15"
+                                        })
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("span", [
+                                    _vm._v(_vm._s(_vm.category.name))
+                                  ])
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.product.brand !== null
+                            ? _c(
+                                "p",
+                                { staticStyle: { "margin-bottom": "5px" } },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "icon-hammer-wrench text-primary",
+                                    staticStyle: { "margin-right": ".5rem" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass: "text text-bold text-teal "
+                                    },
+                                    [_vm._v(_vm._s(_vm.product.brand.name))]
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "content-group" }, [
+                            _c("p", {
+                              domProps: {
+                                innerHTML: _vm._s(_vm.product.highlight)
+                              }
+                            })
+                          ])
+                        ])
                       ])
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(3)
+                  _c("div", { staticClass: "panel panel-info" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "panel-body" }, [
+                      _c("div", {
+                        staticClass: "content-group",
+                        domProps: { innerHTML: _vm._s(_vm.product.description) }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "panel panel-info" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "panel-body" }, [
+                      _c("div", { staticClass: "content-group" }, [
+                        _c("p", { staticClass: "text text-bold" }, [
+                          _vm._v(
+                            "Product Name (EN) : " +
+                              _vm._s(_vm.product.lang_product_name)
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "content-group" }, [
+                        _c(
+                          "p",
+                          {
+                            staticClass: "text text-bold",
+                            staticStyle: { "margin-bottom": ".5rem" }
+                          },
+                          [_vm._v("Product Highlight (EN): ")]
+                        ),
+                        _vm._v(" "),
+                        _c("p", {
+                          domProps: {
+                            innerHTML: _vm._s(_vm.product.lang_highlight)
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "content-group" }, [
+                        _c(
+                          "p",
+                          {
+                            staticClass: "text text-bold",
+                            staticStyle: { "margin-bottom": ".5rem" }
+                          },
+                          [_vm._v("Product Description (EN): ")]
+                        ),
+                        _vm._v(" "),
+                        _c("p", {
+                          domProps: {
+                            innerHTML: _vm._s(_vm.product.lang_description)
+                          }
+                        })
+                      ])
+                    ])
+                  ])
                 ]
               ),
               _vm._v(" "),
-              _vm._m(4)
+              _vm._m(4),
+              _vm._v(" "),
+              _vm._m(5),
+              _vm._v(" "),
+              _vm._m(6)
             ])
           ])
         ])
@@ -76826,10 +77139,10 @@ var staticRenderFns = [
                   _c("li", { staticClass: "active" }, [
                     _c(
                       "a",
-                      { attrs: { href: "#profile", "data-toggle": "tab" } },
+                      { attrs: { href: "#basic", "data-toggle": "tab" } },
                       [
                         _c("i", { staticClass: "icon-files-empty" }),
-                        _vm._v(" Profile")
+                        _vm._v(" Basic Info")
                       ]
                     )
                   ]),
@@ -76837,10 +77150,10 @@ var staticRenderFns = [
                   _c("li", [
                     _c(
                       "a",
-                      { attrs: { href: "#schedule", "data-toggle": "tab" } },
+                      { attrs: { href: "#details", "data-toggle": "tab" } },
                       [
                         _c("i", { staticClass: "icon-files-empty" }),
-                        _vm._v(" Schedule")
+                        _vm._v(" Details")
                       ]
                     )
                   ]),
@@ -76848,13 +77161,10 @@ var staticRenderFns = [
                   _c("li", [
                     _c(
                       "a",
-                      { attrs: { href: "#messages", "data-toggle": "tab" } },
+                      { attrs: { href: "#reviews", "data-toggle": "tab" } },
                       [
                         _c("i", { staticClass: "icon-files-empty" }),
-                        _vm._v(" Inbox "),
-                        _c("span", { staticClass: "badge bg-warning-400" }, [
-                          _vm._v("23")
-                        ])
+                        _vm._v(" Reviews")
                       ]
                     )
                   ]),
@@ -76904,70 +77214,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6" }, [
-      _c(
-        "h3",
-        { staticClass: "text-semibold", staticStyle: { "margin-top": "0px" } },
-        [
-          _c("a", { staticClass: "text-default", attrs: { href: "#" } }, [
-            _vm._v(
-              "Although moreover mistaken kindness me feelings do be marianne"
-            )
-          ])
-        ]
-      ),
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h6", { staticClass: "panel-title" }, [
+        _vm._v("Product Full Description")
+      ]),
       _vm._v(" "),
-      _c(
-        "ul",
-        {
-          staticClass:
-            "list-inline list-inline-separate text-muted content-group"
-        },
-        [
-          _c("li", [
-            _vm._v("By "),
-            _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-              _vm._v("Eugene")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", [_vm._v("July 5th, 2016")]),
-          _vm._v(" "),
-          _c("li", [
-            _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-              _vm._v("12 comments")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-              _c("i", {
-                staticClass:
-                  "icon-heart6 text-size-base text-pink position-left"
-              }),
-              _vm._v(" 281")
-            ])
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "content-group" }, [
-        _c("p", [
-          _vm._v(
-            "Attachment apartments in delightful by motionless it no. And now she burst sir learn total. Hearing hearted shewing own ask. Solicitude uncommonly use her motionless not collecting age. The properly servants required mistaken outlived bed and. Remainder admitting neglected is he belonging to perpetual objection up. Has widen too you decay begin which asked equal any."
-          )
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "Started his hearted any civilly. So me by marianne admitted speaking. Men bred fine call ask. Cease one miles truth day above seven. Suspicion sportsmen provision suffering mrs saw engrossed something. Snug soon he on plan in be dine some."
-          )
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "Death there mirth way the noisy merit. Piqued shy spring nor six though mutual living ask extent. Replying of dashwood advanced ladyship smallest disposal or. Attempt offices own improve now see. Called person are around county talked her esteem. Those fully these way nay thing seems."
-          )
+      _c("div", { staticClass: "heading-elements" }, [
+        _c("ul", { staticClass: "icons-list" }, [
+          _c("li", [_c("a", { attrs: { "data-action": "reload" } })])
         ])
       ])
     ])
@@ -76976,38 +77230,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel panel-info" }, [
-      _c("div", { staticClass: "panel-heading" }, [
-        _c("h6", { staticClass: "panel-title" }, [
-          _vm._v("Product Full Details")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "heading-elements" }, [
-          _c("ul", { staticClass: "icons-list" }, [
-            _c("li", [_c("a", { attrs: { "data-action": "reload" } })])
-          ])
-        ])
-      ]),
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h6", { staticClass: "panel-title" }, [_vm._v("Product Details EN")]),
       _vm._v(" "),
-      _c("div", { staticClass: "panel-body" }, [
-        _c("div", { staticClass: "content-group" }, [
-          _c("p", [
-            _vm._v(
-              "Attachment apartments in delightful by motionless it no. And now she burst sir learn total. Hearing hearted shewing own ask. Solicitude uncommonly use her motionless not collecting age. The properly servants required mistaken outlived bed and. Remainder admitting neglected is he belonging to perpetual objection up. Has widen too you decay begin which asked equal any."
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "Started his hearted any civilly. So me by marianne admitted speaking. Men bred fine call ask. Cease one miles truth day above seven. Suspicion sportsmen provision suffering mrs saw engrossed something. Snug soon he on plan in be dine some."
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "Death there mirth way the noisy merit. Piqued shy spring nor six though mutual living ask extent. Replying of dashwood advanced ladyship smallest disposal or. Attempt offices own improve now see. Called person are around county talked her esteem. Those fully these way nay thing seems."
-            )
-          ])
+      _c("div", { staticClass: "heading-elements" }, [
+        _c("ul", { staticClass: "icons-list" }, [
+          _c("li", [_c("a", { attrs: { "data-action": "reload" } })])
         ])
       ])
     ])
@@ -77018,7 +77246,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      { staticClass: "tab-pane fade", attrs: { id: "schedule" } },
+      { staticClass: "tab-pane fade", attrs: { id: "details" } },
       [
         _c("div", { staticClass: "panel panel-flat" }, [
           _c("div", { staticClass: "panel-heading" }, [
@@ -77042,7 +77270,103 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("div", { staticClass: "panel panel-flat" }, [
           _c("div", { staticClass: "panel-heading" }, [
-            _c("h6", { staticClass: "panel-title" }, [_vm._v("My schedule")]),
+            _c("h6", { staticClass: "panel-title" }, [_vm._v("My details")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "heading-elements" }, [
+              _c("ul", { staticClass: "icons-list" }, [
+                _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
+                _vm._v(" "),
+                _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+                _vm._v(" "),
+                _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "tab-pane fade", attrs: { id: "reviews" } },
+      [
+        _c("div", { staticClass: "panel panel-flat" }, [
+          _c("div", { staticClass: "panel-heading" }, [
+            _c("h6", { staticClass: "panel-title" }, [
+              _vm._v("Available hours")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "heading-elements" }, [
+              _c("ul", { staticClass: "icons-list" }, [
+                _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
+                _vm._v(" "),
+                _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+                _vm._v(" "),
+                _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "panel panel-flat" }, [
+          _c("div", { staticClass: "panel-heading" }, [
+            _c("h6", { staticClass: "panel-title" }, [_vm._v("My details")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "heading-elements" }, [
+              _c("ul", { staticClass: "icons-list" }, [
+                _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
+                _vm._v(" "),
+                _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+                _vm._v(" "),
+                _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "tab-pane fade", attrs: { id: "orders" } },
+      [
+        _c("div", { staticClass: "panel panel-flat" }, [
+          _c("div", { staticClass: "panel-heading" }, [
+            _c("h6", { staticClass: "panel-title" }, [
+              _vm._v("Available hours")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "heading-elements" }, [
+              _c("ul", { staticClass: "icons-list" }, [
+                _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
+                _vm._v(" "),
+                _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
+                _vm._v(" "),
+                _c("li", [_c("a", { attrs: { "data-action": "close" } })])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "panel panel-flat" }, [
+          _c("div", { staticClass: "panel-heading" }, [
+            _c("h6", { staticClass: "panel-title" }, [_vm._v("My details")]),
             _vm._v(" "),
             _c("div", { staticClass: "heading-elements" }, [
               _c("ul", { staticClass: "icons-list" }, [
@@ -97410,7 +97734,7 @@ var actions = {
                 if (response.data.status === 'error') {
                   return response.data;
                 } else {
-                  commit('singleProductData', response.data);
+                  commit('singleProductData', response.data.data);
                 }
               });
 

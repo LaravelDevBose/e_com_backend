@@ -17,6 +17,10 @@ class Brand extends Model
         'brand_status'
     ];
 
+    public function getBrandNameAttributes($value){
+        return ucfirst($value);
+    }
+
     public function scopeNotDelete($query){
         return $query->where('brand_status', '!=', config('app.delete'));
     }

@@ -63,7 +63,7 @@ const actions = {
                     if(response.data.status === 'error'){
                         return response.data;
                     }else{
-                        commit('singleProductData', response.data);
+                        commit('singleProductData', response.data.data);
                     }
                 })
         }catch (error) {
