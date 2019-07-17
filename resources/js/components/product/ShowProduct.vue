@@ -159,19 +159,76 @@
                                         <div class="content-group">
                                             <p style="margin-bottom: .5rem;">
                                                 <span class="text-bold">Main Material: </span>
-                                                <span v-html="product.details.materials"></span>
+                                                <span v-if="product.details.materials" v-html="product.details.materials"></span>
+                                                <span v-else class="text-size-small text-slate-400">No Data</span>
                                             </p>
                                         </div>
                                         <div class="content-group">
                                             <p style="margin-bottom: .5rem;">
                                                 <span class="text-bold">Product Model: </span>
-                                                <span v-html="product.details.model"></span>
+                                                <span v-if="product.details.model" v-html="product.details.model"></span>
+                                                <span v-else class="text-size-small text-slate-400">No Data</span>
+                                            </p>
+                                        </div>
+                                        <div class="content-group">
+                                            <p style="margin-bottom: .5rem;">
+                                                <span class="text-bold">No. Of Pieces : </span>
+                                                <span v-if="product.details.pieces" v-html="product.details.pieces"></span>
+                                                <span v-else class="text-size-small text-slate-400">No Data</span>
+                                            </p>
+                                        </div>
+                                        <div class="content-group">
+                                            <p style="margin-bottom: .5rem;">
+                                                <span class="text-bold">Product Occasion: </span>
+                                                <span v-if="product.details.occasion" v-html="product.details.occasion"></span>
+                                                <span v-else class="text-size-small text-slate-400">No Data</span>
+                                            </p>
+                                        </div>
+                                        <div class="content-group">
+                                            <p style="margin-bottom: .5rem;">
+                                                <span class="text-bold">Color Shade : </span>
+                                                <span v-if="product.details.color_shade" v-html="product.details.color_shade"></span>
+                                                <span v-else class="text-size-small text-slate-400">No Data</span>
+                                            </p>
+                                        </div>
+                                        <div class="content-group">
+                                            <p style="margin-bottom: .5rem;">
+                                                <span class="text-bold">Skin Type: </span>
+                                                <span v-if="product.details.skin_type" v-html="product.details.skin_type"></span>
+                                                <span v-else class="text-size-small text-slate-400">No Data</span>
+                                            </p>
+                                        </div>
+                                        <div class="content-group">
+                                            <p style="margin-bottom: .5rem;">
+                                                <span class="text-bold">Extra Details : </span>
+                                                <span v-if="product.details.extra_details" v-html="product.details.extra_details"></span>
+                                                <span v-else class="text-size-small text-slate-400">No Data</span>
+                                            </p>
+                                        </div>
+                                        <div class="content-group">
+                                            <p style="margin-bottom: .5rem;">
+                                                <span class="text-bold">Warranty Policy: </span>
+                                                <span v-if="product.details.warranty_policy" v-html="product.details.warranty_policy"></span>
+                                                <span v-else class="text-size-small text-slate-400">No Data</span>
+                                            </p>
+                                        </div>
+                                        <div class="content-group">
+                                            <p style="margin-bottom: .5rem;">
+                                                <span class="text-bold">Warranty Policy (EN): </span>
+                                                <span v-if="product.details.warranty_policy_eng" v-html="product.details.warranty_policy_eng"></span>
+                                                <span v-else class="text-size-small text-slate-400">No Data</span>
+                                            </p>
+                                        </div>
+                                        <div class="content-group">
+                                            <p style="margin-bottom: .5rem;">
+                                                <span class="text-bold">Warranty Period : </span>
+                                                <span v-if="product.details.warranty_period" >{{ product.details.warranty_period }} days</span>
+                                                <span v-else class="text-size-small text-slate-400">0 Day</span>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- /available hours -->
-
 
                                 <!-- Calendar -->
                                 <div class="panel panel-flat">

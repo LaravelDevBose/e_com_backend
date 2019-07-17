@@ -10025,6 +10025,63 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ShowProduct",
@@ -77040,11 +77097,21 @@ var render = function() {
                             _vm._v("Main Material: ")
                           ]),
                           _vm._v(" "),
-                          _c("span", {
-                            domProps: {
-                              innerHTML: _vm._s(_vm.product.details.materials)
-                            }
-                          })
+                          _vm.product.details.materials
+                            ? _c("span", {
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.product.details.materials
+                                  )
+                                }
+                              })
+                            : _c(
+                                "span",
+                                {
+                                  staticClass: "text-size-small text-slate-400"
+                                },
+                                [_vm._v("No Data")]
+                              )
                         ])
                       ]),
                       _vm._v(" "),
@@ -77054,11 +77121,208 @@ var render = function() {
                             _vm._v("Product Model: ")
                           ]),
                           _vm._v(" "),
-                          _c("span", {
-                            domProps: {
-                              innerHTML: _vm._s(_vm.product.details.model)
-                            }
-                          })
+                          _vm.product.details.model
+                            ? _c("span", {
+                                domProps: {
+                                  innerHTML: _vm._s(_vm.product.details.model)
+                                }
+                              })
+                            : _c(
+                                "span",
+                                {
+                                  staticClass: "text-size-small text-slate-400"
+                                },
+                                [_vm._v("No Data")]
+                              )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "content-group" }, [
+                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                          _c("span", { staticClass: "text-bold" }, [
+                            _vm._v("No. Of Pieces : ")
+                          ]),
+                          _vm._v(" "),
+                          _vm.product.details.pieces
+                            ? _c("span", {
+                                domProps: {
+                                  innerHTML: _vm._s(_vm.product.details.pieces)
+                                }
+                              })
+                            : _c(
+                                "span",
+                                {
+                                  staticClass: "text-size-small text-slate-400"
+                                },
+                                [_vm._v("No Data")]
+                              )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "content-group" }, [
+                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                          _c("span", { staticClass: "text-bold" }, [
+                            _vm._v("Product Occasion: ")
+                          ]),
+                          _vm._v(" "),
+                          _vm.product.details.occasion
+                            ? _c("span", {
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.product.details.occasion
+                                  )
+                                }
+                              })
+                            : _c(
+                                "span",
+                                {
+                                  staticClass: "text-size-small text-slate-400"
+                                },
+                                [_vm._v("No Data")]
+                              )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "content-group" }, [
+                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                          _c("span", { staticClass: "text-bold" }, [
+                            _vm._v("Color Shade : ")
+                          ]),
+                          _vm._v(" "),
+                          _vm.product.details.color_shade
+                            ? _c("span", {
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.product.details.color_shade
+                                  )
+                                }
+                              })
+                            : _c(
+                                "span",
+                                {
+                                  staticClass: "text-size-small text-slate-400"
+                                },
+                                [_vm._v("No Data")]
+                              )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "content-group" }, [
+                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                          _c("span", { staticClass: "text-bold" }, [
+                            _vm._v("Skin Type: ")
+                          ]),
+                          _vm._v(" "),
+                          _vm.product.details.skin_type
+                            ? _c("span", {
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.product.details.skin_type
+                                  )
+                                }
+                              })
+                            : _c(
+                                "span",
+                                {
+                                  staticClass: "text-size-small text-slate-400"
+                                },
+                                [_vm._v("No Data")]
+                              )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "content-group" }, [
+                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                          _c("span", { staticClass: "text-bold" }, [
+                            _vm._v("Extra Details : ")
+                          ]),
+                          _vm._v(" "),
+                          _vm.product.details.extra_details
+                            ? _c("span", {
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.product.details.extra_details
+                                  )
+                                }
+                              })
+                            : _c(
+                                "span",
+                                {
+                                  staticClass: "text-size-small text-slate-400"
+                                },
+                                [_vm._v("No Data")]
+                              )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "content-group" }, [
+                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                          _c("span", { staticClass: "text-bold" }, [
+                            _vm._v("Warranty Policy: ")
+                          ]),
+                          _vm._v(" "),
+                          _vm.product.details.warranty_policy
+                            ? _c("span", {
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.product.details.warranty_policy
+                                  )
+                                }
+                              })
+                            : _c(
+                                "span",
+                                {
+                                  staticClass: "text-size-small text-slate-400"
+                                },
+                                [_vm._v("No Data")]
+                              )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "content-group" }, [
+                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                          _c("span", { staticClass: "text-bold" }, [
+                            _vm._v("Warranty Policy (EN): ")
+                          ]),
+                          _vm._v(" "),
+                          _vm.product.details.warranty_policy_eng
+                            ? _c("span", {
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.product.details.warranty_policy_eng
+                                  )
+                                }
+                              })
+                            : _c(
+                                "span",
+                                {
+                                  staticClass: "text-size-small text-slate-400"
+                                },
+                                [_vm._v("No Data")]
+                              )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "content-group" }, [
+                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                          _c("span", { staticClass: "text-bold" }, [
+                            _vm._v("Warranty Period : ")
+                          ]),
+                          _vm._v(" "),
+                          _vm.product.details.warranty_period
+                            ? _c("span", [
+                                _vm._v(
+                                  _vm._s(_vm.product.details.warranty_period) +
+                                    " days"
+                                )
+                              ])
+                            : _c(
+                                "span",
+                                {
+                                  staticClass: "text-size-small text-slate-400"
+                                },
+                                [_vm._v("0 Day")]
+                              )
                         ])
                       ])
                     ])
@@ -98619,8 +98883,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\lara_exc\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\lara_exc\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\lara_example\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\lara_example\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
