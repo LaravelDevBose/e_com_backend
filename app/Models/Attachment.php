@@ -49,6 +49,16 @@ class Attachment extends Model
 
     }
 
+    public function getApiImagePathAttribute(){
+        $path = storage_path('app/public/attachments/'.$this->attributes['folder'] .'/'. $this->attributes['file_name']);
+        if(file_exists($path)){
+            return $path;
+        }
+
+        return false;
+
+    }
+
     public function category(){
         return $this->belongsTo(Category::class, 'attachment_id','attachment_id');
     }
