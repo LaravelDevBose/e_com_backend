@@ -25,7 +25,7 @@ class AttachmentController extends Controller
                 'message' => 'No file found!'
             ]);
         }
-    
+
         $attachmentsArray=['attachment_file' =>[]];
         foreach ($attachments as $key => $attachment){
             array_push($attachmentsArray['attachment_file'],  $attachment);
@@ -157,5 +157,11 @@ class AttachmentController extends Controller
             ]);
         }
 
+    }
+
+    public function attachment_image($id){
+
+        $attachment = Attachment::findOrFail($id);
+        return $attachment->api_image_path;
     }
 }
