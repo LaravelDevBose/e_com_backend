@@ -33,6 +33,12 @@
                                 <attachment :multi_file="multi_file" :folder="folder"></attachment>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Category Banner:</label>
+                                <image-cropper :cropperData="cropperData"></image-cropper>
+                            </div>
+                        </div>
                         <div class="col-md-4 col-md-offset-2">
                             <div class="content-group-lg">
                                 <div class="checkbox checkbox-switchery">
@@ -122,9 +128,10 @@
 
     import { mapGetters, mapActions} from 'vuex'
     import Attachment from "../attachment/Attachment";
+    import ImageCropper from "../cropper/ImageCropper";
     export default {
         name: "Category",
-        components:{Attachment, Treeselect},
+        components:{ImageCropper, Attachment, Treeselect},
         data(){
             return{
                 formValue:{
@@ -142,6 +149,14 @@
                 },
                 multi_file:1,
                 folder:'category',
+                cropperData:{
+                    width:600,
+                    height:600,
+                    placeholder:'Choose a image in 600*500',
+                    file_size:1.5,
+                    init_image:'',
+                    folder:'category'
+                }
             }
         },
         created(){

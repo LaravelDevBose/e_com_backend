@@ -14,6 +14,7 @@ class Attachment extends Model
         'voucher' => 4,
         'campaign'=>5,
         'brand'=>6,
+        'general'=>7,
     ];
 
     protected $table = 'attachments';

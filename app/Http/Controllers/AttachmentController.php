@@ -17,8 +17,8 @@ class AttachmentController extends Controller
     private $attachmentFolder = 'public/attachments/';
 
     public function store(Request $request) {
-        // return $request->all();
-        $attachments = $request->except('folder');
+         return $request->all();
+        return $attachments = $request->except('folder');
         if(empty($attachments)){
             return response()->json([
                 'status' => 'error',

@@ -13,6 +13,9 @@ Vue.component('datetime', dateTime);
 import VueCarousel from '@chenfengyuan/vue-carousel';
 Vue.use(VueCarousel);
 
+import Croppa from 'vue-croppa'
+Vue.use(Croppa);
+
 Vue.use(require('vuejs-datatable'));
 import store from './store'
 import Notify from './helper/pNotify'
