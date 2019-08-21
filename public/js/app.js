@@ -8119,6 +8119,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ImageCropper",
@@ -8126,11 +8127,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       cropImage: '',
-      kb: '1048576‬'
+      kb: '1048576‬',
+      imgUrl: ''
     };
   },
   created: function created() {},
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['uploadAttachment']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['uploadCropImage']), {
     rotateImage: function rotateImage() {
       this.cropImage.rotate();
     },
@@ -8168,14 +8170,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       this.cropImage.generateBlob(function (blob) {
-        console.log(blob);
-        var fd = new FormData();
-        fd.append('0', blob, 'filename.jpg');
-        fd.append('folder', _this.cropperData.folder);
-        var vm = _this;
-        setTimeout(function () {
-          vm.uploadAttachment(fd);
-        }, 1000);
+        var Imgurl = _this.cropImage.generateDataUrl();
+
+        var fromData = {
+          'image': Imgurl,
+          'folder': _this.cropperData.folder
+        }; // fromData.push('image', Imgurl);
+        // fromData.push('folder', this.cropperData.folder);
+
+        _this.uploadCropImage(fromData).then(function (response) {
+          if (response.status === 'success') {
+            Notify.success('Image Upload Successfully');
+          } else {
+            Notify.info(response.message);
+          }
+        });
       });
     }
   }),
@@ -17819,7 +17828,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
 
 // exports
 
@@ -75870,7 +75879,9 @@ var render = function() {
             }
           },
           [_c("i", { staticClass: "icon-upload" }), _vm._v(" Upload")]
-        )
+        ),
+        _vm._v(" "),
+        _c("img", { attrs: { src: _vm.imgUrl, alt: "" } })
       ])
     ],
     1
@@ -98699,9 +98710,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_helper_excel_import__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./modules/helper/excel_import */ "./resources/js/store/modules/helper/excel_import.js");
 /* harmony import */ var _modules_brand__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./modules/brand */ "./resources/js/store/modules/brand.js");
 /* harmony import */ var _modules_skin_type__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./modules/skin_type */ "./resources/js/store/modules/skin_type.js");
+/* harmony import */ var _modules_imageCropper__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./modules/imageCropper */ "./resources/js/store/modules/imageCropper.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]); //import Modules
+
 
 
 
@@ -98748,7 +98761,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     product: _modules_product__WEBPACK_IMPORTED_MODULE_15__["default"],
     excel_import: _modules_helper_excel_import__WEBPACK_IMPORTED_MODULE_16__["default"],
     brand: _modules_brand__WEBPACK_IMPORTED_MODULE_17__["default"],
-    skin_type: _modules_skin_type__WEBPACK_IMPORTED_MODULE_18__["default"]
+    skin_type: _modules_skin_type__WEBPACK_IMPORTED_MODULE_18__["default"],
+    imageCropper: _modules_imageCropper__WEBPACK_IMPORTED_MODULE_19__["default"]
   }
 }));
 
@@ -99958,6 +99972,107 @@ var mutations = {
 
 /***/ }),
 
+/***/ "./resources/js/store/modules/imageCropper.js":
+/*!****************************************************!*\
+  !*** ./resources/js/store/modules/imageCropper.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//declare State
+var state = {
+  attachmentsFile: [],
+  errors: null,
+  attachment_ids: []
+}; //declare Getters
+
+var getters = {
+  attachments: function attachments(state) {
+    return state.attachmentsFile;
+  },
+  attachment_ids: function attachment_ids(state) {
+    return state.attachment_ids;
+  }
+};
+var actions = {
+  uploadCropImage: function () {
+    var _uploadCropImage = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref, formData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.prev = 1;
+              _context.next = 4;
+              return axios.post('/crop_image/store', formData).then(function (response) {
+                console.log(response);
+                commit('setCropImage', response.data);
+                return response.data;
+              })["catch"](function (errors) {
+                console.log(errors);
+              });
+
+            case 4:
+              return _context.abrupt("return", _context.sent);
+
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](1);
+              console.log(_context.t0);
+
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 7]]);
+    }));
+
+    function uploadCropImage(_x, _x2) {
+      return _uploadCropImage.apply(this, arguments);
+    }
+
+    return uploadCropImage;
+  }()
+};
+var mutations = {
+  setCropImage: function setCropImage(state, response) {
+    if (response.status === 'success') {
+      response.attachments.forEach(function (file) {
+        state.cropImage.unshift(file);
+        state.attachment_ids.push(file.id);
+      });
+    } else {
+      state.errors = response;
+    }
+  },
+  emptyAttachmentFile: function emptyAttachmentFile(state) {
+    state.attachmentsFile = [];
+    state.attachment_ids = [];
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
 /***/ "./resources/js/store/modules/includes/alertNotify.js":
 /*!************************************************************!*\
   !*** ./resources/js/store/modules/includes/alertNotify.js ***!
@@ -101140,8 +101255,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\lara_example\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\lara_example\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/html/e_com_backend/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -30,6 +30,7 @@
             <button type="button" class="btn btn-sm bg-teal" @click="flipY()"> <i class="icon-flip-vertical3"></i></button>
             <button type="button" class="btn btn-sm bg-teal" @click="flipX()"> <i class="icon-flip-vertical4"></i></button>
             <button class="btn btn-sm btn-success" style="float:right;" @click.prevent="upload"> <i class="icon-upload"></i> Upload</button>
+            <img :src="imgUrl" alt="">
         </div>
     </div>
 
@@ -45,6 +46,7 @@
             return{
                 cropImage:'',
                 kb:'1048576‬',
+                imgUrl:'',
             }
         },
         created(){
@@ -52,7 +54,7 @@
         },
         methods:{
             ...mapActions([
-                'uploadAttachment'
+                'uploadCropImage'
             ]),
             rotateImage () {
                 this.cropImage.rotate()
@@ -88,16 +90,26 @@
                     return
                 }
 
-                this.cropImage.generateBlob((blob) => {
-                    console.log(blob);
-                    var fd = new FormData();
-                    fd.append('0', blob,'filename.jpg');
-                    fd.append('folder', this.cropperData.folder);
 
-                    let vm = this;
-                    setTimeout(()=>{
-                        vm.uploadAttachment(fd);
-                    },1000);
+                this.cropImage.generateBlob((blob) => {
+                    let Imgurl = this.cropImage.generateDataUrl();
+                    let fromData = {
+                        'image':Imgurl,
+                        'folder':this.cropperData.folder
+                    };
+
+                    // fromData.push('image', Imgurl);
+                    // fromData.push('folder', this.cropperData.folder);
+                    this.uploadCropImage(fromData)
+                        .then(response=>{
+
+                            if(response.status === 'success'){
+                                Notify.success('Image Upload Successfully');
+                            }else{
+                                Notify.info(response.message);
+                            }
+                    });
+
                 })
             }
         },
