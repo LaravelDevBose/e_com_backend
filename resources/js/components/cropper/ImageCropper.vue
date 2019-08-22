@@ -6,16 +6,16 @@
                 :placeholder="cropperData.placeholder"
                 :accept="'image/*'"
                 :file-size-limit="cropperData.file_size*kb"
-                :quality="2"
+                :quality="1"
                 :zoom-speed="5"
-                :disabled="false"
-                :disable-drag-and-drop="false"
-                :disable-click-to-choose="false"
-                :disable-drag-to-move="false"
-                :disable-scroll-to-zoom="false"
-                :disable-rotation="false"
+                :disabled="uploaded"
+                :disable-drag-and-drop="uploaded"
+                :disable-click-to-choose="uploaded"
+                :disable-drag-to-move="uploaded"
+                :disable-scroll-to-zoom="uploaded"
+                :disable-rotation="uploaded"
                 :prevent-white-space="false"
-                :reverse-scroll-to-zoom="false"
+                :reverse-scroll-to-zoom="uploaded"
                 :show-remove-button="true"
                 :remove-button-color="'red'"
                 :remove-button-size="20"
@@ -23,7 +23,6 @@
                 @file-size-exceed="handleCroppaFileSizeExceed"
                 @file-type-mismatch="handleCroppaFileTypeMismatch"
                 @image-remove="handleImageRemove"
-
         ></croppa>
         <div style="margin-top:.5rem;">
             <button type="button" class="btn btn-sm bg-teal" @click="rotateImage()" > <i class="icon-rotate-ccw3"></i></button>
@@ -38,15 +37,16 @@
 
 <script>
     import {mapGetters, mapActions } from 'vuex'
-
+    import 'vue-croppa/dist/vue-croppa.css';
     export default {
         name: "ImageCropper",
-        props:['cropperData'],
+        props:['cropperData','removeImage'],
         data(){
             return{
                 cropImage:'',
                 kb:'1048576‬',
                 imgUrl:'',
+                uploaded:false,
             }
         },
         created(){
@@ -77,8 +77,12 @@
                 return;
             },
             handleImageRemove(){
+                if(this.removeImage === true){
+                    return true;
+                }
                 let con = confirm('You want to remove ?');
                 if(con){
+                    this.uploaded = false;
                     return true;
                 }{
                     return false;
@@ -97,13 +101,10 @@
                         'image':Imgurl,
                         'folder':this.cropperData.folder
                     };
-
-                    // fromData.push('image', Imgurl);
-                    // fromData.push('folder', this.cropperData.folder);
                     this.uploadCropImage(fromData)
                         .then(response=>{
-
-                            if(response.status === 'success'){
+                            if(response.code === 200){
+                                this.uploaded= true;
                                 Notify.success('Image Upload Successfully');
                             }else{
                                 Notify.info(response.message);
@@ -111,25 +112,35 @@
                     });
 
                 })
-            }
+            },
+
         },
         computed:{
             ...mapGetters([
                 'attachments'
             ])
+
+
+        },
+        watch:{
+            removeImage:function(value){
+                if(value === true){
+                    this.cropImage.remove();
+                    return value;
+                }
+            }
         }
     }
 </script>
 
 <style scoped>
-    .croppa-container {
-        background-color: lightblue;
+    .croppa-container{
+        background-color: #dedede;
         border: 2px solid grey;
         border-radius: 8px;
     }
-
     .croppa-container:hover {
         opacity: 1;
-        background-color: #8ac9ef;
+        background-color: #c0def1;
     }
 </style>

@@ -7650,13 +7650,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @riophae/vue-treeselect */ "./node_modules/@riophae/vue-treeselect/dist/vue-treeselect.js");
-/* harmony import */ var _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _riophae_vue_treeselect_dist_vue_treeselect_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @riophae/vue-treeselect/dist/vue-treeselect.css */ "./node_modules/@riophae/vue-treeselect/dist/vue-treeselect.css");
-/* harmony import */ var _riophae_vue_treeselect_dist_vue_treeselect_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_riophae_vue_treeselect_dist_vue_treeselect_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _attachment_Attachment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../attachment/Attachment */ "./resources/js/components/attachment/Attachment.vue");
-/* harmony import */ var _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../cropper/ImageCropper */ "./resources/js/components/cropper/ImageCropper.vue");
+/* harmony import */ var _riophae_vue_treeselect_dist_vue_treeselect_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @riophae/vue-treeselect/dist/vue-treeselect.css */ "./node_modules/@riophae/vue-treeselect/dist/vue-treeselect.css");
+/* harmony import */ var _riophae_vue_treeselect_dist_vue_treeselect_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_riophae_vue_treeselect_dist_vue_treeselect_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../cropper/ImageCropper */ "./resources/js/components/cropper/ImageCropper.vue");
+/* harmony import */ var _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @riophae/vue-treeselect */ "./node_modules/@riophae/vue-treeselect/dist/vue-treeselect.js");
+/* harmony import */ var _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_3__);
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -7777,15 +7776,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-// import the component
- // import the styles
-
+// import the styles
 
 
 
@@ -7793,9 +7784,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Category",
   components: {
-    ImageCropper: _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_4__["default"],
-    Attachment: _attachment_Attachment__WEBPACK_IMPORTED_MODULE_3__["default"],
-    Treeselect: _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default.a
+    ImageCropper: _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_2__["default"],
+    Treeselect: _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_3___default.a
   },
   data: function data() {
     return {
@@ -7812,28 +7802,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           children: node.children
         };
       },
-      multi_file: 1,
-      folder: 'category',
       cropperData: {
-        width: 600,
+        width: 500,
         height: 600,
         placeholder: 'Choose a image in 600*500',
         file_size: 1.5,
         init_image: '',
         folder: 'category'
-      }
+      },
+      removeImage: false
     };
   },
   created: function created() {
     this.allCategory();
     this.getTreeListCategories();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['allCategory', 'getTreeListCategories', 'storeCategory', 'categoryDelete']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['allCategory', 'getTreeListCategories', 'storeCategory', 'categoryDelete']), {
     categoryStore: function categoryStore() {
       var _this = this;
 
       var vm = this;
-      vm.formValue.attachmentIds = vm.attachment_ids;
+      vm.formValue.attachmentIds = vm.cropImageIds;
       vm.storeCategory(vm.formValue).then(function (response) {
         if (response.status === 'success') {
           Notify.success(response.message);
@@ -7843,6 +7832,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.allCategory();
 
           _this.getTreeListCategories();
+
+          _this.removeImage = true;
+        } else {
+          Notify.warning(response.message);
         }
       });
     },
@@ -7851,7 +7844,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.formValue.category_name = '';
       this.formValue.category_status = 0;
       this.formValue.attachmentIds = '';
-      this.$store.commit('emptyAttachmentFile');
+      this.cropperData.removeImage = true;
     },
     deleteCategory: function deleteCategory(cat_id) {
       if (confirm('Are Your Sure..?' + cat_id)) {
@@ -7867,7 +7860,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['categories', 'treeList', 'attachment_ids']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['categories', 'treeList', 'attachment_ids', 'cropImageIds']))
 });
 
 /***/ }),
@@ -8078,6 +8071,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue_croppa_dist_vue_croppa_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-croppa/dist/vue-croppa.css */ "./node_modules/vue-croppa/dist/vue-croppa.css");
+/* harmony import */ var vue_croppa_dist_vue_croppa_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_croppa_dist_vue_croppa_css__WEBPACK_IMPORTED_MODULE_1__);
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -8119,16 +8114,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ImageCropper",
-  props: ['cropperData'],
+  props: ['cropperData', 'removeImage'],
   data: function data() {
     return {
       cropImage: '',
       kb: '1048576‬',
-      imgUrl: ''
+      imgUrl: '',
+      uploaded: false
     };
   },
   created: function created() {},
@@ -8151,9 +8147,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return;
     },
     handleImageRemove: function handleImageRemove() {
+      if (this.removeImage === true) {
+        return true;
+      }
+
       var con = confirm('You want to remove ?');
 
       if (con) {
+        this.uploaded = false;
         return true;
       }
 
@@ -8175,11 +8176,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var fromData = {
           'image': Imgurl,
           'folder': _this.cropperData.folder
-        }; // fromData.push('image', Imgurl);
-        // fromData.push('folder', this.cropperData.folder);
+        };
 
         _this.uploadCropImage(fromData).then(function (response) {
-          if (response.status === 'success') {
+          if (response.code === 200) {
+            _this.uploaded = true;
             Notify.success('Image Upload Successfully');
           } else {
             Notify.info(response.message);
@@ -8188,7 +8189,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['attachments']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['attachments'])),
+  watch: {
+    removeImage: function removeImage(value) {
+      if (value === true) {
+        this.cropImage.remove();
+        return value;
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -17721,6 +17730,25 @@ exports.push([module.i, "/*!\n * vue-treeselect v0.0.38 | (c) 2017-2019 Riophae 
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-croppa/dist/vue-croppa.css":
+/*!*************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-croppa/dist/vue-croppa.css ***!
+  \*************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".sk-fading-circle {\n  position: absolute; }\n  .sk-fading-circle .sk-circle {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    left: 0;\n    top: 0; }\n  .sk-fading-circle .sk-circle .sk-circle-indicator {\n    display: block;\n    margin: 0 auto;\n    width: 15%;\n    height: 15%;\n    border-radius: 100%;\n    -webkit-animation: sk-circleFadeDelay 1s infinite ease-in-out both;\n            animation: sk-circleFadeDelay 1s infinite ease-in-out both; }\n  .sk-fading-circle .sk-circle2 {\n    -webkit-transform: rotate(30deg);\n            transform: rotate(30deg); }\n  .sk-fading-circle .sk-circle3 {\n    -webkit-transform: rotate(60deg);\n            transform: rotate(60deg); }\n  .sk-fading-circle .sk-circle4 {\n    -webkit-transform: rotate(90deg);\n            transform: rotate(90deg); }\n  .sk-fading-circle .sk-circle5 {\n    -webkit-transform: rotate(120deg);\n            transform: rotate(120deg); }\n  .sk-fading-circle .sk-circle6 {\n    -webkit-transform: rotate(150deg);\n            transform: rotate(150deg); }\n  .sk-fading-circle .sk-circle7 {\n    -webkit-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  .sk-fading-circle .sk-circle8 {\n    -webkit-transform: rotate(210deg);\n            transform: rotate(210deg); }\n  .sk-fading-circle .sk-circle9 {\n    -webkit-transform: rotate(240deg);\n            transform: rotate(240deg); }\n  .sk-fading-circle .sk-circle10 {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg); }\n  .sk-fading-circle .sk-circle11 {\n    -webkit-transform: rotate(300deg);\n            transform: rotate(300deg); }\n  .sk-fading-circle .sk-circle12 {\n    -webkit-transform: rotate(330deg);\n            transform: rotate(330deg); }\n  .sk-fading-circle .sk-circle2 .sk-circle-indicator {\n    -webkit-animation-delay: -0.91667s;\n            animation-delay: -0.91667s; }\n  .sk-fading-circle .sk-circle3 .sk-circle-indicator {\n    -webkit-animation-delay: -0.83333s;\n            animation-delay: -0.83333s; }\n  .sk-fading-circle .sk-circle4 .sk-circle-indicator {\n    -webkit-animation-delay: -0.75s;\n            animation-delay: -0.75s; }\n  .sk-fading-circle .sk-circle5 .sk-circle-indicator {\n    -webkit-animation-delay: -0.66667s;\n            animation-delay: -0.66667s; }\n  .sk-fading-circle .sk-circle6 .sk-circle-indicator {\n    -webkit-animation-delay: -0.58333s;\n            animation-delay: -0.58333s; }\n  .sk-fading-circle .sk-circle7 .sk-circle-indicator {\n    -webkit-animation-delay: -0.5s;\n            animation-delay: -0.5s; }\n  .sk-fading-circle .sk-circle8 .sk-circle-indicator {\n    -webkit-animation-delay: -0.41667s;\n            animation-delay: -0.41667s; }\n  .sk-fading-circle .sk-circle9 .sk-circle-indicator {\n    -webkit-animation-delay: -0.33333s;\n            animation-delay: -0.33333s; }\n  .sk-fading-circle .sk-circle10 .sk-circle-indicator {\n    -webkit-animation-delay: -0.25s;\n            animation-delay: -0.25s; }\n  .sk-fading-circle .sk-circle11 .sk-circle-indicator {\n    -webkit-animation-delay: -0.16667s;\n            animation-delay: -0.16667s; }\n  .sk-fading-circle .sk-circle12 .sk-circle-indicator {\n    -webkit-animation-delay: -0.08333s;\n            animation-delay: -0.08333s; }\n\n@-webkit-keyframes sk-circleFadeDelay {\n  0%,\n  39%,\n  100% {\n    opacity: 0; }\n  40% {\n    opacity: 1; } }\n\n@keyframes sk-circleFadeDelay {\n  0%,\n  39%,\n  100% {\n    opacity: 0; }\n  40% {\n    opacity: 1; } }\n\n.croppa-container {\n  display: inline-block;\n  cursor: pointer;\n  transition: all 0.3s;\n  position: relative;\n  font-size: 0;\n  align-self: flex-start;\n  background-color: #e6e6e6;\n}\n.croppa-container canvas {\n  transition: all 0.3s;\n}\n.croppa-container:hover {\n  opacity: 0.7;\n}\n.croppa-container.croppa--dropzone {\n  box-shadow: inset 0 0 10px #333;\n}\n.croppa-container.croppa--dropzone canvas {\n  opacity: 0.5;\n}\n.croppa-container.croppa--disabled-cc {\n  cursor: default;\n}\n.croppa-container.croppa--disabled-cc:hover {\n  opacity: 1;\n}\n.croppa-container.croppa--has-target {\n  cursor: move;\n}\n.croppa-container.croppa--has-target:hover {\n  opacity: 1;\n}\n.croppa-container.croppa--has-target.croppa--disabled-mz {\n  cursor: default;\n}\n.croppa-container.croppa--disabled {\n  cursor: not-allowed;\n}\n.croppa-container.croppa--disabled:hover {\n  opacity: 1;\n}\n.croppa-container.croppa--passive {\n  cursor: default;\n}\n.croppa-container.croppa--passive:hover {\n  opacity: 1;\n}\n.croppa-container svg.icon-remove {\n  position: absolute;\n  background: #fff;\n  border-radius: 50%;\n  -webkit-filter: drop-shadow(-2px 2px 2px rgba(0,0,0,0.7));\n          filter: drop-shadow(-2px 2px 2px rgba(0,0,0,0.7));\n  z-index: 10;\n  cursor: pointer;\n  border: 2px solid #fff;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-datetime/dist/vue-datetime.css":
 /*!*****************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-datetime/dist/vue-datetime.css ***!
@@ -17790,7 +17818,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.croppa-container[data-v-c0851042] {\n    background-color: lightblue;\n    border: 2px solid grey;\n    border-radius: 8px;\n}\n.croppa-container[data-v-c0851042]:hover {\n    opacity: 1;\n    background-color: #8ac9ef;\n}\n", ""]);
+exports.push([module.i, "\n.croppa-container[data-v-c0851042]{\n    background-color: #dedede;\n    border: 2px solid grey;\n    border-radius: 8px;\n}\n.croppa-container[data-v-c0851042]:hover {\n    opacity: 1;\n    background-color: #c0def1;\n}\n", ""]);
 
 // exports
 
@@ -17828,7 +17856,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -70866,6 +70894,36 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-croppa/dist/vue-croppa.css":
+/*!*****************************************************!*\
+  !*** ./node_modules/vue-croppa/dist/vue-croppa.css ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./vue-croppa.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-croppa/dist/vue-croppa.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/vue-croppa/dist/vue-croppa.js":
 /*!****************************************************!*\
   !*** ./node_modules/vue-croppa/dist/vue-croppa.js ***!
@@ -75144,23 +75202,11 @@ var render = function() {
                   [
                     _c("label", [_vm._v("Category Banner:")]),
                     _vm._v(" "),
-                    _c("attachment", {
-                      attrs: { multi_file: _vm.multi_file, folder: _vm.folder }
-                    })
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4" }, [
-                _c(
-                  "div",
-                  { staticClass: "form-group" },
-                  [
-                    _c("label", [_vm._v("Category Banner:")]),
-                    _vm._v(" "),
                     _c("image-cropper", {
-                      attrs: { cropperData: _vm.cropperData }
+                      attrs: {
+                        cropperData: _vm.cropperData,
+                        removeImage: _vm.removeImage
+                      }
                     })
                   ],
                   1
@@ -75794,16 +75840,16 @@ var render = function() {
           placeholder: _vm.cropperData.placeholder,
           accept: "image/*",
           "file-size-limit": _vm.cropperData.file_size * _vm.kb,
-          quality: 2,
+          quality: 1,
           "zoom-speed": 5,
-          disabled: false,
-          "disable-drag-and-drop": false,
-          "disable-click-to-choose": false,
-          "disable-drag-to-move": false,
-          "disable-scroll-to-zoom": false,
-          "disable-rotation": false,
+          disabled: _vm.uploaded,
+          "disable-drag-and-drop": _vm.uploaded,
+          "disable-click-to-choose": _vm.uploaded,
+          "disable-drag-to-move": _vm.uploaded,
+          "disable-scroll-to-zoom": _vm.uploaded,
+          "disable-rotation": _vm.uploaded,
           "prevent-white-space": false,
-          "reverse-scroll-to-zoom": false,
+          "reverse-scroll-to-zoom": _vm.uploaded,
           "show-remove-button": true,
           "remove-button-color": "red",
           "remove-button-size": 20,
@@ -98735,7 +98781,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    resData: ''
+    resData: '',
+    attachmentsFile: [],
+    errors: null,
+    attachment_ids: []
   },
   getters: {},
   actions: {},
@@ -98786,11 +98835,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 //declare State
-var state = {
-  attachmentsFile: [],
-  errors: null,
-  attachment_ids: []
-}; //declare Getters
+var state = {}; //declare Getters
 
 var getters = {
   attachments: function attachments(state) {
@@ -99991,17 +100036,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  attachmentsFile: [],
+  cropImages: [],
   errors: null,
-  attachment_ids: []
+  cropImageIds: []
 }; //declare Getters
 
 var getters = {
-  attachments: function attachments(state) {
-    return state.attachmentsFile;
+  cropImages: function cropImages(state) {
+    return state.cropImages;
   },
-  attachment_ids: function attachment_ids(state) {
-    return state.attachment_ids;
+  cropImageIds: function cropImageIds(state) {
+    return state.cropImageIds;
   }
 };
 var actions = {
@@ -100018,11 +100063,16 @@ var actions = {
               _context.prev = 1;
               _context.next = 4;
               return axios.post('/crop_image/store', formData).then(function (response) {
-                console.log(response);
-                commit('setCropImage', response.data);
+                if (response.data.code === 200) {
+                  commit('setCropImage', response.data);
+                } else {
+                  commit('setResponse', response.data);
+                }
+
                 return response.data;
               })["catch"](function (errors) {
                 console.log(errors);
+                return errors;
               });
 
             case 4:
@@ -100032,8 +100082,9 @@ var actions = {
               _context.prev = 7;
               _context.t0 = _context["catch"](1);
               console.log(_context.t0);
+              return _context.abrupt("return", _context.t0);
 
-            case 10:
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -100050,14 +100101,10 @@ var actions = {
 };
 var mutations = {
   setCropImage: function setCropImage(state, response) {
-    if (response.status === 'success') {
-      response.attachments.forEach(function (file) {
-        state.cropImage.unshift(file);
-        state.attachment_ids.push(file.id);
-      });
-    } else {
-      state.errors = response;
-    }
+    response.attachments.forEach(function (file) {
+      state.cropImages.unshift(file);
+      state.cropImageIds.push(file.id);
+    });
   },
   emptyAttachmentFile: function emptyAttachmentFile(state) {
     state.attachmentsFile = [];
@@ -101255,8 +101302,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/e_com_backend/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\lara_example\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\lara_example\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

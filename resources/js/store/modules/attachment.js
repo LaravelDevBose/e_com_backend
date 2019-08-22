@@ -1,8 +1,6 @@
 //declare State
 const state = {
-    attachmentsFile:[],
-    errors:null,
-    attachment_ids:[],
+
 };
 
 //declare Getters
@@ -25,7 +23,7 @@ const actions = {
                             console.log(errors)
                         });
 
-            
+
         }catch (error) {
             console.log(error);
         }
@@ -40,7 +38,7 @@ const mutations = {
                 state.attachmentsFile.unshift(file);
                 state.attachment_ids.push(file.id);
             });
-            
+
         }else{
             state.errors = response;
         }

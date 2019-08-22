@@ -1,14 +1,15 @@
 //declare State
 const state = {
-    attachmentsFile:[],
+    cropImages:[],
     errors:null,
-    attachment_ids:[],
+    cropImageIds:[],
+
 };
 
 //declare Getters
 const getters = {
-    attachments:(state)=>state.attachmentsFile,
-    attachment_ids: (state)=>state.attachment_ids,
+    cropImages:(state)=>state.cropImages,
+    cropImageIds:(state)=>state.cropImageIds,
 };
 
 const actions = {
@@ -16,15 +17,19 @@ const actions = {
         try {
             return await axios.post('/crop_image/store',formData)
                 .then(function (response) {
-
-                    console.log(response);
-                    commit('setCropImage',response.data);
+                    if(response.data.code === 200){
+                        commit('setCropImage',response.data);
+                    }else{
+                        commit('setResponse', response.data)
+                    }
                     return response.data;
                 }).catch(function (errors) {
                     console.log(errors)
+                    return errors;
                 });
         }catch (error) {
             console.log(error);
+            return error;
         }
     }
 
@@ -32,15 +37,10 @@ const actions = {
 
 const mutations = {
     setCropImage:(state,response)=>{
-        if(response.status === 'success'){
-            response.attachments.forEach(file=>{
-                state.cropImage.unshift(file);
-                state.attachment_ids.push(file.id);
-            });
-
-        }else{
-            state.errors = response;
-        }
+        response.attachments.forEach(file=>{
+            state.cropImages.unshift(file);
+            state.cropImageIds.push(file.id);
+        });
     },
     emptyAttachmentFile:(state)=>{
         state.attachmentsFile = [];

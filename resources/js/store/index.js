@@ -28,6 +28,9 @@ import  imageCropper from './modules/imageCropper';
 export default new Vuex.Store({
     state:{
         resData:'',
+        attachmentsFile:[],
+        errors:null,
+        attachment_ids:[],
     },
     getters:{},
     actions:{
