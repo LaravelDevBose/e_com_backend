@@ -23,10 +23,14 @@ import  product from './modules/product';
 import  excel_import from './modules/helper/excel_import';
 import  brand from './modules/brand';
 import  skin_type from './modules/skin_type';
+import  imageCropper from './modules/imageCropper';
 
 export default new Vuex.Store({
     state:{
         resData:'',
+        attachmentsFile:[],
+        errors:null,
+        attachment_ids:[],
     },
     getters:{},
     actions:{
@@ -55,6 +59,7 @@ export default new Vuex.Store({
         excel_import,
         brand,
         skin_type,
+        imageCropper,
     }
 })
 

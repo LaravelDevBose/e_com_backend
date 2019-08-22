@@ -27,13 +27,13 @@
 
 <script>
     import {mapGetters, mapActions } from 'vuex'
-import { setTimeout } from 'timers';
+
     export default {
         props:['multi_file', 'folder'],
         name: "Attachment",
         data(){
             return{
-            
+
             }
         },
         created() {
@@ -59,9 +59,9 @@ import { setTimeout } from 'timers';
                  setTimeout(()=>{
                      vm.uploadAttachment(formData);
                  },1000);
-                 
+
             },
-            
+
 
 
         },

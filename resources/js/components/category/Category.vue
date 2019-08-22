@@ -30,7 +30,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Category Banner:</label>
-                                <attachment :multi_file="multi_file" :folder="folder"></attachment>
+                                <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                             </div>
                         </div>
                         <div class="col-md-4 col-md-offset-2">
@@ -115,16 +115,15 @@
 </template>
 
 <script>
-    // import the component
-    import Treeselect from '@riophae/vue-treeselect';
     // import the styles
     import '@riophae/vue-treeselect/dist/vue-treeselect.css';
 
     import { mapGetters, mapActions} from 'vuex'
-    import Attachment from "../attachment/Attachment";
+    import ImageCropper from "../cropper/ImageCropper";
+    import Treeselect from '@riophae/vue-treeselect';
     export default {
         name: "Category",
-        components:{Attachment, Treeselect},
+        components:{ImageCropper, Treeselect},
         data(){
             return{
                 formValue:{
@@ -140,8 +139,15 @@
                         children: node.children,
                     }
                 },
-                multi_file:1,
-                folder:'category',
+                cropperData:{
+                    width:500,
+                    height:600,
+                    placeholder:'Choose a image in 600*500',
+                    file_size:1.5,
+                    init_image:'',
+                    folder:'category',
+                },
+                removeImage:false,
             }
         },
         created(){
@@ -157,13 +163,17 @@
             ]),
             categoryStore(){
                 let vm = this;
-                vm.formValue.attachmentIds = vm.attachment_ids;
+                vm.formValue.attachmentIds = vm.cropImageIds;
                 vm.storeCategory(vm.formValue).then(response=>{
                     if(response.status === 'success'){
                         Notify.success(response.message);
                         this.emptyFormData();
                         this.allCategory();
                         this.getTreeListCategories();
+                        this.removeImage= true;
+
+                    }else{
+                        Notify.warning(response.message);
                     }
                 });
 
@@ -173,7 +183,7 @@
                 this.formValue.category_name = '';
                 this.formValue.category_status = 0;
                 this.formValue.attachmentIds = '';
-                this.$store.commit('emptyAttachmentFile');
+                this.cropperData.removeImage = true;
             },
             deleteCategory(cat_id){
                 if(confirm('Are Your Sure..?'+cat_id)){
@@ -194,6 +204,7 @@
                 'categories',
                 'treeList',
                 'attachment_ids',
+                'cropImageIds',
 
             ]),
         },

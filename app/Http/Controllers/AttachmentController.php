@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 class AttachmentController extends Controller
 {
     private $attachmentFolder = 'public/attachments/';
 
     public function store(Request $request) {
-        // return $request->all();
+//         return $request->all();
         $attachments = $request->except('folder');
         if(empty($attachments)){
             return response()->json([
@@ -124,6 +125,78 @@ class AttachmentController extends Controller
                 'message' => ($message != null) ? $message :'Invalid File!'
             ]);
         }
+    }
+
+    public function crop_image_store(Request $request) {
+
+        if(empty($request->input('image'))){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No file found!'
+            ]);
+        }
+        $image_array_1 = explode(";", $request->input('image'));
+        $image_array_2 = explode(",", $image_array_1[1]);
+        $ImageData = base64_decode($image_array_2[1]);
+
+        try {
+
+            $max_number = Attachment::max('attachment_no')+1;
+
+            if(empty($request->folder)){
+                throw new Exception('Folder is Require!', 400);
+            }
+            $folder = $request->folder;
+
+            $attachmentModels = Attachment::attachmentModels;
+
+
+            if(empty($attachmentModels[$folder])){
+                throw new Exception('Invalid Model!', 400);
+            }
+
+            $attachmentData = [];
+            $model = $attachmentModels[$folder];
+            $imageInfo = getimagesizefromstring($ImageData);
+            $type = $imageInfo['mime'];
+            $ext = image_type_to_extension($imageInfo[2]);
+            $name =  md5(rand(1111, 9999). time()).$ext;
+            $name_full = $this->attachmentFolder . $folder . '/' . $name;
+            Storage::disk('local')->put( $name_full,$ImageData);
+
+
+            $attachmentSave = Attachment::create([
+                'attachment_no' => $max_number,
+                'reference'     => $model,
+                'file_name'     => $name,
+                'folder'        => $folder,
+                'file_type'     => $type,
+                'original_name' => null,
+                'file_size'     => null
+            ]);
+
+            array_push($attachmentData, [
+                'img' => $attachmentSave->image_path,
+                'id' => $attachmentSave->attachment_id,
+                'no' => $attachmentSave->attachment_no,
+                'delete_url' => route('attachment.delete',  $attachmentSave->attachment_id),
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'code'=>200,
+                'attachments' => $attachmentData,
+                'name'=>$name,
+            ],200);
+
+        }catch (Exception $ex) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => $ex->getMessage()
+            ], 400);
+        }
+
     }
 
     public function download(Attachment $attachment) {
