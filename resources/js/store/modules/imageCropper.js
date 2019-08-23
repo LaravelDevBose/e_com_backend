@@ -24,7 +24,7 @@ const actions = {
                     }
                     return response.data;
                 }).catch(function (errors) {
-                    console.log(errors)
+                    console.log(errors);
                     return errors;
                 });
         }catch (error) {

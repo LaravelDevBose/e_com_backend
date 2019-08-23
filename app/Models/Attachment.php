@@ -14,7 +14,7 @@ class Attachment extends Model
         'voucher' => 4,
         'campaign'=>5,
         'brand'=>6,
-        'general'=>7,
+        'slider'=>7,
     ];
 
     protected $table = 'attachments';
@@ -78,5 +78,9 @@ class Attachment extends Model
 
     public function product_image(){
         return $this->hasOne(ProductImage::class, 'attachment_id','attachment_id');
+    }
+
+    public function slider(){
+        return $this->belongsTo(Slider::class, 'attachment_id','attachment_id');
     }
 }
