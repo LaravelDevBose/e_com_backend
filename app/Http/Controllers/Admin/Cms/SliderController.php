@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Cms;
 
+use App\Http\Resources\Admin\SliderCollection;
 use App\Models\Slider;
 use App\Traits\ResponserTrait;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -16,7 +18,17 @@ class SliderController extends Controller
     use ResponserTrait;
 
     public function index(){
+        return view('cms.slider.index');
+    }
 
+    public function slider_list(){
+        $sliders = Slider::notDelete()->with('attachment')->orderBy('slider_id', 'desc')->get();
+        if(!empty($sliders)){
+            $collection = SliderCollection::collection($sliders);
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $collection);
+        }else{
+            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'No slider Data');
+        }
     }
 
     public function create(){
@@ -53,19 +65,12 @@ class SliderController extends Controller
                 ]);
                 if($slider){
                     DB::commit();
-                    return response()->json([
-                        'status'=>'success',
-                        'message'=>'Slider Details Store Successfully',
-                        'url'=>route('admin.cms.sliders.index'),
-                    ]);
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Slider Details Store Successfully', '', route('admin.cms.sliders.index'));
                 }
 
             }catch (Exception $ex){
                 DB::rollBack();
-                return response()->json([
-                    'status' => 'error',
-                    'message' => $ex->getMessage()
-                ]);
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
             }
         }else{
             $errors = array_values($validator->errors()->getMessages());
@@ -77,10 +82,8 @@ class SliderController extends Controller
                     }
                 }
             }
-            return response()->json([
-                'status' => 'validation',
-                'message' => ($message != null) ? $message :'Invalid File!'
-            ]);
+            return ResponserTrait::allResponse('validation', Response::HTTP_NOT_ACCEPTABLE, ($message != null) ? $message :'Invalid File!', '', '');
+
         }
     }
 }

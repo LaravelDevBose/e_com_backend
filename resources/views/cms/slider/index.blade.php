@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('PageTitle','Slider Create Page')
+@section('PageTitle','Slider List')
 
 @section('PageCss')
 
@@ -18,7 +18,7 @@
 
 @section('content')
 
-  <slider-create-page></slider-create-page>
+    <slider-page></slider-page>
 @endsection
 @section('PageJs')
 

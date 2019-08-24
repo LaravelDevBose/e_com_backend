@@ -68,6 +68,7 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
 
     Route::prefix('cms')->namespace('Cms')->as('cms.')->group(function (){
         Route::resource('sliders', 'SliderController');
+        Route::get('list/slider', 'SliderController@slider_list');
     });
 
 

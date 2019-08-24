@@ -23,4 +23,13 @@ class Slider extends Model
     public function attachment(){
         return $this->hasOne(Attachment::class,'attachment_id', 'attachment_id')->where('folder', 'slider');
     }
+
+    public function scopeIsActive($query){
+        return $query->where('slider_status', config('app.active'));
+    }
+
+    public function scopeNotDelete($query){
+        return $query->where('slider_status','!=', config('app.delete'));
+    }
+
 }

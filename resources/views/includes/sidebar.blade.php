@@ -72,7 +72,7 @@
                     <li>
                         <a href="#"><i class="icon-cart"></i> <span>CMS</span></a>
                         <ul>
-                            <li><a href="{{ route('admin.cms.sliders.create') }}"><i class="icon-list-numbered"></i>Slider</a></li>
+                            <li><a href="{{ route('admin.cms.sliders.index') }}"><i class="icon-list-numbered"></i>Slider</a></li>
                             <li><a href="{{ route('admin.product.create') }}"><i class="icon-plus2"></i> Add Product</a></li>
                         </ul>
                     </li>

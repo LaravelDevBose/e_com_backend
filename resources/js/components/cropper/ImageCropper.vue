@@ -24,11 +24,11 @@
                 @file-type-mismatch="handleCroppaFileTypeMismatch"
                 @image-remove="handleImageRemove"
         ></croppa>
-        <div style="margin-top:.5rem;">
+        <div style="margin-top:.5rem;" >
             <button type="button" class="btn btn-sm bg-teal" @click="rotateImage()" > <i class="icon-rotate-ccw3"></i></button>
             <button type="button" class="btn btn-sm bg-teal" @click="flipY()"> <i class="icon-flip-vertical3"></i></button>
             <button type="button" class="btn btn-sm bg-teal" @click="flipX()"> <i class="icon-flip-vertical4"></i></button>
-            <button class="btn btn-sm btn-success" style="float:right;" @click.prevent="upload"> <i class="icon-upload"></i> Upload</button>
+            <button class="btn btn-sm btn-success"  @click.prevent="upload"> <i class="icon-upload"></i> Upload</button>
             <img :src="imgUrl" alt="">
         </div>
     </div>

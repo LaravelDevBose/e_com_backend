@@ -13,9 +13,14 @@ const getters = {
 const actions = {
     async getSliders({commit}){
         try {
-            await axios.get('/admin/cms/sliders')
+            await axios.get('/admin/cms/list/slider')
                 .then(response=>{
-                    commit('setSliders', response.data.data);
+                    if(response.data.code == 200){
+                        console.log(response.data.code);
+                        commit('setSliders', response.data.data);
+                    }else{
+                        commit('setResponse', response.data);
+                    }
                 })
         }catch (error) {
             commit('setResponse', error.data);
@@ -23,15 +28,12 @@ const actions = {
     },
     async storeSlider({commit}, formData){
         try {
-            return  await axios.post('/admin/cms/slider/store', formData)
+            return  await axios.post('/admin/cms/sliders', formData)
                 .then(response=>{
-                    if(response.data.res.status === "success"){
-                        commit('storeSlider', response.data.brand);
-                        commit('setResponse', response.data.res);
-                        return response.data.res;
-                    }else{
-                        return  response.data;
-                    }
+                    console.log(response);
+                    commit('setResponse', response.data);
+                    return response.data;
+
                 }).catch(error=>{
                     commit('setResponse', error.data);
                     return error.data;
@@ -42,7 +44,7 @@ const actions = {
     },
     async deleteSlider({commit}, sliderID){
         try {
-            return await axios.delete(`/admin/cms/slider/${brandID}`)
+            return await axios.delete(`/admin/cms/sliders/${brandID}`)
                 .then(response=>{
                     if(response.data.status === "success"){
                         commit('removeSlider', brandID);
@@ -57,7 +59,9 @@ const actions = {
     }
 };
 
-const mutations = {};
+const mutations = {
+    setSliders:(state, response)=> state.sliders = response,
+};
 
 export default {
     state,

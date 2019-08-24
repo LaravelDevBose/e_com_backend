@@ -8092,58 +8092,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8152,59 +8100,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     ImageCropper: _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
-    return {
-      formData: {
-        slider_title: '',
-        sub_title: '',
-        btn_text: '',
-        btn_url: '',
-        slider_position: '',
-        attachmentIds: '',
-        slider_status: 0
-      },
-      cropperData: {
-        width: 500,
-        height: 600,
-        placeholder: 'Choose a image in 600*500',
-        file_size: 1.5,
-        init_image: '',
-        folder: 'slider'
-      },
-      removeImage: false,
-      btnDisabled: false
-    };
+    return {};
   },
   created: function created() {
     this.getSliders();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getSliders', 'storeSlider', 'deleteSlider']), {
-    sliderStore: function sliderStore() {
-      var _this = this;
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getSliders', 'deleteSlider']), {
+    sliderDelete: function sliderDelete(sliderId) {
+      var conf = confirm('Are You Sure ?');
 
-      var vm = this;
-      vm.formData.attachmentIds = vm.cropImageIds;
-      vm.storeSlider(vm.formData).then(function (response) {
-        if (response.status === 'success') {
-          Notify.success(response.message); // this.emptyFormData();
-
-          _this.removeImage = true;
-        } else {
-          Notify.warning(response.message);
-        }
-      });
+      if (conf) {
+        this.deleteSlider(sliderId).then(function (response) {
+          if (response.code === 200) {
+            Notify.success(response.message);
+          } else {
+            Notify.error(response.message);
+          }
+        });
+        return true;
+      } else {
+        return false;
+      }
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['slidersData'])),
-  watch: {
-    formData: {
-      handler: function handler(newValue, oldValue) {
-        if (oldValue === newValue) {
-          this.btnDisabled = false;
-        }
-      },
-      deep: true
-    }
-  }
+  watch: {}
 });
 
 /***/ }),
@@ -18200,7 +18120,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -76154,266 +76074,106 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content" }, [
-    _c("div", { staticClass: "panel panel-info" }, [
+    _c("div", { staticClass: "panel panel-flat" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "panel-body" }, [
+      _c("div", { staticClass: "table-responsive" }, [
         _c(
-          "form",
-          {
-            attrs: { action: "" },
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.sliderStore($event)
-              }
-            }
-          },
+          "table",
+          { staticClass: "table table-bordered table-striped table-sm" },
           [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-6" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Slider Title:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.slider_title,
-                        expression: "formData.slider_title"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Slider Title",
-                      required: ""
-                    },
-                    domProps: { value: _vm.formData.slider_title },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.formData,
-                          "slider_title",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Sub Title:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.sub_title,
-                        expression: "formData.sub_title"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Sub Title",
-                      required: ""
-                    },
-                    domProps: { value: _vm.formData.sub_title },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.formData, "sub_title", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Button Text:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.btn_text,
-                        expression: "formData.btn_text"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Button Text",
-                      required: ""
-                    },
-                    domProps: { value: _vm.formData.btn_text },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.formData, "btn_text", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Button Url:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.btn_url,
-                        expression: "formData.btn_url"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Button Url",
-                      required: ""
-                    },
-                    domProps: { value: _vm.formData.btn_url },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.formData, "btn_url", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Slider Position:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.slider_position,
-                        expression: "formData.slider_position"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Button Url",
-                      required: ""
-                    },
-                    domProps: { value: _vm.formData.slider_position },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.formData,
-                          "slider_position",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-6" }, [
-                _c(
-                  "div",
-                  { staticClass: "form-group" },
-                  [
-                    _c("label", [_vm._v("Slider Image:")]),
-                    _vm._v(" "),
-                    _c("image-cropper", {
-                      attrs: {
-                        cropperData: _vm.cropperData,
-                        removeImage: _vm.removeImage
-                      }
-                    })
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-3 col-md-offset-6" }, [
-                _c("div", { staticClass: "content-group-lg" }, [
-                  _c("div", { staticClass: "checkbox checkbox-switchery" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.slider_status,
-                            expression: "formData.slider_status"
-                          }
-                        ],
-                        staticClass: "switchery-primary",
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: _vm.formData.slider_status,
-                          checked: Array.isArray(_vm.formData.slider_status)
-                            ? _vm._i(_vm.formData.slider_status, null) > -1
-                            : _vm.formData.slider_status
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.formData.slider_status,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.formData,
-                                    "slider_status",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.formData,
-                                    "slider_status",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.formData, "slider_status", $$c)
-                            }
-                          }
-                        }
-                      }),
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.slidersData, function(slider, index) {
+                return _vm.slidersData
+                  ? _c("tr", { key: slider.id }, [
+                      _c("td", [_vm._v(_vm._s(index))]),
                       _vm._v(" "),
-                      _vm.formData.slider_status
-                        ? _c("span", { staticClass: "text-success" }, [
-                            _vm._v(" Publish")
+                      _c("td", [
+                        _c("span", { staticClass: "text text-bold" }, [
+                          _vm._v(" " + _vm._s(slider.title))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("span", { staticClass: "text text-bold" }, [
+                          _vm._v(" " + _vm._s(slider.subTitle))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("p", { staticClass: "text text-bold" }, [
+                          _vm._v(" Text: " + _vm._s(slider.btnText))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "text text-small",
+                            attrs: { href: slider.btnUrl }
+                          },
+                          [_vm._v("Url: " + _vm._s(slider.btnUrl))]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticStyle: { padding: "5px", width: "200px" } },
+                        [
+                          slider.attachment
+                            ? _c("img", {
+                                staticClass: "img-preview img-responsive",
+                                staticStyle: {
+                                  width: "200px",
+                                  height: "100px"
+                                },
+                                attrs: {
+                                  src: slider.attachment.image_path,
+                                  alt: slider.title
+                                }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text text-center" }, [
+                        slider.status === 1
+                          ? _c("span", { staticClass: "badge badge-success" }, [
+                              _vm._v("Active")
+                            ])
+                          : _c("span", { staticClass: "badge badge-warning" }, [
+                              _vm._v("De-active")
+                            ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text text-center" }, [
+                        _c("ul", { staticClass: "icons-list" }, [
+                          _vm._m(2, true),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "text-danger-600" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.sliderDelete(slider.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-trash" })]
+                            )
                           ])
-                        : _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(" UnPublish")
-                          ])
+                        ])
+                      ])
                     ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(1)
-            ])
+                  : _vm._e()
+              }),
+              0
+            )
           ]
         )
       ])
@@ -76426,7 +76186,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "panel-heading" }, [
-      _c("h5", { staticClass: "panel-title" }, [_vm._v("Slider")]),
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Slider List")]),
       _vm._v(" "),
       _c("div", { staticClass: "heading-elements" }, [
         _c("ul", { staticClass: "icons-list" }, [
@@ -76443,16 +76203,31 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
-      _c("div", { staticClass: "text-right form-group" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [
-            _vm._v("Save Brand "),
-            _c("i", { staticClass: "icon-arrow-right14 position-right" })
-          ]
-        )
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { staticStyle: { padding: "5px" } }, [_vm._v("Slider Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Sub Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Slider Button")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Image")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "text-primary-600" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "icon-pencil7" })
       ])
     ])
   }
@@ -76910,7 +76685,6 @@ var render = function() {
           "button",
           {
             staticClass: "btn btn-sm btn-success",
-            staticStyle: { float: "right" },
             on: {
               click: function($event) {
                 $event.preventDefault()
@@ -100614,8 +100388,13 @@ var actions = {
               commit = _ref.commit;
               _context.prev = 1;
               _context.next = 4;
-              return axios.get('/admin/cms/sliders').then(function (response) {
-                commit('setSliders', response.data.data);
+              return axios.get('/admin/cms/list/slider').then(function (response) {
+                if (response.data.code == 200) {
+                  console.log(response.data.code);
+                  commit('setSliders', response.data.data);
+                } else {
+                  commit('setResponse', response.data);
+                }
               });
 
             case 4:
@@ -100653,14 +100432,10 @@ var actions = {
               commit = _ref2.commit;
               _context2.prev = 1;
               _context2.next = 4;
-              return axios.post('/admin/cms/slider/store', formData).then(function (response) {
-                if (response.data.res.status === "success") {
-                  commit('storeSlider', response.data.brand);
-                  commit('setResponse', response.data.res);
-                  return response.data.res;
-                } else {
-                  return response.data;
-                }
+              return axios.post('/admin/cms/sliders', formData).then(function (response) {
+                console.log(response);
+                commit('setResponse', response.data);
+                return response.data;
               })["catch"](function (error) {
                 commit('setResponse', error.data);
                 return error.data;
@@ -100700,7 +100475,7 @@ var actions = {
               commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
-              return axios["delete"]("/admin/cms/slider/".concat(brandID)).then(function (response) {
+              return axios["delete"]("/admin/cms/sliders/".concat(brandID)).then(function (response) {
                 if (response.data.status === "success") {
                   commit('removeSlider', brandID);
                 }
@@ -100733,7 +100508,11 @@ var actions = {
     return deleteSlider;
   }()
 };
-var mutations = {};
+var mutations = {
+  setSliders: function setSliders(state, response) {
+    return state.sliders = response;
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
   getters: getters,
@@ -102612,8 +102391,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/e_com_backend/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\lara_example\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\lara_example\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
