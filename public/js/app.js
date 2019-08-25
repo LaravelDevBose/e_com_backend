@@ -7969,10 +7969,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -8011,8 +8007,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     this.generalPagesFormDependency();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['generalPagesFormDependency'])),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['pageDependency'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['generalPagesFormDependency', 'storeGeneralPages']), {
+    pagesStore: function pagesStore() {
+      var _this = this;
+
+      var vm = this;
+      vm.btnDisabled = true;
+      vm.formData.attachmentIds = vm.cropImageIds;
+      vm.storeGeneralPages(vm.formData).then(function (response) {
+        if (response.code === 200) {
+          Notify.success(response.message); // this.emptyFormData();
+
+          _this.removeImage = true;
+
+          if (response.url != '' && response.url != null) {
+            setTimeout(function () {
+              window.location = response.url;
+            }, 3000);
+          }
+        } else if (response.status === "validation") {
+          Notify.validation(response.message);
+        } else {
+          Notify.warning(response.message);
+        }
+      });
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['pageDependency', 'cropImageIds'])),
   watch: {
     formData: {
       handler: function handler(newValue, oldValue) {
@@ -18290,7 +18311,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
 
 // exports
 
@@ -76059,38 +76080,8 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Button Url:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.btn_url,
-                        expression: "formData.btn_url"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Button Url",
-                      required: ""
-                    },
-                    domProps: { value: _vm.formData.btn_url },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.formData, "btn_url", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
                 _c("div", { staticClass: "content-group-lg" }, [
-                  _c("label", [_vm._v("Slider Status:")]),
+                  _c("label", [_vm._v("Page Status:")]),
                   _vm._v(" "),
                   _c("div", { staticClass: "checkbox checkbox-switchery" }, [
                     _c("label", [
@@ -76158,7 +76149,7 @@ var render = function() {
                   "div",
                   { staticClass: "form-group" },
                   [
-                    _c("label", [_vm._v("Slider Image:")]),
+                    _c("label", [_vm._v("Cover Image:")]),
                     _vm._v(" "),
                     _c("image-cropper", {
                       attrs: {
@@ -101100,8 +101091,8 @@ var actions = {
 
     return generalPagesFormDependency;
   }(),
-  getSliders: function () {
-    var _getSliders = _asyncToGenerator(
+  getGeneralPages: function () {
+    var _getGeneralPages = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
       var commit;
@@ -101138,14 +101129,14 @@ var actions = {
       }, _callee2, null, [[1, 6]]);
     }));
 
-    function getSliders(_x2) {
-      return _getSliders.apply(this, arguments);
+    function getGeneralPages(_x2) {
+      return _getGeneralPages.apply(this, arguments);
     }
 
-    return getSliders;
+    return getGeneralPages;
   }(),
-  storeSlider: function () {
-    var _storeSlider = _asyncToGenerator(
+  storeGeneralPages: function () {
+    var _storeGeneralPages = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, formData) {
       var commit;
@@ -101156,7 +101147,7 @@ var actions = {
               commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
-              return axios.post('/admin/cms/sliders', formData).then(function (response) {
+              return axios.post('/admin/cms/pages', formData).then(function (response) {
                 console.log(response);
                 commit('setResponse', response.data);
                 return response.data;
@@ -101181,11 +101172,11 @@ var actions = {
       }, _callee3, null, [[1, 7]]);
     }));
 
-    function storeSlider(_x3, _x4) {
-      return _storeSlider.apply(this, arguments);
+    function storeGeneralPages(_x3, _x4) {
+      return _storeGeneralPages.apply(this, arguments);
     }
 
-    return storeSlider;
+    return storeGeneralPages;
   }(),
   deleteSlider: function () {
     var _deleteSlider = _asyncToGenerator(
@@ -103289,8 +103280,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\lara_example\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\lara_example\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/html/e_com_backend/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Resources\Admin\GeneralPageCollection;
-use App\models\Page;
+use App\Models\Page;
 use App\Traits\ResponserTrait;
 use Exception;
 use Illuminate\Http\Request;

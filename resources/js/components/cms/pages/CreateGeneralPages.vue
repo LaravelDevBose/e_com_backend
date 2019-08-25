@@ -33,12 +33,8 @@
                                 <label>Show In:</label>
                                 <vue-select2 v-model="formData.show_in" :options="pageDependency.show_in"> </vue-select2>
                             </div>
-                            <div class="form-group">
-                                <label>Button Url:</label>
-                                <input type="text" v-model="formData.btn_url" class="form-control" placeholder="Button Url" required>
-                            </div>
                             <div class="content-group-lg">
-                                <label>Slider Status:</label>
+                                <label>Page Status:</label>
                                 <div class="checkbox checkbox-switchery">
                                     <label>
                                         <input type="checkbox" v-model="formData.page_status" class="switchery-primary" :checked="formData.page_status">
@@ -50,7 +46,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Slider Image:</label>
+                                <label>Cover Image:</label>
                                 <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                             </div>
                         </div>
@@ -131,13 +127,37 @@
         },
         methods:{
             ...mapActions([
-                'generalPagesFormDependency'
+                'generalPagesFormDependency',
+                'storeGeneralPages',
             ]),
+            pagesStore(){
+                let vm = this;
+                vm.btnDisabled = true;
+                vm.formData.attachmentIds = vm.cropImageIds;
+                vm.storeGeneralPages(vm.formData).then(response=>{
+                    if(response.code === 200){
+                        Notify.success(response.message);
+                        // this.emptyFormData();
+                        this.removeImage= true;
+                        if(response.url != '' && response.url != null){
+                            setTimeout(function(){
+                                window.location = response.url;
+                            }, 3000)
+                        }
+
+                    }else if(response.status === "validation"){
+                        Notify.validation(response.message);
+                    }else{
+                        Notify.warning(response.message);
+                    }
+                });
+            }
         },
         computed:{
             ...mapGetters([
-                'pageDependency'
-            ])
+                'pageDependency',
+                'cropImageIds',
+            ]),
         },
         watch:{
             formData:{

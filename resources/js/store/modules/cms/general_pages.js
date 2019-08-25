@@ -27,7 +27,7 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    async getSliders({commit}){
+    async getGeneralPages({commit}){
         try {
             await axios.get('/admin/cms/list/slider')
                 .then(response=>{
@@ -42,9 +42,9 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    async storeSlider({commit}, formData){
+    async storeGeneralPages({commit}, formData){
         try {
-            return  await axios.post('/admin/cms/sliders', formData)
+            return  await axios.post('/admin/cms/pages', formData)
                 .then(response=>{
                     console.log(response);
                     commit('setResponse', response.data);
