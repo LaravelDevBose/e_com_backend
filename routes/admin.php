@@ -65,6 +65,15 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
 
     Route::resource('skinType', 'SkinTypeController');
     Route::post('/import/skinType', 'SkinTypeController@import_file')->name('import.skinType');
+
+    Route::prefix('cms')->namespace('Cms')->as('cms.')->group(function (){
+        Route::resource('sliders', 'SliderController');
+        Route::get('list/slider', 'SliderController@slider_list');
+        Route::resource('pages', 'GeneralPagesController');
+        Route::get('/list/pages', 'GeneralPagesController@page_list');
+    });
+
+
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){

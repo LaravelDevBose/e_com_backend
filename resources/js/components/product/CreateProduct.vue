@@ -356,16 +356,12 @@
     import {mapGetters, mapActions} from 'vuex';
     import VueSelect2 from '../helper/Select2';
     import MultiSelect2 from '../helper/MultipleSelect2';
-    import SummerNote from '../helper/SummerNote';
-    import WysiHtml from '../helper/WysiHtml';
 
     export default {
         name: "CreateProduct",
         components:{
             Treeselect,
             'vue-select2':VueSelect2,
-            'summer-note':SummerNote,
-            'wysi-html':WysiHtml,
             'multi-select2':MultiSelect2,
             VueEditor,
         },

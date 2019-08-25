@@ -42,7 +42,10 @@ import ShowProduct from './components/product/ShowProduct';
 import ImportData from "./components/helper/ImportData";
 import Brand from './components/brand/Brand';
 import SkinType from './components/skin_type/SkinType';
-
+import SliderPage from './components/cms/slider/SliderPage';
+import SliderCreatePage from "./components/cms/slider/SliderCreatePage";
+import CreateGeneralPages from "./components/cms/pages/CreateGeneralPages";
+import GeneralPagesList from "./components/cms/pages/GeneralPagesList";
 
 const app = new Vue({
     el: '#app',
@@ -67,5 +70,9 @@ const app = new Vue({
         'create-product':CreateProduct,
         'show-product':ShowProduct,
         'skin-type':SkinType,
+        'slider-page':SliderPage,
+        'slider-create-page':SliderCreatePage,
+        'create-general-pages':CreateGeneralPages,
+        'general-pages-list':GeneralPagesList,
     }
 });

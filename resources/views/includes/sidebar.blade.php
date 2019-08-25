@@ -69,6 +69,13 @@
                             <li><a href="{{ route('admin.voucher.index') }}">Voucher List</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#"><i class="icon-cart"></i> <span>CMS</span></a>
+                        <ul>
+                            <li><a href="{{ route('admin.cms.sliders.index') }}"><i class="icon-list-numbered"></i>Slider</a></li>
+                            <li><a href="{{ route('admin.cms.pages.index') }}"><i class="icon-list-numbered"></i> General Pages</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <div style="min-height: 70px; width: 100%;"></div>
             </div>
