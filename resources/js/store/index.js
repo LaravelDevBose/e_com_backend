@@ -24,7 +24,8 @@ import  excel_import from './modules/helper/excel_import';
 import  brand from './modules/brand';
 import  skin_type from './modules/skin_type';
 import  imageCropper from './modules/imageCropper';
-import slider from "./modules/cms/slider";
+import  slider from "./modules/cms/slider";
+import general_pages from "./modules/cms/general_pages";
 
 export default new Vuex.Store({
     state:{
@@ -62,6 +63,8 @@ export default new Vuex.Store({
         skin_type,
         imageCropper,
         slider,
+        general_pages,
+
     }
 })
 

@@ -15,6 +15,7 @@ class Attachment extends Model
         'campaign'=>5,
         'brand'=>6,
         'slider'=>7,
+        'page'=>8,
     ];
 
     protected $table = 'attachments';
@@ -82,5 +83,9 @@ class Attachment extends Model
 
     public function slider(){
         return $this->belongsTo(Slider::class, 'attachment_id','attachment_id');
+    }
+
+    public function page(){
+        return $this->belongsTo(Page::class, 'attachment_id','attachment_id');
     }
 }

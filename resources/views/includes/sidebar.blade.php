@@ -73,7 +73,7 @@
                         <a href="#"><i class="icon-cart"></i> <span>CMS</span></a>
                         <ul>
                             <li><a href="{{ route('admin.cms.sliders.index') }}"><i class="icon-list-numbered"></i>Slider</a></li>
-                            <li><a href="{{ route('admin.product.create') }}"><i class="icon-plus2"></i> Add Product</a></li>
+                            <li><a href="{{ route('admin.cms.pages.index') }}"><i class="icon-list-numbered"></i> General Pages</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -5,11 +5,7 @@
             <div class="panel-heading">
                 <h5 class="panel-title">Slider List</h5>
                 <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+                    <a href="/admin/cms/pages/create" type="button" class="btn bg-orange-800 btn-sm" >Bulk Import <i class="icon-play3 position-right"></i></a>
                 </div>
             </div>
 
@@ -64,51 +60,8 @@
 </template>
 
 <script>
-
-    import {mapGetters, mapActions} from 'vuex';
-    import ImageCropper from "../../cropper/ImageCropper";
-
     export default {
-        name: "SliderPage",
-        components: {ImageCropper},
-        data(){
-            return {
-
-            }
-        },
-        created() {
-            this.getSliders();
-        },
-        methods:{
-            ...mapActions([
-                'getSliders',
-                'deleteSlider',
-            ]),
-            sliderDelete(sliderId){
-                let conf = confirm('Are You Sure ?');
-                if(conf){
-                    this.deleteSlider(sliderId)
-                        .then(response=>{
-                            if(response.code === 200){
-                                Notify.success(response.message);
-                            }else{
-                                Notify.error(response.message);
-                            }
-                        });
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-        },
-        computed:{
-            ...mapGetters([
-                'slidersData',
-            ]),
-        },
-        watch:{
-
-        }
+        name: "GeneralPagesList"
     }
 </script>
 
