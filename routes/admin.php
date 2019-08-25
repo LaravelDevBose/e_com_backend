@@ -70,6 +70,7 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->group(function (){
         Route::resource('sliders', 'SliderController');
         Route::get('list/slider', 'SliderController@slider_list');
         Route::resource('pages', 'GeneralPagesController');
+        Route::get('/list/pages', 'GeneralPagesController@page_list');
     });
 
 

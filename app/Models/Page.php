@@ -28,6 +28,8 @@ class Page extends Model
         'page_status',
     ];
 
+
+
     public function scopeIsActive($query){
         return $query->where('page_status', config('app.active'));
     }

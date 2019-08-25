@@ -27,13 +27,12 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    async getGeneralPages({commit}){
+    async getGeneralPagesList({commit}){
         try {
-            await axios.get('/admin/cms/list/slider')
+            await axios.get('/admin/cms/list/pages')
                 .then(response=>{
                     if(response.data.code == 200){
-                        console.log(response.data.code);
-                        commit('setSliders', response.data.data);
+                        commit('setGeneralPagesList', response.data.data);
                     }else{
                         commit('setResponse', response.data);
                     }
@@ -77,6 +76,7 @@ const actions = {
 
 const mutations = {
     setGeneralPagesDependency:(state, response)=> state.page_dependency = response,
+    setGeneralPagesList:(state, response)=> state.page_list = response,
 
 };
 

@@ -8057,6 +8057,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -8118,8 +8123,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "GeneralPagesList"
+  name: "GeneralPagesList",
+  data: function data() {
+    return {};
+  },
+  created: function created() {
+    this.getGeneralPagesList();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getGeneralPagesList']), {
+    pageDelete: function pageDelete(pageId) {}
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['pagesList']))
 });
 
 /***/ }),
@@ -76294,43 +76313,40 @@ var render = function() {
             _vm._v(" "),
             _c(
               "tbody",
-              _vm._l(_vm.slidersData, function(slider, index) {
-                return _vm.slidersData
-                  ? _c("tr", { key: slider.id }, [
+              _vm._l(_vm.pagesList, function(page, index) {
+                return _vm.pagesList
+                  ? _c("tr", { key: page.id }, [
                       _c("td", [_vm._v(_vm._s(index))]),
                       _vm._v(" "),
                       _c("td", [
                         _c("span", { staticClass: "text text-bold" }, [
-                          _vm._v(" " + _vm._s(slider.title))
+                          _vm._v(" " + _vm._s(page.title))
                         ])
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _c("span", { staticClass: "text text-bold" }, [
-                          _vm._v(" " + _vm._s(slider.subTitle))
+                          _vm._v(" " + _vm._s(page.menuTitle))
                         ])
                       ]),
                       _vm._v(" "),
                       _c("td", [
-                        _c("p", { staticClass: "text text-bold" }, [
-                          _vm._v(" Text: " + _vm._s(slider.btnText))
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "text text-small",
-                            attrs: { href: slider.btnUrl }
-                          },
-                          [_vm._v("Url: " + _vm._s(slider.btnUrl))]
-                        )
+                        _c("span", { staticClass: "text text-bold" }, [
+                          _vm._v(_vm._s(page.showIn))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("span", { staticClass: "text text-bold" }, [
+                          _vm._v(_vm._s(page.position))
+                        ])
                       ]),
                       _vm._v(" "),
                       _c(
                         "td",
                         { staticStyle: { padding: "5px", width: "200px" } },
                         [
-                          slider.attachment
+                          page.attachment
                             ? _c("img", {
                                 staticClass: "img-preview img-responsive",
                                 staticStyle: {
@@ -76338,8 +76354,8 @@ var render = function() {
                                   height: "100px"
                                 },
                                 attrs: {
-                                  src: slider.attachment.image_path,
-                                  alt: slider.title
+                                  src: page.attachment.image_path,
+                                  alt: page.title
                                 }
                               })
                             : _vm._e()
@@ -76347,7 +76363,7 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("td", { staticClass: "text text-center" }, [
-                        slider.status === 1
+                        page.status === 1
                           ? _c("span", { staticClass: "badge badge-success" }, [
                               _vm._v("Active")
                             ])
@@ -76368,7 +76384,7 @@ var render = function() {
                                 on: {
                                   click: function($event) {
                                     $event.preventDefault()
-                                    return _vm.sliderDelete(slider.id)
+                                    return _vm.pageDelete(page.id)
                                   }
                                 }
                               },
@@ -76400,12 +76416,12 @@ var staticRenderFns = [
         _c(
           "a",
           {
-            staticClass: "btn bg-orange-800 btn-sm",
+            staticClass: "btn bg-success btn-sm",
             attrs: { href: "/admin/cms/pages/create", type: "button" }
           },
           [
-            _vm._v("Bulk Import "),
-            _c("i", { staticClass: "icon-play3 position-right" })
+            _c("i", { staticClass: "icon-plus-circle2 position-left" }),
+            _vm._v(" Add Pages")
           ]
         )
       ])
@@ -76419,11 +76435,13 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", { staticStyle: { padding: "5px" } }, [_vm._v("Slider Title")]),
+        _c("th", { staticStyle: { padding: "5px" } }, [_vm._v("Page Title")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Sub Title")]),
+        _c("th", [_vm._v("Menu Title")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Slider Button")]),
+        _c("th", [_vm._v("Show In")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Position")]),
         _vm._v(" "),
         _c("th", [_vm._v("Image")]),
         _vm._v(" "),
@@ -101091,8 +101109,8 @@ var actions = {
 
     return generalPagesFormDependency;
   }(),
-  getGeneralPages: function () {
-    var _getGeneralPages = _asyncToGenerator(
+  getGeneralPagesList: function () {
+    var _getGeneralPagesList = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
       var commit;
@@ -101103,10 +101121,9 @@ var actions = {
               commit = _ref2.commit;
               _context2.prev = 1;
               _context2.next = 4;
-              return axios.get('/admin/cms/list/slider').then(function (response) {
+              return axios.get('/admin/cms/list/pages').then(function (response) {
                 if (response.data.code == 200) {
-                  console.log(response.data.code);
-                  commit('setSliders', response.data.data);
+                  commit('setGeneralPagesList', response.data.data);
                 } else {
                   commit('setResponse', response.data);
                 }
@@ -101129,11 +101146,11 @@ var actions = {
       }, _callee2, null, [[1, 6]]);
     }));
 
-    function getGeneralPages(_x2) {
-      return _getGeneralPages.apply(this, arguments);
+    function getGeneralPagesList(_x2) {
+      return _getGeneralPagesList.apply(this, arguments);
     }
 
-    return getGeneralPages;
+    return getGeneralPagesList;
   }(),
   storeGeneralPages: function () {
     var _storeGeneralPages = _asyncToGenerator(
@@ -101226,6 +101243,9 @@ var actions = {
 var mutations = {
   setGeneralPagesDependency: function setGeneralPagesDependency(state, response) {
     return state.page_dependency = response;
+  },
+  setGeneralPagesList: function setGeneralPagesList(state, response) {
+    return state.page_list = response;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
