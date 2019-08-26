@@ -48,6 +48,7 @@
                         </td>
                         <td class="text text-center">
                             <ul class="icons-list">
+                                <li class="text-info-600"><a href="#" @click.prevent="showGeneralPage(page.id)"><i class="icon-eye"></i></a></li>
                                 <li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
                                 <li class="text-danger-600"><a href="#" @click.prevent="pageDelete(page.id)"><i class="icon-trash"></i></a></li>
                             </ul>
@@ -81,6 +82,9 @@
             ]),
             pageDelete(pageId){
 
+            },
+            showGeneralPage(pageId){
+                window.location = '/admin/cms/pages/'+pageId;
             }
         },
         computed:{

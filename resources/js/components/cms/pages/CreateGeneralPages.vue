@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-md-3 col-md-offset-6">
                             <div class="text-right form-group">
-                                <button type="submit" class="btn btn-primary">Save Brand <i class="icon-arrow-right14 position-right"></i></button>
+                                <button type="submit" :disabled="btnDisabled" class="btn btn-primary">Save Brand <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
                     </div>

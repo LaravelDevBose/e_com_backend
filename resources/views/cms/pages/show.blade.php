@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('PageTitle','Create New Product')
+@section('PageTitle','Page Show')
 
 @section('PageCss')
 
@@ -17,7 +17,7 @@
 @endsection
 
 @section('content')
-
+<show-general-pages></show-general-pages>
 @endsection
 @section('PageJs')
 
