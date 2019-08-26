@@ -98,7 +98,7 @@ class GeneralPagesController extends Controller
     public function show($pageId, Request $request){
 
         if($request->ajax()){
-
+            return \response()->json($pageId);
             $page = Page::where('page_id', $pageId)->first();
             if(!empty($page)){
                 return ResponserTrait::singleResponse($page, 'success', Response::HTTP_OK);
@@ -106,7 +106,9 @@ class GeneralPagesController extends Controller
                 return ResponserTrait::allResponse('error', 400, 'No Data Found. Something Wrong !');
             }
         }else{
-            return view('cms.pages.show');
+            return view('cms.pages.show',[
+                'pageId'=>$pageId,
+            ]);
         }
 
     }

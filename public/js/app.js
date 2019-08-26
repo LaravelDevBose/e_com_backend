@@ -8165,14 +8165,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id'],
   name: "ShowGeneralPages",
   data: function data() {
     return {};
   },
   created: function created() {
-    this.singleGeneralPageData();
+    this.singleGeneralPageData(this.id);
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['singleGeneralPageData']), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['pageData']))
 });
@@ -18366,7 +18405,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
 
 // exports
 
@@ -76540,9 +76579,98 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Single Page")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content" }, [
+      _c("div", { staticClass: "container-detached" }, [
+        _c("div", { staticClass: "content-detached" }, [
+          _c("div", { staticClass: "panel" }, [
+            _c("div", { staticClass: "panel-body" }, [
+              _c("div", { staticClass: "content-group-lg" }, [
+                _c("div", { staticClass: "content-group text-center" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "display-inline-block",
+                      attrs: { href: "#" }
+                    },
+                    [
+                      _c("img", {
+                        staticClass: "img-responsive",
+                        attrs: { src: "assets/images/cover.jpg", alt: "" }
+                      })
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("h3", { staticClass: "text-semibold mb-5" }, [
+                  _c(
+                    "a",
+                    { staticClass: "text-default", attrs: { href: "#" } },
+                    [
+                      _vm._v(
+                        "Although moreover mistaken kindness me feelings do be marianne"
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  {
+                    staticClass:
+                      "list-inline list-inline-separate text-muted content-group"
+                  },
+                  [
+                    _c("li", [
+                      _vm._v("By "),
+                      _c(
+                        "a",
+                        { staticClass: "text-muted", attrs: { href: "#" } },
+                        [_vm._v("Eugene")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [_vm._v("July 5th, 2016")]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        { staticClass: "text-muted", attrs: { href: "#" } },
+                        [_vm._v("12 comments")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        { staticClass: "text-muted", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass:
+                              "icon-heart6 text-size-base text-pink position-left"
+                          }),
+                          _vm._v(" 281")
+                        ]
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-group" })
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -101363,7 +101491,8 @@ var actions = {
             case 0:
               commit = _ref4.commit;
               _context4.prev = 1;
-              _context4.next = 4;
+              console.log(pageId);
+              _context4.next = 5;
               return axios.get("/admin/cms/pages/".concat(pageId)).then(function (response) {
                 console.log(response);
 
@@ -101379,20 +101508,20 @@ var actions = {
                 return error.data;
               });
 
-            case 4:
+            case 5:
               return _context4.abrupt("return", _context4.sent);
 
-            case 7:
-              _context4.prev = 7;
+            case 8:
+              _context4.prev = 8;
               _context4.t0 = _context4["catch"](1);
               commit('setResponse', _context4.t0.data);
 
-            case 10:
+            case 11:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, null, [[1, 7]]);
+      }, _callee4, null, [[1, 8]]);
     }));
 
     function singleGeneralPageData(_x5, _x6) {
@@ -103509,8 +103638,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\lara_example\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\lara_example\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/html/e_com_backend/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

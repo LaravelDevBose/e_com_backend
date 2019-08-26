@@ -60,6 +60,7 @@ const actions = {
     },
     async singleGeneralPageData({commit}, pageId){
         try {
+            console.log(pageId)
             return  await axios.get(`/admin/cms/pages/${pageId}`)
                 .then(response=>{
                     console.log(response);
