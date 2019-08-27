@@ -58,12 +58,11 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    async singleGeneralPageData({commit}, pageId){
+    async singleGeneralPageData({commit},pageId){
         try {
-            console.log(pageId)
+
             return  await axios.get(`/admin/cms/pages/${pageId}`)
                 .then(response=>{
-                    console.log(response);
                     if(response.data.code == 200){
                         commit('setGeneralPageData', response.data.data);
                     }else{

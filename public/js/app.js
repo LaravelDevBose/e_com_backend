@@ -8203,17 +8203,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   name: "ShowGeneralPages",
   data: function data() {
-    return {};
+    return {
+      noImage: BASE_URL + '/assets/images/cover.jpg'
+    };
   },
   created: function created() {
-    this.singleGeneralPageData(this.id);
+    var pageId = this.id;
+    console.log(pageId);
+    this.singleGeneralPageData(pageId);
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['singleGeneralPageData']), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['pageData']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['singleGeneralPageData']), {
+    goToEditPage: function goToEditPage(pageId) {
+      window.location = '/admin/cms/pages/' + pageId + '/edit';
+    },
+    goBack: function goBack() {
+      window.location = '/admin/cms/pages';
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['pageData']))
 });
 
 /***/ }),
@@ -76579,95 +76606,178 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "content" }, [
+    _c("div", { staticClass: "container-detached" }, [
+      _c("div", { staticClass: "content-detached" }, [
+        _c("div", { staticClass: "panel" }, [
+          _c(
+            "div",
+            {
+              staticClass: "panel-heading bg-teal-400",
+              staticStyle: { "line-height": "3.87rem" }
+            },
+            [
+              _c(
+                "h5",
+                {
+                  staticClass: "panel-title",
+                  staticStyle: { display: "inline-block" }
+                },
+                [_vm._v(_vm._s(_vm.pageData.title) + " Details ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-sm btn-warning text-small",
+                  staticStyle: { float: "right", "margin-top": "0px" },
+                  attrs: { href: "" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.goBack()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "icon-undo2" }), _vm._v(" Back")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" }, [
+            _c("div", { staticClass: "content-group-lg row" }, [
+              _c("div", { staticClass: "content-group text-center" }, [
+                _c(
+                  "a",
+                  { staticClass: "display-inline-block", attrs: { href: "#" } },
+                  [
+                    _vm.pageData.attachment
+                      ? _c("img", {
+                          staticClass: "img-responsive",
+                          attrs: {
+                            src: _vm.pageData.attachment.image_path,
+                            alt: ""
+                          }
+                        })
+                      : _c("img", {
+                          staticClass: "img-responsive",
+                          attrs: { src: _vm.noImage, alt: "" }
+                        })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("h3", { staticClass: "text-semibold mb-5" }, [
+                _c("a", { staticClass: "text-default", attrs: { href: "#" } }, [
+                  _vm._v(_vm._s(_vm.pageData.title))
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "ul",
+                {
+                  staticClass:
+                    "list-inline list-inline-separate text-semibold content-group"
+                },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("li", [
+                    _vm._v("Created: "),
+                    _c("span", { staticClass: "text-bold text-teal" }, [
+                      _vm._v(" " + _vm._s(_vm.pageData.created_at))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _vm._v("Show in: "),
+                    _c("span", { staticClass: "text-bold text-teal" }, [
+                      _vm._v(_vm._s(_vm.pageData.showIn))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _vm._v("Menu Position: "),
+                    _c("span", { staticClass: "text-bold text-teal" }, [
+                      _vm._v(_vm._s(_vm.pageData.position))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _vm._v("Status:\n                                "),
+                    _vm.pageData.status == 1
+                      ? _c(
+                          "span",
+                          { staticClass: "text-bold badge badge-success" },
+                          [_vm._v("Active")]
+                        )
+                      : _vm.pageData.status == 2
+                      ? _c(
+                          "span",
+                          { staticClass: "text-bold badge badge-danger" },
+                          [_vm._v("Inactive")]
+                        )
+                      : _c(
+                          "span",
+                          { staticClass: "text-bold badge badge-info" },
+                          [_vm._v("Undefined")]
+                        )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticStyle: { float: "right" } }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-sm bg-info-600",
+                        attrs: { href: "" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.goToEditPage(_vm.pageData.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "icon-pencil7" }),
+                        _vm._v(" Edit")
+                      ]
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("label", { staticClass: "text text-bold" }, [
+                _vm._v("Body Content: ")
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "content-group",
+                domProps: { innerHTML: _vm._s(_vm.pageData.content) }
+              }),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "content-group",
+                domProps: { innerHTML: _vm._s(_vm.pageData.extra_content) }
+              })
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content" }, [
-      _c("div", { staticClass: "container-detached" }, [
-        _c("div", { staticClass: "content-detached" }, [
-          _c("div", { staticClass: "panel" }, [
-            _c("div", { staticClass: "panel-body" }, [
-              _c("div", { staticClass: "content-group-lg" }, [
-                _c("div", { staticClass: "content-group text-center" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "display-inline-block",
-                      attrs: { href: "#" }
-                    },
-                    [
-                      _c("img", {
-                        staticClass: "img-responsive",
-                        attrs: { src: "assets/images/cover.jpg", alt: "" }
-                      })
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "text-semibold mb-5" }, [
-                  _c(
-                    "a",
-                    { staticClass: "text-default", attrs: { href: "#" } },
-                    [
-                      _vm._v(
-                        "Although moreover mistaken kindness me feelings do be marianne"
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "ul",
-                  {
-                    staticClass:
-                      "list-inline list-inline-separate text-muted content-group"
-                  },
-                  [
-                    _c("li", [
-                      _vm._v("By "),
-                      _c(
-                        "a",
-                        { staticClass: "text-muted", attrs: { href: "#" } },
-                        [_vm._v("Eugene")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [_vm._v("July 5th, 2016")]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c(
-                        "a",
-                        { staticClass: "text-muted", attrs: { href: "#" } },
-                        [_vm._v("12 comments")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c(
-                        "a",
-                        { staticClass: "text-muted", attrs: { href: "#" } },
-                        [
-                          _c("i", {
-                            staticClass:
-                              "icon-heart6 text-size-base text-pink position-left"
-                          }),
-                          _vm._v(" 281")
-                        ]
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "content-group" })
-              ])
-            ])
-          ])
-        ])
-      ])
+    return _c("li", [
+      _vm._v("By "),
+      _c("span", { staticClass: "text-bold text-teal" }, [_vm._v("Admin")])
     ])
   }
 ]
@@ -98239,6 +98349,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /***/ (function(module, exports, __webpack_require__) {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+window.BASE_URL = document.querySelector('meta[name="base-url"][content]').content;
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -101491,11 +101602,8 @@ var actions = {
             case 0:
               commit = _ref4.commit;
               _context4.prev = 1;
-              console.log(pageId);
-              _context4.next = 5;
+              _context4.next = 4;
               return axios.get("/admin/cms/pages/".concat(pageId)).then(function (response) {
-                console.log(response);
-
                 if (response.data.code == 200) {
                   commit('setGeneralPageData', response.data.data);
                 } else {
@@ -101508,20 +101616,20 @@ var actions = {
                 return error.data;
               });
 
-            case 5:
+            case 4:
               return _context4.abrupt("return", _context4.sent);
 
-            case 8:
-              _context4.prev = 8;
+            case 7:
+              _context4.prev = 7;
               _context4.t0 = _context4["catch"](1);
               commit('setResponse', _context4.t0.data);
 
-            case 11:
+            case 10:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, null, [[1, 8]]);
+      }, _callee4, null, [[1, 7]]);
     }));
 
     function singleGeneralPageData(_x5, _x6) {
