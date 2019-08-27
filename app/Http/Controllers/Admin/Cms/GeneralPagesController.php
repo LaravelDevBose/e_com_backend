@@ -115,10 +115,18 @@ class GeneralPagesController extends Controller
 
     }
 
+    public function edit($pageId){
+
+        return view('cms.pages.edit',[
+            'pageId'=>$pageId
+        ]);
+    }
+
     public function update(Request $request, Page $page){
+
         $validator = Validator::make($request->all(),[
-            'page_title'=>'required|string|min:5|max:20',
-            'menu_title'=>'required|string|min:5|max:20',
+            'title'=>'required|string|min:5|max:20',
+            'menuTitle'=>'required|string|min:5|max:20',
             'show_in'=>'required|numeric',
             'attachmentIds'=>'array'
         ]);
@@ -127,20 +135,24 @@ class GeneralPagesController extends Controller
             try{
                 DB::beginTransaction();
 
-                $page = Page::create([
-                    'page_title'=>$request->page_title,
-                    'menu_title'=>$request->menu_title,
-                    'page_slug'=>Str::slug($request->menu_title),
+                $page = $page->update([
+                    'page_title'=>$request->title,
+                    'menu_title'=>$request->menuTitle,
+                    'page_slug'=>Str::slug($request->menuTitle),
                     'show_in'=>$request->show_in,
-                    'menu_position'=>$request->menu_position,
+                    'menu_position'=>$request->position,
                     'body_content'=>$request->body_content,
-                    'other_content'=>$request->other_content,
-                    'attachment_id'=>$request->attachmentIds[0],
-                    'page_status'=>(!empty($request->page_status) && $request->page_status == config('app.active')) ? $request->page_status : config('app.inactive'),
+                    'other_content'=>$request->extra_content,
+                    'page_status'=>(!empty($request->status) && $request->status == config('app.active')) ? $request->status : config('app.inactive'),
                 ]);
+                if(!empty($request->attachmentIds[0]) && count($request->attachmentIds) > 0){
+                    $imageUpdate = Page::find($request->id);
+                    $imageUpdate->attachment_id = $request->attachmentIds[0];
+                    $imageUpdate->save();
+                }
                 if($page){
                     DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Page Details Store Successfully', '', route('admin.cms.pages.index'));
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Page Details Update Successfully', '', route('admin.cms.pages.index'));
                 }
 
             }catch (Exception $ex){

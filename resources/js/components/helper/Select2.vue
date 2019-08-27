@@ -1,5 +1,5 @@
 <template>
-    <select class="form-control"  :name="name" data-width="100%">
+    <select class="form-control"  :name="name" :value="value" data-width="100%">
         <slot></slot>
     </select>
 </template>

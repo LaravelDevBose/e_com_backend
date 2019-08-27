@@ -17,7 +17,6 @@ const actions = {
         try {
             await axios.get('/admin/cms/pages/create')
                 .then(response=>{
-                    console.log(response);
                     if(response.data.code == 200){
                         commit('setGeneralPagesDependency', response.data.data);
                     }else{
@@ -46,7 +45,6 @@ const actions = {
         try {
             return  await axios.post('/admin/cms/pages', formData)
                 .then(response=>{
-                    console.log(response);
                     commit('setResponse', response.data);
                     return response.data;
 
@@ -91,7 +89,23 @@ const actions = {
             commit('setResponse', error.data);
             return error.data;
         }
-    }
+    },
+    async updateGeneralPages({commit},formData){
+        try {
+            console.log(formData);
+            return  await axios.put(`/admin/cms/pages/${formData.id}`, formData)
+                .then(response=>{
+                    commit('setResponse', response.data);
+                    return response.data;
+
+                }).catch(error=>{
+                    commit('setResponse', error.data);
+                    return error.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {

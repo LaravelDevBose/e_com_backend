@@ -21,6 +21,7 @@ class GeneralPageResource extends JsonResource
             'title'=>$this->page_title,
             'menuTitle'=>$this->menu_title,
             'showIn'=>$this->_MenuShow($this->show_in),
+            'show_in'=>$this->show_in,
             'position'=>$this->menu_position,
             'content'=>$this->body_content,
             'extra_content'=>$this->other_content,

@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\ManipulateBy;
 use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
+    use ManipulateBy;
+
     const MENU_SHOW_IN = [
         'Header'=>1,
         'Footer'=>2,
