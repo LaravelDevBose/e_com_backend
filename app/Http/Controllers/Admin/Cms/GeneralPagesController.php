@@ -23,7 +23,7 @@ class GeneralPagesController extends Controller
     }
 
     public function page_list(Request $request){
-        $pages = Page::notDelete()->bySearch($request)->get();
+        $pages = Page::notDelete()->bySearch($request)->with('attachment')->get();
 
         if(!empty($pages)){
             $collection = GeneralPageCollection::collection($pages);
@@ -163,7 +163,26 @@ class GeneralPagesController extends Controller
     }
 
     public function destroy(Page $page){
+        if($page){
+            try{
+                DB::beginTransaction();
+                $page->update([
+                    'page_status'=>config('app.delete'),
+                ]);
 
+                if($page){
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Page Content Delete SuccessFully');
+                }{
+                    throw new Exception('Invalid Information.! Delete Not Successful');
+                }
+            }catch(Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, "Invalid Information. No Page Info Found.");
+        }
     }
 
 

@@ -8136,8 +8136,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     this.getGeneralPagesList();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getGeneralPagesList']), {
-    pageDelete: function pageDelete(pageId) {},
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getGeneralPagesList', 'deleteGeneralPage']), {
+    pageDelete: function pageDelete(pageId) {
+      var con = confirm('Are You Sure..?');
+
+      if (con) {
+        this.deleteGeneralPage(pageId).then(function (response) {
+          if (response.code == 200) {
+            Notify.success(response.message);
+          } else {
+            Notify.error(response.message);
+          }
+        });
+        return true;
+      } else {
+        return false;
+      }
+    },
     showGeneralPage: function showGeneralPage(pageId) {
       window.location = '/admin/cms/pages/' + pageId;
     }
@@ -101638,10 +101653,10 @@ var actions = {
 
     return singleGeneralPageData;
   }(),
-  deleteSlider: function () {
-    var _deleteSlider = _asyncToGenerator(
+  deleteGeneralPage: function () {
+    var _deleteGeneralPage = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, sliderID) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, pageId) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
@@ -101650,9 +101665,9 @@ var actions = {
               commit = _ref5.commit;
               _context5.prev = 1;
               _context5.next = 4;
-              return axios["delete"]("/admin/cms/sliders/".concat(brandID)).then(function (response) {
-                if (response.data.status === "success") {
-                  commit('removeSlider', brandID);
+              return axios["delete"]("/admin/cms/pages/".concat(pageId)).then(function (response) {
+                if (response.data.code === 200) {
+                  commit('removeGeneralPage', pageId);
                 }
 
                 commit('setResponse', response.data);
@@ -101676,11 +101691,11 @@ var actions = {
       }, _callee5, null, [[1, 7]]);
     }));
 
-    function deleteSlider(_x7, _x8) {
-      return _deleteSlider.apply(this, arguments);
+    function deleteGeneralPage(_x7, _x8) {
+      return _deleteGeneralPage.apply(this, arguments);
     }
 
-    return deleteSlider;
+    return deleteGeneralPage;
   }()
 };
 var mutations = {
@@ -101692,6 +101707,11 @@ var mutations = {
   },
   setGeneralPageData: function setGeneralPageData(state, response) {
     return state.pageData = response;
+  },
+  removeGeneralPage: function removeGeneralPage(state, pageId) {
+    return state.page_list = state.page_list.filter(function (page) {
+      return page.id !== pageId;
+    });
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

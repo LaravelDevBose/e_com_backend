@@ -77,12 +77,12 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    async deleteSlider({commit}, sliderID){
+    async deleteGeneralPage({commit}, pageId){
         try {
-            return await axios.delete(`/admin/cms/sliders/${brandID}`)
+            return await axios.delete(`/admin/cms/pages/${pageId}`)
                 .then(response=>{
-                    if(response.data.status === "success"){
-                        commit('removeSlider', brandID);
+                    if(response.data.code === 200){
+                        commit('removeGeneralPage', pageId);
                     }
                     commit('setResponse', response.data);
                     return response.data;
@@ -98,6 +98,7 @@ const mutations = {
     setGeneralPagesDependency:(state, response)=> state.page_dependency = response,
     setGeneralPagesList:(state, response)=> state.page_list = response,
     setGeneralPageData:(state,response)=>state.pageData = response,
+    removeGeneralPage:(state, pageId)=>state.page_list = state.page_list.filter(page=>page.id !==pageId),
 };
 
 export default {
