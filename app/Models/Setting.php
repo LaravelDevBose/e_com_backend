@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
+    const Setting_Type =[
+        'contact'=>1,
+        'campaign'=>2,
+    ];
 
     protected $table = 'settings';
 
@@ -14,5 +18,6 @@ class Setting extends Model
     protected $fillable=[
         'key',
         'value',
+        'type',
     ];
 }

@@ -73,9 +73,9 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::get('/list/pages', 'GeneralPagesController@page_list');
     });
 
-    Route::prefix('cms')->namespace('Cms')->as('setting.')->group(function (){
+    Route::prefix('setting')->namespace('Cms')->as('setting.')->group(function (){
         Route::get('/page', 'SettingController@setting_page')->name('page');
-
+        Route::get('/data', 'SettingController@setting_data');
     });
 
 
