@@ -33,8 +33,11 @@ export default new Vuex.Store({
         attachmentsFile:[],
         errors:null,
         attachment_ids:[],
+        setting_info:''
     },
-    getters:{},
+    getters:{
+        settingData:(state)=>state.setting_info,
+    },
     actions:{
 
     },
