@@ -52,22 +52,25 @@
                 </div>
                 <div id="logo-image" class="panel-collapse collapse">
                     <div class="panel-body">
-
-                        <div class="row">
-                            <div class="col-md-5 col-md-offset-1">
-                                <div class="form-group">
-                                    <label>Logo:</label>
-                                    <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                        <form action="" @submit.prevent="logoImageStore">
+                            <div class="row">
+                                <div class="col-md-5 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label>Logo:</label>
+                                        <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                                    </div>
+                                    <div class="text-right form-group">
+                                        <button type="submit" :disabled="btnDisabled" class="btn btn-success ">Store Logo<i class="icon-arrow-right14 position-right"></i></button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <img v-if="logo_image" :src="logo_image" alt="Company Logo">
+                                        <img v-else :src="no_logo" alt="No Logo">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 ">
-                                <div class="form-group">
-                                    <img v-if="logo_image" :src="logo_image" alt="Company Logo">
-                                    <img :src="no_logo" alt="No Logo">
-                                </div>
-                            </div>
-                        </div>
-
+                        </form>
                     </div>
                 </div>
             </div>
@@ -175,14 +178,18 @@
                     email_body:'',
                     email_footer:''
                 },
+                logoData:{
+                    attachment_id:'',
+                }
 
             }
         },
         created() {
             this.getSettingInformation().then(response=>{
                 if(response.code == 200){
+
                     this.contactSetting = response.data.contactSetting;
-                    this.logo_image = response.data.logo_image;
+                    this.logo_image = response.data.logoImage;
                     this.campaignSetting = response.data.campaignSetting;
                 }else{
                     Notify.error(response.message);
@@ -194,10 +201,13 @@
                 'getSettingInformation',
                 'storeContactSetting',
                 'storeCampaignSetting',
+                'storeLogoImage',
             ]),
             contactSettingStore(){
+                this.btnDisabled = true;
                 this.storeContactSetting(this.contactSetting)
                     .then(response=>{
+                        this.btnDisabled = false;
                         if(response.code === 200){
                             Notify.success(response.message);
                         }else if(response.status === 'validation'){
@@ -208,8 +218,10 @@
                     })
             },
             campaignSettingStore(){
+                this.btnDisabled = true;
                 this.storeCampaignSetting(this.campaignSetting)
                     .then(response=>{
+                        this.btnDisabled = false;
                         if(response.code === 200){
                             Notify.success(response.message);
                         }else if(response.status === 'validation'){
@@ -218,16 +230,58 @@
                             Notify.error(response.message);
                         }
                     })
-            }
+            },
+            logoImageStore(){
+                this.logoData.attachment_id = this.cropImageIds[0];
+                if(this.logoData.attachment_id == '' || this.logoData.attachment_id == null){
+                    alert('Select A Image First');
+                    return false;
+                }
+                this.btnDisabled = true;
+                this.storeLogoImage(this.logoData)
+                    .then(response=>{
+                        this.btnDisabled = false;
+                        console.log(response);
+                        if(response.code == 200){
+                            this.removeImage= true;
+                            this.logo_image = response.data.logoImage;
+                            Notify.success(response.message);
+                        }else{
+                            Notify.error(response.message);
+                        }
+                    })
+            },
         },
         computed:{
             ...mapGetters([
-                'settingData',
-                'campaignSetting'
+                'cropImageIds'
             ])
         },
         watch:{
-
+            contactSetting:{
+                handler(newValue, oldValue){
+                    if(oldValue === newValue){
+                        this.btnDisabled = false;
+                    }
+                },
+                deep:true,
+            },
+            campaignSetting:{
+                handler(newValue, oldValue){
+                    if(oldValue === newValue){
+                        this.btnDisabled = false;
+                    }
+                },
+                deep:true,
+            },
+            cropImageIds:{
+                handler(newValue, oldValue){
+                    if(oldValue === newValue){
+                        this.btnDisabled = false;
+                    }
+                },
+                deep:true,
+            },
         }
     }
 </script>

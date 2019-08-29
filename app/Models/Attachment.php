@@ -16,6 +16,7 @@ class Attachment extends Model
         'brand'=>6,
         'slider'=>7,
         'page'=>8,
+        'setting'=>9,
     ];
 
     protected $table = 'attachments';

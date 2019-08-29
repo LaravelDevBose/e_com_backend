@@ -8626,6 +8626,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -8662,6 +8665,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         email_heading: '',
         email_body: '',
         email_footer: ''
+      },
+      logoData: {
+        attachment_id: ''
       }
     };
   },
@@ -8671,16 +8677,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.getSettingInformation().then(function (response) {
       if (response.code == 200) {
         _this.contactSetting = response.data.contactSetting;
-        _this.logo_image = response.data.logo_image;
+        _this.logo_image = response.data.logoImage;
         _this.campaignSetting = response.data.campaignSetting;
       } else {
         Notify.error(response.message);
       }
     });
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getSettingInformation', 'storeContactSetting', 'storeCampaignSetting']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getSettingInformation', 'storeContactSetting', 'storeCampaignSetting', 'storeLogoImage']), {
     contactSettingStore: function contactSettingStore() {
+      var _this2 = this;
+
+      this.btnDisabled = true;
       this.storeContactSetting(this.contactSetting).then(function (response) {
+        _this2.btnDisabled = false;
+
         if (response.code === 200) {
           Notify.success(response.message);
         } else if (response.status === 'validation') {
@@ -8691,7 +8702,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     campaignSettingStore: function campaignSettingStore() {
+      var _this3 = this;
+
+      this.btnDisabled = true;
       this.storeCampaignSetting(this.campaignSetting).then(function (response) {
+        _this3.btnDisabled = false;
+
         if (response.code === 200) {
           Notify.success(response.message);
         } else if (response.status === 'validation') {
@@ -8700,10 +8716,59 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           Notify.error(response.message);
         }
       });
+    },
+    logoImageStore: function logoImageStore() {
+      var _this4 = this;
+
+      this.logoData.attachment_id = this.cropImageIds[0];
+
+      if (this.logoData.attachment_id == '' || this.logoData.attachment_id == null) {
+        alert('Select A Image First');
+        return false;
+      }
+
+      this.btnDisabled = true;
+      this.storeLogoImage(this.logoData).then(function (response) {
+        _this4.btnDisabled = false;
+        console.log(response);
+
+        if (response.code == 200) {
+          _this4.removeImage = true;
+          _this4.logo_image = response.data.logoImage;
+          Notify.success(response.message);
+        } else {
+          Notify.error(response.message);
+        }
+      });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['settingData', 'campaignSetting'])),
-  watch: {}
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cropImageIds'])),
+  watch: {
+    contactSetting: {
+      handler: function handler(newValue, oldValue) {
+        if (oldValue === newValue) {
+          this.btnDisabled = false;
+        }
+      },
+      deep: true
+    },
+    campaignSetting: {
+      handler: function handler(newValue, oldValue) {
+        if (oldValue === newValue) {
+          this.btnDisabled = false;
+        }
+      },
+      deep: true
+    },
+    cropImageIds: {
+      handler: function handler(newValue, oldValue) {
+        if (oldValue === newValue) {
+          this.btnDisabled = false;
+        }
+      },
+      deep: true
+    }
+  }
 });
 
 /***/ }),
@@ -18895,7 +18960,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -77818,37 +77883,73 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "panel-body" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-5 col-md-offset-1" }, [
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("label", [_vm._v("Logo:")]),
+                _c(
+                  "form",
+                  {
+                    attrs: { action: "" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.logoImageStore($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-5 col-md-offset-1" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", [_vm._v("Logo:")]),
+                            _vm._v(" "),
+                            _c("image-cropper", {
+                              attrs: {
+                                cropperData: _vm.cropperData,
+                                removeImage: _vm.removeImage
+                              }
+                            })
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("image-cropper", {
-                          attrs: {
-                            cropperData: _vm.cropperData,
-                            removeImage: _vm.removeImage
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-4 " }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _vm.logo_image
-                        ? _c("img", {
-                            attrs: { src: _vm.logo_image, alt: "Company Logo" }
-                          })
-                        : _vm._e(),
+                        _c("div", { staticClass: "text-right form-group" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success ",
+                              attrs: {
+                                type: "submit",
+                                disabled: _vm.btnDisabled
+                              }
+                            },
+                            [
+                              _vm._v("Store Logo"),
+                              _c("i", {
+                                staticClass: "icon-arrow-right14 position-right"
+                              })
+                            ]
+                          )
+                        ])
+                      ]),
                       _vm._v(" "),
-                      _c("img", { attrs: { src: _vm.no_logo, alt: "No Logo" } })
+                      _c("div", { staticClass: "col-md-4 " }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm.logo_image
+                            ? _c("img", {
+                                attrs: {
+                                  src: _vm.logo_image,
+                                  alt: "Company Logo"
+                                }
+                              })
+                            : _c("img", {
+                                attrs: { src: _vm.no_logo, alt: "No Logo" }
+                              })
+                        ])
+                      ])
                     ])
-                  ])
-                ])
+                  ]
+                )
               ])
             ]
           )
@@ -103339,7 +103440,7 @@ var actions = {
             case 7:
               _context.prev = 7;
               _context.t0 = _context["catch"](1);
-              commit('setResponse', _context.t0.data);
+              commit('setResponse', _context.t0);
 
             case 10:
             case "end":
@@ -103367,12 +103468,12 @@ var actions = {
               commit = _ref2.commit;
               _context2.prev = 1;
               _context2.next = 4;
-              return axios.post('/admin/cms/pages', formData).then(function (response) {
+              return axios.post('/admin/setting/contact/store', formData).then(function (response) {
                 commit('setResponse', response.data);
                 return response.data;
               })["catch"](function (error) {
                 commit('setResponse', error.data);
-                return error.data;
+                return error;
               });
 
             case 4:
@@ -103400,7 +103501,7 @@ var actions = {
   storeCampaignSetting: function () {
     var _storeCampaignSetting = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, pageId) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, formData) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
@@ -103409,17 +103510,12 @@ var actions = {
               commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
-              return axios.get("/admin/cms/pages/".concat(pageId)).then(function (response) {
-                if (response.data.code == 200) {
-                  commit('setGeneralPageData', response.data.data);
-                } else {
-                  commit('setResponse', response.data);
-                }
-
+              return axios.post('/admin/setting/campaign/store', formData).then(function (response) {
+                commit('setResponse', response.data);
                 return response.data;
               })["catch"](function (error) {
                 commit('setResponse', error.data);
-                return error.data;
+                return error;
               });
 
             case 4:
@@ -103443,6 +103539,48 @@ var actions = {
     }
 
     return storeCampaignSetting;
+  }(),
+  storeLogoImage: function () {
+    var _storeLogoImage = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, formData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              _context4.prev = 1;
+              _context4.next = 4;
+              return axios.post('/admin/setting/logo/store', formData).then(function (response) {
+                commit('setResponse', response.data);
+                return response.data;
+              })["catch"](function (error) {
+                commit('setResponse', error.data);
+                return error;
+              });
+
+            case 4:
+              return _context4.abrupt("return", _context4.sent);
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](1);
+              commit('setResponse', _context4.t0.data);
+
+            case 10:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 7]]);
+    }));
+
+    function storeLogoImage(_x6, _x7) {
+      return _storeLogoImage.apply(this, arguments);
+    }
+
+    return storeLogoImage;
   }()
 };
 var mutations = {
@@ -105503,8 +105641,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/e_com_backend/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\lara_example\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\lara_example\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
