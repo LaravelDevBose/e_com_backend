@@ -153,9 +153,9 @@
             return{
                 no_logo:'',
                 cropperData:{
-                    width:200,
-                    height:100,
-                    placeholder:'Choose a image in 200X100',
+                    width:118,
+                    height:29,
+                    placeholder:'Choose a image in 118X29',
                     file_size:1,
                     init_image:'',
                     folder:'setting',
