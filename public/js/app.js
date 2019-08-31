@@ -8642,9 +8642,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       no_logo: '',
       cropperData: {
-        width: 200,
-        height: 100,
-        placeholder: 'Choose a image in 200X100',
+        width: 118,
+        height: 29,
+        placeholder: 'Choose a image in 118X29',
         file_size: 1,
         init_image: '',
         folder: 'setting'
@@ -8934,10 +8934,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
 //
 //
 //
@@ -78728,13 +78724,17 @@ var staticRenderFns = [
       _c("h5", { staticClass: "panel-title" }, [_vm._v("Slider List")]),
       _vm._v(" "),
       _c("div", { staticClass: "heading-elements" }, [
-        _c("ul", { staticClass: "icons-list" }, [
-          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-          _vm._v(" "),
-          _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-          _vm._v(" "),
-          _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-        ])
+        _c(
+          "a",
+          {
+            staticClass: "btn bg-success btn-sm",
+            attrs: { href: "/admin/cms/sliders/create", type: "button" }
+          },
+          [
+            _c("i", { staticClass: "icon-plus-circle2 position-left" }),
+            _vm._v(" Add Slider")
+          ]
+        )
       ])
     ])
   },
