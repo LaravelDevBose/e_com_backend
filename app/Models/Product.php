@@ -51,6 +51,7 @@ class Product extends Model
         'product_status',
         'warranty_type',
         'video_url',
+        'thumb_id'
     ];
 
     public function scopeNotDelete($query){
@@ -89,5 +90,11 @@ class Product extends Model
 
     public function productImages(){
         return $this->hasMany(ProductImage::class, 'product_id', 'product_id');
+    }
+
+    public function thumbImage(){
+
+        return $this->belongsTo(Attachment::class, 'thumb_id', 'attachment_id');
+
     }
 }

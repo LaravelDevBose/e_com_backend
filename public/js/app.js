@@ -10023,10 +10023,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _helper_Select2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helper/Select2 */ "./resources/js/components/helper/Select2.vue");
 /* harmony import */ var _helper_MultipleSelect2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helper/MultipleSelect2 */ "./resources/js/components/helper/MultipleSelect2.vue");
+/* harmony import */ var _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../cropper/ImageCropper */ "./resources/js/components/cropper/ImageCropper.vue");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10384,9 +10398,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CreateProduct",
   components: {
+    ImageCropper: _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_6__["default"],
     Treeselect: _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default.a,
     'vue-select2': _helper_Select2__WEBPACK_IMPORTED_MODULE_4__["default"],
     'multi-select2': _helper_MultipleSelect2__WEBPACK_IMPORTED_MODULE_5__["default"],
@@ -10427,7 +10443,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         warranty_period: '',
         pri_model: 'Color',
         variations: '',
-        imageIds: ''
+        imageIds: '',
+        thumb_id: ''
       },
       variations: [],
       btnDisabled: false,
@@ -10447,7 +10464,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       pri_id: {},
       sec_id: {},
       pri_id_index: '',
-      cat_Selected: false
+      cat_Selected: false,
+      cropperData: {
+        width: 400,
+        height: 400,
+        placeholder: 'Choose a image in 400X400',
+        file_size: 1,
+        init_image: '',
+        folder: 'thumbnail'
+      },
+      removeImage: false
     };
   },
   created: function created() {
@@ -10638,7 +10664,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     removeVariationData: function removeVariationData(index) {
-      alert(index);
       this.$delete(this.variations, index);
     },
     removePriIdData: function removePriIdData(index) {
@@ -10684,10 +10709,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     submitFrom: function submitFrom() {
+      var _this5 = this;
+
       // TODO Form Validation
       //Button Disable
       this.btnDisabled = true; // append variation data and images ids in form Data
 
+      this.formData.thumb_id = this.cropImageIds[0];
       this.formData.variations = this.variations;
       this.formData.imageIds = this.imageIds; //send Vuex request
 
@@ -10696,6 +10724,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (response.status === "success") {
           Notify.success(response.message);
+          _this5.removeImage = true;
           setTimeout(function () {
             window.location = response.url;
           });
@@ -10711,7 +10740,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds', 'skinTypes']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds', 'skinTypes', 'cropImageIds']), {
     clonedPrimaryIds: function clonedPrimaryIds() {
       return JSON.parse(JSON.stringify(this.pri_id));
     },
@@ -10848,6 +10877,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('select-row', {
   template: "<div>\n                    <span v-if=\"row.status == 1\" class=\"badge badge-success\">{{ row.status_label }}</span>\n                    <span v-else-if=\"row.status == 2\" class=\"badge badge-warning\">{{ row.status_label }}</span>\n                    <span v-else class=\"badge badge-default\">{{ row.status_label }}</span>\n                </div>",
   props: ['row']
 });
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('thumb-image', {
+  template: "<img :src=\"row.thumbnail.image_path\" :alt=\"row.product_title\"  style=\"width:90px; height:90px\">",
+  props: ['row']
+});
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
   template: "<ul class=\"icons-list\">\n                    <li><a href=\"#\" class=\"text text-primary-700\" @click.prevent=\"goToDetailsPage(row.id)\"><i class=\"icon-eye\"></i></a :href=\"\"></li>\n                    <li><a href=\"#\" class=\"text text-info\" @click.prevent=\"goToEditPage(row.id)\"><i class=\"icon-pencil7\"></i></a></li>\n                    <li><a href=\"#\" class=\"text text-danger\" @click.prevent=\"showDeletePopUp(row.id)\"><i class=\"icon-trash\"></i></a></li>\n                    <li class=\"dropdown\">\n                        <a href=\"#\" class=\"dropdown-toggle text text-teal-600\" data-toggle=\"dropdown\" aria-expanded=\"false\">\n                            <i class=\"icon-cog7\"></i>\n                            <span class=\"caret\"></span>\n                        </a>\n                        <ul class=\"dropdown-menu\">\n                            <li><a href=\"#\"><i class=\"icon-file-pdf\"></i> Export to PDF</a></li>\n                            <li><a href=\"#\"><i class=\"icon-file-excel\"></i> Export to CSV</a></li>\n                            <li><a href=\"#\"><i class=\"icon-file-word\"></i> Export to DOC</a></li>\n                        </ul>\n                    </li>\n                </ul>",
   props: ['row'],
@@ -10880,6 +10913,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
         field: 'index',
         align: 'center',
         filterable: false,
+        sortable: false
+      }, {
+        label: 'Image',
+        component: 'thumb-image',
+        align: 'center',
         sortable: false
       }, {
         label: 'Product Name',
@@ -18956,7 +18994,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
 
 // exports
 
@@ -81122,32 +81160,62 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-2 control-label" }, [
-                  _vm._v("Video Url:")
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("label", { staticClass: "col-lg-4 control-label" }, [
+                      _vm._v("Category Banner:")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-lg-8" },
+                      [
+                        _c("image-cropper", {
+                          attrs: {
+                            cropperData: _vm.cropperData,
+                            removeImage: _vm.removeImage
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-lg-10" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.video_url,
-                        expression: "formData.video_url"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", maxlength: "255" },
-                    domProps: { value: _vm.formData.video_url },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("label", { staticClass: "col-lg-2 control-label" }, [
+                      _vm._v("Video Url:")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-10" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formData.video_url,
+                            expression: "formData.video_url"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", maxlength: "255" },
+                        domProps: { value: _vm.formData.video_url },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.formData,
+                              "video_url",
+                              $event.target.value
+                            )
+                          }
                         }
-                        _vm.$set(_vm.formData, "video_url", $event.target.value)
-                      }
-                    }
-                  })
+                      })
+                    ])
+                  ])
                 ])
               ])
             ])
@@ -105641,8 +105709,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\lara_example\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\lara_example\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/html/e_com_backend/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

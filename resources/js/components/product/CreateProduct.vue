@@ -119,10 +119,23 @@
 
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-2 control-label">Video Url:</label>
-                            <div class="col-lg-10">
-                                <input type="text" v-model="formData.video_url" class="form-control" maxlength="255">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <label class="col-lg-4 control-label">Category Banner:</label>
+                                    <div class="col-lg-8">
+                                        <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <label class="col-lg-2 control-label">Video Url:</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" v-model="formData.video_url" class="form-control" maxlength="255">
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -356,10 +369,12 @@
     import {mapGetters, mapActions} from 'vuex';
     import VueSelect2 from '../helper/Select2';
     import MultiSelect2 from '../helper/MultipleSelect2';
+    import ImageCropper from "../cropper/ImageCropper";
 
     export default {
         name: "CreateProduct",
         components:{
+            ImageCropper,
             Treeselect,
             'vue-select2':VueSelect2,
             'multi-select2':MultiSelect2,
@@ -401,6 +416,7 @@
                     pri_model:'Color',
                     variations:'',
                     imageIds:'',
+                    thumb_id:'',
                 },
                 variations:[],
                 btnDisabled:false,
@@ -421,6 +437,15 @@
                 sec_id:{},
                 pri_id_index:'',
                 cat_Selected:false,
+                cropperData:{
+                    width:400,
+                    height:400,
+                    placeholder:'Choose a image in 400X400',
+                    file_size:1,
+                    init_image:'',
+                    folder:'thumbnail',
+                },
+                removeImage:false,
             }
         },
         created() {
@@ -591,7 +616,6 @@
                 }
             },
             removeVariationData(index){
-                alert(index);
                 this.$delete(this.variations,index);
             },
             removePriIdData(index){
@@ -635,6 +659,7 @@
                 this.btnDisabled = true;
 
                 // append variation data and images ids in form Data
+                this.formData.thumb_id = this.cropImageIds[0];
                 this.formData.variations = this.variations;
                 this.formData.imageIds = this.imageIds;
                 //send Vuex request
@@ -643,6 +668,8 @@
                         console.log(response);
                         if(response.status === "success"){
                             Notify.success(response.message);
+                            this.removeImage = true;
+
                             setTimeout(function () {
                                 window.location = response.url;
                             });
@@ -670,6 +697,7 @@
                 'productImages',
                 'imageIds',
                 'skinTypes',
+                'cropImageIds',
             ]),
             clonedPrimaryIds(){
                 return JSON.parse(JSON.stringify(this.pri_id));

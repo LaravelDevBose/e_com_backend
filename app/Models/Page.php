@@ -46,7 +46,7 @@ class Page extends Model
     }
 
     public function attachment(){
-        return $this->hasOne(Attachment::class,'attachment_id', 'attachment_id')->where('folder', 'page');
+        return $this->hasOne(Attachment::class,'attachment_id', 'attachment_id');
     }
 
 }
