@@ -18,10 +18,18 @@ class ProductDetails extends Model
         'num_of_pieces',
         'product_occasion',
         'color_shade',
-        'skin_type',
+        'skin_type_id',
         'extra_details',
         'warranty_policy',
         'warranty_policy_eng',
         'warranty_period',
     ];
+
+    public function product(){
+        return $this->belongsTo(Product::class, 'product_id', 'product_id');
+    }
+
+    public function skinType(){
+        return $this->belongsTo(SkinType::class, 'skin_type_id', 'skin_type_id');
+    }
 }

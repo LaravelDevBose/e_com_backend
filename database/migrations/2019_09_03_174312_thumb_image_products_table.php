@@ -16,6 +16,7 @@ class ThumbImageProductsTable extends Migration
     {
         Schema::table('products', function(Blueprint $table){
             $table->unsignedBigInteger('thumb_id');
+            $table->string('product_slug')->nullable();
         });
     }
 
@@ -26,10 +27,8 @@ class ThumbImageProductsTable extends Migration
      */
     public function down()
     {
-        if(Schema::hasCloumn('products', 'thumb_id')){
-            Schema::table('products', function(Blueprint $table){
-                $table->dropColumn('thumb_id');
-            });
-        }
+        Schema::table('products', function(Blueprint $table){
+            $table->dropColumn(['thumb_id', 'product_slug']);
+        });
     }
 }

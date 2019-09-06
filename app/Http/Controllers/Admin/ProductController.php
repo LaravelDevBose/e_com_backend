@@ -100,6 +100,7 @@ class ProductController extends Controller
                     'category_id'=>$request->category_id,
                     'brand_id'=>$request->brand_id,
                     'product_name'=>$request->product_name,
+                    'product_slug'=>str_slug($request->product_name),
                     'highlight'=>$request->highlight,
                     'description'=>$request->description,
                     'lang_product_name'=>$request->lang_product_name,

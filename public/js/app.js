@@ -10390,6 +10390,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 // import the component
 
  // import the styles
@@ -10473,7 +10474,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         init_image: '',
         folder: 'thumbnail'
       },
-      removeImage: false
+      removeImage: false,
+      vari_id: 'variaction_'
     };
   },
   created: function created() {
@@ -81564,127 +81566,143 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c("label", { staticClass: "col-lg-2 control-label" }, [
-                        _vm._v("Images:")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-lg-10" }, [
-                        _c("div", { attrs: { id: "productImage" } }, [
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-md-12" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("input", {
-                                  ref: "files",
-                                  refInFor: true,
-                                  staticClass: "hidden",
-                                  attrs: {
-                                    type: "file",
-                                    accept: "image/*",
-                                    multiple: _vm.multi_file,
-                                    id: _vm.pri_id[i]
-                                  },
-                                  on: { change: _vm.uploadImage }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "label",
-                                  {
-                                    staticClass:
-                                      "btn btn-info btn-md btn-block",
-                                    attrs: { for: _vm.pri_id[i] },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.addPriId(_vm.pri_id[i])
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "icon-file-media text-left"
-                                    }),
-                                    _vm._v(" Select File")
-                                  ]
-                                )
-                              ])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _vm.productImages
-                            ? _c(
-                                "div",
-                                { staticClass: "row" },
-                                _vm._l(
-                                  _vm.productImages.filter(function(img) {
-                                    return img.pri_id === _vm.pri_id[i]
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.pri_id[i],
+                            expression: "pri_id[i]"
+                          }
+                        ],
+                        staticClass: "form-group row"
+                      },
+                      [
+                        _c("label", { staticClass: "col-lg-2 control-label" }, [
+                          _vm._v("Images:")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-lg-10" }, [
+                          _c("div", { attrs: { id: "productImage" } }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-md-12" }, [
+                                _c("div", { staticClass: "form-group" }, [
+                                  _c("input", {
+                                    ref: "files",
+                                    refInFor: true,
+                                    staticClass: "hidden",
+                                    attrs: {
+                                      type: "file",
+                                      accept: "image/*",
+                                      multiple: _vm.multi_file,
+                                      id: _vm.vari_id + _vm.pri_id[i]
+                                    },
+                                    on: { change: _vm.uploadImage }
                                   }),
-                                  function(image, index) {
-                                    return _c(
-                                      "div",
-                                      {
-                                        key: image.id,
-                                        staticClass:
-                                          "col-xs-4 col-sm-4 col-lg-1"
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "btn btn-info btn-md btn-block",
+                                      attrs: {
+                                        for: _vm.vari_id + _vm.pri_id[i]
                                       },
-                                      [
-                                        _c(
-                                          "div",
-                                          { staticClass: "thumbnail" },
-                                          [
-                                            _c(
-                                              "div",
-                                              { staticClass: "thumb" },
-                                              [
-                                                _c("img", {
-                                                  attrs: {
-                                                    src: image.img,
-                                                    alt: ""
-                                                  }
-                                                }),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "caption-overflow"
-                                                  },
-                                                  [
-                                                    _c("span", [
-                                                      _c(
-                                                        "a",
-                                                        {
-                                                          staticClass:
-                                                            "btn border-white text-white btn-flat btn-icon btn-rounded",
-                                                          attrs: {
-                                                            href: image.img,
-                                                            "data-fancybox":
-                                                              "images"
-                                                          }
-                                                        },
-                                                        [
-                                                          _c("i", {
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.addPriId(_vm.pri_id[i])
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "icon-file-media text-left"
+                                      }),
+                                      _vm._v(" Select File")
+                                    ]
+                                  )
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _vm.productImages
+                              ? _c(
+                                  "div",
+                                  { staticClass: "row" },
+                                  _vm._l(
+                                    _vm.productImages.filter(function(img) {
+                                      return img.pri_id === _vm.pri_id[i]
+                                    }),
+                                    function(image, index) {
+                                      return _c(
+                                        "div",
+                                        {
+                                          key: image.id,
+                                          staticClass:
+                                            "col-xs-4 col-sm-4 col-lg-1"
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "thumbnail" },
+                                            [
+                                              _c(
+                                                "div",
+                                                { staticClass: "thumb" },
+                                                [
+                                                  _c("img", {
+                                                    attrs: {
+                                                      src: image.img,
+                                                      alt: ""
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "caption-overflow"
+                                                    },
+                                                    [
+                                                      _c("span", [
+                                                        _c(
+                                                          "a",
+                                                          {
                                                             staticClass:
-                                                              "icon-eye"
-                                                          })
-                                                        ]
-                                                      )
-                                                    ])
-                                                  ]
-                                                )
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  }
-                                ),
-                                0
-                              )
-                            : _vm._e()
+                                                              "btn border-white text-white btn-flat btn-icon btn-rounded",
+                                                            attrs: {
+                                                              href: image.img,
+                                                              "data-fancybox":
+                                                                "images"
+                                                            }
+                                                          },
+                                                          [
+                                                            _c("i", {
+                                                              staticClass:
+                                                                "icon-eye"
+                                                            })
+                                                          ]
+                                                        )
+                                                      ])
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    }
+                                  ),
+                                  0
+                                )
+                              : _vm._e()
+                          ])
                         ])
-                      ])
-                    ])
+                      ]
+                    )
                   ])
                 }),
                 _vm._v(" "),

@@ -229,15 +229,16 @@
                                     <span class="text-danger" @click="removePriIdData(i)"> <i class="icon-trash"></i></span>
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row" v-show="pri_id[i]">
                                 <label class="col-lg-2 control-label">Images:</label>
                                 <div class="col-lg-10" >
                                     <div id="productImage">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <input type="file" class="hidden" ref="files" accept="image/*" :multiple="multi_file" :id="pri_id[i]"   @change="uploadImage">
-                                                    <label :for="pri_id[i]" @click="addPriId(pri_id[i])" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left" ></i> Select File</label>
+
+                                                    <input type="file" class="hidden" ref="files" accept="image/*" :multiple="multi_file"  :id="vari_id+pri_id[i]"  @change="uploadImage">
+                                                    <label :for="vari_id+pri_id[i]" @click="addPriId(pri_id[i])" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left" ></i> Select File</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -446,6 +447,7 @@
                     folder:'thumbnail',
                 },
                 removeImage:false,
+                vari_id:'variaction_',
             }
         },
         created() {
@@ -711,7 +713,8 @@
             // },
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
-            }
+            },
+
         },
         watch:{
             clonedPrimaryIds:{
