@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductDetails extends Model
 {
+    const PeriodUnitS = 'day';
+    const PeriodUnitM = 'days';
 
     protected $table ='product_details';
 

@@ -21,9 +21,12 @@ import store from './store'
 import Notify from './helper/pNotify'
 window.Notify = Notify;
 
+const files = require.context('./', true, /\.vue$/i);
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+
 Vue.component('dashboard', require('./components/home/Dashboard').default);
 
-import AdminLogin from './components/auth/AdminLogin';
+/*import AdminLogin from './components/auth/AdminLogin';
 import Category from './components/category/Category';
 import Color from './components/color/Color';
 import Tag from './components/tag/Tag';
@@ -48,7 +51,7 @@ import CreateGeneralPages from "./components/cms/pages/CreateGeneralPages";
 import GeneralPagesList from "./components/cms/pages/GeneralPagesList";
 import ShowGeneralPages from "./components/cms/pages/ShowGeneralPages";
 import EditGeneralPages from "./components/cms/pages/EditGeneralPages";
-import SettingPage from "./components/cms/setting/SettingPage";
+import SettingPage from "./components/cms/setting/SettingPage";*/
 
 
 const app = new Vue({

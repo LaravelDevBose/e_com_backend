@@ -38,6 +38,10 @@ class Category extends Model
         return $query->where('category_status', '!=',0);
     }
 
+    public function scopeBySearch($query, $request){
+        return $query;
+    }
+
     public function children(){
         return $this->hasMany(Category::class, 'parent_id', 'category_id');
     }
