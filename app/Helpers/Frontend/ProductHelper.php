@@ -17,7 +17,7 @@ class ProductHelper
 {
     public static function products_list($request=null){
         $request = (object)$request;
-        $products = Product::isActive();
+        $products = Product::isActive()->with(['brand', 'category', 'thumbImage', 'singleVariation']);
 
 
         if(!empty($request->category_id)){

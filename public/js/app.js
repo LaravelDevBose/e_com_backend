@@ -19409,7 +19409,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
 
 // exports
 
@@ -100895,6 +100895,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_croppa__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_croppa__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 /* harmony import */ var _helper_pNotify__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./helper/pNotify */ "./resources/js/helper/pNotify.js");
+/* harmony import */ var _components_auth_AdminLogin__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/auth/AdminLogin */ "./resources/js/components/auth/AdminLogin.vue");
+/* harmony import */ var _components_category_Category__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/category/Category */ "./resources/js/components/category/Category.vue");
+/* harmony import */ var _components_color_Color__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/color/Color */ "./resources/js/components/color/Color.vue");
+/* harmony import */ var _components_tag_Tag__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/tag/Tag */ "./resources/js/components/tag/Tag.vue");
+/* harmony import */ var _components_size_SizeGroup__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/size/SizeGroup */ "./resources/js/components/size/SizeGroup.vue");
+/* harmony import */ var _components_deliveryCost_DeliveryCost__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/deliveryCost/DeliveryCost */ "./resources/js/components/deliveryCost/DeliveryCost.vue");
+/* harmony import */ var _components_campaign_CreateCampaign__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/campaign/CreateCampaign */ "./resources/js/components/campaign/CreateCampaign.vue");
+/* harmony import */ var _components_campaign_Campaign__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/campaign/Campaign */ "./resources/js/components/campaign/Campaign.vue");
+/* harmony import */ var _components_campaign_ShowCampaign__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/campaign/ShowCampaign */ "./resources/js/components/campaign/ShowCampaign.vue");
+/* harmony import */ var _components_campaign_ManageCampaignProduct__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/campaign/ManageCampaignProduct */ "./resources/js/components/campaign/ManageCampaignProduct.vue");
+/* harmony import */ var _components_voucher_Voucher__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/voucher/Voucher */ "./resources/js/components/voucher/Voucher.vue");
+/* harmony import */ var _components_voucher_CreateVoucher__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/voucher/CreateVoucher */ "./resources/js/components/voucher/CreateVoucher.vue");
+/* harmony import */ var _components_attachment_Attachment__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/attachment/Attachment */ "./resources/js/components/attachment/Attachment.vue");
+/* harmony import */ var _components_product_ProductList__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/product/ProductList */ "./resources/js/components/product/ProductList.vue");
+/* harmony import */ var _components_product_CreateProduct__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/product/CreateProduct */ "./resources/js/components/product/CreateProduct.vue");
+/* harmony import */ var _components_product_ShowProduct__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/product/ShowProduct */ "./resources/js/components/product/ShowProduct.vue");
+/* harmony import */ var _components_helper_ImportData__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/helper/ImportData */ "./resources/js/components/helper/ImportData.vue");
+/* harmony import */ var _components_brand_Brand__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/brand/Brand */ "./resources/js/components/brand/Brand.vue");
+/* harmony import */ var _components_skin_type_SkinType__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/skin_type/SkinType */ "./resources/js/components/skin_type/SkinType.vue");
+/* harmony import */ var _components_cms_slider_SliderPage__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/cms/slider/SliderPage */ "./resources/js/components/cms/slider/SliderPage.vue");
+/* harmony import */ var _components_cms_slider_SliderCreatePage__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/cms/slider/SliderCreatePage */ "./resources/js/components/cms/slider/SliderCreatePage.vue");
+/* harmony import */ var _components_cms_pages_CreateGeneralPages__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/cms/pages/CreateGeneralPages */ "./resources/js/components/cms/pages/CreateGeneralPages.vue");
+/* harmony import */ var _components_cms_pages_GeneralPagesList__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/cms/pages/GeneralPagesList */ "./resources/js/components/cms/pages/GeneralPagesList.vue");
+/* harmony import */ var _components_cms_pages_ShowGeneralPages__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/cms/pages/ShowGeneralPages */ "./resources/js/components/cms/pages/ShowGeneralPages.vue");
+/* harmony import */ var _components_cms_pages_EditGeneralPages__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./components/cms/pages/EditGeneralPages */ "./resources/js/components/cms/pages/EditGeneralPages.vue");
+/* harmony import */ var _components_cms_setting_SettingPage__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./components/cms/setting/SettingPage */ "./resources/js/components/cms/setting/SettingPage.vue");
 
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
@@ -100922,63 +100948,62 @@ files.keys().map(function (key) {
   return vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(key.split('/').pop().split('.')[0], files(key)["default"]);
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('dashboard', __webpack_require__(/*! ./components/home/Dashboard */ "./resources/js/components/home/Dashboard.vue")["default"]);
-/*import AdminLogin from './components/auth/AdminLogin';
-import Category from './components/category/Category';
-import Color from './components/color/Color';
-import Tag from './components/tag/Tag';
-import SizeGroup from './components/size/SizeGroup';
-import DeliveryCost from './components/deliveryCost/DeliveryCost';
-import CreateCampaign from './components/campaign/CreateCampaign';
-import Campaign from './components/campaign/Campaign';
-import ShowCampaign from  './components/campaign/ShowCampaign';
-import ManageCampaignProduct from './components/campaign/ManageCampaignProduct';
-import Voucher from  './components/voucher/Voucher';
-import CreateVoucher from './components/voucher/CreateVoucher';
-import Attachment from './components/attachment/Attachment';
-import ProductList from './components/product/ProductList';
-import CreateProduct from './components/product/CreateProduct';
-import ShowProduct from './components/product/ShowProduct';
-import ImportData from "./components/helper/ImportData";
-import Brand from './components/brand/Brand';
-import SkinType from './components/skin_type/SkinType';
-import SliderPage from './components/cms/slider/SliderPage';
-import SliderCreatePage from "./components/cms/slider/SliderCreatePage";
-import CreateGeneralPages from "./components/cms/pages/CreateGeneralPages";
-import GeneralPagesList from "./components/cms/pages/GeneralPagesList";
-import ShowGeneralPages from "./components/cms/pages/ShowGeneralPages";
-import EditGeneralPages from "./components/cms/pages/EditGeneralPages";
-import SettingPage from "./components/cms/setting/SettingPage";*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   store: _store__WEBPACK_IMPORTED_MODULE_5__["default"],
   components: {
-    AdminLogin: AdminLogin,
-    'attachment': Attachment,
-    'import-date': ImportData,
-    Category: Category,
-    Color: Color,
-    'brand': Brand,
-    'tag': Tag,
-    'size-group': SizeGroup,
-    'delivery-cost': DeliveryCost,
-    'create-campaign': CreateCampaign,
-    'campaign': Campaign,
-    'show-campaign': ShowCampaign,
-    'manage-campaign-product': ManageCampaignProduct,
-    'voucher': Voucher,
-    'create-voucher': CreateVoucher,
-    'product-list': ProductList,
-    'create-product': CreateProduct,
-    'show-product': ShowProduct,
-    'skin-type': SkinType,
-    'slider-page': SliderPage,
-    'slider-create-page': SliderCreatePage,
-    'create-general-pages': CreateGeneralPages,
-    'general-pages-list': GeneralPagesList,
-    'show-general-pages': ShowGeneralPages,
-    'edit-general-pages': EditGeneralPages,
-    'setting-page': SettingPage
+    AdminLogin: _components_auth_AdminLogin__WEBPACK_IMPORTED_MODULE_7__["default"],
+    'attachment': _components_attachment_Attachment__WEBPACK_IMPORTED_MODULE_19__["default"],
+    'import-date': _components_helper_ImportData__WEBPACK_IMPORTED_MODULE_23__["default"],
+    Category: _components_category_Category__WEBPACK_IMPORTED_MODULE_8__["default"],
+    Color: _components_color_Color__WEBPACK_IMPORTED_MODULE_9__["default"],
+    'brand': _components_brand_Brand__WEBPACK_IMPORTED_MODULE_24__["default"],
+    'tag': _components_tag_Tag__WEBPACK_IMPORTED_MODULE_10__["default"],
+    'size-group': _components_size_SizeGroup__WEBPACK_IMPORTED_MODULE_11__["default"],
+    'delivery-cost': _components_deliveryCost_DeliveryCost__WEBPACK_IMPORTED_MODULE_12__["default"],
+    'create-campaign': _components_campaign_CreateCampaign__WEBPACK_IMPORTED_MODULE_13__["default"],
+    'campaign': _components_campaign_Campaign__WEBPACK_IMPORTED_MODULE_14__["default"],
+    'show-campaign': _components_campaign_ShowCampaign__WEBPACK_IMPORTED_MODULE_15__["default"],
+    'manage-campaign-product': _components_campaign_ManageCampaignProduct__WEBPACK_IMPORTED_MODULE_16__["default"],
+    'voucher': _components_voucher_Voucher__WEBPACK_IMPORTED_MODULE_17__["default"],
+    'create-voucher': _components_voucher_CreateVoucher__WEBPACK_IMPORTED_MODULE_18__["default"],
+    'product-list': _components_product_ProductList__WEBPACK_IMPORTED_MODULE_20__["default"],
+    'create-product': _components_product_CreateProduct__WEBPACK_IMPORTED_MODULE_21__["default"],
+    'show-product': _components_product_ShowProduct__WEBPACK_IMPORTED_MODULE_22__["default"],
+    'skin-type': _components_skin_type_SkinType__WEBPACK_IMPORTED_MODULE_25__["default"],
+    'slider-page': _components_cms_slider_SliderPage__WEBPACK_IMPORTED_MODULE_26__["default"],
+    'slider-create-page': _components_cms_slider_SliderCreatePage__WEBPACK_IMPORTED_MODULE_27__["default"],
+    'create-general-pages': _components_cms_pages_CreateGeneralPages__WEBPACK_IMPORTED_MODULE_28__["default"],
+    'general-pages-list': _components_cms_pages_GeneralPagesList__WEBPACK_IMPORTED_MODULE_29__["default"],
+    'show-general-pages': _components_cms_pages_ShowGeneralPages__WEBPACK_IMPORTED_MODULE_30__["default"],
+    'edit-general-pages': _components_cms_pages_EditGeneralPages__WEBPACK_IMPORTED_MODULE_31__["default"],
+    'setting-page': _components_cms_setting_SettingPage__WEBPACK_IMPORTED_MODULE_32__["default"]
   }
 });
 
@@ -107570,8 +107595,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\lara_example\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\lara_example\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/html/e_com_backend/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

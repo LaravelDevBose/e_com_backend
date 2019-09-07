@@ -138,32 +138,28 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-7 col-xs-12">
-                    <div class="small-strip"><img alt="banner" src="images/small-strip-banner.jpg"></div>
+                    <div class="small-strip"><img alt="banner" src="{{ asset('front/images/small-strip-banner.jpg') }}"></div>
                     <div id='rev_slider_4_wrapper' class='rev_slider_wrapper fullwidthbanner-container'>
                         <div id='rev_slider_4' class='rev_slider fullwidthabanner'>
-                            <ul>
-                                <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='images/slide-img.png'><img src='images/slide-img.png' alt="slide-img" data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat' />
-                                    <div class="info">
-                                        <div class='tp-caption ExtraLargeTitle sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1100' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:2;max-width:auto;max-height:auto;white-space:nowrap;'><span>Crocus Deal</span> </div>
-                                        <div class='tp-caption LargeTitle sfl  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1300' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:3;max-width:auto;max-height:auto;white-space:nowrap;'><span>digital Time</span> </div>
-                                        <div class='tp-caption Title sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1450' data-easing='Power2.easeInOut' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                                        <div class='tp-caption sfb  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1500' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'><a href='#' class="buy-btn">Shop Now</a> </div>
-                                    </div>
-                                </li>
-                                <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='images/slide-img.png'><img src='images/slide-img.png' alt="slide-img" data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat' />
-                                    <div class="info">
-                                        <div class='tp-caption ExtraLargeTitle sft slide2  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1100' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:2;max-width:auto;max-height:auto;white-space:nowrap;padding-right:0px'><span>Spring Collection</span> </div>
-                                        <div class='tp-caption LargeTitle sfl  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1300' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:3;max-width:auto;max-height:auto;white-space:nowrap;'>Hot Fashion</div>
-                                        <div class='tp-caption Title sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1500' data-easing='Power2.easeInOut' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                                        <div class='tp-caption sfb  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1500' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'><a href='#' class="buy-btn">Buy Now</a> </div>
-                                    </div>
-                                </li>
-                            </ul>
+                            @if(!empty($sliders))
+                                <ul>
+                                    @foreach($sliders as $slider)
+                                    <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='{{ $slider->attachment->image_path }}'>
+                                        <img src='{{ $slider->attachment->image_path }}' alt="{{ $slider->slider_title }}" data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat' />
+                                        <div class="info">
+                                            <div class='tp-caption LargeTitle sfl  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='900' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:3;max-width:auto;max-height:auto;white-space:nowrap;'><span>{{ $slider->slider_title }}</span> </div>
+                                            <div class='tp-caption Title sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1200' data-easing='Power2.easeInOut' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'>{{ $slider->sub_title }}</div>
+                                            <div class='tp-caption sfb  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1400' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'><a href='{{ $slider->btn_url }}' class="buy-btn">{{ $slider->btn_text }}</a> </div>
+                                        </div>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class=" col-lg-3 col-md-3 col-sm-7 col-xs-12">
-                    <div class="image-item"> <a href="#" title="Image"> <img src="images/rhs-banner.png" class="img-responsive" alt="Image"></a> </div>
+                    <div class="image-item"> <a href="#" title="Image"> <img src="{{ asset('front/images/rhs-banner.jpg') }}" class="img-responsive" alt="Image"></a> </div>
                 </div>
             </div>
         </div>

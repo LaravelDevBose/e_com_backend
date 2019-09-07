@@ -38,49 +38,63 @@
                 <article class="col-main row" style="display: block">
                     <h2 class="page-heading"> <span class="page-heading-title">{{ $category->category_name }}</span> </h2>
                     <div class="category-products">
-                        @if()
-                        <ul class="products-grid">
-                            <li class="item col-lg-4 col-md-4 col-sm-4 col-xs-6">
-                                <div class="item-inner">
-                                    <div class="item-img">
-                                        <div class="item-img-info"><a href="#" title="Food Processor" class="product-image"><img src="images/product-img.jpg" alt="Retis lapen casen"></a>
-                                            <div class="new-label new-top-left">New</div>
-                                            <div class="box-hover">
-                                                <ul class="add-to-links">
-                                                    <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                    <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
-                                                    <li><a class="link-compare" href="compare.html">Compare</a> </li>
-                                                </ul>
+                        @if(!empty($products))
+                            <ul class="products-grid">
+                                @foreach($products as $product)
+                                    <li class="item col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                                        <div class="item-inner">
+                                            <div class="item-img">
+                                                <div class="item-img-info">
+                                                    <a href="{{ route('front.product', $product->product_slug) }}"  title="{{ $product->product_name }}" class="product-image">
+                                                        <img src="{{ $product->thumbImage->image_path }}"  alt="{{ $product->product_name }}">
+                                                    </a>
+                                                    {{--<div class="new-label new-top-left">New</div>--}}
+                                                    <div class="box-hover">
+                                                        <ul class="add-to-links">
+                                                            <li><a class="link-quickview" href="#">Quick View</a> </li>
+                                                            <li><a class="link-wishlist" href="{{ route('login') }}">Wishlist</a> </li>
+                                                            <li><a class="link-compare" href="#">Compare</a> </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="item-info">
-                                        <div class="info-inner">
-                                            <div class="item-title"> <a title="Food Processor" href="#"> Food Processor </a> </div>
-                                            <div class="item-content">
-                                                <div class="rating">
-                                                    <div class="ratings">
-                                                        <div class="rating-box">
-                                                            <div style="width:80%" class="rating"></div>
+                                            <div class="item-info">
+                                                <div class="info-inner">
+                                                    <div class="item-title"> <a title="{{ $product->product_name }}" href="{{ route('front.product', $product->product_slug) }}"> {{ $product->product_name }} </a> </div>
+                                                    <div class="item-content">
+                                                        <div class="rating">
+                                                            <div class="ratings">
+                                                                <div class="rating-box">
+                                                                    <div style="width:80%" class="rating"></div>
+                                                                </div>
+                                                                <p class="rating-links">1 Review(s)</p>
+                                                            </div>
                                                         </div>
-                                                        <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                        @if(!empty($product->singleVariation))
+                                                            <div class="item-price">
+                                                                @if(!is_null($product->singleVariation->special_price))
+                                                                    <div class="price-box">
+                                                                        <p class="old-price"><span class="price-label">Regular Price:</span> <span class="price">$ {{ number_format($product->singleVariation->price,2) }} </span> </p>
+                                                                        <p class="special-price"><span class="price-label">Special Price</span> <span class="price">$ {{ number_format($product->singleVariation->special_price ,2) }} </span> </p>
+                                                                    </div>
+                                                                @else
+                                                                    <div class="price-box">
+                                                                        <p class="special-price"><span class="price-label">Price</span> <span class="price">$ {{ number_format($product->singleVariation->price,2) }}</span> </p>
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                        @endif
+                                                        <div class="action">
+                                                            <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span></button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="item-price">
-                                                    <div class="price-box">
-                                                        <p class="old-price"><span class="price-label">Regular Price:</span> <span class="price">$100.00 </span> </p>
-                                                        <p class="special-price"><span class="price-label">Special Price</span> <span class="price">$90.00 </span> </p>
-                                                    </div>
-                                                </div>
-                                                <div class="action">
-                                                    <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span></button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
                     </div>
                 </article>
                 <!--	///*///======    End article  ========= //*/// -->
@@ -122,7 +136,7 @@
                         <!--box-content box-category-->
                     </div>
                     @endif
-                    <div class="hot-banner"><img alt="banner" src="images/hot-trends-banner.png"></div>
+                    <div class="hot-banner"><img alt="banner" src="{{ asset('front/images/hot-trends-banner.jpg') }}"></div>
                     <div class="block block-layered-nav">
                         <div class="block-title">Shop By</div>
                         <div class="block-content">

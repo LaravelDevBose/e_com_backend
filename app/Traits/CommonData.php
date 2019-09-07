@@ -130,7 +130,7 @@ trait CommonData
     }
 
     public static function slider_list($request=null){
-        $sliders = Slider::isActive()->bySearch($request)->orderBy('slider_position', 'asc')->with('attachment')->get();
+        $sliders = Slider::isActive()->orderBy('slider_position', 'asc')->with('attachment')->get();
         if(!empty($sliders)){
             return $sliders;
         }else{
