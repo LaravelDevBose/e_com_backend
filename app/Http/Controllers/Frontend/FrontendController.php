@@ -72,7 +72,8 @@ class FrontendController extends Controller
             return abort(Response::HTTP_NOT_FOUND);
         }
         return view('frontend.pages',[
-            'page'=>$page
+            'page'=>$page,
+            'pagesMenuList'=>CommonData::pages_menu_list(),
         ]);
     }
 

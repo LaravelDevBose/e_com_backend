@@ -138,11 +138,16 @@ trait CommonData
         }
     }
 
-    public static function pages_menu_list($notShowIn){
+    public static function pages_menu_list($notShowIn=null){
         $pages= Page::isActive()
-            ->select('menu_title','page_slug','show_in','page_status')
-            ->notShowIn($notShowIn)->orderBy('menu_position', 'asc')
-            ->get();
+            ->select('page_id','menu_title','page_slug','show_in','page_status')
+            ->orderBy('menu_position', 'asc');
+
+            if(!empty($notShowIn)){
+                $pages = $pages->notShowIn($notShowIn);
+            }
+
+            $pages = $pages->get();
 
         if(!empty($pages)){
             return $pages;
