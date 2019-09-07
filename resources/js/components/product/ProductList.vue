@@ -50,6 +50,11 @@
                     </div>`,
         props: ['row'],
     });
+    Vue.component('thumb-image', {
+        template: `<img :src="row.thumbnail.image_path" :alt="row.product_title"  style="width:90px; height:90px">`,
+        props: ['row'],
+    });
+
     Vue.component('action-btn', {
         template: `<ul class="icons-list">
                         <li><a href="#" class="text text-primary-700" @click.prevent="goToDetailsPage(row.id)"><i class="icon-eye"></i></a :href=""></li>
@@ -76,7 +81,7 @@
                 window.location = '/admin/product/'+ID+'/edit';
             },
             showDeletePopUp:function (ID) {
-                
+
             }
         },
     });
@@ -97,6 +102,7 @@
                 rows:'',
                 columns: [
                     { label: '#', field: 'index', align: 'center', filterable: false, sortable:false },
+                    { label: 'Image', component: 'thumb-image', align: 'center', sortable: false },
                     { label: 'Product Name', field: 'product_title',  },
                     { label: 'Product SKU', field: 'sku' , },
                     { label: 'Category', field: 'category.name' },

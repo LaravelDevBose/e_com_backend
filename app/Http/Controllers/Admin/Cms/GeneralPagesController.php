@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Resources\Admin\GeneralPageCollection;
+use App\Http\Resources\Admin\GeneralPageResource;
 use App\Models\Page;
 use App\Traits\ResponserTrait;
 use Exception;
@@ -22,7 +23,7 @@ class GeneralPagesController extends Controller
     }
 
     public function page_list(Request $request){
-        $pages = Page::notDelete()->bySearch($request)->get();
+        $pages = Page::notDelete()->bySearch($request)->with('attachment')->get();
 
         if(!empty($pages)){
             $collection = GeneralPageCollection::collection($pages);
@@ -95,15 +96,37 @@ class GeneralPagesController extends Controller
         }
     }
 
-    public function show(Page $page){
+    public function show($pageId, Request $request){
 
-        return view('cms.pages.show');
+        if($request->ajax()){
+
+            $page = Page::where('page_id', $pageId)->with('attachment')->first();
+            if(!empty($page)){
+                $response = new GeneralPageResource($page);
+                return ResponserTrait::singleResponse($response, 'success', Response::HTTP_OK);
+            }else{
+                return ResponserTrait::allResponse('error', 400, 'No Data Found. Something Wrong !');
+            }
+        }else{
+            return view('cms.pages.show',[
+                'pageId'=>$pageId,
+            ]);
+        }
+
+    }
+
+    public function edit($pageId){
+
+        return view('cms.pages.edit',[
+            'pageId'=>$pageId
+        ]);
     }
 
     public function update(Request $request, Page $page){
+
         $validator = Validator::make($request->all(),[
-            'page_title'=>'required|string|min:5|max:20',
-            'menu_title'=>'required|string|min:5|max:20',
+            'title'=>'required|string|min:5|max:20',
+            'menuTitle'=>'required|string|min:5|max:20',
             'show_in'=>'required|numeric',
             'attachmentIds'=>'array'
         ]);
@@ -112,20 +135,24 @@ class GeneralPagesController extends Controller
             try{
                 DB::beginTransaction();
 
-                $page = Page::create([
-                    'page_title'=>$request->page_title,
-                    'menu_title'=>$request->menu_title,
-                    'page_slug'=>Str::slug($request->menu_title),
+                $page = $page->update([
+                    'page_title'=>$request->title,
+                    'menu_title'=>$request->menuTitle,
+                    'page_slug'=>Str::slug($request->menuTitle),
                     'show_in'=>$request->show_in,
-                    'menu_position'=>$request->menu_position,
+                    'menu_position'=>$request->position,
                     'body_content'=>$request->body_content,
-                    'other_content'=>$request->other_content,
-                    'attachment_id'=>$request->attachmentIds[0],
-                    'page_status'=>(!empty($request->page_status) && $request->page_status == config('app.active')) ? $request->page_status : config('app.inactive'),
+                    'other_content'=>$request->extra_content,
+                    'page_status'=>(!empty($request->status) && $request->status == config('app.active')) ? $request->status : config('app.inactive'),
                 ]);
+                if(!empty($request->attachmentIds[0]) && count($request->attachmentIds) > 0){
+                    $imageUpdate = Page::find($request->id);
+                    $imageUpdate->attachment_id = $request->attachmentIds[0];
+                    $imageUpdate->save();
+                }
                 if($page){
                     DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Page Details Store Successfully', '', route('admin.cms.pages.index'));
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Page Details Update Successfully', '', route('admin.cms.pages.index'));
                 }
 
             }catch (Exception $ex){
@@ -148,7 +175,26 @@ class GeneralPagesController extends Controller
     }
 
     public function destroy(Page $page){
+        if($page){
+            try{
+                DB::beginTransaction();
+                $page->update([
+                    'page_status'=>config('app.delete'),
+                ]);
 
+                if($page){
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Page Content Delete SuccessFully');
+                }{
+                    throw new Exception('Invalid Information.! Delete Not Successful');
+                }
+            }catch(Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, "Invalid Information. No Page Info Found.");
+        }
     }
 
 

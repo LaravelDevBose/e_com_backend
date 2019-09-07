@@ -22,4 +22,8 @@ class SkinType extends Model
     public function scopeNotDelete($query){
         return $query->where('skin_type_status', '!=', config('app.delete'));
     }
+
+    public function productDetails(){
+        return $this->hasOne(ProductDetails::class, 'skin_type_id', 'skin_type_id');
+    }
 }

@@ -16,6 +16,8 @@ class Attachment extends Model
         'brand'=>6,
         'slider'=>7,
         'page'=>8,
+        'setting'=>9,
+        'thumbnail'=>10,
     ];
 
     protected $table = 'attachments';
@@ -87,5 +89,9 @@ class Attachment extends Model
 
     public function page(){
         return $this->belongsTo(Page::class, 'attachment_id','attachment_id');
+    }
+
+    public function productThumb(){
+        return $this->hasOne(Product::class, 'thumb_id', 'attachment_id');
     }
 }

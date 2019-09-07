@@ -51,6 +51,8 @@ class Product extends Model
         'product_status',
         'warranty_type',
         'video_url',
+        'thumb_id',
+        'product_slug',
     ];
 
     public function scopeNotDelete($query){
@@ -69,7 +71,20 @@ class Product extends Model
         return $sku;
     }
 
-
+    public static function dangers_goods_data($data){
+        $goods = [];
+        if(!empty($data)){
+            $list = explode(',', $data);
+            if(!empty($list)){
+                foreach ($list as $key=>$value){
+                    if(!empty($value) && !empty(Self::DangersGoods[$value])){
+                        array_push($goods, Self::DangersGoods[$value]);
+                    }
+                }
+            }
+        }
+        return $goods;
+    }
 
     public function category(){
         return $this->belongsTo(Category::class, 'category_id', 'category_id');
@@ -89,5 +104,11 @@ class Product extends Model
 
     public function productImages(){
         return $this->hasMany(ProductImage::class, 'product_id', 'product_id');
+    }
+
+    public function thumbImage(){
+
+        return $this->belongsTo(Attachment::class, 'thumb_id', 'attachment_id');
+
     }
 }

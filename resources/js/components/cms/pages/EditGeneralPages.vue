@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <form action="" @submit.prevent="pagesStore">
+        <form action="" @submit.prevent="pagesUpdate">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h5 class="panel-title">Page Information</h5>
@@ -18,31 +18,36 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Page Title:</label>
-                                <input type="text" v-model="formData.page_title" class="form-control" placeholder="Page Title" required>
+                                <input type="text" v-model="formData.title" class="form-control" placeholder="Page Title" required>
                             </div>
                             <div class="form-group">
                                 <label>Menu Title:</label>
-                                <input type="text" v-model="formData.menu_title" class="form-control" placeholder="Menu Title" required>
+                                <input type="text" v-model="formData.menuTitle" class="form-control" placeholder="Menu Title" required>
                             </div>
                             <div class="form-group">
                                 <label>Menu Position:</label>
-                                <input type="text" v-model="formData.menu_position" class="form-control" placeholder="Menu Position" required>
+                                <input type="text" v-model="formData.position" class="form-control" placeholder="Menu Position" required>
                             </div>
 
                             <div class="form-group">
                                 <label>Show In:</label>
-                                <vue-select2 v-model="formData.show_in" :options="pageDependency.show_in"> </vue-select2>
+                                <vue-select2 v-model="formData.show_in" :options="pageDependency.show_in" :value="formData.show_in"> </vue-select2>
+                            </div>
+                            <div class="form-group">
+                                <label>Cover Image:</label>
+                                <img :src="this.image_path"  class="img img-responsive" style="max-height: 200px;">
                             </div>
                             <div class="content-group-lg">
                                 <label>Page Status:</label>
                                 <div class="checkbox checkbox-switchery">
                                     <label>
-                                        <input type="checkbox" v-model="formData.page_status" class="switchery-primary" :checked="formData.page_status">
-                                        <span class="text-success" v-if="formData.page_status"> Publish</span>
+                                        <input type="checkbox" v-model="formData.status" class="switchery-primary" :checked="formData.status">
+                                        <span class="text-success" v-if="formData.status"> Publish</span>
                                         <span class="text-danger" v-else> UnPublish</span>
                                     </label>
                                 </div>
                             </div>
+
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -73,9 +78,9 @@
 
                 <div class="panel-body">
                     <div class="form-group row">
-                        <label class="col-lg-2 control-label" for="body_content">Body Content</label>
+                        <label class="col-lg-2 control-label" for="content">Body Content</label>
                         <div class="col-lg-10">
-                            <vue-editor id="body_content" v-model="formData.body_content"></vue-editor>
+                            <vue-editor id="content" v-model="formData.body_content"></vue-editor>
                         </div>
                     </div>
 
@@ -92,7 +97,8 @@
     import { VueEditor } from "vue2-editor";
 
     export default {
-        name: "CreateGeneralPages",
+        name: "EditGeneralPages",
+        props:['id'],
         components:{
             ImageCropper,
             'vue-select2':Select2,
@@ -101,14 +107,14 @@
         data(){
             return{
                 formData:{
-                    page_title:'',
-                    menu_title:'',
+                    title:'',
+                    menuTitle:'',
                     show_in:'',
-                    menu_position:'',
+                    position:'',
                     body_content:'',
-                    other_content:'',
+                    extra_content:'',
                     attachment_id:'',
-                    page_status:'',
+                    status:'',
                 },
                 cropperData:{
                     width:600,
@@ -120,36 +126,48 @@
                 },
                 removeImage:false,
                 btnDisabled:false,
+                image_path:'',
             }
         },
         created() {
+            this.singleGeneralPageData(this.id)
+                .then(response=>{
+                    if(response.code == 200){
+                        this.formData = response.data;
+                        this.formData['body_content'] = response.data.content;
+                        this.image_path = response.data.attachment.image_path;
+                    }
+                });
             this.generalPagesFormDependency();
+
         },
         methods:{
             ...mapActions([
                 'generalPagesFormDependency',
-                'storeGeneralPages',
+                'updateGeneralPages',
+                'singleGeneralPageData',
             ]),
-            pagesStore(){
+            pagesUpdate(){
                 let vm = this;
                 vm.btnDisabled = true;
                 vm.formData.attachmentIds = vm.cropImageIds;
-                vm.storeGeneralPages(vm.formData).then(response=>{
-                    if(response.code === 200){
-                        Notify.success(response.message);
-                        // this.emptyFormData();
-                        this.removeImage= true;
-                        if(response.url != '' && response.url != null){
-                            setTimeout(function(){
-                                window.location = response.url;
-                            }, 3000)
-                        }
+                vm.updateGeneralPages(vm.formData)
+                    .then(response=>{
+                        if(response.code === 200){
+                            Notify.success(response.message);
+                            // this.emptyFormData();
+                            this.removeImage= true;
+                            if(response.url != '' && response.url != null){
+                                setTimeout(function(){
+                                    window.location = response.url;
+                                }, 3000)
+                            }
 
-                    }else if(response.status === "validation"){
-                        Notify.validation(response.message);
-                    }else{
-                        Notify.warning(response.message);
-                    }
+                        }else if(response.status === "validation"){
+                            Notify.validation(response.message);
+                        }else{
+                            Notify.warning(response.message);
+                        }
                 });
             }
         },
@@ -157,6 +175,7 @@
             ...mapGetters([
                 'pageDependency',
                 'cropImageIds',
+                // 'pageData',
             ]),
         },
         watch:{
@@ -164,6 +183,14 @@
                 handler(newValue, oldValue){
                     if(oldValue === newValue){
                         this.btnDisabled = false;
+                    }
+                },
+                deep:true,
+            },
+            pageData:{
+                handler(newValue, oldValue){
+                    if(oldValue === newValue){
+                        this.formData = newValue;
                     }
                 },
                 deep:true,

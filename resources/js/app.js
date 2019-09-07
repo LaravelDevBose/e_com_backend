@@ -46,6 +46,10 @@ import SliderPage from './components/cms/slider/SliderPage';
 import SliderCreatePage from "./components/cms/slider/SliderCreatePage";
 import CreateGeneralPages from "./components/cms/pages/CreateGeneralPages";
 import GeneralPagesList from "./components/cms/pages/GeneralPagesList";
+import ShowGeneralPages from "./components/cms/pages/ShowGeneralPages";
+import EditGeneralPages from "./components/cms/pages/EditGeneralPages";
+import SettingPage from "./components/cms/setting/SettingPage";
+
 
 const app = new Vue({
     el: '#app',
@@ -74,5 +78,8 @@ const app = new Vue({
         'slider-create-page':SliderCreatePage,
         'create-general-pages':CreateGeneralPages,
         'general-pages-list':GeneralPagesList,
+        'show-general-pages':ShowGeneralPages,
+        'edit-general-pages':EditGeneralPages,
+        'setting-page':SettingPage,
     }
 });

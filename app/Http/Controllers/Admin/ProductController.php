@@ -34,7 +34,7 @@ class ProductController extends Controller
     }
 
     public function product_collection(Request $request){
-        $products = Product::with(['category'=>function($query){
+        $products = Product::with(['thumbImage','category'=>function($query){
             return $query->with(['parent'=>function($q){
                 return $q->with(['parent']);
             }]);
@@ -87,7 +87,8 @@ class ProductController extends Controller
             'package_height'=>'required',
             'product_status'=>'required',
             'variations'=>'required|array',
-            'imageIds'=>'required|array',
+//            'imageIds'=>'required|array',
+            'thumb_id'=>'required',
         ]);
 
         if($validator->passes()){
@@ -99,6 +100,7 @@ class ProductController extends Controller
                     'category_id'=>$request->category_id,
                     'brand_id'=>$request->brand_id,
                     'product_name'=>$request->product_name,
+                    'product_slug'=>str_slug($request->product_name),
                     'highlight'=>$request->highlight,
                     'description'=>$request->description,
                     'lang_product_name'=>$request->lang_product_name,
@@ -114,6 +116,7 @@ class ProductController extends Controller
                     'delivery_cost2'=>$request->delivery_cost2,
                     'product_status'=>(!empty($request->product_status) && $request->product_status == 1) ? $request->product_status : 2,
                     'warranty_type'=>$request->warranty_type,
+                    'thumb_id'=>$request->thumb_id,
                     'video_url'=>$request->video_url,
                 ]);
                 if($product){

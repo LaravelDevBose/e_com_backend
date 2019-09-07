@@ -67,6 +67,12 @@ class AttachmentController extends Controller
 
 
                     $model = $attachmentModels[$folder];
+                    $flipModels = array_flip($attachmentModels);
+                    $modalName = $flipModels[$model];
+
+                    if($model === $attachmentModels['product'] || $model === $attachmentModels['thumbnail'] ){
+                        $folder = $folder.'/'.$max_number;
+                    }
 
                     $ext = $attachment->guessExtension();
                     $type = $attachment->getMimeType();
@@ -81,13 +87,14 @@ class AttachmentController extends Controller
 
 
                     $attachmentSave = Attachment::create([
-                        'attachment_no'    => $max_number,
-                        'reference'          => $model,
-                        'file_name'          => $name,
+                        'attachment_no' => $max_number,
+                        'reference'     => $model,
+                        'file_name'     => $name,
                         'folder'        => $folder,
-                        'file_type'          => $type,
+                        'file_type'     => $type,
                         'original_name' => $original_name,
-                        'file_size'     => $file_size
+                        'file_size'     => $file_size,
+                        'modal'         => $modalName
                     ]);
 
                     array_push($attachmentData, [
@@ -157,6 +164,13 @@ class AttachmentController extends Controller
 
             $attachmentData = [];
             $model = $attachmentModels[$folder];
+            $flipModels = array_flip($attachmentModels);
+            $modalName = $flipModels[$model];
+
+            if($model === $attachmentModels['product'] || $model === $attachmentModels['thumbnail'] ){
+                $folder = $folder.'/'.$max_number;
+            }
+
             $imageInfo = getimagesizefromstring($ImageData);
             $type = $imageInfo['mime'];
             $ext = image_type_to_extension($imageInfo[2]);
@@ -172,7 +186,8 @@ class AttachmentController extends Controller
                 'folder'        => $folder,
                 'file_type'     => $type,
                 'original_name' => null,
-                'file_size'     => null
+                'file_size'     => null,
+                'modal'         => $modalName
             ]);
 
             array_push($attachmentData, [

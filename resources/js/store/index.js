@@ -26,6 +26,8 @@ import  skin_type from './modules/skin_type';
 import  imageCropper from './modules/imageCropper';
 import  slider from "./modules/cms/slider";
 import general_pages from "./modules/cms/general_pages";
+import setting from "./modules/cms/setting";
+
 
 export default new Vuex.Store({
     state:{
@@ -33,8 +35,11 @@ export default new Vuex.Store({
         attachmentsFile:[],
         errors:null,
         attachment_ids:[],
+
     },
-    getters:{},
+    getters:{
+
+    },
     actions:{
 
     },
@@ -64,6 +69,7 @@ export default new Vuex.Store({
         imageCropper,
         slider,
         general_pages,
+        setting,
 
     }
 })

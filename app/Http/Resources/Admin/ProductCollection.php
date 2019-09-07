@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Admin;
 
+use App\Http\Resources\Attachment as AttachmentResource;
 use App\Http\Resources\Admin\Category as CategoryResource;
 use App\Http\Resources\Admin\Brand as BrandResource;
 use Illuminate\Http\Resources\Json\Resource;
@@ -25,6 +26,7 @@ class ProductCollection extends Resource
             'total_qty'=>$this->variations->sum('quantity'),
             'status'=>$this->product_status,
             'status_label'=>$this->statusLabel($this->product_status),
+            'thumbnail'=> new AttachmentResource($this->whenLoaded('thumbImage')),
         ];
     }
 
