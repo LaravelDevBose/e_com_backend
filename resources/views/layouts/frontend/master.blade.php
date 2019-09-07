@@ -54,7 +54,7 @@
     </style>
 </head>
 
-<body class="cms-index-index cms-home-page">
+<body class="cms-index-index cms-home-page category-page">
 <div id="app">
     <div id="page">
         <!-- Header Section -->

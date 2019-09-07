@@ -35,11 +35,12 @@
                     </div>
                 </div>
                 @endif
-                <article class="col-main">
+                <article class="col-main row" style="display: block">
                     <h2 class="page-heading"> <span class="page-heading-title">{{ $category->category_name }}</span> </h2>
                     <div class="category-products">
+                        @if()
                         <ul class="products-grid">
-                            <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                            <li class="item col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                 <div class="item-inner">
                                     <div class="item-img">
                                         <div class="item-img-info"><a href="#" title="Food Processor" class="product-image"><img src="images/product-img.jpg" alt="Retis lapen casen"></a>
