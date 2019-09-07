@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helpers\Frontend\ProductHelper;
+use App\Models\Category;
 use App\Models\Page;
 use App\Models\Product;
 use App\Traits\CommonData;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class FrontendController extends Controller
 {
@@ -19,8 +22,25 @@ class FrontendController extends Controller
         ]);
     }
 
-    public function category_wish_products(){
-        return view('frontend.products');
+    public function category_wish_products($category_slug){
+        $category = Category::where('category_slug', $category_slug)->firstOrFail();
+
+        if(empty($category)){
+            return abort(Response::HTTP_NOT_FOUND);
+        }
+
+        $req['category_id']=$category->category_id;
+
+        $products = ProductHelper::products_list($req);
+        return view('frontend.products',[
+            'category'=>$category,
+            'categories'=>CommonData::category_tree(),
+            'brands'=>CommonData::brand_list(),
+            'colors'=> CommonData::color_list(),
+            'tags'=> CommonData::tag_list(),
+            'sizes'=> CommonData::size_list($req),
+            'products'=>$products
+        ]);
     }
 
     public function product_details(Product $product){

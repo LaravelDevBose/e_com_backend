@@ -15,16 +15,16 @@
         <li><a href="{{ route('front.index') }}">Home</a> </li>
         @if(!empty($categoryTree))
             @foreach($categoryTree as $category)
-                <li><a href="{{ route('front.category.product', $category->category_id) }}">{{ $category->category_name }}</a>
+                <li><a href="{{ route('front.category.product', $category->category_slug) }}">{{ $category->category_name }}</a>
                     @if(!empty($category->children) && count($category->children) > 0)
                     <ul>
                         @foreach($category->children as $secCategory)
-                        <li> <a href="{{ route('front.category.product', $secCategory->category_id) }}" class="">{{ $secCategory->category_name }}</a>
+                        <li> <a href="{{ route('front.category.product', $secCategory->category_slug) }}" class="">{{ $secCategory->category_name }}</a>
                             @if(!empty($secCategory->children) && count($secCategory->children) > 0)
                             <ul>
                                 @foreach($secCategory->children as $trdCategory)
                                 <li>
-                                    <a href="{{ route('front.category.product', $trdCategory->category_id) }}" class="">{{ $trdCategory->category_name }}</a>
+                                    <a href="{{ route('front.category.product', $trdCategory->category_slug) }}" class="">{{ $trdCategory->category_name }}</a>
                                 </li>
                                 @endforeach
                             </ul>

@@ -2,14 +2,6 @@
 
 namespace App\Traits;
 
-
-use App\Http\Resources\Frontend\brand\BrandCollection;
-use App\Http\Resources\Frontend\category\CategoryCollection;
-use App\Http\Resources\Frontend\color\ColorCollection;
-use App\Http\Resources\Frontend\page\PageCollection;
-use App\Http\Resources\Frontend\size\SizeCollection;
-use App\Http\Resources\Frontend\slider\SliderCollection;
-use App\Http\Resources\Frontend\tag\TagCollection;
 use App\Models\Attachment;
 use App\Models\Brand;
 use App\Models\Category;
@@ -21,11 +13,24 @@ use App\Models\SizeGroupCategory;
 use App\Models\Slider;
 use App\Models\Tag;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 trait CommonData
 {
     public static function category_tree_list($request=null){
         $categories = Category::isActive()->isParent()->with(['attachment','children'=>function($query){
+            return $query->isActive()->with('children');
+        }])->get();
+
+        if(!empty($categories)){
+            return $categories;
+        }else{
+            return [];
+        }
+    }
+
+    public static function category_tree($request=null){
+        $categories = Category::isActive()->isParent()->with(['children'=>function($query){
             return $query->isActive()->with('children');
         }])->get();
 
@@ -65,11 +70,12 @@ trait CommonData
         }
     }
 
-    public static function size_list($request){
+    public static function size_list($request=null){
+        $request = (object)$request;
 
-        if($request->catId){
-            $sizeGroupId = SizeGroupCategory::whereIn('category_id', $request->catId)->pluck('size_group_id');
-            $sizes = Size::whereIn('size_group_id', $sizeGroupId)->isActve()->bySearch($request)->get();
+        if($request->category_id){
+            $sizeGroupId = SizeGroupCategory::where('category_id', $request->category_id)->pluck('size_group_id');
+            $sizes = Size::whereIn('size_group_id', $sizeGroupId)->bySearch($request)->get();
         }{
             $sizes = Size::isActive()->bySearch($request)->get();
         }

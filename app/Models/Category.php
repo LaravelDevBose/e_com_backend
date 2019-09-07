@@ -24,6 +24,17 @@ class Category extends Model
         'category_status',
     ];
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'category_slug';
+    }
+
+
     public function scopeIsParent($query){
         $query->whereNull('parent_id');
     }

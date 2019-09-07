@@ -12,7 +12,7 @@
                 @if(!empty($categoryTree))
                     @foreach($categoryTree as $category)
                         <li class="mega-menu">
-                            <a class="level-top" href="{{ route('front.category.product', $category->category_id) }}"><span>{{ $category->category_name }}</span></a>
+                            <a class="level-top" href="{{ route('front.category.product', $category->category_slug) }}"><span>{{ $category->category_name }}</span></a>
                             @if(!empty($category->children) && count($category->children) > 0)
                             <div class="level0-wrapper dropdown-6col">
                                 <div class="container">
@@ -32,12 +32,12 @@
                                                 <ul class="level0">
                                                     @foreach($category->children as $secCategory)
                                                         <li class="level3 nav-6-1 parent item">
-                                                            <a href="{{ route('front.category.product', $secCategory->category_id) }}"><span>{{ $secCategory->category_name }}</span></a>
+                                                            <a href="{{ route('front.category.product', $secCategory->category_slug) }}"><span>{{ $secCategory->category_name }}</span></a>
                                                             @if(!empty($secCategory->children))
                                                                 @foreach($secCategory->children as $trdCategory)
                                                                     <ul class="level1">
                                                                         <li class="level2 nav-6-1-1">
-                                                                            <a href="{{ route('front.category.product', $trdCategory->category_id) }}"><span>{{ $trdCategory->category_name }}</span></a>
+                                                                            <a href="{{ route('front.category.product', $trdCategory->category_slug) }}"><span>{{ $trdCategory->category_name }}</span></a>
                                                                         </li>
                                                                     </ul>
                                                                 @endforeach
