@@ -14,7 +14,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('Frontend')->as('front.')->group(function (){
+Route::namespace('Frontend')->as('front.')->group(function () {
     Route::get('/', 'FrontendController@index')->name('index');
     Route::get('category/{category_slug}/products', 'FrontendController@category_wish_products')->name('category.product');
     Route::get('product/{product_slug}', 'FrontendController@product_details')->name('product');
@@ -25,17 +25,18 @@ Route::namespace('Frontend')->as('front.')->group(function (){
 });
 
 
-Route::view('seller-login', 'auth.seller_login');
-Route::view('user-dashboard', 'front.user_dashboard.dashboard');
-Route::view('account-information', 'front.user_dashboard.account_information');
-Route::view('edit-contact-info', 'front.user_dashboard.partials.edit_contact_info');
-Route::view('change-password', 'front.user_dashboard.partials.change_password');
-Route::view('address-book', 'front.user_dashboard.address_book');
-Route::view('my-orders', 'front.user_dashboard.my_orders');
-Route::view('my-product-reviews', 'front.user_dashboard.my_product_reviews');
-Route::view('my-wishlist', 'front.user_dashboard.my_wishlist');
-
-
+Route::view('seller-login', 'auth.login')->name('sellerLogin');
+Route::view('buyer-login', 'auth.buyer_login')->name('buyerLogin');
+Route::namespace('Frontend')->group(function () {
+    Route::get('user-dashboard', 'FrontendController@userDashboard')->name('userDashboard');
+});
+Route::view('account-information', 'frontend.user_dashboard.account_information')->name('accountInformation');
+Route::view('edit-contact-info', 'frontend.user_dashboard.partials.edit_contact_info');
+Route::view('change-password', 'frontend.user_dashboard.partials.change_password');
+Route::view('address-book', 'frontend.user_dashboard.address_book')->name('addressBook');
+Route::view('my-orders', 'frontend.user_dashboard.my_orders')->name('myOrders');
+Route::view('my-product-reviews', 'frontend.user_dashboard.my_product_reviews')->name('productReviews');
+Route::view('my-wishlist', 'frontend.user_dashboard.my_wishlist')->name('myWishlist');
 
 Route::get('payment/methods', 'GeneralController@accepted_payment_methods');
 Route::get('default/images', 'GeneralController@default_images');

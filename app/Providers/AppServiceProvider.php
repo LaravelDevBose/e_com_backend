@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Traits\CommonData;
+
 class AppServiceProvider extends ServiceProvider
 {
     use CommonData;
@@ -17,16 +18,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        View::composer(['layouts.frontend.includes.navigation','layouts.frontend.includes.mobileMenu' ], function($v){
+        View::composer(['layouts.frontend.includes.navigation', 'layouts.frontend.includes.mobileMenu'], function ($v) {
             $categoryTree = CommonData::category_tree_list();
             $headerPageMenus = CommonData::pages_menu_list(Page::MENU_SHOW_IN['Footer']);
-            $v->with('categoryTree',$categoryTree)
-                ->with('headerPageMenus',$headerPageMenus);
+            $v->with('categoryTree', $categoryTree)
+                ->with('headerPageMenus', $headerPageMenus);
         });
 
-        View::composer('layouts.frontend.includes.globalFooter', function($v){
+        View::composer('layouts.frontend.includes.globalFooter', function ($v) {
             $pageMenus = CommonData::pages_menu_list(Page::MENU_SHOW_IN['Header']);
-            $v->with('pageMenus',$pageMenus);
+            $v->with('pageMenus', $pageMenus);
         });
     }
 
@@ -37,6 +38,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        View::composer('layouts.*', function ($view) {
+            $brands = CommonData::brand_list();
+            $view->with([
+                'brands'       => $brands
+            ]);
+        });
+
         Schema::defaultStringLength(191);
     }
 }

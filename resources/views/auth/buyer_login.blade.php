@@ -1,6 +1,6 @@
 @extends('layouts.frontend.master')
 
-@section('Title','Seller Login')
+@section('Title','Buyer Login')
 
 @section('PageCss')
 
@@ -11,7 +11,7 @@
     <div class="main container">
         <div class="account-login">
             <div class="page-title">
-                <h2>Seller Login or Create an Account</h2>
+                <h2>Buyer Login or Create an Account</h2>
             </div>
             <fieldset class="col2-set">
                 <div class="col-1 new-users">

@@ -1,5 +1,5 @@
 <footer>
-    <div class="footer-add"> <a href="#"><img src="images/footer-banner.png" alt="download"> </a> </div>
+    <div class="footer-add"> <a href="#"><img src="{{asset('front/images/footer-banner.png')}}" alt="download"> </a> </div>
     <div class="footer-inner">
         <div class="container">
 
@@ -43,12 +43,12 @@
                     <div class="footer-column-last">
                         <div class="newsletter-wrap">
                             <h4>Download the App</h4>
-                            <div class="app-img"><img src="images/android-app.png" alt="android"></div>
-                            <div class="app-img"><img src="images/ios-app.png" alt="android"></div>
-                            <div class="app-img"><img src="images/windows-btn.png" alt="android"></div>
+                            <div class="app-img"><img src="{{asset('front/images/android-app.png')}}" alt="android"></div>
+                            <div class="app-img"><img src="{{asset('front/images/ios-app.png')}}" alt="android"></div>
+                            <div class="app-img"><img src="{{asset('front/images/windows-btn.png')}}" alt="android"></div>
                         </div>
                         <div class="payment-accept">
-                            <div><img src="images/payment-1.png" alt="payment1"> <img src="images/payment-2.png" alt="payment2"> <img src="images/payment-3.png" alt="payment3"> <img src="images/payment-4.png" alt="payment4"> </div>
+                            <div><img src="{{asset('front/images/payment-1.png')}}" alt="payment1"> <img src="{{asset('front/images/payment-2.png')}}" alt="payment2"> <img src="{{asset('front/images/payment-3.png')}}" alt="payment3"> <img src="{{asset('front/images/payment-4.png')}}" alt="payment4"> </div>
                         </div>
                     </div>
                 </div>
@@ -63,38 +63,13 @@
             <div class="slider-items-products">
                 <div id="brand-logo-slider" class="product-flexslider hidden-buttons">
                     <div class="slider-items slider-width-col6">
-
+                        @if(!empty($brands))
+                        @foreach($brands as $brand)
                         <!-- Item -->
-                        <div class="item"> <a href="#"><img src="images/b-logo3.png" alt="Image"> </a> </div>
+                        <div class="item"> <a href="#"><img src="{{asset('front/images/b-logo3.png')}}" alt="Image"> </a> </div>
                         <!-- End Item -->
-
-                        <!-- Item -->
-                        <div class="item"> <a href="#"><img src="images/b-logo1.png" alt="Image"> </a> </div>
-                        <!-- End Item -->
-
-                        <!-- Item -->
-                        <div class="item"> <a href="#"><img src="images/b-logo2.png" alt="Image"> </a> </div>
-                        <!-- End Item -->
-
-                        <!-- Item -->
-                        <div class="item"> <a href="#"><img src="images/b-logo4.png" alt="Image"> </a> </div>
-                        <!-- End Item -->
-
-                        <!-- Item -->
-                        <div class="item"> <a href="#"><img src="images/b-logo5.png" alt="Image"> </a> </div>
-                        <!-- End Item -->
-
-                        <!-- Item -->
-                        <div class="item"> <a href="#"><img src="images/b-logo6.png" alt="Image"> </a> </div>
-                        <!-- End Item -->
-
-                        <!-- Item -->
-                        <div class="item"> <a href="#"><img src="images/b-logo2.png" alt="Image"> </a> </div>
-                        <!-- End Item -->
-
-                        <!-- Item -->
-                        <div class="item"> <a href="#"><img src="images/b-logo4.png" alt="Image"> </a> </div>
-                        <!-- End Item -->
+                        @endforeach
+                        @endif
 
                     </div>
                 </div>

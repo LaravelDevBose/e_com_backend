@@ -10,10 +10,10 @@ window.BASE_URL = document.querySelector('meta[name="base-url"][content]').conte
 
 try {
     window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = jQuery = require('jquery');
+    // window.$ = window.jQuery = jQuery = require('jquery');
 
     require('bootstrap');
-} catch (e) {}
+} catch (e) { }
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
