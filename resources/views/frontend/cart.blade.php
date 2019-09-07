@@ -48,16 +48,40 @@
                                 </tfoot>
                                 <tbody>
                                 <tr class="first odd">
-                                    <td class="image"><a class="product-image" title="ThinkPad X1 Ultrabook" href="#/women-s-crepe-printed-black/"><img width="75" alt="ThinkPad Ultrabook" src="images/product-img.jpg"></a></td>
-                                    <td><h2 class="product-name"> <a href="#/women-s-crepe-printed-black/">ThinkPad X1 Ultrabook</a> </h2></td>
-                                    <td class="a-center"><a title="Edit item parameters" class="edit-bnt" href="#configure/id/15945/"></a></td>
-                                    <td class="a-right"><span class="cart-price"> <span class="price">$70.00</span> </span></td>
-                                    <td class="a-center movewishlist"><input maxlength="12" class="input-text qty" title="Qty" size="4" value="1" name="cart[15945][qty]"></td>
-                                    <td class="a-right movewishlist"><span class="cart-price"> <span class="price">$70.00</span> </span></td>
-                                    <td class="a-center last"><a class="button remove-item" title="Remove item" href="#"><span><span>Remove item</span></span></a></td>
+                                    <td class="image">
+                                        <a class="product-image" title="ThinkPad X1 Ultrabook" href="#/women-s-crepe-printed-black/">
+                                            <img width="75" alt="ThinkPad Ultrabook" src="{{ asset('front/images/product-img.jpg') }}">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h2 class="product-name">
+                                            <a href="#/women-s-crepe-printed-black/">ThinkPad X1 Ultrabook</a>
+                                        </h2>
+                                    </td>
+                                    <td class="a-center">
+                                        <a title="Edit item parameters" class="edit-bnt" href="#configure/id/15945/"></a>
+                                    </td>
+                                    <td class="a-right">
+                                        <span class="cart-price">
+                                            <span class="price">$70.00</span>
+                                        </span>
+                                    </td>
+                                    <td class="a-center movewishlist">
+                                        <input maxlength="12" class="input-text qty" title="Qty" size="4" value="1" name="cart[15945][qty]">
+                                    </td>
+                                    <td class="a-right movewishlist">
+                                        <span class="cart-price">
+                                            <span class="price">$70.00</span>
+                                        </span>
+                                    </td>
+                                    <td class="a-center last">
+                                        <a class="button remove-item" title="Remove item" href="#">
+                                            <span><span>Remove item</span></span>
+                                        </a>
+                                    </td>
                                 </tr>
                                 <tr class="last even">
-                                    <td class="image"><a class="product-image" title="QX30 Lens Camera" href="#women-s-u-tank-top/"><img width="75" alt="Sample Product" src="images/product-img.jpg"></a></td>
+                                    <td class="image"><a class="product-image" title="QX30 Lens Camera" href="#women-s-u-tank-top/"><img width="75" alt="Sample Product" src="{{ asset('front/images/product-img.jpg') }}"></a></td>
                                     <td><h2 class="product-name"> <a href="#women-s-u-tank-top/"> QX30 Lens Camera </a> </h2></td>
                                     <td class="a-center"><a title="Edit item parameters" class="edit-bnt" href="#configure/id/15946/"></a></td>
                                     <td class="a-right"><span class="cart-price"> <span class="price">$7.38</span> </span></td>
@@ -485,7 +509,7 @@
                             <div class="item-inner">
                                 <div class="item-img">
                                     <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="images/product-img.jpg"> </a>
+                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="{{ asset('front/images/product-img.jpg') }}"> </a>
                                         <div class="box-hover">
                                             <ul class="add-to-links">
                                                 <li><a class="link-quickview" href="quick_view.html">Quick View</a>
@@ -527,7 +551,7 @@
                             <div class="item-inner">
                                 <div class="item-img">
                                     <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="images/product-img.jpg"> </a>
+                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="{{ asset('front/images/product-img.jpg') }}"> </a>
                                         <div class="box-hover">
                                             <ul class="add-to-links">
                                                 <li><a class="link-quickview" href="quick_view.html">Quick View</a>
@@ -569,7 +593,7 @@
                             <div class="item-inner">
                                 <div class="item-img">
                                     <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="images/product-img.jpg"> </a>
+                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="{{ asset('front/images/product-img.jpg') }}"> </a>
                                         <div class="box-hover">
                                             <ul class="add-to-links">
                                                 <li><a class="link-quickview" href="quick_view.html">Quick View</a>
@@ -611,7 +635,7 @@
                             <div class="item-inner">
                                 <div class="item-img">
                                     <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="images/product-img.jpg"> </a>
+                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="{{ asset('front/images/product-img.jpg') }}"> </a>
                                         <div class="box-hover">
                                             <ul class="add-to-links">
                                                 <li><a class="link-quickview" href="quick_view.html">Quick View</a>
@@ -653,7 +677,7 @@
                             <div class="item-inner">
                                 <div class="item-img">
                                     <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Samsung GALAXY Note" src="images/product-img.jpg"> </a>
+                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Samsung GALAXY Note" src="{{ asset('front/images/product-img.jpg') }}"> </a>
                                         <div class="box-hover">
                                             <ul class="add-to-links">
                                                 <li><a class="link-quickview" href="quick_view.html">Quick View</a>
@@ -695,7 +719,7 @@
                             <div class="item-inner">
                                 <div class="item-img">
                                     <div class="item-img-info">
-                                        <a class="product-image" title="Epson L360 Printer" href="product_detail.html"> <img alt="Epson L360 Printer" src="images/product-img.jpg"> </a>
+                                        <a class="product-image" title="Epson L360 Printer" href="product_detail.html"> <img alt="Epson L360 Printer" src="{{ asset('front/images/product-img.jpg') }}"> </a>
                                         <div class="new-label new-top-left">new</div>
                                         <div class="box-hover">
                                             <ul class="add-to-links">
