@@ -2,7 +2,10 @@
 
 namespace App\Http\Resources\Frontend\brand;
 
-use App\Http\Resources\attachment\AttachmentResource;
+
+
+
+use App\Http\Resources\Frontend\attachment\AttachmentResource;
 use Illuminate\Http\Resources\Json\Resource;
 
 class BrandCollection extends Resource

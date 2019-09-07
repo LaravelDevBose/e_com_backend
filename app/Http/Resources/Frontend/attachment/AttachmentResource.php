@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\attachment;
+namespace App\Http\Resources\Frontend\attachment;
 
 use Illuminate\Http\Resources\Json\Resource;
 

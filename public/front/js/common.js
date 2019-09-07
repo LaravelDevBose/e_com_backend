@@ -52,12 +52,12 @@ jQuery(document).ready(function() {
 	});
 	/* Bestsell slider */
 	jQuery("#bestsell-slider .slider-items").owlCarousel({
+        navigation : true,
 		items: 4, //10 items above 1000px browser width
 		itemsDesktop: [1024, 4], //4 items between 1024px and 901px
 		itemsDesktopSmall: [900, 4], // 4 items betweem 900px and 601px
 		itemsTablet: [768, 2], //3 items between 600 and 0;
 		itemsMobile: [360, 1],
-		navigation: true,
 		navigationText: ["<a class=\"flex-prev\"></a>", "<a class=\"flex-next\"></a>"],
 		slideSpeed: 500,
 		pagination: false
@@ -112,7 +112,7 @@ jQuery(document).ready(function() {
 		slideSpeed: 500,
 		pagination: false
 	});
-	
+
 	/* Category desc slider */
 	jQuery("#testimonials .slider-items").owlCarousel({
 		autoPlay: true,
@@ -126,7 +126,7 @@ jQuery(document).ready(function() {
 		slideSpeed: 500,
 		pagination: true
 	});
-	
+
 	/* Related products slider */
 	jQuery("#related-products-slider .slider-items").owlCarousel({
 		items: 4, //10 items above 1000px browser width
@@ -215,7 +215,7 @@ jQuery(document).ready(function() {
 	jQuery(document).ready(function() {
 		slideEffectAjax();
 	});
-	
+
 });
 /*  UItoTop */
 jQuery.fn.UItoTop = function(options) {

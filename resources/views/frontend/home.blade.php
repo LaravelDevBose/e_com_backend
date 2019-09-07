@@ -1734,10 +1734,6 @@
 @endsection
 
 @section('PageJs')
-
-    <script type="text/javascript" src="{{ asset('front/js/revslider.js') }}" async></script>
-    <script type="text/javascript" src="{{ asset('front/js/countdown.js') }}" async></script>
-
     <script type='text/javascript'>
         jQuery(document).ready(function() {
             jQuery('#rev_slider_4').show().revolution({

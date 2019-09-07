@@ -4,13 +4,19 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Models\Page;
 use App\Models\Product;
+use App\Traits\CommonData;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class FrontendController extends Controller
 {
+    use CommonData;
+
     public function index(){
-        return view('frontend.home');
+        $sliders = CommonData::slider_list();
+        return view('frontend.home',[
+            'sliders'=>$sliders
+        ]);
     }
 
     public function category_wish_products(){

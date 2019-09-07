@@ -38,6 +38,20 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400|Raleway:400,300,600,500,700,800' rel='stylesheet' type='text/css'>
 
     @yield('PageCss')
+    <style>
+        a{
+            color: #666;
+            -webkit-transition: all 0.3s ease-out;
+            -moz-transition: all 0.3s ease-out;
+            -o-transition: all 0.3s ease-out;
+            -ms-transition: all 0.3s ease-out;
+        }
+        a:hover{
+            cursor: pointer;
+            color: #000;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body class="cms-index-index cms-home-page">
@@ -70,14 +84,18 @@
 
 </div>
 <script src="{{ asset('js/app.js') }}"></script>
-<script type="text/javascript" src="{{ asset('front/js/jquery.min.js') }}" async ></script>
-<script type="text/javascript" src="{{ asset('front/js/bootstrap.min.js') }}" async></script>
-<script type="text/javascript" src="{{ asset('front/js/jquery.mobile-menu.min.js') }}" async></script>
 
+<script type="text/javascript" src="{{ asset('front/js/jquery.min.js') }}"  ></script>
+<script type="text/javascript" src="{{ asset('front/js/bootstrap.min.js') }}" ></script>
+<script type="text/javascript" src="{{ asset('front/js/revslider.js') }}"  ></script>
+<script type="text/javascript" src="{{ asset('front/js/common.js') }}"  ></script>
+<script type="text/javascript" src="{{ asset('front/js/owl.carousel.min.js') }}" ></script>
+<script type="text/javascript" src="{{ asset('front/js/jquery.mobile-menu.min.js') }}" ></script>
+<script type="text/javascript" src="{{ asset('front/js/countdown.js') }}" ></script>
 <!-- Scripts -->
-
 @yield('PageJs')
-<script type="text/javascript" src="{{ asset('front/js/common.js') }}" async ></script>
+
+
 
 </body>
 
