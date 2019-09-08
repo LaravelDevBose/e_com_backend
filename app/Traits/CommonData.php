@@ -107,9 +107,9 @@ trait CommonData
             foreach ($contactSettingData as $setting){
                 if($setting->key == 'logo_image'){
                     if(!empty($setting->value) && $setting->value != ''){
-                        $image = Attachment::imagePath($setting->value);
+                        $image = Attachment::find($setting->value);
                         if(!empty($image)){
-                            $logo_image = $image;
+                            $logo_image = $image->image_path;
                         }
                     }else{
                         $logo_image='';

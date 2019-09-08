@@ -29,7 +29,7 @@
                     <div class="slider-items-products">
                         <div class="item">
                             <a href="#">
-                                <img alt="{{ $category->category_name }}" src="{{ $category->attachment->image_path }}">
+                                <img alt="{{ $category->category_name }}" src="{{ $category->attachment->image_path }}" style="width: 100%; height: auto; max-height: 350px;">
                             </a>
                         </div>
                     </div>
@@ -41,56 +41,8 @@
                         @if(!empty($products))
                             <ul class="products-grid">
                                 @foreach($products as $product)
-                                    <li class="item col-lg-4 col-md-4 col-sm-4 col-xs-6">
-                                        <div class="item-inner">
-                                            <div class="item-img">
-                                                <div class="item-img-info">
-                                                    <a href="{{ route('front.product', $product->product_slug) }}"  title="{{ $product->product_name }}" class="product-image">
-                                                        <img src="{{ $product->thumbImage->image_path }}"  alt="{{ $product->product_name }}">
-                                                    </a>
-                                                    {{--<div class="new-label new-top-left">New</div>--}}
-                                                    <div class="box-hover">
-                                                        <ul class="add-to-links">
-                                                            <li><a class="link-quickview" href="#">Quick View</a> </li>
-                                                            <li><a class="link-wishlist" href="{{ route('login') }}">Wishlist</a> </li>
-                                                            <li><a class="link-compare" href="#">Compare</a> </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="item-info">
-                                                <div class="info-inner">
-                                                    <div class="item-title"> <a title="{{ $product->product_name }}" href="{{ route('front.product', $product->product_slug) }}"> {{ $product->product_name }} </a> </div>
-                                                    <div class="item-content">
-                                                        <div class="rating">
-                                                            <div class="ratings">
-                                                                <div class="rating-box">
-                                                                    <div style="width:80%" class="rating"></div>
-                                                                </div>
-                                                                <p class="rating-links">1 Review(s)</p>
-                                                            </div>
-                                                        </div>
-                                                        @if(!empty($product->singleVariation))
-                                                            <div class="item-price">
-                                                                @if(!is_null($product->singleVariation->special_price))
-                                                                    <div class="price-box">
-                                                                        <p class="old-price"><span class="price-label">Regular Price:</span> <span class="price">$ {{ number_format($product->singleVariation->price,2) }} </span> </p>
-                                                                        <p class="special-price"><span class="price-label">Special Price</span> <span class="price">$ {{ number_format($product->singleVariation->special_price ,2) }} </span> </p>
-                                                                    </div>
-                                                                @else
-                                                                    <div class="price-box">
-                                                                        <p class="special-price"><span class="price-label">Price</span> <span class="price">$ {{ number_format($product->singleVariation->price,2) }}</span> </p>
-                                                                    </div>
-                                                                @endif
-                                                            </div>
-                                                        @endif
-                                                        <div class="action">
-                                                            <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <li class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                                        <product-grid :product="{{ $product }}"></product-grid>
                                     </li>
                                 @endforeach
                             </ul>

@@ -138,7 +138,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-7 col-xs-12">
-                <div class="small-strip"><img alt="banner" src="{{ asset('front/images/small-strip-banner.jpg')}}') }}"></div>
+                <div class="small-strip"><img alt="banner" src="{{ asset('front/images/small-strip-banner.jpg')}}"></div>
                 <div id='rev_slider_4_wrapper' class='rev_slider_wrapper fullwidthbanner-container'>
                     <div id='rev_slider_4' class='rev_slider fullwidthabanner'>
                         @if(!empty($sliders))
@@ -159,7 +159,7 @@
                 </div>
             </div>
             <div class=" col-lg-3 col-md-3 col-sm-7 col-xs-12">
-                <div class="image-item"> <a href="#" title="Image"> <img src="{{ asset('front/images/rhs-banner.jpg')}}') }}" class="img-responsive" alt="Image"></a> </div>
+                <div class="image-item"> <a href="#" title="Image"> <img src="{{ asset('front/images/rhs-banner.jpg')}}" class="img-responsive" alt="Image"></a> </div>
             </div>
         </div>
     </div>

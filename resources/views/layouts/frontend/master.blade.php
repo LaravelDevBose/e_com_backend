@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('front/css/jquery.mobile-menu.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('front/css/revslider.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('front/css/style.css') }}" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ asset('front/css/fancybox.css') }}" media="all">
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400|Raleway:400,300,600,500,700,800' rel='stylesheet' type='text/css'>
 
@@ -65,23 +66,21 @@
 
             <!-- Navigation -->
             @include('layouts.frontend.includes.navigation')
-            <navigation></navigation>
             <!-- end nav -->
         </header>
         <!-- end Header Section -->
 
-    @yield('Content')
+        @yield('Content')
 
-    <!-- Footer -->
-    @include('layouts.frontend.includes.globalFooter')
-    <!-- End Footer -->
-
+        <!-- Footer -->
+        @include('layouts.frontend.includes.globalFooter')
+        <!-- End Footer -->
     </div>
 
-    <!-- mobile menu -->
-    @include('layouts.frontend.includes.mobileMenu')
-    <!-- end mobile menu -->
-
+        <!-- mobile menu -->
+        @include('layouts.frontend.includes.mobileMenu')
+        <!-- end mobile menu -->
+    <quick-view-product></quick-view-product>
 </div>
 <script src="{{ asset('js/app.js') }}"></script>
 
@@ -94,7 +93,6 @@
 <script type="text/javascript" src="{{ asset('front/js/countdown.js') }}" ></script>
 <!-- Scripts -->
 @yield('PageJs')
-
 
 
 </body>

@@ -66,7 +66,7 @@
                         @if(!empty($brands))
                         @foreach($brands as $brand)
                         <!-- Item -->
-                        <div class="item"> <a href="#"><img src="{{asset('front/images/b-logo3.png')}}" alt="Image"> </a> </div>
+                        <div class="item"> <a href="#"><img src="{{ asset('front/images/b-logo3.png') }}" alt="Image"> </a> </div>
                         <!-- End Item -->
                         @endforeach
                         @endif
@@ -76,11 +76,26 @@
             </div>
         </div>
     </div>
+
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
                 <address>
-                    <span> <i class="fa fa-map-marker"></i> ABC Town Luton Street, New York 226688 </span> <span><i class="fa fa-mobile"></i> + 0800 567 345</span> <span><i class="fa fa-envelope"></i> support@themessoft.com</span>
+                    @if(!empty($contactUs))
+                        @if(!empty($contactUs->contact_address))
+                            <span> <i class="fa fa-map-marker"></i> {!! $contactUs->contact_address !!}</span>
+                        @endif
+
+                        @if(!empty($contactUs->contact_email))
+                            <span><i class="fa fa-mobile"></i> {{ $contactUs->contact_email }}</span>
+                        @endif
+
+                        @if(!empty($contactUs->contact_address))
+                            <span><i class="fa fa-envelope"></i>{{ $contactUs->contact_mobile }}</span>
+                        @endif
+
+                    @endif
+                    <span><i class="fa fa-handshake"></i> Powered By: <a href="http://brainchildsoft.com/" target="_blank">Brain Child Software</a></span>
                 </address>
             </div>
         </div>

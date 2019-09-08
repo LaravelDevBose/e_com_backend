@@ -27,7 +27,11 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('layouts.frontend.includes.globalFooter', function ($v) {
             $pageMenus = CommonData::pages_menu_list(Page::MENU_SHOW_IN['Header']);
-            $v->with('pageMenus', $pageMenus);
+            $brands = CommonData::brand_list();
+            $contactUs = CommonData::setting_data();
+            $v->with('pageMenus', $pageMenus)
+                ->with('brands', $brands)
+                ->with('contactUs', $contactUs);
         });
     }
 
@@ -38,12 +42,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('layouts.*', function ($view) {
-            $brands = CommonData::brand_list();
-            $view->with([
-                'brands'       => $brands
-            ]);
-        });
+
 
         Schema::defaultStringLength(191);
     }
