@@ -67,7 +67,7 @@
             </section>
 
             <!-- right side -->
-            @include('frontend.user_dashboard.partials.right_side')
+            @include('buyer.partials.right_side')
         </div>
     </div>
 </div>

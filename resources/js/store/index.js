@@ -6,10 +6,10 @@ Vue.use(Vuex);
 
 
 //import Modules
+import  authentication from "./modules/authentication";
 import  alertNotify  from './modules/includes/alertNotify'
 import  modelNotify from './modules/includes/modelNotify'
 import  pNotify from './modules/includes/pNotify'
-import  login from './modules/login'
 import  category from './modules/category'
 import  color from './modules/color'
 import  tag from './modules/tag'
@@ -25,9 +25,9 @@ import  brand from './modules/brand';
 import  skin_type from './modules/skin_type';
 import  imageCropper from './modules/imageCropper';
 import  slider from "./modules/cms/slider";
-import general_pages from "./modules/cms/general_pages";
-import setting from "./modules/cms/setting";
-import auth from "./modules/seller/auth";
+import  general_pages from "./modules/cms/general_pages";
+import  setting from "./modules/cms/setting";
+
 
 
 export default new Vuex.Store({
@@ -53,7 +53,7 @@ export default new Vuex.Store({
         alertNotify,
         modelNotify,
         pNotify,
-        login,
+        authentication,
         attachment,
         category,
         color,
@@ -71,7 +71,6 @@ export default new Vuex.Store({
         slider,
         general_pages,
         setting,
-        auth,
     }
 })
 

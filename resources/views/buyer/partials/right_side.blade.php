@@ -4,22 +4,22 @@
          <div class="block-content">
              <ul>
                  <li :class="nothing">
-                     <a href="{{ route('userDashboard') }}">Account Dashboard</a>
+                     <a href="{{ route('buyer.home') }}">Account Dashboard</a>
                  </li>
                  <li class="@yield('AccountInformation')">
-                     <a href="{{ route('accountInformation') }}">Account Information</a>
+                     <a href="{{ route('buyer.account.info') }}">Account Information</a>
                  </li>
                  <li class="@yield('AddressBook')">
-                     <a href="{{ route('addressBook') }}">Address Book</a>
+                     <a href="{{ route('buyer.address.book') }}">Address Book</a>
                  </li>
                  <li class="@yield('MyOrders')">
-                     <a href="{{ route('myOrders') }}">My Orders</a>
+                     <a href="{{ route('buyer.myOrders') }}">My Orders</a>
                  </li>
                  <li class="@yield('ProductReviews')">
-                     <a href="{{ route('productReviews') }}">My Product Reviews</a>
+                     <a href="{{ route('buyer.reviews') }}">My Product Reviews</a>
                  </li>
                  <li class="@yield('MyWishlist')">
-                     <a href="{{ route('myWishlist') }}">My Wishlist</a>
+                     <a href="{{ route('buyer.wish_list') }}">My Wishlist</a>
                  </li>
              </ul>
          </div>

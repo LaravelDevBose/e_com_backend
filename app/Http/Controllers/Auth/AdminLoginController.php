@@ -13,6 +13,11 @@ class AdminLoginController extends Controller
     public function __construct(){
         $this->middleware('guest:admin',['except'=>['logout']]);
     }
+
+    protected function guard()
+    {
+        return Auth::guard('admin');
+    }
     public function show_login_page(){
 
         return view('auth.admin_login');

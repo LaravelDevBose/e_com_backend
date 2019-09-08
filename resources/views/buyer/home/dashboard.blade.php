@@ -1,6 +1,6 @@
-@extends('layouts.frontend.master')
+@extends('layouts.buyer.master')
 
-@section('Title','My Orders')
+@section('Title','Dashboard')
 
 @section('PageCss')
 
@@ -14,10 +14,18 @@
                 <div class="col-main">
                     <div class="my-account">
                         <div class="page-title">
-                            <h2>My Orders</h2>
+                            <h2>My Dashboard</h2>
                         </div>
                         <div class="dashboard">
+                            <div class="welcome-msg">
+                                <strong>Hello, Jon Doe!</strong>
+                                <p>From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</p>
+                            </div>
                             <div class="recent-orders">
+                                <div class="title-buttons">
+                                    <strong>Recent Orders</strong>
+                                    <a href="#">View All</a>
+                                </div>
                                 <div class="table-responsive">
                                     <table class="data-table" id="my-orders-table">
                                         <col />
@@ -85,7 +93,7 @@
             </section>
 
             <!-- right side -->
-            @include('frontend.user_dashboard.partials.right_side')
+            @include('buyer.partials.right_side')
         </div>
     </div>
 </div>

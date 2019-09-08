@@ -17,6 +17,11 @@ class SellerLoginController extends Controller
         $this->middleware('guest:seller',['except'=>['logout']]);
     }
 
+    protected function guard()
+    {
+        return Auth::guard('seller');
+    }
+
     public function show_login_page(){
         return view('auth.seller_login');
     }
