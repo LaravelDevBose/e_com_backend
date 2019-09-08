@@ -30,8 +30,8 @@
                         <div class="links">
                             <div class="myaccount"><a title="My Account" href="{{ route('userDashboard') }}"><span class="hidden-xs">My Account</span></a> </div>
                             <div class="check"><a title="Checkout" href="{{ route('front.checkout') }}"><span class="hidden-xs">Checkout</span></a> </div>
-                            <div class="login"><a href="{{ route('buyerLogin') }}"><span class="hidden-xs">Buyer Login</span></a> </div>
-                            <div class="demo"><a title="Blog" href="{{ route('sellerLogin') }}"><span class="hidden-xs">Seller Login</span></a> </div>
+                            <div class="login"><a href="{{ route('login') }}"><span class="hidden-xs">Buyer Login</span></a> </div>
+                            <div class="demo"><a title="Blog" href="{{ route('seller.login') }}"><span class="hidden-xs">Seller Login</span></a> </div>
                         </div>
                     </div>
                     <!-- End Header Top Links -->

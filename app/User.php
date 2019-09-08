@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\Buyer;
+use App\Models\Seller;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,6 +15,11 @@ class User extends Authenticatable
         1=>'Active',
         2=>'Block',
         3=>'Un-Verified'
+    ];
+    const AccountType=[
+        'buyer'=>1,
+        'seller'=>2,
+        'both'=>3
     ];
 
     use Notifiable;
@@ -32,6 +39,7 @@ class User extends Authenticatable
         'phone_no',
         'password',
         'status',
+        'account_type'
     ];
 
     /**
@@ -51,4 +59,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function seller(){
+        return $this->hasOne(Seller::class, 'user_id', 'user_id');
+    }
+
+    public function buyer(){
+        return $this->hasOne(Buyer::class, 'user_id', 'user_id');
+    }
 }

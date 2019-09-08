@@ -25,7 +25,6 @@ Route::namespace('Frontend')->as('front.')->group(function () {
 });
 
 
-Route::view('seller-login', 'auth.login')->name('sellerLogin');
 Route::view('buyer-login', 'auth.buyer_login')->name('buyerLogin');
 Route::namespace('Frontend')->group(function () {
     Route::get('user-dashboard', 'FrontendController@userDashboard')->name('userDashboard');
