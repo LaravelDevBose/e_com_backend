@@ -58,7 +58,7 @@ class Campaign extends Model
 
 
     public function attachment(){
-        return $this->hasOne(Attachment::class,'attachment_id', 'attachment_id');
+        return $this->hasOne(Attachment::class,'attachment_id', 'attachment_id')->where('folder', 'campaign');
     }
 
     public function campaign_products(){

@@ -17,10 +17,14 @@ class Tag extends Model
     ];
 
     public function scopeIsActive($query){
-        return $query->where('tag_status', 1);
+        return $query->where('tag_status', config('app.active'));
     }
 
     public function scopeNotDelete($query){
-        return $query->where('tag_status','!=', 0);
+        return $query->where('tag_status','!=', config('app.delete'));
+    }
+
+    public function scopeBySearch($query, $request){
+        return $query;
     }
 }
