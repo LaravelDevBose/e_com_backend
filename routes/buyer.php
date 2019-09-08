@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::prefix('buyer')->middleware('auth:web')->namespace('Buyer')->as('buyer.')->group(function (){
+Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->group(function (){
+    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
     Route::get('home', 'HomeController@index')->name('home');
     Route::get('account/information', 'HomeController@account_information')->name('account.info');
     Route::get('edit/contact-info', 'HomeController@edit_contact_info')->name('contact_info.edit');

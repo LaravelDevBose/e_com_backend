@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
 class AdminLoginController extends Controller
@@ -14,10 +15,8 @@ class AdminLoginController extends Controller
         $this->middleware('guest:admin',['except'=>['logout']]);
     }
 
-    protected function guard()
-    {
-        return Auth::guard('admin');
-    }
+
+
     public function show_login_page(){
 
         return view('auth.admin_login');

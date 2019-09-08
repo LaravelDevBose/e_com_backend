@@ -25,16 +25,13 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    protected function guard()
-    {
-        return Auth::guard('web');
-    }
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/buyer/home';
+
 
     /**
      * Create a new controller instance.
@@ -43,7 +40,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:web')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
 
     public function login( Request $request){
@@ -55,7 +52,14 @@ class LoginController extends Controller
 
         if($validation->passes()){
             //attempt to log the user in
-            if (Auth::guard('web')->attempt([$this->username()=>$request->identity, 'password'=>$request->password, 'status'=>config('app.active')], $request->remember)) {
+            $credentials = [
+                $this->username()=>$request->identity,
+                'password'=>$request->password,
+                'status'=>config('app.active'),
+                'is_buyer'=>config('app.one')
+            ];
+
+            if (Auth::guard('web')->attempt($credentials, $request->remember)) {
                 return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successful', '', route('buyer.home'));
             }
             return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'Email Or UserName And Password Not Match !');
@@ -72,7 +76,6 @@ class LoginController extends Controller
             }
             return ResponserTrait::allResponse('validation', Response::HTTP_BAD_REQUEST, $message);
         }
-
 
     }
 

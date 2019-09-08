@@ -23,8 +23,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Styles -->
-
     <!-- CSS Style -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('front/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('front/css/font-awesome.css') }}" media="all">
     <link rel="stylesheet" type="text/css" href="{{ asset('front/css/simple-line-icons.css') }}" media="all">
@@ -60,26 +60,25 @@
         <!-- Header Section -->
         <header>
             <!-- header -->
-            @include('layouts.frontend.includes.globalHeader')
+            @include('layouts.buyer.includes.globalHeader')
             <!-- end header -->
 
             <!-- Navigation -->
-            @include('layouts.frontend.includes.navigation')
-            <navigation></navigation>
+            @include('layouts.buyer.includes.navigation')
             <!-- end nav -->
         </header>
         <!-- end Header Section -->
 
-    @yield('Content')
+        @yield('Content')
 
-    <!-- Footer -->
-    @include('layouts.frontend.includes.globalFooter')
-    <!-- End Footer -->
+        <!-- Footer -->
+        @include('layouts.buyer.includes.globalFooter')
+        <!-- End Footer -->
 
     </div>
 
     <!-- mobile menu -->
-    @include('layouts.frontend.includes.mobileMenu')
+        @include('layouts.buyer.includes.mobileMenu')
     <!-- end mobile menu -->
 
 </div>

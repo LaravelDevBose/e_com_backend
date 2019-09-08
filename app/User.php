@@ -39,7 +39,9 @@ class User extends Authenticatable
         'phone_no',
         'password',
         'status',
-        'account_type'
+        'account_type',
+        'is_buyer',
+        'is_seller',
     ];
 
     /**
@@ -61,10 +63,10 @@ class User extends Authenticatable
     ];
 
     public function seller(){
-        return $this->hasOne(Seller::class, 'user_id', 'user_id');
+        return $this->hasOne(Seller::class, 'user_id', 'user_id')->where('is_seller', config('app.one'));
     }
 
     public function buyer(){
-        return $this->hasOne(Buyer::class, 'user_id', 'user_id');
+        return $this->hasOne(Buyer::class, 'user_id', 'user_id')->where('is_buyer', config('app.one'));
     }
 }

@@ -34,7 +34,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/buyer/home';
 
     /**
      * Create a new controller instance.
@@ -77,6 +77,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'account_type'=>User::AccountType['buyer'],
             'status'=>config('app.active'),
+            'is_buyer'=>config('app.one'),
         ]);
     }
 
@@ -94,12 +95,12 @@ class RegisterController extends Controller
                 DB::beginTransaction();
                 event(new Registered($user = $this->create($request->all())));
                 if($user){
-                    $seller = Buyer::create([
+                    $buyer = Buyer::create([
                         'user_id'=>$user->user_id,
                         'buyer_status'=>config('app.inactive'),
                     ]);
 
-                    if(!empty($seller)){
+                    if(!empty($buyer)){
                         DB::commit();
                         return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Registration Successfully. Verify Your Email.', '', route('buyer.home'));
                     }else{

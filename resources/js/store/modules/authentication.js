@@ -12,7 +12,7 @@ const getters = {
 
 const actions={
     async loginAdmin({commit}, formData){
-        return  await axios.post('/admin-panel/login',formData).then(response=>{
+        return  await axios.post('/admin/login',formData).then(response=>{
             commit('loginResponse', response);
             return response.data;
         });
@@ -32,7 +32,7 @@ const actions={
 
     },
     async loginSeller({commit}, formData){
-        return  await axios.post('/seller-panel/login',formData).then(response=>{
+        return  await axios.post('/seller/login',formData).then(response=>{
             commit('sellerLoginResponse', response);
             return response.data;
         });

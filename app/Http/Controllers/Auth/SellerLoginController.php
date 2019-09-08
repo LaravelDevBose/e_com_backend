@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Traits\ResponserTrait;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -15,11 +16,6 @@ class SellerLoginController extends Controller
 
     public function __construct(){
         $this->middleware('guest:seller',['except'=>['logout']]);
-    }
-
-    protected function guard()
-    {
-        return Auth::guard('seller');
     }
 
     public function show_login_page(){
@@ -34,7 +30,14 @@ class SellerLoginController extends Controller
 
         if($validation->passes()){
             //attempt to log the user in
-            if (Auth::guard('seller')->attempt([$this->username()=>$request->identity, 'password'=>$request->password, 'status'=>config('app.active')], $request->remember)) {
+            $credentials = [
+                $this->username()=>$request->identity,
+                'password'=>$request->password,
+                'status'=>config('app.active'),
+                'is_seller'=>config('app.one')
+            ];
+
+            if (Auth::guard('seller')->attempt($credentials, $request->remember)) {
                 return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successful', '', route('seller.home'));
             }
             return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'Email Or UserName And Password Not Match !');

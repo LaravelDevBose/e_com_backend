@@ -78,6 +78,8 @@ class SellerRegisterController extends Controller
             'phone_no' => $data['phone_no'],
             'password' => Hash::make($data['password']),
             'account_type'=>User::AccountType['seller'],
+            'is_seller'=>config('app.one'),
+            'status'=>config('app.active'),
         ]);
     }
 
@@ -103,7 +105,7 @@ class SellerRegisterController extends Controller
 
                     if(!empty($seller)){
                         DB::commit();
-                        return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Seller Created Successfully', '', route('seller.home'));
+                        return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Seller Created Successfully', '', route('seller.login'));
                     }else{
                         throw new \Exception('Seller Not Create. Invalid Information', Response::HTTP_BAD_REQUEST);
                     }

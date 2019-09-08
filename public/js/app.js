@@ -107522,7 +107522,7 @@ var actions = {
             case 0:
               commit = _ref.commit;
               _context.next = 3;
-              return axios.post('/admin-panel/login', formData).then(function (response) {
+              return axios.post('/admin/login', formData).then(function (response) {
                 commit('loginResponse', response);
                 return response.data;
               });
@@ -107619,7 +107619,7 @@ var actions = {
             case 0:
               commit = _ref4.commit;
               _context4.next = 3;
-              return axios.post('/seller-panel/login', formData).then(function (response) {
+              return axios.post('/seller/login', formData).then(function (response) {
                 commit('sellerLoginResponse', response);
                 return response.data;
               });
