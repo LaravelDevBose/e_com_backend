@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\TemplateHelper;
 use App\Http\Controllers\Controller;
 use App\Traits\ResponserTrait;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -38,9 +39,17 @@ class LoginController extends Controller
      *
      * @return void
      */
+    public $template_name;
+
     public function __construct()
     {
+        $this->template_name = TemplateHelper::templateName();
         $this->middleware('guest')->except('logout');
+    }
+
+    public function showLoginForm()
+    {
+        return view('templates.'.$this->template_name.'.auth.login');
     }
 
     public function login( Request $request){
