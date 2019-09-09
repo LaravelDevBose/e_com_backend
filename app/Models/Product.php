@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helper\ConstantKey;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -55,8 +56,23 @@ class Product extends Model
         'product_slug',
     ];
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'product_slug';
+    }
+
+
     public function scopeNotDelete($query){
         return $query->where('product_status', '!=', config('app.delete'));
+    }
+
+    public function scopeIsActive($query){
+        return $query->where('product_status', config('app.active'));
     }
 
     public static function product_sku_generate(){
@@ -106,9 +122,11 @@ class Product extends Model
         return $this->hasMany(ProductImage::class, 'product_id', 'product_id');
     }
 
+    public function singleVariation(){
+        return $this->hasOne(ProductVariation::class, 'product_id', 'product_id');
+    }
+
     public function thumbImage(){
-
         return $this->belongsTo(Attachment::class, 'thumb_id', 'attachment_id');
-
     }
 }

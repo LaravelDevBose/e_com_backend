@@ -58,6 +58,17 @@ return [
             'provider' => 'admins',
             'hash' => false,
         ],
+
+        'seller' => [
+            'driver' => 'session',
+            'provider' => 'sellers',
+        ],
+
+        'seller-api' => [
+            'driver' => 'token',
+            'provider' => 'sellers',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -82,7 +93,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
+        'sellers' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,

@@ -1,23 +1,16 @@
-@extends('layouts.authMaster')
-@section('PageTitle', 'Admin Login')
+@extends('layouts.frontend.master')
+
+@section('Title','Customer Login')
 
 @section('PageCss')
 
 @endsection
 
-@section('ThemeJs')
-    <!-- Theme JS files -->
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/validation/validate.min.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/ui/ripple.min.js') }}"></script>
-
-    <script type="text/javascript" src="{{ asset('assets/js/core/app.js') }}"></script>
-    <!-- /theme JS files -->
+@section('Content')
+<buyer-auth-page></buyer-auth-page>
 @endsection
 
-@section('content')
-    <!-- Content area -->
-        <admin-login></admin-login>
-    <!-- /content area -->
-
+@section('PageJs')
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/pnotify.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/pages/components_notifications_pnotify.js') }}"></script>
 @endsection

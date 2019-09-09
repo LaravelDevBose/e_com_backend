@@ -23,4 +23,8 @@ class Size extends Model
     public function sizeGroup(){
         return $this->belongsTo(SizeGroup::class, 'size_group_id', 'size_group_id');
     }
+
+    public function scopeBySearch($query, $request){
+        return $query;
+    }
 }

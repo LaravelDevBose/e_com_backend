@@ -15,6 +15,9 @@ class Color extends Model
         'color_code',
         'color_status',
     ];
+    public function scopeBySearch($query, $request){
+        return $query;
+    }
 
     public function scopeIsActive($query){
         return $query->where('color_status', config('app.active'));
@@ -22,5 +25,9 @@ class Color extends Model
 
     public function scopeNotDelete($query){
         return $query->whereNotIn('color_status', [0]);
+    }
+
+    public function products(){
+        return $this->hasMany(ProductVariation::class, 'sec_id', 'color_id');
     }
 }

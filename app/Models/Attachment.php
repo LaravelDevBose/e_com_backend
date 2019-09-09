@@ -33,6 +33,7 @@ class Attachment extends Model
         'file_size',
         'original_name'
     ];
+    protected $appends = array('image_path');
 
     function scopeByReference($query, $model)
     {

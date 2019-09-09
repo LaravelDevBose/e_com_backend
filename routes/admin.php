@@ -1,8 +1,8 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-Route::get('admin-panel/login', 'Auth\AdminLoginController@show_login_page')->name('admin.login');
-Route::post('admin-panel/login', 'Auth\AdminLoginController@login')->name('admin.login');
+Route::get('admin/login', 'Auth\AdminLoginController@show_login_page')->name('admin.login');
+Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin.login');
 Route::get('admin/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.')->group(function (){
 

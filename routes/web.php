@@ -11,15 +11,26 @@
 |
 */
 
+
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::namespace('Frontend')->as('front.')->group(function () {
+    Route::get('/', 'FrontendController@index')->name('index');
+    Route::get('category/{category_slug}/products', 'FrontendController@category_wish_products')->name('category.product');
+    Route::get('product/{product_slug}', 'FrontendController@product_details')->name('product');
+    Route::get('checkout', 'FrontendController@checkout')->name('checkout');
+    Route::get('cart', 'FrontendController@cart_page')->name('cart');
+    Route::get('contact', 'FrontendController@contact_pages')->name('contact');
+    Route::get('pages/{slug}', 'FrontendController@general_pages')->name('pages');
 });
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('payment/methods', 'GeneralController@accepted_payment_methods');
+Route::get('default/images', 'GeneralController@default_images');
+
+
+
 Route::post('/attachment/store', 'AttachmentController@store')->name('attachment.store');
 Route::post('/crop_image/store', 'AttachmentController@crop_image_store')->name('crop_image.store');
 Route::delete('/attachment/delete/{id}', 'AttachmentController@delete')->name('attachment.delete');

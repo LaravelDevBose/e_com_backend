@@ -28,7 +28,8 @@ return [
         'size'=>2,
     ],
 
-
+    'one'=>1,
+    'zero'=>0,
 
 
 

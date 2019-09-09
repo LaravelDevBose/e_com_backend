@@ -29,6 +29,16 @@ class Brand extends Model
         return $query->where('brand_status', config('app.active'));
     }
 
+    public function scopeSearchBy($query, $request){
+        if(!empty($request)){
+            if(!empty($request->brand_name)){
+                $query->where('brand_name', 'like', '%'.$request->brand_name.'%');
+            }
+        }
+
+        return $query;
+    }
+
     public function attachment(){
         return $this->hasOne(Attachment::class,'attachment_id', 'attachment_id')->where('folder', 'brand');
     }
