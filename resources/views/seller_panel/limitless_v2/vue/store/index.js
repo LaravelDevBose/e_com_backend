@@ -3,6 +3,15 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex);
 
+
+import product from "./modules/product";
+import general_modules from "./modules/general_modules";
+import productHelper from "./modules/helper/productHelper";
+import excel_import from "./modules/helper/excel_import";
+import attachment from "./modules/attachment";
+import imageCropper from "./modules/imageCropper";
+
+
 export default new Vuex.Store({
     state:{
         resData:'',
@@ -23,7 +32,12 @@ export default new Vuex.Store({
         }
     },
     modules:{
-
+        product,
+        general_modules,
+        productHelper,
+        excel_import,
+        attachment,
+        imageCropper,
     }
 })
 

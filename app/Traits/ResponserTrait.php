@@ -34,4 +34,20 @@ trait ResponserTrait
         ],$code);
     }
 
+    public static function validationResponse($status='validation', $code=400, $errors=[]){
+        $message = null;
+        foreach ($errors as $error){
+            if(!empty($error)){
+                foreach ($error as $errorItem){
+                    $message .=  $errorItem .'<br/> ';
+                }
+            }
+        }
+        return response()->json([
+            'status'=>$status,
+            'code'=>$code,
+            'message'=>$message,
+        ],$code);
+    }
+
 }
