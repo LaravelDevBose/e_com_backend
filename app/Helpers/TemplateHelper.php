@@ -16,4 +16,12 @@ class TemplateHelper
             return $templateInfo->value;
         return config('app.default_template');
     }
+
+    public static function sellerTemplate()
+    {
+        $templateInfo = Setting::where('key', 'seller_template')->where('type', Setting::Setting_Type['template'])->first();
+        if (!empty($templateInfo))
+            return $templateInfo->value;
+        return config('app.seller_template');
+    }
 }

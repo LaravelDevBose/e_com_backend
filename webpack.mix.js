@@ -12,4 +12,6 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .js('resources/views/seller_panel/limitless_v2/vue/limitless_v2.js', 'public/js/limitless_v2.js')
    .sass('resources/sass/app.scss', 'public/css');
+

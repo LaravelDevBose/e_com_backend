@@ -8,6 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'default_template' => 'crocus_v2',
+    'seller_template' => 'limitless_v2',
     'active' => 1,
     'activeView' => 'Active',
     'inactive' => 2,

@@ -8,15 +8,15 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
-    public $template_name;
+    public $seller_template;
 
     public function __construct()
     {
-        $this->template_name = TemplateHelper::templateName();
+        $this->seller_template = TemplateHelper::sellerTemplate();
         $this->middleware('auth');
     }
 
     public function index(){
-        return view('templates.'.$this->template_name.'.seller.home.index');
+        return view('seller_panel.'.$this->seller_template.'.home.index');
     }
 }

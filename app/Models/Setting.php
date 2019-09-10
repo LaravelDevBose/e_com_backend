@@ -13,6 +13,7 @@ class Setting extends Model
     ];
     const SETTING_KEY = [
         'template_name' => '3',
+        'seller_template' => '3',
         'contact_phone' => '1',
         'contact_mobile' => '1',
         'contact_email' => '1',
