@@ -8,7 +8,7 @@
     <script type="text/javascript" src="{{ asset('assets/js/core/app.js') }}"></script>
 @endsection
 @section('content')
-    <dashboard></dashboard>
+    <dashboard panel="Seller Panel"></dashboard>
 @endsection
 @section('PageJs')
 

@@ -22,22 +22,31 @@
     <link href="{{ asset('/assets/css/extras/animate.min.css') }}" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
 
+    <style>
+        .navbar-brand{
+            padding: 3px 20px;
+        }
+    </style>
+    @yield('PageCss')
+
     <!-- Core JS files -->
     <script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/pace.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/core/libraries/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/core/libraries/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/blockui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/ui/nicescroll.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/ui/drilldown.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/pnotify.min.js') }}"></script>
     <!-- /core JS files -->
 
-    @yield('PageCss')
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/pnotify.min.js') }}"></script>
+
 
     @yield('ThemeJs')
     <script type="text/javascript" src="{{ asset('assets/js/pages/components_notifications_pnotify.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('assets/js/pages/animations_css3.js') }}"></script>
 </head>
-<body class="navbar-top  pace-done sidebar-xs">
+<body class="navbar-top-md-md">
 
 <div id="app">
 
@@ -47,9 +56,6 @@
 
         <!-- Page content -->
         <div class="page-content" >
-
-            @include('templates.crocus_v2.layouts.seller.includes.sidebar')
-
 
             <!-- Main content -->
             <div class="content-wrapper">

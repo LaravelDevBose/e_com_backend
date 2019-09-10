@@ -10772,7 +10772,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Dashboard"
+  name: "Dashboard",
+  props: ['panel']
 });
 
 /***/ }),
@@ -83192,36 +83193,27 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-lg-12" }, [
-          _c("div", { staticClass: "panel panel-flat bounceInRight" }, [
-            _c("div", { staticClass: "panel-body" }, [
-              _c(
-                "h1",
-                { staticClass: "text text-blue  text-center text-bold" },
-                [
-                  _c("span", [
-                    _vm._v(
-                      " Well come to E-Commerce Admin\n                        "
-                    )
-                  ])
-                ]
-              )
+  return _c("div", { staticClass: "content" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("div", { staticClass: "panel panel-flat bounceInRight" }, [
+          _c("div", { staticClass: "panel-body" }, [
+            _c("h1", { staticClass: "text text-blue  text-center text-bold" }, [
+              _c("span", [
+                _vm._v(
+                  " Well come to " +
+                    _vm._s(_vm.panel) +
+                    "\n                        "
+                )
+              ])
             ])
           ])
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

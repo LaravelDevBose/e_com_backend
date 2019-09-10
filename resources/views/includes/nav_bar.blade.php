@@ -1,6 +1,8 @@
 <div class="navbar navbar-default navbar-fixed-top header-highlight">
     <div class="navbar-header">
-        <a class="navbar-brand" style="padding: 0px; width: 100%; background-color: #fff;" href="http://brainchildsoft.com/" target="_blank"><img src="{{ asset('assets/images/brainchildsoft.png') }}" alt="" style="width: 190px; height: 40px; "></a>
+        <a class="navbar-brand" style="padding: 0px; width: 100%; background-color: #fff;" href="http://brainchildsoft.com/" target="_blank">
+            <img src="{{ asset('assets/images/brainchildsoft.png') }}" alt="" style="width: 190px; height: 40px; ">
+        </a>
 
         <ul class="nav navbar-nav visible-xs-block">
             <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
