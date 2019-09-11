@@ -43,11 +43,10 @@ const actions = {
             commit('getProductData', error.data)
         }
     },
-    async storeProductData({commit}, fromData){
+    async sellerStoreProductData({commit}, fromData){
         try {
             return await axios.post('/seller/product', fromData)
                 .then(response=>{
-                    console.log(response);
                     commit('setResponse',response.data);
                     return response.data;
                 })

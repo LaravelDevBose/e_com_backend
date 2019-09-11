@@ -49,7 +49,7 @@ class ProductController extends Controller
             return $query->with(['parent'=>function($q){
                 return $q->with(['parent']);
             }]);
-        }, 'brand','variations'])->latest()->get();
+        }, 'brand','variations'])->isOwner()->latest()->get();
         return ProductCollection::collection($products);
     }
 
@@ -129,6 +129,7 @@ class ProductController extends Controller
                     'warranty_type'=>$request->warranty_type,
                     'thumb_id'=>$request->thumb_id,
                     'video_url'=>$request->video_url,
+                    'seller_id'=>auth()->guard('seller')->id(),
                 ]);
                 if($product){
                     #Store Data in Product Details Table
@@ -193,7 +194,7 @@ class ProductController extends Controller
 
                     }
                     DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Store Successfully', route('seller.product.index'));
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Store Successfully','', route('seller.product.index'));
                 }
 
             }catch (Exception $ex){
@@ -212,7 +213,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$productId)
+    public function show(Request $request, $productId)
     {
         $product = Product::find($productId);
         if($request->ajax()){
@@ -220,7 +221,7 @@ class ProductController extends Controller
                 return $query->with(['parent'=>function($q){
                     return $q->with('parent');
                 }]);
-            }, 'brand', 'productDetails', 'variations', 'productImages'=>function($query){
+            }, 'brand','thumbImage','productDetails','variations','productImages'=>function($query){
                 return $query->with('attachment')->isActive();
             }]);
 

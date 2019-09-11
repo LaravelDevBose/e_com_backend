@@ -3,47 +3,19 @@
     <div class="content">
         <div class="row">
             <div class="col-md-2">
-                <!-- Detached sidebar -->
-
-                    <div class=" sidebar-default">
-                        <div class="sidebar-content" style="padding-bottom:0px;">
-
-                                <div class="panel-body bg-indigo-400 border-radius-top text-center" style="background-image: url(http://demo.interface.club/limitless/assets/images/bg.png); background-size: contain;">
-                                    <div class="content-group-sm">
-                                        <h6 class="text-semibold no-margin-bottom">
-                                            Victoria Davidson
-                                        </h6>
-
-                                        <span class="display-block">Head of UX</span>
-                                    </div>
-
-                                    <a href="#" class="display-inline-block content-group-sm">
-                                        <img src="assets/images/placeholder.jpg" class="img-circle img-responsive" alt="" style="width: 110px; height: 110px;">
-                                    </a>
-
-                                    <ul class="list-inline list-inline-condensed no-margin-bottom">
-                                        <li><a href="#" class="btn bg-indigo btn-rounded btn-icon"><i class="icon-google-drive"></i></a></li>
-                                        <li><a href="#" class="btn bg-indigo btn-rounded btn-icon"><i class="icon-twitter"></i></a></li>
-                                        <li><a href="#" class="btn bg-indigo btn-rounded btn-icon"><i class="icon-github"></i></a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="panel no-border-top no-border-radius-top " style="margin-bottom:0px;">
-                                    <ul class="navigation">
-                                        <li class="navigation-header">Navigation</li>
-                                        <li class="active"><a href="#basic" data-toggle="tab"><i class="icon-files-empty"></i> Basic Info</a></li>
-                                        <li><a href="#details" data-toggle="tab"><i class="icon-files-empty"></i> Details</a></li>
-                                        <li><a href="#reviews" data-toggle="tab"><i class="icon-files-empty"></i> Reviews</a></li>
-                                        <li><a href="#orders" data-toggle="tab"><i class="icon-files-empty"></i> Orders</a></li>
-                                        <li class="navigation-divider"></li>
-                                        <li><a href="login_advanced.html"><i class="icon-switch2"></i> Log out</a></li>
-                                    </ul>
-                                </div>
-
-
+                <div class=" sidebar-default">
+                    <div class="sidebar-content" style="padding-bottom:0px;">
+                        <div class="panel no-border-top no-border-radius-top " style="margin-bottom:0px;">
+                            <ul class="navigation">
+                                <li class="navigation-header">Navigation</li>
+                                <li class="active"><a href="#basic" data-toggle="tab"><i class="icon-files-empty"></i> Basic Info</a></li>
+                                <li><a href="#details" data-toggle="tab"><i class="icon-files-empty"></i> Details</a></li>
+                                <li><a href="#reviews" data-toggle="tab"><i class="icon-files-empty"></i> Reviews</a></li>
+                                <li><a href="#orders" data-toggle="tab"><i class="icon-files-empty"></i> Orders</a></li>
+                            </ul>
                         </div>
                     </div>
-
+                </div>
             </div>
             <div class="col-md-10">
                 <!-- Detached content -->
@@ -349,7 +321,7 @@
 <script>
     import {mapGetters,mapActions} from 'vuex';
     export default {
-        name: "SellerShowProduct",
+        name: "ShowProduct",
         data(){
             return{
                 slider: [],

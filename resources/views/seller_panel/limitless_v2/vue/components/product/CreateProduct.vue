@@ -461,7 +461,7 @@
                 'getBrandList',
                 'getProductCreateDependency',
                 'uploadProductImage',
-                'storeProductData',
+                'sellerStoreProductData',
             ]),
             addPriId(PriID){
                 this.priId = PriID;
@@ -665,19 +665,20 @@
                 this.formData.variations = this.variations;
                 this.formData.imageIds = this.imageIds;
                 //send Vuex request
-                this.storeProductData(this.formData)
+                this.sellerStoreProductData(this.formData)
                     .then(response=>{
-                        console.log(response);
-                        if(response.status === "success"){
+                        if(typeof response.code === "undefined"){
+                            Notify.error(response.message);
+                        }else if(response.code === 200 ){
                             Notify.success(response.message);
                             this.removeImage = true;
 
                             setTimeout(function () {
                                 window.location = response.url;
                             });
-                        }else if(response.status === "validation"){
+                        }else if(response.status === "validation" && response.code === 400){
                             Notify.validation(response.message);
-                        }else if(response.status === "error"){
+                        }else if(response.code === 200){
                             Notify.error(response.message);
                         }else {
                             Notify.info(response.message);

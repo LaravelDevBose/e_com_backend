@@ -7651,7 +7651,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.allTreeListCategories();
     this.getBrandList();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['allTreeListCategories', 'getBrandList', 'getProductCreateDependency', 'uploadProductImage', 'storeProductData']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['allTreeListCategories', 'getBrandList', 'getProductCreateDependency', 'uploadProductImage', 'sellerStoreProductData']), {
     addPriId: function addPriId(PriID) {
       this.priId = PriID;
     },
@@ -7890,18 +7890,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.formData.variations = this.variations;
       this.formData.imageIds = this.imageIds; //send Vuex request
 
-      this.storeProductData(this.formData).then(function (response) {
-        console.log(response);
-
-        if (response.status === "success") {
+      this.sellerStoreProductData(this.formData).then(function (response) {
+        if (typeof response.code === "undefined") {
+          Notify.error(response.message);
+        } else if (response.code === 200) {
           Notify.success(response.message);
           _this5.removeImage = true;
           setTimeout(function () {
             window.location = response.url;
           });
-        } else if (response.status === "validation") {
+        } else if (response.status === "validation" && response.code === 400) {
           Notify.validation(response.message);
-        } else if (response.status === "error") {
+        } else if (response.code === 200) {
           Notify.error(response.message);
         } else {
           Notify.info(response.message);
@@ -8507,37 +8507,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "SellerShowProduct",
+  name: "ShowProduct",
   data: function data() {
     return {
       slider: [],
@@ -15083,7 +15055,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
 
 // exports
 
@@ -73322,89 +73294,6 @@ var staticRenderFns = [
             _c(
               "div",
               {
-                staticClass:
-                  "panel-body bg-indigo-400 border-radius-top text-center",
-                staticStyle: {
-                  "background-image":
-                    "url(http://demo.interface.club/limitless/assets/images/bg.png)",
-                  "background-size": "contain"
-                }
-              },
-              [
-                _c("div", { staticClass: "content-group-sm" }, [
-                  _c("h6", { staticClass: "text-semibold no-margin-bottom" }, [
-                    _vm._v(
-                      "\n                                        Victoria Davidson\n                                    "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "display-block" }, [
-                    _vm._v("Head of UX")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "display-inline-block content-group-sm",
-                    attrs: { href: "#" }
-                  },
-                  [
-                    _c("img", {
-                      staticClass: "img-circle img-responsive",
-                      staticStyle: { width: "110px", height: "110px" },
-                      attrs: { src: "assets/images/placeholder.jpg", alt: "" }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "ul",
-                  {
-                    staticClass:
-                      "list-inline list-inline-condensed no-margin-bottom"
-                  },
-                  [
-                    _c("li", [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn bg-indigo btn-rounded btn-icon",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "icon-google-drive" })]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn bg-indigo btn-rounded btn-icon",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "icon-twitter" })]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn bg-indigo btn-rounded btn-icon",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "icon-github" })]
-                      )
-                    ])
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
                 staticClass: "panel no-border-top no-border-radius-top ",
                 staticStyle: { "margin-bottom": "0px" }
               },
@@ -73456,15 +73345,6 @@ var staticRenderFns = [
                         _vm._v(" Orders")
                       ]
                     )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "navigation-divider" }),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "login_advanced.html" } }, [
-                      _c("i", { staticClass: "icon-switch2" }),
-                      _vm._v(" Log out")
-                    ])
                   ])
                 ])
               ]
@@ -90099,8 +89979,8 @@ var actions = {
 
     return getProducts;
   }(),
-  storeProductData: function () {
-    var _storeProductData = _asyncToGenerator(
+  sellerStoreProductData: function () {
+    var _sellerStoreProductData = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, fromData) {
       var commit;
@@ -90112,7 +89992,6 @@ var actions = {
               _context3.prev = 1;
               _context3.next = 4;
               return axios.post('/seller/product', fromData).then(function (response) {
-                console.log(response);
                 commit('setResponse', response.data);
                 return response.data;
               });
@@ -90133,11 +90012,11 @@ var actions = {
       }, _callee3, null, [[1, 7]]);
     }));
 
-    function storeProductData(_x4, _x5) {
-      return _storeProductData.apply(this, arguments);
+    function sellerStoreProductData(_x4, _x5) {
+      return _sellerStoreProductData.apply(this, arguments);
     }
 
-    return storeProductData;
+    return sellerStoreProductData;
   }(),
   singleProduct: function () {
     var _singleProduct = _asyncToGenerator(
@@ -90215,7 +90094,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\wamp64\www\lara_example\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })
