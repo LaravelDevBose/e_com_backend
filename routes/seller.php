@@ -12,8 +12,17 @@ Route::prefix('seller')->middleware('auth:seller')->namespace('Seller')->as('sel
 
     Route::get('home', 'HomeController@index')->name('home');
 
+    Route::post('/all_category/tree_list', 'GeneralDataListController@all_category_tree_list')->name('all_category.tree_list');
+    Route::get('/brand/list','GeneralDataListController@brand_list')->name('brand.list');
+
+    Route::get('/colors', 'GeneralDataListController@index')->name('color');
+    Route::get('/tags','GeneralDataListController@index')->name('tag');
+
+
+
+
     Route::resource('/product', 'ProductController');
-    Route::get('create/product/dependency/{catID}', 'ProductController@product_create_dependency')->name('product.create.dependency');
+    Route::get('product/dependency/{catID}', 'ProductController@product_create_dependency')->name('product.dependency');
     Route::get('collection/product', 'ProductController@product_collection')->name('product.collection');
     Route::get('single/product/{product}','ProductController@single_product')->name('single.product');
 

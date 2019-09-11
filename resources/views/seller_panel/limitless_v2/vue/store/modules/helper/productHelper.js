@@ -19,7 +19,7 @@ const actions = {
     },
     async uploadProductImage({commit},formData){
         try {
-            return await axios.post('/admin/product/image/store',formData,{
+            return await axios.post('/seller/product/image/store',formData,{
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }

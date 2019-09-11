@@ -51,7 +51,7 @@
         props: ['row'],
     });
     Vue.component('thumb-image', {
-        template: `<img :src="row.thumbnail.image_path" :alt="row.product_title"  style="width:90px; height:90px">`,
+        template: `<img v-if="row.thumbnail !== null" :src="row.thumbnail.image_path" :alt="row.product_title"  style="width:90px; height:90px">`,
         props: ['row'],
     });
 
@@ -75,10 +75,10 @@
         props: ['row'],
         methods: {
             goToDetailsPage: function(ID){
-                window.location = '/admin/product/'+ID;
+                window.location = '/seller/product/'+ID;
             },
             goToEditPage:function (ID) {
-                window.location = '/admin/product/'+ID+'/edit';
+                window.location = '/seller/product/'+ID+'/edit';
             },
             showDeletePopUp:function (ID) {
 

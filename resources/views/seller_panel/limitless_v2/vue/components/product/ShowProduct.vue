@@ -349,7 +349,7 @@
 <script>
     import {mapGetters,mapActions} from 'vuex';
     export default {
-        name: "ShowProduct",
+        name: "SellerShowProduct",
         data(){
             return{
                 slider: [],
@@ -385,14 +385,17 @@
                         this.slider.push(img);
                     });
                     if(newVal.category !== null){
-                        this.category = newVal.category
+                        this.category = newVal.category;
+                        if(newVal.category.parent !== null){
+                            this.sec_category = newVal.category.parent;
+
+                            if(newVal.category.parent.parent !== null){
+                                this.trd_category = newVal.category.parent.parent;
+                            }
+                        }
                     }
-                    if(newVal.category.parent !== null){
-                        this.sec_category = newVal.category.parent;
-                    }
-                    if(newVal.category.parent.parent !== null){
-                        this.trd_category = newVal.category.parent.parent;
-                    }
+
+
 
 
                 }

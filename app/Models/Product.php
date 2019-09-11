@@ -130,6 +130,10 @@ class Product extends Model
         return $query->where('product_status', config('app.active'));
     }
 
+    public function scopeIsOwner($query){
+        return $query->where('seller_id', \auth()->id());
+    }
+
     public static function product_sku_generate(){
         $sku = '';
         for ($i=1; $i<=4; $i++){

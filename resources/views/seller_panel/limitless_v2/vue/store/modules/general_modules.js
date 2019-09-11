@@ -37,7 +37,7 @@ const actions = {
     },
     async allTreeListCategories({commit}){
         try{
-            const response = await axios.post('/admin/all_category/tree_list');
+            const response = await axios.post('/seller/all_category/tree_list');
             commit('setTreeListCategory', response.data.data);
 
         }catch (error) {
@@ -56,20 +56,9 @@ const actions = {
         }
 
     },
-
-    async getBrands({commit}){
-        try {
-            await axios.get('/admin/brands')
-                .then(response=>{
-                    commit('setBrands', response.data.data);
-                })
-        }catch (error) {
-            commit('setResponse', error.data);
-        }
-    },
     async getBrandList({commit}){
         try {
-            await axios.get('/admin/brand/list')
+            await axios.get('/seller/brand/list')
                 .then(response=>{
                     commit('setBrandList', response.data);
                 })

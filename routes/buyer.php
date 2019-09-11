@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('buyer/logout', 'Auth\LoginController@logout')->name('buyer.logout');
 Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->group(function (){
-    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
     Route::get('home', 'HomeController@index')->name('home');
     Route::get('account/information', 'HomeController@account_information')->name('account.info');

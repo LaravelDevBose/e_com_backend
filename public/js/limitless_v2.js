@@ -7918,10 +7918,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     clonedSecondaryIds: function clonedSecondaryIds() {
       return JSON.parse(JSON.stringify(this.sec_id));
     },
-    // variations(){
-    //     // return this.variations;
-    //     return _.orderBy(this.variations, 'color_name')
-    // },
     formDataCheck: function formDataCheck() {
       return JSON.parse(JSON.stringify(this.formData));
     }
@@ -8049,7 +8045,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('select-row', {
   props: ['row']
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('thumb-image', {
-  template: "<img :src=\"row.thumbnail.image_path\" :alt=\"row.product_title\"  style=\"width:90px; height:90px\">",
+  template: "<img v-if=\"row.thumbnail !== null\" :src=\"row.thumbnail.image_path\" :alt=\"row.product_title\"  style=\"width:90px; height:90px\">",
   props: ['row']
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
@@ -8057,10 +8053,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
   props: ['row'],
   methods: {
     goToDetailsPage: function goToDetailsPage(ID) {
-      window.location = '/admin/product/' + ID;
+      window.location = '/seller/product/' + ID;
     },
     goToEditPage: function goToEditPage(ID) {
-      window.location = '/admin/product/' + ID + '/edit';
+      window.location = '/seller/product/' + ID + '/edit';
     },
     showDeletePopUp: function showDeletePopUp(ID) {}
   }
@@ -8541,7 +8537,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ShowProduct",
+  name: "SellerShowProduct",
   data: function data() {
     return {
       slider: [],
@@ -8573,14 +8569,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (newVal.category !== null) {
           this.category = newVal.category;
-        }
 
-        if (newVal.category.parent !== null) {
-          this.sec_category = newVal.category.parent;
-        }
+          if (newVal.category.parent !== null) {
+            this.sec_category = newVal.category.parent;
 
-        if (newVal.category.parent.parent !== null) {
-          this.trd_category = newVal.category.parent.parent;
+            if (newVal.category.parent.parent !== null) {
+              this.trd_category = newVal.category.parent.parent;
+            }
+          }
         }
       }
     }
@@ -15087,7 +15083,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -88564,6 +88560,87 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/helper/pNotify.js":
+/*!****************************************!*\
+  !*** ./resources/js/helper/pNotify.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Notify =
+/*#__PURE__*/
+function () {
+  function Notify() {
+    _classCallCheck(this, Notify);
+  }
+
+  _createClass(Notify, [{
+    key: "success",
+    value: function success(message) {
+      new PNotify({
+        title: 'Success',
+        text: message,
+        addclass: 'alert bg-success alert-styled-right',
+        type: 'success'
+      });
+    }
+  }, {
+    key: "error",
+    value: function error(message) {
+      new PNotify({
+        title: 'Error',
+        text: message,
+        addclass: 'alert bg-danger alert-styled-right',
+        type: 'error'
+      });
+    }
+  }, {
+    key: "validation",
+    value: function validation(message) {
+      new PNotify({
+        title: 'Validation',
+        text: message,
+        addclass: 'alert bg-warning alert-styled-right',
+        type: 'error'
+      });
+    }
+  }, {
+    key: "warning",
+    value: function warning(message) {
+      new PNotify({
+        title: 'Warning',
+        text: message,
+        addclass: 'alert bg-warning alert-styled-right',
+        type: 'warning'
+      });
+    }
+  }, {
+    key: "info",
+    value: function info(message) {
+      new PNotify({
+        title: 'Info',
+        text: message,
+        addclass: 'alert bg-info alert-styled-right',
+        type: 'info'
+      });
+    }
+  }]);
+
+  return Notify;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Notify = new Notify());
+
+/***/ }),
+
 /***/ "./resources/views/seller_panel/limitless_v2/vue sync recursive \\.vue$/":
 /*!********************************************************************!*\
   !*** ./resources/views/seller_panel/limitless_v2/vue sync \.vue$/ ***!
@@ -88914,16 +88991,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_croppa__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-croppa */ "./node_modules/vue-croppa/dist/vue-croppa.js");
 /* harmony import */ var vue_croppa__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_croppa__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/views/seller_panel/limitless_v2/vue/store/index.js");
-/* harmony import */ var _components_product_ProductList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/product/ProductList */ "./resources/views/seller_panel/limitless_v2/vue/components/product/ProductList.vue");
-/* harmony import */ var _components_product_CreateProduct__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/product/CreateProduct */ "./resources/views/seller_panel/limitless_v2/vue/components/product/CreateProduct.vue");
-/* harmony import */ var _components_product_ShowProduct__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/product/ShowProduct */ "./resources/views/seller_panel/limitless_v2/vue/components/product/ShowProduct.vue");
+/* harmony import */ var _js_helper_pNotify__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../js/helper/pNotify */ "./resources/js/helper/pNotify.js");
+/* harmony import */ var _components_product_ProductList__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/product/ProductList */ "./resources/views/seller_panel/limitless_v2/vue/components/product/ProductList.vue");
+/* harmony import */ var _components_product_CreateProduct__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/product/CreateProduct */ "./resources/views/seller_panel/limitless_v2/vue/components/product/CreateProduct.vue");
+/* harmony import */ var _components_product_ShowProduct__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/product/ShowProduct */ "./resources/views/seller_panel/limitless_v2/vue/components/product/ShowProduct.vue");
 
 
 __webpack_require__(/*! ../../../../js/bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); //Vue Date Time
 
- // You need a specific loader for CSS files
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_datetime__WEBPACK_IMPORTED_MODULE_1___default.a);
@@ -88935,6 +89012,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_chenfengyuan_vue_carousel__WEBPA
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_croppa__WEBPACK_IMPORTED_MODULE_4___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vuejs-datatable */ "./node_modules/vuejs-datatable/dist/vuejs-datatable.js"));
 
+
+window.Notify = _js_helper_pNotify__WEBPACK_IMPORTED_MODULE_6__["default"];
 
 var files = __webpack_require__("./resources/views/seller_panel/limitless_v2/vue sync recursive \\.vue$/");
 
@@ -88988,9 +89067,9 @@ var limitless_v2 = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     // 'manage-campaign-product':ManageCampaignProduct,
     // 'voucher':Voucher,
     // 'create-voucher':CreateVoucher,
-    'product-list': _components_product_ProductList__WEBPACK_IMPORTED_MODULE_6__["default"],
-    'create-product': _components_product_CreateProduct__WEBPACK_IMPORTED_MODULE_7__["default"],
-    'show-product': _components_product_ShowProduct__WEBPACK_IMPORTED_MODULE_8__["default"] // 'skin-type':SkinType,
+    'product-list': _components_product_ProductList__WEBPACK_IMPORTED_MODULE_7__["default"],
+    'create-product': _components_product_CreateProduct__WEBPACK_IMPORTED_MODULE_8__["default"],
+    'show-product': _components_product_ShowProduct__WEBPACK_IMPORTED_MODULE_9__["default"] // 'skin-type':SkinType,
     // 'slider-page':SliderPage,
     // 'slider-create-page':SliderCreatePage,
     // 'create-general-pages':CreateGeneralPages,
@@ -89264,7 +89343,7 @@ var actions = {
               commit = _ref2.commit;
               _context2.prev = 1;
               _context2.next = 4;
-              return axios.post('/admin/all_category/tree_list');
+              return axios.post('/seller/all_category/tree_list');
 
             case 4:
               response = _context2.sent;
@@ -89332,8 +89411,8 @@ var actions = {
 
     return getTreeListCategories;
   }(),
-  getBrands: function () {
-    var _getBrands = _asyncToGenerator(
+  getBrandList: function () {
+    var _getBrandList = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4) {
       var commit;
@@ -89344,8 +89423,8 @@ var actions = {
               commit = _ref4.commit;
               _context4.prev = 1;
               _context4.next = 4;
-              return axios.get('/admin/brands').then(function (response) {
-                commit('setBrands', response.data.data);
+              return axios.get('/seller/brand/list').then(function (response) {
+                commit('setBrandList', response.data);
               });
 
             case 4:
@@ -89365,14 +89444,14 @@ var actions = {
       }, _callee4, null, [[1, 6]]);
     }));
 
-    function getBrands(_x4) {
-      return _getBrands.apply(this, arguments);
+    function getBrandList(_x4) {
+      return _getBrandList.apply(this, arguments);
     }
 
-    return getBrands;
+    return getBrandList;
   }(),
-  getBrandList: function () {
-    var _getBrandList = _asyncToGenerator(
+  getAllSizeInfo: function () {
+    var _getAllSizeInfo = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5) {
       var commit;
@@ -89383,8 +89462,10 @@ var actions = {
               commit = _ref5.commit;
               _context5.prev = 1;
               _context5.next = 4;
-              return axios.get('/admin/brand/list').then(function (response) {
-                commit('setBrandList', response.data);
+              return axios.get('/admin/size_group').then(function (response) {
+                commit('setSizeGroups', response.data.data);
+              })["catch"](function (error) {
+                commit('setResponse', error.data);
               });
 
             case 4:
@@ -89404,48 +89485,7 @@ var actions = {
       }, _callee5, null, [[1, 6]]);
     }));
 
-    function getBrandList(_x5) {
-      return _getBrandList.apply(this, arguments);
-    }
-
-    return getBrandList;
-  }(),
-  getAllSizeInfo: function () {
-    var _getAllSizeInfo = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref6) {
-      var commit;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
-        while (1) {
-          switch (_context6.prev = _context6.next) {
-            case 0:
-              commit = _ref6.commit;
-              _context6.prev = 1;
-              _context6.next = 4;
-              return axios.get('/admin/size_group').then(function (response) {
-                commit('setSizeGroups', response.data.data);
-              })["catch"](function (error) {
-                commit('setResponse', error.data);
-              });
-
-            case 4:
-              _context6.next = 9;
-              break;
-
-            case 6:
-              _context6.prev = 6;
-              _context6.t0 = _context6["catch"](1);
-              commit('setResponse', _context6.t0.data);
-
-            case 9:
-            case "end":
-              return _context6.stop();
-          }
-        }
-      }, _callee6, null, [[1, 6]]);
-    }));
-
-    function getAllSizeInfo(_x6) {
+    function getAllSizeInfo(_x5) {
       return _getAllSizeInfo.apply(this, arguments);
     }
 
@@ -89454,38 +89494,38 @@ var actions = {
   getSkinTypes: function () {
     var _getSkinTypes = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(_ref7) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref6) {
       var commit, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context7.prev = _context7.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
-              commit = _ref7.commit;
-              _context7.prev = 1;
-              _context7.next = 4;
+              commit = _ref6.commit;
+              _context6.prev = 1;
+              _context6.next = 4;
               return axios.get('/admin/skinType');
 
             case 4:
-              response = _context7.sent;
+              response = _context6.sent;
               commit('setSkinTypes', response.data.data);
-              _context7.next = 12;
+              _context6.next = 12;
               break;
 
             case 8:
-              _context7.prev = 8;
-              _context7.t0 = _context7["catch"](1);
-              console.log(_context7.t0);
-              commit('setResponse', _context7.t0.data);
+              _context6.prev = 8;
+              _context6.t0 = _context6["catch"](1);
+              console.log(_context6.t0);
+              commit('setResponse', _context6.t0.data);
 
             case 12:
             case "end":
-              return _context7.stop();
+              return _context6.stop();
           }
         }
-      }, _callee7, null, [[1, 8]]);
+      }, _callee6, null, [[1, 8]]);
     }));
 
-    function getSkinTypes(_x7) {
+    function getSkinTypes(_x6) {
       return _getSkinTypes.apply(this, arguments);
     }
 
@@ -89494,37 +89534,37 @@ var actions = {
   getColors: function () {
     var _getColors = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(_ref8) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(_ref7) {
       var commit;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
         while (1) {
-          switch (_context8.prev = _context8.next) {
+          switch (_context7.prev = _context7.next) {
             case 0:
-              commit = _ref8.commit;
-              _context8.prev = 1;
-              _context8.next = 4;
+              commit = _ref7.commit;
+              _context7.prev = 1;
+              _context7.next = 4;
               return axios.get('/admin/colors').then(function (response) {
                 commit('setColors', response.data.data);
               });
 
             case 4:
-              _context8.next = 9;
+              _context7.next = 9;
               break;
 
             case 6:
-              _context8.prev = 6;
-              _context8.t0 = _context8["catch"](1);
-              commit('setResponse', _context8.t0.data);
+              _context7.prev = 6;
+              _context7.t0 = _context7["catch"](1);
+              commit('setResponse', _context7.t0.data);
 
             case 9:
             case "end":
-              return _context8.stop();
+              return _context7.stop();
           }
         }
-      }, _callee8, null, [[1, 6]]);
+      }, _callee7, null, [[1, 6]]);
     }));
 
-    function getColors(_x8) {
+    function getColors(_x7) {
       return _getColors.apply(this, arguments);
     }
 
@@ -89533,38 +89573,38 @@ var actions = {
   getTags: function () {
     var _getTags = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(_ref9) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(_ref8) {
       var commit, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
         while (1) {
-          switch (_context9.prev = _context9.next) {
+          switch (_context8.prev = _context8.next) {
             case 0:
-              commit = _ref9.commit;
-              _context9.prev = 1;
-              _context9.next = 4;
+              commit = _ref8.commit;
+              _context8.prev = 1;
+              _context8.next = 4;
               return axios.get('/admin/tags');
 
             case 4:
-              response = _context9.sent;
+              response = _context8.sent;
               commit('setTags', response.data.data);
-              _context9.next = 12;
+              _context8.next = 12;
               break;
 
             case 8:
-              _context9.prev = 8;
-              _context9.t0 = _context9["catch"](1);
-              console.log(_context9.t0);
-              commit('setResponse', _context9.t0.data);
+              _context8.prev = 8;
+              _context8.t0 = _context8["catch"](1);
+              console.log(_context8.t0);
+              commit('setResponse', _context8.t0.data);
 
             case 12:
             case "end":
-              return _context9.stop();
+              return _context8.stop();
           }
         }
-      }, _callee9, null, [[1, 8]]);
+      }, _callee8, null, [[1, 8]]);
     }));
 
-    function getTags(_x9) {
+    function getTags(_x8) {
       return _getTags.apply(this, arguments);
     }
 
@@ -89754,7 +89794,7 @@ var actions = {
               commit = _ref2.commit;
               _context.prev = 1;
               _context.next = 4;
-              return axios.post('/admin/product/image/store', formData, {
+              return axios.post('/seller/product/image/store', formData, {
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'
                 }
@@ -89993,7 +90033,7 @@ var actions = {
               commit = _ref.commit;
               _context.prev = 1;
               _context.next = 4;
-              return axios.get("/admin/create/product/dependency/".concat(catID)).then(function (response) {
+              return axios.get("/seller/product/dependency/".concat(catID)).then(function (response) {
                 commit('productCreateDependency', response.data);
               });
 
@@ -90032,7 +90072,7 @@ var actions = {
               commit = _ref2.commit;
               _context2.prev = 1;
               _context2.next = 4;
-              return axios.get('/admin/collection/product').then(function (response) {
+              return axios.get('/seller/collection/product').then(function (response) {
                 commit('getProductData', response.data);
                 return response;
               });
@@ -90071,7 +90111,7 @@ var actions = {
               commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
-              return axios.post('/admin/product', fromData).then(function (response) {
+              return axios.post('/seller/product', fromData).then(function (response) {
                 console.log(response);
                 commit('setResponse', response.data);
                 return response.data;
@@ -90111,7 +90151,7 @@ var actions = {
               commit = _ref4.commit;
               _context4.prev = 1;
               _context4.next = 4;
-              return axios.get("/admin/single/product/".concat(productID)).then(function (response) {
+              return axios.get("/seller/product/".concat(productID)).then(function (response) {
                 console.log(response);
 
                 if (response.data.status === 'error') {
@@ -90175,7 +90215,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\lara_example\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })

@@ -212,30 +212,28 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Request $request,$productId)
     {
+        $product = Product::find($productId);
+        if($request->ajax()){
+            $product = $product->load(['category'=>function($query){
+                return $query->with(['parent'=>function($q){
+                    return $q->with('parent');
+                }]);
+            }, 'brand', 'productDetails', 'variations', 'productImages'=>function($query){
+                return $query->with('attachment')->isActive();
+            }]);
+
+            if(!empty($product)){
+                $data = new ProductResource($product);
+                return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK);
+            }else{
+                return ResponserTrait::allResponse('success', Response::HTTP_NOT_FOUND, 'Product Not Found');
+            }
+        }
         return view('seller_panel.'.$this->seller_template.'.product.show',[
             'product_id'=>$product->product_id,
         ]);
-    }
-
-    public function single_product(Product $product){
-
-        $product = $product->load(['category'=>function($query){
-            return $query->with(['parent'=>function($q){
-                return $q->with('parent');
-            }]);
-        }, 'brand', 'productDetails', 'variations', 'productImages'=>function($query){
-            return $query->with('attachment')->isActive();
-        }]);
-
-        if(!empty($product)){
-            $data = new ProductResource($product);
-            return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK);
-        }else{
-            return ResponserTrait::allResponse('success', Response::HTTP_NOT_FOUND, 'Product Not Found');
-        }
-
     }
 
     /**

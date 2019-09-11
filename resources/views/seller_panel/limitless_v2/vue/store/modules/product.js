@@ -23,7 +23,7 @@ const getters = {
 const actions = {
     async getProductCreateDependency({commit},catID){
         try {
-            await axios.get(`/admin/create/product/dependency/${catID}`)
+            await axios.get(`/seller/product/dependency/${catID}`)
                 .then(response=>{
                     commit('productCreateDependency', response.data);
                 })
@@ -34,7 +34,7 @@ const actions = {
     async getProducts({commit}){
 
         try {
-            return await axios.get('/admin/collection/product')
+            return await axios.get('/seller/collection/product')
                 .then(response=>{
                     commit('getProductData', response.data);
                     return response;
@@ -45,7 +45,7 @@ const actions = {
     },
     async storeProductData({commit}, fromData){
         try {
-            return await axios.post('/admin/product', fromData)
+            return await axios.post('/seller/product', fromData)
                 .then(response=>{
                     console.log(response);
                     commit('setResponse',response.data);
@@ -57,7 +57,7 @@ const actions = {
     },
     async singleProduct({commit}, productID){
         try {
-            return await axios.get(`/admin/single/product/${productID}`)
+            return await axios.get(`/seller/product/${productID}`)
                 .then(response=>{
                     console.log(response);
                     if(response.data.status === 'error'){

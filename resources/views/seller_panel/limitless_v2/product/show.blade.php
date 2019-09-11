@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('seller_panel.limitless_v2.seller')
 @section('PageTitle','Product Details ')
 
 @section('PageCss')
