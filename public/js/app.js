@@ -7675,7 +7675,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _attachment_Attachment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../attachment/Attachment */ "./resources/js/components/attachment/Attachment.vue");
-/* harmony import */ var _helper_ProductList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper/ProductList */ "./resources/js/components/helper/ProductList.vue");
+/* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
+/* harmony import */ var _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../cropper/ImageCropper */ "./resources/js/components/cropper/ImageCropper.vue");
+/* harmony import */ var _helper_Select2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helper/Select2 */ "./resources/js/components/helper/Select2.vue");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -7814,6 +7816,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -7821,7 +7847,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "CreateCampaign",
   components: {
     Attachment: _attachment_Attachment__WEBPACK_IMPORTED_MODULE_1__["default"],
-    'product-list': _helper_ProductList__WEBPACK_IMPORTED_MODULE_2__["default"]
+    VueEditor: vue2_editor__WEBPACK_IMPORTED_MODULE_2__["VueEditor"],
+    ImageCropper: _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_3__["default"],
+    'vue-select2': _helper_Select2__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   data: function data() {
     return {
@@ -7833,26 +7861,63 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         attachment_id: '',
         campaign_status: 0,
         camp_reg_date: '',
-        productIDs: []
+        seller_pro_limit: '',
+        campaign_rules: '',
+        total_product: '',
+        adds_attachment_id: '',
+        adds_position: ''
       },
       btnDisabled: false,
-      productPanel: false,
       folder: 'campaign',
-      multiple: false
+      multiple: false,
+      cropperData: {
+        width: 1200,
+        height: 600,
+        placeholder: 'Choose a image in 1200X600',
+        file_size: 1.5,
+        init_image: '',
+        folder: 'campaign'
+      },
+      removeImage: false
     };
   },
   created: function created() {},
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeCampaign']), {
-    campaignStore: function campaignStore() {},
-    campaignProduct: function campaignProduct() {
-      this.productPanel = !this.productPanel;
+  mounted: function mounted() {
+    this.getAddsPositions();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeCampaign', 'getAddsPositions']), {
+    campaignStore: function campaignStore() {
+      this.btnDisabled = true;
+      this.form.adds_attachment_id = this.attachment_ids[0];
+      this.form.attachment_id = this.cropImageIds[0];
+      this.storeCampaign(this.form).then(function (response) {
+        if (typeof response.code === "undefined") {
+          Notify.error(response.message);
+        } else if (response.code === 200) {
+          Notify.success(response.message);
+
+          if (response.url !== null) {
+            setTimeout(function () {
+              location.href = response.url;
+            }, 1500);
+          }
+        } else if (response.status === 'validation') {
+          Notify.validation(response.message);
+        } else {
+          Notify.error(response.message);
+        }
+      });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])([])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['attachment_ids', 'cropImageIds', 'positions']), {
+    formDataCheck: function formDataCheck() {
+      return JSON.parse(JSON.stringify(this.form));
+    }
+  }),
   watch: {
-    form: {
+    formDataCheck: {
       handler: function handler(newValue, oldValue) {
-        if (newValue === oldValue) {
+        if (newValue !== oldValue) {
           this.btnDisabled = false;
         }
       },
@@ -77526,8 +77591,8 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group hidden" }, [
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
                     _c("label", [_vm._v("Last Register Date:")]),
                     _vm._v(" "),
                     _c(
@@ -77539,7 +77604,7 @@ var render = function() {
                           attrs: {
                             type: "datetime",
                             "use12-hour": "",
-                            "input-id": "startDate",
+                            "input-id": "regDate",
                             "input-class": "form-control",
                             phrases: { ok: "Continue", cancel: "Exit" },
                             "week-start": 6
@@ -77558,26 +77623,28 @@ var render = function() {
                       1
                     )
                   ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-6" }, [
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
                   _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Voucher Code:")]),
+                    _c("label", [_vm._v("Seller Product Limit:")]),
                     _vm._v(" "),
-                    _c("textarea", {
+                    _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.form.campaign_details,
-                          expression: "form.campaign_details"
+                          value: _vm.form.seller_pro_limit,
+                          expression: "form.seller_pro_limit"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { rows: "4" },
-                      domProps: { value: _vm.form.campaign_details },
+                      attrs: {
+                        type: "number",
+                        placeholder: "Seller Product Limit",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.seller_pro_limit },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
@@ -77585,7 +77652,7 @@ var render = function() {
                           }
                           _vm.$set(
                             _vm.form,
-                            "campaign_details",
+                            "seller_pro_limit",
                             $event.target.value
                           )
                         }
@@ -77594,59 +77661,147 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-md-6" },
-                  [
-                    _c("label", [_vm._v("Voucher Image:")]),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Campaign Total Product:")]),
                     _vm._v(" "),
-                    _c("attachment", {
-                      attrs: { multi_file: _vm.multiple, folder: _vm.folder }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-2" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "btn bg-teal-400 btn-labeled legitRipple btn-block",
-                      attrs: { type: "button" },
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.total_product,
+                          expression: "form.total_product"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "number",
+                        placeholder: "Total Product.",
+                        required: ""
+                      },
+                      domProps: { value: _vm.form.total_product },
                       on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.campaignProduct($event)
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "total_product",
+                            $event.target.value
+                          )
                         }
                       }
-                    },
-                    [_vm._m(4), _vm._v(" Add Products")]
+                    })
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", [_vm._v("Campaign Details:")]),
+                      _vm._v(" "),
+                      _c("vue-editor", {
+                        attrs: { id: "campaign_details" },
+                        model: {
+                          value: _vm.form.campaign_details,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "campaign_details", $$v)
+                          },
+                          expression: "form.campaign_details"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", [_vm._v("Campaign Rules:")]),
+                      _vm._v(" "),
+                      _c("vue-editor", {
+                        attrs: { id: "campaign_rules" },
+                        model: {
+                          value: _vm.form.campaign_rules,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "campaign_rules", $$v)
+                          },
+                          expression: "form.campaign_rules"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", [_vm._v("Campaign Banner Image:")]),
+                      _vm._v(" "),
+                      _c("image-cropper", {
+                        attrs: {
+                          cropperData: _vm.cropperData,
+                          removeImage: _vm.removeImage
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", [_vm._v("Campaign Adds:")]),
+                      _vm._v(" "),
+                      _c("attachment", {
+                        attrs: { multi_file: _vm.multiple, folder: _vm.folder }
+                      })
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", [_vm._v("Adds Position:")]),
+                      _vm._v(" "),
+                      _c("vue-select2", {
+                        attrs: { options: _vm.positions },
+                        model: {
+                          value: _vm.form.adds_position,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "adds_position", $$v)
+                          },
+                          expression: "form.adds_position"
+                        }
+                      })
+                    ],
+                    1
                   )
                 ])
               ])
             ])
           ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.productPanel,
-                  expression: "productPanel"
-                }
-              ],
-              staticClass: "panel"
-            },
-            [
-              _vm._m(5),
-              _vm._v(" "),
-              _c("div", { staticClass: "panel-body" }, [_c("product-list")], 1)
-            ]
-          ),
           _vm._v(" "),
           _c("div", { staticClass: "sticky-submit-btn" }, [
             _c("div", { staticClass: "panel panel-default" }, [
@@ -77799,22 +77954,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-addon" }, [
       _c("i", { staticClass: "icon-calendar22" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("b", [_c("i", { staticClass: "icon-plus3" })])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading bg-teal-700" }, [
-      _c("h5", { staticClass: "panel-title" }, [
-        _vm._v("Add Campaign Products")
-      ])
     ])
   }
 ]
@@ -107917,12 +108056,101 @@ var mutations = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//declare State
-var state = {}; //declare Getters
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
-var getters = {};
-var actions = {};
-var mutations = {};
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//declare State
+var state = {
+  adds_positions: []
+}; //declare Getters
+
+var getters = {
+  positions: function positions(state) {
+    return state.adds_positions;
+  }
+};
+var actions = {
+  getAddsPositions: function () {
+    var _getAddsPositions = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.next = 3;
+              return axios.get('/admin/campaign/create').then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setAddsPositions', response.data.data);
+                }
+              });
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    function getAddsPositions(_x) {
+      return _getAddsPositions.apply(this, arguments);
+    }
+
+    return getAddsPositions;
+  }(),
+  storeCampaign: function () {
+    var _storeCampaign = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, formData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios.post('/admin/campaign', formData).then(function (response) {
+                return response.data;
+              });
+
+            case 4:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](1);
+              console.log(_context2.t0);
+              return _context2.abrupt("return", _context2.t0);
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 7]]);
+    }));
+
+    function storeCampaign(_x2, _x3) {
+      return _storeCampaign.apply(this, arguments);
+    }
+
+    return storeCampaign;
+  }()
+};
+var mutations = {
+  setAddsPositions: function setAddsPositions(state, response) {
+    return state.adds_positions = response.positions;
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
   getters: getters,
