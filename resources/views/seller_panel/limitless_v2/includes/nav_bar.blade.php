@@ -134,7 +134,7 @@
     <div class="navbar navbar-default" id="navbar-second">
         <div class="navbar-collapse collapse" id="navbar-second-toggle">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html"><i class="icon-display4 position-left"></i> Dashboard</a></li>
+                <li class="active"><a href="{{ route('seller.home') }}"><i class="icon-display4 position-left"></i> Dashboard</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-bag position-left"></i>Manage Product <span class="caret"></span>
@@ -173,8 +173,8 @@
                         <i class=" icon-megaphone position-left"></i>Manage Campaign<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu width-200">
-                        <li><a href="{{ route('seller.product.index') }}"><i class="icon-list-numbered position-left"></i> All Campaign List</a></li>
-                        <li><a href="{{ route('seller.product.create') }}"><i class="icon-googleplus5 position-left"></i>Joined Campaing List</a></li>
+                        <li><a href="{{ route('seller.campaign.index') }}"><i class="icon-list-numbered position-left"></i> All Campaign List</a></li>
+                        <li><a href="{{ route('seller.campaign.joined.list') }}"><i class="icon-googleplus5 position-left"></i>Joined Campaing List</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

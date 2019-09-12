@@ -75,6 +75,10 @@ class Campaign extends Model
         return $query->where('campaign_status', Self::Status['Expired']);
     }
 
+    public function scopeForSeller($query){
+        return $query->whereIn('campaign_status', [1,3,4]);
+    }
+
 
     public function attachment(){
         return $this->hasOne(Attachment::class,'attachment_id', 'attachment_id')->where('folder', 'campaign');
@@ -86,5 +90,28 @@ class Campaign extends Model
 
     public function addsImage(){
         return $this->hasOne(Attachment::class,'attachment_id', 'adds_attachment_id')->where('folder', 'campaign');
+    }
+
+    public static function statusView($status){
+        switch ($status){
+            case 0:
+                return '<span class="badge badge-danger">Delete</span>';
+                break;
+            case 1:
+                return '<span class="badge badge-primary">Active</span>';
+                break;
+            case 2:
+                return '<span class="badge badge-warning">InActive</span>';
+                break;
+            case 3:
+                return '<span class="badge badge-Success">Live</span>';
+                break;
+            case 4:
+                return '<span class="badge badge-danger">Expired</span>';
+                break;
+            default:
+                return '<span class="badge badge-info" >Unknown</span>';
+                break;
+        }
     }
 }

@@ -10,7 +10,7 @@ import productHelper from "./modules/helper/productHelper";
 import excel_import from "./modules/helper/excel_import";
 import attachment from "./modules/attachment";
 import imageCropper from "./modules/imageCropper";
-
+import campaign from "./modules/campaign";
 
 export default new Vuex.Store({
     state:{
@@ -38,6 +38,7 @@ export default new Vuex.Store({
         excel_import,
         attachment,
         imageCropper,
+        campaign,
     }
 })
 

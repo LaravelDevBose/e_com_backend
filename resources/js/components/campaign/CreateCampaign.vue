@@ -214,7 +214,9 @@
             campaignStore(){
                 this.btnDisabled = true;
 
-                this.form.adds_attachment_id = this.attachment_ids[0];
+                if(this.attachment_ids){
+                    this.form.adds_attachment_id = this.attachment_ids[0];
+                }
                 this.form.attachment_id = this.cropImageIds[0];
                 this.storeCampaign(this.form)
                     .then(response=>{

@@ -1,6 +1,6 @@
 //declare State
 const state = {
-    campaign_list:{},
+    campaign_list:[],
 };
 
 //declare Getters

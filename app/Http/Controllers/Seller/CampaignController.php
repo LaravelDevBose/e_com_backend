@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Seller;
 
+
 use App\Http\Resources\Admin\CampaignCollection;
 use App\Models\Campaign;
 use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
-
+use App\Http\Resources\Admin\Campaign as CampaignResource;
 class CampaignController extends Controller
 {
     /**
@@ -19,10 +20,11 @@ class CampaignController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $campaigns = Campaign::isActive()->latest()->get();
+            $campaigns = Campaign::with('attachment')->forSeller()->latest()->get();
             if(!empty($campaigns)){
                 $collection = CampaignCollection::collection($campaigns);
-                return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $collection);
+
+                return ResponserTrait::collectionResponse('success', Response::HTTP_OK,$collection);
             }else{
                 return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'No Data Found');
             }
@@ -37,7 +39,17 @@ class CampaignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function joined_list()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function join_page()
     {
         //
     }

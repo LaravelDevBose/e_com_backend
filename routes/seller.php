@@ -18,9 +18,6 @@ Route::prefix('seller')->middleware('auth:seller')->namespace('Seller')->as('sel
     Route::get('/colors', 'GeneralDataListController@index')->name('color');
     Route::get('/tags','GeneralDataListController@index')->name('tag');
 
-
-
-
     Route::resource('/product', 'ProductController');
     Route::get('product/dependency/{catID}', 'ProductController@product_create_dependency')->name('product.dependency');
     Route::get('collection/product', 'ProductController@product_collection')->name('product.collection');
@@ -28,4 +25,10 @@ Route::prefix('seller')->middleware('auth:seller')->namespace('Seller')->as('sel
 
     Route::post('product/image/store', 'ProductImageController@store')->name('product_image.store');
     Route::delete('product/image/delete/{id}', 'ProductImageController@delete')->name('product_image.delete');
+
+    Route::get('campaigns', 'CampaignController@index')->name('campaign.index');
+    Route::get('campaign/joined/list', 'CampaignController@joined_list')->name('campaign.joined.list');
+    Route::get('campaign/{slug}/join/', 'CampaignController@join_page')->name('campaign.join');
+    Route::post('campaign/store', 'CampaignController@store')->name('campaign.store');
+    Route::get('campaign/{slug}/show', 'CampaignController@show')->name('campaign.show');
 });

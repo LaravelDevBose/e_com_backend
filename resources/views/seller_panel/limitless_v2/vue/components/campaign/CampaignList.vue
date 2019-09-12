@@ -3,7 +3,7 @@
         <!-- Widgets list -->
         <div class="row">
             <div class="col-sm-6 col-lg-3" v-if="campaigns" v-for="campaign in campaigns" :key="campaign.id">
-                <campaign-grid campaign="campaign"></campaign-grid>
+                <campaign-grid :campaign="campaign"></campaign-grid>
             </div>
         </div>
     </div>
