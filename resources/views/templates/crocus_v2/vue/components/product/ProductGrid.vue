@@ -9,7 +9,6 @@
                     <div class="box-hover">
                         <ul class="add-to-links">
                             <li><a class="link-quickview" href="#" @click.prevent="quickView">Quick View</a> </li>
-                            <li><a class="link-wishlist" style="color: darkred;" href="#" @click.prevent="removeWishList(product.product_slug)">Wishlist</a> </li>
                             <li><a class="link-wishlist" href="#" @click.prevent="addWishList(product.product_slug)">Wishlist</a> </li>
                         </ul>
                     </div>
@@ -38,7 +37,8 @@
                             </div>
                         </div>
                         <div class="action">
-                            <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
+                            <button @click.prevent="addToCart()" class="button btn-cart" type="button" title="" data-original-title="Add to Cart">
+                                <span>Add to Cart</span>
                             </button>
                         </div>
                     </div>
@@ -60,7 +60,13 @@
         },
         data(){
             return{
-                productData:{}
+                productData:{},
+                cartInfo:{
+                    id:'',
+                    name:'',
+                    qty:1,
+                    price:0,
+                },
             }
         },
         created(){
@@ -71,6 +77,7 @@
                 'productQuickView',
                 'insertToWishList',
                 'deleteFromWishList',
+                'addToCartProduct',
             ]),
             productDetails(slug){
                 location.href = '/product/'+slug;
@@ -111,7 +118,25 @@
             quickView(){
                 this.productQuickView(this.product);
             },
+            addToCart(){
+                if(AppStorage.getWhoIs() === 'buyer'){
+                    this.cartInfo.id = this.product.product_id;
+                    this.cartInfo.name = this.product.product_name;
+                    this.cartInfo.price = this.product.single_variation.price;
 
+                    this.addToCartProduct(this.cartInfo)
+                        .then(response=>{
+                            if(typeof response.code !== "undefined" && response.code === 200){
+                                //TODO  User Alert Function
+                                alert(response.message);
+                            }else{
+                                alert(response.message);
+                            }
+                        })
+                }else{
+                    location.href = '/login';
+                }
+            }
         }
     }
 </script>

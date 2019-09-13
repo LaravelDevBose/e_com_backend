@@ -7,6 +7,7 @@ Vue.use(Vuex);
 import authentication from "./modules/authentication";
 import product from "./modules/product";
 import wishList from "./modules/wishList";
+import cart from "./modules/cart";
 
 
 export default new Vuex.Store({
@@ -29,7 +30,8 @@ export default new Vuex.Store({
     modules:{
         authentication,
         product,
-        wishList
+        wishList,
+        cart,
     }
 })
 
