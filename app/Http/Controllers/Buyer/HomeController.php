@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Helpers\TemplateHelper;
+use App\Http\Resources\Frontend\product\ProductCollection;
+use App\Models\Product;
+use App\Models\WishList;
+use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class HomeController extends Controller
 {
@@ -46,7 +51,12 @@ class HomeController extends Controller
     }
     public function my_wishlist(){
 
-        return view('templates.'.$this->template_name.'.buyer.my_wishlist');
+        $wishListProductIDs = WishList::isActive()->where('buyer_id', auth()->id())->pluck('product_id');
+        $products = Product::whereIn('product_id', $wishListProductIDs)->isActive()->get();
+
+        return view('templates.'.$this->template_name.'.buyer.my_wishlist',[
+            'products'=>$products,
+        ]);
     }
 
 

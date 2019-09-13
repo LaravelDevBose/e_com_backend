@@ -171,4 +171,8 @@ class Product extends Model
     public function thumbImage(){
         return $this->belongsTo(Attachment::class, 'thumb_id', 'attachment_id');
     }
+
+    public function seller(){
+        return $this->belongsTo(Seller::class, 'seller_id', 'seller_id');
+    }
 }

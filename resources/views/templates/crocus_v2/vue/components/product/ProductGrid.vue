@@ -8,12 +8,9 @@
                     </a>
                     <div class="box-hover">
                         <ul class="add-to-links">
-                            <li><a class="link-quickview" href="#" @click.prevent="quickView">Quick View</a>
-                            </li>
-                            <li><a class="link-wishlist" href="#" @click.prevent="addWishList(product.product_slug)">Wishlist</a>
-                            </li>
-                            <li><a class="link-compare" href="#" @click.prevent="addCompareProduct(product.product_slug)">Compare</a>
-                            </li>
+                            <li><a class="link-quickview" href="#" @click.prevent="quickView">Quick View</a> </li>
+                            <li><a class="link-wishlist" style="color: darkred;" href="#" @click.prevent="removeWishList(product.product_slug)">Wishlist</a> </li>
+                            <li><a class="link-wishlist" href="#" @click.prevent="addWishList(product.product_slug)">Wishlist</a> </li>
                         </ul>
                     </div>
                 </div>
@@ -71,13 +68,42 @@
         },
         methods:{
             ...mapActions([
-                'productQuickView'
+                'productQuickView',
+                'insertToWishList',
+                'deleteFromWishList',
             ]),
             productDetails(slug){
                 location.href = '/product/'+slug;
             },
             addWishList(slug){
-
+                if(AppStorage.getWhoIs() === 'buyer'){
+                    this.insertToWishList(slug)
+                        .then(response=>{
+                            if(typeof response.code !== "undefined" && response.code === 200){
+                                Notify.success(response.message)
+                            }else{
+                                Notify.error('Try Again Later.');
+                                console.log(response);
+                            }
+                        })
+                }else{
+                    location.href = '/login';
+                }
+            },
+            removeWishList(slug){
+                if(AppStorage.getWhoIs() === 'buyer'){
+                    this.deleteFromWishList(slug)
+                        .then(response=>{
+                            if(typeof response.code !== "undefined" && response.code === 200){
+                                Notify.success(response.message)
+                            }else{
+                                Notify.error('Try Again Later.');
+                                console.log(response);
+                            }
+                        })
+                }else{
+                    location.href = '/login';
+                }
             },
             addCompareProduct(slug){
 

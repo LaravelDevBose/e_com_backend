@@ -11,26 +11,7 @@ const getters = {
 };
 
 const actions={
-    async loginAdmin({commit}, formData){
-        return  await axios.post('/admin/login',formData).then(response=>{
-            commit('loginResponse', response);
-            return response.data;
-        });
 
-    },
-    async loginBuyer({commit}, formData){
-        return  await axios.post('/login',formData).then(response=>{
-            return response.data;
-        });
-
-    },
-    async registerBuyer({commit}, formData){
-        return  await axios.post('/register',formData)
-            .then(response=>{
-                return response.data;
-            });
-
-    },
     async loginSeller({commit}, formData){
         return  await axios.post('/seller/login',formData).then(response=>{
             commit('sellerLoginResponse', response);

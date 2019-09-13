@@ -20,6 +20,7 @@ class ProductCollection extends Resource
         return [
             'id'=>$this->product_id,
             'product_title'=>$this->product_name,
+            'product_slug'=>$this->product_slug,
             'sku'=>$this->product_sku,
             'category'=>New CategoryResource($this->whenLoaded('category')),
             'brand'=>New BrandResource($this->whenLoaded('brand')),

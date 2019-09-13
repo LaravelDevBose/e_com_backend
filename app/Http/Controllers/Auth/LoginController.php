@@ -44,7 +44,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->template_name = TemplateHelper::templateName();
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest:web')->except('logout');
     }
 
     public function showLoginForm()
@@ -69,7 +69,12 @@ class LoginController extends Controller
             ];
 
             if (Auth::guard('web')->attempt($credentials, $request->remember)) {
-                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successful', '', route('buyer.home'));
+                $data =[
+                    'user'=>Auth::guard('web')->user()->toJson(),
+                    'token'=>base64_encode(\auth()->user()->user_name),
+                    'whoIs'=>'buyer',
+                ];
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successful', $data, route('buyer.home'));
             }
             return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'Email Or UserName And Password Not Match !');
         }{

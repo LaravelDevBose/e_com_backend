@@ -15,6 +15,11 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
     Route::get('my-orders', 'HomeController@my_orders')->name('myOrders');
     Route::get('product-reviews', 'HomeController@my_product_reviews')->name('reviews');
     Route::get('wish-list', 'HomeController@my_wishlist')->name('wish_list');
+
+    //WishList Data Route
+    Route::get('wishLists', 'WishListController@wish_lists');
+    Route::post('/wishList/add', 'WishListController@add_to_wish_list');
+    Route::post('/wishList/remove', 'WishListController@remove_from_wish_list');
 });
 
 

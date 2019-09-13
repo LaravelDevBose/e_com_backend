@@ -25,6 +25,7 @@
     <!-- Styles -->
     <!-- CSS Style -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <link href="{{ asset('/assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/font-awesome.css') }}" media="all">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/simple-line-icons.css') }}" media="all">
@@ -33,7 +34,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/jquery.bxslider.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/jquery.mobile-menu.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/revslider.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/style.css') }}" media="all">
+{{--    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/style.css') }}" media="all">--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400|Raleway:400,300,600,500,700,800' rel='stylesheet' type='text/css'>
 
@@ -55,7 +57,7 @@
 </head>
 
 <body class="cms-index-index cms-home-page category-page">
-<div id="app">
+<div id="crocus_v2">
     <div id="page">
         <!-- Header Section -->
         <header>

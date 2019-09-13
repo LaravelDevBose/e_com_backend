@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources\Frontend\category;
 
-use App\Http\Resources\attachment\AttachmentResource;
-use App\Http\Resources\product\ProductCollection;
+use App\Http\Resources\Frontend\attachment\AttachmentResource;
+use App\Http\Resources\Frontend\product\ProductCollection;
 use Illuminate\Http\Resources\Json\Resource;
 
 class CategoryResource extends Resource

@@ -17,4 +17,7 @@ class Buyer extends User
         'buyer_status',
     ];
 
+    public function wishList(){
+        return $this->hasMany(WishList::class, 'buyer_id', 'buyer_id');
+    }
 }

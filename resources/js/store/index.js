@@ -27,7 +27,6 @@ import  imageCropper from './modules/imageCropper';
 import  slider from "./modules/cms/slider";
 import  general_pages from "./modules/cms/general_pages";
 import  setting from "./modules/cms/setting";
-import  frontProduct from './modules/frontend/product';
 
 
 export default new Vuex.Store({
@@ -71,7 +70,6 @@ export default new Vuex.Store({
         slider,
         general_pages,
         setting,
-        frontProduct,
     }
 })
 

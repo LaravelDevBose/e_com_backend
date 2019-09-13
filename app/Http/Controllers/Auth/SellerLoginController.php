@@ -43,7 +43,13 @@ class SellerLoginController extends Controller
             ];
 
             if (Auth::guard('seller')->attempt($credentials, $request->remember)) {
-                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successful', '', route('seller.home'));
+                $data =[
+                    'user'=>Auth::guard('seller')->user()->toJson(),
+                    'token'=>base64_encode(\auth()->guard('seller')->user()->user_name),
+                    'whoIs'=>'seller',
+                ];
+
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successful',$data , route('seller.home'));
             }
             return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'Email Or UserName And Password Not Match !');
         }{

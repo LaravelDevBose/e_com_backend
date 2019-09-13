@@ -25,6 +25,7 @@
     <!-- Styles -->
 
     <!-- CSS Style -->
+    <link href="{{ asset('/assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/font-awesome.css') }}" media="all">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/simple-line-icons.css') }}" media="all">
@@ -56,7 +57,7 @@
 </head>
 
 <body class="cms-index-index cms-home-page category-page">
-<div id="app">
+<div id="crocus_v2">
     <div id="page">
         <!-- Header Section -->
         <header>
@@ -82,7 +83,7 @@
         <!-- end mobile menu -->
     <quick-view-product></quick-view-product>
 </div>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/crocus_v2.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('crocus_v2/js/jquery.min.js') }}"  ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/bootstrap.min.js') }}" ></script>
@@ -91,6 +92,8 @@
 <script type="text/javascript" src="{{ asset('crocus_v2/js/owl.carousel.min.js') }}" ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/jquery.mobile-menu.min.js') }}" ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/countdown.js') }}" ></script>
+<script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/pnotify.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/pages/components_notifications_pnotify.js') }}"></script>
 <!-- Scripts -->
 @yield('PageJs')
 

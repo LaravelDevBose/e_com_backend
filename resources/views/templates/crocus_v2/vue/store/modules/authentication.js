@@ -11,16 +11,10 @@ const getters = {
 };
 
 const actions={
-    async loginAdmin({commit}, formData){
-        return  await axios.post('/admin/login',formData).then(response=>{
-            commit('loginResponse', response);
-            return response.data;
-        });
-
-    },
     async loginBuyer({commit}, formData){
         return  await axios.post('/login',formData).then(response=>{
             if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                AppStorage.storageClear();
                 AppStorage.storeUserInfo(response.data.data);
             }
             return response.data;

@@ -23,4 +23,8 @@ class Seller extends User
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
+
+    public function products(){
+        return $this->hasMany(Product::class, 'seller_id', 'seller_id');
+    }
 }
