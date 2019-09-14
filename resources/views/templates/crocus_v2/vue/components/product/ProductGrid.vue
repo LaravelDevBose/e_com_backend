@@ -137,6 +137,11 @@
                     location.href = '/login';
                 }
             }
+        },
+        computed:{
+            ...mapGetters([
+                'cartList'
+            ])
         }
     }
 </script>

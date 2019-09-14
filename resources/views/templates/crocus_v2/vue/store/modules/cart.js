@@ -55,9 +55,7 @@ const actions = {
 
 const mutations = {
     setCartDetails:(state,response)=>state.cart_list = response,
-    setAddToCart:(state, response)=>{
-        state.cart_list.unshift(response);
-    },
+    setAddToCart:(state, response)=>state.cart_list = response,
     removeProductFromCart:(state, cartId)=>state.cart_list = state.cart_list.filter(cart=>cart.row_id !==cartId),
 };
 

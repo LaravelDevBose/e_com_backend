@@ -4,6 +4,8 @@
 namespace App\Traits;
 
 
+use Illuminate\Http\Response;
+
 trait ResponserTrait
 {
 
@@ -26,10 +28,11 @@ trait ResponserTrait
         ],$code);
     }
 
-    public static function singleResponse($data, $status='success', $code=200){
+    public static function singleResponse($data, $status='success', $code=200, $message=null){
         return response()->json([
             'status'=>$status,
             'code'=>$code,
+            'message'=>$message,
             'data'=>$data,
         ],$code);
     }

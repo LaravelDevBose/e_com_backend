@@ -2792,7 +2792,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         location.href = '/login';
       }
     }
-  })
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList']))
 });
 
 /***/ }),
@@ -55326,7 +55327,7 @@ var mutations = {
     return state.cart_list = response;
   },
   setAddToCart: function setAddToCart(state, response) {
-    state.cart_list.unshift(response);
+    return state.cart_list = response;
   },
   removeProductFromCart: function removeProductFromCart(state, cartId) {
     return state.cart_list = state.cart_list.filter(function (cart) {
