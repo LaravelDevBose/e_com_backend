@@ -1,17 +1,19 @@
 //declare State
 const state = {
     cart_list:{},
+    total_cart:0,
 };
 
 //declare Getters
 const getters = {
     cartList:(state)=>state.cart_list,
+    cartTotal:(state)=>state.total_cart,
 };
 
 const actions = {
     async getCartDetails({commit},reqData=null){
         try {
-            return await axios.get('/buyer/cart/list',reqData)
+            return await axios.get('/cart/list',reqData)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
                         commit('setCartDetails', response.data.data);
@@ -24,10 +26,10 @@ const actions = {
     },
     async addToCartProduct({commit},cartInfo){
         try {
-            return await axios.post('/buyer/add_to/cart',cartInfo)
+            return await axios.post('/cart/add',cartInfo)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('setAddToCart', response.data.data);
+                        commit('setCartDetails', response.data.data);
                     }
                     return response.data;
                 })
@@ -36,12 +38,26 @@ const actions = {
             return error;
         }
     },
-    async productRemoveFromCart({commit},cartId){
+    async removeFromCart({commit},cartId){
         try {
-            return await axios.post(`/buyer/remove_from/cart/${cartId}`)
+            return await axios.get(`/cart/${cartId}/remove`)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('removeProductFromCart', response.data.data);
+                        commit('setCartDetails', response.data.data);
+                    }
+                    return response.data;
+                })
+        }catch (error) {
+            console.log(error);
+            return error;
+        }
+    },
+    async destroyCart({commit},cartId){
+        try {
+            return await axios.post(`/cart/destroy`)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setCartDetails', response.data.data);
                     }
                     return response.data;
                 })
@@ -54,9 +70,10 @@ const actions = {
 };
 
 const mutations = {
-    setCartDetails:(state,response)=>state.cart_list = response,
-    setAddToCart:(state, response)=>state.cart_list = response,
-    removeProductFromCart:(state, cartId)=>state.cart_list = state.cart_list.filter(cart=>cart.row_id !==cartId),
+    setCartDetails:(state,response)=>{
+        state.cart_list = response;
+        state.total_cart = Object.keys(response).length;
+    },
 };
 
 export default {

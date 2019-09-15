@@ -119,23 +119,19 @@
                 this.productQuickView(this.product);
             },
             addToCart(){
-                if(AppStorage.getWhoIs() === 'buyer'){
-                    this.cartInfo.id = this.product.product_id;
-                    this.cartInfo.name = this.product.product_name;
-                    this.cartInfo.price = this.product.single_variation.price;
+                this.cartInfo.id = this.product.product_id;
+                this.cartInfo.name = this.product.product_name;
+                this.cartInfo.price = this.product.single_variation.price;
 
-                    this.addToCartProduct(this.cartInfo)
-                        .then(response=>{
-                            if(typeof response.code !== "undefined" && response.code === 200){
-                                //TODO  User Alert Function
-                                alert(response.message);
-                            }else{
-                                alert(response.message);
-                            }
-                        })
-                }else{
-                    location.href = '/login';
-                }
+                this.addToCartProduct(this.cartInfo)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            //TODO  User Alert Function
+                            alert(response.message);
+                        }else{
+                            alert(response.message);
+                        }
+                    })
             }
         },
         computed:{

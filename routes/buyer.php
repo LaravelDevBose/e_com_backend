@@ -21,10 +21,12 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
     Route::post('/wishList/add', 'WishListController@add_to_wish_list');
     Route::post('/wishList/remove', 'WishListController@remove_from_wish_list');
 
-    Route::get('/cart/list', 'CartController@cart_details')->name('cart.details');
-    Route::post('/add_to/cart', 'CartController@product_add_to_cart');
-    Route::get('/remove_from/cart/{cartId}', 'CartController@product_remove_to_cart');
 });
 
-
+Route::namespace('Buyer')->group(function (){
+    Route::get('/cart/list', 'CartController@cart_details')->name('cart.details');
+    Route::post('/cart/add', 'CartController@add_to_cart');
+    Route::get('/cart/{cartId}/remove', 'CartController@remove_from_cart');
+    Route::get('/cart/destroy', 'CartController@cart_destroy');
+});
 

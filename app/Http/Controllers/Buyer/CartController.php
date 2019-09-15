@@ -20,14 +20,18 @@ class CartController extends Controller
     public function __construct()
     {
         $this->template_name = TemplateHelper::templateName();
-        $this->middleware('auth');
     }
 
     public function cart_details(){
-
+        $carts = Cart::content();
+        if(!empty($carts)){
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $carts);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'Cart is Empty');
+        }
     }
 
-    public function product_add_to_cart(Request $request){
+    public function add_to_cart(Request $request){
         $validator = Validator::make($request->all(),[
             'id'=>'required',
             'qty'=>'required',
@@ -55,14 +59,14 @@ class CartController extends Controller
                 if(!empty($cart)){
                     DB::commit();
                     $carts = Cart::content();
-                    return ResponserTrait::singleResponse($cart, 'success', Response::HTTP_OK, 'Product Add To Cart Successfully');
+                    return ResponserTrait::singleResponse($carts, 'success', Response::HTTP_OK, 'Product Add To Cart Successfully');
                 }else{
                     throw new Exception('Invalid Information!', Response::HTTP_BAD_REQUEST);
                 }
 
             }catch (Exception $ex){
                 DB::rollBack();
-                return ResponserTrait::allResponse('success', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
             }
         }else{
             $errors = array_values($validator->errors()->getMessages());
@@ -71,7 +75,78 @@ class CartController extends Controller
 
     }
 
-    public function product_remove_to_cart(){
+    public function cart_update(Request $request){
+        $validator = Validator::make($request->all(),[
+            'rowId'=>'required|string',
+            'id'=>'required',
+            'qty'=>'required|string',
+            'price'=>'required',
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+                $product = Product::where('product_id',$request->id)->with('thumbImage')->first();
+                $cartProduct = [
+                    'id'=>$request->id,
+                    'name'=>$request->name,
+                    'qty'=>$request->qty,
+                    'price'=>$request->price,
+                    'weight'=>0,
+                    'options' => [
+                        'size' => 'large',
+                        'image'=>$product->thumbImage->image_path,
+                        'product_url'=>route('front.product', $product->product_slug),
+                    ]
+                ];
+
+                $cart = Cart::update($request->rowId,$cartProduct);
+
+                if(!empty($cart)){
+                    DB::commit();
+                    $carts = Cart::content();
+                    return ResponserTrait::singleResponse($carts, 'success', Response::HTTP_OK, 'Product Update Cart Successfully');
+                }else{
+                    throw new Exception('Invalid Information!', Response::HTTP_BAD_REQUEST);
+                }
+
+            }catch (Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+        }
+    }
+    public function remove_from_cart($rowId){
+        try{
+            $cartRemove = Cart::remove($rowId);
+            if(empty($cartRemove)){
+                $carts = Cart::content();
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Remove From Cart.', $carts);
+            }else{
+                throw new Exception('Product Not Remove From Cart', Response::HTTP_BAD_REQUEST);
+            }
+
+        }catch (Exception $ex){
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+        }
+    }
+
+    public function cart_destroy(){
+        try{
+            Cart::destroy();
+            $carts = Cart::content();
+
+            if(empty($carts)){
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Cart Destroy Successfully', $carts);
+            }else{
+                throw new Exception('Cart Not Destroyed.', Response::HTTP_BAD_REQUEST);
+            }
+        }catch (Exception $ex){
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+        }
 
     }
 }
