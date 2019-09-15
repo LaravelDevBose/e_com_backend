@@ -136,11 +136,9 @@ class CartController extends Controller
 
     public function cart_destroy(){
         try{
-            Cart::destroy();
-            $carts = Cart::content();
-
+            $carts = Cart::destroy();
             if(empty($carts)){
-                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Cart Destroy Successfully', $carts);
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Cart Destroy Successfully', []);
             }else{
                 throw new Exception('Cart Not Destroyed.', Response::HTTP_BAD_REQUEST);
             }

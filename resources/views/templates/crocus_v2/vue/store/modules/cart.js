@@ -52,9 +52,9 @@ const actions = {
             return error;
         }
     },
-    async destroyCart({commit},cartId){
+    async destroyCart({commit}){
         try {
-            return await axios.post(`/cart/destroy`)
+            return await axios.get('/destroy/cart')
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
                         commit('setCartDetails', response.data.data);

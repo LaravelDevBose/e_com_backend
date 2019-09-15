@@ -27,6 +27,6 @@ Route::namespace('Buyer')->group(function (){
     Route::get('/cart/list', 'CartController@cart_details')->name('cart.details');
     Route::post('/cart/add', 'CartController@add_to_cart');
     Route::get('/cart/{cartId}/remove', 'CartController@remove_from_cart');
-    Route::get('/cart/destroy', 'CartController@cart_destroy');
+    Route::get('/destroy/cart', 'CartController@cart_destroy');
 });
 

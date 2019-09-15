@@ -39,8 +39,8 @@
 
                 <!--actions-->
                 <div v-if="cartTotal > 0" class="actions">
-                    <a href="#" class="btn-checkout" title="Checkout" type="button"><span>Checkout</span> </a>
-                    <a href="#" class="view-cart"><span>View Cart</span></a>
+                    <a href="#" @click.prevent="goToCheckoutPage()" class="btn-checkout" title="Checkout" type="button"><span>Checkout</span> </a>
+                    <a href="/cart" class="view-cart"><span>View Cart</span></a>
                 </div>
             </div>
         </div>
@@ -78,6 +78,13 @@
                             alert(response.message);
                         }
                     })
+            },
+            goToCheckoutPage(){
+                if(AppStorage.getWhoIs() === 'buyer'){
+                    location.href = '/checkout';
+                }else{
+                    location.href = '/login';
+                }
             }
         },
         computed:{
