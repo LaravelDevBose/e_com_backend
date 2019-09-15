@@ -14,9 +14,9 @@
                 <tr class="first last">
                     <th rowspan="1">&nbsp;</th>
                     <th rowspan="1"><span class="nobr">Product Name</span></th>
-                    <th rowspan="1"></th>
                     <th colspan="1" class="a-center"><span class="nobr">Unit Price</span></th>
                     <th class="a-center" rowspan="1">Qty</th>
+                    <th class="a-center" rowspan="1"></th>
                     <th colspan="1" class="a-center">Subtotal</th>
                     <th class="a-center" rowspan="1">&nbsp;</th>
                 </tr>
@@ -34,16 +34,16 @@
                             <a :href="cart.options.product_url" >{{ cart.name }}</a>
                         </h2>
                     </td>
-                    <td class="a-center">
-                        <a title="Edit item parameters" class="edit-bnt" href="#configure/id/15945/"></a>
-                    </td>
                     <td class="a-right">
                         <span class="cart-price">
                             <span class="price">{{ cart.price }}</span>
                         </span>
                     </td>
                     <td class="a-center movewishlist">
-                        <input maxlength="12" class="input-text qty" title="Qty" size="4" :value="cart.qty" name="cart[15945][qty]">
+                        <input maxlength="12" class="input-text qty" title="Qty" :disabled="qtyDisable" size="4" :value="cart.qty" @change="cartUpdate($event, cart.rowId)" type="number">
+                    </td>
+                    <td class="a-center movewishlist">
+                        <a href="#"> <i class="fa fa-pencil-square"></i></a>
                     </td>
                     <td class="a-right movewishlist">
                         <span class="cart-price">
@@ -63,12 +63,9 @@
             <tfoot>
             <tr class="first last">
                 <td class="a-right last" colspan="50">
-                    <button onClick="setLocation('#')" class="button btn-continue" title="Continue Shopping" type="button">
+                    <a @click.prevent="goToShopping()" class="button btn-continue" title="Continue Shopping">
                         <span>Continue Shopping</span>
-                    </button>
-                    <button class="button btn-update" title="Update Cart" value="update_qty" name="update_cart_action" type="submit">
-                        <span>Update Cart</span>
-                    </button>
+                    </a>
                     <button @click.prevent="cartDestroy()" id="empty_cart_button" class="button btn-empty" title="Clear Cart" value="empty_cart" name="update_cart_action" type="button">
                         <span>Clear Cart</span>
                     </button>
@@ -80,27 +77,36 @@
 </template>
 
 <script>
+    import  Vue from 'vue'
     import {mapGetters,mapActions} from 'vuex';
+    import _ from 'lodash';
+
     export default {
         name: "CartListTable",
         data(){
             return{
-
+                delay:5000,
+                proQty:0,
+                cartRowId:'',
+                qtyDisable:false,
             }
         },
         updated(){
-            this.isEmptyCart();
+            if(this.cartTotal === 0){
+                location.href = '/';
+            }
         },
         methods:{
             ...mapActions([
                 'removeFromCart',
                 'destroyCart',
+                'updateCart'
             ]),
             productRemoveFromCart(rowId){
                 this.removeFromCart(rowId)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
-                            //TODO  User Alert Function
+                            //TODO  Use Notify Function
                             alert(response.message);
                         }else{
                             alert(response.message);
@@ -125,20 +131,54 @@
                             alert(response.message);
                         }
                     })
-            }
+            },
+            goToShopping(){
+                location.href = '/';
+            },
+            cartUpdate(e, rowId){
+                if(e.target.value <= 0){
+                    // TODO PNotify Alert Show
+                    alert('Product Qty Atlest 1');
+                    this.proQty = 1;
+                    return false;
+                }
+                this.proQty = e.target.value;
+
+                this.cartRowId = rowId;
+            },
+            updateCartProduct: _.debounce(function() {
+                this.qtyDisable = true;
+                let updateData ={
+                    rowId:this.cartRowId,
+                    qty:this.proQty,
+                };
+
+                this.updateCart(updateData)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            //TODO  Use PNotify Function
+                            alert(response.message);
+                        }else{
+                            alert(response.message);
+                        }
+                        this.qtyDisable = false;
+                    })
+            },700)
+
+
         },
         computed:{
             ...mapGetters([
                 'cartList',
                 'cartTotal'
             ]),
-            isEmptyCart(){
-                if(this.cartTotal === 0){
-                    location.href = '/';
-                }
-                console.log('empty');
-            }
+
         },
+        watch: {
+            proQty:function () {
+                this.updateCartProduct();
+            }
+        }
     }
 </script>
 

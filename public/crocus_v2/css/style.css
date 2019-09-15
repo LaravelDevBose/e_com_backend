@@ -8,7 +8,7 @@ Tags: two-columns, left-sidebar, fixed-layout, responsive-layout, custom-backgro
 */
 /* TABLE OF CONTENTS
 1. Body
-2. Layout 
+2. Layout
 3. Header
 4. Navigation
 5. Features Box
@@ -19,7 +19,7 @@ Tags: two-columns, left-sidebar, fixed-layout, responsive-layout, custom-backgro
    d. featured slider
    e. special slider
    f. Other Slider
-7. Products Grid 
+7. Products Grid
 8. Products List
 9. Rating and Price
 10. Latest Blog
@@ -37,7 +37,7 @@ Tags: two-columns, left-sidebar, fixed-layout, responsive-layout, custom-backgro
     j. Block: Tags
     k. Block: Subscribe
     l Block: Recently Viewed
-    m. Block: Reorder 
+    m. Block: Reorder
     n. Block: Banner
 13. custom-slider
 14. Product Sorting Toolbar
@@ -46,7 +46,7 @@ Tags: two-columns, left-sidebar, fixed-layout, responsive-layout, custom-backgro
     b. Product Shop
     c. Product Collatera
 16. related slider & upsell slider
-17. Global Messages 
+17. Global Messages
 18. bottom banner
 19. footer
 20. hot deal
@@ -261,11 +261,11 @@ a.button:hover {
 }
 /* Base Columns */
 
-/* 2 Column Layout -Left */ 
+/* 2 Column Layout -Left */
 .col-left {
 	margin-bottom: 0px;
 }
-/* 2 Column Layout -Right */ 
+/* 2 Column Layout -Right */
 .col-right {
 	margin-bottom: 0px;
 }
@@ -1449,7 +1449,7 @@ ul.level1 {
     border: 1px #eee solid;
     border-top:3px #f2d03b solid;
 
-	
+
 }
 .cms-index-index .nav-inner #nav li.mega-menu .level0-wrapper {
 	background: rgba(255,255,255,1);
@@ -1462,7 +1462,7 @@ ul.level1 {
 	transform: translateY(0) !important;
 	z-index: 1;
 
-	
+
 }
 #nav .level0-wrapper2 .col-1 {
 	float: left;
@@ -1563,7 +1563,7 @@ ul.level1 {
 	-moz-transition: all 0.5s;
 	-o-transition: all 0.5s;
 	transition: all 0.5s;
-	
+
 }
 /* 4th level */
 #nav ul.level2 {
@@ -1718,7 +1718,7 @@ ul.level1 {
 	text-align: left;
 	z-index: 1000;
 	opacity: 0;
-	
+
 }
 #nav li.drop-menu:hover ul {
 	position: absolute;
@@ -1753,7 +1753,7 @@ ul.level1 {
 }
 #nav li.drop-menu ul li:hover > a {
 	color: #333;
-	
+
 }
 #nav li.drop-menu ul li span.plus {
 	display: block;
@@ -2141,7 +2141,7 @@ header {
 .bestsell-pro .slider-items-products .owl-buttons a:hover {
 	text-decoration: none;
     color: #167bcb !important;
- 
+
 }
 .bestsell-pro .slider-items-products .owl-buttons .owl-prev a {
 	color: #fff;
@@ -2353,7 +2353,7 @@ header {
 
 }
 .featured-pro .owl-wrapper-outer {
-   
+
 }
 .featured-pro .block-title h2 {
     color: #333;
@@ -2592,11 +2592,11 @@ header {
 	text-transform: uppercase;
 	background-color: #f8f8f8;
 	margin-bottom:25px
-	
+
 }
 
 
-   
+
 
 .page-title h1, .page-title h2 {
 	color: #000;
@@ -2747,7 +2747,7 @@ header {
 	font-weight: 700;
 	font-family: 'Open Sans', sans-serif;
 	letter-spacing: 1px;
-	
+
 }
 .box-hover .add-to-links li a:after {
 	width: 34px;
@@ -3137,7 +3137,7 @@ margin:
 	margin: 0px auto 0;
 	border:1px #e5e5e5 solid;
 
-	
+
 }
 .products-grid .item .item-inner .item-info .info-inner {
 	border-top: none;
@@ -5314,7 +5314,7 @@ ol#compare-items li.last {
     font-size: 13px;
     font-weight: normal;
     margin: 0 0 5px;
-   
+
 }
 
 #subscribe-form {
@@ -5387,13 +5387,13 @@ ol#compare-items li.last {
 	display:inline-block;
 	color:#fff;
 	text-align:center
-	
+
 }
 
 .discount-text {
     margin: 15px 20px 10px 0;
     float: right;
-	
+
 }
 
 .discount-text strong {color:#167bcb}
@@ -5441,7 +5441,7 @@ ol#compare-items li.last {
 .static-contain ul {
 	padding: 0px;
 	list-style: none;
-	
+
 }
 .group-select li .input-box {
 	float: left;
@@ -7135,7 +7135,7 @@ button.button.submit:before {
 	border:1px #e5e5e5 solid
 }
 .related-pro .block-title {
-	
+
 	color: #fff;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 26px;
@@ -7568,7 +7568,7 @@ a.shop-now-btn {
 	margin-left: 25px;
 }
 
-/*---------- 19. Footer ------------ */	
+/*---------- 19. Footer ------------ */
 
 /* newsletter */
 .newsletter {
@@ -8320,7 +8320,7 @@ address {
 	text-align: center;
 	margin-top: 0;
 	position: absolute;
-	
+
 }
 .hot-deal {
 	overflow: hidden;
@@ -8381,8 +8381,8 @@ address {
 	padding: 0;
 }
 .cart-collaterals .totals {
-	border: 1px #e5e5e5 solid;
-		min-height:340px;
+	    border: 1px #e5e5e5 solid;
+		min-height:250px;
 		padding:0px
 }
 .totals h3 {
@@ -9426,7 +9426,7 @@ a.button.wishlist {
 	background-color: #fff;
 	padding-top: 50px;
 	padding-bottom: 80px;
-	
+
 }
 
 .error-page .content-wrapper {
@@ -9855,8 +9855,8 @@ a.button.wishlist {
     margin: auto;
     background: #fff;
     box-shadow: 1px 1px 8px rgba(0,0,0,.09);
-}	
-	
+}
+
 /*========== 1 to 4 pages ==========*/
 #right_toolbar {
 	display: none !important;
@@ -10998,8 +10998,8 @@ footer .footer-inner {
     margin: auto;
     background: #fff;
     box-shadow: 1px 1px 8px rgba(0,0,0,.09);
-}		
-	
+}
+
 /*========== 1 to 4 pages ==========*/
 #right_toolbar {
 	display: none !important;
@@ -12757,8 +12757,8 @@ bottom-banner-img1.last {
     margin: auto;
     background: #fff;
     box-shadow: 1px 1px 8px rgba(0,0,0,.09);
-}	
-	
+}
+
 .bottom-banner-img .banner-overly, .bottom-banner-img {
 	height: 181px;
 	text-align: center;

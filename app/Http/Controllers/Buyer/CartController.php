@@ -78,29 +78,14 @@ class CartController extends Controller
     public function cart_update(Request $request){
         $validator = Validator::make($request->all(),[
             'rowId'=>'required|string',
-            'id'=>'required',
-            'qty'=>'required|string',
-            'price'=>'required',
+            'qty'=>'required',
         ]);
 
         if($validator->passes()){
             try{
                 DB::beginTransaction();
-                $product = Product::where('product_id',$request->id)->with('thumbImage')->first();
-                $cartProduct = [
-                    'id'=>$request->id,
-                    'name'=>$request->name,
-                    'qty'=>$request->qty,
-                    'price'=>$request->price,
-                    'weight'=>0,
-                    'options' => [
-                        'size' => 'large',
-                        'image'=>$product->thumbImage->image_path,
-                        'product_url'=>route('front.product', $product->product_slug),
-                    ]
-                ];
 
-                $cart = Cart::update($request->rowId,$cartProduct);
+                $cart = Cart::update($request->rowId,$request->qty);
 
                 if(!empty($cart)){
                     DB::commit();

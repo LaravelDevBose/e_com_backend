@@ -19,24 +19,7 @@
                 </div>
                 <!-- BEGIN CART COLLATERALS -->
                 <div class="cart-collaterals row">
-                    <div class="col-sm-4">
-                        <div class="shipping">
-                            <h3>Estimate Shipping and Tax</h3>
-                            <shipping-form></shipping-form>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="discount">
-                            <h3>Discount Codes</h3>
-                            <form method="post" action="#couponPost/" id="discount-coupon-form">
-                                <label for="coupon_code">Enter your coupon code if you have one.</label>
-                                <input type="hidden" value="0" id="remove-coupone" name="remove">
-                                <input type="text" value="" name="coupon_code" id="coupon_code" class="input-text fullwidth">
-                                <button value="Apply Coupon" onClick="discountForm.submit(false)" class="button coupon " title="Apply Coupon" type="button"><span>Apply Coupon</span></button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 col-sm-offset-8">
                         <div class="totals">
                             <h3>Shopping Cart Total</h3>
                             <div class="inner">
@@ -62,9 +45,6 @@
                                     <li>
                                         <button class="button btn-proceed-checkout" title="Proceed to Checkout" type="button"><span>Proceed to Checkout</span></button>
                                     </li>
-                                    <br>
-                                    <li><a title="Checkout with Multiple Addresses" href="multiple_addresses.html">Checkout with Multiple Addresses</a> </li>
-                                    <br>
                                 </ul>
                             </div>
                             <!--inner-->
@@ -350,15 +330,3 @@
 @section('PageJs')
 
 @endsection
-<script>
-    import CartListTable from "../vue/components/cart/CartListTable";
-    export default {
-        components: {CartListTable}
-    }
-</script>
-<script>
-    import ShippingForm from "../vue/components/cart/ShippingForm";
-    export default {
-        components: {ShippingForm}
-    }
-</script>

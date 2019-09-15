@@ -67,7 +67,6 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <a href="#" class="top-link-compare hidden-xs"><i class="compare"></i></a>
                 <a href="#" title="My Wishlist" class="top-link-wishlist hidden-xs"><i class="fa fa-heart"></i></a>
 
                 <div class="top-cart-contain pull-right">
