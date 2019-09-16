@@ -27,7 +27,7 @@ class CheckoutController extends Controller
             $addressBooks = AddressBook::myAddress()->isActive()->latest()->get();
             $address = AddressBook::addressBookSelect($addressBooks);
             $dataCollection = [
-                'address'=>$address,
+                'address_list'=>$address,
             ];
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $dataCollection);
         }

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
 
     export default {
         name: "BuyerLoginPage",
@@ -68,22 +68,42 @@
                 this.loginBuyer(this.formData)
                     .then(response=>{
                         if(typeof  response.code === "undefined"){
+
+                            // TODO Notify Message
+                            alert('Some Thing Wrong!');
                             Notify.error('Some Thing Wrong!');
                         }else if(response.status === 'validation'){
+
+                            // TODO Notify Message
+                            alert(response.message);
                             Notify.validation(response.message);
                         }else if (response.code === 200){
+
+                            alert(response.message);
+                            // TODO Notify Message
                             Notify.success(response.message);
+                            if(this.cartTotal > 0){
+                                location.href = '/buyer/checkout';
+                            }
                             setTimeout(function () {
                                 location.href = response.url;
-                            },800)
+                            },800);
                         }else{
+                            alert('Some Thing Wrong!');
+
+                            // TODO Notify Message
                             Notify.error('Some Thing Wrong!');
                             setTimeout(function () {
                                 location.reload();
-                            },800)
+                            },800);
                         }
                     })
             }
+        },
+        computed:{
+            ...mapGetters([
+                'cartTotal'
+            ])
         }
     }
 </script>

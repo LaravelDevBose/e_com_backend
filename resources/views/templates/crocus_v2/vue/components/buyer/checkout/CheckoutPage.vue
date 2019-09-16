@@ -97,19 +97,18 @@
 
         },
         mounted() {
-            // if(this.cartTotal === 0){
-            //     location.href = '/';
-            // }
+            this.getAddressBookList();
         },
         methods:{
             ...mapActions([
-
+                'getAddressBookList',
             ])
         },
         computed:{
             ...mapGetters([
                 'cartList',
-                'cartTotal'
+                'cartTotal',
+
             ])
         },
         watch:{

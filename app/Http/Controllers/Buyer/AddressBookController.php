@@ -72,7 +72,7 @@ class AddressBookController extends Controller
                 DB::beginTransaction();
 
                 $address = AddressBook::create([
-                    'buyer_id'=>auth()->guard('web')->buyer->buyer_id,
+                    'buyer_id'=>auth()->guard('web')->user()->buyer->buyer_id,
                     'first_name'=> $request->first_name,
                     'last_name'=>$request->last_name,
                     'phone_no'=>$request->phone_no,
@@ -82,7 +82,7 @@ class AddressBookController extends Controller
                     'postal_code'=>$request->postal_code,
                     'country'=>$request->country,
                     'address_type'=>$request->address_type,
-                    'status'=>(!empty($request->status) && $request->status == 1) ? $request->status : 2,
+                    'address_status'=>config('app.active')
                 ]);
                 if($address){
                     DB::commit();

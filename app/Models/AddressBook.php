@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class AddressBook extends Model
 {
+    const ADDRESS_TYPE =[
+        'billing'=>1,
+        'shipping'=>2
+    ];
+
     protected $table = 'address_books';
 
     protected $primaryKey = 'address_id';
@@ -21,19 +26,19 @@ class AddressBook extends Model
         'postal_code',
         'country',
         'address_type',
-        'status',
+        'address_status',
     ];
 
     protected $appends = array('full_address');
 
     public function scopeIsActive($query){
-        return $query->where('status', config('app.active'));
+        return $query->where('address_status', config('app.active'));
     }
     public function scopeMyAddress($query){
         return $query->where('buyer_id', auth()->user()->buyer->buyer_id);
     }
 
-    public function getFullAddressAttributes(){
+    public function getFullAddressAttribute(){
         $fullAddress = '';
         if(!empty($this->attributes['first_name'])){
             $fullAddress .= $this->attributes['first_name'].' ';

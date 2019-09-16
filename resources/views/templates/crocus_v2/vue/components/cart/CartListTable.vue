@@ -115,7 +115,7 @@
             },
             goToCheckoutPage(){
                 if(AppStorage.getWhoIs() === 'buyer'){
-                    location.href = '/checkout';
+                    location.href = '/buyer/checkout';
                 }else{
                     location.href = '/login';
                 }
@@ -164,8 +164,6 @@
                         this.qtyDisable = false;
                     })
             },700)
-
-
         },
         computed:{
             ...mapGetters([
