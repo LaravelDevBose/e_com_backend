@@ -20,4 +20,8 @@ class Buyer extends User
     public function wishList(){
         return $this->hasMany(WishList::class, 'buyer_id', 'buyer_id');
     }
+
+    public function addressBooks(){
+        return $this->hasMany(AddressBook::class, 'buyer_id', 'buyer_id');
+    }
 }

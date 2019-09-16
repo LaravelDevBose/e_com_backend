@@ -2398,6 +2398,550 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "BillingForm",
+  data: function data() {
+    return {
+      formData: {
+        first_name: '',
+        last_name: '',
+        phone_no: '',
+        address: '',
+        city: '',
+        state: '',
+        postal_code: '',
+        country: '',
+        address_type: ''
+      }
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _BillingForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BillingForm */ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue");
+/* harmony import */ var _ShippingForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ShippingForm */ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue");
+/* harmony import */ var _PaymentMethod__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PaymentMethod */ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "CheckoutPage",
+  components: {
+    PaymentMethod: _PaymentMethod__WEBPACK_IMPORTED_MODULE_3__["default"],
+    ShippingForm: _ShippingForm__WEBPACK_IMPORTED_MODULE_2__["default"],
+    BillingForm: _BillingForm__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {};
+  },
+  created: function created() {},
+  mounted: function mounted() {// if(this.cartTotal === 0){
+    //     location.href = '/';
+    // }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])([])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal'])),
+  watch: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "CheckoutSidebar"
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "PaymentMethod"
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ShippingForm"
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/wishList/WishListProducts.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/wishList/WishListProducts.vue?vue&type=script&lang=js& ***!
@@ -40317,6 +40861,1535 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=template&id=bab323a4&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=template&id=bab323a4&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("form", { attrs: { id: "co-billing-form", action: "" } }, [
+      _c("fieldset", { staticClass: "group-select" }, [
+        _c("ul", [
+          _c("li", [
+            _c("label", { attrs: { for: "billing-address-select" } }, [
+              _vm._v(
+                "Select a billing address from your address book or enter a new address."
+              )
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                staticClass: "address-select",
+                attrs: {
+                  name: "billing_address_id",
+                  id: "billing-address-select",
+                  title: ""
+                }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [_vm._v("New Address")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "1", selected: "selected" } }, [
+                  _vm._v("Jon D, Hunts Ville, MG, Alabama 46532, United States")
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { attrs: { id: "billing-new-address-form" } }, [
+            _c("fieldset", [
+              _c("legend", [_vm._v("New Address")]),
+              _vm._v(" "),
+              _c("input", {
+                attrs: {
+                  type: "hidden",
+                  name: "billing[address_id]",
+                  value: "4269",
+                  id: "billing:address_id"
+                }
+              }),
+              _vm._v(" "),
+              _c("ul", [
+                _c("li", [
+                  _c("div", { staticClass: "customer-name" }, [
+                    _c("div", { staticClass: "input-box name-firstname" }, [
+                      _c("label", { attrs: { for: "billing_firstname" } }, [
+                        _vm._v(" First Name "),
+                        _c("span", { staticClass: "required" }, [_vm._v("*")])
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "input-text required-entry",
+                        attrs: {
+                          type: "text",
+                          id: "billing_firstname",
+                          value: "pranali",
+                          title: "First Name"
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-box name-lastname" }, [
+                      _c("label", { attrs: { for: "billing_lastname" } }, [
+                        _vm._v(" Last Name "),
+                        _c("span", { staticClass: "required" }, [_vm._v("*")])
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "input-text required-entry",
+                        attrs: {
+                          type: "text",
+                          id: "billing_lastname",
+                          value: "d",
+                          title: "Last Name"
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("label", { attrs: { for: "billing_street" } }, [
+                    _vm._v("Address "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "input-text required-entry",
+                    attrs: {
+                      type: "text",
+                      title: "Street Address",
+                      name: "billing_street",
+                      id: "billing_street",
+                      value: "Hunts Ville"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("input", {
+                    staticClass: "input-text",
+                    attrs: {
+                      type: "text",
+                      title: "Street Address 2",
+                      value: ""
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "billing_city" } }, [
+                      _vm._v("City "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "input-text required-entry",
+                      attrs: {
+                        type: "text",
+                        title: "City",
+                        value: "MG",
+                        id: "billing_city"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-box", attrs: { id: "" } }, [
+                    _c("label", { attrs: { for: "billing_region" } }, [
+                      _vm._v("State/Province "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        staticClass: "validate-select",
+                        attrs: { id: "billing_region", title: "State/Province" }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Please select region, state or province")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("Alabama")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2" } }, [
+                          _vm._v("Alaska")
+                        ])
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "billing_postcode" } }, [
+                      _vm._v("Zip/Postal Code "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass:
+                        "input-text validate-zip-international required-entry",
+                      attrs: {
+                        type: "text",
+                        title: "Zip/Postal Code",
+                        id: "billing_postcode",
+                        value: "46532"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "billing_country_id" } }, [
+                      _vm._v("Country "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        staticClass: "validate-select",
+                        attrs: { id: "billing_country_id", title: "Country" }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "AF" } }, [
+                          _vm._v("Afghanistan")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "AL" } }, [
+                          _vm._v("Albania")
+                        ])
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "billing:telephone" } }, [
+                      _vm._v("Telephone "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "input-text required-entry",
+                      attrs: {
+                        type: "text",
+                        name: "billing[telephone]",
+                        value: "454541",
+                        title: "Telephone",
+                        id: "billing:telephone"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "billing:fax" } }, [
+                      _vm._v("Fax")
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "input-text",
+                      attrs: {
+                        type: "text",
+                        name: "billing[fax]",
+                        value: "",
+                        title: "Fax",
+                        id: "billing:fax"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("input", {
+                    staticClass: "checkbox",
+                    attrs: {
+                      type: "checkbox",
+                      value: "1",
+                      title: "Save in address book",
+                      id: "billing_save_in_address_book",
+                      onChange: "shipping.setSameAsBilling(false);"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    { attrs: { for: "billing_save_in_address_book" } },
+                    [_vm._v("Save in address book")]
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c("input", {
+              staticClass: "radio",
+              attrs: {
+                type: "radio",
+                name: "billing[use_for_shipping]",
+                id: "billing:use_for_shipping_yes",
+                value: "1",
+                onClick: "$('shipping:same_as_billing').checked = true;"
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "billing:use_for_shipping_yes" } }, [
+              _vm._v("Ship to this address")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "radio",
+              attrs: {
+                type: "radio",
+                name: "billing[use_for_shipping]",
+                id: "billing:use_for_shipping_no",
+                value: "0",
+                checked: "checked",
+                onClick: "$('shipping:same_as_billing').checked = false;"
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "billing:use_for_shipping_no" } }, [
+              _vm._v("Ship to different address")
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "require" }, [
+          _c("em", { staticClass: "required" }, [_vm._v("* ")]),
+          _vm._v("Required Fields")
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "button continue",
+            attrs: { type: "button", onClick: "billing.save()" }
+          },
+          [_c("span", [_vm._v("Continue")])]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue?vue&type=template&id=2fe512b6&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue?vue&type=template&id=2fe512b6&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col-main" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "ol",
+      { staticClass: "one-page-checkout", attrs: { id: "checkoutSteps" } },
+      [
+        _c(
+          "li",
+          { staticClass: "section allow active", attrs: { id: "opc-billing" } },
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "step a-item",
+                attrs: { id: "checkout-step-billing" }
+              },
+              [_c("billing-form")],
+              1
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("li", { staticClass: "section", attrs: { id: "opc-shipping" } }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "step a-item",
+              attrs: { id: "checkout-step-shipping" }
+            },
+            [_c("shipping-form")],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _c("li", { staticClass: "section", attrs: { id: "opc-payment" } }, [
+          _vm._m(4),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "step a-item",
+              attrs: { id: "checkout-step-payment" }
+            },
+            [
+              _c("payment-method"),
+              _vm._v(" "),
+              _vm._m(5),
+              _vm._v(" "),
+              _vm._m(6),
+              _vm._v(" "),
+              _c("div", { staticStyle: { clear: "both" } })
+            ],
+            1
+          )
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "page-title" }, [
+      _c("h1", [_vm._v("Checkout")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "step-title" }, [
+      _c("span", { staticClass: "number" }, [_vm._v("1")]),
+      _vm._v(" "),
+      _c("h3", [_vm._v("Checkout Method")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "step-title" }, [
+      _c("span", { staticClass: "number" }, [_vm._v("2")]),
+      _vm._v(" "),
+      _c("h3", { staticClass: "one_page_heading" }, [
+        _vm._v(" Shipping Information")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "li",
+      { staticClass: "section", attrs: { id: "opc-shipping_method" } },
+      [
+        _c("div", { staticClass: "step-title" }, [
+          _c("span", { staticClass: "number" }, [_vm._v("3")]),
+          _vm._v(" "),
+          _c("h3", { staticClass: "one_page_heading" }, [
+            _vm._v("Shipping Method")
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "step a-item",
+            attrs: { id: "checkout-step-shipping_method" }
+          },
+          [
+            _c(
+              "form",
+              { attrs: { id: "co-shipping-method-form", action: "" } },
+              [
+                _c("fieldset", [
+                  _c(
+                    "div",
+                    { attrs: { id: "checkout-shipping-method-load" } },
+                    [
+                      _c("dl", { staticClass: "shipping-methods" }, [
+                        _c("dt", [_vm._v("Flat Rate")]),
+                        _vm._v(" "),
+                        _c("dd", [
+                          _c("ul", [
+                            _c("li", [
+                              _c("input", {
+                                staticClass: "radio",
+                                attrs: {
+                                  type: "radio",
+                                  name: "shipping_method",
+                                  value: "flatrate_flatrate",
+                                  id: "s_method_flatrate_flatrate",
+                                  checked: "checked"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "label",
+                                {
+                                  attrs: { for: "s_method_flatrate_flatrate" }
+                                },
+                                [
+                                  _vm._v("Fixed "),
+                                  _c("span", { staticClass: "price" }, [
+                                    _vm._v("$35.00")
+                                  ])
+                                ]
+                              )
+                            ])
+                          ])
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      attrs: {
+                        id: "onepage-checkout-shipping-method-additional-load"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "add-gift-message" }, [
+                        _c("h4", [
+                          _vm._v("Do you have any gift items in your order?")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [
+                          _c("input", {
+                            staticClass: "checkbox",
+                            attrs: {
+                              type: "checkbox",
+                              name: "allow_gift_messages",
+                              id: "allow_gift_messages",
+                              value: "1",
+                              onClick:
+                                "toogleVisibilityOnObjects(this, ['allow-gift-message-container']);"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            { attrs: { for: "allow_gift_messages" } },
+                            [
+                              _vm._v(
+                                "Check this checkbox if you want to add gift messages."
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "gift-message-form",
+                          staticStyle: { display: "none" },
+                          attrs: { id: "allow-gift-message-container" }
+                        },
+                        [_c("div", { staticClass: "inner-box" })]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "buttons-set1",
+                      attrs: { id: "shipping-method-buttons-container" }
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "button",
+                          attrs: {
+                            type: "button",
+                            onClick: "shippingMethod.save()"
+                          }
+                        },
+                        [_c("span", [_vm._v("Continue")])]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "back-link",
+                          attrs: {
+                            href: "#",
+                            onClick: "checkout.back(); return false;"
+                          }
+                        },
+                        [_vm._v("« Back")]
+                      )
+                    ]
+                  )
+                ])
+              ]
+            )
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "step-title" }, [
+      _c("span", { staticClass: "number" }, [_vm._v("4")]),
+      _vm._v(" "),
+      _c("h3", { staticClass: "one_page_heading" }, [
+        _vm._v("Payment Information")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "require" }, [
+      _c("em", { staticClass: "required" }, [_vm._v("* ")]),
+      _vm._v("Required Fields")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "buttons-set1",
+        attrs: { id: "payment-buttons-container" }
+      },
+      [
+        _c(
+          "button",
+          {
+            staticClass: "button",
+            attrs: { type: "button", onClick: "payment.save()" }
+          },
+          [_c("span", [_vm._v("Continue")])]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "back-link",
+            attrs: { href: "#", onClick: "checkout.back(); return false;" }
+          },
+          [_vm._v("« Back")]
+        )
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue?vue&type=template&id=5d54f6f6&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue?vue&type=template&id=5d54f6f6&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "block block-progress" }, [
+      _c("div", { staticClass: "block-title " }, [_vm._v("Your Checkout")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "block-content" }, [
+        _c("dl", [
+          _c("dt", { staticClass: "complete" }, [
+            _vm._v(" Billing Address "),
+            _c("span", { staticClass: "separator" }, [_vm._v("|")]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                attrs: {
+                  onClick: "checkout.gotoSection('billing'); return false;",
+                  href: "#billing"
+                }
+              },
+              [_vm._v("Change")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "complete" }, [
+            _c("address", [
+              _vm._v("\n                    Jon Doh"),
+              _c("br"),
+              _vm._v("\n                    Jollen Group LTD."),
+              _c("br"),
+              _vm._v("\n                    29 East Stree"),
+              _c("br"),
+              _vm._v("\n                    Behanam"),
+              _c("br"),
+              _vm._v("\n                    Huntsville,  Alabama, 35801"),
+              _c("br"),
+              _vm._v("\n                    United States"),
+              _c("br"),
+              _vm._v("\n                    T: 3349067 "),
+              _c("br"),
+              _vm._v("\n                    F: 2344532\n                ")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("dt", { staticClass: "complete" }, [
+            _vm._v(" Shipping Address "),
+            _c("span", { staticClass: "separator" }, [_vm._v("|")]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                attrs: {
+                  onClick: "checkout.gotoSection('shipping');return false;",
+                  href: "#payment"
+                }
+              },
+              [_vm._v("Change")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "complete" }, [
+            _c("address", [
+              _vm._v("\n                    Jon Doh"),
+              _c("br"),
+              _vm._v("\n                    Jollen Group LTD."),
+              _c("br"),
+              _vm._v("\n                    29 East Stree"),
+              _c("br"),
+              _vm._v("\n                    Behanam"),
+              _c("br"),
+              _vm._v("\n                    Huntsville,  Alabama, 35801"),
+              _c("br"),
+              _vm._v("\n                    United States"),
+              _c("br"),
+              _vm._v("\n                    T: 3349067 "),
+              _c("br"),
+              _vm._v("\n                    F: 2344532\n                ")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("dt", { staticClass: "complete" }, [
+            _vm._v(" Shipping Method "),
+            _c("span", { staticClass: "separator" }, [_vm._v("|")]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                attrs: {
+                  onClick:
+                    "checkout.gotoSection('shipping_method'); return false;",
+                  href: "#shipping_method"
+                }
+              },
+              [_vm._v("Change")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "complete" }, [
+            _vm._v(" Flat Rate - Fixed "),
+            _c("br"),
+            _vm._v(" "),
+            _c("span", { staticClass: "price" }, [_vm._v("$15.00")])
+          ]),
+          _vm._v(" "),
+          _c("dt", [_vm._v(" Payment Method ")])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue?vue&type=template&id=4f784d16&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue?vue&type=template&id=4f784d16&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("form", { attrs: { action: "", id: "co-payment-form" } }, [
+      _c("dl", { attrs: { id: "checkout-payment-method-load" } }, [
+        _c("dt", [
+          _c("input", {
+            staticClass: "radio",
+            attrs: {
+              type: "radio",
+              id: "p_method_checkmo",
+              value: "checkmo",
+              name: "payment[method]",
+              title: "Check / Money order",
+              onClick: "payment.switchMethod('checkmo')"
+            }
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "p_method_checkmo" } }, [
+            _vm._v("Check / Money order")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("dd", [_c("fieldset", { staticClass: "form-list" })]),
+        _vm._v(" "),
+        _c("dt", [
+          _c("input", {
+            staticClass: "radio",
+            attrs: {
+              type: "radio",
+              id: "p_method_ccsave",
+              value: "ccsave",
+              name: "payment[method]",
+              title: "Credit Card (saved)",
+              onClick: "payment.switchMethod('ccsave')"
+            }
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "p_method_ccsave" } }, [
+            _vm._v("Credit Card (saved)")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("dd", [
+          _c("fieldset", { staticClass: "form-list" }, [
+            _c(
+              "ul",
+              {
+                staticStyle: { display: "none" },
+                attrs: { id: "payment_form_ccsave" }
+              },
+              [
+                _c("li", [
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "ccsave_cc_owner" } }, [
+                      _vm._v("Name on Card "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "input-text required-entry",
+                      attrs: {
+                        type: "text",
+                        disabled: "",
+                        title: "Name on Card",
+                        id: "ccsave_cc_owner",
+                        name: "payment[cc_owner]",
+                        value: ""
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "ccsave_cc_type" } }, [
+                      _vm._v("Credit Card Type "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        staticClass: "required-entry validate-cc-type-select",
+                        attrs: {
+                          disabled: "",
+                          id: "ccsave_cc_type",
+                          name: "payment[cc_type]"
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("--Please Select--")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "AE" } }, [
+                          _vm._v("American Express")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "VI" } }, [
+                          _vm._v("Visa")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "MC" } }, [
+                          _vm._v("MasterCard")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "DI" } }, [
+                          _vm._v("Discover")
+                        ])
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "ccsave_cc_number" } }, [
+                      _vm._v("Credit Card Number "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass:
+                        "input-text validate-cc-number validate-cc-type",
+                      attrs: {
+                        type: "text",
+                        disabled: "",
+                        id: "ccsave_cc_number",
+                        name: "payment[cc_number]",
+                        title: "Credit Card Number",
+                        value: ""
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "ccsave_expiration" } }, [
+                      _vm._v("Expiration Date "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "v-fix" }, [
+                      _c(
+                        "select",
+                        {
+                          staticClass: "required-entry",
+                          staticStyle: { width: "140px" },
+                          attrs: {
+                            disabled: "",
+                            id: "ccsave_expiration",
+                            name: "payment[cc_exp_month]"
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { value: "", selected: "selected" } },
+                            [_vm._v("Month")]
+                          ),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "1" } }, [
+                            _vm._v("01 - January")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2" } }, [
+                            _vm._v("02 - February")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "3" } }, [
+                            _vm._v("03 - March")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "4" } }, [
+                            _vm._v("04 - April")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "5" } }, [
+                            _vm._v("05 - May")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "6" } }, [
+                            _vm._v("06 - June")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "7" } }, [
+                            _vm._v("07 - July")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "8" } }, [
+                            _vm._v("08 - August")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "9" } }, [
+                            _vm._v("09 - September")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "10" } }, [
+                            _vm._v("10 - October")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "11" } }, [
+                            _vm._v("11 - November")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "12" } }, [
+                            _vm._v("12 - December")
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "v-fix" }, [
+                      _c(
+                        "select",
+                        {
+                          staticClass: "required-entry",
+                          staticStyle: { width: "103px" },
+                          attrs: {
+                            disabled: "",
+                            id: "ccsave_expiration_yr",
+                            name: "payment[cc_exp_year]"
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { value: "", selected: "selected" } },
+                            [_vm._v("Year")]
+                          ),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2011" } }, [
+                            _vm._v("2011")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2012" } }, [
+                            _vm._v("2012")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2013" } }, [
+                            _vm._v("2013")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2014" } }, [
+                            _vm._v("2014")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2015" } }, [
+                            _vm._v("2015")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2016" } }, [
+                            _vm._v("2016")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2017" } }, [
+                            _vm._v("2017")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2018" } }, [
+                            _vm._v("2018")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2019" } }, [
+                            _vm._v("2019")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2020" } }, [
+                            _vm._v("2020")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2021" } }, [
+                            _vm._v("2021")
+                          ])
+                        ]
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "ccsave_cc_cid" } }, [
+                      _vm._v("Card Verification Number "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "v-fix" }, [
+                      _c("input", {
+                        staticClass:
+                          "input-text required-entry validate-cc-cvn",
+                        staticStyle: { width: "3em" },
+                        attrs: {
+                          type: "text",
+                          disabled: "",
+                          title: "Card Verification Number",
+                          id: "ccsave_cc_cid",
+                          name: "payment[cc_cid]",
+                          value: ""
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "cvv-what-is-this", attrs: { href: "#" } },
+                      [_vm._v("What is this?")]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue?vue&type=template&id=49c342d3&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue?vue&type=template&id=49c342d3&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("form", { attrs: { action: "", id: "co-shipping-form" } }, [
+      _c("fieldset", { staticClass: "group-select" }, [
+        _c("ul", [
+          _c("li", [
+            _c("label", { attrs: { for: "shipping-address-select" } }, [
+              _vm._v(
+                "Select a shipping address from your address book or enter a new address."
+              )
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                staticClass: "address-select",
+                attrs: {
+                  name: "shipping_address_id",
+                  id: "shipping-address-select",
+                  title: "",
+                  onChange: "shipping.newAddress(!this.value)"
+                }
+              },
+              [
+                _c("option", { attrs: { value: "1", selected: "selected" } }, [
+                  _vm._v("Jon D, Hunts Ville, MG, Alabama 46532, United States")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "" } }, [_vm._v("New Address")])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { attrs: { id: "shipping-new-address-form" } }, [
+            _c("fieldset", [
+              _c("legend", [_vm._v("New Address")]),
+              _vm._v(" "),
+              _c("input", {
+                attrs: {
+                  type: "hidden",
+                  name: "billing[address_id]",
+                  value: "4269",
+                  id: "billing:address_id"
+                }
+              }),
+              _vm._v(" "),
+              _c("ul", [
+                _c("li", [
+                  _c("div", { staticClass: "customer-name" }, [
+                    _c("div", { staticClass: "input-box name-firstname" }, [
+                      _c("label", { attrs: { for: "billing_firstname" } }, [
+                        _vm._v(" First Name "),
+                        _c("span", { staticClass: "required" }, [_vm._v("*")])
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "input-text required-entry",
+                        attrs: {
+                          type: "text",
+                          id: "billing_firstname",
+                          value: "pranali",
+                          title: "First Name"
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-box name-lastname" }, [
+                      _c("label", { attrs: { for: "billing_lastname" } }, [
+                        _vm._v(" Last Name "),
+                        _c("span", { staticClass: "required" }, [_vm._v("*")])
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "input-text required-entry",
+                        attrs: {
+                          type: "text",
+                          id: "billing_lastname",
+                          value: "d",
+                          title: "Last Name"
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("label", { attrs: { for: "billing_street" } }, [
+                    _vm._v("Address "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "input-text required-entry",
+                    attrs: {
+                      type: "text",
+                      title: "Street Address",
+                      name: "billing_street",
+                      id: "billing_street",
+                      value: "Hunts Ville"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("input", {
+                    staticClass: "input-text",
+                    attrs: {
+                      type: "text",
+                      title: "Street Address 2",
+                      value: ""
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "billing_city" } }, [
+                      _vm._v("City "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "input-text required-entry",
+                      attrs: {
+                        type: "text",
+                        title: "City",
+                        value: "MG",
+                        id: "billing_city"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-box", attrs: { id: "" } }, [
+                    _c("label", { attrs: { for: "billing_region" } }, [
+                      _vm._v("State/Province "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        staticClass: "validate-select",
+                        attrs: { id: "billing_region", title: "State/Province" }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Please select region, state or province")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("Alabama")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2" } }, [
+                          _vm._v("Alaska")
+                        ])
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "billing_postcode" } }, [
+                      _vm._v("Zip/Postal Code "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass:
+                        "input-text validate-zip-international required-entry",
+                      attrs: {
+                        type: "text",
+                        title: "Zip/Postal Code",
+                        id: "billing_postcode",
+                        value: "46532"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "billing_country_id" } }, [
+                      _vm._v("Country "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        staticClass: "validate-select",
+                        attrs: { id: "billing_country_id", title: "Country" }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "AF" } }, [
+                          _vm._v("Afghanistan")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "AL" } }, [
+                          _vm._v("Albania")
+                        ])
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "billing:telephone" } }, [
+                      _vm._v("Telephone "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "input-text required-entry",
+                      attrs: {
+                        type: "text",
+                        name: "billing[telephone]",
+                        value: "454541",
+                        title: "Telephone",
+                        id: "billing:telephone"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-box" }, [
+                    _c("label", { attrs: { for: "billing:fax" } }, [
+                      _vm._v("Fax")
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "input-text",
+                      attrs: {
+                        type: "text",
+                        name: "billing[fax]",
+                        value: "",
+                        title: "Fax",
+                        id: "billing:fax"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("input", {
+                    staticClass: "checkbox",
+                    attrs: {
+                      type: "checkbox",
+                      value: "1",
+                      title: "Save in address book",
+                      id: "billing_save_in_address_book",
+                      onChange: "shipping.setSameAsBilling(false);"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    { attrs: { for: "billing_save_in_address_book" } },
+                    [_vm._v("Save in address book")]
+                  )
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "require" }, [
+          _c("em", { staticClass: "required" }, [_vm._v("* ")]),
+          _vm._v("Required Fields")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "buttons-set1",
+            attrs: { id: "shipping-buttons-container" }
+          },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "button",
+                attrs: { type: "button", onClick: "shipping.save()" }
+              },
+              [_c("span", [_vm._v("Continue")])]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "back-link",
+                attrs: { href: "#", onClick: "checkout.back(); return false;" }
+              },
+              [_vm._v("« Back")]
+            )
+          ]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/wishList/WishListProducts.vue?vue&type=template&id=7253626b&scoped=true&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/wishList/WishListProducts.vue?vue&type=template&id=7253626b&scoped=true& ***!
@@ -55292,6 +57365,11 @@ var map = {
 	"./components/auth/seller/auth/LoginPage.vue": "./resources/views/templates/crocus_v2/vue/components/auth/seller/auth/LoginPage.vue",
 	"./components/auth/seller/auth/RegisterPage.vue": "./resources/views/templates/crocus_v2/vue/components/auth/seller/auth/RegisterPage.vue",
 	"./components/auth/seller/auth/SellerAuthPage.vue": "./resources/views/templates/crocus_v2/vue/components/auth/seller/auth/SellerAuthPage.vue",
+	"./components/buyer/checkout/BillingForm.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue",
+	"./components/buyer/checkout/CheckoutPage.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue",
+	"./components/buyer/checkout/CheckoutSidebar.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue",
+	"./components/buyer/checkout/PaymentMethod.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue",
+	"./components/buyer/checkout/ShippingForm.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue",
 	"./components/buyer/wishList/WishListProducts.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/wishList/WishListProducts.vue",
 	"./components/cart/CartListTable.vue": "./resources/views/templates/crocus_v2/vue/components/cart/CartListTable.vue",
 	"./components/cart/CartPage.vue": "./resources/views/templates/crocus_v2/vue/components/cart/CartPage.vue",
@@ -55733,6 +57811,351 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SellerAuthPage_vue_vue_type_template_id_c4103330_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SellerAuthPage_vue_vue_type_template_id_c4103330_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue":
+/*!*******************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _BillingForm_vue_vue_type_template_id_bab323a4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BillingForm.vue?vue&type=template&id=bab323a4&scoped=true& */ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=template&id=bab323a4&scoped=true&");
+/* harmony import */ var _BillingForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BillingForm.vue?vue&type=script&lang=js& */ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _BillingForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BillingForm_vue_vue_type_template_id_bab323a4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _BillingForm_vue_vue_type_template_id_bab323a4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "bab323a4",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BillingForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./BillingForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BillingForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=template&id=bab323a4&scoped=true&":
+/*!**************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=template&id=bab323a4&scoped=true& ***!
+  \**************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BillingForm_vue_vue_type_template_id_bab323a4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./BillingForm.vue?vue&type=template&id=bab323a4&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=template&id=bab323a4&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BillingForm_vue_vue_type_template_id_bab323a4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BillingForm_vue_vue_type_template_id_bab323a4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue":
+/*!********************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CheckoutPage_vue_vue_type_template_id_2fe512b6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CheckoutPage.vue?vue&type=template&id=2fe512b6&scoped=true& */ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue?vue&type=template&id=2fe512b6&scoped=true&");
+/* harmony import */ var _CheckoutPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CheckoutPage.vue?vue&type=script&lang=js& */ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CheckoutPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CheckoutPage_vue_vue_type_template_id_2fe512b6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CheckoutPage_vue_vue_type_template_id_2fe512b6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "2fe512b6",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CheckoutPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue?vue&type=template&id=2fe512b6&scoped=true&":
+/*!***************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue?vue&type=template&id=2fe512b6&scoped=true& ***!
+  \***************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutPage_vue_vue_type_template_id_2fe512b6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CheckoutPage.vue?vue&type=template&id=2fe512b6&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue?vue&type=template&id=2fe512b6&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutPage_vue_vue_type_template_id_2fe512b6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutPage_vue_vue_type_template_id_2fe512b6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue":
+/*!***********************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue ***!
+  \***********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CheckoutSidebar_vue_vue_type_template_id_5d54f6f6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CheckoutSidebar.vue?vue&type=template&id=5d54f6f6&scoped=true& */ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue?vue&type=template&id=5d54f6f6&scoped=true&");
+/* harmony import */ var _CheckoutSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CheckoutSidebar.vue?vue&type=script&lang=js& */ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CheckoutSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CheckoutSidebar_vue_vue_type_template_id_5d54f6f6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CheckoutSidebar_vue_vue_type_template_id_5d54f6f6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "5d54f6f6",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CheckoutSidebar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue?vue&type=template&id=5d54f6f6&scoped=true&":
+/*!******************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue?vue&type=template&id=5d54f6f6&scoped=true& ***!
+  \******************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutSidebar_vue_vue_type_template_id_5d54f6f6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CheckoutSidebar.vue?vue&type=template&id=5d54f6f6&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue?vue&type=template&id=5d54f6f6&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutSidebar_vue_vue_type_template_id_5d54f6f6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckoutSidebar_vue_vue_type_template_id_5d54f6f6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue":
+/*!*********************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PaymentMethod_vue_vue_type_template_id_4f784d16_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PaymentMethod.vue?vue&type=template&id=4f784d16&scoped=true& */ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue?vue&type=template&id=4f784d16&scoped=true&");
+/* harmony import */ var _PaymentMethod_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PaymentMethod.vue?vue&type=script&lang=js& */ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PaymentMethod_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PaymentMethod_vue_vue_type_template_id_4f784d16_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PaymentMethod_vue_vue_type_template_id_4f784d16_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "4f784d16",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentMethod_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./PaymentMethod.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentMethod_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue?vue&type=template&id=4f784d16&scoped=true&":
+/*!****************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue?vue&type=template&id=4f784d16&scoped=true& ***!
+  \****************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentMethod_vue_vue_type_template_id_4f784d16_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./PaymentMethod.vue?vue&type=template&id=4f784d16&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue?vue&type=template&id=4f784d16&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentMethod_vue_vue_type_template_id_4f784d16_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentMethod_vue_vue_type_template_id_4f784d16_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue":
+/*!********************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ShippingForm_vue_vue_type_template_id_49c342d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShippingForm.vue?vue&type=template&id=49c342d3&scoped=true& */ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue?vue&type=template&id=49c342d3&scoped=true&");
+/* harmony import */ var _ShippingForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShippingForm.vue?vue&type=script&lang=js& */ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ShippingForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ShippingForm_vue_vue_type_template_id_49c342d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ShippingForm_vue_vue_type_template_id_49c342d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "49c342d3",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ShippingForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./ShippingForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ShippingForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue?vue&type=template&id=49c342d3&scoped=true&":
+/*!***************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue?vue&type=template&id=49c342d3&scoped=true& ***!
+  \***************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShippingForm_vue_vue_type_template_id_49c342d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./ShippingForm.vue?vue&type=template&id=49c342d3&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue?vue&type=template&id=49c342d3&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShippingForm_vue_vue_type_template_id_49c342d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShippingForm_vue_vue_type_template_id_49c342d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -57056,7 +59479,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/crocus_v2/vue/crocus_v2.js */"./resources/views/templates/crocus_v2/vue/crocus_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\larevel_ex\resources\views\templates\crocus_v2\vue\crocus_v2.js */"./resources/views/templates/crocus_v2/vue/crocus_v2.js");
 
 
 /***/ })

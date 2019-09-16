@@ -30,7 +30,6 @@
                         <div class="links">
                             @if(auth()->guest())
                                 <div class="myaccount"><a title="My Account" href="{{ route('login') }}"><span class="hidden-xs">My Account</span></a> </div>
-                                <div class="check"><a title="Checkout" href="{{ route('front.checkout') }}"><span class="hidden-xs">Checkout</span></a> </div>
                                 <div class="login"><a href="{{ route('login') }}"><span class="hidden-xs">Buyer Login</span></a> </div>
                                 <div class="demo"><a title="Blog" href="{{ route('seller.login') }}"><span class="hidden-xs">Seller Login</span></a> </div>
                             @elseif(auth()->guard('admin')->check())
@@ -41,7 +40,7 @@
                                 <div class="login"><a href="{{ route('seller.logout') }}"><span class="hidden-xs">Logout</span></a> </div>
                             @else
                                 <div class="myaccount"><a title="My Account" href="{{ route('buyer.home') }}"><span class="hidden-xs">My Account</span></a> </div>
-                                <div class="check"><a title="Checkout" href="{{ route('front.checkout') }}"><span class="hidden-xs">Checkout</span></a> </div>
+                                <div class="check"><a title="Checkout" href="{{ route('buyer.checkout') }}"><span class="hidden-xs">Checkout</span></a> </div>
                                 <div class="login"><a href="{{ route('buyer.logout') }}"><span class="hidden-xs">Logout</span></a> </div>
                             @endif
 
@@ -102,7 +101,7 @@
 
                                 <!--actions-->
                                 <div class="actions">
-                                    <a href="{{ route('front.checkout') }}" class="btn-checkout" title="Checkout" type="button"><span>Checkout</span> </a>
+                                    <a href="{{ route('buyer.checkout') }}" class="btn-checkout" title="Checkout" type="button"><span>Checkout</span> </a>
                                     <a href="{{ route('front.cart') }}" class="view-cart"><span>View Cart</span></a> </div>
                             </div>
                         </div>

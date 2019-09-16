@@ -49,7 +49,7 @@
         <ul class="links">
             <li><a title="My Account" href="{{ route('login') }}">My Account</a> </li>
             <li><a title="Wishlist" href="{{ route('login') }}">Wishlist</a> </li>
-            <li><a title="Checkout" href="{{ route('front.checkout') }}">Checkout</a> </li>
+            <li><a title="Checkout" href="{{ route('buyer.checkout') }}">Checkout</a> </li>
             <li class="last"><a title="Login" href="{{ route('login') }}">Login</a> </li>
             <li class="last"><a title="Login" href="{{ route('login') }}">Seller Login</a> </li>
         </ul>
