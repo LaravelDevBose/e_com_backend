@@ -123,7 +123,7 @@
                 'storeAddressInfo',
                 'addAddressInfo',
                 'getAddressInfo',
-                'closeTab',
+                'tabChange',
             ]),
             billingAddressStore(){
                 this.btnDisabled = true;
@@ -134,7 +134,7 @@
                             if(typeof response.code !== "undefined" && response.code === 201){
                                 //TODO  Use Notify
                                 alert(response.message);
-                                this.closeBillingTab();
+                                this.continueTab();
                             }else if(response.status === 'validation'){
                                 //TODO Validation Notify
                                 alert(response.message);
@@ -145,7 +145,7 @@
                 }else if(this.save_address === false && this.new_address === true){
                     // TODO From Validation
                     this.addAddressInfo(this.formData);
-                    this.closeBillingTab();
+                    this.continueTab();
                 }else{
                     let reqData = {
                         address_id: this.billing_id,
@@ -158,7 +158,7 @@
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 //TODO  Use Notify
                                 alert(response.message);
-                                this.closeBillingTab();
+                                this.continueTab();
                             }else if(response.status === 'validation'){
                                 //TODO Validation Notify
                                 alert(response.message);
@@ -168,17 +168,31 @@
                         })
                 }
             },
-            closeBillingTab(){
-                let data={
-                    billing:{
-                        'tabAction':false,
-                    },
-                    shopping:{
-                        'tabAction':true,
-                    },
+            continueTab(){
+                let data = {};
+                if(this.formData.is_shipping === 1){
+                    data={
+                        billing:{
+                            'tabAction':false,
+                        },
+                        method:{
+                            'tabAction':true,
+                        },
 
-                };
-                this.closeTab(data);
+                    };
+                }else{
+                    data={
+                        billing:{
+                            'tabAction':false,
+                        },
+                        shopping:{
+                            'tabAction':true,
+                        },
+
+                    };
+                }
+
+                this.tabChange(data);
 
             }
         },

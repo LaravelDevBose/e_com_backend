@@ -36,27 +36,15 @@
                                     <dd>
                                         <ul>
                                             <li>
-                                                <input type="radio" name="shipping_method" value="flatrate_flatrate" id="s_method_flatrate_flatrate" checked="checked" class="radio">
+                                                <input type="radio" name="shipping_method" v-model="formData.shipping_method" :value="formData.shipping_method" id="s_method_flatrate_flatrate" checked="checked" class="radio">
                                                 <label for="s_method_flatrate_flatrate">Fixed <span class="price">$35.00</span> </label>
                                             </li>
                                         </ul>
                                     </dd>
                                 </dl>
                             </div>
-                            <div id="onepage-checkout-shipping-method-additional-load">
-                                <div class="add-gift-message">
-                                    <h4>Do you have any gift items in your order?</h4>
-                                    <p>
-                                        <input type="checkbox" name="allow_gift_messages" id="allow_gift_messages" value="1" onClick="toogleVisibilityOnObjects(this, ['allow-gift-message-container']);" class="checkbox">
-                                        <label for="allow_gift_messages">Check this checkbox if you want to add gift messages.</label>
-                                    </p>
-                                </div>
-                                <div style="display: none;" class="gift-message-form" id="allow-gift-message-container">
-                                    <div class="inner-box"> </div>
-                                </div>
-                            </div>
                             <div class="buttons-set1" id="shipping-method-buttons-container">
-                                <button type="button" class="button" onClick="shippingMethod.save()"><span>Continue</span></button>
+                                <button type="button" class="button" @click.prevent="continueTab"><span>Continue</span></button>
                                 <a href="#" onClick="checkout.back(); return false;" class="back-link">« Back</a> </div>
                         </fieldset>
                     </form>
@@ -71,12 +59,22 @@
                     <payment-method></payment-method>
                     <p class="require"><em class="required">* </em>Required Fields</p>
                     <div class="buttons-set1" id="payment-buttons-container">
-                        <button type="button" class="button" onClick="payment.save()"><span>Continue</span></button>
-                        <a href="#" onClick="checkout.back(); return false;" class="back-link">« Back</a> </div>
+                        <a href="#"  class="back-link">« Back</a>
+                    </div>
                     <div style="clear: both;"></div>
                 </div>
+
             </li>
         </ol>
+        <ul class="checkout">
+            <li>
+                <div class="row">
+                    <div class="col-lg-6 col-lg-offset-5 col-md-6 col-md-offset-5 col-sm-12 ">
+                        <button class="button btn-proceed-checkout" @click.prevent="proceedToOrder()" title="Proceed to Checkout" type="button"><span>Proceed to Order</span></button>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -90,7 +88,15 @@
         components: {PaymentMethod, ShippingForm, BillingForm,},
         data(){
             return{
-
+                formData:{
+                    billing_address:{},
+                    billing_address_id:'',
+                    shipping_address:{},
+                    shipping_address_id:'',
+                    shipping_method: 1,
+                    payment_method:'',
+                    payment_method_id:'',
+                }
             }
         },
         created() {
@@ -102,7 +108,58 @@
         methods:{
             ...mapActions([
                 'getAddressBookList',
-            ])
+                'tabChange',
+                'orderProceed'
+            ]),
+            continueTab(){
+                let data={
+
+                    method:{
+                        'tabAction':false,
+                    },
+                    payment:{
+                        'tabAction':true,
+                    },
+
+                };
+                this.tabChange(data);
+
+            },
+            backTab(){
+                let data={
+                    method:{
+                        'tabAction':false,
+                    },
+                    shopping:{
+                        'tabAction':true,
+                    },
+
+                };
+                this.tabChange(data);
+            },
+            proceedToOrder(){
+                this.formData.billing_address = this.billingAddress;
+                this.formData.billing_address_id = this.billingAddressId;
+                this.formData.shipping_address = this.shippingAddress;
+                this.formData.shipping_address_id = this.shippingAddressId;
+                this.formData.payment_method = this.paymentInfo;
+                this.formData.payment_method_id = this.paymentMethodId;
+
+                //TODO Form Validation
+                this.orderProceed(this.formData)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 201){
+                            //TODO  Use Notify
+                            this.continueTab();
+                            alert(response.message);
+                        }else if(response.status === 'validation'){
+                            //TODO Validation Notify
+                            alert(response.message);
+                        }else {
+                            alert(response.message);
+                        }
+                    })
+            }
         },
         computed:{
             ...mapGetters([
@@ -112,6 +169,9 @@
                 'billingAddressId',
                 'shippingAddress',
                 'shippingAddressId',
+                'paymentInfo',
+                'paymentMethodId',
+
                 'billingTab',
                 'shoppingTab',
                 'methodTab',
@@ -119,7 +179,22 @@
             ]),
         },
         watch:{
-
+            'this.billingAddress':{
+                handler(newValue, oldValue){
+                    if(newValue !== oldValue){
+                        this.formData.billing_address = this.billingAddress;
+                        this.formData.billing_address_id =  this.billingAddressId;
+                    }
+                }
+            },
+            'this.shippingAddress':{
+                handler(newValue, oldValue){
+                    if(newValue !== oldValue){
+                        this.formData.shipping_address = this.shippingAddress;
+                        this.formData.shipping_address_id =  this.shippingAddressId;
+                    }
+                }
+            }
         }
     }
 </script>

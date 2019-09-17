@@ -2546,7 +2546,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       new_address: false
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeAddressInfo', 'addAddressInfo', 'getAddressInfo', 'closeTab']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeAddressInfo', 'addAddressInfo', 'getAddressInfo', 'tabChange']), {
     billingAddressStore: function billingAddressStore() {
       var _this = this;
 
@@ -2559,7 +2559,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             //TODO  Use Notify
             alert(response.message);
 
-            _this.closeBillingTab();
+            _this.continueTab();
           } else if (response.status === 'validation') {
             //TODO Validation Notify
             alert(response.message);
@@ -2570,7 +2570,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else if (this.save_address === false && this.new_address === true) {
         // TODO From Validation
         this.addAddressInfo(this.formData);
-        this.closeBillingTab();
+        this.continueTab();
       } else {
         var reqData = {
           address_id: this.billing_id,
@@ -2582,7 +2582,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             //TODO  Use Notify
             alert(response.message);
 
-            _this.closeBillingTab();
+            _this.continueTab();
           } else if (response.status === 'validation') {
             //TODO Validation Notify
             alert(response.message);
@@ -2592,16 +2592,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         });
       }
     },
-    closeBillingTab: function closeBillingTab() {
-      var data = {
-        billing: {
-          'tabAction': false
-        },
-        shopping: {
-          'tabAction': true
-        }
-      };
-      this.closeTab(data);
+    continueTab: function continueTab() {
+      var data = {};
+
+      if (this.formData.is_shipping === 1) {
+        data = {
+          billing: {
+            'tabAction': false
+          },
+          method: {
+            'tabAction': true
+          }
+        };
+      } else {
+        data = {
+          billing: {
+            'tabAction': false
+          },
+          shopping: {
+            'tabAction': true
+          }
+        };
+      }
+
+      this.tabChange(data);
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['addressList']), {
@@ -2737,8 +2751,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 
@@ -2751,15 +2763,89 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     BillingForm: _BillingForm__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
-    return {};
+    return {
+      formData: {
+        billing_address: {},
+        billing_address_id: '',
+        shipping_address: {},
+        shipping_address_id: '',
+        shipping_method: 1,
+        payment_method: '',
+        payment_method_id: ''
+      }
+    };
   },
   created: function created() {},
   mounted: function mounted() {
     this.getAddressBookList();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getAddressBookList'])),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal', 'billingAddress', 'billingAddressId', 'shippingAddress', 'shippingAddressId', 'billingTab', 'shoppingTab', 'methodTab', 'paymentTab'])),
-  watch: {}
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getAddressBookList', 'tabChange', 'orderProceed']), {
+    continueTab: function continueTab() {
+      var data = {
+        method: {
+          'tabAction': false
+        },
+        payment: {
+          'tabAction': true
+        }
+      };
+      this.tabChange(data);
+    },
+    backTab: function backTab() {
+      var data = {
+        method: {
+          'tabAction': false
+        },
+        shopping: {
+          'tabAction': true
+        }
+      };
+      this.tabChange(data);
+    },
+    proceedToOrder: function proceedToOrder() {
+      var _this = this;
+
+      this.formData.billing_address = this.billingAddress;
+      this.formData.billing_address_id = this.billingAddressId;
+      this.formData.shipping_address = this.shippingAddress;
+      this.formData.shipping_address_id = this.shippingAddressId;
+      this.formData.payment_method = this.paymentInfo;
+      this.formData.payment_method_id = this.paymentMethodId; //TODO Form Validation
+
+      this.orderProceed(this.formData).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 201) {
+          //TODO  Use Notify
+          _this.continueTab();
+
+          alert(response.message);
+        } else if (response.status === 'validation') {
+          //TODO Validation Notify
+          alert(response.message);
+        } else {
+          alert(response.message);
+        }
+      });
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal', 'billingAddress', 'billingAddressId', 'shippingAddress', 'shippingAddressId', 'paymentInfo', 'paymentMethodId', 'billingTab', 'shoppingTab', 'methodTab', 'paymentTab'])),
+  watch: {
+    'this.billingAddress': {
+      handler: function handler(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.formData.billing_address = this.billingAddress;
+          this.formData.billing_address_id = this.billingAddressId;
+        }
+      }
+    },
+    'this.shippingAddress': {
+      handler: function handler(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.formData.shipping_address = this.shippingAddress;
+          this.formData.shipping_address_id = this.shippingAddressId;
+        }
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -2773,6 +2859,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2813,8 +2904,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CheckoutSidebar"
+  name: "CheckoutSidebar",
+  data: function data() {
+    return {};
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['tabChange']), {
+    changeBillingAddress: function changeBillingAddress() {
+      var data = {
+        billing: {
+          'tabAction': true
+        },
+        shopping: {
+          'tabAction': false
+        },
+        method: {
+          'tabAction': false
+        },
+        payment: {
+          'tabAction': false
+        }
+      };
+      this.tabChange(data);
+    },
+    changeShippingAddress: function changeShippingAddress() {
+      var data = {
+        billing: {
+          'tabAction': false
+        },
+        shopping: {
+          'tabAction': true
+        },
+        method: {
+          'tabAction': false
+        },
+        payment: {
+          'tabAction': false
+        }
+      };
+      this.tabChange(data);
+    },
+    changeShippingMethod: function changeShippingMethod() {
+      var data = {
+        billing: {
+          'tabAction': false
+        },
+        shopping: {
+          'tabAction': false
+        },
+        method: {
+          'tabAction': true
+        },
+        payment: {
+          'tabAction': false
+        }
+      };
+      this.tabChange(data);
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['billingAddress', 'shippingAddress', 'paymentInfo']))
 });
 
 /***/ }),
@@ -2828,6 +2978,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2839,97 +2994,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+// TODO payment getwaye intregrate
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "PaymentMethod"
+  name: "PaymentMethod",
+  data: function data() {
+    return {
+      formData: {
+        payment_method_id: ''
+      }
+    };
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storePaymentMethod'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['paymentMethods']), {
+    formDataCheck: function formDataCheck() {
+      return JSON.parse(JSON.stringify(this.formData));
+    }
+  }),
+  watch: {
+    formDataCheck: {
+      handler: function handler(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.storePaymentMethod(this.formData);
+        }
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -3063,8 +3153,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       new_address: false
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeAddressInfo', 'addAddressInfo', 'getAddressInfo', 'closeTab']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeAddressInfo', 'addAddressInfo', 'getAddressInfo', 'tabChange']), {
     shippingAddressStore: function shippingAddressStore() {
+      var _this = this;
+
       this.btnDisabled = true;
 
       if (this.save_address === true && this.new_address === true) {
@@ -3072,6 +3164,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.storeAddressInfo(this.formData).then(function (response) {
           if (typeof response.code !== "undefined" && response.code === 201) {
             //TODO  Use Notify
+            _this.continueTab();
+
             alert(response.message);
           } else if (response.status === 'validation') {
             //TODO Validation Notify
@@ -3083,6 +3177,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else if (this.save_address === false && this.new_address === true) {
         // TODO From Validation
         this.addAddressInfo(this.formData);
+        this.continueTab();
       } else {
         var reqData = {
           address_id: this.shipping_id,
@@ -3093,6 +3188,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           if (typeof response.code !== "undefined" && response.code === 200) {
             //TODO  Use Notify
             alert(response.message);
+
+            _this.continueTab();
           } else if (response.status === 'validation') {
             //TODO Validation Notify
             alert(response.message);
@@ -3102,16 +3199,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         });
       }
     },
-    forwardTab: function forwardTab() {
+    continueTab: function continueTab() {
       var data = {
         billing: {
           'tabAction': false
         },
         shopping: {
+          'tabAction': false
+        },
+        method: {
           'tabAction': true
+        },
+        payment: {
+          'tabAction': false
         }
       };
-      this.closeTab(data);
+      this.tabChange(data);
     },
     backTab: function backTab() {
       var data = {
@@ -3122,7 +3225,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'tabAction': false
         }
       };
-      this.closeTab(data);
+      this.tabChange(data);
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['addressList']), {
@@ -42561,7 +42664,103 @@ var render = function() {
                 class: _vm.methodTab ? "show" : "hidden",
                 attrs: { id: "checkout-step-shipping_method" }
               },
-              [_vm._m(4)]
+              [
+                _c(
+                  "form",
+                  { attrs: { id: "co-shipping-method-form", action: "" } },
+                  [
+                    _c("fieldset", [
+                      _c(
+                        "div",
+                        { attrs: { id: "checkout-shipping-method-load" } },
+                        [
+                          _c("dl", { staticClass: "shipping-methods" }, [
+                            _c("dt", [_vm._v("Flat Rate")]),
+                            _vm._v(" "),
+                            _c("dd", [
+                              _c("ul", [
+                                _c("li", [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.formData.shipping_method,
+                                        expression: "formData.shipping_method"
+                                      }
+                                    ],
+                                    staticClass: "radio",
+                                    attrs: {
+                                      type: "radio",
+                                      name: "shipping_method",
+                                      id: "s_method_flatrate_flatrate",
+                                      checked: "checked"
+                                    },
+                                    domProps: {
+                                      value: _vm.formData.shipping_method,
+                                      checked: _vm._q(
+                                        _vm.formData.shipping_method,
+                                        _vm.formData.shipping_method
+                                      )
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.$set(
+                                          _vm.formData,
+                                          "shipping_method",
+                                          _vm.formData.shipping_method
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(4)
+                                ])
+                              ])
+                            ])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "buttons-set1",
+                          attrs: { id: "shipping-method-buttons-container" }
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "button",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.continueTab($event)
+                                }
+                              }
+                            },
+                            [_c("span", [_vm._v("Continue")])]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "back-link",
+                              attrs: {
+                                href: "#",
+                                onClick: "checkout.back(); return false;"
+                              }
+                            },
+                            [_vm._v("« Back")]
+                          )
+                        ]
+                      )
+                    ])
+                  ]
+                )
+              ]
             )
           ]
         ),
@@ -42597,7 +42796,37 @@ var render = function() {
           ]
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("ul", { staticClass: "checkout" }, [
+      _c("li", [
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "col-lg-6 col-lg-offset-5 col-md-6 col-md-offset-5 col-sm-12 "
+            },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "button btn-proceed-checkout",
+                  attrs: { title: "Proceed to Checkout", type: "button" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.proceedToOrder()
+                    }
+                  }
+                },
+                [_c("span", [_vm._v("Proceed to Order")])]
+              )
+            ]
+          )
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -42645,117 +42874,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "form",
-      { attrs: { id: "co-shipping-method-form", action: "" } },
-      [
-        _c("fieldset", [
-          _c("div", { attrs: { id: "checkout-shipping-method-load" } }, [
-            _c("dl", { staticClass: "shipping-methods" }, [
-              _c("dt", [_vm._v("Flat Rate")]),
-              _vm._v(" "),
-              _c("dd", [
-                _c("ul", [
-                  _c("li", [
-                    _c("input", {
-                      staticClass: "radio",
-                      attrs: {
-                        type: "radio",
-                        name: "shipping_method",
-                        value: "flatrate_flatrate",
-                        id: "s_method_flatrate_flatrate",
-                        checked: "checked"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      { attrs: { for: "s_method_flatrate_flatrate" } },
-                      [
-                        _vm._v("Fixed "),
-                        _c("span", { staticClass: "price" }, [_vm._v("$35.00")])
-                      ]
-                    )
-                  ])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              attrs: { id: "onepage-checkout-shipping-method-additional-load" }
-            },
-            [
-              _c("div", { staticClass: "add-gift-message" }, [
-                _c("h4", [_vm._v("Do you have any gift items in your order?")]),
-                _vm._v(" "),
-                _c("p", [
-                  _c("input", {
-                    staticClass: "checkbox",
-                    attrs: {
-                      type: "checkbox",
-                      name: "allow_gift_messages",
-                      id: "allow_gift_messages",
-                      value: "1",
-                      onClick:
-                        "toogleVisibilityOnObjects(this, ['allow-gift-message-container']);"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("label", { attrs: { for: "allow_gift_messages" } }, [
-                    _vm._v(
-                      "Check this checkbox if you want to add gift messages."
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "gift-message-form",
-                  staticStyle: { display: "none" },
-                  attrs: { id: "allow-gift-message-container" }
-                },
-                [_c("div", { staticClass: "inner-box" })]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "buttons-set1",
-              attrs: { id: "shipping-method-buttons-container" }
-            },
-            [
-              _c(
-                "button",
-                {
-                  staticClass: "button",
-                  attrs: { type: "button", onClick: "shippingMethod.save()" }
-                },
-                [_c("span", [_vm._v("Continue")])]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "back-link",
-                  attrs: {
-                    href: "#",
-                    onClick: "checkout.back(); return false;"
-                  }
-                },
-                [_vm._v("« Back")]
-              )
-            ]
-          )
-        ])
-      ]
-    )
+    return _c("label", { attrs: { for: "s_method_flatrate_flatrate" } }, [
+      _vm._v("Fixed "),
+      _c("span", { staticClass: "price" }, [_vm._v("$35.00")])
+    ])
   },
   function() {
     var _vm = this
@@ -42789,23 +42911,9 @@ var staticRenderFns = [
         attrs: { id: "payment-buttons-container" }
       },
       [
-        _c(
-          "button",
-          {
-            staticClass: "button",
-            attrs: { type: "button", onClick: "payment.save()" }
-          },
-          [_c("span", [_vm._v("Continue")])]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "back-link",
-            attrs: { href: "#", onClick: "checkout.back(); return false;" }
-          },
-          [_vm._v("« Back")]
-        )
+        _c("a", { staticClass: "back-link", attrs: { href: "#" } }, [
+          _vm._v("« Back")
+        ])
       ]
     )
   }
@@ -42831,117 +42939,175 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "block block-progress" }, [
+    _c("div", { staticClass: "block-title " }, [_vm._v("Your Checkout")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "block-content" }, [
+      _c("dl", [
+        _c("dt", { staticClass: "complete" }, [
+          _vm._v(" Billing Address "),
+          _c("span", { staticClass: "separator" }, [_vm._v("|")]),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              attrs: { href: "#billing" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.changeBillingAddress($event)
+                }
+              }
+            },
+            [_vm._v("Change")]
+          )
+        ]),
+        _vm._v(" "),
+        Object.entries(_vm.billingAddress).length !== 0 &&
+        _vm.billingAddress !== null
+          ? _c("dd", { staticClass: "complete" }, [
+              _c("address", [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.billingAddress.first_name) +
+                    " " +
+                    _vm._s(_vm.billingAddress.last_name)
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                    " + _vm._s(_vm.billingAddress.address)
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                    " + _vm._s(_vm.billingAddress.city)
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.billingAddress.state) +
+                    ",  " +
+                    _vm._s(_vm.billingAddress.postal_code)
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                    " + _vm._s(_vm.billingAddress.country)
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                    T: " +
+                    _vm._s(_vm.billingAddress.phone_no)
+                ),
+                _c("br")
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("dt", { staticClass: "complete" }, [
+          _vm._v(" Shipping Address "),
+          _c("span", { staticClass: "separator" }, [_vm._v("|")]),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              attrs: { href: "#payment" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.changeShippingAddress($event)
+                }
+              }
+            },
+            [_vm._v("Change")]
+          )
+        ]),
+        _vm._v(" "),
+        Object.entries(_vm.shippingAddress).length !== 0 &&
+        _vm.shippingAddress !== null
+          ? _c("dd", { staticClass: "complete" }, [
+              _c("address", [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.shippingAddress.first_name) +
+                    " " +
+                    _vm._s(_vm.shippingAddress.last_name)
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                    " + _vm._s(_vm.shippingAddress.address)
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                    " + _vm._s(_vm.shippingAddress.city)
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.shippingAddress.state) +
+                    ",  " +
+                    _vm._s(_vm.shippingAddress.postal_code)
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                    " + _vm._s(_vm.shippingAddress.country)
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                    T: " +
+                    _vm._s(_vm.shippingAddress.phone_no)
+                ),
+                _c("br")
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("dt", { staticClass: "complete" }, [
+          _vm._v(" Shipping Method "),
+          _c("span", { staticClass: "separator" }, [_vm._v("|")]),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              attrs: { href: "#shipping_method" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.changeShippingMethod($event)
+                }
+              }
+            },
+            [_vm._v("Change")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _c("dt", [_vm._v(" Payment Method ")]),
+        _vm._v(" "),
+        Object.entries(_vm.paymentInfo).length !== 0
+          ? _c("dd", { staticClass: "complete" }, [
+              _c("address", [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.paymentInfo) +
+                    "\n                "
+                )
+              ])
+            ])
+          : _vm._e()
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "block block-progress" }, [
-      _c("div", { staticClass: "block-title " }, [_vm._v("Your Checkout")]),
+    return _c("dd", { staticClass: "complete" }, [
+      _vm._v(" Flat Rate - Fixed "),
+      _c("br"),
       _vm._v(" "),
-      _c("div", { staticClass: "block-content" }, [
-        _c("dl", [
-          _c("dt", { staticClass: "complete" }, [
-            _vm._v(" Billing Address "),
-            _c("span", { staticClass: "separator" }, [_vm._v("|")]),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                attrs: {
-                  onClick: "checkout.gotoSection('billing'); return false;",
-                  href: "#billing"
-                }
-              },
-              [_vm._v("Change")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("dd", { staticClass: "complete" }, [
-            _c("address", [
-              _vm._v("\n                    Jon Doh"),
-              _c("br"),
-              _vm._v("\n                    Jollen Group LTD."),
-              _c("br"),
-              _vm._v("\n                    29 East Stree"),
-              _c("br"),
-              _vm._v("\n                    Behanam"),
-              _c("br"),
-              _vm._v("\n                    Huntsville,  Alabama, 35801"),
-              _c("br"),
-              _vm._v("\n                    United States"),
-              _c("br"),
-              _vm._v("\n                    T: 3349067 "),
-              _c("br"),
-              _vm._v("\n                    F: 2344532\n                ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("dt", { staticClass: "complete" }, [
-            _vm._v(" Shipping Address "),
-            _c("span", { staticClass: "separator" }, [_vm._v("|")]),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                attrs: {
-                  onClick: "checkout.gotoSection('shipping');return false;",
-                  href: "#payment"
-                }
-              },
-              [_vm._v("Change")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("dd", { staticClass: "complete" }, [
-            _c("address", [
-              _vm._v("\n                    Jon Doh"),
-              _c("br"),
-              _vm._v("\n                    Jollen Group LTD."),
-              _c("br"),
-              _vm._v("\n                    29 East Stree"),
-              _c("br"),
-              _vm._v("\n                    Behanam"),
-              _c("br"),
-              _vm._v("\n                    Huntsville,  Alabama, 35801"),
-              _c("br"),
-              _vm._v("\n                    United States"),
-              _c("br"),
-              _vm._v("\n                    T: 3349067 "),
-              _c("br"),
-              _vm._v("\n                    F: 2344532\n                ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("dt", { staticClass: "complete" }, [
-            _vm._v(" Shipping Method "),
-            _c("span", { staticClass: "separator" }, [_vm._v("|")]),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                attrs: {
-                  onClick:
-                    "checkout.gotoSection('shipping_method'); return false;",
-                  href: "#shipping_method"
-                }
-              },
-              [_vm._v("Change")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("dd", { staticClass: "complete" }, [
-            _vm._v(" Flat Rate - Fixed "),
-            _c("br"),
-            _vm._v(" "),
-            _c("span", { staticClass: "price" }, [_vm._v("$15.00")])
-          ]),
-          _vm._v(" "),
-          _c("dt", [_vm._v(" Payment Method ")])
-        ])
-      ])
+      _c("span", { staticClass: "price" }, [_vm._v("$15.00")])
     ])
   }
 ]
@@ -42966,340 +43132,51 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("form", { attrs: { action: "", id: "co-payment-form" } }, [
+    _vm.paymentMethods
+      ? _c(
+          "dl",
+          { attrs: { id: "checkout-payment-method-load" } },
+          _vm._l(_vm.paymentMethods, function(paymentMethod, index) {
+            return _c("dt", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.payment_method_id,
+                    expression: "formData.payment_method_id"
+                  }
+                ],
+                staticClass: "radio",
+                attrs: {
+                  type: "radio",
+                  id: "p_method_checkmo",
+                  name: "payment_method",
+                  title: paymentMethod
+                },
+                domProps: {
+                  value: index,
+                  checked: _vm._q(_vm.formData.payment_method_id, index)
+                },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.formData, "payment_method_id", index)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "p_method_checkmo" } }, [
+                _vm._v(_vm._s(paymentMethod))
+              ])
+            ])
+          }),
+          0
+        )
+      : _vm._e()
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("form", { attrs: { action: "", id: "co-payment-form" } }, [
-      _c("dl", { attrs: { id: "checkout-payment-method-load" } }, [
-        _c("dt", [
-          _c("input", {
-            staticClass: "radio",
-            attrs: {
-              type: "radio",
-              id: "p_method_checkmo",
-              value: "checkmo",
-              name: "payment[method]",
-              title: "Check / Money order",
-              onClick: "payment.switchMethod('checkmo')"
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "p_method_checkmo" } }, [
-            _vm._v("Check / Money order")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("dd", [_c("fieldset", { staticClass: "form-list" })]),
-        _vm._v(" "),
-        _c("dt", [
-          _c("input", {
-            staticClass: "radio",
-            attrs: {
-              type: "radio",
-              id: "p_method_ccsave",
-              value: "ccsave",
-              name: "payment[method]",
-              title: "Credit Card (saved)",
-              onClick: "payment.switchMethod('ccsave')"
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "p_method_ccsave" } }, [
-            _vm._v("Credit Card (saved)")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("dd", [
-          _c("fieldset", { staticClass: "form-list" }, [
-            _c(
-              "ul",
-              {
-                staticStyle: { display: "none" },
-                attrs: { id: "payment_form_ccsave" }
-              },
-              [
-                _c("li", [
-                  _c("div", { staticClass: "input-box" }, [
-                    _c("label", { attrs: { for: "ccsave_cc_owner" } }, [
-                      _vm._v("Name on Card "),
-                      _c("span", { staticClass: "required" }, [_vm._v("*")])
-                    ]),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "input-text required-entry",
-                      attrs: {
-                        type: "text",
-                        disabled: "",
-                        title: "Name on Card",
-                        id: "ccsave_cc_owner",
-                        name: "payment[cc_owner]",
-                        value: ""
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("div", { staticClass: "input-box" }, [
-                    _c("label", { attrs: { for: "ccsave_cc_type" } }, [
-                      _vm._v("Credit Card Type "),
-                      _c("span", { staticClass: "required" }, [_vm._v("*")])
-                    ]),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        staticClass: "required-entry validate-cc-type-select",
-                        attrs: {
-                          disabled: "",
-                          id: "ccsave_cc_type",
-                          name: "payment[cc_type]"
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "" } }, [
-                          _vm._v("--Please Select--")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "AE" } }, [
-                          _vm._v("American Express")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "VI" } }, [
-                          _vm._v("Visa")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "MC" } }, [
-                          _vm._v("MasterCard")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "DI" } }, [
-                          _vm._v("Discover")
-                        ])
-                      ]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("div", { staticClass: "input-box" }, [
-                    _c("label", { attrs: { for: "ccsave_cc_number" } }, [
-                      _vm._v("Credit Card Number "),
-                      _c("span", { staticClass: "required" }, [_vm._v("*")])
-                    ]),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass:
-                        "input-text validate-cc-number validate-cc-type",
-                      attrs: {
-                        type: "text",
-                        disabled: "",
-                        id: "ccsave_cc_number",
-                        name: "payment[cc_number]",
-                        title: "Credit Card Number",
-                        value: ""
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("div", { staticClass: "input-box" }, [
-                    _c("label", { attrs: { for: "ccsave_expiration" } }, [
-                      _vm._v("Expiration Date "),
-                      _c("span", { staticClass: "required" }, [_vm._v("*")])
-                    ]),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "v-fix" }, [
-                      _c(
-                        "select",
-                        {
-                          staticClass: "required-entry",
-                          staticStyle: { width: "140px" },
-                          attrs: {
-                            disabled: "",
-                            id: "ccsave_expiration",
-                            name: "payment[cc_exp_month]"
-                          }
-                        },
-                        [
-                          _c(
-                            "option",
-                            { attrs: { value: "", selected: "selected" } },
-                            [_vm._v("Month")]
-                          ),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "1" } }, [
-                            _vm._v("01 - January")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2" } }, [
-                            _vm._v("02 - February")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "3" } }, [
-                            _vm._v("03 - March")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "4" } }, [
-                            _vm._v("04 - April")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "5" } }, [
-                            _vm._v("05 - May")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "6" } }, [
-                            _vm._v("06 - June")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "7" } }, [
-                            _vm._v("07 - July")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "8" } }, [
-                            _vm._v("08 - August")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "9" } }, [
-                            _vm._v("09 - September")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "10" } }, [
-                            _vm._v("10 - October")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "11" } }, [
-                            _vm._v("11 - November")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "12" } }, [
-                            _vm._v("12 - December")
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "v-fix" }, [
-                      _c(
-                        "select",
-                        {
-                          staticClass: "required-entry",
-                          staticStyle: { width: "103px" },
-                          attrs: {
-                            disabled: "",
-                            id: "ccsave_expiration_yr",
-                            name: "payment[cc_exp_year]"
-                          }
-                        },
-                        [
-                          _c(
-                            "option",
-                            { attrs: { value: "", selected: "selected" } },
-                            [_vm._v("Year")]
-                          ),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2011" } }, [
-                            _vm._v("2011")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2012" } }, [
-                            _vm._v("2012")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2013" } }, [
-                            _vm._v("2013")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2014" } }, [
-                            _vm._v("2014")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2015" } }, [
-                            _vm._v("2015")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2016" } }, [
-                            _vm._v("2016")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2017" } }, [
-                            _vm._v("2017")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2018" } }, [
-                            _vm._v("2018")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2019" } }, [
-                            _vm._v("2019")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2020" } }, [
-                            _vm._v("2020")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2021" } }, [
-                            _vm._v("2021")
-                          ])
-                        ]
-                      )
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("div", { staticClass: "input-box" }, [
-                    _c("label", { attrs: { for: "ccsave_cc_cid" } }, [
-                      _vm._v("Card Verification Number "),
-                      _c("span", { staticClass: "required" }, [_vm._v("*")])
-                    ]),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "v-fix" }, [
-                      _c("input", {
-                        staticClass:
-                          "input-text required-entry validate-cc-cvn",
-                        staticStyle: { width: "3em" },
-                        attrs: {
-                          type: "text",
-                          disabled: "",
-                          title: "Card Verification Number",
-                          id: "ccsave_cc_cid",
-                          name: "payment[cc_cid]",
-                          value: ""
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "cvv-what-is-this", attrs: { href: "#" } },
-                      [_vm._v("What is this?")]
-                    )
-                  ])
-                ])
-              ]
-            )
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -43391,7 +43268,7 @@ var render = function() {
                             value: address.id,
                             selected: {
                               selected:
-                                index === 0 || _vm.billing_id === address.id
+                                index === 0 || _vm.shipping_id === address.id
                             }
                           }
                         },
@@ -60865,7 +60742,9 @@ var state = {
   shipping_address: {},
   shipping_address_id: '',
   shipping_method: '',
-  payment_info: '',
+  payment_info: {},
+  payment_method_id: '',
+  payment_methods: [],
   billing: true,
   shopping: false,
   method: false,
@@ -60887,6 +60766,15 @@ var getters = {
   },
   shippingAddressId: function shippingAddressId(state) {
     return state.shipping_address_id;
+  },
+  paymentMethods: function paymentMethods(state) {
+    return state.payment_methods;
+  },
+  paymentInfo: function paymentInfo(state) {
+    return state.payment_info;
+  },
+  paymentMethodId: function paymentMethodId(state) {
+    return state.payment_method_id;
   },
   billingTab: function billingTab(state) {
     return state.billing;
@@ -60932,7 +60820,7 @@ var actions = {
               _context.prev = 8;
               _context.t0 = _context["catch"](2);
               console.log(_context.t0);
-              return _context.abrupt("return", _context.t0);
+              return _context.abrupt("return", _context.t0.data);
 
             case 12:
             case "end":
@@ -60975,7 +60863,7 @@ var actions = {
               _context2.prev = 7;
               _context2.t0 = _context2["catch"](1);
               console.log(_context2.t0);
-              return _context2.abrupt("return", _context2.t0);
+              return _context2.abrupt("return", _context2.t0.data);
 
             case 11:
             case "end":
@@ -61001,19 +60889,23 @@ var actions = {
           switch (_context3.prev = _context3.next) {
             case 0:
               commit = _ref3.commit;
+              _context3.prev = 1;
+              commit('setAddressInfo', formData);
+              _context3.next = 9;
+              break;
 
-              try {
-                commit('setAddressInfo', formData);
-              } catch (e) {
-                console.log(error);
-              }
+            case 5:
+              _context3.prev = 5;
+              _context3.t0 = _context3["catch"](1);
+              console.log(error);
+              return _context3.abrupt("return", error.data);
 
-            case 2:
+            case 9:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3);
+      }, _callee3, null, [[1, 5]]);
     }));
 
     function addAddressInfo(_x4, _x5) {
@@ -61036,7 +60928,6 @@ var actions = {
               _context4.next = 4;
               return axios.get("/buyer/address-book/".concat(reqData.address_id, "/")).then(function (response) {
                 if (typeof response.data.code !== "undefined" && response.data.code === 200) {
-                  console.log(reqData);
                   var responseData = {
                     address: response.data.data,
                     reqData: reqData
@@ -61054,7 +60945,7 @@ var actions = {
               _context4.prev = 7;
               _context4.t0 = _context4["catch"](1);
               console.log(_context4.t0);
-              return _context4.abrupt("return", _context4.t0);
+              return _context4.abrupt("return", _context4.t0.data);
 
             case 11:
             case "end":
@@ -61070,14 +60961,87 @@ var actions = {
 
     return getAddressInfo;
   }(),
-  closeTab: function closeTab(_ref5, data) {
-    var commit = _ref5.commit;
-    commit('tabClose', data);
-  }
+  storePaymentMethod: function () {
+    var _storePaymentMethod = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, formData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit;
+              _context5.prev = 1;
+              commit('setPaymentMethodInfo', formData);
+              _context5.next = 9;
+              break;
+
+            case 5:
+              _context5.prev = 5;
+              _context5.t0 = _context5["catch"](1);
+              console.log(_context5.t0);
+              return _context5.abrupt("return", _context5.t0.data);
+
+            case 9:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[1, 5]]);
+    }));
+
+    function storePaymentMethod(_x8, _x9) {
+      return _storePaymentMethod.apply(this, arguments);
+    }
+
+    return storePaymentMethod;
+  }(),
+  tabChange: function tabChange(_ref6, data) {
+    var commit = _ref6.commit;
+    commit('setTabChange', data);
+  },
+  orderProceed: function () {
+    var _orderProceed = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(formData) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.prev = 0;
+              _context6.next = 3;
+              return axios.post('/buyer/order/store', formData).then(function (response) {
+                return response.data;
+              });
+
+            case 3:
+              return _context6.abrupt("return", _context6.sent);
+
+            case 6:
+              _context6.prev = 6;
+              _context6.t0 = _context6["catch"](0);
+              console.log(_context6.t0);
+              return _context6.abrupt("return", _context6.t0.data);
+
+            case 10:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, null, [[0, 6]]);
+    }));
+
+    function orderProceed(_x10) {
+      return _orderProceed.apply(this, arguments);
+    }
+
+    return orderProceed;
+  }()
 };
 var mutations = {
   setAddressBookList: function setAddressBookList(state, response) {
     state.address_list = response.address_list;
+    state.payment_methods = response.payment_methods;
   },
   updateAddressBook: function updateAddressBook(state, response) {
     var address = {
@@ -61119,7 +61083,12 @@ var mutations = {
       state.shipping_address_id = response.address.address_id;
     }
   },
-  tabClose: function tabClose(state, data) {
+  setPaymentMethodInfo: function setPaymentMethodInfo(state, response) {
+    //TODO payment Details after using payment gatwaye
+    state.payment_info = state.payment_methods[response.payment_method_id];
+    state.payment_method_id = response.payment_method_id;
+  },
+  setTabChange: function setTabChange(state, data) {
     if (data.billing) {
       state.billing = data.billing.tabAction;
     }
@@ -61380,7 +61349,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\larevel_ex\resources\views\templates\crocus_v2\vue\crocus_v2.js */"./resources/views/templates/crocus_v2/vue/crocus_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/crocus_v2/vue/crocus_v2.js */"./resources/views/templates/crocus_v2/vue/crocus_v2.js");
 
 
 /***/ })

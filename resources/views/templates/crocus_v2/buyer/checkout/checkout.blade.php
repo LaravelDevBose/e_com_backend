@@ -1,4 +1,4 @@
-@extends('templates.crocus_v2.layouts.buyer.master')
+@extends('templates.crocus_v2.layouts.frontend.master')
 
 @section('Title', 'Checkout')
 

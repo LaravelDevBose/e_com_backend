@@ -6,7 +6,9 @@ const state = {
     shipping_address:{},
     shipping_address_id:'',
     shipping_method:'',
-    payment_info:'',
+    payment_info:{},
+    payment_method_id:'',
+    payment_methods:[],
     billing:true,
     shopping:false,
     method:false,
@@ -20,6 +22,9 @@ const getters = {
     billingAddressId:(state)=>state.billing_address_id,
     shippingAddress:(state)=>state.shipping_address,
     shippingAddressId:(state)=>state.shipping_address_id,
+    paymentMethods:(state)=>state.payment_methods,
+    paymentInfo:state=>state.payment_info,
+    paymentMethodId:(state)=>state.payment_method_id,
     billingTab:(state)=>state.billing,
     shoppingTab:(state)=>state.shopping,
     methodTab:(state)=>state.method,
@@ -38,7 +43,7 @@ const actions = {
                 });
         }catch (error) {
             console.log(error);
-            return error;
+            return error.data;
         }
     },
 
@@ -53,7 +58,7 @@ const actions = {
                 });
         }catch (error) {
             console.log(error);
-            return error;
+            return error.data;
         }
     },
     async addAddressInfo({commit}, formData){
@@ -61,6 +66,7 @@ const actions = {
             commit('setAddressInfo', formData);
         }catch (e) {
             console.log(error);
+            return error.data;
         }
     },
     async getAddressInfo({commit},reqData){
@@ -68,7 +74,6 @@ const actions = {
             return await axios.get(`/buyer/address-book/${reqData.address_id}/`)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        console.log(reqData);
                         let responseData = {
                             address:response.data.data,
                             reqData: reqData,
@@ -79,17 +84,38 @@ const actions = {
                 });
         }catch (error) {
             console.log(error);
-            return error;
+            return error.data;
         }
     },
-    closeTab({commit},data){
-        commit('tabClose',data);
+    async storePaymentMethod({commit}, formData){
+        // TODO Payment method added
+        try {
+            commit('setPaymentMethodInfo', formData);
+        }catch (error) {
+            console.log(error);
+            return error.data;
+        }
+    },
+    tabChange({commit},data){
+        commit('setTabChange',data);
+    },
+    async orderProceed(formData){
+        try {
+            return await axios.post('/buyer/order/store',formData)
+                .then(response=>{
+                    return response.data;
+                });
+        }catch (error) {
+            console.log(error);
+            return error.data;
+        }
     }
 };
 
 const mutations = {
     setAddressBookList:(state,response)=> {
         state.address_list = response.address_list;
+        state.payment_methods = response.payment_methods;
     },
     updateAddressBook:(state,response)=> {
         let address = {
@@ -128,7 +154,12 @@ const mutations = {
             state.shipping_address_id  = response.address.address_id;
         }
     },
-    tabClose:(state,data)=>{
+    setPaymentMethodInfo:(state,response)=>{
+        //TODO payment Details after using payment gatwaye
+        state.payment_info = state.payment_methods[response.payment_method_id];
+        state.payment_method_id = response.payment_method_id;
+    },
+    setTabChange:(state,data)=>{
         if(data.billing){
             state.billing = data.billing.tabAction
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Buyer;
 
 use App\Helpers\TemplateHelper;
 use App\Models\AddressBook;
+use App\Models\PaymentInfo;
 use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -28,6 +29,7 @@ class CheckoutController extends Controller
             $address = AddressBook::addressBookSelect($addressBooks);
             $dataCollection = [
                 'address_list'=>$address,
+                'payment_methods'=>array_flip(PaymentInfo::Payment_Method),
             ];
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $dataCollection);
         }

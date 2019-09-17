@@ -7,7 +7,7 @@
                     <br>
                     <select name="shipping_address_id" v-model="shipping_id" id="shipping-address-select" class="address-select" title="">
                         <option :value="0">New Address</option>
-                        <option v-if="addressList" v-for="(address, index) in addressList"  :value="address.id" :selected="{selected:(index===0 || billing_id === address.id)}">{{ address.text }}</option>
+                        <option v-if="addressList" v-for="(address, index) in addressList"  :value="address.id" :selected="{selected:(index===0 || shipping_id === address.id)}">{{ address.text }}</option>
                     </select>
                 </li>
                 <li id="shipping-new-address-form" :class="new_address?'show':'hidden'">
@@ -119,7 +119,7 @@
                 'storeAddressInfo',
                 'addAddressInfo',
                 'getAddressInfo',
-                'closeTab',
+                'tabChange',
             ]),
             shippingAddressStore(){
                 this.btnDisabled = true;
@@ -129,8 +129,8 @@
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 201){
                                 //TODO  Use Notify
+                                this.continueTab();
                                 alert(response.message);
-                                this.forwardTab();
                             }else if(response.status === 'validation'){
                                 //TODO Validation Notify
                                 alert(response.message);
@@ -141,7 +141,7 @@
                 }else if(this.save_address === false && this.new_address === true){
                     // TODO From Validation
                     this.addAddressInfo(this.formData);
-                    this.forwardTab();
+                    this.continueTab();
                 }else{
                     let reqData = {
                         address_id: this.shipping_id,
@@ -154,7 +154,7 @@
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 //TODO  Use Notify
                                 alert(response.message);
-                                this.forwardTab();
+                                this.continueTab();
                             }else if(response.status === 'validation'){
                                 //TODO Validation Notify
                                 alert(response.message);
@@ -164,17 +164,23 @@
                         })
                 }
             },
-            forwardTab(){
+            continueTab(){
                 let data={
                     billing:{
                         'tabAction':false,
                     },
                     shopping:{
+                        'tabAction':false,
+                    },
+                    method:{
                         'tabAction':true,
+                    },
+                    payment:{
+                        'tabAction':false,
                     },
 
                 };
-                this.closeTab(data);
+                this.tabChange(data);
 
             },
             backTab(){
@@ -187,7 +193,7 @@
                     },
 
                 };
-                this.closeTab(data);
+                this.tabChange(data);
 
             }
         },
