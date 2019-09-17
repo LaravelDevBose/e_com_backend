@@ -5,12 +5,12 @@
                 <li>
                     <label for="billing-address-select">Select a billing address from your address book or enter a new address.</label>
                     <br>
-                    <select name="billing_address_id" id="billing-address-select" class="address-select" title="">
-                        <option value="">New Address</option>
-                        <option value="1" selected="selected">Jon D, Hunts Ville, MG, Alabama 46532, United States</option>
+                    <select name="billing_address_id" v-model="billing_id" id="billing-address-select" class="address-select" title="" >
+                        <option :value="0">New Address</option>
+                        <option v-if="addressList" v-for="(address, index) in addressList"  :value="address.id" :selected="{selected:(index===0 || billing_id === address.id)}">{{ address.text }}</option>
                     </select>
                 </li>
-                <li id="billing-new-address-form" >
+                <li id="billing-new-address-form" :class="new_address?'show':'hidden'">
                     <fieldset>
                         <legend>New Address</legend>
                         <ul>
@@ -81,14 +81,14 @@
                     </fieldset>
                 </li>
                 <li>
-                    <input type="radio" id="shipping_yes" v-model="formData.is_shipping" value="1" class="radio">
+                    <input type="radio" name="is_shipping" id="shipping_yes" v-model="formData.is_shipping" :value="1" class="radio">
                     <label for="shipping_yes">Ship to this address</label>
-                    <input type="radio" id="shipping_no" v-model="formData.is_shipping" value="0" :checked="{'checked':formData.is_shipping}" class="radio">
+                    <input type="radio" name="is_shipping" id="shipping_no" v-model="formData.is_shipping" :value="0" :checked="{'checked':formData.is_shipping}" class="radio">
                     <label for="shipping_no">Ship to different address</label>
                 </li>
             </ul>
             <p class="require"><em class="required">* </em>Required Fields</p>
-            <button type="submit" class="button continue"><span>Continue</span></button>
+            <button type="submit" :disabled="btnDisabled" class="button continue"><span>Continue</span></button>
         </fieldset>
     </form>
 </template>
@@ -104,8 +104,7 @@
                     first_name:'',
                     last_name:'',
                     phone_no:'',
-                    address1:'',
-                    address2:'',
+                    address:'',
                     city:'',
                     state:'',
                     postal_code:'',
@@ -114,28 +113,28 @@
                     is_shipping:0,
                 },
                 btnDisabled:false,
-                billing_address_id:'',
-                save_address:true,
+                billing_id:'',
+                save_address:false,
+                new_address:false,
             }
-        },
-        mounted(){
-
         },
         methods:{
             ...mapActions([
                 'storeAddressInfo',
+                'addAddressInfo',
+                'getAddressInfo',
+                'closeTab',
             ]),
             billingAddressStore(){
                 this.btnDisabled = true;
-                console.log(this.formData);
-
-                if(this.save_address){
+                if(this.save_address === true && this.new_address === true){
                     // TODO from validation
                     this.storeAddressInfo(this.formData)
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 201){
                                 //TODO  Use Notify
                                 alert(response.message);
+                                this.closeBillingTab();
                             }else if(response.status === 'validation'){
                                 //TODO Validation Notify
                                 alert(response.message);
@@ -143,9 +142,43 @@
                                 alert(response.message);
                             }
                         })
+                }else if(this.save_address === false && this.new_address === true){
+                    // TODO From Validation
+                    this.addAddressInfo(this.formData);
+                    this.closeBillingTab();
                 }else{
-                    console.log('not Saved');
+                    let reqData = {
+                        address_id: this.billing_id,
+                        is_shipping:this.formData.is_shipping,
+                        address_type: this.formData.address_type,
+                    };
+
+                    this.getAddressInfo(reqData)
+                        .then(response=>{
+                            if(typeof response.code !== "undefined" && response.code === 200){
+                                //TODO  Use Notify
+                                alert(response.message);
+                                this.closeBillingTab();
+                            }else if(response.status === 'validation'){
+                                //TODO Validation Notify
+                                alert(response.message);
+                            }else {
+                                alert(response.message);
+                            }
+                        })
                 }
+            },
+            closeBillingTab(){
+                let data={
+                    billing:{
+                        'tabAction':false,
+                    },
+                    shopping:{
+                        'tabAction':true,
+                    },
+
+                };
+                this.closeTab(data);
 
             }
         },
@@ -153,7 +186,6 @@
             ...mapGetters([
                 'addressList',
             ]),
-
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
             },
@@ -167,10 +199,36 @@
 
                 }
             },
+            addressList:{
+                handler(newVal, oldVal){
+                    if(newVal.length === 0){
+                        this.new_address = true;
+                    }
+
+                }
+            },
+            billing_id:{
+                handler(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        if(newVal === 0){
+                            this.new_address = true;
+                        }else{
+                            this.new_address = false;
+                        }
+                    }
+
+                }
+            },
         }
     }
 </script>
 
 <style scoped>
+    .show{
+        display: block;
+    }
+    .hidden{
+        display: none;
+    }
 
 </style>

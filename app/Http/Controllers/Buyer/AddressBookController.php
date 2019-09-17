@@ -107,9 +107,13 @@ class AddressBookController extends Controller
      * @param  \App\Models\AddressBook  $addressBook
      * @return \Illuminate\Http\Response
      */
-    public function show(AddressBook $addressBook)
-    {
-        //
+    public function show($address_id)
+    {   $addressBook = AddressBook::find($address_id);
+        if(!empty($addressBook)){
+            return ResponserTrait::singleResponse($addressBook, 'success', Response::HTTP_OK, 'Address Found');
+        }else{
+            return ResponserTrait::allResponse('success', Response::HTTP_BAD_REQUEST, 'Address Not Found');
+        }
     }
 
     /**
@@ -120,7 +124,7 @@ class AddressBookController extends Controller
      */
     public function edit(AddressBook $addressBook)
     {
-        //
+
     }
 
     /**
