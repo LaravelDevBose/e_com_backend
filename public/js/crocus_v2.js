@@ -3065,8 +3065,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeAddressInfo', 'addAddressInfo', 'getAddressInfo', 'closeTab']), {
     shippingAddressStore: function shippingAddressStore() {
-      var _this = this;
-
       this.btnDisabled = true;
 
       if (this.save_address === true && this.new_address === true) {
@@ -3075,8 +3073,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           if (typeof response.code !== "undefined" && response.code === 201) {
             //TODO  Use Notify
             alert(response.message);
-
-            _this.forwardTab();
           } else if (response.status === 'validation') {
             //TODO Validation Notify
             alert(response.message);
@@ -3087,7 +3083,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else if (this.save_address === false && this.new_address === true) {
         // TODO From Validation
         this.addAddressInfo(this.formData);
-        this.forwardTab();
       } else {
         var reqData = {
           address_id: this.shipping_id,
@@ -3098,8 +3093,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           if (typeof response.code !== "undefined" && response.code === 200) {
             //TODO  Use Notify
             alert(response.message);
-
-            _this.forwardTab();
           } else if (response.status === 'validation') {
             //TODO Validation Notify
             alert(response.message);
@@ -43332,7 +43325,12 @@ var render = function() {
     "form",
     {
       attrs: { action: "", id: "co-shipping-form" },
-      on: { submit: _vm.shippingAddressStore }
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.shippingAddressStore($event)
+        }
+      }
     },
     [
       _c("fieldset", { staticClass: "group-select" }, [

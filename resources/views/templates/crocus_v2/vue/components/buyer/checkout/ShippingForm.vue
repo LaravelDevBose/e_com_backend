@@ -1,5 +1,5 @@
 <template>
-    <form action="" id="co-shipping-form" @submit="shippingAddressStore">
+    <form action="" id="co-shipping-form" @submit.prevent="shippingAddressStore">
         <fieldset class="group-select">
             <ul>
                 <li>
