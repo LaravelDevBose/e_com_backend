@@ -1,13 +1,21 @@
 //declare State
 const state = {
-    cart_list:{},
-    total_cart:0,
+    carts:{},
+    qty:0,
+    weight:'',
+    subtotal:0,
+    discount:0,
+    total:0
 };
 
 //declare Getters
 const getters = {
-    cartList:(state)=>state.cart_list,
-    cartTotal:(state)=>state.total_cart,
+    cartList:(state)=>state.carts,
+    cartTotal:(state)=>state.qty,
+    cartWeight:(state)=>state.weight,
+    cartSubTotal:(state)=>state.subtotal,
+    cartDiscount:(state)=>state.discount,
+    cartTotalPrice:(state)=>state.total,
 };
 
 const actions = {
@@ -85,8 +93,12 @@ const actions = {
 
 const mutations = {
     setCartDetails:(state,response)=>{
-        state.cart_list = response;
-        state.total_cart = Object.keys(response).length;
+        state.carts = response.carts;
+        state.qty = response.qty;
+        state.weight = response.weight;
+        state.subtotal = response.subtotal;
+        state.discount = response.discount;
+        state.total = response.total;
     },
 };
 

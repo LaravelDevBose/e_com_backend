@@ -99,10 +99,11 @@ const actions = {
     tabChange({commit},data){
         commit('setTabChange',data);
     },
-    async orderProceed(formData){
+    async orderProceed({commit},formData){
         try {
             return await axios.post('/buyer/order/store',formData)
                 .then(response=>{
+                    commit('placeOrder', response);
                     return response.data;
                 });
         }catch (error) {
@@ -172,6 +173,9 @@ const mutations = {
         if(data.payment){
             state.payment = data.payment.tabAction
         }
+    },
+    placeOrder:(state,response)=>{
+        console.log(response);
     }
 };
 

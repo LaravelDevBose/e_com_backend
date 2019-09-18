@@ -2779,6 +2779,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.getAddressBookList();
   },
+  updated: function updated() {
+    if (this.cartTotal === 0) {
+      location.href = '/';
+    }
+  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getAddressBookList', 'tabChange', 'orderProceed']), {
     continueTab: function continueTab() {
       var data = {
@@ -2803,21 +2808,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.tabChange(data);
     },
     proceedToOrder: function proceedToOrder() {
-      var _this = this;
-
       this.formData.billing_address = this.billingAddress;
       this.formData.billing_address_id = this.billingAddressId;
       this.formData.shipping_address = this.shippingAddress;
       this.formData.shipping_address_id = this.shippingAddressId;
       this.formData.payment_method = this.paymentInfo;
-      this.formData.payment_method_id = this.paymentMethodId; //TODO Form Validation
+      this.formData.payment_method_id = this.paymentMethodId;
+      console.log(this.formData); //TODO Form Validation
 
       this.orderProceed(this.formData).then(function (response) {
         if (typeof response.code !== "undefined" && response.code === 201) {
           //TODO  Use Notify
-          _this.continueTab();
-
           alert(response.message);
+          setTimeout(function () {
+            location.href = '/';
+          }, 2000);
         } else if (response.status === 'validation') {
           //TODO Validation Notify
           alert(response.message);
@@ -2827,25 +2832,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal', 'billingAddress', 'billingAddressId', 'shippingAddress', 'shippingAddressId', 'paymentInfo', 'paymentMethodId', 'billingTab', 'shoppingTab', 'methodTab', 'paymentTab'])),
-  watch: {
-    'this.billingAddress': {
-      handler: function handler(newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.formData.billing_address = this.billingAddress;
-          this.formData.billing_address_id = this.billingAddressId;
-        }
-      }
-    },
-    'this.shippingAddress': {
-      handler: function handler(newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.formData.shipping_address = this.shippingAddress;
-          this.formData.shipping_address_id = this.shippingAddressId;
-        }
-      }
-    }
-  }
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal', 'billingAddress', 'billingAddressId', 'shippingAddress', 'shippingAddressId', 'paymentInfo', 'paymentMethodId', 'billingTab', 'shoppingTab', 'methodTab', 'paymentTab']))
 });
 
 /***/ }),
@@ -3559,6 +3546,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CartListTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CartListTable */ "./resources/views/templates/crocus_v2/vue/components/cart/CartListTable.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
 //
 //
 //
@@ -3606,11 +3602,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CartPage",
   components: {
     CartListTable: _CartListTable__WEBPACK_IMPORTED_MODULE_0__["default"]
-  }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['cartSubTotal', 'cartDiscount', 'cartTotalPrice']), {
+    proceedToCheckout: function proceedToCheckout() {
+      location.href = '/buyer/checkout';
+    }
+  })
 });
 
 /***/ }),
@@ -44358,7 +44360,89 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "table-responsive" }, [_c("cart-list-table")], 1),
     _vm._v(" "),
-    _vm._m(1)
+    _c("div", { staticClass: "cart-collaterals row" }, [
+      _c("div", { staticClass: "col-sm-4 col-sm-offset-8" }, [
+        _c("div", { staticClass: "totals" }, [
+          _c("h3", [_vm._v("Shopping Cart Total")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "inner" }, [
+            _c(
+              "table",
+              {
+                staticClass: "table shopping-cart-table-total",
+                attrs: { id: "shopping-cart-totals-table" }
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("tbody", [
+                  _c("tr", [
+                    _c(
+                      "td",
+                      { staticClass: "a-left", attrs: { colspan: "1" } },
+                      [_vm._v(" Subtotal ")]
+                    ),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "a-right" }, [
+                      _c("span", { staticClass: "price" }, [
+                        _vm._v("$ " + _vm._s(_vm.cartSubTotal))
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c(
+                      "td",
+                      { staticClass: "a-left", attrs: { colspan: "1" } },
+                      [_vm._v(" Discount  ")]
+                    ),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "a-right" }, [
+                      _c("span", { staticClass: "price" }, [
+                        _vm._v("$ " + _vm._s(_vm.cartDiscount))
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("tfoot", [
+                  _c("tr", [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "a-right" }, [
+                      _c("strong", [
+                        _c("span", { staticClass: "price" }, [
+                          _vm._v("$ " + _vm._s(_vm.cartTotalPrice))
+                        ])
+                      ])
+                    ])
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("ul", { staticClass: "checkout" }, [
+              _c("li", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "button btn-proceed-checkout",
+                    attrs: { title: "Proceed to Checkout", type: "button" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.proceedToCheckout($event)
+                      }
+                    }
+                  },
+                  [_c("span", [_vm._v("Proceed to Checkout")])]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -44374,72 +44458,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "cart-collaterals row" }, [
-      _c("div", { staticClass: "col-sm-4 col-sm-offset-8" }, [
-        _c("div", { staticClass: "totals" }, [
-          _c("h3", [_vm._v("Shopping Cart Total")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "inner" }, [
-            _c(
-              "table",
-              {
-                staticClass: "table shopping-cart-table-total",
-                attrs: { id: "shopping-cart-totals-table" }
-              },
-              [
-                _c("colgroup", [
-                  _c("col"),
-                  _vm._v(" "),
-                  _c("col", { attrs: { width: "1" } })
-                ]),
-                _vm._v(" "),
-                _c("tfoot", [
-                  _c("tr", [
-                    _c(
-                      "td",
-                      { staticClass: "a-left", attrs: { colspan: "1" } },
-                      [_c("strong", [_vm._v("Grand Total")])]
-                    ),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "a-right" }, [
-                      _c("strong", [
-                        _c("span", { staticClass: "price" }, [_vm._v("$77.38")])
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c(
-                      "td",
-                      { staticClass: "a-left", attrs: { colspan: "1" } },
-                      [_vm._v(" Subtotal ")]
-                    ),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "a-right" }, [
-                      _c("span", { staticClass: "price" }, [_vm._v("$77.38")])
-                    ])
-                  ])
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("ul", { staticClass: "checkout" }, [
-              _c("li", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "button btn-proceed-checkout",
-                    attrs: { title: "Proceed to Checkout", type: "button" }
-                  },
-                  [_c("span", [_vm._v("Proceed to Checkout")])]
-                )
-              ])
-            ])
-          ])
-        ])
-      ])
+    return _c("colgroup", [
+      _c("col"),
+      _vm._v(" "),
+      _c("col", { attrs: { width: "1" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "a-left", attrs: { colspan: "1" } }, [
+      _c("strong", [_vm._v("Grand Total")])
     ])
   }
 ]
@@ -60471,16 +60501,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  cart_list: {},
-  total_cart: 0
+  carts: {},
+  qty: 0,
+  weight: '',
+  subtotal: 0,
+  discount: 0,
+  total: 0
 }; //declare Getters
 
 var getters = {
   cartList: function cartList(state) {
-    return state.cart_list;
+    return state.carts;
   },
   cartTotal: function cartTotal(state) {
-    return state.total_cart;
+    return state.qty;
+  },
+  cartWeight: function cartWeight(state) {
+    return state.weight;
+  },
+  cartSubTotal: function cartSubTotal(state) {
+    return state.subtotal;
+  },
+  cartDiscount: function cartDiscount(state) {
+    return state.discount;
+  },
+  cartTotalPrice: function cartTotalPrice(state) {
+    return state.total;
   }
 };
 var actions = {
@@ -60704,8 +60750,12 @@ var actions = {
 };
 var mutations = {
   setCartDetails: function setCartDetails(state, response) {
-    state.cart_list = response;
-    state.total_cart = Object.keys(response).length;
+    state.carts = response.carts;
+    state.qty = response.qty;
+    state.weight = response.weight;
+    state.subtotal = response.subtotal;
+    state.discount = response.discount;
+    state.total = response.total;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -61003,35 +61053,38 @@ var actions = {
   orderProceed: function () {
     var _orderProceed = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(formData) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref7, formData) {
+      var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
-              _context6.prev = 0;
-              _context6.next = 3;
+              commit = _ref7.commit;
+              _context6.prev = 1;
+              _context6.next = 4;
               return axios.post('/buyer/order/store', formData).then(function (response) {
+                commit('placeOrder', response);
                 return response.data;
               });
 
-            case 3:
+            case 4:
               return _context6.abrupt("return", _context6.sent);
 
-            case 6:
-              _context6.prev = 6;
-              _context6.t0 = _context6["catch"](0);
+            case 7:
+              _context6.prev = 7;
+              _context6.t0 = _context6["catch"](1);
               console.log(_context6.t0);
               return _context6.abrupt("return", _context6.t0.data);
 
-            case 10:
+            case 11:
             case "end":
               return _context6.stop();
           }
         }
-      }, _callee6, null, [[0, 6]]);
+      }, _callee6, null, [[1, 7]]);
     }));
 
-    function orderProceed(_x10) {
+    function orderProceed(_x10, _x11) {
       return _orderProceed.apply(this, arguments);
     }
 
@@ -61104,6 +61157,9 @@ var mutations = {
     if (data.payment) {
       state.payment = data.payment.tabAction;
     }
+  },
+  placeOrder: function placeOrder(state, response) {
+    console.log(response);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

@@ -22,8 +22,18 @@ class CartController extends Controller
         $this->template_name = TemplateHelper::templateName();
     }
 
+    private function cart_content(){
+        return [
+            'carts'=>Cart::content(),
+            'weight'=>Cart::weight(),
+            'qty'=>Cart::count(),
+            'subtotal'=>Cart::subtotal(),
+            'discount'=>Cart::discount(),
+            'total'=>Cart::total(),
+        ];
+    }
     public function cart_details(){
-        $carts = Cart::content();
+        $carts = $this->cart_content();
         if(!empty($carts)){
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $carts);
         }else{
@@ -58,7 +68,7 @@ class CartController extends Controller
 
                 if(!empty($cart)){
                     DB::commit();
-                    $carts = Cart::content();
+                    $carts = $this->cart_content();
                     return ResponserTrait::singleResponse($carts, 'success', Response::HTTP_OK, 'Product Add To Cart Successfully');
                 }else{
                     throw new Exception('Invalid Information!', Response::HTTP_BAD_REQUEST);
@@ -89,7 +99,7 @@ class CartController extends Controller
 
                 if(!empty($cart)){
                     DB::commit();
-                    $carts = Cart::content();
+                    $carts = $this->cart_content();
                     return ResponserTrait::singleResponse($carts, 'success', Response::HTTP_OK, 'Product Update Cart Successfully');
                 }else{
                     throw new Exception('Invalid Information!', Response::HTTP_BAD_REQUEST);
@@ -108,7 +118,7 @@ class CartController extends Controller
         try{
             $cartRemove = Cart::remove($rowId);
             if(empty($cartRemove)){
-                $carts = Cart::content();
+                $carts = $this->cart_content();
                 return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Remove From Cart.', $carts);
             }else{
                 throw new Exception('Product Not Remove From Cart', Response::HTTP_BAD_REQUEST);

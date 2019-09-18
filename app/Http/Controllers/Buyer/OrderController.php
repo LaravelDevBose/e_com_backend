@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Buyer;
 use App\Helpers\TemplateHelper;
 use App\Models\BillingInfo;
 use App\Models\OrderItem;
+use App\Models\PaymentInfo;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\ShippingInfo;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use mysql_xdevapi\Collection;
 
 class OrderController extends Controller
 {
@@ -35,15 +37,10 @@ class OrderController extends Controller
         }
         // TODO check Validation
         $validator = Validator::make($request->all(),[
-            'first_name'=>'required|string',
-            'last_name'=>'required|string',
-            'phone_no'=>'required|string',
-            'address'=>'required|string',
-            'city'=>'required|string',
-            'state'=>'required|string',
-            'postal_code'=>'required|string',
-            'country'=>'required|string',
-            'address_type'=>'required',
+            'billing_address'=>'required|array',
+            'shipping_address'=>'required|array',
+            'shipping_method'=>'required',
+            'payment_method_id'=>'required',
         ]);
 
         if($validator->passes()){
@@ -87,7 +84,7 @@ class OrderController extends Controller
                                 'color_id'=>(!empty($cart->options->color_id))?$cart->options->color_id:null,
                                 'color'=>(!empty($cart->options->color))?$cart->options->color:null,
                                 'brand_id'=>$product->brand_id,
-                                'brand'=>$product->brand->brand_name,
+                                'brand'=>(!empty($product->brand))?$product->brand->brand_name:'',
                                 'qty'=>$cart->qty,
                                 'subtotal'=>($cart->qty*$cart->price),
                                 'discount'=>0,
@@ -104,7 +101,8 @@ class OrderController extends Controller
 
                     if(!empty($orderItems)){
                         // TODO store order billing details
-                        $billingInfo = $request->get('billing_address');
+                        $billingInfo = (Object) $request->get('billing_address');
+
                         $billing = BillingInfo::create([
                             'order_id'=>$order->order_id,
                             'buyer_id'=>$buyer->buyer_id,
@@ -120,7 +118,7 @@ class OrderController extends Controller
                         ]);
 
                         // TODO store order shipping details
-                        $shippingInfo = $request->get('shipping_address');
+                        $shippingInfo = (Object) $request->get('shipping_address');
                         $shipping = ShippingInfo::create([
                             'order_id'=>$order->order_id,
                             'buyer_id'=>$buyer->buyer_id,
@@ -135,22 +133,29 @@ class OrderController extends Controller
                             'country'=>$shippingInfo->country,
                         ]);
                         // TODO store order payment details
+                        $payment = PaymentInfo::create([
+                            'order_id'=>$order->order_id,
+                            'buyer_id'=>$buyer->buyer_id,
+                            'total_price'=>$order->total,
+                            'invoice_no'=>uniqid(),
+                            'paid_by'=>$request->payment_method_id,
+                            'payment_track_id'=>null,
+                            'paid_at'=>now(),
+                            'payment_status'=>config('app.active'),
+                        ]);
 
                         // TODO Sent invoice to buyer email address
 
                         // TODO return buyer panel invoice page
+                        DB::commit();
+                        Cart::destroy();
+                        return ResponserTrait::allResponse('success', Response::HTTP_CREATED, 'Your Order Place Successfully');
                     }else{
                         throw new \Exception('Order Item Not Insert.', Response::HTTP_BAD_REQUEST);
                     }
 
-                }
-
-
-                if($address){
-                    DB::commit();
-                    return ResponserTrait::singleResponse($address, 'success', Response::HTTP_OK,'Address Store Successfully');
                 }else{
-                    throw new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
+                    throw new \Exception('Order Not Place.Error Found.', Response::HTTP_BAD_REQUEST);
                 }
 
             }catch (\Exception $ex){

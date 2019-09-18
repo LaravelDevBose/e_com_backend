@@ -105,6 +105,11 @@
         mounted() {
             this.getAddressBookList();
         },
+        updated(){
+            if(this.cartTotal === 0){
+                location.href = '/';
+            }
+        },
         methods:{
             ...mapActions([
                 'getAddressBookList',
@@ -144,14 +149,16 @@
                 this.formData.shipping_address_id = this.shippingAddressId;
                 this.formData.payment_method = this.paymentInfo;
                 this.formData.payment_method_id = this.paymentMethodId;
-
+                console.log(this.formData);
                 //TODO Form Validation
                 this.orderProceed(this.formData)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 201){
                             //TODO  Use Notify
-                            this.continueTab();
                             alert(response.message);
+                            setTimeout(function () {
+                                location.href = '/';
+                            },2000);
                         }else if(response.status === 'validation'){
                             //TODO Validation Notify
                             alert(response.message);
@@ -177,24 +184,6 @@
                 'methodTab',
                 'paymentTab',
             ]),
-        },
-        watch:{
-            'this.billingAddress':{
-                handler(newValue, oldValue){
-                    if(newValue !== oldValue){
-                        this.formData.billing_address = this.billingAddress;
-                        this.formData.billing_address_id =  this.billingAddressId;
-                    }
-                }
-            },
-            'this.shippingAddress':{
-                handler(newValue, oldValue){
-                    if(newValue !== oldValue){
-                        this.formData.shipping_address = this.shippingAddress;
-                        this.formData.shipping_address_id =  this.shippingAddressId;
-                    }
-                }
-            }
         }
     }
 </script>

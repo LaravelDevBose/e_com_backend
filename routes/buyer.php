@@ -22,6 +22,8 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
 
     Route::get('checkout', 'CheckoutController@index')->name('checkout');
 
+    Route::post('/order/store', 'OrderController@order_store')->name('order.store');
+
     /**** Address Book Route List ****/
     Route::get('address-book/list', 'AddressBookController@index')->name('address.book');
     Route::post('address-book', 'AddressBookController@store');

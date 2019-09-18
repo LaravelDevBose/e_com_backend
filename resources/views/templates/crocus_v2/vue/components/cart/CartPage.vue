@@ -17,22 +17,26 @@
                                 <col>
                                 <col width="1">
                             </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td colspan="1" class="a-left" style=""> Subtotal </td>
+                                    <td class="a-right" style=""><span class="price">$ {{ cartSubTotal }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" class="a-left" style=""> Discount  </td>
+                                    <td class="a-right" style=""><span class="price">$ {{ cartDiscount }}</span></td>
+                                </tr>
+                            </tbody>
                             <tfoot>
                             <tr>
                                 <td colspan="1" class="a-left" style=""><strong>Grand Total</strong></td>
-                                <td class="a-right" style=""><strong><span class="price">$77.38</span></strong></td>
+                                <td class="a-right" style=""><strong><span class="price">$ {{ cartTotalPrice }}</span></strong></td>
                             </tr>
                             </tfoot>
-                            <tbody>
-                            <tr>
-                                <td colspan="1" class="a-left" style=""> Subtotal </td>
-                                <td class="a-right" style=""><span class="price">$77.38</span></td>
-                            </tr>
-                            </tbody>
                         </table>
                         <ul class="checkout">
                             <li>
-                                <button class="button btn-proceed-checkout" title="Proceed to Checkout" type="button"><span>Proceed to Checkout</span></button>
+                                <button @click.prevent="proceedToCheckout" class="button btn-proceed-checkout" title="Proceed to Checkout" type="button"><span>Proceed to Checkout</span></button>
                             </li>
                         </ul>
                     </div>
@@ -46,9 +50,20 @@
 
 <script>
     import CartListTable from "./CartListTable";
+    import {mapGetters} from 'vuex';
     export default {
         name: "CartPage",
-        components: {CartListTable}
+        components: {CartListTable},
+        computed:{
+            ...mapGetters([
+                'cartSubTotal',
+                'cartDiscount',
+                'cartTotalPrice',
+            ]),
+            proceedToCheckout(){
+                location.href = '/buyer/checkout';
+            }
+        }
     }
 </script>
 
