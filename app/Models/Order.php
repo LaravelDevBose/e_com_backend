@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -39,6 +40,20 @@ class Order extends Model
         'delivery_date',
         'delivery_media',
     ];
+
+    protected $appends = array('status_label');
+
+    public function scopeOrderStatus($query, $status){
+        return $query->where('order_status', $status);
+    }
+    public function getOrderDateAttribute(){
+        return Carbon::parse($this->attributes['order_date'])->format('d M Y');
+    }
+
+    public function getStatusLabelAttribute(){
+        $status = array_flip(Self::OrderStatus);
+        return $status[$this->attributes['order_status']];
+    }
 
     public function buyer(){
         return $this->belongsTo(Buyer::class, 'buyer_id', 'buyer_id');

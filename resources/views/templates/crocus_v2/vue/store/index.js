@@ -9,6 +9,8 @@ import product from "./modules/product";
 import wishList from "./modules/wishList";
 import cart from "./modules/cart";
 import checkout from "./modules/checkout";
+import order from "./modules/order";
+
 
 export default new Vuex.Store({
     state:{
@@ -33,6 +35,7 @@ export default new Vuex.Store({
         wishList,
         cart,
         checkout,
+        order,
     }
 })
 

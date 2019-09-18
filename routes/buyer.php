@@ -11,7 +11,6 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
     Route::get('account/information', 'HomeController@account_information')->name('account.info');
     Route::get('edit/contact-info', 'HomeController@edit_contact_info')->name('contact_info.edit');
     Route::get('change-password', 'HomeController@change_password')->name('change.password');
-    Route::get('my-orders', 'HomeController@my_orders')->name('myOrders');
     Route::get('product-reviews', 'HomeController@my_product_reviews')->name('reviews');
     Route::get('wish-list', 'HomeController@my_wishlist')->name('wish_list');
 
@@ -22,7 +21,12 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
 
     Route::get('checkout', 'CheckoutController@index')->name('checkout');
 
+    /*** Buyer Order Route List ***/
+    Route::get('my-orders', 'OrderController@index')->name('order.index');
     Route::post('/order/store', 'OrderController@order_store')->name('order.store');
+    Route::get('/order/list', 'OrderController@order_list');
+    Route::get('/order/{order_no}/show', 'OrderController@show')->name('order.show');
+
 
     /**** Address Book Route List ****/
     Route::get('address-book/list', 'AddressBookController@index')->name('address.book');

@@ -12,8 +12,8 @@
                  <li class="@yield('AddressBook')">
                      <a href="{{ route('buyer.address.book') }}">Address Book</a>
                  </li>
-                 <li class="@yield('MyOrders')">
-                     <a href="{{ route('buyer.myOrders') }}">My Orders</a>
+                 <li class="@yield('buyer.order.index')">
+                     <a href="{{ route('buyer.order.index') }}">My Orders</a>
                  </li>
                  <li class="@yield('ProductReviews')">
                      <a href="{{ route('buyer.reviews') }}">My Product Reviews</a>

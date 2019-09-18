@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Buyer;
 
+use App\Helpers\OrderHelper;
 use App\Helpers\TemplateHelper;
 use App\Models\BillingInfo;
 use App\Models\OrderItem;
@@ -17,7 +18,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use mysql_xdevapi\Collection;
 
 class OrderController extends Controller
 {
@@ -29,6 +29,29 @@ class OrderController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(Request $request){
+        return view('templates.'.$this->template_name.'.buyer.order.my_orders');
+    }
+
+    public function order_list(Request $request){
+        $orders = OrderHelper::order_list($request);
+        if(!empty($orders)){
+            // TODO Order Collection added
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $orders);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_OK, 'No Order Found');
+        }
+    }
+
+    public function show(Request $request, $order_no){
+
+        if($request->ajax()){
+            // TODO Order Details info Return
+        }
+        return view('template.'.$this->template_name.'order.show',[
+            'order_no'=>$order_no,
+        ]);
+    }
 
     public function order_store(Request $request){
         // TODO check Cart is empty or not

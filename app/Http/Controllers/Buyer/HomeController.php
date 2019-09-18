@@ -37,10 +37,7 @@ class HomeController extends Controller
 
         return view('templates.'.$this->template_name.'.buyer.home.dashboard');
     }
-    public function my_orders(){
 
-        return view('templates.'.$this->template_name.'.buyer.my_orders');
-    }
     public function my_product_reviews(){
 
         return view('templates.'.$this->template_name.'.buyer.my_product_reviews');
