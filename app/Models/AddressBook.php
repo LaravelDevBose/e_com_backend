@@ -85,4 +85,12 @@ class AddressBook extends Model
     public function buyer(){
         return $this->belongsTo(Buyer::class, 'buyer_id', 'buyer_id');
     }
+
+    public function billingInfos(){
+        return $this->hasMany(BillingInfo::class, 'address_id', 'address_id');
+    }
+
+    public function shippingInfos(){
+        return $this->hasMany(ShippingInfo::class, 'address_id', 'address_id');
+    }
 }

@@ -16,4 +16,23 @@ class PaymentInfo extends Model
 
     protected $primaryKey = 'payment_id';
 
+    protected $fillable = [
+        'order_id',
+        'buyer_id',
+        'total_price',
+        'invoice_no',
+        'paid_by',
+        'payment_track_id',
+        'paid_at',
+        'payment_status',
+    ];
+
+
+    public function order(){
+        return $this->belongsTo(Order::class, 'order_id', 'order_id');
+    }
+    public function buyer(){
+        return $this->belongsTo(Buyer::class, 'buyer_id', 'buyer_id');
+    }
+
 }

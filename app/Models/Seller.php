@@ -27,4 +27,8 @@ class Seller extends User
     public function products(){
         return $this->hasMany(Product::class, 'seller_id', 'seller_id');
     }
+
+    public function orderItems(){
+        return $this->hasMany(OrderItem::class, 'seller_id', 'seller_id');
+    }
 }

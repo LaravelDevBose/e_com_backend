@@ -14,11 +14,18 @@ class CreatePaymentInfosTable extends Migration
     public function up()
     {
         Schema::create('payment_infos', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('payment_id');
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('buyer_id');
+            $table->decimal('total_price');
+            $table->string('invoice_no')->nullable();
+            $table->string('paid_by')->nullable();
+            $table->string('payment_track_id')->nullable();
+            $table->string('paid_at')->nullable();
+            $table->boolean('payment_status')->default(config('app.inactive'));
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
