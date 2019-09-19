@@ -17,15 +17,12 @@
                         <div class="form-group">
                             <input type="text" id="filter" class="form-control" v-model="filter" placeholder="Filter">
                         </div>
-                        <div class="form-group">
-                            <vue-select2 v-model="per_page" :options="perPages"></vue-select2>
-                        </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div id="table" class="col-xs-12 table-responsive">
-                        <datatable class="table-bordered table-striped" :columns="columns" :data="products" :filter-by="filter"></datatable>
+                        <datatable class="table-bordered table-striped" :columns="columns" :data="orders" :filter-by="filter"></datatable>
                     </div>
                 </div>
 

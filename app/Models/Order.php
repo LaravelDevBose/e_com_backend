@@ -49,6 +49,12 @@ class Order extends Model
     public function getOrderDateAttribute(){
         return Carbon::parse($this->attributes['order_date'])->format('d M Y');
     }
+    public function getSubTotalAttribute(){
+        return number_format($this->attributes['sub_total'], 2);
+    }
+    public function getTotalAttribute(){
+        return number_format($this->attributes['total'], 2);
+    }
 
     public function getStatusLabelAttribute(){
         $status = array_flip(Self::OrderStatus);

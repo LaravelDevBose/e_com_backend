@@ -42,6 +42,14 @@
                     <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
                     <li ><a href="{{ route('admin.home') }}"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                     <li>
+                        <a href="#"><i class="icon-cart"></i> <span>Order</span></a>
+                        <ul>
+                            <li><a href="{{ route('admin.order.latest') }}"><i class="icon-list-numbered"></i>Latest Order</a></li>
+                            <li><a href="{{ route('admin.order.index') }}"><i class="icon-plus2"></i> Manage Order</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
                         <a href="#"><i class="icon-cart"></i> <span>Product</span></a>
                         <ul>
                             <li><a href="{{ route('admin.product.index') }}"><i class="icon-list-numbered"></i>Manage Product</a></li>

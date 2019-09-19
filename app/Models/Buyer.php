@@ -16,6 +16,9 @@ class Buyer extends User
         'buyer_address',
         'buyer_status',
     ];
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
+    }
 
     public function wishList(){
         return $this->hasMany(WishList::class, 'buyer_id', 'buyer_id');

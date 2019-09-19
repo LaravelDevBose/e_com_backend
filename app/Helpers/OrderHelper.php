@@ -11,7 +11,7 @@ class OrderHelper
     public static function order_list($request=null){
         $request = (Object) $request;
 
-        $orders = Order::with('buyer', 'orderItems', 'billing', 'shipping');
+        $orders = Order::with('buyer.user', 'orderItems', 'billing', 'shipping');
 
         if(!empty($request->buyer_id)){
             $orders = $orders->where('buyer_id', auth()->guard('web')->user()->buyer->buyer_id);

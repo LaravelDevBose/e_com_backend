@@ -81,7 +81,12 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::post('/logo/store', 'SettingController@logo_image_store');
     });
 
-
+    Route::get('order', 'OrderController@index')->name('order.index');
+    Route::get('order/latest', 'OrderController@latest_order')->name('order.latest');
+    Route::post('order/list', 'OrderController@order_list')->name('order.list');
+    Route::get('order/status', 'OrderController@order_status');
+    Route::get('order/{order_no}/show', 'OrderController@show')->name('order.show');
+    Route::post('/order/status/update', 'OrderController@update_order_status')->name('order.status.update');
 
 });
 
