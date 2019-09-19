@@ -49,7 +49,8 @@
         },
         computed:{
             ...mapGetters([
-                'orderList'
+                'orderList',
+                'pagination'
             ])
         }
     }

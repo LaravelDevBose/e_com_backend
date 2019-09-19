@@ -3313,6 +3313,58 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _OrderListTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OrderListTable */ "./resources/views/templates/crocus_v2/vue/components/buyer/order/OrderListTable.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "MyOrderPage",
+  components: {
+    OrderListTable: _OrderListTable__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      reqData: {
+        buyer_id: 'buyer',
+        paginate: 5,
+        order_by: 'desc'
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.getOrderList(this.reqData);
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getOrderList']))
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/order/OrderListTable.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/order/OrderListTable.vue?vue&type=script&lang=js& ***!
@@ -3374,7 +3426,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       location.href = "/buyer/order/".concat(order_no, "/show");
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['orderList']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['orderList', 'pagination']))
 });
 
 /***/ }),
@@ -44005,6 +44057,45 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue?vue&type=template&id=a95e4070&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue?vue&type=template&id=a95e4070&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "my-account" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "dashboard" }, [
+      _c("div", { staticClass: "recent-orders" }, [_c("order-list-table")], 1)
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "page-title" }, [
+      _c("h2", [_vm._v("My Orders")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/order/OrderListTable.vue?vue&type=template&id=5ea8ef4a&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/order/OrderListTable.vue?vue&type=template&id=5ea8ef4a&scoped=true& ***!
@@ -59130,6 +59221,7 @@ var map = {
 	"./components/buyer/checkout/PaymentMethod.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/PaymentMethod.vue",
 	"./components/buyer/checkout/ShippingForm.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/ShippingForm.vue",
 	"./components/buyer/dashboard/BuyerDashboardPage.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/dashboard/BuyerDashboardPage.vue",
+	"./components/buyer/order/MyOrderPage.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue",
 	"./components/buyer/order/OrderListTable.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/order/OrderListTable.vue",
 	"./components/buyer/wishList/WishListProducts.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/wishList/WishListProducts.vue",
 	"./components/cart/CartListTable.vue": "./resources/views/templates/crocus_v2/vue/components/cart/CartListTable.vue",
@@ -60040,6 +60132,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BuyerDashboardPage_vue_vue_type_template_id_ac74adfa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BuyerDashboardPage_vue_vue_type_template_id_ac74adfa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue":
+/*!****************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MyOrderPage_vue_vue_type_template_id_a95e4070_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MyOrderPage.vue?vue&type=template&id=a95e4070&scoped=true& */ "./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue?vue&type=template&id=a95e4070&scoped=true&");
+/* harmony import */ var _MyOrderPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MyOrderPage.vue?vue&type=script&lang=js& */ "./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MyOrderPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MyOrderPage_vue_vue_type_template_id_a95e4070_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MyOrderPage_vue_vue_type_template_id_a95e4070_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "a95e4070",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MyOrderPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./MyOrderPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MyOrderPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue?vue&type=template&id=a95e4070&scoped=true&":
+/*!***********************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue?vue&type=template&id=a95e4070&scoped=true& ***!
+  \***********************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyOrderPage_vue_vue_type_template_id_a95e4070_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./MyOrderPage.vue?vue&type=template&id=a95e4070&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue?vue&type=template&id=a95e4070&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyOrderPage_vue_vue_type_template_id_a95e4070_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyOrderPage_vue_vue_type_template_id_a95e4070_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -61648,7 +61809,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //declare State
 var state = {
   orders: {},
-  order_info: {}
+  order_info: {},
+  order_paginate: {}
 }; //declare Getters
 
 var getters = {
@@ -61657,25 +61819,26 @@ var getters = {
   },
   orderInfo: function orderInfo(state) {
     return state.order_info;
+  },
+  pagination: function pagination(state) {
+    return state.order_paginate;
   }
 };
 var actions = {
   getOrderList: function () {
     var _getOrderList = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
-      var commit,
-          reqData,
-          _args = arguments;
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref, reqData) {
+      var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               commit = _ref.commit;
-              reqData = _args.length > 1 && _args[1] !== undefined ? _args[1] : null;
-              _context.prev = 2;
+              _context.prev = 1;
+              console.log(reqData);
               _context.next = 5;
-              return axios.get('/buyer/order/list', reqData).then(function (response) {
+              return axios.post('/buyer/order/list', reqData).then(function (response) {
                 if (typeof response.data.code !== "undefined" && response.data.code === 200) {
                   commit('setOrderList', response.data.data);
                 }
@@ -61688,7 +61851,7 @@ var actions = {
 
             case 8:
               _context.prev = 8;
-              _context.t0 = _context["catch"](2);
+              _context.t0 = _context["catch"](1);
               console.log(_context.t0);
               return _context.abrupt("return", _context.t0.data);
 
@@ -61697,10 +61860,10 @@ var actions = {
               return _context.stop();
           }
         }
-      }, _callee, null, [[2, 8]]);
+      }, _callee, null, [[1, 8]]);
     }));
 
-    function getOrderList(_x) {
+    function getOrderList(_x, _x2) {
       return _getOrderList.apply(this, arguments);
     }
 
@@ -61743,7 +61906,7 @@ var actions = {
       }, _callee2, null, [[1, 7]]);
     }));
 
-    function getOrderInfo(_x2, _x3) {
+    function getOrderInfo(_x3, _x4) {
       return _getOrderInfo.apply(this, arguments);
     }
 
@@ -61752,7 +61915,13 @@ var actions = {
 };
 var mutations = {
   setOrderList: function setOrderList(state, response) {
-    return state.orders = response;
+    if (response.hasOwnProperty('current_page')) {
+      state.orders = response.data;
+      delete response.data;
+      state.order_paginate = response;
+    } else {
+      state.orders = response;
+    }
   },
   setOrderInfo: function setOrderInfo(state, response) {
     return state.order_info = response;
@@ -62001,7 +62170,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/crocus_v2/vue/crocus_v2.js */"./resources/views/templates/crocus_v2/vue/crocus_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\larevel_ex\resources\views\templates\crocus_v2\vue\crocus_v2.js */"./resources/views/templates/crocus_v2/vue/crocus_v2.js");
 
 
 /***/ })

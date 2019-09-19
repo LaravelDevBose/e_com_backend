@@ -24,7 +24,7 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
     /*** Buyer Order Route List ***/
     Route::get('my-orders', 'OrderController@index')->name('order.index');
     Route::post('/order/store', 'OrderController@order_store')->name('order.store');
-    Route::get('/order/list', 'OrderController@order_list');
+    Route::post('/order/list', 'OrderController@order_list');
     Route::get('/order/{order_no}/show', 'OrderController@show')->name('order.show');
 
 
