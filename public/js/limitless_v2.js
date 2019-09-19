@@ -88792,6 +88792,7 @@ function () {
     key: "storeUser",
     value: function storeUser(user) {
       localStorage.setItem('user', user);
+      localStorage.setItem('full_name', user.full_name);
     }
   }, {
     key: "storeWhoIs",
@@ -88811,6 +88812,7 @@ function () {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       localStorage.removeItem('whoIs');
+      localStorage.removeItem('full_name');
     }
   }, {
     key: "storageFullClear",
@@ -88826,6 +88828,11 @@ function () {
     key: "getUser",
     value: function getUser() {
       return localStorage.getItem('user');
+    }
+  }, {
+    key: "getFullName",
+    value: function getFullName() {
+      return localStorage.getItem('full_name');
     }
   }, {
     key: "getWhoIs",

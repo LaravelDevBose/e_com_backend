@@ -5,6 +5,7 @@ class AppStorage {
 
     storeUser(user){
         localStorage.setItem('user', user);
+        localStorage.setItem('full_name', user.full_name);
     }
 
     storeWhoIs(whoIs){
@@ -21,6 +22,7 @@ class AppStorage {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         localStorage.removeItem('whoIs');
+        localStorage.removeItem('full_name');
     }
 
     storageFullClear(){
@@ -35,6 +37,9 @@ class AppStorage {
         return localStorage.getItem('user');
     }
 
+    getFullName(){
+        return localStorage.getItem('full_name');
+    }
     getWhoIs(){
         return localStorage.getItem('whoIs');
     }

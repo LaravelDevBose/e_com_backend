@@ -83,6 +83,7 @@
                 location.href = '/product/'+slug;
             },
             addWishList(slug){
+                console.log(slug);
                 if(AppStorage.getWhoIs() === 'buyer'){
                     this.insertToWishList(slug)
                         .then(response=>{

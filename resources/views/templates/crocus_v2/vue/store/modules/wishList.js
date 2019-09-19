@@ -1,6 +1,7 @@
 //declare State
 const state = {
     wish_list:{},
+    wish_list_count:0,
 };
 
 //declare Getters
@@ -27,6 +28,7 @@ const actions = {
             return await axios.post('/buyer/wishList/add',{product_slug:productSlug})
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        // TODO add To Wist List;
                         commit('addToWishList', response.data.data);
                     }
                     return response.data;
@@ -55,6 +57,8 @@ const actions = {
 
 const mutations = {
     setWishListDetails:(state, response)=>state.wish_list = response,
+    addToWishList:(state,response)=>state.wish_list_count++,
+    removeFromWishList:(state,response)=>state.wish_list_count--,
 };
 
 export default {

@@ -5,7 +5,7 @@
         </div>
         <div class="dashboard">
             <div class="welcome-msg">
-                <strong>Hello, Jon Doe!</strong>
+                <strong>Hello, {{ buyer_name }}!</strong>
                 <p>From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</p>
             </div>
             <div class="recent-orders">
@@ -32,11 +32,16 @@
                     buyer_id:'buyer',
                     take:5,
                     order_by:'desc'
-                }
+                },
+                buyerInfo:{},
+                buyer_name:''
             }
         },
         created(){
-
+            if(AppStorage.getWhoIs() !== 'buyer'){
+                location.href = '/login';
+            }
+            this.buyer_name = AppStorage.getFullName();
         },
         mounted(){
             this.getOrderList(this.reqData);
@@ -49,7 +54,7 @@
         computed:{
             ...mapGetters([
 
-            ])
+            ]),
         }
 
 

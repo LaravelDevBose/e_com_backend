@@ -34,7 +34,7 @@ class AddressBookController extends Controller
             $addressBooks = AddressBook::myAddress()->isActive()->latest()->get();
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $addressBooks);
         }
-        return view('templates.'.$this->template_name.'.buyer.address_book');
+        return view('templates.'.$this->template_name.'.buyer.address_book.address_book_list');
     }
 
     /**
@@ -44,7 +44,7 @@ class AddressBookController extends Controller
      */
     public function create()
     {
-        //
+        return view('templates.'.$this->template_name.'.buyer.address_book.address_book_create');
     }
 
     /**

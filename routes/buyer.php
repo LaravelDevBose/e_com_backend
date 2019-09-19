@@ -30,6 +30,7 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
 
     /**** Address Book Route List ****/
     Route::get('address-book/list', 'AddressBookController@index')->name('address.book');
+    Route::get('address-book/create', 'AddressBookController@create')->name('address.book.create');
     Route::post('address-book', 'AddressBookController@store');
     Route::get('address-book/{address_id}/', 'AddressBookController@show')->name('address.book.show');
 

@@ -2414,6 +2414,224 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AddressBookCreate",
+  data: function data() {
+    return {
+      formData: {
+        first_name: '',
+        last_name: '',
+        phone_no: '',
+        address: '',
+        city: '',
+        state: '',
+        postal_code: '',
+        country: '',
+        address_type: 1,
+        is_shipping: 0
+      },
+      btnDisabled: false
+    };
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeAddressBook']), {
+    storeAddress: function storeAddress() {
+      this.btnDisabled = true; //TODO Form Validation
+
+      this.storeAddressBook(this.formData).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          //TODO  User Alert Function
+          alert(response.message);
+          location.href = '/buyer/address-book/list';
+        } else {
+          alert(response.message);
+        }
+      });
+    }
+  }),
+  computed: {
+    formDataCheck: function formDataCheck() {
+      return JSON.parse(JSON.stringify(this.formData));
+    }
+  },
+  watch: {
+    formDataCheck: {
+      handler: function handler(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.btnDisabled = false;
+        }
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AddressBookListPage",
+  data: function data() {
+    return {
+      reqData: {}
+    };
+  },
+  mounted: function mounted() {
+    this.getAddressBooks(this.reqData);
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getAddressBooks']), {
+    editAddressBook: function editAddressBook(addressId) {
+      console.log(addressId);
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['addressBooks']))
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=script&lang=js& ***!
@@ -3300,10 +3518,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         buyer_id: 'buyer',
         take: 5,
         order_by: 'desc'
-      }
+      },
+      buyerInfo: {},
+      buyer_name: ''
     };
   },
-  created: function created() {},
+  created: function created() {
+    if (AppStorage.getWhoIs() !== 'buyer') {
+      location.href = '/login';
+    }
+
+    this.buyer_name = AppStorage.getFullName();
+  },
   mounted: function mounted() {
     this.getOrderList(this.reqData);
   },
@@ -4100,6 +4326,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       location.href = '/product/' + slug;
     },
     addWishList: function addWishList(slug) {
+      console.log(slug);
+
       if (AppStorage.getWhoIs() === 'buyer') {
         this.insertToWishList(slug).then(function (response) {
           if (typeof response.code !== "undefined" && response.code === 200) {
@@ -42108,6 +42336,576 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=template&id=1e652214&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=template&id=1e652214&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "col-sm-9 wow bounceInUp animated" }, [
+    _c(
+      "form",
+      {
+        attrs: { id: "co-billing-form" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.storeAddress($event)
+          }
+        }
+      },
+      [
+        _c("fieldset", { staticClass: "group-select" }, [
+          _c("fieldset", [
+            _c("legend", [_vm._v("Address Book")]),
+            _vm._v(" "),
+            _c("ul", [
+              _c("li", [
+                _c("div", { staticClass: "customer-name" }, [
+                  _c("div", { staticClass: "input-box name-firstname" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.first_name,
+                          expression: "formData.first_name"
+                        }
+                      ],
+                      staticClass: "input-text required-entry",
+                      attrs: {
+                        type: "text",
+                        id: "billing_firstname",
+                        title: "First Name"
+                      },
+                      domProps: { value: _vm.formData.first_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formData,
+                            "first_name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-box name-lastname" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.last_name,
+                          expression: "formData.last_name"
+                        }
+                      ],
+                      staticClass: "input-text required-entry",
+                      attrs: {
+                        type: "text",
+                        id: "billing_lastname",
+                        title: "Last Name"
+                      },
+                      domProps: { value: _vm.formData.last_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formData,
+                            "last_name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("div", { staticClass: "input-box" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.phone_no,
+                        expression: "formData.phone_no"
+                      }
+                    ],
+                    staticClass: "input-text required-entry",
+                    attrs: {
+                      type: "text",
+                      title: "Telephone",
+                      id: "billing_telephone"
+                    },
+                    domProps: { value: _vm.formData.phone_no },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "phone_no", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-box" }, [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.address,
+                        expression: "formData.address"
+                      }
+                    ],
+                    staticClass: "input-text required-entry",
+                    attrs: {
+                      type: "text",
+                      title: "Street Address",
+                      id: "billing_street"
+                    },
+                    domProps: { value: _vm.formData.address },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "address", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("div", { staticClass: "input-box" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.city,
+                        expression: "formData.city"
+                      }
+                    ],
+                    staticClass: "input-text required-entry",
+                    attrs: { type: "text", title: "City", id: "billing_city" },
+                    domProps: { value: _vm.formData.city },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "city", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-box", attrs: { id: "" } }, [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.state,
+                          expression: "formData.state"
+                        }
+                      ],
+                      staticClass: "validate-select",
+                      attrs: { id: "billing_region", title: "State/Province" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.formData,
+                            "state",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("Please select region, state or province")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "1" } }, [
+                        _vm._v("Alabama")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "2" } }, [
+                        _vm._v("Alaska")
+                      ])
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("div", { staticClass: "input-box" }, [
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.postal_code,
+                        expression: "formData.postal_code"
+                      }
+                    ],
+                    staticClass:
+                      "input-text validate-zip-international required-entry",
+                    attrs: {
+                      type: "text",
+                      title: "Zip/Postal Code",
+                      id: "billing_postcode"
+                    },
+                    domProps: { value: _vm.formData.postal_code },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formData,
+                          "postal_code",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-box" }, [
+                  _vm._m(7),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.country,
+                          expression: "formData.country"
+                        }
+                      ],
+                      staticClass: "validate-select",
+                      attrs: { id: "billing_country_id", title: "Country" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.formData,
+                            "country",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "AF" } }, [
+                        _vm._v("Afghanistan")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "AL" } }, [
+                        _vm._v("Albania")
+                      ])
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _vm._m(8),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "button continue",
+                    attrs: { disabled: _vm.btnDisabled, type: "submit" }
+                  },
+                  [_c("span", [_vm._v("Save Address")])]
+                )
+              ])
+            ])
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "billing_firstname" } }, [
+      _vm._v(" First Name "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "billing_lastname" } }, [
+      _vm._v(" Last Name "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "billing_telephone" } }, [
+      _vm._v("Telephone "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "billing_street" } }, [
+      _vm._v("Address "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "billing_city" } }, [
+      _vm._v("City "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "billing_region" } }, [
+      _vm._v("State/Province "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "billing_postcode" } }, [
+      _vm._v("Zip/Postal Code "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "billing_country_id" } }, [
+      _vm._v("Country "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "require" }, [
+      _c("em", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Required Fields\n                        ")
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue?vue&type=template&id=4a6bf547&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue?vue&type=template&id=4a6bf547&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "table-responsive" }, [
+    _c(
+      "table",
+      { staticClass: "data-table", attrs: { id: "my-orders-table" } },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.addressBooks, function(addressBook, index) {
+            return _vm.addressBooks
+              ? _c(
+                  "tr",
+                  {
+                    class: {
+                      first: index === 0,
+                      last: index + 1 === _vm.addressBooks.length,
+                      even: index % 2 === 0,
+                      odd: index % 2 !== 0
+                    }
+                  },
+                  [
+                    _c("td", [_vm._v("1")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(addressBook.first_name) +
+                          " " +
+                          _vm._s(addressBook.last_name)
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(addressBook.phone_no))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("span", { staticClass: "price" }, [
+                        _vm._v(_vm._s(addressBook.full_address))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "a-center last text-center" }, [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.editAddressBook(addressBook.address_id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-pencil" })]
+                      )
+                    ])
+                  ]
+                )
+              : _c("tr", { staticClass: "last even" }, [
+                  _c("td", { attrs: { colspan: "6" } }, [
+                    _vm._v("No Address Found ")
+                  ])
+                ])
+          }),
+          0
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", { staticClass: "first last" }, [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Name ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Phone No")]),
+        _vm._v(" "),
+        _c("th", [
+          _c("span", { staticClass: "nobr" }, [_vm._v("Full Address")])
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("View|Edit ")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=template&id=bab323a4&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue?vue&type=template&id=bab323a4&scoped=true& ***!
@@ -44006,12 +44804,20 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "dashboard" }, [
-      _vm._m(1),
+      _c("div", { staticClass: "welcome-msg" }, [
+        _c("strong", [_vm._v("Hello, " + _vm._s(_vm.buyer_name) + "!")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information."
+          )
+        ])
+      ]),
       _vm._v(" "),
       _c(
         "div",
         { staticClass: "recent-orders" },
-        [_vm._m(2), _vm._v(" "), _c("order-list-table")],
+        [_vm._m(1), _vm._v(" "), _c("order-list-table")],
         1
       )
     ])
@@ -44024,20 +44830,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "page-title" }, [
       _c("h2", [_vm._v("My Dashboard")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "welcome-msg" }, [
-      _c("strong", [_vm._v("Hello, Jon Doe!")]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v(
-          "From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information."
-        )
-      ])
     ])
   },
   function() {
@@ -59060,6 +59852,7 @@ function () {
     key: "storeUser",
     value: function storeUser(user) {
       localStorage.setItem('user', user);
+      localStorage.setItem('full_name', user.full_name);
     }
   }, {
     key: "storeWhoIs",
@@ -59079,6 +59872,7 @@ function () {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       localStorage.removeItem('whoIs');
+      localStorage.removeItem('full_name');
     }
   }, {
     key: "storageFullClear",
@@ -59094,6 +59888,11 @@ function () {
     key: "getUser",
     value: function getUser() {
       return localStorage.getItem('user');
+    }
+  }, {
+    key: "getFullName",
+    value: function getFullName() {
+      return localStorage.getItem('full_name');
     }
   }, {
     key: "getWhoIs",
@@ -59215,6 +60014,8 @@ var map = {
 	"./components/auth/seller/auth/LoginPage.vue": "./resources/views/templates/crocus_v2/vue/components/auth/seller/auth/LoginPage.vue",
 	"./components/auth/seller/auth/RegisterPage.vue": "./resources/views/templates/crocus_v2/vue/components/auth/seller/auth/RegisterPage.vue",
 	"./components/auth/seller/auth/SellerAuthPage.vue": "./resources/views/templates/crocus_v2/vue/components/auth/seller/auth/SellerAuthPage.vue",
+	"./components/buyer/address_book/AddressBookCreate.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue",
+	"./components/buyer/address_book/AddressBookListPage.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue",
 	"./components/buyer/checkout/BillingForm.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/BillingForm.vue",
 	"./components/buyer/checkout/CheckoutPage.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutPage.vue",
 	"./components/buyer/checkout/CheckoutSidebar.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/checkout/CheckoutSidebar.vue",
@@ -59664,6 +60465,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SellerAuthPage_vue_vue_type_template_id_c4103330_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SellerAuthPage_vue_vue_type_template_id_c4103330_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AddressBookCreate_vue_vue_type_template_id_1e652214_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddressBookCreate.vue?vue&type=template&id=1e652214&scoped=true& */ "./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=template&id=1e652214&scoped=true&");
+/* harmony import */ var _AddressBookCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddressBookCreate.vue?vue&type=script&lang=js& */ "./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AddressBookCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddressBookCreate_vue_vue_type_template_id_1e652214_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddressBookCreate_vue_vue_type_template_id_1e652214_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "1e652214",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddressBookCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AddressBookCreate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddressBookCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=template&id=1e652214&scoped=true&":
+/*!************************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=template&id=1e652214&scoped=true& ***!
+  \************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddressBookCreate_vue_vue_type_template_id_1e652214_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AddressBookCreate.vue?vue&type=template&id=1e652214&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=template&id=1e652214&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddressBookCreate_vue_vue_type_template_id_1e652214_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddressBookCreate_vue_vue_type_template_id_1e652214_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue ***!
+  \*******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AddressBookListPage_vue_vue_type_template_id_4a6bf547_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddressBookListPage.vue?vue&type=template&id=4a6bf547&scoped=true& */ "./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue?vue&type=template&id=4a6bf547&scoped=true&");
+/* harmony import */ var _AddressBookListPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddressBookListPage.vue?vue&type=script&lang=js& */ "./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AddressBookListPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddressBookListPage_vue_vue_type_template_id_4a6bf547_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddressBookListPage_vue_vue_type_template_id_4a6bf547_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "4a6bf547",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddressBookListPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AddressBookListPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddressBookListPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue?vue&type=template&id=4a6bf547&scoped=true&":
+/*!**************************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue?vue&type=template&id=4a6bf547&scoped=true& ***!
+  \**************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddressBookListPage_vue_vue_type_template_id_4a6bf547_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AddressBookListPage.vue?vue&type=template&id=4a6bf547&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/address_book/AddressBookListPage.vue?vue&type=template&id=4a6bf547&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddressBookListPage_vue_vue_type_template_id_4a6bf547_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddressBookListPage_vue_vue_type_template_id_4a6bf547_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -60884,9 +61823,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_cart__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/cart */ "./resources/views/templates/crocus_v2/vue/store/modules/cart.js");
 /* harmony import */ var _modules_checkout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/checkout */ "./resources/views/templates/crocus_v2/vue/store/modules/checkout.js");
 /* harmony import */ var _modules_order__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/order */ "./resources/views/templates/crocus_v2/vue/store/modules/order.js");
+/* harmony import */ var _modules_address_book__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/address_book */ "./resources/views/templates/crocus_v2/vue/store/modules/address_book.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
 
 
 
@@ -60911,9 +61852,145 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     wishList: _modules_wishList__WEBPACK_IMPORTED_MODULE_4__["default"],
     cart: _modules_cart__WEBPACK_IMPORTED_MODULE_5__["default"],
     checkout: _modules_checkout__WEBPACK_IMPORTED_MODULE_6__["default"],
-    order: _modules_order__WEBPACK_IMPORTED_MODULE_7__["default"]
+    order: _modules_order__WEBPACK_IMPORTED_MODULE_7__["default"],
+    address_book: _modules_address_book__WEBPACK_IMPORTED_MODULE_8__["default"]
   }
 }));
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/store/modules/address_book.js":
+/*!*******************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/store/modules/address_book.js ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//declare State
+var state = {
+  address_books: []
+}; //declare Getters
+
+var getters = {
+  addressBooks: function addressBooks(state) {
+    return state.address_books;
+  }
+};
+var actions = {
+  getAddressBooks: function () {
+    var _getAddressBooks = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit,
+          reqData,
+          _args = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              reqData = _args.length > 1 && _args[1] !== undefined ? _args[1] : null;
+              _context.prev = 2;
+              _context.next = 5;
+              return axios.get('/buyer/address-book/list', reqData).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setAddressBooks', response.data.data);
+                }
+
+                return response.data;
+              });
+
+            case 5:
+              return _context.abrupt("return", _context.sent);
+
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](2);
+              console.log(_context.t0);
+              return _context.abrupt("return", _context.t0.data);
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[2, 8]]);
+    }));
+
+    function getAddressBooks(_x) {
+      return _getAddressBooks.apply(this, arguments);
+    }
+
+    return getAddressBooks;
+  }(),
+  storeAddressBook: function () {
+    var _storeAddressBook = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, formData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios.post('/buyer/address-book', formData).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setAddressBook', response.data.data);
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](1);
+              console.log(_context2.t0);
+              return _context2.abrupt("return", _context2.t0.data);
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 7]]);
+    }));
+
+    function storeAddressBook(_x2, _x3) {
+      return _storeAddressBook.apply(this, arguments);
+    }
+
+    return storeAddressBook;
+  }()
+};
+var mutations = {
+  setAddressBooks: function setAddressBooks(state, response) {
+    state.address_books = response;
+  },
+  setAddressBook: function setAddressBook(state, response) {
+    state.address_books.push(response);
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
 
 /***/ }),
 
@@ -62002,7 +63079,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  wish_list: {}
+  wish_list: {},
+  wish_list_count: 0
 }; //declare Getters
 
 var getters = {
@@ -62074,6 +63152,7 @@ var actions = {
                 product_slug: productSlug
               }).then(function (response) {
                 if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  // TODO add To Wist List;
                   commit('addToWishList', response.data.data);
                 }
 
@@ -62152,6 +63231,12 @@ var actions = {
 var mutations = {
   setWishListDetails: function setWishListDetails(state, response) {
     return state.wish_list = response;
+  },
+  addToWishList: function addToWishList(state, response) {
+    return state.wish_list_count++;
+  },
+  removeFromWishList: function removeFromWishList(state, response) {
+    return state.wish_list_count--;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
