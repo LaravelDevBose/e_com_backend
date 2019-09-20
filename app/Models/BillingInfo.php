@@ -24,6 +24,14 @@ class BillingInfo extends Model
         'country',
     ];
 
+    protected $appends = [
+        'full_name',
+    ];
+
+    public function getFullNameAttribute(){
+        return ucfirst($this->attributes['first_name'] .' '. $this->attributes['last_name']);
+    }
+
     public function order(){
         return $this->belongsTo(Order::class, 'order_id', 'order_id');
     }

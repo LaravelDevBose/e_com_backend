@@ -1,7 +1,7 @@
 //declare State
 const state = {
-    order_list:{},
-    order_info:{},
+    order_list:[],
+    order_info:[],
     order_paginate:{},
     order_status:[],
 };

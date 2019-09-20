@@ -15,16 +15,18 @@
                 <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
             </div>
         </div>
+        <invoice-modal-view></invoice-modal-view>
     </div>
 </template>
 
 <script>
 
     import {mapGetters, mapActions} from 'vuex';
+    import InvoiceModalView from "../invoice/InvoiceModalView";
 
     Vue.component('status-badge', {
         template: `<div class="btn-group">
-                        <span v-if="" class="label  dropdown-toggle"
+                        <span  class="label  dropdown-toggle"
                             :class="{'bg-info':row.order_status == 1, 'bg-danger':row.order_status == 2, 'bg-warning':row.order_status == 3, 'bg-primary':row.order_status == 4, 'bg-indigo-400':row.order_status == 5, 'bg-teal':row.order_status == 6 }"
                             data-toggle="dropdown" aria-expanded="false">
                             {{ row.status_label }}
@@ -75,7 +77,7 @@
 
     Vue.component('action-btn', {
         template: `<ul class="icons-list">
-                        <li><a href="#" class="text text-primary-700" @click.prevent="goToShowPage(row.order_no)"><i class="icon-file-eye"></i></a :href=""></li>
+                        <li><a href="#" class="text text-primary-700" @click.prevent="showInvoiceModalView(row.order_no)"><i class="icon-file-eye"></i></a :href=""></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle text text-teal-600" data-toggle="dropdown" aria-expanded="false">
                                 <i class="icon-cog7"></i>
@@ -90,6 +92,20 @@
                     </ul>`,
         props: ['row'],
         methods: {
+            ...mapActions([
+                'getOrderInfo',
+            ]),
+            showInvoiceModalView(order_no){
+                this.getOrderInfo(order_no)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            $('#invoice').modal('show');
+                        }else{
+                            alert(response.message);
+                        }
+
+                    })
+            },
             goToShowPage: function(orderNo){
                 window.location = `/admin/order/${orderNo}/show`;
             }
@@ -99,6 +115,7 @@
 
     export default {
         name: "OrderListTable",
+        components: {InvoiceModalView},
         props:['reqData'],
         data(){
             return {

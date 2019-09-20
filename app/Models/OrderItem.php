@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderItem extends Model
 {
+
+    const ItemStatus = [
+        'Active'=>1,
+        'Cancel'=>2,
+//        'Payment fail'=>3,
+//        'Confirm'=>4,
+        'Ready To Ship'=>5,
+        'Delivered'=>6,
+    ];
+
     protected $table = 'order_items';
     protected $primaryKey  = 'item_id';
 
@@ -21,11 +31,18 @@ class OrderItem extends Model
         'color',
         'brand_id',
         'brand',
+        'price',
         'qty',
         'subtotal',
         'discount',
-        'total_price'
+        'total_price',
+        'item_status'
     ];
+
+    public function getStatusLabelAttribute(){
+        $status = array_flip(Self::ItemStatus);
+        return $status[$this->attributes['item_status']];
+    }
 
     public function order(){
         return $this->belongsTo(Order::class, 'order_id', 'order_id');

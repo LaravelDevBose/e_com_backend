@@ -44,7 +44,7 @@ class OrderController extends Controller
     public function show(Request $request, $orderNo){
 
         if($request->ajax()){
-            $order = Order::where('order_no', $orderNo)->with('buyer.user')->first();
+            $order = Order::where('order_no', $orderNo)->with('buyer.user', 'orderItems.product','orderItems.seller', 'billing', 'shipping', 'payment')->first();
             if(!empty($order)){
                 return ResponserTrait::singleResponse($order, 'success', Response::HTTP_OK);
             }else{

@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentInfo extends Model
 {
     const Payment_Method =[
         'Cash On Delivery'  =>1,
-        'Credit Cart'       =>2,
+        'Credit Card'       =>2,
         'Paypal'            =>3,
     ];
 
@@ -27,6 +28,14 @@ class PaymentInfo extends Model
         'payment_status',
     ];
 
+    public function getPaidByAttribute(){
+        $methods = array_flip(Self::Payment_Method);
+        return $methods[$this->attributes['paid_by']];
+    }
+
+    public function getPaidAtAttribute(){
+        return Carbon::parse($this->attributes['paid_at'])->format('d M Y h:i A');
+    }
 
     public function order(){
         return $this->belongsTo(Order::class, 'order_id', 'order_id');

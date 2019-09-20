@@ -108,6 +108,7 @@ class OrderController extends Controller
                                 'color'=>(!empty($cart->options->color))?$cart->options->color:null,
                                 'brand_id'=>$product->brand_id,
                                 'brand'=>(!empty($product->brand))?$product->brand->brand_name:'',
+                                'price'=>$cart->price,
                                 'qty'=>$cart->qty,
                                 'subtotal'=>($cart->qty*$cart->price),
                                 'discount'=>0,
