@@ -31,4 +31,17 @@ Route::prefix('seller')->middleware('auth:seller')->namespace('Seller')->as('sel
     Route::get('campaign/{slug}/join/', 'CampaignController@join_page')->name('campaign.join');
     Route::post('campaign/store', 'CampaignController@store')->name('campaign.store');
     Route::get('campaign/{slug}/show', 'CampaignController@show')->name('campaign.show');
+
+    Route::prefix('order')->as('order.')->group(function () {
+        Route::get('/', 'OrderController@index')->name('index');
+        Route::get('/latest', 'OrderController@latest_order')->name('latest');
+        Route::get('/deliver/order', 'OrderController@deliver_order_page')->name('deliver');
+        Route::get('/ready_to_ship', 'OrderController@ready_to_ship_order')->name('ready_to_ship');
+        Route::get('/cancel_order', 'OrderController@order_cancel_page')->name('cancel_order');
+
+        Route::post('/item/list', 'OrderController@order_item_list')->name('item.list');
+        Route::get('/item/status', 'OrderController@order_item_status');
+        Route::post('/item/status/update', 'OrderController@update_order_item_status')->name('item.status.update');
+    });
+
 });

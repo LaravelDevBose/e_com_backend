@@ -152,11 +152,11 @@
                     </a>
 
                     <ul class="dropdown-menu width-200">
-                        <li><a href="{{ route('seller.product.index') }}"><i class="icon-cart2 position-left"></i> Order List</a></li>
-                        <li><a href="{{ route('seller.product.create') }}"><i class="icon-truck position-left"></i> Shipping Order</a></li>
-                        <li><a href="{{ route('seller.product.create') }}"><i class="icon-bag position-left"></i>  Ready To Ship </a></li>
-                        <li><a href="{{ route('seller.product.create') }}"><i class="icon-cart4 position-left"></i>  Cancel Order </a></li>
-                        <li><a href="{{ route('seller.product.create') }}"><i class="icon-reply-all position-left"></i>  Cancel Order </a></li>
+                        <li><a href="{{ route('seller.order.index') }}"><i class="icon-cart2 position-left"></i> Order List</a></li>
+                        <li><a href="{{ route('seller.order.deliver') }}"><i class="icon-truck position-left"></i> Deliver Order</a></li>
+                        <li><a href="{{ route('seller.order.ready_to_ship') }}"><i class="icon-bag position-left"></i>  Ready To Ship </a></li>
+                        <li><a href="{{ route('seller.order.cancel_order') }}"><i class="icon-cart4 position-left"></i>  Cancel Order </a></li>
+{{--                        <li><a href="{{ route('seller.order.latest') }}"><i class="icon-reply-all position-left"></i>  Latest Order </a></li>--}}
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -168,7 +168,7 @@
                         <li><a href="{{ route('seller.product.create') }}"><i class="icon-reply-all position-left"></i>Return List</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
+                {{--<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class=" icon-megaphone position-left"></i>Manage Campaign<span class="caret"></span>
                     </a>
@@ -185,7 +185,7 @@
                         <li><a href="{{ route('seller.product.index') }}"><i class="icon-grid position-left"></i> Voucher List</a></li>
                         <li><a href="{{ route('seller.product.create') }}"><i class=" icon-plus-circle2 position-left"></i>Add Voucher</a></li>
                     </ul>
-                </li>
+                </li>--}}
             </ul>
         </div>
     </div>

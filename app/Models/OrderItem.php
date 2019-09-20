@@ -10,10 +10,20 @@ class OrderItem extends Model
     const ItemStatus = [
         'Active'=>1,
         'Cancel'=>2,
-//        'Payment fail'=>3,
-//        'Confirm'=>4,
+//        'Payment fail'=>3, /from admin
+//        'Confirm'=>4, /from admin
         'Ready To Ship'=>5,
-        'Delivered'=>6,
+//        'Delivered'=>6, /from Admin
+    ];
+
+    const AllItemStatus = [
+        'Active'=>1,
+        'Cancel'=>2,
+        'Payment fail'=>3, //from admin
+        'Confirm'=>4, //from admin
+        'Ready To Ship'=>5,
+        'Delivered'=>6, //from Admin
+        'Return'=>7,
     ];
 
     protected $table = 'order_items';
@@ -39,9 +49,17 @@ class OrderItem extends Model
         'item_status'
     ];
 
-    public function getStatusLabelAttribute(){
-        $status = array_flip(Self::ItemStatus);
+    protected $appends = [
+        'item_status_label'
+    ];
+
+    public function getItemStatusLabelAttribute(){
+        $status = array_flip(Self::AllItemStatus);
         return $status[$this->attributes['item_status']];
+    }
+
+    public function scopeOrderItemStatus($query, $status){
+        return $query->where('item_status', $status);
     }
 
     public function order(){

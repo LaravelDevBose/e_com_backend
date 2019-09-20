@@ -5,6 +5,7 @@ namespace App\Helpers;
 
 
 use App\Models\Order;
+use App\Models\OrderItem;
 
 class OrderHelper
 {
@@ -44,5 +45,40 @@ class OrderHelper
         }
 
         return $orders;
+    }
+
+
+    public static function order_item_list($request=null){
+        $request = (Object) $request;
+
+        $orderItems = OrderItem::with('order','buyer.user','product.thumbImage', 'size', 'color', 'brand');
+
+        if(!empty($request->seller_id)){
+            $orderItems = $orderItems->where('seller_id', auth()->guard('seller')->user()->seller->seller_id);
+        }
+
+        if(!empty($request->status)){
+            $orderItems = $orderItems->orderItemStatus($request->status);
+        }
+
+        if(!empty($request->order_by)){
+            if(!empty($request->sort_column)){
+                $orderItems = $orderItems->orderBy($request->sort_column, $request->order_by);
+            }else{
+                $orderItems = $orderItems->orderBy('item_id', $request->order_by);
+            }
+        }
+
+        if(!empty($request->take)){
+            $orderItems= $orderItems->take($request->take);
+        }
+
+        if(!empty($request->paginate)){
+            $orderItems = $orderItems->paginate($request->paginate);
+        }else{
+            $orderItems = $orderItems->get();
+        }
+
+        return $orderItems;
     }
 }

@@ -46,9 +46,11 @@ class Order extends Model
     public function scopeOrderStatus($query, $status){
         return $query->where('order_status', $status);
     }
+
     public function getOrderDateAttribute(){
         return Carbon::parse($this->attributes['order_date'])->format('d M Y');
     }
+
     public function getDeliveryDateAttribute(){
         return Carbon::parse($this->attributes['order_date'])->format('d M Y');
     }
