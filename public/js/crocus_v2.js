@@ -1902,6 +1902,9 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     BuyerLoginPage: _BuyerLoginPage__WEBPACK_IMPORTED_MODULE_1__["default"],
     BuyerRegisterPage: _BuyerRegisterPage__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  created: function created() {
+    AppStorage.storageClear();
   }
 });
 
@@ -2403,6 +2406,9 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     RegisterPage: _RegisterPage__WEBPACK_IMPORTED_MODULE_1__["default"],
     LoginPage: _LoginPage__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  created: function created() {
+    AppStorage.storageClear();
   }
 });
 
@@ -63052,7 +63058,11 @@ function () {
     key: "storeUser",
     value: function storeUser(user) {
       localStorage.setItem('user', user);
-      localStorage.setItem('full_name', user.full_name);
+    }
+  }, {
+    key: "storeFullName",
+    value: function storeFullName(fullName) {
+      localStorage.setItem('full_name', fullName);
     }
   }, {
     key: "storeWhoIs",
@@ -66443,7 +66453,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\larevel_ex\resources\views\templates\crocus_v2\vue\crocus_v2.js */"./resources/views/templates/crocus_v2/vue/crocus_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/crocus_v2/vue/crocus_v2.js */"./resources/views/templates/crocus_v2/vue/crocus_v2.js");
 
 
 /***/ })

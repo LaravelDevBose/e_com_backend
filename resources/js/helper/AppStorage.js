@@ -5,7 +5,9 @@ class AppStorage {
 
     storeUser(user){
         localStorage.setItem('user', user);
-        localStorage.setItem('full_name', user.full_name);
+    }
+    storeFullName(fullName){
+        localStorage.setItem('full_name', fullName);
     }
 
     storeWhoIs(whoIs){

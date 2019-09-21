@@ -25,7 +25,10 @@
     import BuyerLoginPage from "./BuyerLoginPage";
     export default {
         name: "BuyerAuthPage",
-        components: {BuyerLoginPage, BuyerRegisterPage}
+        components: {BuyerLoginPage, BuyerRegisterPage},
+        created(){
+            AppStorage.storageClear();
+        }
     }
 </script>
 

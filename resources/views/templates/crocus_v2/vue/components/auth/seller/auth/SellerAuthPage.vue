@@ -24,7 +24,10 @@
     import RegisterPage from "./RegisterPage";
     export default {
         name: "SellerAuthPage",
-        components: {RegisterPage, LoginPage}
+        components: {RegisterPage, LoginPage},
+        created(){
+            AppStorage.storageClear();
+        }
     }
 </script>
 
