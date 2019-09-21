@@ -88,9 +88,9 @@
                     this.insertToWishList(slug)
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
-                                Notify.success(response.message)
+                                this.$noty.success(response.message)
                             }else{
-                                Notify.error('Try Again Later.');
+                                this.$noty.error('Try Again Later.');
                                 console.log(response);
                             }
                         })
@@ -103,9 +103,9 @@
                     this.deleteFromWishList(slug)
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
-                                Notify.success(response.message)
+                                this.$noty.success(response.message)
                             }else{
-                                Notify.error('Try Again Later.');
+                                this.$noty.error(response.message);
                                 console.log(response);
                             }
                         })
@@ -127,10 +127,9 @@
                 this.addToCartProduct(this.cartInfo)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
-                            //TODO  User Alert Function
-                            alert(response.message);
+                            this.$noty.success(response.message);
                         }else{
-                            alert(response.message);
+                            this.$noty.error(response.message);
                         }
                     })
             }

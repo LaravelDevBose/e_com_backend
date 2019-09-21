@@ -72,10 +72,9 @@
                 this.removeFromCart(rowId)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
-                            //TODO  User Alert Function
-                            alert(response.message);
+                            this.$noty.success(response.message);
                         }else{
-                            alert(response.message);
+                            this.$noty.error(response.message);
                         }
                     })
             },

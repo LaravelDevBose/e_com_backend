@@ -4,8 +4,8 @@ require('../../../../js/bootstrap');
 window.Vue = require('vue');
 
 import store from './store'
-import Notify from '../../../../js/helper/pNotify'
-window.Notify = Notify;
+import VueNoty from '../../../../js/helper/Noty'
+Vue.use(VueNoty);
 
 import AppStorage from "../../../../js/helper/AppStorage";
 window.AppStorage = AppStorage;

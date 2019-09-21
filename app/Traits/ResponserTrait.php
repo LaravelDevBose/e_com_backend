@@ -17,7 +17,7 @@ trait ResponserTrait
             'code'=>$code,
             'data'=>$data,
             'url'=>$url,
-        ], $code);
+        ]);
     }
 
     public static function collectionResponse($status='success', $code=200, $collection=null){
@@ -25,7 +25,7 @@ trait ResponserTrait
             'status'=>$status,
             'code'=>$code,
             'data'=>$collection,
-        ],$code);
+        ]);
     }
 
     public static function singleResponse($data, $status='success', $code=200, $message=null){
@@ -34,7 +34,7 @@ trait ResponserTrait
             'code'=>$code,
             'message'=>$message,
             'data'=>$data,
-        ],$code);
+        ]);
     }
 
     public static function validationResponse($status='validation', $code=400, $errors=[]){
@@ -50,7 +50,7 @@ trait ResponserTrait
             'status'=>$status,
             'code'=>$code,
             'message'=>$message,
-        ],$code);
+        ]);
     }
 
 }

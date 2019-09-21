@@ -128,19 +128,18 @@
                     this.storeAddressInfo(this.formData)
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 201){
-                                //TODO  Use Notify
                                 this.continueTab();
-                                alert(response.message);
+                                this.$noty.success(response.message);
                             }else if(response.status === 'validation'){
-                                //TODO Validation Notify
-                                alert(response.message);
+                                this.$noty.warning(response.message);
                             }else {
-                                alert(response.message);
+                                this.$noty.error(response.message);
                             }
                         })
                 }else if(this.save_address === false && this.new_address === true){
                     // TODO From Validation
                     this.addAddressInfo(this.formData);
+                    this.$noty.success('Billing and Shipping Address added');
                     this.continueTab();
                 }else{
                     let reqData = {
@@ -152,14 +151,12 @@
                     this.getAddressInfo(reqData)
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
-                                //TODO  Use Notify
-                                alert(response.message);
+                                this.$noty.success(response.message);
                                 this.continueTab();
                             }else if(response.status === 'validation'){
-                                //TODO Validation Notify
-                                alert(response.message);
+                                this.$noty.warning(response.message);
                             }else {
-                                alert(response.message);
+                                this.$noty.error(response.message);
                             }
                         })
                 }

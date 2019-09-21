@@ -75,9 +75,9 @@
                     this.deleteFromWishList(slug)
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
-                                Notify.success(response.message)
+                                this.$noty.success(response.message)
                             }else{
-                                Notify.error('Try Again Later.');
+                                this.$noty.error('Try Again Later.');
                                 console.log(response);
                             }
                         })

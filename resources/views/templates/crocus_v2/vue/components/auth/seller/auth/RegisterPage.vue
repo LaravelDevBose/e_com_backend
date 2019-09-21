@@ -98,16 +98,16 @@
                 this.registerSeller(this.formData)
                     .then(response=>{
                         if(typeof  response.code === "undefined"){
-                            Notify.error('Some Thing Wrong!');
+                            this.$noty.error('Some Thing Wrong!');
                         }else if(response.status === 'validation'){
-                            Notify.validation(response.message);
+                            this.$noty.error(response.message);
                         }else if (response.code === 200){
-                            Notify.success(response.message);
+                            this.$noty.success(response.message);
                             setTimeout(function () {
                                 location.href = response.url;
                             },800)
                         }else{
-                            Notify.error('Some Thing Wrong!');
+                            this.$noty.error('Some Thing Wrong!');
                             setTimeout(function () {
                                 location.reload();
                             },800)

@@ -25,6 +25,8 @@
     <!-- Styles -->
 
     <!-- CSS Style -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
+
     <link href="{{ asset('/assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/font-awesome.css') }}" media="all">

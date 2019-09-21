@@ -110,11 +110,12 @@
                 this.storeAddressBook(this.formData)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
-                            //TODO  User Alert Function
-                            alert(response.message);
-                            location.href = '/buyer/address-book/list';
+                            this.$noty.success(response.message);
+                            setTimeout(()=>{
+                                location.href = '/buyer/address-book/list';
+                            },1000);
                         }else{
-                            alert(response.message);
+                            this.$noty.error(response.message);
                         }
                     })
             }

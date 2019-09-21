@@ -52,35 +52,32 @@
             ]),
             sellerLogin(){
                 if(this.formData.identity === null || this.formData.identity === ''){
-                    Notify.validation('Email Or Username is Required');
+                    this.$noty.warning('Email Or Username is Required');
                     return false;
                 }
                 if(this.formData.password === null || this.formData.password === ''){
-                    Notify.validation('Password is Required');
+                    this.$noty.warning('Password is Required');
                     return false;
                 }
 
-                if(this.formData.password.length < 6){
-                    Notify.validation('Password is Min 6 Digit');
+                if(this.formData.password.length < 8){
+                    this.$noty.warning('Password is Min 8 Digit');
                     return false;
                 }
 
                 this.loginSeller(this.formData)
                     .then(response=>{
                         if(typeof  response.code === "undefined"){
-                            Notify.error('Some Thing Wrong!');
+                            this.$noty.error('Some Thing Wrong!');
                         }else if(response.status === 'validation'){
-                            Notify.validation(response.message);
+                            this.$noty.warning(response.message);
                         }else if (response.code === 200){
-                            Notify.success(response.message);
+                            this.$noty.success(response.message);
                             setTimeout(function () {
                                 location.href = response.url;
                             },800)
                         }else{
-                            Notify.error('Some Thing Wrong!');
-                            setTimeout(function () {
-                                location.reload();
-                            },800)
+                            this.$noty.error(response.message);
                         }
                     })
             }

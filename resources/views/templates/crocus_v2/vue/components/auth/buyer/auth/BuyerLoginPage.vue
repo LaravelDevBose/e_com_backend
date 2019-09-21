@@ -52,36 +52,28 @@
             ]),
             buyerLogin(){
                 if(this.formData.identity === null || this.formData.identity === ''){
-                    Notify.validation('Email Or Username is Required');
+                    this.$noty.info('Email Or Username is Required');
+                    // Notify.validation();
                     return false;
                 }
                 if(this.formData.password === null || this.formData.password === ''){
-                    Notify.validation('Password is Required');
+                    this.$noty.error('Password is Required');
                     return false;
                 }
 
                 if(this.formData.password.length < 6){
-                    Notify.validation('Password is Min 6 Digit');
+                    this.$noty.error('Password is Min 6 Digit');
                     return false;
                 }
 
                 this.loginBuyer(this.formData)
                     .then(response=>{
                         if(typeof  response.code === "undefined"){
-
-                            // TODO Notify Message
-                            alert('Some Thing Wrong!');
-                            Notify.error('Some Thing Wrong!');
+                            this.$noty.error('Some Thing Wrong!');
                         }else if(response.status === 'validation'){
-
-                            // TODO Notify Message
-                            alert(response.message);
-                            Notify.validation(response.message);
+                            this.$noty.warning(response.message);
                         }else if (response.code === 200){
-
-                            alert(response.message);
-                            // TODO Notify Message
-                            Notify.success(response.message);
+                            this.$noty.success(response.message);
                             if(this.cartTotal > 0){
                                 location.href = '/buyer/checkout';
                             }
@@ -89,13 +81,7 @@
                                 location.href = response.url;
                             },800);
                         }else{
-                            alert('Some Thing Wrong!');
-
-                            // TODO Notify Message
-                            Notify.error('Some Thing Wrong!');
-                            setTimeout(function () {
-                                location.reload();
-                            },800);
+                            this.$noty.error(response.message);
                         }
                     })
             }

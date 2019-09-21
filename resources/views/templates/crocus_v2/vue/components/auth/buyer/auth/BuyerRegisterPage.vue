@@ -42,7 +42,7 @@
                             <span class="required">*</span>
                         </label>
                         <br />
-                        <input type="password" v-model="formData.password" required title="Password" id="reg_pass" class="input-text required-entry validate-password"  placeholder="Password" />
+                        <input type="password" minlength="8" v-model="formData.password" required title="Password" id="reg_pass" class="input-text required-entry validate-password"  placeholder="Password" />
                     </li>
                     <li>
                         <label for="conf_pass">
@@ -50,7 +50,7 @@
                             <span class="required">*</span>
                         </label>
                         <br />
-                        <input type="password" v-model="formData.password_confirmation" title="Password" id="conf_pass" class="input-text required-entry validate-password" placeholder="Confirm Password" />
+                        <input type="password" minlength="8" v-model="formData.password_confirmation" title="Password" id="conf_pass" class="input-text required-entry validate-password" placeholder="Confirm Password" />
                     </li>
                 </ul>
                 <div class="buttons-set">
@@ -89,19 +89,16 @@
                 this.registerBuyer(this.formData)
                     .then(response=>{
                         if(typeof  response.code === "undefined"){
-                            Notify.error('Some Thing Wrong!');
+                            this.$noty.error('Some Thing Wrong');
                         }else if(response.status === 'validation'){
-                            Notify.validation(response.message);
+                            this.$noty.warning(response.message);
                         }else if (response.code === 200){
-                            Notify.success(response.message);
+                            this.$noty.success(response.message);
                             setTimeout(function () {
                                 location.href = response.url;
                             },800)
                         }else{
-                            Notify.error('Some Thing Wrong!');
-                            setTimeout(function () {
-                                location.reload();
-                            },800)
+                            this.$noty.error(response.message);
                         }
                     })
 

@@ -93,7 +93,10 @@
         },
         updated(){
             if(this.cartTotal === 0){
-                location.href = '/';
+                setTimeout(()=>{
+                    location.href = '/';
+                },1000)
+
             }
         },
         methods:{
@@ -106,10 +109,9 @@
                 this.removeFromCart(rowId)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
-                            //TODO  Use Notify Function
-                            alert(response.message);
+                            this.$noty.success(response.message);
                         }else{
-                            alert(response.message);
+                            this.$noty.error(response.message);
                         }
                     })
             },
@@ -124,11 +126,10 @@
                 this.destroyCart()
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
-                            //TODO  User Alert Function
-                            alert(response.message);
+                            this.$noty.success(response.message);
                             location.href = '/';
                         }else{
-                            alert(response.message);
+                            this.$noty.error(response.message);
                         }
                     })
             },
@@ -137,8 +138,7 @@
             },
             cartUpdate(e, rowId){
                 if(e.target.value <= 0){
-                    // TODO PNotify Alert Show
-                    alert('Product Qty Atlest 1');
+                    this.$noty.warning('Product Qty Atlest 1');
                     this.proQty = 1;
                     return false;
                 }
@@ -156,10 +156,9 @@
                 this.updateCart(updateData)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
-                            //TODO  Use PNotify Function
-                            alert(response.message);
+                            this.$noty.success(response.message);
                         }else{
-                            alert(response.message);
+                            this.$noty.error(response.message);
                         }
                         this.qtyDisable = false;
                     })

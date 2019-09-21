@@ -47,17 +47,17 @@
                                         <div class="add-to-cart">
                                             <div class="pull-left">
                                                 <div class="custom pull-left">
-                                                    <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>
-                                                    <input type="text" class="input-text qty" title="Qty" value="1" maxlength="12" id="qty" name="qty">
-                                                    <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
+                                                    <button @click.prevent="reducedQty" class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>
+                                                    <input type="text" class="input-text qty" v-model="cartInfo.qty" title="Qty" id="qty" name="qty">
+                                                    <button @click.prevent="increaseQty" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
                                                 </div>
                                             </div>
-                                            <button onClick="productAddToCartForm.submit(this)" class="button btn-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
+                                            <button @click.prevent="addToCart()" class="button btn-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
                                         </div>
                                         <div class="email-addto-box">
                                             <ul class="add-to-links">
                                                 <li> <a class="link-wishlist" href="#" @click.prevent="addWishList(modal_product.product_slug)"><span>Add to Wishlist</span></a></li>
-                                                <li><span class="separator">|</span> <a class="link-compare" href="#" @click.prevent="addCompareProduct(modal_product.product_slug)"><span>Add to Compare</span></a></li>
+<!--                                                <li><span class="separator">|</span> <a class="link-compare" href="#" @click.prevent="addCompareProduct(modal_product.product_slug)"><span>Add to Compare</span></a></li>-->
                                             </ul>
                                             <p class="email-friend"><a href="#" class=""><span>Email to a Friend</span></a></p>
                                         </div>
@@ -84,17 +84,59 @@
         data(){
             return{
                 showIn:true,
+                cartInfo:{
+                    id:'',
+                    name:'',
+                    qty:1,
+                    price:0,
+                },
             }
         },
         methods:{
             ...mapActions([
-                'modalClose'
+                'modalClose',
+                'insertToWishList',
+                'addToCartProduct'
             ]),
             addWishList(slug){
-
+                if(AppStorage.getWhoIs() === 'buyer'){
+                    this.insertToWishList(slug)
+                        .then(response=>{
+                            if(typeof response.code !== "undefined" && response.code === 200){
+                                this.$noty.success(response.message)
+                            }else{
+                                this.$noty.error(response.message);
+                                console.log(response);
+                            }
+                        })
+                }else{
+                    location.href = '/login';
+                }
             },
-            addCompareProduct(slug){
+            addToCart(){
+                this.cartInfo.id = this.modal_product.product_id;
+                this.cartInfo.name = this.modal_product.product_name;
+                this.cartInfo.price = this.modal_product.single_variation.price;
 
+                this.addToCartProduct(this.cartInfo)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            this.$noty.success(response.message);
+                        }else{
+                            this.$noty.error(response.message);
+                        }
+                    })
+            },
+            increaseQty(){
+                this.cartInfo.qty ++;
+            },
+
+            reducedQty(){
+                this.cartInfo.qty --;
+                if(this.cartInfo.qty < 1){
+                    this.$noty.warning('Min 1 Qty Required');
+                    this.cartInfo.qty =1 ;
+                }
             },
             closeModal(){
                 this.modalClose();
