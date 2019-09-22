@@ -13,6 +13,8 @@ import imageCropper from "./modules/imageCropper";
 import campaign from "./modules/campaign";
 import order from './modules/order';
 import shop from "./modules/shop";
+import setting from "./modules/setting";
+
 
 export default new Vuex.Store({
     state:{
@@ -43,6 +45,7 @@ export default new Vuex.Store({
         campaign,
         order,
         shop,
+        setting,
     }
 })
 

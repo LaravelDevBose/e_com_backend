@@ -48,4 +48,9 @@ Route::prefix('seller')->middleware('auth:seller')->namespace('Seller')->as('sel
         Route::get('setting', 'ShopController@shop_setting_page')->name('setting');
         Route::post('setting/update', 'ShopController@shop_setting_update')->name('update');
     });
+
+    Route::get('account/setting/page', 'SettingController@account_setting_page')->name('account.setting.page');
+    Route::get('account/info', 'SettingController@account_info')->name('account.info');
+    Route::post('update/account/info', 'SettingController@update_account_info')->name('update.account.info');
+    Route::post('update/password', 'SettingController@update_password')->name('update.password');
 });

@@ -116,8 +116,8 @@
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
-                        <li><a href="#"><i class="icon-coins"></i> My balance</a></li>
+                        <li><a href="{{ route('seller.account.setting.page') }}"><i class="icon-user-plus"></i> Profile Setting</a></li>
+{{--                        <li><a href="#"><i class="icon-coins"></i> My balance</a></li>--}}
                         <li class="divider"></li>
                         <li><a href="{{ route('seller.shop.setting') }}"><i class="icon-store"></i> Shop settings</a></li>
                         <li class="divider"></li>
