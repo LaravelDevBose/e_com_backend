@@ -100,8 +100,4 @@ class Attachment extends Model
     public function productThumb(){
         return $this->hasOne(Product::class, 'thumb_id', 'attachment_id');
     }
-
-    public function shopLogo(){
-        return $this->hasOne(Shop::class, 'logo_id', 'attachment_id')->latest();
-    }
 }

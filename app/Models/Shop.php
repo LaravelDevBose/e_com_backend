@@ -25,6 +25,6 @@ class Shop extends Model
     }
 
     public function shopLogo(){
-        return $this->belongsTo(Attachment::class, 'logo_id', 'attachment_id')->latest();
+        return $this->hasOne(Attachment::class, 'attachment_id','logo_id');
     }
 }

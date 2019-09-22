@@ -55,9 +55,14 @@ class ShopController extends Controller
                             'shop_address'=>$request->shop_address,
                             'phone_no'=>$request->phone_no,
                             'shop_email'=>$request->shop_email,
-                            'logo_id'=>(!empty($request->logo_id))?: $request->logo_id,
                         ]
                     );
+
+                if(!empty($request->logo_id)){
+                    $shop = $shop->update([
+                        'logo_id'=>$request->logo_id,
+                    ]);
+                }
                 if(!empty($shop)){
                     $seller->update([
                         'shop_name'=>$request->shop_name,
