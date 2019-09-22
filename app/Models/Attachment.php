@@ -8,16 +8,17 @@ class Attachment extends Model
 {
     const attachmentModels = [
 
-        'category' => 1,
-        'product' => 2,
-        'user' => 3,
-        'voucher' => 4,
+        'category'=>1,
+        'product'=>2,
+        'user'=>3,
+        'voucher'=>4,
         'campaign'=>5,
         'brand'=>6,
         'slider'=>7,
         'page'=>8,
         'setting'=>9,
         'thumbnail'=>10,
+        'shop'=>'11',
     ];
 
     protected $table = 'attachments';
@@ -98,5 +99,9 @@ class Attachment extends Model
 
     public function productThumb(){
         return $this->hasOne(Product::class, 'thumb_id', 'attachment_id');
+    }
+
+    public function shopLogo(){
+        return $this->hasOne(Shop::class, 'logo_id', 'attachment_id')->latest();
     }
 }

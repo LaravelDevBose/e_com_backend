@@ -119,7 +119,7 @@
                         <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
                         <li><a href="#"><i class="icon-coins"></i> My balance</a></li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="icon-store"></i> Shop settings</a></li>
+                        <li><a href="{{ route('seller.shop.setting') }}"><i class="icon-store"></i> Shop settings</a></li>
                         <li class="divider"></li>
                         <li><a href="{{ route('seller.logout') }}"><i class="icon-switch2"></i> Logout</a></li>
                     </ul>

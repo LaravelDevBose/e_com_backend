@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Resources\Admin\Brand as BrandResource;
 use App\Models\Seller;
+use App\Models\Shop;
 use App\Traits\ResponserTrait;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -104,6 +105,11 @@ class SellerRegisterController extends Controller
                     ]);
 
                     if(!empty($seller)){
+                        $shop = Shop::create([
+                            'seller_id'=>$seller->seller_id,
+                            'shop_name'=>$request->shop_name,
+                            'shop_slug'=>Str::slug($request->shop_name),
+                        ]);
                         DB::commit();
                         return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Seller Created Successfully', '', route('seller.login'));
                     }else{

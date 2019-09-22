@@ -9287,6 +9287,169 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
+/* harmony import */ var _js_components_helper_Select2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../js/components/helper/Select2 */ "./resources/js/components/helper/Select2.vue");
+/* harmony import */ var _js_components_cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../js/components/cropper/ImageCropper */ "./resources/js/components/cropper/ImageCropper.vue");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ShopSettingPage",
+  components: {
+    ImageCropper: _js_components_cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_3__["default"],
+    VueSelect2: _js_components_helper_Select2__WEBPACK_IMPORTED_MODULE_2__["default"],
+    VueEditor: vue2_editor__WEBPACK_IMPORTED_MODULE_1__["VueEditor"]
+  },
+  data: function data() {
+    return {
+      no_logo: '',
+      logo_image: '',
+      formData: {
+        shop_name: '',
+        logo_id: '',
+        shop_address: '',
+        phone_no: '',
+        shop_email: '',
+        shop_category: ''
+      },
+      cropperData: {
+        width: 150,
+        height: 150,
+        placeholder: 'Choose a image in 118X29',
+        file_size: 1,
+        init_image: '',
+        folder: 'shop'
+      },
+      removeImage: false,
+      btnDisabled: false
+    };
+  },
+  created: function created() {},
+  mounted: function mounted() {
+    this.getShopDetails();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getShopDetails', 'updateShopSetting']), {
+    shopSettingUpdate: function shopSettingUpdate() {
+      //TODO From Validation
+      if (this.cropImageIds !== null) {
+        this.formData.logo_id = this.cropImageIds[0];
+      }
+
+      this.updateShopSetting(this.formData).then(function (response) {
+        if (typeof response.code === "undefined") {
+          Notify.error(response.message);
+        } else if (response.code === 200) {
+          Notify.success(response.message);
+        } else if (response.status === "validation" && response.code === 400) {
+          Notify.validation(response.message);
+        } else {
+          Notify.info(response.message);
+        }
+      });
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cropImageIds', 'shopDetails']), {
+    shopDetailsCheck: function shopDetailsCheck() {
+      return JSON.parse(JSON.stringify(this.shopDetails));
+    }
+  }),
+  watch: {
+    cropImageIds: {
+      handler: function handler(newValue, oldValue) {
+        if (oldValue === newValue) {
+          this.btnDisabled = false;
+        }
+      },
+      deep: true
+    },
+    shopDetailsCheck: {
+      handler: function handler(newValue, oldValue) {
+        if (oldValue !== newValue) {
+          Object.assign(this.formData, this.shopDetails);
+        }
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/base64-js/index.js":
 /*!*****************************************!*\
   !*** ./node_modules/base64-js/index.js ***!
@@ -15785,7 +15948,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -75195,6 +75358,252 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue?vue&type=template&id=4a6ef07a&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue?vue&type=template&id=4a6ef07a&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "content" }, [
+    _c(
+      "div",
+      {
+        staticClass: "panel-group panel-group-control content-group-lg",
+        attrs: { id: "accordion-control" }
+      },
+      [
+        _c("div", { staticClass: "panel panel-white" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" }, [
+            _c(
+              "form",
+              {
+                attrs: { action: "" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.shopSettingUpdate($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-5 col-md-offset-1" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formData.shop_name,
+                            expression: "formData.shop_name"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Shop Name",
+                          required: ""
+                        },
+                        domProps: { value: _vm.formData.shop_name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.formData,
+                              "shop_name",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Contact No:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formData.phone_no,
+                            expression: "formData.phone_no"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", placeholder: "Contact No" },
+                        domProps: { value: _vm.formData.phone_no },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.formData,
+                              "phone_no",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Shop Email:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formData.shop_email,
+                            expression: "formData.shop_email"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "email", placeholder: "Shop Email" },
+                        domProps: { value: _vm.formData.shop_email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.formData,
+                              "shop_email",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-5 " }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Shop Address:")]),
+                        _vm._v(" "),
+                        _c("vue-editor", {
+                          attrs: { id: "contact_address" },
+                          model: {
+                            value: _vm.formData.shop_address,
+                            callback: function($$v) {
+                              _vm.$set(_vm.formData, "shop_address", $$v)
+                            },
+                            expression: "formData.shop_address"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-7" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", [_vm._v("Logo:")]),
+                            _vm._v(" "),
+                            _c("image-cropper", {
+                              attrs: {
+                                cropperData: _vm.cropperData,
+                                removeImage: _vm.removeImage
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm.formData.shop_logo
+                            ? _c("img", {
+                                attrs: {
+                                  src: _vm.formData.shop_logo.image_path,
+                                  alt: "Company Logo"
+                                }
+                              })
+                            : _c("img", {
+                                attrs: { src: _vm.no_logo, alt: "No Logo" }
+                              })
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3 col-md-offset-8" }, [
+                    _c("div", { staticClass: "text-right form-group" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success",
+                          attrs: { type: "submit", disabled: _vm.btnDisabled }
+                        },
+                        [
+                          _vm._v("Store Setting"),
+                          _c("i", {
+                            staticClass: "icon-arrow-right14 position-right"
+                          })
+                        ]
+                      )
+                    ])
+                  ])
+                ])
+              ]
+            )
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h6", { staticClass: "panel-title" }, [
+        _vm._v("\n                    Contact Information\n                ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Shop Name "),
+      _c("span", { staticClass: "text-danger text-bold" }, [_vm._v("*")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -90296,7 +90705,8 @@ var map = {
 	"./components/order/ShippingOrderPage.vue": "./resources/views/seller_panel/limitless_v2/vue/components/order/ShippingOrderPage.vue",
 	"./components/product/CreateProduct.vue": "./resources/views/seller_panel/limitless_v2/vue/components/product/CreateProduct.vue",
 	"./components/product/ProductList.vue": "./resources/views/seller_panel/limitless_v2/vue/components/product/ProductList.vue",
-	"./components/product/ShowProduct.vue": "./resources/views/seller_panel/limitless_v2/vue/components/product/ShowProduct.vue"
+	"./components/product/ShowProduct.vue": "./resources/views/seller_panel/limitless_v2/vue/components/product/ShowProduct.vue",
+	"./components/shop/ShopSettingPage.vue": "./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue"
 };
 
 
@@ -91305,6 +91715,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue":
+/*!*******************************************************************************************!*\
+  !*** ./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ShopSettingPage_vue_vue_type_template_id_4a6ef07a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShopSettingPage.vue?vue&type=template&id=4a6ef07a&scoped=true& */ "./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue?vue&type=template&id=4a6ef07a&scoped=true&");
+/* harmony import */ var _ShopSettingPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShopSettingPage.vue?vue&type=script&lang=js& */ "./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ShopSettingPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ShopSettingPage_vue_vue_type_template_id_4a6ef07a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ShopSettingPage_vue_vue_type_template_id_4a6ef07a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "4a6ef07a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ShopSettingPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./ShopSettingPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ShopSettingPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue?vue&type=template&id=4a6ef07a&scoped=true&":
+/*!**************************************************************************************************************************************!*\
+  !*** ./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue?vue&type=template&id=4a6ef07a&scoped=true& ***!
+  \**************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShopSettingPage_vue_vue_type_template_id_4a6ef07a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./ShopSettingPage.vue?vue&type=template&id=4a6ef07a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopSettingPage.vue?vue&type=template&id=4a6ef07a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShopSettingPage_vue_vue_type_template_id_4a6ef07a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShopSettingPage_vue_vue_type_template_id_4a6ef07a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js":
 /*!***********************************************************************!*\
   !*** ./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js ***!
@@ -91440,9 +91919,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_imageCropper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/imageCropper */ "./resources/views/seller_panel/limitless_v2/vue/store/modules/imageCropper.js");
 /* harmony import */ var _modules_campaign__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/campaign */ "./resources/views/seller_panel/limitless_v2/vue/store/modules/campaign.js");
 /* harmony import */ var _modules_order__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/order */ "./resources/views/seller_panel/limitless_v2/vue/store/modules/order.js");
+/* harmony import */ var _modules_shop__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/shop */ "./resources/views/seller_panel/limitless_v2/vue/store/modules/shop.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
 
 
 
@@ -91473,7 +91954,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     attachment: _modules_attachment__WEBPACK_IMPORTED_MODULE_6__["default"],
     imageCropper: _modules_imageCropper__WEBPACK_IMPORTED_MODULE_7__["default"],
     campaign: _modules_campaign__WEBPACK_IMPORTED_MODULE_8__["default"],
-    order: _modules_order__WEBPACK_IMPORTED_MODULE_9__["default"]
+    order: _modules_order__WEBPACK_IMPORTED_MODULE_9__["default"],
+    shop: _modules_shop__WEBPACK_IMPORTED_MODULE_10__["default"]
   }
 }));
 
@@ -92841,6 +93323,132 @@ var mutations = {
 
 /***/ }),
 
+/***/ "./resources/views/seller_panel/limitless_v2/vue/store/modules/shop.js":
+/*!*****************************************************************************!*\
+  !*** ./resources/views/seller_panel/limitless_v2/vue/store/modules/shop.js ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//declare State
+var state = {
+  shop_details: []
+}; //declare Getters
+
+var getters = {
+  shopDetails: function shopDetails(state) {
+    return state.shop_details;
+  }
+};
+var actions = {
+  getShopDetails: function () {
+    var _getShopDetails = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.prev = 1;
+              _context.next = 4;
+              return axios.get('/seller/shop/setting').then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setShopDetails', response.data.data);
+                }
+
+                delete response.data.data;
+                return response.data;
+              });
+
+            case 4:
+              return _context.abrupt("return", _context.sent);
+
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](1);
+              console.log(_context.t0);
+              return _context.abrupt("return", _context.t0.data);
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 7]]);
+    }));
+
+    function getShopDetails(_x) {
+      return _getShopDetails.apply(this, arguments);
+    }
+
+    return getShopDetails;
+  }(),
+  updateShopSetting: function () {
+    var _updateShopSetting = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, reqData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios.post('/seller/shop/setting/update', reqData).then(function (response) {
+                return response.data;
+              });
+
+            case 4:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](1);
+              console.log(_context2.t0);
+              return _context2.abrupt("return", _context2.t0.data);
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 7]]);
+    }));
+
+    function updateShopSetting(_x2, _x3) {
+      return _updateShopSetting.apply(this, arguments);
+    }
+
+    return updateShopSetting;
+  }()
+};
+var mutations = {
+  setShopDetails: function setShopDetails(state, response) {
+    state.shop_details = response;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
 /***/ 1:
 /*!*****************************************************************************!*\
   !*** multi ./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js ***!
@@ -92848,7 +93456,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\larevel_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })

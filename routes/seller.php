@@ -44,4 +44,8 @@ Route::prefix('seller')->middleware('auth:seller')->namespace('Seller')->as('sel
         Route::post('/item/status/update', 'OrderController@update_order_item_status')->name('item.status.update');
     });
 
+    Route::prefix('shop')->as('shop.')->group(function () {
+        Route::get('setting', 'ShopController@shop_setting_page')->name('setting');
+        Route::post('setting/update', 'ShopController@shop_setting_update')->name('update');
+    });
 });
