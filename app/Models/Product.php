@@ -27,7 +27,9 @@ class Product extends Model
     ];
 
     const ProductStatus=[
-
+        'Active'=>1,
+        'Inactive'=>2,
+        'Pending'=>3,
     ];
 
     protected $table = 'products';

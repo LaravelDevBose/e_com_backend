@@ -125,7 +125,7 @@ class ProductController extends Controller
                     'package_height'=>$request->package_height,
                     'delivery_cost1'=>$request->delivery_cost1,
                     'delivery_cost2'=>$request->delivery_cost2,
-                    'product_status'=>(!empty($request->product_status) && $request->product_status == 1) ? $request->product_status : 2,
+                    'product_status'=>(!empty($request->product_status)) ? $request->product_status :3,
                     'warranty_type'=>$request->warranty_type,
                     'thumb_id'=>$request->thumb_id,
                     'video_url'=>$request->video_url,

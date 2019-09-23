@@ -336,18 +336,10 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-2 col-md-offset-6">
-                                    <div class="content-group-lg"  style="margin-bottom:0!important;">
-                                        <div class="checkbox checkbox-switchery">
-                                            <label>
-                                                <input type="checkbox"  class="switchery-primary" :checked="formData.product_status">
-                                                <span class="text-success text-bold" v-if="formData.product_status" >Active</span>
-                                                <span class="text-danger text-bold" v-else>Inactive</span>
-                                            </label>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6 col-md-offset-1">
+                                    <p class="alert alert-warning" style="margin-bottom:.4rem;">Product Will make Pending and waiting for Admin Approval.</p>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2 col-md-offset-1">
                                     <div class="text-right form-group" style="margin-bottom:0px;">
                                         <button type="submit" :disabled="btnDisabled" class="btn btn-success btn-block" @submit.prevent="submitFrom"  @click.prevent="submitFrom">Save Product <i class="icon-arrow-right14 position-right"></i></button>
                                     </div>
@@ -400,7 +392,7 @@
                     package_height:'',
                     delivery_cost1:'',
                     delivery_cost2:'',
-                    product_status:false,
+                    product_status:3,
                     warranty_type:'',
                     video_url:'',
                     main_materials:'',

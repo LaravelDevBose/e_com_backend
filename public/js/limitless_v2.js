@@ -8282,14 +8282,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 // import the component
 
  // import the styles
@@ -8327,7 +8319,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         package_height: '',
         delivery_cost1: '',
         delivery_cost2: '',
-        product_status: false,
+        product_status: 3,
         warranty_type: '',
         video_url: '',
         main_materials: '',
@@ -16214,7 +16206,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -74543,46 +74535,9 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _vm._m(6),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-2 col-md-offset-6" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "content-group-lg",
-                        staticStyle: { "margin-bottom": "0!important" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "checkbox checkbox-switchery" },
-                          [
-                            _c("label", [
-                              _c("input", {
-                                staticClass: "switchery-primary",
-                                attrs: { type: "checkbox" },
-                                domProps: {
-                                  checked: _vm.formData.product_status
-                                }
-                              }),
-                              _vm._v(" "),
-                              _vm.formData.product_status
-                                ? _c(
-                                    "span",
-                                    { staticClass: "text-success text-bold" },
-                                    [_vm._v("Active")]
-                                  )
-                                : _c(
-                                    "span",
-                                    { staticClass: "text-danger text-bold" },
-                                    [_vm._v("Inactive")]
-                                  )
-                            ])
-                          ]
-                        )
-                      ]
-                    )
-                  ]),
+                  _vm._m(7),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-2" }, [
+                  _c("div", { staticClass: "col-md-2 col-md-offset-1" }, [
                     _c(
                       "div",
                       {
@@ -74719,6 +74674,21 @@ var staticRenderFns = [
             ]
           )
         ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6 col-md-offset-1" }, [
+      _c(
+        "p",
+        {
+          staticClass: "alert alert-warning",
+          staticStyle: { "margin-bottom": ".4rem" }
+        },
+        [_vm._v("Product Will make Pending and waiting for Admin Approval.")]
       )
     ])
   }
@@ -94566,7 +94536,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\larevel_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })
