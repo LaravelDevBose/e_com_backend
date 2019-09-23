@@ -42,7 +42,6 @@ const actions={
     async registerSeller({commit}, formData){
         return  await axios.post('/seller/register',formData)
             .then(response=>{
-                commit('sellerRegisterResponse', response);
                 return response.data;
             });
 

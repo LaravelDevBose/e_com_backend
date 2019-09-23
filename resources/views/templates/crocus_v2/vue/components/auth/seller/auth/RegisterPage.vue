@@ -103,14 +103,8 @@
                             this.$noty.error(response.message);
                         }else if (response.code === 200){
                             this.$noty.success(response.message);
-                            setTimeout(function () {
-                                location.href = response.url;
-                            },800)
                         }else{
                             this.$noty.error('Some Thing Wrong!');
-                            setTimeout(function () {
-                                location.reload();
-                            },800)
                         }
                     })
 

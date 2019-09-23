@@ -2349,16 +2349,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.$noty.error(response.message);
         } else if (response.code === 200) {
           _this.$noty.success(response.message);
-
-          setTimeout(function () {
-            location.href = response.url;
-          }, 800);
         } else {
           _this.$noty.error('Some Thing Wrong!');
-
-          setTimeout(function () {
-            location.reload();
-          }, 800);
         }
       });
     }
@@ -65339,7 +65331,6 @@ var actions = {
               commit = _ref4.commit;
               _context4.next = 3;
               return axios.post('/seller/register', formData).then(function (response) {
-                commit('sellerRegisterResponse', response);
                 return response.data;
               });
 
@@ -66453,7 +66444,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\larevel_ex\resources\views\templates\crocus_v2\vue\crocus_v2.js */"./resources/views/templates/crocus_v2/vue/crocus_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/crocus_v2/vue/crocus_v2.js */"./resources/views/templates/crocus_v2/vue/crocus_v2.js");
 
 
 /***/ })
