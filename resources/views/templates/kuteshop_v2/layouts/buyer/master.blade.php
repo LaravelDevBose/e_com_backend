@@ -15,87 +15,81 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>@yield('Title')| {{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Mobile Specific -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <!-- Styles -->
-    <!-- CSS Style -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-    <link href="{{ asset('/assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/font-awesome.css') }}" media="all">
-    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/simple-line-icons.css') }}" media="all">
-    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/owl.carousel.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/owl.theme.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/jquery.bxslider.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/jquery.mobile-menu.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/revslider.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/style.css') }}" media="all">
-{{--    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">--}}
-    <!-- Google Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400|Raleway:400,300,600,500,700,800' rel='stylesheet' type='text/css'>
-
+    {{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('kuteshop_v2/css/style.css') }}">
     @yield('PageCss')
-    <style>
-        a{
-            color: #666;
-            -webkit-transition: all 0.3s ease-out;
-            -moz-transition: all 0.3s ease-out;
-            -o-transition: all 0.3s ease-out;
-            -ms-transition: all 0.3s ease-out;
-        }
-        a:hover{
-            cursor: pointer;
-            color: #000;
-            text-decoration: none;
-        }
-    </style>
 </head>
 
-<body class="cms-index-index cms-home-page category-page">
-<div id="crocus_v2">
-    <div id="page">
-        <!-- Header Section -->
-        <header>
-            <!-- header -->
-            @include('templates.crocus_v2.layouts.buyer.includes.globalHeader')
-            <!-- end header -->
+<body class="cms-index-index index-opt-2">
+<div class="wrapper" id="kuteshop_v2">
 
-            <!-- Navigation -->
-            @include('templates.crocus_v2.layouts.buyer.includes.navigation')
-            <!-- end nav -->
-        </header>
-        <!-- end Header Section -->
+    <!-- HEADER -->
+@include('templates.kuteshop_v2.layouts.frontend.includes.globalHeader')
+<!-- end HEADER -->
 
-        @yield('Content')
+    <!-- MAIN -->
+@yield('Content')
+<!-- end MAIN -->
 
-        <!-- Footer -->
-        @include('templates.crocus_v2.layouts.buyer.includes.globalFooter')
-        <!-- End Footer -->
+    <!-- FOOTER -->
+@include('templates.kuteshop_v2.layouts.frontend.includes.globalFooter')
+<!-- end FOOTER -->
 
-    </div>
-
-    <!-- mobile menu -->
-        @include('templates.crocus_v2.layouts.buyer.includes.mobileMenu')
-    <!-- end mobile menu -->
+    <!--back-to-top  -->
+    <a href="#" class="back-to-top">
+        <i aria-hidden="true" class="fa fa-angle-up"></i>
+    </a>
 
 </div>
-<script src="{{ asset('js/crocus_v2.js') }}"></script>
 
-<script type="text/javascript" src="{{ asset('crocus_v2/js/jquery.min.js') }}"  ></script>
-<script type="text/javascript" src="{{ asset('crocus_v2/js/bootstrap.min.js') }}" ></script>
-<script type="text/javascript" src="{{ asset('crocus_v2/js/revslider.js') }}"  ></script>
-<script type="text/javascript" src="{{ asset('crocus_v2/js/common.js') }}"  ></script>
-<script type="text/javascript" src="{{ asset('crocus_v2/js/owl.carousel.min.js') }}" ></script>
-<script type="text/javascript" src="{{ asset('crocus_v2/js/jquery.mobile-menu.min.js') }}" ></script>
-<script type="text/javascript" src="{{ asset('crocus_v2/js/countdown.js') }}" ></script>
+<script src="{{ asset('js/kuteshop_v2.js') }}"></script>
+<!-- jQuery -->
+<script type="text/javascript" src="{{ asset('kuteshop_v2/js/jquery.min.js') }}"></script>
+
+<!-- sticky -->
+<script type="text/javascript" src="{{ asset('kuteshop_v2/js/jquery.sticky.js') }}"></script>
+
+<!-- OWL CAROUSEL Slider -->
+<script type="text/javascript" src="{{ asset('kuteshop_v2/js/owl.carousel.min.js') }}"></script>
+
+<!-- Boostrap -->
+<script type="text/javascript" src="{{ asset('kuteshop_v2/js/bootstrap.min.js') }}"></script>
+
+<!-- Countdown -->
+<script type="text/javascript" src="{{ asset('kuteshop_v2/js/jquery.countdown.min.js') }}"></script>
+
+<!--jquery Bxslider  -->
+<script type="text/javascript" src="{{ asset('kuteshop_v2/js/jquery.bxslider.min.js') }}"></script>
+
+<!-- actual -->
+<script type="text/javascript" src="{{ asset('kuteshop_v2/js/jquery.actual.min.js') }}"></script>
+
+<!-- Chosen jquery-->
+<script type="text/javascript" src="{{ asset('kuteshop_v2/js/chosen.jquery.min.js') }}"></script>
+
+<!-- parallax jquery-->
+<script type="text/javascript" src="{{ asset('kuteshop_v2/js/jquery.parallax-1.1.3.js') }}"></script>
+
+<!-- elevatezoom -->
+<script type="text/javascript" src="{{ asset('kuteshop_v2/js/jquery.elevateZoom.min.js') }}"></script>
+
+<!-- fancybox -->
+<script src="{{ asset('kuteshop_v2/js/fancybox/source/jquery.fancybox.pack.js') }}"></script>
+<script src="{{ asset('kuteshop_v2/js/fancybox/source/helpers/jquery.fancybox-media.js') }}"></script>
+<script src="{{ asset('kuteshop_v2/js/fancybox/source/helpers/jquery.fancybox-thumbs.js') }}"></script>
+
+<!-- arcticmodal -->
+<script src="{{ asset('kuteshop_v2/js/arcticmodal/jquery.arcticmodal.js') }}"></script>
+
+<!-- Main -->
+<script type="text/javascript" src="{{ asset('kuteshop_v2/js/main.js') }}"></script>
+
 <!-- Scripts -->
 @yield('PageJs')
-
 
 
 </body>
