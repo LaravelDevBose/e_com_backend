@@ -1,908 +1,605 @@
-@extends('templates.crocus_v2.layouts.frontend.master')
+@extends('templates.kuteshop_v2.layouts.frontend.master')
 
 @section('Title', 'Product')
 
 @section('PageCss')
-    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/flexslider.css') }}">
+
 @endsection
 
 @section('Content')
-<!-- Main Container -->
-<section class="main-container col1-layout">
-    <div class="main">
-        <div class="container">
+    <main class="site-main">
+
+        <div class="columns container">
+            <!-- Block  Breadcrumb-->
+
+            <ol class="breadcrumb no-hide">
+                <li><a href="#">Home    </a></li>
+                <li><a href="#">Electronics    </a></li>
+                <li class="active">Machine Pro</li>
+            </ol><!-- Block  Breadcrumb-->
+
             <div class="row">
-                <div class="col-main">
-                    <div class="product-view">
-                        <div class="product-essential">
-                            <form action="#" method="post" id="product_addtocart_form">
-                                <input name="form_key" value="6UbXroakyQlbfQzK" type="hidden">
-                                <div class="product-img-box col-lg-4 col-sm-4 col-xs-12">
-                                    <div class="new-label new-top-left"> New </div>
-                                    <div class="product-image">
-                                        <div class="product-full">
-                                            <img id="product-zoom" src="{{ $product->thumbImage->image_path }}" data-zoom-image="{{ $product->thumbImage->image_path }}" alt="{{ $product->product_name }}"/>
-                                        </div>
-                                        @if(!empty($product->productImages) && count($product->productImages))
-                                            <div class="more-views">
-                                                <div class="slider-items-products">
-                                                    <div id="gallery_01" class="product-flexslider hidden-buttons product-img-thumb">
-                                                        <div class="slider-items slider-width-col4 block-content">
-                                                            <div class="more-views-items">
-                                                                <a href="#" data-image="{{ $product->thumbImage->image_path }}" data-zoom-image="{{ $product->thumbImage->image_path }}">
-                                                                    <img id="product-zoom"  src="{{ $product->thumbImage->image_path }}" alt="{{ $product->product_name }}"/>
-                                                                </a>
-                                                            </div>
 
-                                                            @foreach($product->productImages as $productImage)
-                                                                <div class="more-views-items">
-                                                                    <a href="#" data-image="{{ $productImage->attachment->image_path }}" data-zoom-image="{{ $productImage->attachment->image_path }}">
-                                                                        <img id="product-zoom"  src="{{ $productImage->attachment->image_path }}" alt="{{ $product->product_name }}"/>
-                                                                    </a>
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
+
+
+                <!-- Main Content -->
+                <div class="col-md-12  col-main">
+
+                    <div class="row">
+
+                        <div class="col-sm-6 col-md-5 col-lg-5">
+
+                            <div class="product-media media-horizontal">
+
+                                <div class="image_preview_container images-large">
+
+                                    <img id="img_zoom" data-zoom-image="/kuteshop_v2/images/media/detail/thumb-lag1.jpg" src="/kuteshop_v2/images/media/detail/thumb-img1.jpg" alt="">
+
+                                    <button class="btn-zoom open_qv"><span>zoom</span></button>
+
+                                </div>
+
+                                <div class="product_preview images-small">
+
+                                    <div class="owl-carousel thumbnails_carousel" id="thumbnails"  data-nav="true" data-dots="false" data-margin="10" data-responsive='{"0":{"items":3},"480":{"items":4},"600":{"items":5},"768":{"items":3}}'>
+
+                                        <a href="#" data-image="/kuteshop_v2/images/media/detail/thumb-img1.jpg" data-zoom-image="/kuteshop_v2/images/media/detail/thumb-lag1.jpg">
+
+                                            <img src="/kuteshop_v2/images/media/detail/thumb1.jpg" data-large-image="/kuteshop_v2/images/media/detail/thumb-img1.jpg" alt="">
+
+                                        </a>
+
+                                        <a href="#" data-image="/kuteshop_v2/images/media/detail/thumb-img2.jpg" data-zoom-image="/kuteshop_v2/images/media/detail/thumb-lag2.jpg">
+
+                                            <img src="/kuteshop_v2/images/media/detail/thumb2.jpg" data-large-image="/kuteshop_v2/images/media/detail/thumb-img2.jpg" alt="">
+
+                                        </a>
+                                        <a href="#" data-image="/kuteshop_v2/images/media/detail/thumb-img3.jpg" data-zoom-image="/kuteshop_v2/images/media/detail/thumb-lag3.jpg">
+
+                                            <img src="/kuteshop_v2/images/media/detail/thumb3.jpg" data-large-image="/kuteshop_v2/images/media/detail/thumb-img3.jpg" alt="">
+
+                                        </a>
+                                        <a href="#" data-image="/kuteshop_v2/images/media/detail/thumb-img1.jpg" data-zoom-image="/kuteshop_v2/images/media/detail/thumb-lag1.jpg">
+
+                                            <img src="/kuteshop_v2/images/media/detail/thumb1.jpg" data-large-image="/kuteshop_v2/images/media/detail/thumb-img1.jpg" alt="">
+
+                                        </a>
+
+                                    </div><!--/ .owl-carousel-->
+
+                                </div><!--/ .product_preview-->
+
+                            </div><!-- image product -->
+                        </div>
+
+                        <div class="col-sm-6 col-md-7 col-lg-7">
+
+                            <div class="product-info-main">
+
+                                <h1 class="page-title">
+                                    Advanced Dark Blue Coast
+                                </h1>
+                                <div class="product-reviews-summary">
+                                    <div class="rating-summary">
+                                        <div class="rating-result" title="70%">
+                                                <span style="width:70%">
+                                                    <span><span>70</span>% of <span>100</span></span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews-actions">
+                                        <a href="" class="action view">Based  on 3 ratings</a>
+                                        <a href="" class="action add"><img alt="img" src="/kuteshop_v2/images/icon/write.png">&#160;&#160;write a review</a>
+                                    </div>
+                                </div>
+
+                                <div class="product-info-price">
+                                    <div class="price-box">
+                                        <span class="price">$38.95   </span>
+                                        <span class="old-price">$52.00</span>
+                                        <span class="label-sale">-30%</span>
+                                    </div>
+                                </div>
+                                <div class="product-code">
+                                    Item Code: #453217907 :
+                                </div>
+                                <div class="product-info-stock">
+                                    <div class="stock available">
+                                        <span class="label">Availability: </span>In stock
+                                    </div>
+                                </div>
+                                <div class="product-condition">
+                                    Condition: New
+                                </div>
+                                <div class="product-overview">
+                                    <div class="overview-content">
+                                        Vestibulum eu odio. Suspendisse potenti. Morbi mollis tellus ac sapien. Praesent egestas tristique nibh. Nullam dictum felis eu pede mollis pretium. Fusce egestas elit eget lorem.
+                                    </div>
+                                </div>
+
+                                <div class="product-add-form">
+                                    <p>Available Options:</p>
+                                    <form>
+
+                                        <div class="product-options-wrapper">
+
+                                            <div class="swatch-opt">
+                                                <div class="swatch-attribute color" >
+                                                    <span class="swatch-attribute-label">Color:</span>
+                                                    <div class="swatch-attribute-options clearfix">
+                                                        <div class="swatch-option color selected" style="background-color: #0c3b90 ;"></div>
+                                                        <div class="swatch-option color" style="background-color: #036c5d ;"></div>
+                                                        <div class="swatch-option color" style="background-color: #5f2363 ;"></div>
+                                                        <div class="swatch-option color " style="background-color: #ffc000 ;"></div>
+                                                        <div class="swatch-option color" style="background-color: #36a93c ;"></div>
+                                                        <div class="swatch-option color" style="background-color: #ff0000 ;"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endif
-                                    </div>
-                                    <!-- end: more-images -->
-                                </div>
-                                <div class="product-shop col-lg-5 col-sm-5 col-xs-12">
-                                    <div class="product-next-prev"> <a class="product-next" href="#"><span></span></a> <a class="product-prev" href="#"><span></span></a> </div>
-                                    <div class="product-name">
-                                        <h1>{{ $product->product_name}}</h1>
-                                    </div>
-                                    <div class="ratings">
-                                        <div class="rating-box">
-                                            <div style="width:60%" class="rating"></div>
-                                        </div>
-                                        <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Your Review</a> </p>
-                                    </div>
-
-                                    @if(!empty($product->singleVariation))
-                                        <div class="price-block">
-                                            @if(!is_null($product->singleVariation->special_price))
-                                                <div class="price-box">
-                                                    <p class="old-price"><span class="price-label">Regular Price:</span> <span class="price">$ {{ number_format($product->singleVariation->price,2) }} </span> </p>
-                                                    <p class="special-price"><span class="price-label">Special Price</span> <span class="price">$ {{ number_format($product->singleVariation->special_price ,2) }} </span> </p>
-                                                </div>
-                                            @else
-                                                <div class="price-box">
-                                                    <p class="special-price"><span class="price-label">Price</span> <span class="price">$ {{ number_format($product->singleVariation->price,2) }}</span> </p>
-                                                </div>
-                                            @endif
-                                        </div>
-                                    @endif
-                                    <div class="short-description">
-                                        <h2>Quick Overview</h2>
-                                        {!! $product->highlight !!}
-                                    </div>
-                                    <div class="add-to-box">
-                                        <div class="add-to-cart">
-                                            <div class="pull-left">
-                                                <div class="custom pull-left">
-                                                    <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>
-                                                    <input type="text" class="input-text qty" title="Qty" value="1" maxlength="12" id="qty" name="qty">
-                                                    <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
+                                            <div class="form-qty">
+                                                <label class="label">Qty: </label>
+                                                <div class="control">
+                                                    <input type="text" class="form-control input-qty" value='1' id="qty1" name="qty1"  maxlength="12"  minlength="1">
+                                                    <button class="btn-number  qtyminus" data-type="minus" data-field="qty1"><span>-</span></button>
+                                                    <button class="btn-number  qtyplus" data-type="plus" data-field="qty1"><span>+</span></button>
                                                 </div>
                                             </div>
-                                            <button onClick="productAddToCartForm.submit(this)" class="button btn-cart" title="Add to Cart" type="button">Add to Cart</button>
+                                            <div class="form-configurable">
+                                                <label for="forSize" class="label">Size: </label>
+                                                <div class="control">
+                                                    <select  id="forSize" class="form-control attribute-select">
+                                                        <option value="1">XXXL</option>
+                                                        <option value="4">X</option>
+                                                        <option value="5">L</option>
+                                                    </select>
+                                                </div>
+                                                <a href="" class="size-chart">Size chart</a>
+                                            </div>
                                         </div>
-                                        <div class="email-addto-box">
-                                            <ul class="add-to-links">
-                                                <li> <a class="link-wishlist" href="{{ route('login') }}"><span>Add to Wishlist</span></a></li>
-                                                <li><span class="separator">|</span> <a class="link-compare" href="compare.html"><span>Add to Compare</span></a></li>
-                                            </ul>
-                                            <p class="email-friend"><a href="#" class=""><span>Email to a Friend</span></a></p>
+
+
+
+                                        <div class="product-options-bottom clearfix">
+
+                                            <div class="actions">
+
+                                                <button type="submit" title="Add to Cart" class="action btn-cart">
+                                                    <span>Add to Cart</span>
+                                                </button>
+                                                <div class="product-addto-links">
+
+                                                    <a href="#" class="action btn-wishlist" title="Wish List">
+                                                        <span>Wishlist</span>
+                                                    </a>
+                                                    <a href="#" class="action btn-compare" title="Compare">
+                                                        <span>Compare</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+
                                         </div>
-                                    </div>
 
+                                    </form>
                                 </div>
+                                <div class="product-addto-links-second">
+                                    <a href="" class="action action-print">Print</a>
+                                    <a href="" class="action action-friend">Send to a friend</a>
+                                </div>
+                                <div class="share">
+                                    <img src="/kuteshop_v2/images/media/index1/share.png" alt="share">
+                                </div>
+                            </div><!-- detail- product -->
 
-                                <div class="col-lg-3 col-sm-3 col-xs-12 pro-banner">
-                                    <img alt="banner" src="{{ asset('crocus_v2/images/home-banner.png')}}') }}">
-                                    <div class="download-app">
-                                        <h2>DOWNLOAD THE APP</h2>
-                                        <img alt="banner" src="{{ asset('crocus_v2/images/google-play-btn.jpg') }}" class="app-btn">
-                                        <img alt="banner" src="{{ asset('crocus_v2/images/apple-btn.jpg') }}" class="app-btn"></div>
-                                </div>
-                            </form>
-                        </div>
+                        </div><!-- Main detail -->
+
                     </div>
-                </div>
-                <div class="product-collateral col-lg-12 col-sm-12 col-xs-12">
-                    <div class="add_info">
-                        <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
-                            <li class="active"> <a href="#product_tabs_description" data-toggle="tab"> Product Description </a> </li>
-                            <li> <a href="#reviews_tabs" data-toggle="tab">Reviews</a> </li>
+
+                    <!-- product tab info -->
+
+                    <div class="product-info-detailed ">
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-pills" role="tablist">
+                            <li role="presentation" class="active"><a href="#description"  role="tab" data-toggle="tab">Product Details   </a></li>
+                            <li role="presentation"><a href="#tags"  role="tab" data-toggle="tab">information </a></li>
+                            <li role="presentation"><a href="#reviews"  role="tab" data-toggle="tab">reviews</a></li>
+                            <li role="presentation"><a href="#additional"  role="tab" data-toggle="tab">Extra Tabs</a></li>
+                            <li role="presentation"><a href="#tab-cust"  role="tab" data-toggle="tab">Guarantees</a></li>
                         </ul>
-                        <div id="productTabContent" class="tab-content">
-                            <div class="tab-pane fade in active" id="product_tabs_description">
-                                <div class="std">
-                                    {!! $product->description !!}
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="description">
+                                <div class="block-title">Product Details</div>
+                                <div class="block-content">
+                                    <p>Morbi mollis tellus ac sapien. Nunc nec neque. Praesent nec nisl a purus blandit viverra. Nunc nec neque. Pellentesque auctor neque nec urna.</p>
+                                    <br>
+                                    <p>Curabitur suscipit suscipit tellus. Cras id dui. Nam ipsum risus, rutrum vitae, vestibulum eu, molestie vel, lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Maecenas vestibulum mollis diam.</p>
+                                    <br>
+                                    <p>Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. Sed lectus. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Nam at tortor in tellus interdum sagittis. Pellentesque egestas, neque sit amet convallis pulvinar, justo nulla eleifend augue, ac auctor orci leo non est.</p>
+                                    <br>
+                                    <p>Morbi mollis tellus ac sapien. Nunc nec neque. Praesent nec nisl a purus blandit viverra. Nunc nec neque. Pellentesque auctor neque nec urna.</p>
+
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="reviews_tabs">
-                                <div class="box-collateral box-reviews" id="customer-reviews">
-                                    <div class="box-reviews1">
-                                        <div class="form-add">
-                                            <form id="review-form" method="post" action="http://www.themesmart.net/review/product/post/id/176/">
-                                                <h3>Write Your Own Review</h3>
-                                                <fieldset>
-                                                    <h4>How do you rate this product? <em class="required">*</em></h4>
-                                                    <span id="input-message-box"></span>
-                                                    <table id="product-review-table" class="data-table">
-                                                        <colgroup>
-                                                            <col>
-                                                            <col width="1">
-                                                            <col width="1">
-                                                            <col width="1">
-                                                            <col width="1">
-                                                            <col width="1">
-                                                        </colgroup>
-                                                        <thead>
-                                                        <tr class="first last">
-                                                            <th>&nbsp;</th>
-                                                            <th><span class="nobr">1 *</span></th>
-                                                            <th><span class="nobr">2 *</span></th>
-                                                            <th><span class="nobr">3 *</span></th>
-                                                            <th><span class="nobr">4 *</span></th>
-                                                            <th><span class="nobr">5 *</span></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr class="first odd">
-                                                            <th>Price</th>
-                                                            <td class="value"><input type="radio" class="radio" value="11" id="Price_1" name="ratings[3]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="12" id="Price_2" name="ratings[3]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="13" id="Price_3" name="ratings[3]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="14" id="Price_4" name="ratings[3]"></td>
-                                                            <td class="value last"><input type="radio" class="radio" value="15" id="Price_5" name="ratings[3]"></td>
-                                                        </tr>
-                                                        <tr class="even">
-                                                            <th>Value</th>
-                                                            <td class="value"><input type="radio" class="radio" value="6" id="Value_1" name="ratings[2]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="7" id="Value_2" name="ratings[2]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="8" id="Value_3" name="ratings[2]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="9" id="Value_4" name="ratings[2]"></td>
-                                                            <td class="value last"><input type="radio" class="radio" value="10" id="Value_5" name="ratings[2]"></td>
-                                                        </tr>
-                                                        <tr class="last odd">
-                                                            <th>Quality</th>
-                                                            <td class="value"><input type="radio" class="radio" value="1" id="Quality_1" name="ratings[1]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="2" id="Quality_2" name="ratings[1]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="3" id="Quality_3" name="ratings[1]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="4" id="Quality_4" name="ratings[1]"></td>
-                                                            <td class="value last"><input type="radio" class="radio" value="5" id="Quality_5" name="ratings[1]"></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <input type="hidden" value="" class="validate-rating" name="validate_rating">
-                                                    <div class="review1">
-                                                        <ul class="form-list">
-                                                            <li>
-                                                                <label class="required" for="nickname_field">Nickname<em>*</em></label>
-                                                                <div class="input-box">
-                                                                    <input type="text" class="input-text" id="nickname_field" name="nickname">
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <label class="required" for="summary_field">Summary<em>*</em></label>
-                                                                <div class="input-box">
-                                                                    <input type="text" class="input-text" id="summary_field" name="title">
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="review2">
-                                                        <ul>
-                                                            <li>
-                                                                <label class="required " for="review_field">Review<em>*</em></label>
-                                                                <div class="input-box">
-                                                                    <textarea rows="3" cols="5" id="review_field" name="detail"></textarea>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="buttons-set">
-                                                            <button class="button submit" title="Submit Review" type="submit"><span>Submit Review</span></button>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="box-reviews2">
-                                        <h3>Customer Reviews</h3>
-                                        <div class="box visible">
-                                            <ul>
-                                                <li>
+                            <div role="tabpanel" class="tab-pane" id="tags">
+                                <div class="block-title">information</div>
+                                <div class="block-content">
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
 
-                                                    <div class="review">
-                                                        <h6><a href="#">Good Product</a></h6>
-                                                        <small>Review by <span>John Doe </span>on 25/8/2016 </small>
-                                                        <div class="rating-box">
-                                                            <div class="rating" style="width:100%;"></div>
-                                                        </div>
-                                                        <div class="review-txt"> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div>
-                                                    </div>
-                                                </li>
-                                                <li class="even">
 
-                                                    <div class="review">
-                                                        <h6><a href="#/catalog/product/view/id/60/">Superb!</a></h6>
-                                                        <small>Review by <span>John Doe</span>on 12/3/2015 </small>
-                                                        <div class="rating-box">
-                                                            <div class="rating" style="width:100%;"></div>
-                                                        </div>
-                                                        <div class="review-txt"> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book </div>
-                                                    </div>
-                                                </li>
-                                                <li>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="reviews">
+                                <div class="block-title">reviews</div>
+                                <div class="block-content">
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
 
-                                                    <div class="review">
-                                                        <h6><a href="#/catalog/product/view/id/59/">Awesome Product</a></h6>
-                                                        <small>Review by <span>John Doe</span>on 28/2/2015 </small>
-                                                        <div class="rating-box">
-                                                            <div class="rating" style="width:100%;"></div>
-                                                        </div>
-                                                        <div class="review-txt last"> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="additional">
+                                <div class="block-title">Extra Tabs</div>
+                                <div class="block-content">
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
 
-                                    </div>
-                                    <div class="clear"></div>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab-cust">
+                                <div class="block-title">Guarantees</div>
+                                <div class="block-content">
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also Aldus PageMaker including versions of Lorem Ipsum</p>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Main Container End -->
+                    <!-- product tab info -->
 
-<!-- Related Products Slider -->
-
-<div class="container">
-
-    <!-- Related Slider -->
-    <div class="related-pro">
-
-        <div class="slider-items-products">
-            <div class="related-block">
-                <div id="related-products-slider" class="product-flexslider hidden-buttons">
-                    <div class="home-block-inner">
+                    <!-- block-related product -->
+                    <div class="block-related ">
                         <div class="block-title">
-                            <h2>Related Products</h2>
+                            <strong class="title">RELATED products</strong>
                         </div>
-                        <img alt="banner" src="{{ asset('crocus_v2/images/banner-img.png')}}') }}">
+                        <div class="block-content ">
+                            <ol class="product-items owl-carousel " data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"992":{"items":3},"1200":{"items":4}}'>
 
-                    </div>
-                    <div class="slider-items slider-width-col4 products-grid block-content">
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="ThinkPad X1 Ultrabook" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="new-label new-top-right">new</div>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="ThinkPad X1 Ultrabook" href="product_detail.html"> ThinkPad X1 Ultrabook </a> </div>
-                                        <div class="rating">
-                                            <div class="ratings">
-                                                <div class="rating-box">
-                                                    <div style="width:80%" class="rating"></div>
-                                                </div>
-                                                <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                            </div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$125.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Samsung GALAXY Note" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
+                                <li class="product-item product-item-opt-2">
+                                    <div class="product-item-info">
+                                        <div class="product-item-photo">
+                                            <a href="" class="product-item-img"><img src="/kuteshop_v2/images/media/detail/related2-1.jpg" alt="product name"></a>
+                                            <div class="product-item-actions">
+                                                <a href="" class="btn btn-wishlist"><span>wishlist</span></a>
+                                                <a href="" class="btn btn-compare"><span>compare</span></a>
+                                                <a href="" class="btn btn-quickview"><span>quickview</span></a>
+                                            </div>
+                                            <button class="btn btn-cart" type="button"><span>Add to Cart</span></button>
+
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Samsung GALAXY Note </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
+                                        <div class="product-item-detail">
+                                            <strong class="product-item-name"><a href="">Brown Short 100% Cotton</a></strong>
+                                            <div class="clearfix">
+                                                <div class="product-item-price">
+                                                    <span class="price">$45.00</span>
+                                                    <span class="old-price">$52.00</span>
+                                                </div>
+                                                <div class="product-reviews-summary">
+                                                    <div class="rating-summary">
+                                                        <div class="rating-result" title="70%">
+                                                                <span style="width:70%">
+                                                                    <span><span>70</span>% of <span>100</span></span>
+                                                                </span>
+                                                        </div>
                                                     </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                                                 </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$235.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
+                                </li>
 
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Epson L360 Printer" href="product_detail.html"> <img alt="Epson L360 Printer" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
+                                <li class="product-item product-item-opt-2">
+                                    <div class="product-item-info">
+                                        <div class="product-item-photo">
+                                            <a href="" class="product-item-img"><img src="/kuteshop_v2/images/media/detail/related2-2.jpg" alt="product name"></a>
+                                            <div class="product-item-actions">
+                                                <a href="" class="btn btn-wishlist"><span>wishlist</span></a>
+                                                <a href="" class="btn btn-compare"><span>compare</span></a>
+                                                <a href="" class="btn btn-quickview"><span>quickview</span></a>
+                                            </div>
+                                            <button class="btn btn-cart" type="button"><span>Add to Cart</span></button>
+
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Epson L360 Printer </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
+                                        <div class="product-item-detail">
+                                            <strong class="product-item-name"><a href="">Summer T-Shirt</a></strong>
+                                            <div class="clearfix">
+                                                <div class="product-item-price">
+                                                    <span class="price">$45.00</span>
+                                                    <span class="old-price">$52.00</span>
+                                                </div>
+                                                <div class="product-reviews-summary">
+                                                    <div class="rating-summary">
+                                                        <div class="rating-result" title="70%">
+                                                                <span style="width:70%">
+                                                                    <span><span>70</span>% of <span>100</span></span>
+                                                                </span>
+                                                        </div>
                                                     </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                                                 </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$325.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
+                                </li>
+                                <li class="product-item product-item-opt-2">
+                                    <div class="product-item-info">
+                                        <div class="product-item-photo">
+                                            <a href="" class="product-item-img"><img src="/kuteshop_v2/images/media/detail/related2-3.jpg" alt="product name"></a>
+                                            <div class="product-item-actions">
+                                                <a href="" class="btn btn-wishlist"><span>wishlist</span></a>
+                                                <a href="" class="btn btn-compare"><span>compare</span></a>
+                                                <a href="" class="btn btn-quickview"><span>quickview</span></a>
+                                            </div>
+                                            <button class="btn btn-cart" type="button"><span>Add to Cart</span></button>
 
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="QX30 Lens Camera" href="product_detail.html"> <img alt="QX30 Lens Camera" src="{{ asset('crocus_v2') }}"> </a>
-                                        <div class="new-label new-top-left">new</div>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="QX30 Lens Camera" href="product_detail.html"> QX30 Lens Camera </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
+                                        <div class="product-item-detail">
+                                            <strong class="product-item-name"><a href="">Blue Short 50% Cotton</a></strong>
+                                            <div class="clearfix">
+                                                <div class="product-item-price">
+                                                    <span class="price">$45.00</span>
+                                                    <span class="old-price">$52.00</span>
+                                                </div>
+                                                <div class="product-reviews-summary">
+                                                    <div class="rating-summary">
+                                                        <div class="rating-result" title="70%">
+                                                                <span style="width:70%">
+                                                                    <span><span>70</span>% of <span>100</span></span>
+                                                                </span>
+                                                        </div>
                                                     </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                                                 </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$425.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                </li>
+                                <li class="product-item product-item-opt-2">
+                                    <div class="product-item-info">
+                                        <div class="product-item-photo">
+                                            <a href="" class="product-item-img"><img src="/kuteshop_v2/images/media/detail/related2-1.jpg" alt="product name"></a>
+                                            <div class="product-item-actions">
+                                                <a href="" class="btn btn-wishlist"><span>wishlist</span></a>
+                                                <a href="" class="btn btn-compare"><span>compare</span></a>
+                                                <a href="" class="btn btn-quickview"><span>quickview</span></a>
+                                            </div>
+                                            <button class="btn btn-cart" type="button"><span>Add to Cart</span></button>
 
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Smart Watch A9" href="product_detail.html"> <img alt="Smart Watch A9" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Smart Watch A9" href="product_detail.html"> Smart Watch A9 </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
+                                        <div class="product-item-detail">
+                                            <strong class="product-item-name"><a href="">Brown Short 100% Cotton</a></strong>
+                                            <div class="clearfix">
+                                                <div class="product-item-price">
+                                                    <span class="price">$45.00</span>
+                                                    <span class="old-price">$52.00</span>
+                                                </div>
+                                                <div class="product-reviews-summary">
+                                                    <div class="rating-summary">
+                                                        <div class="rating-result" title="70%">
+                                                                <span style="width:70%">
+                                                                    <span><span>70</span>% of <span>100</span></span>
+                                                                </span>
+                                                        </div>
                                                     </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                                                 </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$525.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </li>
+
+                            </ol>
                         </div>
-                        <!-- End Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Touch Notebook 500GB HD" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Touch Notebook 500GB HD" href="product_detail.html"> Touch Notebook 500GB HD </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$225.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Canon Zoom Camera" href="product_detail.html"> <img alt="Canon Zoom Camera" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Canon Zoom Camera" href="product_detail.html"> Canon Zoom Camera </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$185.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
+                    </div><!-- block-related product -->
 
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <!-- End related products Slider -->
-
-
-
-
-</div>
-<!-- Related Products Slider End -->
-
-<!-- Upsell Product Slider -->
-
-<div class="container">
-    <!-- upsell Slider -->
-    <div class="upsell-pro">
-        <div class="slider-items-products">
-            <div class="upsell-block">
-                <div id="upsell-products-slider" class="product-flexslider hidden-buttons">
-                    <div class="home-block-inner">
+                    <!-- block-Upsell Products -->
+                    <div class="block-upsell ">
                         <div class="block-title">
-                            <h2>Upsell Product</h2>
+                            <strong class="title">You might also like</strong>
                         </div>
-                        <img alt="banner" src="{{ asset('crocus_v2/images/banner-img1.png')}}') }}">
-                    </div>
-                    <div class="slider-items slider-width-col4 products-grid block-content">
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="iPhone 6 Plus" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="new-label new-top-right">new</div>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="iPhone 6 Plus" href="product_detail.html"> iPhone 6 Plus </a> </div>
-                                        <div class="rating">
-                                            <div class="ratings">
-                                                <div class="rating-box">
-                                                    <div style="width:80%" class="rating"></div>
-                                                </div>
-                                                <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                            </div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$245.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="block-content ">
+                            <ol class="product-items owl-carousel " data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"992":{"items":3},"1200":{"items":4}}'>
 
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Noise Smart Watch" href="product_detail.html"> <img alt="Noise Smart Watch" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
+
+                                <li class="product-item product-item-opt-2">
+                                    <div class="product-item-info">
+                                        <div class="product-item-photo">
+                                            <a href="" class="product-item-img"><img src="/kuteshop_v2/images/media/detail/Upsell2-1.jpg" alt="product name"></a>
+                                            <div class="product-item-actions">
+                                                <a href="" class="btn btn-wishlist"><span>wishlist</span></a>
+                                                <a href="" class="btn btn-compare"><span>compare</span></a>
+                                                <a href="" class="btn btn-quickview"><span>quickview</span></a>
+                                            </div>
+                                            <button class="btn btn-cart" type="button"><span>Add to Cart</span></button>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Noise Smart Watch" href="product_detail.html"> Noise Smart Watch </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
+                                        <div class="product-item-detail">
+                                            <strong class="product-item-name"><a href="">Leather Swiss Watch</a></strong>
+                                            <div class="clearfix">
+                                                <div class="product-item-price">
+                                                    <span class="price">$45.00</span>
+                                                    <span class="old-price">$52.00</span>
+                                                </div>
+                                                <div class="product-reviews-summary">
+                                                    <div class="rating-summary">
+                                                        <div class="rating-result" title="70%">
+                                                                <span style="width:70%">
+                                                                    <span><span>70</span>% of <span>100</span></span>
+                                                                </span>
+                                                        </div>
                                                     </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                                                 </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$155.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
+                                </li>
 
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Morphy Optimo Kettle" href="product_detail.html"> <img alt="Morphy Optimo Kettle" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
+                                <li class="product-item product-item-opt-2">
+                                    <div class="product-item-info">
+                                        <div class="product-item-photo">
+                                            <a href="" class="product-item-img"><img src="/kuteshop_v2/images/media/detail/Upsell2-2.jpg" alt="product name"></a>
+                                            <div class="product-item-actions">
+                                                <a href="" class="btn btn-wishlist"><span>wishlist</span></a>
+                                                <a href="" class="btn btn-compare"><span>compare</span></a>
+                                                <a href="" class="btn btn-quickview"><span>quickview</span></a>
+                                            </div>
+                                            <button class="btn btn-cart" type="button"><span>Add to Cart</span></button>
+
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Morphy Optimo Kettle" href="product_detail.html"> Morphy Optimo Kettle </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
+                                        <div class="product-item-detail">
+                                            <strong class="product-item-name"><a href="">Sport T-Shirt For Men</a></strong>
+                                            <div class="clearfix">
+                                                <div class="product-item-price">
+                                                    <span class="price">$45.00</span>
+                                                    <span class="old-price">$52.00</span>
+                                                </div>
+                                                <div class="product-reviews-summary">
+                                                    <div class="rating-summary">
+                                                        <div class="rating-result" title="70%">
+                                                                <span style="width:70%">
+                                                                    <span><span>70</span>% of <span>100</span></span>
+                                                                </span>
+                                                        </div>
                                                     </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                                                 </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$185.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
+                                </li>
+                                <li class="product-item product-item-opt-2">
+                                    <div class="product-item-info">
+                                        <div class="product-item-photo">
+                                            <a href="" class="product-item-img"><img src="/kuteshop_v2/images/media/detail/Upsell2-3.jpg" alt="product name"></a>
+                                            <div class="product-item-actions">
+                                                <a href="" class="btn btn-wishlist"><span>wishlist</span></a>
+                                                <a href="" class="btn btn-compare"><span>compare</span></a>
+                                                <a href="" class="btn btn-quickview"><span>quickview</span></a>
+                                            </div>
+                                            <button class="btn btn-cart" type="button"><span>Add to Cart</span></button>
 
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Omega J8004 Juicer" href="product_detail.html"> <img alt="Omega J8004 Juicer" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="new-label new-top-left">new</div>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Omega J8004 Juicer" href="product_detail.html"> Omega J8004 Juicer </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
+                                        <div class="product-item-detail">
+                                            <strong class="product-item-name"><a href="">Fashion Leather Handbag</a></strong>
+                                            <div class="clearfix">
+                                                <div class="product-item-price">
+                                                    <span class="price">$45.00</span>
+                                                    <span class="old-price">$52.00</span>
+                                                </div>
+                                                <div class="product-reviews-summary">
+                                                    <div class="rating-summary">
+                                                        <div class="rating-result" title="70%">
+                                                                <span style="width:70%">
+                                                                    <span><span>70</span>% of <span>100</span></span>
+                                                                </span>
+                                                        </div>
                                                     </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                                                 </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$235.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                </li>
+                                <li class="product-item product-item-opt-2">
+                                    <div class="product-item-info">
+                                        <div class="product-item-photo">
+                                            <a href="" class="product-item-img"><img src="/kuteshop_v2/images/media/detail/Upsell2-3.jpg" alt="product name"></a>
+                                            <div class="product-item-actions">
+                                                <a href="" class="btn btn-wishlist"><span>wishlist</span></a>
+                                                <a href="" class="btn btn-compare"><span>compare</span></a>
+                                                <a href="" class="btn btn-quickview"><span>quickview</span></a>
+                                            </div>
+                                            <button class="btn btn-cart" type="button"><span>Add to Cart</span></button>
 
-                        <!-- Item -->
-
-                        <!-- End Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Food Processor" href="product_detail.html"> <img alt="Food Processor" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Food Processor" href="product_detail.html"> Food Processor </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
+                                        <div class="product-item-detail">
+                                            <strong class="product-item-name"><a href="">Fashion Leather Handbag</a></strong>
+                                            <div class="clearfix">
+                                                <div class="product-item-price">
+                                                    <span class="price">$45.00</span>
+                                                    <span class="old-price">$52.00</span>
+                                                </div>
+                                                <div class="product-reviews-summary">
+                                                    <div class="rating-summary">
+                                                        <div class="rating-result" title="70%">
+                                                                <span style="width:70%">
+                                                                    <span><span>70</span>% of <span>100</span></span>
+                                                                </span>
+                                                        </div>
                                                     </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                                                 </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$335.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Retis lapen casen </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$125.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
+                                </li>
 
-                    </div>
-                </div>
+                            </ol>
+                        </div>
+                    </div><!-- block-Upsell Products -->
+
+                </div><!-- Main Content -->
+
+
+
             </div>
         </div>
 
-    </div>
-    <!-- End Upsell  Slider -->
-</div>
+
+    </main>
 @endsection
 
 @section('PageJs')
-    <script type="text/javascript" src="{{ asset('crocus_v2/js/jquery.flexslider.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('crocus_v2/js/owl.carousel.min.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('crocus_v2/js/cloud-zoom.js') }}" ></script>
+    <script>
+
+        (function($) {
+
+            "use strict";
+
+            $(document).ready(function() {
+
+                /*  [ Filter by price ]
+
+                - - - - - - - - - - - - - - - - - - - - */
+
+                $('#slider-range').slider({
+
+                    range: true,
+
+                    min: 0,
+
+                    max: 500,
+
+                    values: [0, 300],
+
+                    slide: function (event, ui) {
+
+                        $('#amount-left').text(ui.values[0] );
+                        $('#amount-right').text(ui.values[1] );
+
+                    }
+
+                });
+
+                $('#amount-left').text($('#slider-range').slider('values', 0));
+
+                $('#amount-right').text($('#slider-range').slider('values', 1));
+            });
+
+        })(jQuery);
+
+    </script>
 
 @endsection

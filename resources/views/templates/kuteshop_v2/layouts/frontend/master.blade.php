@@ -19,12 +19,12 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
+{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">--}}
     <link rel="stylesheet" type="text/css" href="{{ asset('kuteshop_v2/css/style.css') }}">
     @yield('PageCss')
 </head>
 
-<body class="cms-index-index cms-home-page category-page">
+<body class="cms-index-index index-opt-2">
     <div class="wrapper" id="kuteshop_v2">
 
         <!-- HEADER -->
@@ -45,8 +45,8 @@
         </a>
 
     </div>
-<script src="{{ asset('js/kuteshop_v2.js') }}"></script>
 
+    <script src="{{ asset('js/kuteshop_v2.js') }}"></script>
 <!-- jQuery -->
 <script type="text/javascript" src="{{ asset('kuteshop_v2/js/jquery.min.js') }}"></script>
 
