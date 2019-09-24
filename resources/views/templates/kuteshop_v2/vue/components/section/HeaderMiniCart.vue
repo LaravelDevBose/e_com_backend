@@ -4,77 +4,59 @@
             <span class="cart-icon"></span>
             <span class="cart-text">cart</span>
             <span class="counter qty">
-                <span class="counter-number">6</span>
-                <span class="counter-label">6 <span>Item(s)</span></span>
+                <span class="counter-number">{{ cartTotal }}</span>
+                <span class="counter-label">{{ cartTotal }} <span>Item(s)</span></span>
                 <span class="counter-price">$75.00</span>
             </span>
         </a>
         <div class="dropdown-menu">
-            <form>
-                <div  class="minicart-content-wrapper" >
-                    <div class="subtitle">
-                        You have 6 item(s) in your cart
-                    </div>
-                    <div class="minicart-items-wrapper">
-                        <ol class="minicart-items">
-                            <li class="product-item">
-                                <a class="product-item-photo" href="#" title="The Name Product">
-                                    <img class="product-image-photo" src="/kuteshop_v2/images/media/index1/minicart.jpg" alt="The Name Product">
-                                </a>
-                                <div class="product-item-details">
-                                    <strong class="product-item-name">
-                                        <a href="#">Donec Ac Tempus</a>
-                                    </strong>
-                                    <div class="product-item-price">
-                                        <span class="price">61,19 €</span>
-                                    </div>
-                                    <div class="product-item-qty">
-                                        <span class="label">Qty: </span ><span class="number">1</span>
-                                    </div>
-                                    <div class="product-item-actions">
-                                        <a class="action delete" href="#" title="Remove item">
-                                            <span>Remove</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="product-item">
-                                <a class="product-item-photo" href="#" title="The Name Product">
-                                    <img class="product-image-photo" src="/kuteshop_v2/images/media/index1/minicart2.jpg" alt="The Name Product">
-                                </a>
-                                <div class="product-item-details">
-                                    <strong class="product-item-name">
-                                        <a href="#">Donec Ac Tempus</a>
-                                    </strong>
-                                    <div class="product-item-price">
-                                        <span class="price">61,19 €</span>
-                                    </div>
-                                    <div class="product-item-qty">
-                                        <span class="label">Qty: </span ><span class="number">1</span>
-                                    </div>
-                                    <div class="product-item-actions">
-                                        <a class="action delete" href="#" title="Remove item">
-                                            <span>Remove</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ol>
-                    </div>
-                    <div class="subtotal">
-                        <span class="label">Total</span>
-                        <span class="price">$630</span>
-                    </div>
-                    <div class="actions">
-                        <!-- <a class="btn btn-viewcart" href="">
-                                <span>Shopping bag</span>
-                            </a> -->
-                        <button class="btn btn-checkout" type="button" title="Check Out">
-                            <span>Checkout</span>
-                        </button>
-                    </div>
+            <div v-if="cartTotal > 0" class="minicart-content-wrapper" >
+                <div class="subtitle">
+                    You have {{ cartTotal }} item(s) in your cart
                 </div>
-            </form>
+                <div class="minicart-items-wrapper">
+                    <ol class="minicart-items">
+                        <li v-for="(cart,index) in  cartList" :key="index" class="product-item">
+                            <a class="product-item-photo" :title="cart.name" :href="cart.options.product_url">
+                                <img class="product-image-photo" :alt="cart.name" :src="cart.options.image">
+                            </a>
+                            <div class="product-item-details">
+                                <strong class="product-item-name">
+                                    <a :title="cart.name" :href="cart.options.product_url" >{{ cart.name }}</a>
+                                </strong>
+                                <div class="product-item-price">
+                                    <span class="price">$ {{ cart.price }}</span>
+                                </div>
+                                <div class="product-item-qty">
+                                    <span class="label">Qty: </span ><span class="number">{{ cart.qty }}</span>
+                                </div>
+                                <div class="product-item-actions">
+                                    <a class="action delete" href="#" @click.prevent="productRemoveFromCart(cart.rowId)" title="Remove item">
+                                        <span>Remove</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div class="subtotal">
+                    <span class="label">Total</span>
+                    <span class="price">${{ cartTotalPrice }}</span>
+                </div>
+                <div class="actions">
+                     <a class="btn btn-viewcart" href="/cart" style="margin-right:.2rem;">
+                            <span>Shopping bag</span>
+                     </a>
+                    <button @click.prevent="goToCheckoutPage()" class="btn btn-checkout" type="button" title="Check Out">
+                        <span>Checkout</span>
+                    </button>
+                </div>
+            </div>
+            <div v-else class="minicart-content-wrapper" >
+                <div class="subtitle">
+                    You have 0 item(s) in your cart
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -121,7 +103,8 @@
         computed:{
             ...mapGetters([
                 'cartList',
-                'cartTotal'
+                'cartTotal',
+                'cartTotalPrice'
             ]),
         }
     }

@@ -4359,17 +4359,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductGrid",
@@ -4561,24 +4550,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HeaderMiniCart",
@@ -4610,7 +4581,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal', 'cartTotalPrice']))
 });
 
 /***/ }),
@@ -49578,15 +49549,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "item" }, [
-    _c("div", { staticClass: "item-inner" }, [
-      _c("div", { staticClass: "item-img" }, [
-        _c("div", { staticClass: "item-img-info" }, [
+  return _c("li", { staticClass: "col-sm-4 product-item " }, [
+    _c("div", { staticClass: "product-item-opt-1" }, [
+      _c("div", { staticClass: "product-item-info" }, [
+        _c("div", { staticClass: "product-item-photo" }, [
           _c(
             "a",
             {
-              staticClass: "product-image",
-              attrs: { title: _vm.product.product_name, href: "#" },
+              staticClass: "product-item-img",
+              attrs: { href: "#", title: _vm.product.product_name },
               on: {
                 click: function($event) {
                   $event.preventDefault()
@@ -49596,57 +49567,65 @@ var render = function() {
             },
             [
               _c("img", {
+                staticStyle: { width: "100%", height: "auto" },
                 attrs: {
-                  alt: "HI114 Dry Iron",
+                  title: _vm.product.product_name,
                   src: _vm.product.thumb_image.image_path
                 }
               })
             ]
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "box-hover" }, [
-            _c("ul", { staticClass: "add-to-links" }, [
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "link-quickview",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.quickView($event)
-                      }
-                    }
-                  },
-                  [_vm._v("Quick View")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "link-wishlist",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.addWishList(_vm.product.product_slug)
-                      }
-                    }
-                  },
-                  [_vm._v("Wishlist")]
-                )
-              ])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "item-info" }, [
-        _c("div", { staticClass: "info-inner" }, [
-          _c("div", { staticClass: "item-title" }, [
+          _c("div", { staticClass: "product-item-actions" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-wishlist",
+                attrs: { href: "" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.addWishList(_vm.product.product_slug)
+                  }
+                }
+              },
+              [_c("span", [_vm._v("wishlist")])]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-quickview",
+                attrs: { href: "" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.quickView($event)
+                  }
+                }
+              },
+              [_c("span", [_vm._v("Quick view")])]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-cart",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.addToCart()
+                }
+              }
+            },
+            [_c("span", [_vm._v("Add to Cart")])]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product-item-detail" }, [
+          _c("strong", { staticClass: "product-item-name" }, [
             _c(
               "a",
               {
@@ -49662,43 +49641,14 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "item-content" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "item-price" }, [
-              _c("div", { staticClass: "price-box" }, [
-                _c("p", { staticClass: "special-price" }, [
-                  _c("span", { staticClass: "price-label" }, [_vm._v("Price")]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "price" }, [
-                    _vm._v(
-                      "$ " + _vm._s(_vm.product.single_variation.price) + " "
-                    )
-                  ])
-                ])
+          _c("div", { staticClass: "clearfix" }, [
+            _c("div", { staticClass: "product-item-price" }, [
+              _c("span", { staticClass: "price" }, [
+                _vm._v("$ " + _vm._s(_vm.product.single_variation.price))
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "action" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "button btn-cart",
-                  attrs: {
-                    type: "button",
-                    title: "",
-                    "data-original-title": "Add to Cart"
-                  },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.addToCart()
-                    }
-                  }
-                },
-                [_c("span", [_vm._v("Add to Cart")])]
-              )
-            ])
+            _vm._m(0)
           ])
         ])
       ])
@@ -49710,18 +49660,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "rating" }, [
-      _c("div", { staticClass: "ratings" }, [
-        _c("div", { staticClass: "rating-box" }, [
-          _c("div", { staticClass: "rating", staticStyle: { width: "80%" } })
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "rating-links" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("1 Review(s)")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "separator" }, [_vm._v("|")]),
-          _vm._v(" "),
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Add Review")])
+    return _c("div", { staticClass: "product-reviews-summary" }, [
+      _c("div", { staticClass: "rating-summary" }, [
+        _c("div", { staticClass: "rating-result", attrs: { title: "80%" } }, [
+          _c("span", { staticStyle: { width: "80%" } }, [
+            _c("span", [
+              _c("span", [_vm._v("80")]),
+              _vm._v("% of "),
+              _c("span", [_vm._v("100")])
+            ])
+          ])
         ])
       ])
     ])
@@ -49805,165 +49753,168 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "block-minicart dropdown" }, [
+    _c(
+      "a",
+      {
+        staticClass: "dropdown-toggle",
+        attrs: { href: "#", role: "button", "data-toggle": "dropdown" }
+      },
+      [
+        _c("span", { staticClass: "cart-icon" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "cart-text" }, [_vm._v("cart")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "counter qty" }, [
+          _c("span", { staticClass: "counter-number" }, [
+            _vm._v(_vm._s(_vm.cartTotal))
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "counter-label" }, [
+            _vm._v(_vm._s(_vm.cartTotal) + " "),
+            _c("span", [_vm._v("Item(s)")])
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "counter-price" }, [_vm._v("$75.00")])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "dropdown-menu" }, [
+      _vm.cartTotal > 0
+        ? _c("div", { staticClass: "minicart-content-wrapper" }, [
+            _c("div", { staticClass: "subtitle" }, [
+              _vm._v(
+                "\n                You have " +
+                  _vm._s(_vm.cartTotal) +
+                  " item(s) in your cart\n            "
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "minicart-items-wrapper" }, [
+              _c(
+                "ol",
+                { staticClass: "minicart-items" },
+                _vm._l(_vm.cartList, function(cart, index) {
+                  return _c("li", { key: index, staticClass: "product-item" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "product-item-photo",
+                        attrs: {
+                          title: cart.name,
+                          href: cart.options.product_url
+                        }
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "product-image-photo",
+                          attrs: { alt: cart.name, src: cart.options.image }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "product-item-details" }, [
+                      _c("strong", { staticClass: "product-item-name" }, [
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              title: cart.name,
+                              href: cart.options.product_url
+                            }
+                          },
+                          [_vm._v(_vm._s(cart.name))]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "product-item-price" }, [
+                        _c("span", { staticClass: "price" }, [
+                          _vm._v("$ " + _vm._s(cart.price))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "product-item-qty" }, [
+                        _c("span", { staticClass: "label" }, [_vm._v("Qty: ")]),
+                        _c("span", { staticClass: "number" }, [
+                          _vm._v(_vm._s(cart.qty))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "product-item-actions" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "action delete",
+                            attrs: { href: "#", title: "Remove item" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.productRemoveFromCart(cart.rowId)
+                              }
+                            }
+                          },
+                          [_c("span", [_vm._v("Remove")])]
+                        )
+                      ])
+                    ])
+                  ])
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "subtotal" }, [
+              _c("span", { staticClass: "label" }, [_vm._v("Total")]),
+              _vm._v(" "),
+              _c("span", { staticClass: "price" }, [
+                _vm._v("$" + _vm._s(_vm.cartTotalPrice))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "actions" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-checkout",
+                  attrs: { type: "button", title: "Check Out" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.goToCheckoutPage()
+                    }
+                  }
+                },
+                [_c("span", [_vm._v("Checkout")])]
+              )
+            ])
+          ])
+        : _c("div", { staticClass: "minicart-content-wrapper" }, [
+            _c("div", { staticClass: "subtitle" }, [
+              _vm._v(
+                "\n                You have 0 item(s) in your cart\n            "
+              )
+            ])
+          ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "block-minicart dropdown" }, [
-      _c(
-        "a",
-        {
-          staticClass: "dropdown-toggle",
-          attrs: { href: "#", role: "button", "data-toggle": "dropdown" }
-        },
-        [
-          _c("span", { staticClass: "cart-icon" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "cart-text" }, [_vm._v("cart")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "counter qty" }, [
-            _c("span", { staticClass: "counter-number" }, [_vm._v("6")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "counter-label" }, [
-              _vm._v("6 "),
-              _c("span", [_vm._v("Item(s)")])
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "counter-price" }, [_vm._v("$75.00")])
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "dropdown-menu" }, [
-        _c("form", [
-          _c("div", { staticClass: "minicart-content-wrapper" }, [
-            _c("div", { staticClass: "subtitle" }, [
-              _vm._v(
-                "\n                    You have 6 item(s) in your cart\n                "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "minicart-items-wrapper" }, [
-              _c("ol", { staticClass: "minicart-items" }, [
-                _c("li", { staticClass: "product-item" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "product-item-photo",
-                      attrs: { href: "#", title: "The Name Product" }
-                    },
-                    [
-                      _c("img", {
-                        staticClass: "product-image-photo",
-                        attrs: {
-                          src: "kuteshop_v2/images/media/index1/minicart.jpg",
-                          alt: "The Name Product"
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "product-item-details" }, [
-                    _c("strong", { staticClass: "product-item-name" }, [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _vm._v("Donec Ac Tempus")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-item-price" }, [
-                      _c("span", { staticClass: "price" }, [_vm._v("61,19 €")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-item-qty" }, [
-                      _c("span", { staticClass: "label" }, [_vm._v("Qty: ")]),
-                      _c("span", { staticClass: "number" }, [_vm._v("1")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-item-actions" }, [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "action delete",
-                          attrs: { href: "#", title: "Remove item" }
-                        },
-                        [_c("span", [_vm._v("Remove")])]
-                      )
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "product-item" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "product-item-photo",
-                      attrs: { href: "#", title: "The Name Product" }
-                    },
-                    [
-                      _c("img", {
-                        staticClass: "product-image-photo",
-                        attrs: {
-                          src: "kuteshop_v2/images/media/index1/minicart2.jpg",
-                          alt: "The Name Product"
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "product-item-details" }, [
-                    _c("strong", { staticClass: "product-item-name" }, [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _vm._v("Donec Ac Tempus")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-item-price" }, [
-                      _c("span", { staticClass: "price" }, [_vm._v("61,19 €")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-item-qty" }, [
-                      _c("span", { staticClass: "label" }, [_vm._v("Qty: ")]),
-                      _c("span", { staticClass: "number" }, [_vm._v("1")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-item-actions" }, [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "action delete",
-                          attrs: { href: "#", title: "Remove item" }
-                        },
-                        [_c("span", [_vm._v("Remove")])]
-                      )
-                    ])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "subtotal" }, [
-              _c("span", { staticClass: "label" }, [_vm._v("Total")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "price" }, [_vm._v("$630")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "actions" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-checkout",
-                  attrs: { type: "button", title: "Check Out" }
-                },
-                [_c("span", [_vm._v("Checkout")])]
-              )
-            ])
-          ])
-        ])
-      ])
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-viewcart",
+        staticStyle: { "margin-right": ".2rem" },
+        attrs: { href: "/cart" }
+      },
+      [_c("span", [_vm._v("Shopping bag")])]
+    )
   }
 ]
 render._withStripped = true
@@ -66751,7 +66702,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\larevel_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

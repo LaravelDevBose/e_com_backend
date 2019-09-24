@@ -1,51 +1,40 @@
 <template>
-    <div class="item">
-        <div class="item-inner">
-            <div class="item-img">
-                <div class="item-img-info">
-                    <a class="product-image" @click.prevent="productDetails(product.product_slug)" :title="product.product_name" href="#">
-                        <img alt="HI114 Dry Iron" :src="product.thumb_image.image_path">
+    <li class="col-sm-4 product-item ">
+        <div class="product-item-opt-1">
+            <div class="product-item-info">
+                <div class="product-item-photo">
+                    <a href="#" @click.prevent="productDetails(product.product_slug)" :title="product.product_name" class="product-item-img">
+                        <img :title="product.product_name" :src="product.thumb_image.image_path" style="width:100%; height:auto;">
                     </a>
-                    <div class="box-hover">
-                        <ul class="add-to-links">
-                            <li><a class="link-quickview" href="#" @click.prevent="quickView">Quick View</a> </li>
-                            <li><a class="link-wishlist" href="#" @click.prevent="addWishList(product.product_slug)">Wishlist</a> </li>
-                        </ul>
+                    <div class="product-item-actions">
+                        <a href="" class="btn btn-wishlist" @click.prevent="addWishList(product.product_slug)"><span>wishlist</span></a>
+                        <a href="" class="btn btn-quickview" @click.prevent="quickView"><span>Quick view</span></a>
                     </div>
+                    <button class="btn btn-cart" type="button" @click.prevent="addToCart()"><span>Add to Cart</span></button>
+<!--                    <span class="product-item-label label-price">30% <span>off</span></span>-->
                 </div>
-            </div>
-            <div class="item-info">
-                <div class="info-inner">
-                    <div class="item-title">
+                <div class="product-item-detail">
+                    <strong class="product-item-name">
                         <a :title="product.product_name" @click.prevent="productDetails(product.product_slug)" href="#">{{ product.product_name }}</a>
-                    </div>
-                    <div class="item-content">
-                        <div class="rating">
-                            <div class="ratings">
-                                <div class="rating-box">
-                                    <div style="width:80%" class="rating"></div>
+                    </strong>
+                    <div class="clearfix">
+                        <div class="product-item-price">
+                            <span class="price">$ {{ product.single_variation.price }}</span>
+                        </div>
+                        <div class="product-reviews-summary">
+                            <div class="rating-summary">
+                                <div class="rating-result" title="80%">
+                                    <span style="width:80%">
+                                        <span><span>80</span>% of <span>100</span></span>
+                                    </span>
                                 </div>
-                                <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                             </div>
-                        </div>
-                        <div class="item-price">
-                            <div class="price-box">
-                                <p class="special-price" >
-                                    <span class="price-label">Price</span>
-                                    <span class="price">$ {{ product.single_variation.price }} </span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="action">
-                            <button @click.prevent="addToCart()" class="button btn-cart" type="button" title="" data-original-title="Add to Cart">
-                                <span>Add to Cart</span>
-                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </li>
 </template>
 
 <script>
