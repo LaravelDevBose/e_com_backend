@@ -46,7 +46,7 @@
 
     </div>
 
-    <script src="{{ asset('js/kuteshop_v2.js') }}"></script>
+
 <!-- jQuery -->
 <script type="text/javascript" src="{{ asset('kuteshop_v2/js/jquery.min.js') }}"></script>
 
@@ -90,7 +90,7 @@
 
 <!-- Scripts -->
 @yield('PageJs')
-
+    <script src="{{ asset('js/kuteshop_v2.js') }}"></script>
 
 </body>
 

@@ -13,7 +13,7 @@
                     Electronics
                 </a>
                 <span class="toggle-submenu"></span>
-                <div class="submenu" style="background-image: url(images/media/index1/bgmenu.jpg')}});">
+                <div class="submenu" style="background-image: url('/kuteshop_v2/images/media/index1/bgmenu.jpg');">
                     <ul class="categori-list clearfix">
                         <li class="col-sm-3">
                             <strong class="title"><a href="">Smartphone</a></strong>
