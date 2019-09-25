@@ -22,20 +22,19 @@ class AppServiceProvider extends ServiceProvider
 
     public function register()
     {
-        View::composer(['templates.' . config("app.default_template") . '.layouts.frontend.includes.navigation', 'templates.' . config("app.default_template") . '.layouts.frontend.includes.mobileMenu'], function ($v) {
+        View::composer('templates.'.config('app.default_template').'.*', function ($v) {
             $categoryTree = CommonData::category_tree_list();
             $headerPageMenus = CommonData::pages_menu_list(Page::MENU_SHOW_IN['Footer']);
-            $v->with('categoryTree', $categoryTree)
-                ->with('headerPageMenus', $headerPageMenus);
-        });
-
-        View::composer('templates.' . config("app.default_template") . '.layouts.frontend.includes.globalFooter', function ($v) {
             $pageMenus = CommonData::pages_menu_list(Page::MENU_SHOW_IN['Header']);
             $brands = CommonData::brand_list();
             $contactUs = CommonData::setting_data();
-            $v->with('pageMenus', $pageMenus)
+            $catList = CommonData::category_list();
+            $v->with('categoryTree', $categoryTree)
+                ->with('pageMenus', $pageMenus)
                 ->with('brands', $brands)
-                ->with('contactUs', $contactUs);
+                ->with('contactUs', $contactUs)
+                ->with('catList', $catList)
+                ->with('headerPageMenus', $headerPageMenus);
         });
     }
 

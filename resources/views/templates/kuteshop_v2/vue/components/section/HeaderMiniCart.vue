@@ -1,13 +1,8 @@
 <template>
     <div class="block-minicart dropdown">
         <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-            <span class="cart-icon"></span>
-            <span class="cart-text">cart</span>
-            <span class="counter qty">
-                <span class="counter-number">{{ cartTotal }}</span>
-                <span class="counter-label">{{ cartTotal }} <span>Item(s)</span></span>
-                <span class="counter-price">$75.00</span>
-            </span>
+            <span class="cart-icon" style="margin-right: -8px;"></span>
+            <span class="counter-number">{{ cartTotal }}</span>
         </a>
         <div class="dropdown-menu">
             <div v-if="cartTotal > 0" class="minicart-content-wrapper" >

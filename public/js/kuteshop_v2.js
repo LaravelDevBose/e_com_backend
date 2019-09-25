@@ -4545,11 +4545,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HeaderMiniCart",
@@ -49761,21 +49756,13 @@ var render = function() {
         attrs: { href: "#", role: "button", "data-toggle": "dropdown" }
       },
       [
-        _c("span", { staticClass: "cart-icon" }),
+        _c("span", {
+          staticClass: "cart-icon",
+          staticStyle: { "margin-right": "-8px" }
+        }),
         _vm._v(" "),
-        _c("span", { staticClass: "cart-text" }, [_vm._v("cart")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "counter qty" }, [
-          _c("span", { staticClass: "counter-number" }, [
-            _vm._v(_vm._s(_vm.cartTotal))
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "counter-label" }, [
-            _vm._v(_vm._s(_vm.cartTotal) + " "),
-            _c("span", [_vm._v("Item(s)")])
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "counter-price" }, [_vm._v("$75.00")])
+        _c("span", { staticClass: "counter-number" }, [
+          _vm._v(_vm._s(_vm.cartTotal))
         ])
       ]
     ),
@@ -66702,7 +66689,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\larevel_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

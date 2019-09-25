@@ -42,7 +42,7 @@ trait CommonData
     }
 
     public static function category_list($request=null){
-        $categories = Category::isActive()->bySearch($request)->groupBy('category_id','parent_id')->orderBy('category_id', 'asc')->get();
+        $categories = Category::isActive()->select('category_slug', 'category_name')->bySearch($request)->groupBy('category_id','parent_id')->orderBy('category_id', 'asc')->get();
         if(!empty($categories)){
             return $categories;
         }else{

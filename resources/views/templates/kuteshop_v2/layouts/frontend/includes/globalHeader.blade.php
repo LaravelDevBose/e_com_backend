@@ -84,7 +84,7 @@
                 <div class="col-md-3 nav-left">
                     <!-- logo -->
                     <strong class="logo">
-                        <a href=""><img src="{{ asset('kuteshop_v2/images/media/index2/logo.png') }}" alt="logo"></a>
+                        <a href="{{ route('front.index') }}"><img src="{{ asset('kuteshop_v2/images/media/index2/logo.png') }}" alt="logo"></a>
                     </strong><!-- logo -->
                 </div>
                 <div class=" nav-right">
@@ -114,13 +114,12 @@
                             </div>
                             <div class="categori-search  ">
                                 <select data-placeholder="All Categories" class="categori-search-option">
+                                    @if(!empty($catList))
                                     <option>All Categories</option>
-                                    <option>Fashion</option>
-                                    <option>Tops Blouses</option>
-                                    <option>Clothing</option>
-                                    <option>Furniture</option>
-                                    <option>Bathtime Goods</option>
-                                    <option>Shower Curtains</option>
+                                        @foreach($catList as $cat)
+                                        <option value="{{ $cat->category_slug }}"> {{ $cat->category_name }}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -138,153 +137,7 @@
 
                 <span data-action="toggle-nav-cat" class="nav-toggle-menu nav-toggle-cat"><span>Categories</span><i aria-hidden="true" class="fa fa-bars"></i></span>
                 <!-- categori -->
-                <div class="block-nav-categori">
-                    <div class="block-title">
-                        <span>Categories</span>
-                    </div>
-                    <div class="block-content">
-                        <div class="clearfix"><span data-action="close-cat" class="close-cate"><span>Categories</span></span></div>
-                        <ul class="ui-categori">
-                            <li class="parent">
-                                <a href="">
-                                    <span class="icon"><img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat1.png') }}" alt="nav-cat"></span>
-                                    Electronics
-                                </a>
-                                <span class="toggle-submenu"></span>
-                                <div class="submenu" style="background-image: url({{ asset('kuteshop_v2/images/media/index1/bgmenu.jpg') }});">
-                                    <ul class="categori-list clearfix">
-                                        <li class="col-sm-3">
-                                            <strong class="title"><a href="">Smartphone</a></strong>
-                                            <ul>
-                                                <li><a href="">Skirts    </a></li>
-                                                <li><a href="">Jackets</a></li>
-                                                <li><a href="">Jumpusuits</a></li>
-                                                <li><a href="">Scarvest</a></li>
-                                                <li><a href="">T-Shirts</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="col-sm-3">
-                                            <strong class="title"><a href="">TElevision</a></strong>
-                                            <ul>
-                                                <li><a href="">Skirts    </a></li>
-                                                <li><a href="">Jackets</a></li>
-                                                <li><a href="">Jumpusuits</a></li>
-                                                <li><a href="">Scarvest</a></li>
-                                                <li><a href="">T-Shirts</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="col-sm-3">
-                                            <strong class="title"><a href="">Camera</a></strong>
-                                            <ul>
-                                                <li><a href="">Skirts    </a></li>
-                                                <li><a href="">Jackets</a></li>
-                                                <li><a href="">Jumpusuits</a></li>
-                                                <li><a href="">Scarvest</a></li>
-                                                <li><a href="">T-Shirts</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    <ul class="categori-list clearfix">
-                                        <li class="col-sm-3">
-                                            <strong class="title"><a href="">Smartphone</a></strong>
-                                            <ul>
-                                                <li><a href="">Skirts    </a></li>
-                                                <li><a href="">Jackets</a></li>
-                                                <li><a href="">Jumpusuits</a></li>
-                                                <li><a href="">Scarvest</a></li>
-                                                <li><a href="">T-Shirts</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="col-sm-3">
-                                            <strong class="title"><a href="">TElevision</a></strong>
-                                            <ul>
-                                                <li><a href="">Skirts    </a></li>
-                                                <li><a href="">Jackets</a></li>
-                                                <li><a href="">Jumpusuits</a></li>
-                                                <li><a href="">Scarvest</a></li>
-                                                <li><a href="">T-Shirts</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="col-sm-3">
-                                            <strong class="title"><a href="">Camera</a></strong>
-                                            <ul>
-                                                <li><a href="">Skirts    </a></li>
-                                                <li><a href="">Jackets</a></li>
-                                                <li><a href="">Jumpusuits</a></li>
-                                                <li><a href="">Scarvest</a></li>
-                                                <li><a href="">T-Shirts</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon"><img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat4.png') }}" alt="nav-cat"></span>
-                                    Health & Beauty
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon"><img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat5.png') }}" alt="nav-cat"></span>
-                                    Bags, Shoes & Accessories
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon"><img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat6.png') }}" alt="nav-cat"></span>
-                                    Toys & Hobbies
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon"><img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat7.png') }}" alt="nav-cat"></span>
-                                    Computers & Networking
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon"><img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat8.png') }}" alt="nav-cat"></span>
-                                    Laptops & Accessories
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon"><img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat9.png') }}" alt="nav-cat"></span>
-                                    Jewelry  & Watches
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon"><img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat10.png') }}" alt="nav-cat"></span>
-                                    Flashlights & Lamps
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon"><img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat11.png') }}" alt="nav-cat"></span>
-                                    Cameras & Photo
-                                </a>
-                            </li>
-                            <li class="cat-link-orther">
-                                <a href="">
-                                    <span class="icon"><img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat10.png') }}" alt="nav-cat"></span>
-                                    Sport & Outdoors
-                                </a>
-                            </li>
-                            <li class="cat-link-orther">
-                                <a href="">
-                                    <span class="icon"><img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat9.png') }}" alt="nav-cat"></span>
-                                    Watch & Jewellry
-                                </a>
-                            </li>
-                        </ul>
-
-                        <div class="view-all-categori">
-                            <a  class="open-cate btn-view-all">All Categories</a>
-                        </div>
-                    </div>
-                </div>
+                    @include('templates.kuteshop_v2.layouts.frontend.includes.navigation')
                 <!-- categori -->
 
                 <!-- menu -->

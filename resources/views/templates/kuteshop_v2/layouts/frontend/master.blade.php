@@ -24,7 +24,7 @@
     @yield('PageCss')
 </head>
 
-<body class="cms-index-index index-opt-2">
+<body class="index-opt-1 catalog-category-view catalog-view_op1">
     <div class="wrapper" id="kuteshop_v2">
 
         <!-- HEADER -->
@@ -46,7 +46,7 @@
 
     </div>
 
-
+    <script src="{{ asset('js/kuteshop_v2.js') }}"></script>
 <!-- jQuery -->
 <script type="text/javascript" src="{{ asset('kuteshop_v2/js/jquery.min.js') }}"></script>
 
@@ -90,7 +90,7 @@
 
 <!-- Scripts -->
 @yield('PageJs')
-    <script src="{{ asset('js/kuteshop_v2.js') }}"></script>
+
 
 </body>
 
