@@ -1,83 +1,73 @@
 <template>
-    <fieldset>
-        <table class="data-table cart-table" id="shopping-cart-table">
-            <colgroup>
-                <col width="1">
-                <col>
-                <col width="1">
-                <col width="1">
-                <col width="1">
-                <col width="1">
-                <col width="1">
-            </colgroup>
+    <div class="table-responsive">
+        <table class="table table-bordered  cart_summary">
             <thead>
-                <tr class="first last">
-                    <th rowspan="1">&nbsp;</th>
-                    <th rowspan="1"><span class="nobr">Product Name</span></th>
-                    <th colspan="1" class="a-center"><span class="nobr">Unit Price</span></th>
-                    <th class="a-center" rowspan="1">Qty</th>
-                    <th class="a-center" rowspan="1"></th>
-                    <th colspan="1" class="a-center">Subtotal</th>
-                    <th class="a-center" rowspan="1">&nbsp;</th>
-                </tr>
+            <tr>
+                <th class="cart_product">Product</th>
+                <th>Description</th>
+                <th>Avail.</th>
+                <th>Unit price</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th class="action"><i class="fa fa-trash-o"></i></th>
+            </tr>
             </thead>
-
             <tbody>
-                <tr v-if="cartTotal > 0" v-for="(cart,index) in  cartList"  :class="{'first':index === 0, 'last':(index+1) === cartList.length ,'even': index % 2 === 0, 'odd': index % 2 !== 0 }">
-                    <td class="image">
-                        <a class="product-image" :title="cart.name" :href="cart.options.product_url">
-                            <img width="75" :alt="cart.name" :src="cart.options.image">
+                <tr v-if="cartTotal > 0" v-for="(cart,index) in  cartList" :key="index">
+                    <td class="cart_product">
+                        <a :title="cart.name" :href="cart.options.product_url">
+                            <img :alt="cart.name" :src="cart.options.image">
                         </a>
                     </td>
-                    <td>
-                        <h2 class="product-name">
+                    <td class="cart_description">
+                        <p class="product-name">
                             <a :href="cart.options.product_url" >{{ cart.name }}</a>
-                        </h2>
+                        </p>
+                        <small class="cart_ref">SKU : #123654999</small><br>
+                        <small><a href="#">Color : Beige</a></small><br>
+                        <small><a href="#">Size : S</a></small>
                     </td>
-                    <td class="a-right">
-                        <span class="cart-price">
-                            <span class="price">{{ cart.price }}</span>
-                        </span>
+                    <td class="cart_avail"><span class="label label-success">In stock</span></td>
+                    <td class="price"><span>$ {{ cart.price }}</span></td>
+                    <td class="qty">
+
+                        <input type="text" :value="cart.qty" :id="cart.rowId" @change="cartUpdate($event, cart.rowId)"  minlength="1" maxlength="12" :disabled="qtyDisable" name="qty0" class="form-control input-sm">
+                        <span  data-field="qty0" data-type="minus" :for="cart.rowId" class="btn-number"><i class="fa fa-caret-up"></i></span>
+                        <span  data-field="qty0" data-type="plus" :for="cart.rowId" class="btn-number"><i class="fa fa-caret-down"></i></span>
                     </td>
-                    <td class="a-center movewishlist">
-                        <input maxlength="12" class="input-text qty" title="Qty" :disabled="qtyDisable" size="4" :value="cart.qty" @change="cartUpdate($event, cart.rowId)" type="number">
+                    <td class="price">
+                        <span>$ {{ cart.price*cart.qty }}</span>
                     </td>
-                    <td class="a-center movewishlist">
-                        <a href="#"> <i class="fa fa-pencil-square"></i></a>
-                    </td>
-                    <td class="a-right movewishlist">
-                        <span class="cart-price">
-                            <span class="price">{{ cart.price*cart.qty }}</span>
-                        </span>
-                    </td>
-                    <td class="a-center last">
-                        <a class="button remove-item" title="Remove item" href="#" @click.prevent="productRemoveFromCart(cart.rowId)">
-                            <span><span>Remove item</span></span>
-                        </a>
+                    <td class="action">
+                        <a href="#" @click.prevent="productRemoveFromCart(cart.rowId)">Delete item</a>
                     </td>
                 </tr>
                 <tr v-else class="last even">
-                    <td><span>Cart is Empty </span></td>
+                    <td colspan="7"><span>Cart is Empty </span></td>
                 </tr>
             </tbody>
             <tfoot>
-            <tr class="first last">
-                <td class="a-right last" colspan="50">
-                    <a @click.prevent="goToShopping()" class="button btn-continue" title="Continue Shopping">
-                        <span>Continue Shopping</span>
-                    </a>
-                    <button @click.prevent="cartDestroy()" id="empty_cart_button" class="button btn-empty" title="Clear Cart" value="empty_cart" name="update_cart_action" type="button">
-                        <span>Clear Cart</span>
-                    </button>
-                </td>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="3">Subtotal:</td>
+                <td colspan="2">$ {{ cartSubTotal }}</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="3">Discount: </td>
+                <td colspan="2">$ {{ cartDiscount }}</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="3"><strong>Grand Total</strong></td>
+                <td colspan="2"><strong>$ {{ cartTotalPrice }}</strong></td>
             </tr>
             </tfoot>
         </table>
-    </fieldset>
+    </div>
 </template>
 
 <script>
-    import  Vue from 'vue'
     import {mapGetters,mapActions} from 'vuex';
     import _ from 'lodash';
 
@@ -103,7 +93,7 @@
             ...mapActions([
                 'removeFromCart',
                 'destroyCart',
-                'updateCart'
+                'updateCart',
             ]),
             productRemoveFromCart(rowId){
                 this.removeFromCart(rowId)
@@ -132,9 +122,6 @@
                             this.$noty.error(response.message);
                         }
                     })
-            },
-            goToShopping(){
-                location.href = '/';
             },
             cartUpdate(e, rowId){
                 if(e.target.value <= 0){
@@ -167,7 +154,10 @@
         computed:{
             ...mapGetters([
                 'cartList',
-                'cartTotal'
+                'cartTotal',
+                'cartSubTotal',
+                'cartDiscount',
+                'cartTotalPrice',
             ]),
 
         },

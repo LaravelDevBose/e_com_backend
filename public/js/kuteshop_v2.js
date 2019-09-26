@@ -3784,11 +3784,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -3862,16 +3860,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3891,7 +3879,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, 1000);
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['removeFromCart', 'destroyCart', 'updateCart']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['removeFromCart', 'destroyCart', 'updateCart']), {
     productRemoveFromCart: function productRemoveFromCart(rowId) {
       var _this = this;
 
@@ -3923,9 +3911,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     },
-    goToShopping: function goToShopping() {
-      location.href = '/';
-    },
     cartUpdate: function cartUpdate(e, rowId) {
       if (e.target.value <= 0) {
         this.$noty.warning('Product Qty Atlest 1');
@@ -3936,7 +3921,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.proQty = e.target.value;
       this.cartRowId = rowId;
     },
-    updateCartProduct: lodash__WEBPACK_IMPORTED_MODULE_2___default.a.debounce(function () {
+    updateCartProduct: lodash__WEBPACK_IMPORTED_MODULE_1___default.a.debounce(function () {
       var _this3 = this;
 
       this.qtyDisable = true;
@@ -3955,7 +3940,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }, 700)
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['cartList', 'cartTotal'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal', 'cartSubTotal', 'cartDiscount', 'cartTotalPrice'])),
   watch: {
     proQty: function proQty() {
       this.updateCartProduct();
@@ -3992,44 +3977,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4037,9 +3984,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     CartListTable: _CartListTable__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['cartSubTotal', 'cartDiscount', 'cartTotalPrice']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])([]), {
     proceedToCheckout: function proceedToCheckout() {
       location.href = '/buyer/checkout';
+    },
+    goToShopping: function goToShopping() {
+      location.href = '/';
     }
   })
 });
@@ -48711,170 +48661,159 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("fieldset", [
-    _c(
-      "table",
-      {
-        staticClass: "data-table cart-table",
-        attrs: { id: "shopping-cart-table" }
-      },
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._m(1),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.cartList, function(cart, index) {
-            return _vm.cartTotal > 0
-              ? _c(
-                  "tr",
-                  {
-                    class: {
-                      first: index === 0,
-                      last: index + 1 === _vm.cartList.length,
-                      even: index % 2 === 0,
-                      odd: index % 2 !== 0
-                    }
-                  },
-                  [
-                    _c("td", { staticClass: "image" }, [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "product-image",
-                          attrs: {
-                            title: cart.name,
-                            href: cart.options.product_url
-                          }
-                        },
-                        [
-                          _c("img", {
-                            attrs: {
-                              width: "75",
-                              alt: cart.name,
-                              src: cart.options.image
-                            }
-                          })
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("h2", { staticClass: "product-name" }, [
-                        _c("a", { attrs: { href: cart.options.product_url } }, [
-                          _vm._v(_vm._s(cart.name))
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "a-right" }, [
-                      _c("span", { staticClass: "cart-price" }, [
-                        _c("span", { staticClass: "price" }, [
-                          _vm._v(_vm._s(cart.price))
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "a-center movewishlist" }, [
-                      _c("input", {
-                        staticClass: "input-text qty",
-                        attrs: {
-                          maxlength: "12",
-                          title: "Qty",
-                          disabled: _vm.qtyDisable,
-                          size: "4",
-                          type: "number"
-                        },
-                        domProps: { value: cart.qty },
-                        on: {
-                          change: function($event) {
-                            return _vm.cartUpdate($event, cart.rowId)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(2, true),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "a-right movewishlist" }, [
-                      _c("span", { staticClass: "cart-price" }, [
-                        _c("span", { staticClass: "price" }, [
-                          _vm._v(_vm._s(cart.price * cart.qty))
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "a-center last" }, [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "button remove-item",
-                          attrs: { title: "Remove item", href: "#" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.productRemoveFromCart(cart.rowId)
-                            }
-                          }
-                        },
-                        [_vm._m(3, true)]
-                      )
-                    ])
-                  ]
-                )
-              : _c("tr", { staticClass: "last even" }, [_vm._m(4)])
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _c("tfoot", [
-          _c("tr", { staticClass: "first last" }, [
-            _c(
-              "td",
-              { staticClass: "a-right last", attrs: { colspan: "50" } },
-              [
-                _c(
-                  "a",
-                  {
-                    staticClass: "button btn-continue",
-                    attrs: { title: "Continue Shopping" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.goToShopping()
+  return _c("div", { staticClass: "table-responsive" }, [
+    _c("table", { staticClass: "table table-bordered  cart_summary" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.cartList, function(cart, index) {
+          return _vm.cartTotal > 0
+            ? _c("tr", { key: index }, [
+                _c("td", { staticClass: "cart_product" }, [
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        title: cart.name,
+                        href: cart.options.product_url
                       }
-                    }
-                  },
-                  [_c("span", [_vm._v("Continue Shopping")])]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "button btn-empty",
-                    attrs: {
-                      id: "empty_cart_button",
-                      title: "Clear Cart",
-                      value: "empty_cart",
-                      name: "update_cart_action",
-                      type: "button"
                     },
+                    [
+                      _c("img", {
+                        attrs: { alt: cart.name, src: cart.options.image }
+                      })
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "cart_description" }, [
+                  _c("p", { staticClass: "product-name" }, [
+                    _c("a", { attrs: { href: cart.options.product_url } }, [
+                      _vm._v(_vm._s(cart.name))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("small", { staticClass: "cart_ref" }, [
+                    _vm._v("SKU : #123654999")
+                  ]),
+                  _c("br"),
+                  _vm._v(" "),
+                  _vm._m(1, true),
+                  _c("br"),
+                  _vm._v(" "),
+                  _vm._m(2, true)
+                ]),
+                _vm._v(" "),
+                _vm._m(3, true),
+                _vm._v(" "),
+                _c("td", { staticClass: "price" }, [
+                  _c("span", [_vm._v("$ " + _vm._s(cart.price))])
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "qty" }, [
+                  _c("input", {
+                    staticClass: "form-control input-sm",
+                    attrs: {
+                      type: "text",
+                      id: cart.rowId,
+                      minlength: "1",
+                      maxlength: "12",
+                      disabled: _vm.qtyDisable,
+                      name: "qty0"
+                    },
+                    domProps: { value: cart.qty },
                     on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.cartDestroy()
+                      change: function($event) {
+                        return _vm.cartUpdate($event, cart.rowId)
                       }
                     }
-                  },
-                  [_c("span", [_vm._v("Clear Cart")])]
-                )
-              ]
-            )
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "btn-number",
+                      attrs: {
+                        "data-field": "qty0",
+                        "data-type": "minus",
+                        for: cart.rowId
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-caret-up" })]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "btn-number",
+                      attrs: {
+                        "data-field": "qty0",
+                        "data-type": "plus",
+                        for: cart.rowId
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-caret-down" })]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "price" }, [
+                  _c("span", [_vm._v("$ " + _vm._s(cart.price * cart.qty))])
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "action" }, [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.productRemoveFromCart(cart.rowId)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete item")]
+                  )
+                ])
+              ])
+            : _c("tr", { staticClass: "last even" }, [_vm._m(4)])
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c("tfoot", [
+        _c("tr", [
+          _c("td", { attrs: { colspan: "2" } }),
+          _vm._v(" "),
+          _c("td", { attrs: { colspan: "3" } }, [_vm._v("Subtotal:")]),
+          _vm._v(" "),
+          _c("td", { attrs: { colspan: "2" } }, [
+            _vm._v("$ " + _vm._s(_vm.cartSubTotal))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", { attrs: { colspan: "2" } }),
+          _vm._v(" "),
+          _c("td", { attrs: { colspan: "3" } }, [_vm._v("Discount: ")]),
+          _vm._v(" "),
+          _c("td", { attrs: { colspan: "2" } }, [
+            _vm._v("$ " + _vm._s(_vm.cartDiscount))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", { attrs: { colspan: "2" } }),
+          _vm._v(" "),
+          _vm._m(5),
+          _vm._v(" "),
+          _c("td", { attrs: { colspan: "2" } }, [
+            _c("strong", [_vm._v("$ " + _vm._s(_vm.cartTotalPrice))])
           ])
         ])
-      ]
-    )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -48882,50 +48821,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("colgroup", [
-      _c("col", { attrs: { width: "1" } }),
-      _vm._v(" "),
-      _c("col"),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "1" } }),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "1" } }),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "1" } }),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "1" } }),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "1" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("tr", { staticClass: "first last" }, [
-        _c("th", { attrs: { rowspan: "1" } }, [_vm._v(" ")]),
+      _c("tr", [
+        _c("th", { staticClass: "cart_product" }, [_vm._v("Product")]),
         _vm._v(" "),
-        _c("th", { attrs: { rowspan: "1" } }, [
-          _c("span", { staticClass: "nobr" }, [_vm._v("Product Name")])
-        ]),
+        _c("th", [_vm._v("Description")]),
         _vm._v(" "),
-        _c("th", { staticClass: "a-center", attrs: { colspan: "1" } }, [
-          _c("span", { staticClass: "nobr" }, [_vm._v("Unit Price")])
-        ]),
+        _c("th", [_vm._v("Avail.")]),
         _vm._v(" "),
-        _c("th", { staticClass: "a-center", attrs: { rowspan: "1" } }, [
-          _vm._v("Qty")
-        ]),
+        _c("th", [_vm._v("Unit price")]),
         _vm._v(" "),
-        _c("th", { staticClass: "a-center", attrs: { rowspan: "1" } }),
+        _c("th", [_vm._v("Qty")]),
         _vm._v(" "),
-        _c("th", { staticClass: "a-center", attrs: { colspan: "1" } }, [
-          _vm._v("Subtotal")
-        ]),
+        _c("th", [_vm._v("Total")]),
         _vm._v(" "),
-        _c("th", { staticClass: "a-center", attrs: { rowspan: "1" } }, [
-          _vm._v(" ")
+        _c("th", { staticClass: "action" }, [
+          _c("i", { staticClass: "fa fa-trash-o" })
         ])
       ])
     ])
@@ -48934,23 +48845,41 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "a-center movewishlist" }, [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fa fa-pencil-square" })
-      ])
+    return _c("small", [
+      _c("a", { attrs: { href: "#" } }, [_vm._v("Color : Beige")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", [_c("span", [_vm._v("Remove item")])])
+    return _c("small", [
+      _c("a", { attrs: { href: "#" } }, [_vm._v("Size : S")])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [_c("span", [_vm._v("Cart is Empty ")])])
+    return _c("td", { staticClass: "cart_avail" }, [
+      _c("span", { staticClass: "label label-success" }, [_vm._v("In stock")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { colspan: "7" } }, [
+      _c("span", [_vm._v("Cart is Empty ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { colspan: "3" } }, [
+      _c("strong", [_vm._v("Grand Total")])
+    ])
   }
 ]
 render._withStripped = true
@@ -48974,124 +48903,50 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "cart wow bounceInUp animated" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "table-responsive" }, [_c("cart-list-table")], 1),
-    _vm._v(" "),
-    _c("div", { staticClass: "cart-collaterals row" }, [
-      _c("div", { staticClass: "col-sm-4 col-sm-offset-8" }, [
-        _c("div", { staticClass: "totals" }, [
-          _c("h3", [_vm._v("Shopping Cart Total")]),
+  return _c("div", { staticClass: "page-content page-order" }, [
+    _c(
+      "div",
+      { staticClass: "order-detail-content" },
+      [
+        _c("cart-list-table"),
+        _vm._v(" "),
+        _c("div", { staticClass: "cart_navigation" }, [
+          _c(
+            "a",
+            {
+              staticClass: "prev-btn",
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.goToShopping($event)
+                }
+              }
+            },
+            [_vm._v("Continue shopping")]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "inner" }, [
-            _c(
-              "table",
-              {
-                staticClass: "table shopping-cart-table-total",
-                attrs: { id: "shopping-cart-totals-table" }
-              },
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c(
-                      "td",
-                      { staticClass: "a-left", attrs: { colspan: "1" } },
-                      [_vm._v(" Subtotal ")]
-                    ),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "a-right" }, [
-                      _c("span", { staticClass: "price" }, [
-                        _vm._v("$ " + _vm._s(_vm.cartSubTotal))
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c(
-                      "td",
-                      { staticClass: "a-left", attrs: { colspan: "1" } },
-                      [_vm._v(" Discount  ")]
-                    ),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "a-right" }, [
-                      _c("span", { staticClass: "price" }, [
-                        _vm._v("$ " + _vm._s(_vm.cartDiscount))
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("tfoot", [
-                  _c("tr", [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "a-right" }, [
-                      _c("strong", [
-                        _c("span", { staticClass: "price" }, [
-                          _vm._v("$ " + _vm._s(_vm.cartTotalPrice))
-                        ])
-                      ])
-                    ])
-                  ])
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("ul", { staticClass: "checkout" }, [
-              _c("li", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "button btn-proceed-checkout",
-                    attrs: { title: "Proceed to Checkout", type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.proceedToCheckout($event)
-                      }
-                    }
-                  },
-                  [_c("span", [_vm._v("Proceed to Checkout")])]
-                )
-              ])
-            ])
-          ])
+          _c(
+            "a",
+            {
+              staticClass: "next-btn",
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.proceedToCheckout($event)
+                }
+              }
+            },
+            [_vm._v("Proceed to checkout")]
+          )
         ])
-      ])
-    ])
+      ],
+      1
+    )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-title" }, [
-      _c("h2", [_vm._v("Shopping Cart")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("colgroup", [
-      _c("col"),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "1" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "a-left", attrs: { colspan: "1" } }, [
-      _c("strong", [_vm._v("Grand Total")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -77,7 +77,6 @@
 </template>
 
 <script>
-    import  Vue from 'vue'
     import {mapGetters,mapActions} from 'vuex';
     import _ from 'lodash';
 
