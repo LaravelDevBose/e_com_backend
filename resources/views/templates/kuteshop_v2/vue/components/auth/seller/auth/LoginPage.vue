@@ -1,35 +1,22 @@
 <template>
-    <div class="col-2 registered-users">
-        <strong>Registered Seller</strong>
-        <div class="content">
-            <p>If you have an account with us, please log in.</p>
-            <form action="#" @submit.prevent="sellerLogin">
-                <ul class="form-list">
-                    <li>
-                        <label for="identity">
-                            Email/Username
-                            <span class="required">*</span>
-                        </label>
-                        <br />
-                        <input type="text" title="Email Address" class="input-text required-entry" id="identity" v-model="formData.identity" required placeholder="Email Or Username" />
-                    </li>
-                    <li>
-                        <label for="pass">
-                            Password
-                            <span class="required">*</span>
-                        </label>
-                        <br />
-                        <input type="password" title="Password" id="pass" class="input-text required-entry validate-password" v-model="formData.password" placeholder="Password" />
-                    </li>
-                </ul>
-                <p class="required">* Required Fields</p>
-                <div class="buttons-set">
-                    <button type="submit" class="button login" ><span>Login</span></button>
-                    <a class="forgot-word" href="http://demo.themessoft.com/computerstore/customer/account/forgotpassword/">Forgot Your Password?</a>
+    <div class="box-authentication">
+        <h3>Already registered as Seller ?</h3>
+        <form action="" @submit.prevent="sellerLogin" autocomplete="off">
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="emmail_login">Email/Username <span class="text text-danger text-bold">*</span></label>
+                    <input type="text" v-model="formData.identity" autocomplete="off" placeholder="Email/Username" required class="form-control" id="emmail_login">
                 </div>
-            </form>
-
-        </div>
+                <div class="col-md-10">
+                    <label for="password_login">Password <span class="text text-danger text-bold">*</span></label>
+                    <input type="password" v-model="formData.password" autocomplete="off" minlength="8" placeholder="Password" required class="form-control" id="password_login">
+                </div>
+                <div class="col-md-10">
+                    <p class="forgot-pass"><a href="#">Forgot your password?</a></p>
+                    <button type="submit" class="button text-right"><i class="fa fa-lock"></i> Sign in</button>
+                </div>
+            </div>
+        </form>
     </div>
 </template>
 

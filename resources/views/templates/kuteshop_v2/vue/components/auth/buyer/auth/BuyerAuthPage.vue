@@ -1,22 +1,33 @@
 <template>
-    <section class="main-container col1-layout">
-        <div class="main container">
-            <div class="account-login">
-                <div class="page-title">
-                    <h2>Customer Login or Create an Account</h2>
+    <main class="site-main">
+
+        <div class="columns container">
+            <!-- Block  Breadcrumb-->
+
+            <ol class="breadcrumb no-hide">
+                <li><a href="#">Home    </a></li>
+                <li><a href="#">Blog    </a></li>
+                <li class="active">Ut pharetra augue nec augue integer rutrum ante eu lacus</li>
+            </ol><!-- Block  Breadcrumb-->
+
+            <h2 class="page-heading">
+                <span class="page-heading-title2">Authentication</span>
+            </h2>
+
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <buyer-register-page></buyer-register-page>
+                    </div>
+                    <div class="col-sm-6">
+                        <buyer-login-page></buyer-login-page>
+                    </div>
                 </div>
-                <fieldset class="col2-set">
-                    <buyer-register-page></buyer-register-page>
-                    <buyer-login-page></buyer-login-page>
-                </fieldset>
             </div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
         </div>
-    </section>
+
+
+    </main>
 </template>
 
 <script>

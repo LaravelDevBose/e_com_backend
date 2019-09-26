@@ -1,65 +1,34 @@
 <template>
-    <div class="col-1 new-users">
-        <strong>New Customers</strong>
-        <div class="content">
-            <form action="#" @submit.prevent="buyerRegister" autocomplete="off">
-                <ul class="form-list">
-                    <li>
-                        <label for="fullname">
-                            Full Name
-                            <span class="required">*</span>
-                        </label>
-                        <br />
-                        <input type="text" v-model="formData.full_name" required title="Full Name" class="input-text required-entry" id="fullname"  placeholder="Full Name" />
-                    </li>
-                    <li>
-                        <label for="phone">
-                            Mobile
-                            <span class="required">*</span>
-                        </label>
-                        <br />
-                        <input type="number" v-model="formData.phone_no" required title="Mobile Number" class="input-text required-entry" id="phone"  placeholder="Mobile" />
-                    </li>
-                    <li>
-                        <label for="email">
-                            Email Address
-                            <span class="required">*</span>
-                        </label>
-                        <br />
-                        <input type="email" v-model="formData.email" required title="Email Address" class="input-text required-entry" id="email" placeholder="Email Address" />
-                    </li>
-                    <li>
-                        <label for="username">
-                            User Name
-                            <span class="required">*</span>
-                        </label>
-                        <br />
-                        <input type="text" title="User Name" v-model="formData.user_name" required class="input-text required-entry" id="username"  placeholder="User Name" />
-                    </li>
-                    <li>
-                        <label for="reg_pass">
-                            Password
-                            <span class="required">*</span>
-                        </label>
-                        <br />
-                        <input type="password" minlength="8" v-model="formData.password" required title="Password" id="reg_pass" class="input-text required-entry validate-password"  placeholder="Password" />
-                    </li>
-                    <li>
-                        <label for="conf_pass">
-                            Confirm Password
-                            <span class="required">*</span>
-                        </label>
-                        <br />
-                        <input type="password" minlength="8" v-model="formData.password_confirmation" title="Password" id="conf_pass" class="input-text required-entry validate-password" placeholder="Confirm Password" />
-                    </li>
-                </ul>
-                <div class="buttons-set">
-                    <button class="button create-account" type="submit">
-                        <span>Create an Account</span>
-                    </button>
+    <div class="box-authentication">
+        <h3>Create an account</h3>
+        <p>Please enter your email address to create an account.</p>
+        <form action="" @submit.prevent="buyerRegister">
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="full_name">Full Name <span class="text text-danger text-bold">*</span></label>
+                    <input type="text" v-model="formData.full_name" placeholder="Full name" required class="form-control" id="full_name">
                 </div>
-            </form>
-        </div>
+                <div class="col-md-10">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="text" v-model="formData.phone_no" placeholder="Phone no" class="form-control" id="mobile">
+                </div>
+                <div class="col-md-10">
+                    <label for="email">Email <span class="text text-danger text-bold">*</span></label>
+                    <input type="email" v-model="formData.email" required placeholder="your@email.com" class="form-control" id="email">
+                </div>
+                <div class="col-md-10">
+                    <label for="password">Password <span class="text text-danger text-bold">*</span></label>
+                    <input type="password" v-model="formData.password" minlength="8" required placeholder="Password" class="form-control" id="password">
+                </div>
+                <div class="col-md-10">
+                    <label for="password_con">Confirm Password <span class="text text-danger text-bold">*</span></label>
+                    <input type="password" v-model="formData.password_confirmation" minlength="8" required placeholder="Confirm Password" class="form-control" id="password_con">
+                </div>
+                <div class="col-md-10">
+                    <button type="submit" class="button"><i class="fa fa-user"></i> Create an account</button>
+                </div>
+            </div>
+        </form>
     </div>
 </template>
 
