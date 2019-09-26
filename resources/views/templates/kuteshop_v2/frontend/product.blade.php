@@ -13,15 +13,12 @@
             <!-- Block  Breadcrumb-->
 
             <ol class="breadcrumb no-hide">
-                <li><a href="#">Home    </a></li>
-                <li><a href="#">Electronics    </a></li>
-                <li class="active">Machine Pro</li>
+{{--                <li><a href="#">Home    </a></li>--}}
+{{--                <li><a href="#">Electronics    </a></li>--}}
+{{--                <li class="active">Machine Pro</li>--}}
             </ol><!-- Block  Breadcrumb-->
 
             <div class="row">
-
-
-
                 <!-- Main Content -->
                 <div class="col-md-12  col-main">
 
@@ -32,38 +29,25 @@
                             <div class="product-media media-horizontal">
 
                                 <div class="image_preview_container images-large">
-
-                                    <img id="img_zoom" data-zoom-image="/kuteshop_v2/images/media/detail/thumb-lag1.jpg" src="/kuteshop_v2/images/media/detail/thumb-img1.jpg" alt="">
-
+                                    <img id="img_zoom" data-zoom-image="{{ $product->thumbImage->image_path }}" src="{{ $product->thumbImage->image_path }}" alt="{{ $product->product_name }}">
                                     <button class="btn-zoom open_qv"><span>zoom</span></button>
-
                                 </div>
 
                                 <div class="product_preview images-small">
 
                                     <div class="owl-carousel thumbnails_carousel" id="thumbnails"  data-nav="true" data-dots="false" data-margin="10" data-responsive='{"0":{"items":3},"480":{"items":4},"600":{"items":5},"768":{"items":3}}'>
+                                        <a href="#" data-image="{{ $product->thumbImage->image_path }}" data-zoom-image="{{ $product->thumbImage->image_path }}">
 
-                                        <a href="#" data-image="/kuteshop_v2/images/media/detail/thumb-img1.jpg" data-zoom-image="/kuteshop_v2/images/media/detail/thumb-lag1.jpg">
-
-                                            <img src="/kuteshop_v2/images/media/detail/thumb1.jpg" data-large-image="/kuteshop_v2/images/media/detail/thumb-img1.jpg" alt="">
-
-                                        </a>
-
-                                        <a href="#" data-image="/kuteshop_v2/images/media/detail/thumb-img2.jpg" data-zoom-image="/kuteshop_v2/images/media/detail/thumb-lag2.jpg">
-
-                                            <img src="/kuteshop_v2/images/media/detail/thumb2.jpg" data-large-image="/kuteshop_v2/images/media/detail/thumb-img2.jpg" alt="">
+                                            <img src="{{ $product->thumbImage->image_path }}" data-large-image="{{ $product->thumbImage->image_path }}" alt="{{ $product->product_name }}">
 
                                         </a>
-                                        <a href="#" data-image="/kuteshop_v2/images/media/detail/thumb-img3.jpg" data-zoom-image="/kuteshop_v2/images/media/detail/thumb-lag3.jpg">
-
-                                            <img src="/kuteshop_v2/images/media/detail/thumb3.jpg" data-large-image="/kuteshop_v2/images/media/detail/thumb-img3.jpg" alt="">
-
-                                        </a>
-                                        <a href="#" data-image="/kuteshop_v2/images/media/detail/thumb-img1.jpg" data-zoom-image="/kuteshop_v2/images/media/detail/thumb-lag1.jpg">
-
-                                            <img src="/kuteshop_v2/images/media/detail/thumb1.jpg" data-large-image="/kuteshop_v2/images/media/detail/thumb-img1.jpg" alt="">
-
-                                        </a>
+                                        @if(!empty($product->productImages) && count($product->productImages))
+                                            @foreach($product->productImages as $productImage)
+                                                <a href="#" data-image="{{ $productImage->attachment->image_path }}" data-zoom-image="{{ $productImage->attachment->image_path }}">
+                                                    <img src="{{ $productImage->attachment->image_path }}" data-large-image="{{ $productImage->attachment->image_path }}" style="max-height: 117px;" alt="{{ $product->product_name }}">
+                                                </a>
+                                            @endforeach
+                                        @endif
 
                                     </div><!--/ .owl-carousel-->
 
@@ -77,7 +61,7 @@
                             <div class="product-info-main">
 
                                 <h1 class="page-title">
-                                    Advanced Dark Blue Coast
+                                    {{ $product->product_name }}
                                 </h1>
                                 <div class="product-reviews-summary">
                                     <div class="rating-summary">
@@ -89,105 +73,39 @@
                                     </div>
                                     <div class="reviews-actions">
                                         <a href="" class="action view">Based  on 3 ratings</a>
-                                        <a href="" class="action add"><img alt="img" src="/kuteshop_v2/images/icon/write.png">&#160;&#160;write a review</a>
+{{--                                        <a href="" class="action add"><img alt="img" src="/kuteshop_v2/images/icon/write.png">&#160;&#160;write a review</a>--}}
                                     </div>
                                 </div>
 
                                 <div class="product-info-price">
                                     <div class="price-box">
-                                        <span class="price">$38.95   </span>
-                                        <span class="old-price">$52.00</span>
-                                        <span class="label-sale">-30%</span>
+                                        <span class="price">$ {{ number_format($product->singleVariation->price,2) }}</span>
+{{--                                        <span class="old-price">$52.00</span>--}}
+{{--                                        <span class="label-sale">-30%</span>--}}
                                     </div>
                                 </div>
                                 <div class="product-code">
-                                    Item Code: #453217907 :
+                                    SKU: #{{ $product->product_sku }}
                                 </div>
                                 <div class="product-info-stock">
                                     <div class="stock available">
                                         <span class="label">Availability: </span>In stock
                                     </div>
                                 </div>
-                                <div class="product-condition">
-                                    Condition: New
-                                </div>
                                 <div class="product-overview">
                                     <div class="overview-content">
-                                        Vestibulum eu odio. Suspendisse potenti. Morbi mollis tellus ac sapien. Praesent egestas tristique nibh. Nullam dictum felis eu pede mollis pretium. Fusce egestas elit eget lorem.
+                                        {!! $product->highlight !!}
                                     </div>
                                 </div>
 
-                                <div class="product-add-form">
-                                    <p>Available Options:</p>
-                                    <form>
-
-                                        <div class="product-options-wrapper">
-
-                                            <div class="swatch-opt">
-                                                <div class="swatch-attribute color" >
-                                                    <span class="swatch-attribute-label">Color:</span>
-                                                    <div class="swatch-attribute-options clearfix">
-                                                        <div class="swatch-option color selected" style="background-color: #0c3b90 ;"></div>
-                                                        <div class="swatch-option color" style="background-color: #036c5d ;"></div>
-                                                        <div class="swatch-option color" style="background-color: #5f2363 ;"></div>
-                                                        <div class="swatch-option color " style="background-color: #ffc000 ;"></div>
-                                                        <div class="swatch-option color" style="background-color: #36a93c ;"></div>
-                                                        <div class="swatch-option color" style="background-color: #ff0000 ;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-qty">
-                                                <label class="label">Qty: </label>
-                                                <div class="control">
-                                                    <input type="text" class="form-control input-qty" value='1' id="qty1" name="qty1"  maxlength="12"  minlength="1">
-                                                    <button class="btn-number  qtyminus" data-type="minus" data-field="qty1"><span>-</span></button>
-                                                    <button class="btn-number  qtyplus" data-type="plus" data-field="qty1"><span>+</span></button>
-                                                </div>
-                                            </div>
-                                            <div class="form-configurable">
-                                                <label for="forSize" class="label">Size: </label>
-                                                <div class="control">
-                                                    <select  id="forSize" class="form-control attribute-select">
-                                                        <option value="1">XXXL</option>
-                                                        <option value="4">X</option>
-                                                        <option value="5">L</option>
-                                                    </select>
-                                                </div>
-                                                <a href="" class="size-chart">Size chart</a>
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="product-options-bottom clearfix">
-
-                                            <div class="actions">
-
-                                                <button type="submit" title="Add to Cart" class="action btn-cart">
-                                                    <span>Add to Cart</span>
-                                                </button>
-                                                <div class="product-addto-links">
-
-                                                    <a href="#" class="action btn-wishlist" title="Wish List">
-                                                        <span>Wishlist</span>
-                                                    </a>
-                                                    <a href="#" class="action btn-compare" title="Compare">
-                                                        <span>Compare</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </form>
-                                </div>
-                                <div class="product-addto-links-second">
+                                <singel-product-options :product="{{ $product }}"></singel-product-options>
+                                {{--<div class="product-addto-links-second">
                                     <a href="" class="action action-print">Print</a>
                                     <a href="" class="action action-friend">Send to a friend</a>
                                 </div>
                                 <div class="share">
                                     <img src="/kuteshop_v2/images/media/index1/share.png" alt="share">
-                                </div>
+                                </div>--}}
                             </div><!-- detail- product -->
 
                         </div><!-- Main detail -->
@@ -201,10 +119,10 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-pills" role="tablist">
                             <li role="presentation" class="active"><a href="#description"  role="tab" data-toggle="tab">Product Details   </a></li>
-                            <li role="presentation"><a href="#tags"  role="tab" data-toggle="tab">information </a></li>
+{{--                            <li role="presentation"><a href="#tags"  role="tab" data-toggle="tab">information </a></li>--}}
                             <li role="presentation"><a href="#reviews"  role="tab" data-toggle="tab">reviews</a></li>
-                            <li role="presentation"><a href="#additional"  role="tab" data-toggle="tab">Extra Tabs</a></li>
-                            <li role="presentation"><a href="#tab-cust"  role="tab" data-toggle="tab">Guarantees</a></li>
+{{--                            <li role="presentation"><a href="#additional"  role="tab" data-toggle="tab">Extra Tabs</a></li>--}}
+{{--                            <li role="presentation"><a href="#tab-cust"  role="tab" data-toggle="tab">Guarantees</a></li>--}}
                         </ul>
 
                         <!-- Tab panes -->
@@ -212,14 +130,7 @@
                             <div role="tabpanel" class="tab-pane active" id="description">
                                 <div class="block-title">Product Details</div>
                                 <div class="block-content">
-                                    <p>Morbi mollis tellus ac sapien. Nunc nec neque. Praesent nec nisl a purus blandit viverra. Nunc nec neque. Pellentesque auctor neque nec urna.</p>
-                                    <br>
-                                    <p>Curabitur suscipit suscipit tellus. Cras id dui. Nam ipsum risus, rutrum vitae, vestibulum eu, molestie vel, lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Maecenas vestibulum mollis diam.</p>
-                                    <br>
-                                    <p>Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. Sed lectus. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Nam at tortor in tellus interdum sagittis. Pellentesque egestas, neque sit amet convallis pulvinar, justo nulla eleifend augue, ac auctor orci leo non est.</p>
-                                    <br>
-                                    <p>Morbi mollis tellus ac sapien. Nunc nec neque. Praesent nec nisl a purus blandit viverra. Nunc nec neque. Pellentesque auctor neque nec urna.</p>
-
+                                    {!! $product->description !!}
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="tags">
@@ -603,3 +514,9 @@
     </script>
 
 @endsection
+<script>
+    import SingelProductOptions from "../vue/components/product/SingelProductOptions";
+    export default {
+        components: {SingelProductOptions}
+    }
+</script>
