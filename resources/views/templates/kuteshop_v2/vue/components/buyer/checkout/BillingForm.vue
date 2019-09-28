@@ -1,103 +1,109 @@
 <template>
-    <form id="co-billing-form" action="" @submit.prevent="billingAddressStore">
-        <fieldset class="group-select">
+    <form  @submit.prevent="billingAddressStore">
+        <div class="box-border">
             <ul>
-                <li>
-                    <label for="billing-address-select">Select a billing address from your address book or enter a new address.</label>
-                    <br>
-                    <select name="billing_address_id" v-model="billing_id" id="billing-address-select" class="address-select" title="" >
-                        <option :value="0">New Address</option>
-                        <option v-if="addressList" v-for="(address, index) in addressList"  :value="address.id" :selected="{selected:(index===0 || billing_id === address.id)}">{{ address.text }}</option>
-                    </select>
-                </li>
-                <li id="billing-new-address-form" :class="new_address?'show':'hidden'">
-                    <fieldset>
-                        <legend>New Address</legend>
-                        <ul>
-                            <li>
-                                <div class="customer-name">
-                                    <div class="input-box name-firstname">
-                                        <label for="billing_firstname"> First Name <span class="required">*</span> </label>
-                                        <br>
-                                        <input type="text" id="billing_firstname" v-model="formData.first_name" title="First Name" class="input-text required-entry">
-                                    </div>
-                                    <div class="input-box name-lastname">
-                                        <label for="billing_lastname"> Last Name <span class="required">*</span> </label>
-                                        <br>
-                                        <input type="text" id="billing_lastname" v-model="formData.last_name" title="Last Name" class="input-text required-entry">
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <label for="billing_street">Address <span class="required">*</span></label>
-                                <br>
-                                <input type="text" v-model="formData.address" title="Street Address" id="billing_street" class="input-text required-entry">
-                            </li>
-                            <li>
-                                <div class="input-box">
-                                    <label for="billing_city">City <span class="required">*</span></label>
-                                    <br>
-                                    <input type="text" title="City" v-model="formData.city" class="input-text required-entry" id="billing_city">
-                                </div>
-                                <div id="" class="input-box">
-                                    <label for="billing_region">State/Province <span class="required">*</span></label>
-                                    <br>
-                                    <select  id="billing_region" v-model="formData.state"  title="State/Province" class="validate-select" style="">
-                                        <option value="">Please select region, state or province</option>
-                                        <option value="1">Alabama</option>
-                                        <option value="2">Alaska</option>
-                                    </select>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="input-box">
-                                    <label for="billing_postcode">Zip/Postal Code <span class="required">*</span></label>
-                                    <br>
-                                    <input type="text" v-model="formData.postal_code" title="Zip/Postal Code" id="billing_postcode" class="input-text validate-zip-international required-entry">
-                                </div>
-                                <div class="input-box">
-                                    <label for="billing_country_id">Country <span class="required">*</span></label>
-                                    <br>
-                                    <select id="billing_country_id" v-model="formData.country" class="validate-select" title="Country">
-                                        <option value=""> </option>
-                                        <option value="AF">Afghanistan</option>
-                                        <option value="AL">Albania</option>
-
-                                    </select>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="input-box">
-                                    <label for="billing_telephone">Telephone <span class="required">*</span></label>
-                                    <br>
-                                    <input type="text" v-model="formData.phone_no" title="Telephone" class="input-text required-entry" id="billing_telephone">
-                                </div>
-                            </li>
-                            <li>
-                                <input type="checkbox" value="1" v-model="save_address" title="Save in address book" id="billing_save_in_address_book" class="checkbox" checked>
-                                <label for="billing_save_in_address_book">Save in address book</label>
-                            </li>
-                        </ul>
-                    </fieldset>
-                </li>
-                <li>
-                    <input type="radio" name="is_shipping" id="shipping_yes" v-model="formData.is_shipping" :value="1" class="radio">
-                    <label for="shipping_yes">Ship to this address</label>
-                    <input type="radio" name="is_shipping" id="shipping_no" v-model="formData.is_shipping" :value="0" :checked="{'checked':formData.is_shipping}" class="radio">
-                    <label for="shipping_no">Ship to different address</label>
+                <li class="row">
+                    <div class="col-sm-6">
+                        <div class="categori-search  ">
+                            <chosen-select v-model='billing_id' :classList="selectOption.classList" :placeholder="selectOption.placeholder" >
+                                <option :value="0">New Address</option>
+                                <option v-if="addressList" v-for="(address, index) in addressList"  :value="address.id" :selected="{selected:(index===0 || billing_id === address.id)}">{{ address.text }}</option>
+                            </chosen-select>
+                        </div>
+                    </div>
                 </li>
             </ul>
-            <p class="require"><em class="required">* </em>Required Fields</p>
-            <button type="submit" :disabled="btnDisabled" class="button continue"><span>Continue</span></button>
-        </fieldset>
+            <ul :class="new_address?'show':'hidden'">
+                <li class="row">
+                    <div class="col-sm-12">
+                        <h3 class="text text-semibold text-center">New Address</h3>
+                    </div>
+                </li>
+                <li class="row">
+                    <div class="col-sm-6">
+                        <label for="first_name" class="required">First Name <span class="text text-bold text-danger">*</span></label>
+                        <input class="input form-control" v-model="formData.first_name" required  id="first_name" type="text">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="last_name" class="required">Last Name</label>
+                        <input  v-model="formData.last_name"  class="input form-control" id="last_name" type="text">
+                    </div>
+                </li>
+                <li class="row">
+                    <div class="col-sm-6">
+                        <label for="telephone" class="required">Telephone <span class="text text-bold text-danger">*</span></label>
+                        <input class="input form-control" v-model="formData.phone_no" required  id="telephone" type="text">
+                    </div>
+                </li>
+                <li class="row">
+                    <div class="col-xs-12">
+                        <label for="address" class="required">Address <span class="text text-bold text-danger">*</span></label>
+                        <input class="input form-control" v-model="formData.address" required  id="address" type="text">
+                    </div>
+
+                </li>
+                <li class="row">
+                    <div class="col-sm-6">
+                        <label for="city" class="required">City <span class="text text-bold text-danger">*</span></label>
+                        <input class="input form-control" v-model="formData.city" required  id="city" type="text">
+
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="required">State/Province <span class="text text-bold text-danger">*</span></label>
+                        <chosen-select v-model='formData.state' :classList="selectOption.classList" :placeholder="'Select Your State'" >
+                            <option value="Alabama">Alabama</option>
+                            <option value="Illinois">Illinois</option>
+                            <option value="Kansas">Kansas</option>
+                        </chosen-select>
+                    </div>
+                </li>
+                <li class="row">
+
+                    <div class="col-sm-6">
+                        <label for="postal_code" class="required">Zip/Postal Code <span class="text text-bold text-danger">*</span></label>
+                        <input class="input form-control" v-model="formData.postal_code"  id="postal_code" type="text">
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="required">Country <span class="text text-bold text-danger">*</span></label>
+                        <chosen-select v-model='formData.country' :classList="selectOption.classList" :placeholder="'Select Your Country'" >
+                            <option value="USA">USA</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Canada">Canada</option>
+                        </chosen-select>
+                    </div>
+                </li>
+            </ul>
+            <ul>
+                <li class="row">
+                    <div class="col-sm-3">
+                        <label for="save_address" style="padding:10px;">
+                            <input  id="save_address" type="checkbox"> Save as Address Book</label>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="is_shipping" style="padding:10px;">
+                            <input  v-model="formData.is_shipping"   id="is_shipping" type="checkbox"> Also As Shipping Address</label>
+                    </div>
+                </li>
+                <li style="text-align: right">
+                    <button type="submit" class="button">Continue</button>
+                </li>
+            </ul>
+        </div>
     </form>
 </template>
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
+    import ChosenSelect from '../../helper/ChosenSelect';
 
     export default {
         name: "BillingForm",
+        components:{ChosenSelect},
         data(){
             return{
                 formData:{
@@ -116,6 +122,10 @@
                 billing_id:'',
                 save_address:false,
                 new_address:false,
+                selectOption:{
+                    classList:'categori-search-option',
+                    placeholder:'All Address'
+                },
             }
         },
         methods:{
@@ -214,13 +224,12 @@
                     if(newVal.length === 0){
                         this.new_address = true;
                     }
-
                 }
             },
             billing_id:{
                 handler(newVal, oldVal){
                     if(newVal !== oldVal){
-                        if(newVal === 0){
+                        if(newVal == 0){
                             this.new_address = true;
                         }else{
                             this.new_address = false;
@@ -234,6 +243,7 @@
 </script>
 
 <style scoped>
+
     .show{
         display: block;
     }

@@ -70,7 +70,6 @@
         },
         mounted() {
             this.getCartDetails();
-            console.log(this.cartList.length);
         },
         methods:{
             ...mapActions([

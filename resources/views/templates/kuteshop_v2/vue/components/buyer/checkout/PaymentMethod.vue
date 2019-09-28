@@ -1,11 +1,19 @@
 <template>
     <form action="" id="co-payment-form">
-        <dl id="checkout-payment-method-load" v-if="paymentMethods">
-            <dt v-for="(paymentMethod, index ) in paymentMethods">
-                <input type="radio" id="p_method_checkmo" v-model="formData.payment_method_id" :value="index" name="payment_method"  :title="paymentMethod" class="radio">
-                <label for="p_method_checkmo">{{ paymentMethod }}</label>
-            </dt>
-        </dl>
+        <div class="box-border">
+            <ul>
+                <li>
+                    <label for="radio_button_5"><input checked="" name="radio_4" id="radio_button_5" type="radio"> Check / Money order</label>
+                </li>
+
+                <li>
+
+                    <label for="radio_button_6"><input name="radio_4" id="radio_button_6" type="radio"> Credit card (saved)</label>
+                </li>
+
+            </ul>
+            <button class="button">Continue</button>
+        </div>
     </form>
 </template>
 

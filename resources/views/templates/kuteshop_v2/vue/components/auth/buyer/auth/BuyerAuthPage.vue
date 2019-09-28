@@ -1,15 +1,8 @@
 <template>
     <main class="site-main">
 
-        <div class="columns container">
+        <div class="columns container" style="margin-top: 2rem">
             <!-- Block  Breadcrumb-->
-
-            <ol class="breadcrumb no-hide">
-                <li><a href="#">Home    </a></li>
-                <li><a href="#">Blog    </a></li>
-                <li class="active">Ut pharetra augue nec augue integer rutrum ante eu lacus</li>
-            </ol><!-- Block  Breadcrumb-->
-
             <h2 class="page-heading">
                 <span class="page-heading-title2">Authentication</span>
             </h2>
