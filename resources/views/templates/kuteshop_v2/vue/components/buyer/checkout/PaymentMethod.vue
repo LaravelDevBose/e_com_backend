@@ -2,17 +2,12 @@
     <form action="" id="co-payment-form">
         <div class="box-border">
             <ul>
-                <li>
-                    <label for="radio_button_5"><input checked="" name="radio_4" id="radio_button_5" type="radio"> Check / Money order</label>
+                <li v-if="paymentMethods" v-for="(payment,index) in paymentMethods"  :key="index">
+                    <label for="radio_button_5">
+                        <input checked="" name="radio_4" v-model="formData.payment_method_id" :value="index" id="radio_button_5" type="radio"> {{ payment }}</label>
                 </li>
-
-                <li>
-
-                    <label for="radio_button_6"><input name="radio_4" id="radio_button_6" type="radio"> Credit card (saved)</label>
-                </li>
-
             </ul>
-            <button class="button">Continue</button>
+            <button type="button" @click.prevent="paymentMethodStore" class="button">Continue</button>
         </div>
     </form>
 </template>
@@ -32,7 +27,35 @@
         methods:{
             ...mapActions([
                 'storePaymentMethod',
-            ])
+                'tabChange'
+            ]),
+            paymentMethodStore(){
+                this.storePaymentMethod(this.formData)
+                    .then(response=>{
+                        this.$noty.success('Payment Information Added.');
+                        this.continueTab();
+                    })
+            },
+            continueTab(){
+                let data={
+                    billing:{
+                        'tabAction':false,
+                    },
+                    shopping:{
+                        'tabAction':false,
+                    },
+                    method:{
+                        'tabAction':false,
+                    },
+                    payment:{
+                        'tabAction':false,
+                    },
+
+                };
+                this.tabChange(data);
+
+            }
+
         },
         computed:{
             ...mapGetters([
@@ -41,18 +64,7 @@
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
             },
-        },
-        watch:{
-            formDataCheck:{
-                handler(newVal, oldVal){
-                    if(newVal !== oldVal){
-                        this.storePaymentMethod(this.formData);
-                    }
-
-                }
-            },
         }
-
     }
 </script>
 

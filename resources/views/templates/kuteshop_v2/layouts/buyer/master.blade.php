@@ -19,7 +19,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    {{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">--}}
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset('kuteshop_v2/css/style.css') }}">
     @yield('PageCss')
 </head>

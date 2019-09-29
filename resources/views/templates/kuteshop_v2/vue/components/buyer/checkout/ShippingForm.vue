@@ -13,7 +13,7 @@
                     </div>
                 </li>
             </ul>
-            <ul :class="new_address?'show':'hidden'">
+            <ul v-if="new_address">
                 <li class="row">
                     <div class="col-sm-12">
                         <h3 class="text text-semibold text-center">New Address</h3>

@@ -1,5 +1,5 @@
 <template>
-    <form  @submit.prevent="billingAddressStore">
+    <form action="" >
         <div class="box-border">
             <ul>
                 <li class="row">
@@ -22,7 +22,7 @@
                 <li class="row">
                     <div class="col-sm-6">
                         <label for="first_name" class="required">First Name <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.first_name" required  id="first_name" type="text">
+                        <input class="input form-control" v-model="formData.first_name"  id="first_name" type="text">
                     </div>
                     <div class="col-sm-6">
                         <label for="last_name" class="required">Last Name</label>
@@ -32,20 +32,20 @@
                 <li class="row">
                     <div class="col-sm-6">
                         <label for="telephone" class="required">Telephone <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.phone_no" required  id="telephone" type="text">
+                        <input class="input form-control" v-model="formData.phone_no"  id="telephone" type="text">
                     </div>
                 </li>
                 <li class="row">
                     <div class="col-xs-12">
                         <label for="address" class="required">Address <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.address" required  id="address" type="text">
+                        <input class="input form-control" v-model="formData.address"  id="address" type="text">
                     </div>
 
                 </li>
                 <li class="row">
                     <div class="col-sm-6">
                         <label for="city" class="required">City <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.city" required  id="city" type="text">
+                        <input class="input form-control" v-model="formData.city"  id="city" type="text">
 
                     </div>
 
@@ -90,7 +90,7 @@
                     </div>
                 </li>
                 <li style="text-align: right">
-                    <button type="submit" class="button">Continue</button>
+                    <button type="button" @click.prevent="billingAddressStore" :disabled="btnDisabled" class="button">Continue</button>
                 </li>
             </ul>
         </div>

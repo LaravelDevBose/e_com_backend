@@ -94,6 +94,7 @@
                     shipping_address:{},
                     shipping_address_id:'',
                     shipping_method: 1,
+                    shipping_method_id: 1,
                     payment_method:'',
                     payment_method_id:'',
                 }

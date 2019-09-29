@@ -62,7 +62,7 @@ class OrderController extends Controller
         $validator = Validator::make($request->all(),[
             'billing_address'=>'required|array',
             'shipping_address'=>'required|array',
-            'shipping_method'=>'required',
+            'shipping_method_id'=>'required',
             'payment_method_id'=>'required',
         ]);
 
@@ -86,7 +86,7 @@ class OrderController extends Controller
                     'total'=>Cart::total(),
                     'order_date'=>now(),
                     'order_status'=>config('app.active'),
-                    'shipping_method'=>$request->shipping_method
+                    'shipping_method'=>$request->shipping_method_id
                 ]);
 
                 if(!empty($order)){
@@ -173,7 +173,7 @@ class OrderController extends Controller
                         // TODO return buyer panel invoice page
                         DB::commit();
                         Cart::destroy();
-                        return ResponserTrait::allResponse('success', Response::HTTP_CREATED, 'Your Order Place Successfully');
+                        return ResponserTrait::allResponse('success', Response::HTTP_CREATED, 'Your Order Place Successfully', '', route('buyer.order.index'));
                     }else{
                         throw new \Exception('Order Item Not Insert.', Response::HTTP_BAD_REQUEST);
                     }

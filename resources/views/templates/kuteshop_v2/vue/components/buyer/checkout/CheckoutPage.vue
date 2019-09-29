@@ -1,17 +1,33 @@
 <template>
     <div class="page-content checkout-page">
         <h3 class="checkout-sep">1. Billing Information</h3>
-        <billing-form></billing-form>
+        <div :class="billingTab ? 'show':'hidden'">
+            <billing-form ></billing-form>
+        </div>
         <h3 class="checkout-sep">2. Shipping Information</h3>
-        <shipping-form></shipping-form>
+        <div :class="shoppingTab ? 'show':'hidden'">
+            <shipping-form></shipping-form>
+        </div>
         <h3 class="checkout-sep">3. Shipping Method</h3>
-        <shipping-method></shipping-method>
+        <div :class="methodTab ? 'show':'hidden'">
+            <shipping-method></shipping-method>
+        </div>
         <h3 class="checkout-sep">4. Payment Information</h3>
-        <payment-method></payment-method>
+        <div :class="paymentTab ? 'show':'hidden'">
+            <payment-method></payment-method>
+        </div>
         <h3 class="checkout-sep">5. Order Review</h3>
         <div class="box-border">
             <cart-list-table></cart-list-table>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-5">
+                    <div class="text-right">
+                        <button type="button" @click.prevent="proceedToOrder" class="button btn-block">Place Order</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 </template>
 
@@ -32,7 +48,8 @@
                     billing_address_id:'',
                     shipping_address:{},
                     shipping_address_id:'',
-                    shipping_method: 1,
+                    shipping_method: '',
+                    shipping_method_id: '',
                     payment_method:'',
                     payment_method_id:'',
                 }
@@ -88,6 +105,7 @@
                 this.formData.shipping_address_id = this.shippingAddressId;
                 this.formData.payment_method = this.paymentInfo;
                 this.formData.payment_method_id = this.paymentMethodId;
+                this.formData.shipping_method_id = this.shippingMethodId;
                 console.log(this.formData);
                 //TODO Form Validation
                 this.orderProceed(this.formData)
@@ -95,7 +113,7 @@
                         if(typeof response.code !== "undefined" && response.code === 201){
                             this.$noty.success(response.message);
                             setTimeout(function () {
-                                location.href = '/';
+                                location.href = response.url;
                             },2000);
                         }else if(response.status === 'validation'){
                             this.$noty.warning(response.message);
@@ -115,6 +133,7 @@
                 'shippingAddressId',
                 'paymentInfo',
                 'paymentMethodId',
+                'shippingMethodId',
 
                 'billingTab',
                 'shoppingTab',
