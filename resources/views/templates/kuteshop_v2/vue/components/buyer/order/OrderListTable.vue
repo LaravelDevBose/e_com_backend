@@ -1,5 +1,5 @@
 <template>
-    <div class="table-responsive">
+    <div class="table-responsive wow bounceInUp animated">
         <table class="table table-bordered  cart_summary">
             <thead>
             <tr>

@@ -1,6 +1,6 @@
 <template>
     <div class="table-responsive">
-        <table class="data-table" id="my-orders-table">
+        <table class="table table-bordered  cart_summary">
             <thead>
             <tr class="first last">
                 <th>#</th>
@@ -14,7 +14,7 @@
             </thead>
             <tbody>
             <tr v-if="addressBooks" v-for="(addressBook,index) in addressBooks" :class="{'first':index === 0, 'last':(index+1) === addressBooks.length ,'even': index % 2 === 0, 'odd': index % 2 !== 0 }">
-                <td>1</td>
+                <td>{{ index+1 }}</td>
                 <td>{{ addressBook.first_name }} {{ addressBook.last_name }}</td>
                 <td>{{ addressBook.phone_no }}</td>
                 <td>

@@ -7,33 +7,40 @@
 @endsection
 
 @section('Content')
-    <div class="main-container col2-right-layout">
-        <div class="main container">
+    <main class="site-main">
+
+        <div class="columns container">
+            <!-- Block  Breadcrumb-->
+
+            <ol class="breadcrumb no-hide">
+                <li><a href="#">Home    </a></li>
+                <li class="active">Dashboard</li>
+            </ol><!-- Block  Breadcrumb-->
+
             <div class="row">
-                <section class="col-sm-9 wow bounceInUp animated">
+
+                <!-- Main Content -->
+                <div class="col-md-9 col-md-push-3">
                     <div class="col-main">
-                        <div class="my-account">
-                            <div class="page-title">
-                                <h2>My Address Book
-                                    <a href="{{route('buyer.address.book.create')}}" class="text text-size-mini pull-right" style="text-decoration: underline"> Create</a>
-                                </h2>
-
-                            </div>
-                            <div class="dashboard">
-                                <div class="recent-orders">
-                                    <address-book-list-page></address-book-list-page>
-                                </div>
-                            </div>
+                        <h2 class="page-heading">
+                            <span class="page-heading-title2">Address List</span>
+                            <a href="{{route('buyer.address.book.create')}}" class="text text-size-mini pull-right" style="text-decoration: underline; font-size: 13px; color: #f78031;"> New Address</a>
+                        </h2>
+                        <div class="content-text clearfix wow bounceInUp animated">
+                            <address-book-list-page></address-book-list-page>
                         </div>
-
                     </div>
-                </section>
+                </div>
+                <!-- Main Content -->
 
-                <!-- right side -->
-                @include('templates.crocus_v2.buyer.partials.right_side')
+                <!-- Sidebar -->
+                <div class="col-md-3 col-md-pull-9   col-sidebar">
+                    @include('templates.kuteshop_v2.buyer.partials.right_side')
+                </div>
+                <!-- Sidebar -->
             </div>
         </div>
-    </div>
+    </main>
 @endsection
 
 @section('PageJs')

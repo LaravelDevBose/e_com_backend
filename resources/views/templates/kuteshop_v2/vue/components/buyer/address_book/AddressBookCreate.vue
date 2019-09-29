@@ -1,88 +1,80 @@
 <template>
-    <section class="col-sm-9 wow bounceInUp animated">
-        <form id="co-billing-form" @submit.prevent="storeAddress">
-            <fieldset class="group-select">
-                <fieldset>
-                    <legend>Address Book</legend>
-                    <ul>
-                        <li>
-                            <div class="customer-name">
-                                <div class="input-box name-firstname">
-                                    <label for="billing_firstname"> First Name <span class="required">*</span> </label>
-                                    <br>
-                                    <input type="text" id="billing_firstname" v-model="formData.first_name" title="First Name" class="input-text required-entry">
-                                </div>
-                                <div class="input-box name-lastname">
-                                    <label for="billing_lastname"> Last Name <span class="required">*</span> </label>
-                                    <br>
-                                    <input type="text" id="billing_lastname" v-model="formData.last_name" title="Last Name" class="input-text required-entry">
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="input-box">
-                                <label for="billing_telephone">Telephone <span class="required">*</span></label>
-                                <br>
-                                <input type="text" v-model="formData.phone_no" title="Telephone" class="input-text required-entry" id="billing_telephone">
-                            </div>
-                            <div class="input-box">
-                                <label for="billing_street">Address <span class="required">*</span></label>
-                                <br>
-                                <input type="text" v-model="formData.address" title="Street Address" id="billing_street" class="input-text required-entry">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="input-box">
-                                <label for="billing_city">City <span class="required">*</span></label>
-                                <br>
-                                <input type="text" title="City" v-model="formData.city" class="input-text required-entry" id="billing_city">
-                            </div>
-                            <div id="" class="input-box">
-                                <label for="billing_region">State/Province <span class="required">*</span></label>
-                                <br>
-                                <select  id="billing_region" v-model="formData.state"  title="State/Province" class="validate-select" style="">
-                                    <option value="">Please select region, state or province</option>
-                                    <option value="1">Alabama</option>
-                                    <option value="2">Alaska</option>
-                                </select>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="input-box">
-                                <label for="billing_postcode">Zip/Postal Code <span class="required">*</span></label>
-                                <br>
-                                <input type="text" v-model="formData.postal_code" title="Zip/Postal Code" id="billing_postcode" class="input-text validate-zip-international required-entry">
-                            </div>
-                            <div class="input-box">
-                                <label for="billing_country_id">Country <span class="required">*</span></label>
-                                <br>
-                                <select id="billing_country_id" v-model="formData.country" class="validate-select" title="Country">
-                                    <option value=""> </option>
-                                    <option value="AF">Afghanistan</option>
-                                    <option value="AL">Albania</option>
+    <form action="" @submit.prevent="storeAddress">
+        <div class="box-border">
+            <ul>
+                <li class="row">
+                    <div class="col-sm-6">
+                        <label for="first_name" class="required">First Name <span class="text text-bold text-danger">*</span></label>
+                        <input class="input form-control" v-model="formData.first_name"  id="first_name" type="text">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="last_name" class="required">Last Name</label>
+                        <input  v-model="formData.last_name"  class="input form-control" id="last_name" type="text">
+                    </div>
+                </li>
+                <li class="row">
+                    <div class="col-sm-6">
+                        <label for="telephone" class="required">Telephone <span class="text text-bold text-danger">*</span></label>
+                        <input class="input form-control" v-model="formData.phone_no"  id="telephone" type="text">
+                    </div>
+                </li>
+                <li class="row">
+                    <div class="col-xs-12">
+                        <label for="address" class="required">Address <span class="text text-bold text-danger">*</span></label>
+                        <input class="input form-control" v-model="formData.address"  id="address" type="text">
+                    </div>
 
-                                </select>
-                            </div>
-                        </li>
-                        <li>
-                            <p class="require">
-                                <em class="required">*</em>Required Fields
-                            </p>
-                            <button :disabled="btnDisabled" type="submit" class="button continue">
-                                <span>Save Address</span>
-                            </button>
-                        </li>
-                    </ul>
-                </fieldset>
-            </fieldset>
-        </form>
-    </section>
+                </li>
+                <li class="row">
+                    <div class="col-sm-6">
+                        <label for="city" class="required">City <span class="text text-bold text-danger">*</span></label>
+                        <input class="input form-control" v-model="formData.city"  id="city" type="text">
+
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="required">State/Province <span class="text text-bold text-danger">*</span></label>
+                        <chosen-select v-model='formData.state' :classList="selectOption.classList" :placeholder="'Select Your State'" >
+                            <option value="Alabama">Alabama</option>
+                            <option value="Illinois">Illinois</option>
+                            <option value="Kansas">Kansas</option>
+                        </chosen-select>
+                    </div>
+                </li>
+                <li class="row">
+
+                    <div class="col-sm-6">
+                        <label for="postal_code" class="required">Zip/Postal Code <span class="text text-bold text-danger">*</span></label>
+                        <input class="input form-control" v-model="formData.postal_code"  id="postal_code" type="text">
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="required">Country <span class="text text-bold text-danger">*</span></label>
+                        <chosen-select v-model='formData.country' :classList="selectOption.classList" :placeholder="'Select Your Country'" >
+                            <option value="USA">USA</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Canada">Canada</option>
+                        </chosen-select>
+                    </div>
+                </li>
+                <li style="text-align: right">
+                    <button type="submit"  :disabled="btnDisabled" class="button">Save Address</button>
+                </li>
+            </ul>
+
+        </div>
+    </form>
 </template>
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
+    import ChosenSelect from '../../helper/ChosenSelect';
+
     export default {
         name: "AddressBookCreate",
+        components:{ChosenSelect},
         data(){
             return{
                 formData:{
@@ -98,6 +90,10 @@
                     is_shipping:0,
                 },
                 btnDisabled:false,
+                selectOption:{
+                    classList:'categori-search-option',
+                    placeholder:'All Address'
+                },
             }
         },
         methods:{

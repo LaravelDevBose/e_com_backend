@@ -2359,6 +2359,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _helper_ChosenSelect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../helper/ChosenSelect */ "./resources/views/templates/kuteshop_v2/vue/components/helper/ChosenSelect.vue");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2433,20 +2434,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddressBookCreate",
+  components: {
+    ChosenSelect: _helper_ChosenSelect__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
       formData: {
@@ -2461,7 +2455,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         address_type: 1,
         is_shipping: 0
       },
-      btnDisabled: false
+      btnDisabled: false,
+      selectOption: {
+        classList: 'categori-search-option',
+        placeholder: 'All Address'
+      }
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeAddressBook']), {
@@ -45556,440 +45554,363 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "col-sm-9 wow bounceInUp animated" }, [
-    _c(
-      "form",
-      {
-        attrs: { id: "co-billing-form" },
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.storeAddress($event)
-          }
+  return _c(
+    "form",
+    {
+      attrs: { action: "" },
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.storeAddress($event)
         }
-      },
-      [
-        _c("fieldset", { staticClass: "group-select" }, [
-          _c("fieldset", [
-            _c("legend", [_vm._v("Address Book")]),
+      }
+    },
+    [
+      _c("div", { staticClass: "box-border" }, [
+        _c("ul", [
+          _c("li", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.first_name,
+                    expression: "formData.first_name"
+                  }
+                ],
+                staticClass: "input form-control",
+                attrs: { id: "first_name", type: "text" },
+                domProps: { value: _vm.formData.first_name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.formData, "first_name", $event.target.value)
+                  }
+                }
+              })
+            ]),
             _vm._v(" "),
-            _c("ul", [
-              _c("li", [
-                _c("div", { staticClass: "customer-name" }, [
-                  _c("div", { staticClass: "input-box name-firstname" }, [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.first_name,
-                          expression: "formData.first_name"
-                        }
-                      ],
-                      staticClass: "input-text required-entry",
-                      attrs: {
-                        type: "text",
-                        id: "billing_firstname",
-                        title: "First Name"
-                      },
-                      domProps: { value: _vm.formData.first_name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formData,
-                            "first_name",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-box name-lastname" }, [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.last_name,
-                          expression: "formData.last_name"
-                        }
-                      ],
-                      staticClass: "input-text required-entry",
-                      attrs: {
-                        type: "text",
-                        id: "billing_lastname",
-                        title: "Last Name"
-                      },
-                      domProps: { value: _vm.formData.last_name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formData,
-                            "last_name",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ])
-              ]),
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c(
+                "label",
+                { staticClass: "required", attrs: { for: "last_name" } },
+                [_vm._v("Last Name")]
+              ),
               _vm._v(" "),
-              _c("li", [
-                _c("div", { staticClass: "input-box" }, [
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.phone_no,
-                        expression: "formData.phone_no"
-                      }
-                    ],
-                    staticClass: "input-text required-entry",
-                    attrs: {
-                      type: "text",
-                      title: "Telephone",
-                      id: "billing_telephone"
-                    },
-                    domProps: { value: _vm.formData.phone_no },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.formData, "phone_no", $event.target.value)
-                      }
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.last_name,
+                    expression: "formData.last_name"
+                  }
+                ],
+                staticClass: "input form-control",
+                attrs: { id: "last_name", type: "text" },
+                domProps: { value: _vm.formData.last_name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-box" }, [
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.address,
-                        expression: "formData.address"
-                      }
-                    ],
-                    staticClass: "input-text required-entry",
-                    attrs: {
-                      type: "text",
-                      title: "Street Address",
-                      id: "billing_street"
-                    },
-                    domProps: { value: _vm.formData.address },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.formData, "address", $event.target.value)
-                      }
-                    }
-                  })
-                ])
-              ]),
+                    _vm.$set(_vm.formData, "last_name", $event.target.value)
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _vm._m(1),
               _vm._v(" "),
-              _c("li", [
-                _c("div", { staticClass: "input-box" }, [
-                  _vm._m(4),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.city,
-                        expression: "formData.city"
-                      }
-                    ],
-                    staticClass: "input-text required-entry",
-                    attrs: { type: "text", title: "City", id: "billing_city" },
-                    domProps: { value: _vm.formData.city },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.formData, "city", $event.target.value)
-                      }
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.phone_no,
+                    expression: "formData.phone_no"
+                  }
+                ],
+                staticClass: "input form-control",
+                attrs: { id: "telephone", type: "text" },
+                domProps: { value: _vm.formData.phone_no },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-box", attrs: { id: "" } }, [
-                  _vm._m(5),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.state,
-                          expression: "formData.state"
-                        }
-                      ],
-                      staticClass: "validate-select",
-                      attrs: { id: "billing_region", title: "State/Province" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.formData,
-                            "state",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "" } }, [
-                        _vm._v("Please select region, state or province")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "1" } }, [
-                        _vm._v("Alabama")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "2" } }, [
-                        _vm._v("Alaska")
-                      ])
-                    ]
-                  )
-                ])
-              ]),
+                    _vm.$set(_vm.formData, "phone_no", $event.target.value)
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-xs-12" }, [
+              _vm._m(2),
               _vm._v(" "),
-              _c("li", [
-                _c("div", { staticClass: "input-box" }, [
-                  _vm._m(6),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.postal_code,
-                        expression: "formData.postal_code"
-                      }
-                    ],
-                    staticClass:
-                      "input-text validate-zip-international required-entry",
-                    attrs: {
-                      type: "text",
-                      title: "Zip/Postal Code",
-                      id: "billing_postcode"
-                    },
-                    domProps: { value: _vm.formData.postal_code },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.formData,
-                          "postal_code",
-                          $event.target.value
-                        )
-                      }
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.address,
+                    expression: "formData.address"
+                  }
+                ],
+                staticClass: "input form-control",
+                attrs: { id: "address", type: "text" },
+                domProps: { value: _vm.formData.address },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-box" }, [
-                  _vm._m(7),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.country,
-                          expression: "formData.country"
-                        }
-                      ],
-                      staticClass: "validate-select",
-                      attrs: { id: "billing_country_id", title: "Country" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.formData,
-                            "country",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "" } }),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "AF" } }, [
-                        _vm._v("Afghanistan")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "AL" } }, [
-                        _vm._v("Albania")
-                      ])
-                    ]
-                  )
-                ])
-              ]),
+                    _vm.$set(_vm.formData, "address", $event.target.value)
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _vm._m(3),
               _vm._v(" "),
-              _c("li", [
-                _vm._m(8),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.city,
+                    expression: "formData.city"
+                  }
+                ],
+                staticClass: "input form-control",
+                attrs: { id: "city", type: "text" },
+                domProps: { value: _vm.formData.city },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.formData, "city", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-sm-6" },
+              [
+                _vm._m(4),
                 _vm._v(" "),
                 _c(
-                  "button",
+                  "chosen-select",
                   {
-                    staticClass: "button continue",
-                    attrs: { disabled: _vm.btnDisabled, type: "submit" }
+                    attrs: {
+                      classList: _vm.selectOption.classList,
+                      placeholder: "Select Your State"
+                    },
+                    model: {
+                      value: _vm.formData.state,
+                      callback: function($$v) {
+                        _vm.$set(_vm.formData, "state", $$v)
+                      },
+                      expression: "formData.state"
+                    }
                   },
-                  [_c("span", [_vm._v("Save Address")])]
+                  [
+                    _c("option", { attrs: { value: "Alabama" } }, [
+                      _vm._v("Alabama")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "Illinois" } }, [
+                      _vm._v("Illinois")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "Kansas" } }, [
+                      _vm._v("Kansas")
+                    ])
+                  ]
                 )
-              ])
-            ])
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _vm._m(5),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.postal_code,
+                    expression: "formData.postal_code"
+                  }
+                ],
+                staticClass: "input form-control",
+                attrs: { id: "postal_code", type: "text" },
+                domProps: { value: _vm.formData.postal_code },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.formData, "postal_code", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-sm-6" },
+              [
+                _vm._m(6),
+                _vm._v(" "),
+                _c(
+                  "chosen-select",
+                  {
+                    attrs: {
+                      classList: _vm.selectOption.classList,
+                      placeholder: "Select Your Country"
+                    },
+                    model: {
+                      value: _vm.formData.country,
+                      callback: function($$v) {
+                        _vm.$set(_vm.formData, "country", $$v)
+                      },
+                      expression: "formData.country"
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "USA" } }, [_vm._v("USA")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "Australia" } }, [
+                      _vm._v("Australia")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "Austria" } }, [
+                      _vm._v("Austria")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "Argentina" } }, [
+                      _vm._v("Argentina")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "Canada" } }, [
+                      _vm._v("Canada")
+                    ])
+                  ]
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticStyle: { "text-align": "right" } }, [
+            _c(
+              "button",
+              {
+                staticClass: "button",
+                attrs: { type: "submit", disabled: _vm.btnDisabled }
+              },
+              [_vm._v("Save Address")]
+            )
           ])
         ])
-      ]
-    )
-  ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_firstname" } }, [
-      _vm._v(" First Name "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
+    return _c(
+      "label",
+      { staticClass: "required", attrs: { for: "first_name" } },
+      [
+        _vm._v("First Name "),
+        _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
+      ]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_lastname" } }, [
-      _vm._v(" Last Name "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
+    return _c(
+      "label",
+      { staticClass: "required", attrs: { for: "telephone" } },
+      [
+        _vm._v("Telephone "),
+        _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
+      ]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_telephone" } }, [
-      _vm._v("Telephone "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_street" } }, [
+    return _c("label", { staticClass: "required", attrs: { for: "address" } }, [
       _vm._v("Address "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
+      _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_city" } }, [
+    return _c("label", { staticClass: "required", attrs: { for: "city" } }, [
       _vm._v("City "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
+      _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_region" } }, [
+    return _c("label", { staticClass: "required" }, [
       _vm._v("State/Province "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
+      _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_postcode" } }, [
-      _vm._v("Zip/Postal Code "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
+    return _c(
+      "label",
+      { staticClass: "required", attrs: { for: "postal_code" } },
+      [
+        _vm._v("Zip/Postal Code "),
+        _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
+      ]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_country_id" } }, [
+    return _c("label", { staticClass: "required" }, [
       _vm._v("Country "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "require" }, [
-      _c("em", { staticClass: "required" }, [_vm._v("*")]),
-      _vm._v("Required Fields\n                        ")
+      _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
     ])
   }
 ]
@@ -46015,72 +45936,68 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "table-responsive" }, [
-    _c(
-      "table",
-      { staticClass: "data-table", attrs: { id: "my-orders-table" } },
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.addressBooks, function(addressBook, index) {
-            return _vm.addressBooks
-              ? _c(
-                  "tr",
-                  {
-                    class: {
-                      first: index === 0,
-                      last: index + 1 === _vm.addressBooks.length,
-                      even: index % 2 === 0,
-                      odd: index % 2 !== 0
-                    }
-                  },
-                  [
-                    _c("td", [_vm._v("1")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        _vm._s(addressBook.first_name) +
-                          " " +
-                          _vm._s(addressBook.last_name)
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(addressBook.phone_no))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("span", { staticClass: "price" }, [
-                        _vm._v(_vm._s(addressBook.full_address))
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "a-center last text-center" }, [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.editAddressBook(addressBook.address_id)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fa fa-pencil" })]
-                      )
+    _c("table", { staticClass: "table table-bordered  cart_summary" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.addressBooks, function(addressBook, index) {
+          return _vm.addressBooks
+            ? _c(
+                "tr",
+                {
+                  class: {
+                    first: index === 0,
+                    last: index + 1 === _vm.addressBooks.length,
+                    even: index % 2 === 0,
+                    odd: index % 2 !== 0
+                  }
+                },
+                [
+                  _c("td", [_vm._v(_vm._s(index + 1))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(
+                      _vm._s(addressBook.first_name) +
+                        " " +
+                        _vm._s(addressBook.last_name)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(addressBook.phone_no))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("span", { staticClass: "price" }, [
+                      _vm._v(_vm._s(addressBook.full_address))
                     ])
-                  ]
-                )
-              : _c("tr", { staticClass: "last even" }, [
-                  _c("td", { attrs: { colspan: "6" } }, [
-                    _vm._v("No Address Found ")
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "a-center last text-center" }, [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.editAddressBook(addressBook.address_id)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-pencil" })]
+                    )
                   ])
+                ]
+              )
+            : _c("tr", { staticClass: "last even" }, [
+                _c("td", { attrs: { colspan: "6" } }, [
+                  _vm._v("No Address Found ")
                 ])
-          }),
-          0
-        )
-      ]
-    )
+              ])
+        }),
+        0
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -47678,64 +47595,68 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "table-responsive" }, [
-    _c("table", { staticClass: "table table-bordered  cart_summary" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.orderList, function(order, index) {
-          return _vm.orderList
-            ? _c("tr", { key: index }, [
-                _c("td", [_vm._v(_vm._s(order.order_no))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(order.order_date))]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    _vm._s(order.shipping.first_name) +
-                      " " +
-                      _vm._s(order.shipping.last_name)
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "text-right" }, [
-                  _c("span", { staticClass: "price" }, [
-                    _vm._v("$ " + _vm._s(order.total))
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "text-center" }, [
-                  _c("em", [_vm._v(_vm._s(order.status_label))])
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "text-center" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "text-primary",
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.viewOrderInfo(order.order_no)
+  return _c(
+    "div",
+    { staticClass: "table-responsive wow bounceInUp animated" },
+    [
+      _c("table", { staticClass: "table table-bordered  cart_summary" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.orderList, function(order, index) {
+            return _vm.orderList
+              ? _c("tr", { key: index }, [
+                  _c("td", [_vm._v(_vm._s(order.order_no))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(order.order_date))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(
+                      _vm._s(order.shipping.first_name) +
+                        " " +
+                        _vm._s(order.shipping.last_name)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-right" }, [
+                    _c("span", { staticClass: "price" }, [
+                      _vm._v("$ " + _vm._s(order.total))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [
+                    _c("em", [_vm._v(_vm._s(order.status_label))])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-primary",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.viewOrderInfo(order.order_no)
+                          }
                         }
-                      }
-                    },
-                    [_c("i", { staticClass: "fa fa-eye" })]
-                  )
+                      },
+                      [_c("i", { staticClass: "fa fa-eye" })]
+                    )
+                  ])
                 ])
-              ])
-            : _c("tr", [
-                _c("td", { attrs: { colspan: "7" } }, [
-                  _vm._v("On Purchase yet")
+              : _c("tr", [
+                  _c("td", { attrs: { colspan: "7" } }, [
+                    _vm._v("On Purchase yet")
+                  ])
                 ])
-              ])
-        }),
-        0
-      )
-    ])
-  ])
+          }),
+          0
+        )
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
