@@ -7,20 +7,30 @@
 @endsection
 
 @section('Content')
-<div class="main-container col2-right-layout">
-    <div class="main container">
-        <div class="row">
-            <section class="col-sm-9 wow bounceInUp animated">
-                <div class="col-main">
-                    <buyer-dashboard-page></buyer-dashboard-page>
-                </div>
-            </section>
+    <main class="site-main">
 
-            <!-- right side -->
-            @include('templates.crocus_v2.buyer.partials.right_side')
+        <div class="columns container">
+            <!-- Block  Breadcrumb-->
+
+            <ol class="breadcrumb no-hide">
+                <li><a href="#">Home    </a></li>
+                <li class="active">Dashboard</li>
+            </ol><!-- Block  Breadcrumb-->
+
+            <div class="row">
+
+                <!-- Main Content -->
+                <buyer-dashboard-page></buyer-dashboard-page>
+                <!-- Main Content -->
+
+                <!-- Sidebar -->
+                <div class="col-md-3 col-md-pull-9   col-sidebar">
+                    @include('templates.kuteshop_v2.buyer.partials.right_side')
+                </div>
+                <!-- Sidebar -->
+            </div>
         </div>
-    </div>
-</div>
+    </main>
 @endsection
 
 @section('PageJs')

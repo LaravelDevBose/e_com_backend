@@ -1,21 +1,13 @@
 <template>
-    <div class="my-account">
-        <div class="page-title">
-            <h2>My Dashboard</h2>
+    <div class="col-md-9 col-md-push-3   col-main">
+        <h2 class="page-heading">
+            <span class="page-heading-title2">Recent Order List</span>
+        </h2>
+
+        <div class="content-text clearfix">
+            <order-list-table></order-list-table>
         </div>
-        <div class="dashboard">
-            <div class="welcome-msg">
-                <strong>Hello, {{ buyer_name }}!</strong>
-                <p>From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</p>
-            </div>
-            <div class="recent-orders">
-                <div class="title-buttons">
-                    <strong>Recent Orders</strong>
-                    <a href="/buyer/my-orders" >View All</a>
-                </div>
-                <order-list-table></order-list-table>
-            </div>
-        </div>
+
     </div>
 </template>
 

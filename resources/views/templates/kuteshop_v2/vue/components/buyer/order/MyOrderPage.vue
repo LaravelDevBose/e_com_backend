@@ -1,13 +1,13 @@
 <template>
-    <div class="my-account">
-        <div class="page-title">
-            <h2>My Orders</h2>
+    <div class="col-md-9 col-md-push-3   col-main">
+        <h2 class="page-heading">
+            <span class="page-heading-title2">My Order List</span>
+        </h2>
+
+        <div class="content-text clearfix">
+            <order-list-table></order-list-table>
         </div>
-        <div class="dashboard">
-            <div class="recent-orders">
-                <order-list-table></order-list-table>
-            </div>
-        </div>
+
     </div>
 </template>
 

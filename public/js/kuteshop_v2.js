@@ -3499,14 +3499,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3607,9 +3599,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
 //
 //
 //
@@ -47601,27 +47590,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "my-account" }, [
+  return _c("div", { staticClass: "col-md-9 col-md-push-3   col-main" }, [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "dashboard" }, [
-      _c("div", { staticClass: "welcome-msg" }, [
-        _c("strong", [_vm._v("Hello, " + _vm._s(_vm.buyer_name) + "!")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information."
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "recent-orders" },
-        [_vm._m(1), _vm._v(" "), _c("order-list-table")],
-        1
-      )
-    ])
+    _c(
+      "div",
+      { staticClass: "content-text clearfix" },
+      [_c("order-list-table")],
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -47629,18 +47606,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-title" }, [
-      _c("h2", [_vm._v("My Dashboard")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "title-buttons" }, [
-      _c("strong", [_vm._v("Recent Orders")]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "/buyer/my-orders" } }, [_vm._v("View All")])
+    return _c("h2", { staticClass: "page-heading" }, [
+      _c("span", { staticClass: "page-heading-title2" }, [
+        _vm._v("Recent Order List")
+      ])
     ])
   }
 ]
@@ -47665,12 +47634,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "my-account" }, [
+  return _c("div", { staticClass: "col-md-9 col-md-push-3   col-main" }, [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "dashboard" }, [
-      _c("div", { staticClass: "recent-orders" }, [_c("order-list-table")], 1)
-    ])
+    _c(
+      "div",
+      { staticClass: "content-text clearfix" },
+      [_c("order-list-table")],
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -47678,8 +47650,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-title" }, [
-      _c("h2", [_vm._v("My Orders")])
+    return _c("h2", { staticClass: "page-heading" }, [
+      _c("span", { staticClass: "page-heading-title2" }, [
+        _vm._v("My Order List")
+      ])
     ])
   }
 ]
@@ -47705,74 +47679,62 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "table-responsive" }, [
-    _c(
-      "table",
-      { staticClass: "data-table", attrs: { id: "my-orders-table" } },
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.orderList, function(order, index) {
-            return _vm.orderList
-              ? _c(
-                  "tr",
-                  {
-                    class: {
-                      first: index === 0,
-                      last: index + 1 === _vm.orderList.length,
-                      even: index % 2 === 0,
-                      odd: index % 2 !== 0
-                    }
-                  },
-                  [
-                    _c("td", [_vm._v(_vm._s(order.order_no))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.order_date))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        _vm._s(order.shipping.first_name) +
-                          " " +
-                          _vm._s(order.shipping.last_name)
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("span", { staticClass: "price" }, [
-                        _vm._v("$ " + _vm._s(order.total))
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_c("em", [_vm._v(_vm._s(order.status_label))])]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "a-center last text-center" }, [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.viewOrderInfo(order.order_no)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fa fa-eye" })]
-                      )
-                    ])
-                  ]
-                )
-              : _c("tr", { staticClass: "last even" }, [
-                  _c("td", { attrs: { colspan: "6" } }, [
-                    _vm._v("On Purchase yet")
+    _c("table", { staticClass: "table table-bordered  cart_summary" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.orderList, function(order, index) {
+          return _vm.orderList
+            ? _c("tr", { key: index }, [
+                _c("td", [_vm._v(_vm._s(order.order_no))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(order.order_date))]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(
+                    _vm._s(order.shipping.first_name) +
+                      " " +
+                      _vm._s(order.shipping.last_name)
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-right" }, [
+                  _c("span", { staticClass: "price" }, [
+                    _vm._v("$ " + _vm._s(order.total))
                   ])
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-center" }, [
+                  _c("em", [_vm._v(_vm._s(order.status_label))])
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-center" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-primary",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.viewOrderInfo(order.order_no)
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-eye" })]
+                  )
                 ])
-          }),
-          0
-        )
-      ]
-    )
+              ])
+            : _c("tr", [
+                _c("td", { attrs: { colspan: "7" } }, [
+                  _vm._v("On Purchase yet")
+                ])
+              ])
+        }),
+        0
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -47781,20 +47743,18 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("tr", { staticClass: "first last" }, [
+      _c("tr", [
         _c("th", [_vm._v("Order #")]),
         _vm._v(" "),
         _c("th", [_vm._v("Date")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Ship to")]),
+        _c("th", [_vm._v("Ship To.")]),
         _vm._v(" "),
-        _c("th", [
-          _c("span", { staticClass: "nobr" }, [_vm._v("Order Total")])
-        ]),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Total Order")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Status")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("View ")])
+        _c("th", { staticClass: "action text-center" }, [_vm._v("View")])
       ])
     ])
   }

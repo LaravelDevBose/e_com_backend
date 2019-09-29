@@ -1,39 +1,36 @@
 <template>
     <div class="table-responsive">
-        <table class="data-table" id="my-orders-table">
+        <table class="table table-bordered  cart_summary">
             <thead>
-                <tr class="first last">
-                    <th>Order #</th>
-                    <th>Date</th>
-                    <th>Ship to</th>
-                    <th>
-                        <span class="nobr">Order Total</span>
-                    </th>
-                    <th>Status</th>
-                    <th class="text-center">View </th>
-                </tr>
+            <tr>
+                <th>Order #</th>
+                <th>Date</th>
+                <th>Ship To.</th>
+                <th class="text-right">Total Order</th>
+                <th class="text-center">Status</th>
+                <th class="action text-center">View</th>
+            </tr>
             </thead>
             <tbody>
-                <tr v-if="orderList" v-for="(order,index) in orderList" :class="{'first':index === 0, 'last':(index+1) === orderList.length ,'even': index % 2 === 0, 'odd': index % 2 !== 0 }">
-                    <td>{{ order.order_no }}</td>
-                    <td>{{ order.order_date }}</td>
-                    <td>{{ order.shipping.first_name }} {{ order.shipping.last_name}}</td>
-                    <td>
-                        <span class="price">$ {{order.total }}</span>
-                    </td>
-                    <td>
-                        <em>{{ order.status_label }}</em>
-                    </td>
-                    <td class="a-center last text-center">
-                        <a href="#" @click.prevent="viewOrderInfo(order.order_no)"> <i class="fa fa-eye"></i></a>
-                    </td>
-                </tr>
-                <tr v-else class="last even">
-                    <td colspan="6">On Purchase yet</td>
-                </tr>
+            <tr v-if="orderList" v-for="(order,index) in orderList" :key="index">
+                <td>{{ order.order_no }}</td>
+                <td>{{ order.order_date }}</td>
+                <td>{{ order.shipping.first_name }} {{ order.shipping.last_name}}</td>
+                <td class="text-right">
+                    <span class="price">$ {{order.total }}</span>
+                </td>
+                <td class="text-center">
+                    <em>{{ order.status_label }}</em>
+                </td>
+                <td class="text-center">
+                    <a href="#" @click.prevent="viewOrderInfo(order.order_no)" class="text-primary"> <i class="fa fa-eye"></i></a>
+                </td>
+            </tr>
+            <tr v-else>
+                <td colspan="7">On Purchase yet</td>
+            </tr>
             </tbody>
         </table>
-<!--        TODO Table Pagination-->
     </div>
 </template>
 
