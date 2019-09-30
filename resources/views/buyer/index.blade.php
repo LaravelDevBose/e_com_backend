@@ -28,7 +28,7 @@
 @endsection
 
 @section('content')
-    <shop-list-page></shop-list-page>
+    <buyer-list-page></buyer-list-page>
 @endsection
 @section('PageJs')
 

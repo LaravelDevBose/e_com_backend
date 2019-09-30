@@ -16,6 +16,10 @@ class Buyer extends User
         'buyer_address',
         'buyer_status',
     ];
+
+    public function scopeNotDelete($query){
+        return $query->where('buyer_status', '!=', config('app.delete'));
+    }
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }

@@ -7394,6 +7394,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -7433,11 +7437,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('statusLevel', {
-  template: "<div>\n                    <span v-if=\"row.status == 1\" class=\"badge badge-success\">{{ row.status_label }}</span>\n                    <span v-else-if=\"row.status == 2\" class=\"badge badge-warning\">{{ row.status_label }}</span>\n                    <span v-else class=\"badge badge-default\">{{ row.status_label }}</span>\n                </div>",
+  template: "<div>\n                    <span v-if=\"row.user.status == 1\" class=\"badge badge-success\">Active</span>\n                    <span v-else-if=\"row.user.status == 2\" class=\"badge badge-danger\">Block</span>\n                    <span v-else-if=\"row.user.status == 3\" class=\"badge badge-warning\">Un-Verified</span>\n                    <span v-else class=\"badge badge-default\">Undefined</span>\n                </div>",
+  props: ['row']
+});
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('account-status', {
+  template: "<div>\n                    <span v-if=\"row.user.is_seller == 1\" class=\"badge badge-success\">Yes</span>\n                    <span v-else-if=\"row.user.is_seller == 0\" class=\"badge badge-danger\">No</span>\n                    <span v-else class=\"badge badge-default\">Undefined</span>\n                </div>",
   props: ['row']
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
-  template: "<ul class=\"icons-list\">\n                    <li><a href=\"#\" class=\"text text-primary-700\" @click.prevent=\"goToDetailsPage(row.id)\"><i class=\"icon-eye\"></i></a :href=\"\"></li>\n                    <li><a href=\"#\" class=\"text text-info\" @click.prevent=\"goToEditPage(row.id)\"><i class=\"icon-pencil7\"></i></a></li>\n                    <li><a href=\"#\" class=\"text text-danger\" @click.prevent=\"showDeletePopUp(row.id)\"><i class=\"icon-trash\"></i></a></li>\n                    <li class=\"dropdown\">\n                        <a href=\"#\" class=\"dropdown-toggle text text-teal-600\" data-toggle=\"dropdown\" aria-expanded=\"false\">\n                            <i class=\"icon-cog7\"></i>\n                            <span class=\"caret\"></span>\n                        </a>\n                        <ul class=\"dropdown-menu\">\n                            <li><a href=\"#\"><i class=\"icon-file-pdf\"></i> Export to PDF</a></li>\n                            <li><a href=\"#\"><i class=\"icon-file-excel\"></i> Export to CSV</a></li>\n                            <li><a href=\"#\"><i class=\"icon-file-word\"></i> Export to DOC</a></li>\n                        </ul>\n                    </li>\n                </ul>",
+  template: "<ul class=\"icons-list\">\n                    <li><a href=\"#\" class=\"text text-primary-700\" @click.prevent=\"goToDetailsPage(row.id)\"><i class=\"icon-eye\"></i></a></li>\n                    <li><a href=\"#\" class=\"text text-info\" @click.prevent=\"goToEditPage(row.id)\"><i class=\"icon-pencil7\"></i></a></li>\n                    <li><a href=\"#\" class=\"text text-danger\" @click.prevent=\"showDeletePopUp(row.id)\"><i class=\"icon-trash\"></i></a></li>\n                </ul>",
   props: ['row'],
   methods: {
     goToDetailsPage: function goToDetailsPage(ID) {
@@ -7455,7 +7463,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
     return {
       page: 1,
       per_page: 10,
-      buyers: '',
       filter: '',
       rows: '',
       columns: [{
@@ -7465,45 +7472,39 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
         filterable: false,
         sortable: false
       }, {
-        label: 'Image',
-        component: 'thumb-image',
-        align: 'center',
-        sortable: false
-      }, {
-        label: 'Product Name',
-        field: 'product_title'
-      }, {
-        label: 'Product SKU',
-        field: 'sku'
-      }, {
-        label: 'Category',
-        field: 'category.name'
-      }, {
-        label: 'Brand',
-        field: 'brand.name',
+        label: 'Full Name',
+        field: 'user.full_name',
         sortable: true
       }, {
-        label: 'Quantity',
-        field: 'total_qty',
+        label: 'User Name',
+        field: 'user.user_name'
+      }, {
+        label: 'Email',
+        field: 'user.email'
+      }, {
+        label: 'Contact No',
+        field: 'user.phone_no',
+        sortable: false
+      }, {
+        label: 'Is Seller',
+        component: 'account-status',
         align: 'center',
         sortable: true
       }, {
         label: 'Status',
-        component: 'select-row',
+        component: 'statusLevel',
         align: 'center',
-        sortable: false
-      }, {
-        label: 'Action',
-        component: 'action-btn',
-        align: 'center',
-        sortable: false
-      }]
+        sortable: true
+      }],
+      reqData: {}
     };
   },
   created: function created() {},
-  mounted: function mounted() {},
-  methods: {},
-  computed: {}
+  mounted: function mounted() {
+    this.getBuyerList(this.reqData);
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getBuyerList'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['buyerList', 'paginate']))
 });
 
 /***/ }),
@@ -76876,7 +76877,7 @@ var render = function() {
                 staticClass: "table-bordered table-striped",
                 attrs: {
                   columns: _vm.columns,
-                  data: _vm.orders,
+                  data: _vm.buyerList,
                   "filter-by": _vm.filter
                 }
               })
@@ -106369,9 +106370,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_cms_general_pages__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./modules/cms/general_pages */ "./resources/js/store/modules/cms/general_pages.js");
 /* harmony import */ var _modules_cms_setting__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./modules/cms/setting */ "./resources/js/store/modules/cms/setting.js");
 /* harmony import */ var _modules_order__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./modules/order */ "./resources/js/store/modules/order.js");
+/* harmony import */ var _modules_buyer__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./modules/buyer */ "./resources/js/store/modules/buyer.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]); //import Modules
+
 
 
 
@@ -106431,7 +106434,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     slider: _modules_cms_slider__WEBPACK_IMPORTED_MODULE_20__["default"],
     general_pages: _modules_cms_general_pages__WEBPACK_IMPORTED_MODULE_21__["default"],
     setting: _modules_cms_setting__WEBPACK_IMPORTED_MODULE_22__["default"],
-    order: _modules_order__WEBPACK_IMPORTED_MODULE_23__["default"]
+    order: _modules_order__WEBPACK_IMPORTED_MODULE_23__["default"],
+    buyer: _modules_buyer__WEBPACK_IMPORTED_MODULE_24__["default"]
   }
 }));
 
@@ -106969,6 +106973,103 @@ var mutations = {
   },
   setBrandList: function setBrandList(state, response) {
     return state.brandList = response;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/buyer.js":
+/*!*********************************************!*\
+  !*** ./resources/js/store/modules/buyer.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//declare State
+var state = {
+  buyer_list: [],
+  paginate_data: {}
+}; //declare Getters
+
+var getters = {
+  buyerList: function buyerList(state) {
+    return state.buyer_list;
+  },
+  paginate: function paginate(state) {
+    return state.paginate_data;
+  }
+};
+var actions = {
+  getBuyerList: function () {
+    var _getBuyerList = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit,
+          reqData,
+          _args = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              reqData = _args.length > 1 && _args[1] !== undefined ? _args[1] : null;
+              _context.prev = 2;
+              _context.next = 5;
+              return axios.get('/admin/buyer', reqData).then(function (response) {
+                commit('setBuyerList', response.data.data);
+                delete response.data.data;
+                return response;
+              });
+
+            case 5:
+              return _context.abrupt("return", _context.sent);
+
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](2);
+              console.log(_context.t0);
+              commit('setResponse', _context.t0.data);
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[2, 8]]);
+    }));
+
+    function getBuyerList(_x) {
+      return _getBuyerList.apply(this, arguments);
+    }
+
+    return getBuyerList;
+  }()
+};
+var mutations = {
+  setBuyerList: function setBuyerList(state, response) {
+    if (response.hasOwnProperty('current_page')) {
+      state.buyer_list = response.data;
+      delete response.data;
+      state.paginate_data = response;
+    } else {
+      state.buyer_list = response;
+    }
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

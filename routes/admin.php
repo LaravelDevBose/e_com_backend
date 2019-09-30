@@ -90,6 +90,17 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::post('/status/update', 'OrderController@update_order_status')->name('status.update');
     });
 
+    Route::prefix('buyer')->as('buyer.')->group(function (){
+        Route::get('/', 'BuyerController@index')->name('index');
+        Route::get('/{buyer}/show', 'BuyerController@buyer_show')->name('show');
+        Route::get('/{buyer}/block', 'BuyerController@buyer_block')->name('block');
+        Route::get('/{buyer}/un-block', 'BuyerController@buyer_block')->name('unblock');
+    });
+
+    Route::prefix('shop')->as('shop.')->group(function (){
+        Route::get('/', 'SellerController@index')->name('index');
+    });
+
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){

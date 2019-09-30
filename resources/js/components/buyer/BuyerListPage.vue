@@ -22,7 +22,7 @@
 
                 <div class="row">
                     <div id="table" class="col-xs-12 table-responsive">
-                        <datatable class="table-bordered table-striped" :columns="columns" :data="orders" :filter-by="filter"></datatable>
+                        <datatable class="table-bordered table-striped" :columns="columns" :data="buyerList" :filter-by="filter"></datatable>
                     </div>
                 </div>
 
@@ -40,38 +40,59 @@
     import  Vue from 'vue'
     Vue.component('statusLevel', {
         template: `<div>
-                        <span v-if="row.status == 1" class="badge badge-success">{{ row.status_label }}</span>
-                        <span v-else-if="row.status == 2" class="badge badge-warning">{{ row.status_label }}</span>
-                        <span v-else class="badge badge-default">{{ row.status_label }}</span>
+                        <span v-if="row.user.status == 1" class="badge badge-success">Active</span>
+                        <span v-else-if="row.user.status == 2" class="badge badge-danger">Block</span>
+                        <span v-else-if="row.user.status == 3" class="badge badge-warning">Un-Verified</span>
+                        <span v-else class="badge badge-default">Undefined</span>
+                    </div>`,
+        props: ['row'],
+    });
+
+    Vue.component('account-status', {
+        template: `<div>
+                        <span v-if="row.user.is_seller == 1" class="badge badge-success">Yes</span>
+                        <span v-else-if="row.user.is_seller == 0" class="badge badge-danger">No</span>
+                        <span v-else class="badge badge-default">Undefined</span>
                     </div>`,
         props: ['row'],
     });
 
     Vue.component('action-btn', {
         template: `<ul class="icons-list">
-                        <li><a href="#" class="text text-primary-700" @click.prevent="goToDetailsPage(row.id)"><i class="icon-eye"></i></a :href=""></li>
-                        <li><a href="#" class="text text-info" @click.prevent="goToEditPage(row.id)"><i class="icon-pencil7"></i></a></li>
-                        <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp(row.id)"><i class="icon-trash"></i></a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle text text-teal-600" data-toggle="dropdown" aria-expanded="false">
-                                <i class="icon-cog7"></i>
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#"><i class="icon-file-pdf"></i> Export to PDF</a></li>
-                                <li><a href="#"><i class="icon-file-excel"></i> Export to CSV</a></li>
-                                <li><a href="#"><i class="icon-file-word"></i> Export to DOC</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="#" class="text text-primary-700" @click.prevent="goToDetailsPage(row.buyer_id)"><i class="icon-eye"></i></a></li>
+                        <li v-if="row.buyer_status != 2"><a href="#" class="text text-info" @click.prevent="blockBuyer(row.buyer_id)"><i class=" icon-user-block"></i></a></li>
+                        <li v-else><a href="#" class="text text-info" @click.prevent="unblockBuyer(row.buyer_id)"><i class="icon-user-check"></i></a></li>
+                        <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp(row.buyer_id)"><i class="icon-trash"></i></a></li>
                     </ul>`,
         props: ['row'],
         methods: {
+            ...mapActions([
+                'buyerBlock'
+            ]),
             goToDetailsPage: function(ID){
-                window.location = '/admin/product/'+ID;
+                window.location = '/admin/buyer/'+ID;
             },
-            goToEditPage:function (ID) {
-                window.location = '/admin/product/'+ID+'/edit';
+
+            unblockBuyer(Id){
+                this.buyerBlock(id)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            Notify.success(response.message);
+                        }else{
+                            Notify.error(response.message);
+                        }
+                    })
             },
+            blockBuyer(Id){
+                this.buyerBlock(id)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            Notify.success(response.message);
+                        }else{
+                            Notify.error(response.message);
+                        }
+                    })
+            }
 
         },
     });
@@ -83,34 +104,38 @@
             return{
                 page: 1,
                 per_page: 10,
-                buyers:'',
                 filter: '',
                 rows:'',
                 columns: [
                     { label: '#', field: 'index', align: 'center', filterable: false, sortable:false },
-                    { label: 'Image', component: 'thumb-image', align: 'center', sortable: false },
-                    { label: 'Product Name', field: 'product_title',  },
-                    { label: 'Product SKU', field: 'sku' , },
-                    { label: 'Category', field: 'category.name' },
-                    { label: 'Brand', field: 'brand.name', sortable: true },
-                    { label: 'Quantity', field: 'total_qty', align: 'center', sortable: true },
-                    { label: 'Status', component: 'select-row', align: 'center', sortable: false },
-                    { label: 'Action', component: 'action-btn', align: 'center', sortable: false },
+                    { label: 'Full Name', field: 'user.full_name', sortable: true},
+                    { label: 'User Name', field: 'user.user_name',},
+                    { label: 'Email', field: 'user.email'},
+                    { label: 'Contact No', field: 'user.phone_no', sortable: false },
+                    { label: 'Is Seller', component: 'account-status', align: 'center', sortable: true },
+                    { label: 'Status', component: 'statusLevel', align: 'center', sortable: true },
+                    // { label: 'Action', component: 'action-btn', align: 'center', sortable: false },
 
                 ],
+                reqData:{},
             }
         },
         created(){
 
         },
         mounted(){
-
+            this.getBuyerList(this.reqData);
         },
         methods:{
-
+            ...mapActions([
+                'getBuyerList',
+            ])
         },
         computed:{
-
+            ...mapGetters([
+                'buyerList',
+                'paginate'
+            ])
         }
     }
 </script>

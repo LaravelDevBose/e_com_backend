@@ -27,3 +27,8 @@ Route::post('/attachment/store', 'AttachmentController@store')->name('attachment
 Route::post('/crop_image/store', 'AttachmentController@crop_image_store')->name('crop_image.store');
 Route::delete('/attachment/delete/{id}', 'AttachmentController@delete')->name('attachment.delete');
 Route::get('/attachment/image/{id}', 'AttachmentController@attachment_image');
+
+
+Route::prefix('error')->as('error')->group(function (){
+    Route::get('/404', 'ErrorController@error_404')->name('404');
+});

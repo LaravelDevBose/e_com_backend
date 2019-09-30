@@ -28,6 +28,7 @@ import  slider from "./modules/cms/slider";
 import  general_pages from "./modules/cms/general_pages";
 import  setting from "./modules/cms/setting";
 import order from "./modules/order";
+import buyer from "./modules/buyer";
 
 
 export default new Vuex.Store({
@@ -72,6 +73,7 @@ export default new Vuex.Store({
         general_pages,
         setting,
         order,
+        buyer,
     }
 })
 
