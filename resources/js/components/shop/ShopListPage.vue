@@ -111,13 +111,13 @@
         props: ['row'],
         methods: {
             ...mapActions([
-                'buyerDelete'
+                'shopDelete'
             ]),
             goToShopDetails: function(ID){
                 window.location = `/admin/shop/${ID}`;
             },
             deleteShop(Id){
-                this.buyerDelete(Id)
+                this.shopDelete(Id)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
                             Notify.success(response.message);

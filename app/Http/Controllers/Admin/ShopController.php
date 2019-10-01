@@ -105,4 +105,30 @@ class ShopController extends Controller
             ]);
         }
     }
+
+    public function destroy($sellerId){
+        try{
+            DB::beginTransaction();
+            $seller = Seller::where('seller_id', $sellerId)->first();
+
+            if(empty($seller)){
+                return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Shop Information Not Found', '', route('error.404'));
+            }
+
+            //TODO check active product and active order then delete
+            $seller = $seller->update([
+                'shop_status'=> config('app.delete')
+            ]);
+            if(!empty($seller)){
+                DB::commit();
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Shop Delete Successfully');
+            }else{
+                throw  new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
+            }
+        }catch (\Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+
+        }
+    }
 }

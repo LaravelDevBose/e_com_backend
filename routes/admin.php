@@ -102,6 +102,8 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::get('/status', 'ShopController@shop_status')->name('status');
         Route::post('/{seller}/change/status', 'ShopController@shop_status_change')->name('change.status');
         Route::get('/{seller}', 'ShopController@show')->name('show');
+        Route::delete('/{seller}', 'ShopController@destroy')->name('delete');
+
     });
 
 });

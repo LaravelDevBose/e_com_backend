@@ -54,12 +54,12 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    async buyerDelete({commit},ID){
+    async shopDelete({commit},ID){
         try {
-            return await axios.delete(`/admin/buyer/${ID}`)
+            return await axios.delete(`/admin/shop/${ID}`)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('deletingBuyer', ID);
+                        commit('removeShop', ID);
                     }
                     return  response.data;
                 });
@@ -92,7 +92,7 @@ const mutations = {
             return shop;
         })
     },
-    deletingBuyer:(state, buyerID)=>state.shop_list = state.shop_list.filter(buyer=>buyer.buyer_id !==buyerID)
+    removeShop:(state, sellerId)=>state.shop_list = state.shop_list.filter(shop=>shop.seller_id !== sellerId)
 };
 
 export default {

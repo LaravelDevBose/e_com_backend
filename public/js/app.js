@@ -12617,12 +12617,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('shop-status', {
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('seller-action', {
   template: "<ul class=\"icons-list\">\n                    <li><a href=\"#\" class=\"label label-primary text text-white\" @click.prevent=\"goToShopDetails(row.seller_id)\"><i class=\"icon-eye\"></i></a></li>\n                    <li><a href=\"#\" class=\"label label-danger text text-white\" @click.prevent=\"deleteShop(row.seller_id)\"><i class=\"icon-trash\"></i></a></li>\n                </ul>",
   props: ['row'],
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['buyerDelete']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['shopDelete']), {
     goToShopDetails: function goToShopDetails(ID) {
       window.location = "/admin/shop/".concat(ID);
     },
     deleteShop: function deleteShop(Id) {
-      this.buyerDelete(Id).then(function (response) {
+      this.shopDelete(Id).then(function (response) {
         if (typeof response.code !== "undefined" && response.code === 200) {
           Notify.success(response.message);
         } else {
@@ -110121,8 +110121,8 @@ var actions = {
 
     return shopStatusChange;
   }(),
-  buyerDelete: function () {
-    var _buyerDelete = _asyncToGenerator(
+  shopDelete: function () {
+    var _shopDelete = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, ID) {
       var commit;
@@ -110133,9 +110133,9 @@ var actions = {
               commit = _ref4.commit;
               _context4.prev = 1;
               _context4.next = 4;
-              return axios["delete"]("/admin/buyer/".concat(ID)).then(function (response) {
+              return axios["delete"]("/admin/shop/".concat(ID)).then(function (response) {
                 if (typeof response.data.code !== "undefined" && response.data.code === 200) {
-                  commit('deletingBuyer', ID);
+                  commit('removeShop', ID);
                 }
 
                 return response.data;
@@ -110158,11 +110158,11 @@ var actions = {
       }, _callee4, null, [[1, 7]]);
     }));
 
-    function buyerDelete(_x5, _x6) {
-      return _buyerDelete.apply(this, arguments);
+    function shopDelete(_x5, _x6) {
+      return _shopDelete.apply(this, arguments);
     }
 
-    return buyerDelete;
+    return shopDelete;
   }()
 };
 var mutations = {
@@ -110188,9 +110188,9 @@ var mutations = {
       return shop;
     });
   },
-  deletingBuyer: function deletingBuyer(state, buyerID) {
-    return state.shop_list = state.shop_list.filter(function (buyer) {
-      return buyer.buyer_id !== buyerID;
+  removeShop: function removeShop(state, sellerId) {
+    return state.shop_list = state.shop_list.filter(function (shop) {
+      return shop.seller_id !== sellerId;
     });
   }
 };
