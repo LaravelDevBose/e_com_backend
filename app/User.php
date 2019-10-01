@@ -62,14 +62,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = [
-        'status_label',
-    ];
+//    protected $appends = [
+//        'status_label',
+//    ];
 
-    public function getStatusLabelAttribute()
-    {
-        return Self::UserStatus[$this->attributes['status']];
-    }
+//    public function getStatusLabelAttribute()
+//    {
+//        return Self::UserStatus[$this->attributes['status']];
+//    }
     public function seller(){
         return $this->hasOne(Seller::class, 'user_id', 'user_id');
     }

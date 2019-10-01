@@ -11,27 +11,27 @@
                     </ul>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="panel-body">
                 <div class="row">
-                    <div class="col-xs-12 form-inline" style="margin:1em;">
-                        <div class="form-group">
-                            <input type="text" id="filter" class="form-control" v-model="filter" placeholder="Filter">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div class="form-inline" style="margin:1em;">
+                                <div class="form-group">
+                                    <input type="text" id="filter" class="form-control" v-model="filter" placeholder="Filter">
+                                </div>
+                            </div>
+
+                            <div id="table">
+                                <datatable class="table-bordered table-striped" :columns="columns" :data="buyerList" :filter-by="filter"></datatable>
+                            </div>
+                            <div class="form-inline">
+                                <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div id="table" class="col-xs-12 table-responsive">
-                        <datatable class="table-bordered table-striped" :columns="columns" :data="buyerList" :filter-by="filter"></datatable>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 form-inline">
-                    <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
-                </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -57,24 +57,29 @@
         props: ['row'],
     });
 
-    Vue.component('action-btn', {
+    Vue.component('buyer-action', {
         template: `<ul class="icons-list">
-                        <li><a href="#" class="text text-primary-700" @click.prevent="goToDetailsPage(row.buyer_id)"><i class="icon-eye"></i></a></li>
-                        <li v-if="row.buyer_status != 2"><a href="#" class="text text-info" @click.prevent="blockBuyer(row.buyer_id)"><i class=" icon-user-block"></i></a></li>
-                        <li v-else><a href="#" class="text text-info" @click.prevent="unblockBuyer(row.buyer_id)"><i class="icon-user-check"></i></a></li>
-                        <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp(row.buyer_id)"><i class="icon-trash"></i></a></li>
+                        <li><a href="#" class="label label-primary text text-white" @click.prevent="goToDetailsPage(row.buyer_id)"><i class="icon-eye"></i></a></li>
+                        <li v-if="row.user.status != 2"><a href="#" class="label label-warning text text-white" @click.prevent="blockBuyer(row.buyer_id)"><i class="icon-user-block "></i></a></li>
+                        <li v-else><a href="#" class="label label-info text text-white" @click.prevent="unblockBuyer(row.buyer_id)"><i class=" icon-user-check"></i></a></li>
+                        <li><a href="#" class="label label-danger text text-white" @click.prevent="deleteBuyer(row.buyer_id)"><i class="icon-trash"></i></a></li>
                     </ul>`,
         props: ['row'],
         methods: {
             ...mapActions([
-                'buyerBlock'
+                'buyerStatusChange',
+                'buyerDelete'
             ]),
             goToDetailsPage: function(ID){
                 window.location = '/admin/buyer/'+ID;
             },
 
-            unblockBuyer(Id){
-                this.buyerBlock(id)
+            unblockBuyer(ID){
+                let reqData={
+                    Id:ID,
+                    status:1,
+                };
+                this.buyerStatusChange(reqData)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
                             Notify.success(response.message);
@@ -83,8 +88,22 @@
                         }
                     })
             },
-            blockBuyer(Id){
-                this.buyerBlock(id)
+            blockBuyer(ID){
+                let reqData={
+                    Id:ID,
+                    status:2,
+                };
+                this.buyerStatusChange(reqData)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            Notify.success(response.message);
+                        }else{
+                            Notify.error(response.message);
+                        }
+                    })
+            },
+            deleteBuyer(Id){
+                this.buyerDelete(Id)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
                             Notify.success(response.message);
@@ -114,7 +133,7 @@
                     { label: 'Contact No', field: 'user.phone_no', sortable: false },
                     { label: 'Is Seller', component: 'account-status', align: 'center', sortable: true },
                     { label: 'Status', component: 'statusLevel', align: 'center', sortable: true },
-                    // { label: 'Action', component: 'action-btn', align: 'center', sortable: false },
+                    { label: 'Action', component: 'buyer-action', align: 'center', sortable: false },
 
                 ],
                 reqData:{},

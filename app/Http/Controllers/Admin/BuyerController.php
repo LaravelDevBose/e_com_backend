@@ -54,7 +54,7 @@ class BuyerController extends Controller
         }
     }
 
-    public function buyer_block($buyerId){
+    public function buyer_status_change(Request $request,$buyerId){
         try{
             DB::beginTransaction();
             $buyer = Buyer::where('buyer_id', $buyerId)->first();
@@ -62,19 +62,24 @@ class BuyerController extends Controller
             if(empty($buyer)){
                 return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Buyer Information Not Found', '', route('error.404'));
             }
+            $userId = $buyer->user_id;
 
             $buyer = $buyer->update([
-                'buyer_status'=>2 //Block
+                'buyer_status'=>$request->status
             ]);
             if(!empty($buyer)){
-                $user = User::where('user_id', $buyer->user_id)
+                $user = User::where('user_id', $userId)
                     ->update([
-                        'status'=>2 //Block
+                        'status'=>$request->status
                     ]);
 
                 if(!empty($user)){
                     DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Customer Block Successfully');
+                    $data = [
+                        'id'=>$buyerId,
+                        'status'=>$request->status
+                    ];
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Customer Status Successfully', $data);
                 }else{
                     throw  new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
                 }
@@ -88,7 +93,7 @@ class BuyerController extends Controller
         }
     }
 
-    public function buyer_unblock($buyerId){
+    public function destroy($buyerId){
         try{
             DB::beginTransaction();
             $buyer = Buyer::where('buyer_id', $buyerId)->first();
@@ -96,19 +101,19 @@ class BuyerController extends Controller
             if(empty($buyer)){
                 return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Buyer Information Not Found', '', route('error.404'));
             }
-
+            $userId = $buyer->user_id;
             $buyer = $buyer->update([
-                'buyer_status'=>1 //Block
+                'buyer_status'=>0
             ]);
             if(!empty($buyer)){
-                $user = User::where('user_id', $buyer->user_id)
+                $user = User::where('user_id', $userId)
                     ->update([
-                        'status'=>1 //Block
+                        'status'=>0
                     ]);
 
                 if(!empty($user)){
                     DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Customer UnBlock Successfully');
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Customer Delete Successfully');
                 }else{
                     throw  new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
                 }

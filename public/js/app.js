@@ -7444,17 +7444,49 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('account-status', {
   template: "<div>\n                    <span v-if=\"row.user.is_seller == 1\" class=\"badge badge-success\">Yes</span>\n                    <span v-else-if=\"row.user.is_seller == 0\" class=\"badge badge-danger\">No</span>\n                    <span v-else class=\"badge badge-default\">Undefined</span>\n                </div>",
   props: ['row']
 });
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
-  template: "<ul class=\"icons-list\">\n                    <li><a href=\"#\" class=\"text text-primary-700\" @click.prevent=\"goToDetailsPage(row.id)\"><i class=\"icon-eye\"></i></a></li>\n                    <li><a href=\"#\" class=\"text text-info\" @click.prevent=\"goToEditPage(row.id)\"><i class=\"icon-pencil7\"></i></a></li>\n                    <li><a href=\"#\" class=\"text text-danger\" @click.prevent=\"showDeletePopUp(row.id)\"><i class=\"icon-trash\"></i></a></li>\n                </ul>",
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('buyer-action', {
+  template: "<ul class=\"icons-list\">\n                    <li><a href=\"#\" class=\"label label-primary text text-white\" @click.prevent=\"goToDetailsPage(row.buyer_id)\"><i class=\"icon-eye\"></i></a></li>\n                    <li v-if=\"row.user.status != 2\"><a href=\"#\" class=\"label label-warning text text-white\" @click.prevent=\"blockBuyer(row.buyer_id)\"><i class=\"icon-user-block \"></i></a></li>\n                    <li v-else><a href=\"#\" class=\"label label-info text text-white\" @click.prevent=\"unblockBuyer(row.buyer_id)\"><i class=\" icon-user-check\"></i></a></li>\n                    <li><a href=\"#\" class=\"label label-danger text text-white\" @click.prevent=\"deleteBuyer(row.buyer_id)\"><i class=\"icon-trash\"></i></a></li>\n                </ul>",
   props: ['row'],
-  methods: {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['buyerStatusChange', 'buyerDelete']), {
     goToDetailsPage: function goToDetailsPage(ID) {
-      window.location = '/admin/product/' + ID;
+      window.location = '/admin/buyer/' + ID;
     },
-    goToEditPage: function goToEditPage(ID) {
-      window.location = '/admin/product/' + ID + '/edit';
+    unblockBuyer: function unblockBuyer(ID) {
+      var reqData = {
+        Id: ID,
+        status: 1
+      };
+      this.buyerStatusChange(reqData).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          Notify.success(response.message);
+        } else {
+          Notify.error(response.message);
+        }
+      });
+    },
+    blockBuyer: function blockBuyer(ID) {
+      var reqData = {
+        Id: ID,
+        status: 2
+      };
+      this.buyerStatusChange(reqData).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          Notify.success(response.message);
+        } else {
+          Notify.error(response.message);
+        }
+      });
+    },
+    deleteBuyer: function deleteBuyer(Id) {
+      this.buyerDelete(Id).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          Notify.success(response.message);
+        } else {
+          Notify.error(response.message);
+        }
+      });
     }
-  }
+  })
 });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7495,6 +7527,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
         component: 'statusLevel',
         align: 'center',
         sortable: true
+      }, {
+        label: 'Action',
+        component: 'buyer-action',
+        align: 'center',
+        sortable: false
       }],
       reqData: {}
     };
@@ -76829,80 +76866,80 @@ var render = function() {
     _c("div", { staticClass: "panel panel-flat" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "table-responsive" }, [
+      _c("div", { staticClass: "panel-body" }, [
         _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            {
-              staticClass: "col-xs-12 form-inline",
-              staticStyle: { margin: "1em" }
-            },
-            [
-              _c("div", { staticClass: "form-group" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.filter,
-                      expression: "filter"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", id: "filter", placeholder: "Filter" },
-                  domProps: { value: _vm.filter },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "table-responsive" }, [
+              _c(
+                "div",
+                { staticClass: "form-inline", staticStyle: { margin: "1em" } },
+                [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.filter,
+                          expression: "filter"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "filter",
+                        placeholder: "Filter"
+                      },
+                      domProps: { value: _vm.filter },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.filter = $event.target.value
+                        }
                       }
-                      _vm.filter = $event.target.value
+                    })
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { attrs: { id: "table" } },
+                [
+                  _c("datatable", {
+                    staticClass: "table-bordered table-striped",
+                    attrs: {
+                      columns: _vm.columns,
+                      data: _vm.buyerList,
+                      "filter-by": _vm.filter
                     }
-                  }
-                })
-              ])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            {
-              staticClass: "col-xs-12 table-responsive",
-              attrs: { id: "table" }
-            },
-            [
-              _c("datatable", {
-                staticClass: "table-bordered table-striped",
-                attrs: {
-                  columns: _vm.columns,
-                  data: _vm.buyerList,
-                  "filter-by": _vm.filter
-                }
-              })
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-xs-12 form-inline" },
-          [
-            _c("datatable-pager", {
-              attrs: { type: "abbreviated", "per-page": _vm.per_page },
-              model: {
-                value: _vm.page,
-                callback: function($$v) {
-                  _vm.page = $$v
-                },
-                expression: "page"
-              }
-            })
-          ],
-          1
-        )
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-inline" },
+                [
+                  _c("datatable-pager", {
+                    attrs: { type: "abbreviated", "per-page": _vm.per_page },
+                    model: {
+                      value: _vm.page,
+                      callback: function($$v) {
+                        _vm.page = $$v
+                      },
+                      expression: "page"
+                    }
+                  })
+                ],
+                1
+              )
+            ])
+          ])
+        ])
       ])
     ])
   ])
@@ -107059,6 +107096,93 @@ var actions = {
     }
 
     return getBuyerList;
+  }(),
+  buyerStatusChange: function () {
+    var _buyerStatusChange = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, reqData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios.post("/admin/buyer/".concat(reqData.Id, "/change/status"), reqData).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('statusChanging', response.data.data);
+                  delete response.data.data;
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](1);
+              console.log(_context2.t0);
+              commit('setResponse', _context2.t0.data);
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 7]]);
+    }));
+
+    function buyerStatusChange(_x2, _x3) {
+      return _buyerStatusChange.apply(this, arguments);
+    }
+
+    return buyerStatusChange;
+  }(),
+  buyerDelete: function () {
+    var _buyerDelete = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, ID) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios["delete"]("/admin/buyer/".concat(ID)).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('deletingBuyer', ID);
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context3.abrupt("return", _context3.sent);
+
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](1);
+              console.log(_context3.t0);
+              commit('setResponse', _context3.t0.data);
+
+            case 11:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 7]]);
+    }));
+
+    function buyerDelete(_x4, _x5) {
+      return _buyerDelete.apply(this, arguments);
+    }
+
+    return buyerDelete;
   }()
 };
 var mutations = {
@@ -107070,6 +107194,20 @@ var mutations = {
     } else {
       state.buyer_list = response;
     }
+  },
+  statusChanging: function statusChanging(state, response) {
+    state.buyer_list = state.buyer_list.filter(function (buyer) {
+      if (buyer.buyer_id == response.id) {
+        buyer.user.status = response.status;
+      }
+
+      return buyer;
+    });
+  },
+  deletingBuyer: function deletingBuyer(state, buyerID) {
+    return state.buyer_list = state.buyer_list.filter(function (buyer) {
+      return buyer.buyer_id !== buyerID;
+    });
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
