@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Page;
 use App\Models\Product;
 use App\Traits\CommonData;
+use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
@@ -30,26 +31,59 @@ class FrontendController extends Controller
         ]);
     }
 
-    public function category_wish_products($category_slug)
+    public function category_wish_products(Request $request, $category_slug)
     {
         $category = Category::where('category_slug', $category_slug)->firstOrFail();
 
-        if (empty($category)) {
-            return abort(Response::HTTP_NOT_FOUND);
+        if($request->ajax()){
+            if (empty($category)) {
+                return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Category Data Not Found', [], route('error.404'));
+            }
+
+            $products = ProductHelper::products_list($request);
+
+            if(!empty($products)){
+                return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $products);
+            }else{
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'No Products Found');
+            }
+
+        }else{
+
+            if (empty($category)) {
+                return abort(Response::HTTP_NOT_FOUND);
+            }
+
+            $req['category_id'] = $category->category_id;
+
+            $products = ProductHelper::products_list($req);
+            return view('templates.' . $this->template_name . '.frontend.products', [
+                'category' => $category,
+                'categories' => CommonData::category_tree(),
+                'brands' => CommonData::brand_list(),
+                'colors' => CommonData::color_list(),
+                'tags' => CommonData::tag_list(),
+                'sizes' => CommonData::size_list($req),
+                'products' => $products
+            ]);
         }
+    }
 
-        $req['category_id'] = $category->category_id;
-
-        $products = ProductHelper::products_list($req);
-        return view('templates.' . $this->template_name . '.frontend.products', [
-            'category' => $category,
-            'categories' => CommonData::category_tree(),
+    public function product_sidebar_data(Request $request)
+    {
+        $data=[
             'brands' => CommonData::brand_list(),
             'colors' => CommonData::color_list(),
             'tags' => CommonData::tag_list(),
-            'sizes' => CommonData::size_list($req),
-            'products' => $products
-        ]);
+            'sizes' => CommonData::size_list($request),
+        ];
+
+        return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK);
+    }
+
+    public function sorting_product(Request $request)
+    {
+
     }
 
     public function product_details($slug)

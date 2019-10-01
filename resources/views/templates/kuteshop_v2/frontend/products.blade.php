@@ -33,15 +33,8 @@
                     </ul><!-- link categori -->
 
                     <!-- List Products -->
-                    <div class="products  products-grid">
-                        @if(!empty($products))
-                        <ol class="product-items row">
-                            @foreach($products as $product)
-                            <product-grid :product="{{ $product }}"></product-grid>
-                            @endforeach
-                        </ol><!-- list product -->
-                        @endif
-                    </div> <!-- List Products -->
+                    <products-page :categoryId="{{ $category->category_id }}" :slug="{{ $category->category_slug }}"></products-page>
+                    <!-- List Products -->
 
                 </div><!-- Main Content -->
 

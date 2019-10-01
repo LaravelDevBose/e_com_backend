@@ -21,6 +21,9 @@ Route::namespace('Frontend')->as('front.')->group(function () {
     Route::get('cart', 'FrontendController@cart_page')->name('cart');
     Route::get('contact', 'FrontendController@contact_pages')->name('contact');
     Route::get('pages/{slug}', 'FrontendController@general_pages')->name('pages');
+
+    Route::post('/product/sidebar/data', 'FrontendController@product_sidebar_data');
+    Route::post('/shorting/products', 'FrontendController@sorting_product');
 });
 
 Route::post('/attachment/store', 'AttachmentController@store')->name('attachment.store');
