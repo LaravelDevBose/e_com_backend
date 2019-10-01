@@ -98,7 +98,10 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     });
 
     Route::prefix('shop')->as('shop.')->group(function (){
-        Route::get('/', 'SellerController@index')->name('index');
+        Route::get('/', 'ShopController@index')->name('index');
+        Route::get('/status', 'ShopController@shop_status')->name('status');
+        Route::post('/{seller}/change/status', 'ShopController@shop_status_change')->name('change.status');
+        Route::get('/{seller}', 'ShopController@show')->name('show');
     });
 
 });

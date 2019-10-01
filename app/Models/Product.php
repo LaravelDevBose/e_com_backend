@@ -27,6 +27,7 @@ class Product extends Model
     ];
 
     const ProductStatus=[
+        'Delete'=>0,
         'Active'=>1,
         'Inactive'=>2,
         'Pending'=>3,

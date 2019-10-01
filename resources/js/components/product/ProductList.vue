@@ -11,23 +11,24 @@
                     </ul>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="panel-body">
                 <div class="row">
-                    <div class="col-xs-12 form-inline" style="margin:1em;">
-                        <div class="form-group">
-                            <input type="text" id="filter" class="form-control" v-model="filter" placeholder="Filter">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div class="form-inline" style="margin:1em;">
+                                <div class="form-group">
+                                    <input type="text" id="filter" class="form-control" v-model="filter" placeholder="Filter">
+                                </div>
+                            </div>
+
+                            <div id="table">
+                                <datatable class="table-bordered table-striped" :columns="columns" :data="products" :filter-by="filter"></datatable>
+                            </div>
+                            <div class="form-inline">
+                                <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div id="table" class="col-xs-12 table-responsive">
-                        <datatable class="table-bordered table-striped" :columns="columns" :data="orders" :filter-by="filter"></datatable>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 form-inline">
-                    <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
                 </div>
             </div>
         </div>
@@ -39,7 +40,7 @@
 
 <script>
     import  Vue from 'vue'
-    Vue.component('select-row', {
+    Vue.component('product-status', {
         template: `<div>
                         <span v-if="row.status == 1" class="badge badge-success">{{ row.status_label }}</span>
                         <span v-else-if="row.status == 2" class="badge badge-warning">{{ row.status_label }}</span>
@@ -47,35 +48,25 @@
                     </div>`,
         props: ['row'],
     });
-    Vue.component('thumb-image', {
+    Vue.component('product-thumb', {
         template: `<img :src="row.thumbnail.image_path" :alt="row.product_title"  style="width:90px; height:90px">`,
         props: ['row'],
     });
 
-    Vue.component('action-btn', {
+    Vue.component('product-action', {
         template: `<ul class="icons-list">
-                        <li><a href="#" class="text text-primary-700" @click.prevent="goToDetailsPage(row.id)"><i class="icon-eye"></i></a :href=""></li>
-                        <li><a href="#" class="text text-info" @click.prevent="goToEditPage(row.id)"><i class="icon-pencil7"></i></a></li>
-                        <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp(row.id)"><i class="icon-trash"></i></a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle text text-teal-600" data-toggle="dropdown" aria-expanded="false">
-                                <i class="icon-cog7"></i>
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#"><i class="icon-file-pdf"></i> Export to PDF</a></li>
-                                <li><a href="#"><i class="icon-file-excel"></i> Export to CSV</a></li>
-                                <li><a href="#"><i class="icon-file-word"></i> Export to DOC</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="#" class="text text-primary-700" @click.prevent="goToDetailsPage(row.product_slug)"><i class="icon-eye"></i></a :href=""></li>
+                        <li><a href="#" class="text text-info" @click.prevent="goToEditPage(row.product_slug)"><i class="icon-pencil7"></i></a></li>
+                        <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp(row.product_slug)"><i class="icon-trash"></i></a></li>
                     </ul>`,
         props: ['row'],
         methods: {
-            goToDetailsPage: function(ID){
-                window.location = '/admin/product/'+ID;
+            goToDetailsPage: function(slug){
+                alert('ee');
+                window.location = '/admin/product/'+slug;
             },
             goToEditPage:function (ID) {
-                window.location = '/admin/product/'+ID+'/edit';
+                window.location = '/admin/product/'+slug+'/edit';
             },
             showDeletePopUp:function (ID) {
 
@@ -99,14 +90,14 @@
                 rows:'',
                 columns: [
                     { label: '#', field: 'index', align: 'center', filterable: false, sortable:false },
-                    { label: 'Image', component: 'thumb-image', align: 'center', sortable: false },
+                    { label: 'Image', component: 'product-thumb', align: 'center', sortable: false },
                     { label: 'Product Name', field: 'product_title',  },
                     { label: 'Product SKU', field: 'sku' , },
                     { label: 'Category', field: 'category.name' },
                     { label: 'Brand', field: 'brand.name', sortable: true },
                     { label: 'Quantity', field: 'total_qty', align: 'center', sortable: true },
-                    { label: 'Status', component: 'select-row', align: 'center', sortable: false },
-                    { label: 'Action', component: 'action-btn', align: 'center', sortable: false },
+                    { label: 'Status', component: 'product-status', align: 'center', sortable: false },
+                    { label: 'Action', component: 'product-action', align: 'center', sortable: false },
 
                 ],
                 perPages: [
