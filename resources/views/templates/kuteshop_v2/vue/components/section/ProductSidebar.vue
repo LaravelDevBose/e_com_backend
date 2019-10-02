@@ -108,6 +108,8 @@
                     category_id:'',
                 },
                 sortData:{
+                    sorting:'yes',
+                    category_id:'',
                     brandIds:[],
                     colorIds:[],
                     sizeIds:[],
@@ -116,6 +118,7 @@
         },
         created(){
             this.reqData.category_id = this.categoryid;
+            this.reqData.sortData = this.categoryid;
         },
         mounted(){
 

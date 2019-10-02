@@ -12,6 +12,7 @@ namespace App\Helpers\Frontend;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductVariation;
 
 class ProductHelper
 {
@@ -41,6 +42,33 @@ class ProductHelper
             $products = $products->where('brand_id', $request->brand_id);
         }
 
+        if(!empty($request->brandIds) && is_array($request->brandIds)){
+            $products = $products->whereIn('brand_id', $request->brandIds);
+        }
+
+        // TODO Product Sorting Recheck and more efficient
+        if(!empty($request->sorting) && $request->sorting == 'yes'){
+            $productIds = $products->pluck('product_id');
+            return $varProIds = ProductVariation::whereIn('product_id', $productIds)->get();
+
+
+            $varProIds = $varProIds->reject(function ($product,$request){
+                $colorIds = $request->colorIds;
+                $sizeIds = $request->sizeIds;
+                if($product->pri_model == 1 && $product->pri_model == 2){
+                    if(!in_array($product->pri_id, $colorIds) && !in_array($product->sec_id, $sizeIds)){
+                        return $product;
+                    }
+                }else if($product->pri_model == 2 && $product->pri_model == 1){
+                    if(!in_array($product->pri_id, $sizeIds) && !in_array($product->sec_id, $colorIds)){
+                        return $product;
+                    }
+                }
+            });
+
+            $varProIds = $varProIds->pluck('product_id');
+            $products = $products->whereIn('product_id', $varProIds);
+        }
 
         if(!empty($request->product_id)){
             $products = $products->where('product_id', '!=', $request->product_id);

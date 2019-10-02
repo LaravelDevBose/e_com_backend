@@ -1,6 +1,6 @@
 <template>
     <div class="products  products-grid">
-        <ol v-if="products" class="product-items row">
+        <ol v-if="productList" class="product-items row">
             <product-grid v-for="(product,index) in products" :product="product" :key="index"></product-grid>
         </ol><!-- list product -->
     </div>
@@ -11,23 +11,23 @@
     export default {
         name: "ProductsPage",
         props:{
+            products:[Object,Array],
             categoryid:[Number, String],
             slug:[String],
         },
         data(){
             return{
+                productList:[],
                 reqData:{
                     category_id:'',
                     slug:'',
                 }
             }
         },
-        created(){
+        mounted(){
+            this.productList = this.products;
             this.reqData.category_id = this.categoryid;
             this.reqData.slug = this.slug;
-        },
-        mounted(){
-            this.getCategoryWishProducts(this.reqData);
         },
         methods:{
             ...mapActions([
@@ -36,8 +36,31 @@
         },
         computed:{
             ...mapGetters([
-                'products',
-            ])
+                'productsData',
+            ]),
+            reqDataCheck(){
+                return JSON.parse(JSON.stringify(this.reqData));
+            },
+            productsUpdate(){
+                return JSON.parse(JSON.stringify(this.productsData));
+            }
+        },
+        watch:{
+            /*reqDataCheck:{
+                handler(newValue, oldValue){
+                    if(newValue !== oldValue){
+                        this.getCategoryWishProducts(this.reqData);
+                    }
+                },
+                deep:true,
+            },*/
+            productsUpdate:{
+                handler(newValue, oldValue){
+                    if(newValue !== oldValue){
+                        this.productList = this.productsData;
+                    }
+                },deep:true,
+            }
         }
     }
 </script>

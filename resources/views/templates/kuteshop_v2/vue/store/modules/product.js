@@ -17,7 +17,7 @@ const getters = {
     colors:(state)=>state.colors,
     tags:(state)=>state.tags,
     sizes:(state)=>state.sizes,
-    products:(state)=>state.products,
+    productsData:(state)=>state.products,
 };
 
 const actions = {

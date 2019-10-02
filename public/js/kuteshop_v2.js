@@ -4431,26 +4431,51 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductsPage",
   props: {
+    products: [Object, Array],
     categoryid: [Number, String],
     slug: [String]
   },
   data: function data() {
     return {
+      productList: [],
       reqData: {
         category_id: '',
         slug: ''
       }
     };
   },
-  created: function created() {
+  mounted: function mounted() {
+    this.productList = this.products;
     this.reqData.category_id = this.categoryid;
     this.reqData.slug = this.slug;
   },
-  mounted: function mounted() {
-    this.getCategoryWishProducts(this.reqData);
-  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getCategoryWishProducts'])),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['products']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['productsData']), {
+    reqDataCheck: function reqDataCheck() {
+      return JSON.parse(JSON.stringify(this.reqData));
+    },
+    productsUpdate: function productsUpdate() {
+      return JSON.parse(JSON.stringify(this.productsData));
+    }
+  }),
+  watch: {
+    /*reqDataCheck:{
+        handler(newValue, oldValue){
+            if(newValue !== oldValue){
+                this.getCategoryWishProducts(this.reqData);
+            }
+        },
+        deep:true,
+    },*/
+    productsUpdate: {
+      handler: function handler(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.productList = this.productsData;
+        }
+      },
+      deep: true
+    }
+  }
 });
 
 /***/ }),
@@ -4877,6 +4902,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         category_id: ''
       },
       sortData: {
+        sorting: 'yes',
+        category_id: '',
         brandIds: [],
         colorIds: [],
         sizeIds: []
@@ -4885,6 +4912,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   created: function created() {
     this.reqData.category_id = this.categoryid;
+    this.reqData.sortData = this.categoryid;
   },
   mounted: function mounted() {
     this.getProductSidebar(this.reqData);
@@ -49265,7 +49293,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "products  products-grid" }, [
-    _vm.products
+    _vm.productList
       ? _c(
           "ol",
           { staticClass: "product-items row" },
@@ -67062,7 +67090,7 @@ var getters = {
   sizes: function sizes(state) {
     return state.sizes;
   },
-  products: function products(state) {
+  productsData: function productsData(state) {
     return state.products;
   }
 };
@@ -67426,7 +67454,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\larevel_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

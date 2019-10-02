@@ -7,6 +7,7 @@ use App\Helpers\TemplateHelper;
 use App\Models\Category;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\ProductVariation;
 use App\Traits\CommonData;
 use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
@@ -83,7 +84,12 @@ class FrontendController extends Controller
 
     public function sorting_product(Request $request)
     {
-
+        $products = ProductHelper::products_list($request);
+        if(!empty($products)){
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $products);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'No Products Found');
+        }
     }
 
     public function product_details($slug)
