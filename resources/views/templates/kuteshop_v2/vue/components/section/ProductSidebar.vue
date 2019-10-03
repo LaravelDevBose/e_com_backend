@@ -113,12 +113,13 @@
                     brandIds:[],
                     colorIds:[],
                     sizeIds:[],
+                    paginate:20,
                 }
             }
         },
         created(){
             this.reqData.category_id = this.categoryid;
-            this.reqData.sortData = this.categoryid;
+            this.sortData.category_id = this.categoryid;
         },
         mounted(){
 
@@ -130,15 +131,8 @@
                 'getSortingProducts'
             ]),
             sortingProducts: _.debounce(function() {
-                this.getSortingProducts(this.sortData)
-                    .then(response=>{
-                        if(typeof response.code !== "undefined" && response.code === 200){
-                            Notify.success(response.message);
-                        }else{
-                            Notify.error(response.message);
-                        }
-                    })
-            },700)
+                this.getSortingProducts(this.sortData);
+            },400)
         },
         computed:{
             ...mapGetters([

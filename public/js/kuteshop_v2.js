@@ -4445,7 +4445,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   mounted: function mounted() {
-    this.productList = this.products;
     this.reqData.category_id = this.categoryid;
     this.reqData.slug = this.slug;
   },
@@ -4906,27 +4905,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         category_id: '',
         brandIds: [],
         colorIds: [],
-        sizeIds: []
+        sizeIds: [],
+        paginate: 20
       }
     };
   },
   created: function created() {
     this.reqData.category_id = this.categoryid;
-    this.reqData.sortData = this.categoryid;
+    this.sortData.category_id = this.categoryid;
   },
   mounted: function mounted() {
     this.getProductSidebar(this.reqData);
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getProductSidebar', 'getSortingProducts']), {
     sortingProducts: _.debounce(function () {
-      this.getSortingProducts(this.sortData).then(function (response) {
-        if (typeof response.code !== "undefined" && response.code === 200) {
-          Notify.success(response.message);
-        } else {
-          Notify.error(response.message);
-        }
-      });
-    }, 700)
+      this.getSortingProducts(this.sortData);
+    }, 400)
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['brands', 'colors', 'tags', 'sizes']), {
     sortDataCheck: function sortDataCheck() {
@@ -49297,7 +49291,7 @@ var render = function() {
       ? _c(
           "ol",
           { staticClass: "product-items row" },
-          _vm._l(_vm.products, function(product, index) {
+          _vm._l(_vm.productList, function(product, index) {
             return _c("product-grid", {
               key: index,
               attrs: { product: product }
@@ -67205,9 +67199,9 @@ var actions = {
               return axios.post("/shorting/products", sortData).then(function (response) {
                 if (typeof response.data.code !== "undefined" && response.data.code === 200) {
                   commit('setProductsData', response.data.data);
+                  delete response.data.data;
                 }
 
-                delete response.data.data;
                 return response.data;
               });
 
@@ -67247,7 +67241,13 @@ var mutations = {
     state.sizes = response.sizes;
   },
   setProductsData: function setProductsData(state, response) {
-    return state.products = response;
+    if (response.hasOwnProperty('current_page')) {
+      state.products = response.data;
+      delete response.data;
+      state.paginate = response;
+    } else {
+      state.products = response;
+    }
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

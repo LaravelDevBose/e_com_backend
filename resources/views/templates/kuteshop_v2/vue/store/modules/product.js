@@ -63,9 +63,10 @@ const actions = {
             return await axios.post(`/shorting/products`, sortData)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('setProductsData', response.data.data)
+                        commit('setProductsData', response.data.data);
+                        delete response.data.data;
                     }
-                    delete response.data.data;
+
                     return response.data;
                 })
         }catch (error) {
@@ -86,7 +87,15 @@ const mutations = {
         state.tags = response.tags;
         state.sizes = response.sizes;
     },
-    setProductsData:(state,response)=>state.products = response,
+    setProductsData:(state,response)=>{
+        if(response.hasOwnProperty('current_page')){
+            state.products = response.data;
+            delete response.data;
+            state.paginate = response;
+        }else{
+            state.products = response
+        }
+    },
 };
 
 export default {

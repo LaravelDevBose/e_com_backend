@@ -48,26 +48,29 @@ class ProductHelper
 
         // TODO Product Sorting Recheck and more efficient
         if(!empty($request->sorting) && $request->sorting == 'yes'){
-            $productIds = $products->pluck('product_id');
-            return $varProIds = ProductVariation::whereIn('product_id', $productIds)->get();
+            if(!empty($request->colorIds) || !empty($request->sizeIds)){
+                $productIds = $products->pluck('product_id');
+                $varProIds = ProductVariation::whereIn('product_id', $productIds)->get();
 
 
-            $varProIds = $varProIds->reject(function ($product,$request){
-                $colorIds = $request->colorIds;
-                $sizeIds = $request->sizeIds;
-                if($product->pri_model == 1 && $product->pri_model == 2){
-                    if(!in_array($product->pri_id, $colorIds) && !in_array($product->sec_id, $sizeIds)){
-                        return $product;
+                $varProIds = $varProIds->reject(function ($product)use($request){
+                    $colorIds = $request->colorIds;
+                    $sizeIds = $request->sizeIds;
+                    if($product->pri_model == 1 && $product->sec_model == 2){
+                        if(!in_array($product->pri_id, $colorIds) && !in_array($product->sec_id, $sizeIds)){
+                            return $product;
+                        }
+                    }else if($product->pri_model == 2 && $product->sec_model == 1){
+                        if(!in_array($product->pri_id, $sizeIds) && !in_array($product->sec_id, $colorIds)){
+                            return $product;
+                        }
                     }
-                }else if($product->pri_model == 2 && $product->pri_model == 1){
-                    if(!in_array($product->pri_id, $sizeIds) && !in_array($product->sec_id, $colorIds)){
-                        return $product;
-                    }
-                }
-            });
 
-            $varProIds = $varProIds->pluck('product_id');
-            $products = $products->whereIn('product_id', $varProIds);
+                });
+
+                $varProIds = $varProIds->pluck('product_id');
+                $products = $products->whereIn('product_id', $varProIds);
+            }
         }
 
         if(!empty($request->product_id)){

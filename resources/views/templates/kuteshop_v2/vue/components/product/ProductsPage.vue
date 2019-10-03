@@ -1,7 +1,7 @@
 <template>
     <div class="products  products-grid">
         <ol v-if="productList" class="product-items row">
-            <product-grid v-for="(product,index) in products" :product="product" :key="index"></product-grid>
+            <product-grid v-for="(product,index) in productList" :product="product" :key="index"></product-grid>
         </ol><!-- list product -->
     </div>
 </template>
@@ -25,7 +25,6 @@
             }
         },
         mounted(){
-            this.productList = this.products;
             this.reqData.category_id = this.categoryid;
             this.reqData.slug = this.slug;
         },
