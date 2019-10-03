@@ -12502,6 +12502,210 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12513,11 +12717,22 @@ __webpack_require__.r(__webpack_exports__);
     sellerid: [Number, String]
   },
   data: function data() {
-    return {};
+    return {
+      reqData: {
+        shop_id: '',
+        seller_id: ''
+      }
+    };
   },
-  mounted: function mounted() {},
-  methods: {},
-  computed: {}
+  created: function created() {
+    this.reqData.shop_id = 0;
+    this.reqData.seller_id = this.sellerid;
+  },
+  mounted: function mounted() {
+    this.getShopInfoSectionData();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getShopInfoSectionData', 'getShopProducts', 'getShopOrders', 'getShopReports'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['shopInfo', 'sellerInfo', 'overviewReport', 'shopOrders', 'shopProducts', 'shopReports']))
 });
 
 /***/ }),
@@ -86004,9 +86219,395 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-2" }, [
+          _c("div", { staticClass: " sidebar-default" }, [
+            _c(
+              "div",
+              {
+                staticClass: "sidebar-content",
+                staticStyle: { "padding-bottom": "0px" }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "panel-body bg-indigo-400 border-radius-top text-center",
+                    staticStyle: {
+                      "background-image":
+                        "url(http://demo.interface.club/limitless/assets/images/bg.png)",
+                      "background-size": "contain"
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "content-group-sm" }, [
+                      _c(
+                        "h6",
+                        { staticClass: "text-semibold no-margin-bottom" },
+                        [
+                          _vm._v(
+                            "\n                                    Victoria Davidson\n                                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "display-block" }, [
+                        _vm._v("Head of UX")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "display-inline-block content-group-sm",
+                        attrs: { href: "#" }
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "img-circle img-responsive",
+                          staticStyle: { width: "110px", height: "110px" },
+                          attrs: {
+                            src: "assets/images/placeholder.jpg",
+                            alt: ""
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "ul",
+                      {
+                        staticClass:
+                          "list-inline list-inline-condensed no-margin-bottom"
+                      },
+                      [
+                        _c("li", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn bg-indigo btn-rounded btn-icon",
+                              attrs: { href: "#" }
+                            },
+                            [_c("i", { staticClass: "icon-google-drive" })]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn bg-indigo btn-rounded btn-icon",
+                              attrs: { href: "#" }
+                            },
+                            [_c("i", { staticClass: "icon-twitter" })]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn bg-indigo btn-rounded btn-icon",
+                              attrs: { href: "#" }
+                            },
+                            [_c("i", { staticClass: "icon-github" })]
+                          )
+                        ])
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "panel no-border-top no-border-radius-top ",
+                    staticStyle: { "margin-bottom": "0px" }
+                  },
+                  [
+                    _c("ul", { staticClass: "navigation" }, [
+                      _c("li", { staticClass: "navigation-header" }, [
+                        _vm._v("Navigation")
+                      ]),
+                      _vm._v(" "),
+                      _c("li", { staticClass: "active" }, [
+                        _c(
+                          "a",
+                          { attrs: { href: "#info", "data-toggle": "tab" } },
+                          [
+                            _c("i", { staticClass: "icon-files-empty" }),
+                            _vm._v("Shop Info")
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#products", "data-toggle": "tab" }
+                          },
+                          [
+                            _c("i", { staticClass: "icon-files-empty" }),
+                            _vm._v(" Products")
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c(
+                          "a",
+                          { attrs: { href: "#orders", "data-toggle": "tab" } },
+                          [
+                            _c("i", { staticClass: "icon-files-empty" }),
+                            _vm._v(" Orders")
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c(
+                          "a",
+                          { attrs: { href: "#reports", "data-toggle": "tab" } },
+                          [
+                            _c("i", { staticClass: "icon-files-empty" }),
+                            _vm._v(" Reports")
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("li", { staticClass: "navigation-divider" })
+                    ])
+                  ]
+                )
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-10" }, [
+          _c("div", { staticClass: "container-detached" }, [
+            _c("div", { staticClass: "content-detached" }, [
+              _c("div", { staticClass: "tab-content" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "tab-pane fade in active",
+                    attrs: { id: "info" }
+                  },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "panel panel-info" }, [
+                          _c("div", { staticClass: "panel-heading" }, [
+                            _c("h6", { staticClass: "panel-title" }, [
+                              _vm._v("Shop Details")
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "heading-elements" }, [
+                              _c("ul", { staticClass: "icons-list" }, [
+                                _c("li", [
+                                  _c("a", {
+                                    attrs: { "data-action": "reload" }
+                                  })
+                                ])
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "panel-body" }, [
+                            _c("div", { staticClass: "row" })
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "panel panel-info" }, [
+                          _c("div", { staticClass: "panel-heading" }, [
+                            _c("h6", { staticClass: "panel-title" }, [
+                              _vm._v("Seller Details")
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "heading-elements" }, [
+                              _c("ul", { staticClass: "icons-list" }, [
+                                _c("li", [
+                                  _c("a", {
+                                    attrs: { "data-action": "reload" }
+                                  })
+                                ])
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "panel-body" }, [
+                            _c("div", { staticClass: "row" })
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _c("div", { staticClass: "panel panel-info" }, [
+                          _c("div", { staticClass: "panel-heading" }, [
+                            _c("h6", { staticClass: "panel-title" }, [
+                              _vm._v("Shop Overview Report")
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "heading-elements" }, [
+                              _c("ul", { staticClass: "icons-list" }, [
+                                _c("li", [
+                                  _c("a", {
+                                    attrs: { "data-action": "reload" }
+                                  })
+                                ])
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "panel-body" }, [
+                            _c("div", { staticClass: "row" })
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _c("div", { staticClass: "panel panel-info" }, [
+                          _c("div", { staticClass: "panel-heading" }, [
+                            _c("h6", { staticClass: "panel-title" }, [
+                              _vm._v("Recent Orders")
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "heading-elements" }, [
+                              _c("ul", { staticClass: "icons-list" }, [
+                                _c("li", [
+                                  _c("a", {
+                                    attrs: { "data-action": "reload" }
+                                  })
+                                ])
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "panel-body" }, [
+                            _c("div", { staticClass: "row" })
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "tab-pane fade", attrs: { id: "products" } },
+                  [
+                    _c("div", { staticClass: "panel " }, [
+                      _c("div", { staticClass: "panel-heading bg-teal-300" }, [
+                        _c("h6", { staticClass: "panel-title" }, [
+                          _vm._v("Product List")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "heading-elements" }, [
+                          _c("ul", { staticClass: "icons-list" }, [
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "collapse" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "reload" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "close" } })
+                            ])
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "panel-body" })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "tab-pane fade", attrs: { id: "orders" } },
+                  [
+                    _c("div", { staticClass: "panel panel-flat" }, [
+                      _c("div", { staticClass: "panel-heading" }, [
+                        _c("h6", { staticClass: "panel-title" }, [
+                          _vm._v("Shop Order List")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "heading-elements" }, [
+                          _c("ul", { staticClass: "icons-list" }, [
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "collapse" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "reload" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "close" } })
+                            ])
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "panel-body" })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "tab-pane fade", attrs: { id: "reports" } },
+                  [
+                    _c("div", { staticClass: "panel panel-flat" }, [
+                      _c("div", { staticClass: "panel-heading" }, [
+                        _c("h6", { staticClass: "panel-title" }, [
+                          _vm._v("Shop Report")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "heading-elements" }, [
+                          _c("ul", { staticClass: "icons-list" }, [
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "collapse" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "reload" } })
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("a", { attrs: { "data-action": "close" } })
+                            ])
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "panel-body" })
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -106831,9 +107432,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     resData: '',
     attachmentsFile: [],
     errors: null,
-    attachment_ids: []
+    attachment_ids: [],
+    paginate_data: []
   },
-  getters: {},
+  getters: {
+    paginate: function paginate(state) {
+      return state.paginate_data;
+    }
+  },
   actions: {},
   mutations: {
     setResponse: function setResponse(state, res) {
@@ -107432,16 +108038,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  buyer_list: [],
-  paginate_data: {}
+  buyer_list: []
 }; //declare Getters
 
 var getters = {
   buyerList: function buyerList(state) {
     return state.buyer_list;
-  },
-  paginate: function paginate(state) {
-    return state.paginate_data;
   }
 };
 var actions = {
@@ -109489,7 +110091,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var state = {
   order_list: [],
   order_info: [],
-  order_paginate: {},
   order_status: []
 }; //declare Getters
 
@@ -109499,9 +110100,6 @@ var getters = {
   },
   order: function order(state) {
     return state.order_info;
-  },
-  paginateInfo: function paginateInfo(state) {
-    return state.order_paginate;
   },
   statusList: function statusList(state) {
     return state.order_status;
@@ -109687,7 +110285,7 @@ var mutations = {
     if (response.hasOwnProperty('current_page')) {
       state.order_list = response.data;
       delete response.data;
-      state.order_paginate = response;
+      state.paginate_data = response;
     } else {
       state.order_list = response;
     }
@@ -109977,7 +110575,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var state = {
   shop_list: [],
   paginate_data: {},
-  shop_status: []
+  shop_status: [],
+  shop_info: {},
+  seller_info: {},
+  overview_report: {},
+  recent_orders: [],
+  shop_orders: [],
+  shop_products: [],
+  shop_reports: []
 }; //declare Getters
 
 var getters = {
@@ -109987,8 +110592,23 @@ var getters = {
   shopList: function shopList(state) {
     return state.shop_list;
   },
-  paginate: function paginate(state) {
-    return state.paginate_data;
+  shopInfo: function shopInfo(state) {
+    return state.shop_info;
+  },
+  sellerInfo: function sellerInfo(state) {
+    return state.seller_info;
+  },
+  overviewReport: function overviewReport(state) {
+    return state.overview_report;
+  },
+  shopOrders: function shopOrders(state) {
+    return state.shop_orders;
+  },
+  shopProducts: function shopProducts(state) {
+    return state.shop_products;
+  },
+  shopReports: function shopReports(state) {
+    return state.shop_reports;
   }
 };
 var actions = {

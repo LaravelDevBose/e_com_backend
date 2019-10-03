@@ -38,10 +38,11 @@ export default new Vuex.Store({
         attachmentsFile:[],
         errors:null,
         attachment_ids:[],
+        paginate_data:[]
 
     },
     getters:{
-
+        paginate:(state)=>state.paginate_data,
     },
     actions:{
 

@@ -3,13 +3,27 @@ const state = {
     shop_list:[],
     paginate_data:{},
     shop_status:[],
+
+    shop_info:{},
+    seller_info:{},
+    overview_report:{},
+    recent_orders:[],
+    shop_orders:[],
+    shop_products:[],
+    shop_reports:[],
 };
 
 //declare Getters
 const getters = {
     shopStatus:(state)=>state.shop_status,
     shopList:(state)=>state.shop_list,
-    paginate:(state)=>state.paginate_data,
+    shopInfo:(state)=>state.shop_info,
+    sellerInfo:(state)=>state.seller_info,
+    overviewReport:(state)=>state.overview_report,
+    shopOrders:(state)=>state.shop_orders,
+    shopProducts:(state)=>state.shop_products,
+    shopReports:(state)=>state.shop_reports,
+
 };
 
 const actions = {

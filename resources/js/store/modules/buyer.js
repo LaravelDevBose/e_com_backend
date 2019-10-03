@@ -1,13 +1,11 @@
 //declare State
 const state = {
     buyer_list:[],
-    paginate_data:{},
 };
 
 //declare Getters
 const getters = {
     buyerList:(state)=>state.buyer_list,
-    paginate:(state)=>state.paginate_data,
 };
 
 const actions = {
