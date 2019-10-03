@@ -14,7 +14,9 @@ use App\Models\ProductVariation;
 use App\Models\Size;
 use App\Models\SizeGroupCategory;
 use App\Models\SkinType;
+use App\Traits\ResponserTrait;
 use Exception;
+use Illuminate\Http\Response;
 use function foo\func;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -226,17 +228,25 @@ class ProductController extends Controller
         ]);
     }
 
-    public function single_product(Product $product){
+    public function single_product($productId){
 
-        $product = $product->load(['category'=>function($query){
+
+        $product = Product::where('product_id', $productId)->with(['category'=>function($query){
             return $query->with(['parent'=>function($q){
                 return $q->with('parent');
             }]);
         }, 'brand', 'productDetails', 'variations', 'productImages'=>function($query){
             return $query->with('attachment')->isActive();
-        }]);
+        }])->first();
 
-        return new ProductResource($product);
+        if(!empty($product)){
+            $data = new ProductResource($product);
+            return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Product Not Found', '', route('error.404'));
+        }
+
+
     }
 
     /**

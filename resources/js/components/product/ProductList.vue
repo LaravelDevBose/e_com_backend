@@ -62,7 +62,6 @@
         props: ['row'],
         methods: {
             goToDetailsPage: function(slug){
-                alert('ee');
                 window.location = '/admin/product/'+slug;
             },
             goToEditPage:function (ID) {

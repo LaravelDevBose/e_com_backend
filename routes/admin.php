@@ -103,6 +103,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::post('/{seller}/change/status', 'ShopController@shop_status_change')->name('change.status');
         Route::get('/{seller}', 'ShopController@show')->name('show');
         Route::delete('/{seller}', 'ShopController@destroy')->name('delete');
+        Route::post('/{seller}/orders', 'ShopController@get_shop_orders')->name('orders');
 
     });
 

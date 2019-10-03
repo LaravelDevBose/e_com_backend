@@ -86,19 +86,20 @@ class ShopController extends Controller
 
     public function show(Request $request, $sellerId)
     {
-        $seller = Seller::where('seller_id', $sellerId)->first();
+        $seller = Seller::where('seller_id', $sellerId)->with('user')->first();
         if($request->ajax()){
             if(empty($seller)){
                 return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Shop Information Not Found', '', route('error.404'));
             }
 
-            $orders = OrderItem::where('seller_id', $sellerId);
+            $orders = OrderItem::where('seller_id', $sellerId)->with(['buyer.user', 'order', 'product.thumbImage']);
             $shop = Shop::where('seller_id', $sellerId)->with('shopLogo')->first();
-            $latest_orders = $orders->load(['buyer'])->orderBy('item_id', 'desc')->take(15)->get();
+            $latest_orders = $orders->orderBy('item_id', 'desc')->take(15)->get();
             $shopOverview =[
                 'total_order'=>$orders->count(),
                 'total_sale'=> $orders->sum('total_price'),
-                'total_qty_sale'=>$orders->sum('qty'),
+                'total_order_qty'=>$orders->sum('qty'),
+                'total_product'=> Product::where('seller_id', $sellerId)->notDelete()->count()
             ];
             $data=[
                 'shop_info'=>$shop,
