@@ -20,6 +20,13 @@ class ProductHelper
         $request = (object)$request;
         $products = Product::isActive()->with(['brand', 'category', 'thumbImage', 'singleVariation']);
 
+        if(!empty($request->seller_id)){
+            $products = $products->where('seller_id', $request->seller_id);
+        }
+
+        if(!empty($request->sellerIds) && is_array($request->sellerIds)){
+            $products = $products->whereIn('seller_id', $request->sellerIds);
+        }
 
         if(!empty($request->category_id)){
             $categoriesID = array();

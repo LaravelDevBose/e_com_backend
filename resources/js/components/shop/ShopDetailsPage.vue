@@ -213,7 +213,8 @@
             return{
                 reqData:{
                     shop_id:'',
-                    seller_id:''
+                    seller_id:'',
+                    paginate:20,
                 }
             }
         },
@@ -222,7 +223,7 @@
             this.reqData.seller_id = this.sellerid
         },
         mounted(){
-            this.getShopInfoSectionData();
+            this.getShopInfoSectionData(this.reqData);
         },
         methods:{
             ...mapActions([
@@ -237,6 +238,7 @@
                 'shopInfo',
                 'sellerInfo',
                 'overviewReport',
+                'latestOrders',
                 'shopOrders',
                 'shopProducts',
                 'shopReports',

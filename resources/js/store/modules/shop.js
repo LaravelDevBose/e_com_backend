@@ -7,7 +7,7 @@ const state = {
     shop_info:{},
     seller_info:{},
     overview_report:{},
-    recent_orders:[],
+    latest_orders:[],
     shop_orders:[],
     shop_products:[],
     shop_reports:[],
@@ -20,6 +20,7 @@ const getters = {
     shopInfo:(state)=>state.shop_info,
     sellerInfo:(state)=>state.seller_info,
     overviewReport:(state)=>state.overview_report,
+    latestOrders:(state)=>state.latest_orders,
     shopOrders:(state)=>state.shop_orders,
     shopProducts:(state)=>state.shop_products,
     shopReports:(state)=>state.shop_reports,
@@ -82,7 +83,19 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-
+    async getShopInfoSectionData({commit}, reqData){
+        try {
+            return await axios.get(`/admin/shop/${reqData.seller_id}`, reqData)
+                .then(response=>{
+                    commit('setShopInfoData', response.data.data);
+                    delete response.data.data;
+                    return  response
+                });
+        }catch (error) {
+            console.log(error);
+            commit('setResponse', error.data);
+        }
+    },
 
 };
 
@@ -106,7 +119,13 @@ const mutations = {
             return shop;
         })
     },
-    removeShop:(state, sellerId)=>state.shop_list = state.shop_list.filter(shop=>shop.seller_id !== sellerId)
+    removeShop:(state, sellerId)=>state.shop_list = state.shop_list.filter(shop=>shop.seller_id !== sellerId),
+    setShopInfoData:(state, response)=>{
+        state.shop_info = response.shop_info;
+        state.seller_info = response.seller_info;
+        state.overview_report = response.overview_report;
+        state.latest_orders = response.latest_orders;
+    }
 };
 
 export default {

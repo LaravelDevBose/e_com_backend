@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Frontend\ProductHelper;
+use App\Http\Resources\Admin\ProductCollection;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Seller;
+use App\Models\Shop;
 use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -87,12 +91,23 @@ class ShopController extends Controller
             if(empty($seller)){
                 return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Shop Information Not Found', '', route('error.404'));
             }
-            $shop = Seller::where('seller_id', $sellerId)
-                    ->with(['user', 'shop.shopLogo', 'products'=>function($query){
-                        return $query->with(['category','brand','singleVariation','thumbImage'])->notDelete();
-                    }, 'orderItems'])->first();
+
+            $orders = OrderItem::where('seller_id', $sellerId);
+            $shop = Shop::where('seller_id', $sellerId)->with('shopLogo')->first();
+            $latest_orders = $orders->load(['buyer'])->orderBy('item_id', 'desc')->take(15)->get();
+            $shopOverview =[
+                'total_order'=>$orders->count(),
+                'total_sale'=> $orders->sum('total_price'),
+                'total_qty_sale'=>$orders->sum('qty'),
+            ];
+            $data=[
+                'shop_info'=>$shop,
+                'seller_info'=>$seller,
+                'overview_report'=>$shopOverview,
+                'latest_orders'=> $latest_orders,
+            ];
             if(!empty($shop)){
-                return ResponserTrait::singleResponse($shop,'success', Response::HTTP_OK);
+                return ResponserTrait::singleResponse($data,'success', Response::HTTP_OK);
             }else{
                 return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'No Shop Found');
             }
