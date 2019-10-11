@@ -1,4 +1,4 @@
-//declare State
+
 const state = {
     show_in:false,
     modal_product:{},
@@ -95,7 +95,7 @@ const mutations = {
         }else{
             state.products = response
         }
-    },
+    }
 };
 
 export default {

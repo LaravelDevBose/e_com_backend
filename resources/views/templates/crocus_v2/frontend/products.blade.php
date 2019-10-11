@@ -37,17 +37,7 @@
                 @endif
                 <article class="col-main row" style="display: block">
                     <h2 class="page-heading"> <span class="page-heading-title">{{ $category->category_name }}</span> </h2>
-                    <div class="category-products">
-                        @if(!empty($products))
-                            <ul class="products-grid">
-                                @foreach($products as $product)
-                                    <li class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
-                                        <product-grid :product="{{ $product }}"></product-grid>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </div>
+                    <products-page-list></products-page-list>
                 </article>
                 <!--	///*///======    End article  ========= //*/// -->
             </div>
@@ -88,75 +78,7 @@
                         <!--box-content box-category-->
                     </div>
                     @endif
-                    <div class="hot-banner"><img alt="banner" src="{{ asset('crocus_v2/images/hot-trends-banner.jpg') }}"></div>
-                    <div class="block block-layered-nav">
-                        <div class="block-title">Shop By</div>
-                        <div class="block-content">
-                            <p class="block-subtitle">Shopping Options</p>
-                            <dl id="narrow-by-list">
-                                @if(!empty($brands))
-                                <dt class="even">Manufacturer</dt>
-                                <dd class="even">
-                                    <ol>
-                                        @foreach($brands as $brand)
-                                        <li> <a href="#">{{ $brand->brand_name }}</a></li>
-                                        @endforeach
-                                    </ol>
-                                </dd>
-                                @endif
-
-                                @if(!empty($colors))
-                                    <dt class="odd">Color</dt>
-                                    <dd class="odd">
-                                        <ol>
-                                            @foreach($colors as $color)
-                                            <li> <a href="#">{{ $color->color_name }}</a></li>
-                                            @endforeach
-                                        </ol>
-                                    </dd>
-                                @endif
-
-                                @if(!empty($sizes))
-                                <dt class="last even">Size</dt>
-                                <dd class="last even">
-                                    <ol>
-                                        @foreach($sizes as $size)
-                                        <li> <a href="#">{{ $size->size_name }}</a></li>
-                                        @endforeach
-                                    </ol>
-                                </dd>
-                                @endif
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="block block-list block-viewed">
-                        <div class="block-title"> Recently Viewed </div>
-                        <div class="block-content">
-                            <ol id="recently-viewed-items">
-                                <li class="item odd">
-                                    <p class="product-name"><a href="#"> ThinkPad X1 Ultrabook </a></p>
-                                </li>
-                                <li class="item even">
-                                    <p class="product-name"><a href="#"> Samsung GALAXY Note </a></p>
-                                </li>
-                                <li class="item last odd">
-                                    <p class="product-name"><a href="#"> QX30 Lens Camera </a></p>
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                    @if(!empty($tags))
-                    <div class="block block-tags">
-                        <div class="block-title"> Popular Tags</div>
-                        <div class="block-content">
-                            <ul class="tags-list">
-                                @foreach($tags as $tag)
-                                <li><a href="#" style="font-size:98.3333333333%;">{{ $tag->tag_title }}</a></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                    @endif
+                    <product-sidebar :categoryId="{{ $category->category_id }}"></product-sidebar>
                 </aside>
             </div>
         </div>

@@ -7,8 +7,8 @@ return [
     | Application Custom Define Values
     |--------------------------------------------------------------------------
     */
-//    'default_template' => 'crocus_v2',
-    'default_template' => 'kuteshop_v2',
+    'default_template' => 'crocus_v2',
+//    'default_template' => 'kuteshop_v2',
     'seller_template' => 'limitless_v2',
     'active' => 1,
     'activeView' => 'Active',
