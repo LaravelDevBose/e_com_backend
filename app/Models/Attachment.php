@@ -18,7 +18,8 @@ class Attachment extends Model
         'page'=>8,
         'setting'=>9,
         'thumbnail'=>10,
-        'shop'=>'11',
+        'shop'=>11,
+        'section'=>12,
     ];
 
     protected $table = 'attachments';
@@ -99,5 +100,10 @@ class Attachment extends Model
 
     public function productThumb(){
         return $this->hasOne(Product::class, 'thumb_id', 'attachment_id');
+    }
+
+    public function homepageSection()
+    {
+        return $this->hasOne(HomepageSection::class, 'attachment_id', 'attachment_id');
     }
 }

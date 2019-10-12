@@ -182,4 +182,9 @@ class Product extends Model
     public function orderItems(){
         return $this->hasMany(OrderItem::class, 'product_id', 'product_id');
     }
+
+    public function sectionProduct()
+    {
+        return $this->hasMany(SectionProduct::class, 'product_id', 'product_id');
+    }
 }
