@@ -27,6 +27,22 @@ class HomepageSection extends Model
         'deleted_by'
     ];
 
+    public static function sectionTypeFlip()
+    {
+        return array_flip(Self::SectionType);
+    }
+
+    public static function sectionTypeSelect()
+    {
+        $type = [];
+        foreach (Self::sectionTypeFlip() as $key=> $value){
+            array_push($type, [
+                'id'=>$key,
+                'text'=>$value
+            ]);
+        }
+        return $type;
+    }
 
     public function scopeIsActive($query){
         return $query->where('section_status', config('app.active'));

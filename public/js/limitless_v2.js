@@ -7116,11 +7116,24 @@ __webpack_require__.r(__webpack_exports__);
       vm.$emit('input', this.value);
     });
   },
+  updated: function updated() {
+    $(this.$el).val(value).trigger('change');
+  },
   watch: {
-    value: function value(_value) {
+    value: function (_value) {
+      function value(_x) {
+        return _value.apply(this, arguments);
+      }
+
+      value.toString = function () {
+        return _value.toString();
+      };
+
+      return value;
+    }(function (value) {
       //update value
-      $(this.$el).val(_value).trigger('change');
-    },
+      $(this.$el).val(value).trigger('change');
+    }),
     options: function options(_options) {
       //update Option
       $(this.$el).empty().select2({
@@ -16206,7 +16219,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
 
 // exports
 
@@ -94609,7 +94622,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })

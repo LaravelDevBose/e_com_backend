@@ -83,6 +83,7 @@
                     <li>
                         <a href="#"><i class="icon-cart"></i> <span>CMS</span></a>
                         <ul>
+                            <li><a href="{{ route('admin.section.index') }}"><i class="icon-stack2"></i>Homepage Section</a></li>
                             <li><a href="{{ route('admin.cms.sliders.index') }}"><i class="icon-list-numbered"></i>Slider</a></li>
                             <li><a href="{{ route('admin.cms.pages.index') }}"><i class="icon-list-numbered"></i> General Pages</a></li>
                             <li><a href="{{ route('admin.setting.page') }}"><i class="icon-cogs"></i> Setting</a></li>

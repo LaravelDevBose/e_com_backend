@@ -27,6 +27,9 @@
                     vm.$emit('input', this.value)
                 })
         },
+        updated() {
+            $(this.$el).val(value).trigger('change');
+        },
         watch:{
             value:function (value) {
                 //update value

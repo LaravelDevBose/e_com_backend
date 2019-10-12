@@ -1,9 +1,9 @@
 <template>
     <div class="content">
         <form action="" @submit.prevent="sectionDetailsStore">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h5 class="panel-title">Voucher Details</h5>
+            <div class="panel">
+                <div class="panel-heading bg-indigo-800">
+                    <h5 class="panel-title">Add HomePage Section</h5>
                 </div>
 
                 <div class="panel-body">
@@ -17,7 +17,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Section Type:</label>
-                                <vue-select2 :options="[]" v-model.number="formData.section_type" >
+                                <vue-select2 :options="sectionTypes" v-model.number="formData.section_type" >
                                 </vue-select2>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="col-md-9">
-                            <label>Voucher Image:</label>
+                            <label>Section Banner:</label>
                             <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             <div class="content-group-lg"  style="margin-bottom:0!important;">
                                 <div class="checkbox checkbox-switchery">
                                     <label>
-                                        <input type="checkbox" v-model="form.voucher_status" class="switchery-primary" checked="checked">
+                                        <input type="checkbox" v-model="formData.section_status" class="switchery-primary" checked="checked">
                                         Publish
                                     </label>
                                 </div>
@@ -121,13 +121,32 @@
                 'storeSectionDetails',
             ]),
             sectionDetailsStore(){
-                this.storeSectionDetails(this.formData);
+                this.btnDisabled = true;
+                if(this.cropImageIds !== ''){
+                    this.formData.attachment_id = this.cropImageIds[0];
+                }
+                this.storeSectionDetails(this.formData)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            Notify.success(response.message);
+
+                            setTimeout(()=>{
+                                location.href = response.url;
+                            })
+                        }else if(response.code === 400 && response.status === 'validation'){
+                            Notify.warning(response.message);
+                        }else{
+                            Notify.error(response.message);
+                        }
+                    })
+                ;
             }
         },
         computed:{
             ...mapGetters([
                 'treeList',
                 'sectionTypes',
+                'cropImageIds'
             ])
         }
     }

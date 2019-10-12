@@ -44,6 +44,10 @@ class ProductHelper
             $products = $products->whereIn('category_id', $categoriesID);
         }
 
+        if(!empty($request->categoryIds)){
+            $products = $products->whereIn('category_id', $request->categoryIds);
+        }
+
 
         if(!empty($request->brand_id)){
             $products = $products->where('brand_id', $request->brand_id);
