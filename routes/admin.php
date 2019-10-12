@@ -104,9 +104,14 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::get('/{seller}', 'ShopController@show')->name('show');
         Route::delete('/{seller}', 'ShopController@destroy')->name('delete');
         Route::post('/{seller}/orders', 'ShopController@get_shop_orders')->name('orders');
-
     });
 
+    Route::prefix('/homepage/section')->as('section.')->group(function (){
+        Route::get('/', 'HomepageSectionController@index')->name('index');
+        Route::get('/create', 'HomepageSectionController@create')->name('create');
+        Route::post('/store', 'HomepageSectionController@store')->name('store');
+        Route::get('/{section_id}/edit', 'HomepageSectionController@edit')->name('edit');
+    });
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){

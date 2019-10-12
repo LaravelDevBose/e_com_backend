@@ -30,7 +30,7 @@ import  setting from "./modules/cms/setting";
 import order from "./modules/order";
 import buyer from "./modules/buyer";
 import shop from "./modules/shop";
-
+import homepage_section from "./modules/homepage_section";
 
 export default new Vuex.Store({
     state:{
@@ -77,6 +77,7 @@ export default new Vuex.Store({
         order,
         buyer,
         shop,
+        homepage_section,
     }
 })
 
