@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Frontend\ProductHelper;
+use App\Http\Resources\Admin\ProductCollection;
 use App\Models\SectionCategory;
 use Exception;
 use App\Models\HomepageSection;
@@ -70,7 +71,28 @@ class HomepageSectionController extends Controller
                     'section_position'=>$request->section_position,
                     'attachment_id'=>(!empty($request->attachment_id))? $request->attachment_id:null,
                 ]);
-                if($section){
+                if(!empty($section)){
+                    $sectionCats = array();
+                    if(!empty($request->categoryIDs)){
+                        foreach ($request->categoryIDs as $key=>$value){
+
+                            array_push($sectionCats, [
+                                'section_id'=>$section->section_id,
+                                'category_id'=>$value,
+                                'created_by'=>auth()->guard('admin')->id(),
+                            ]);
+                        }
+                    }
+
+                    if(!empty($sectionCats)){
+                        $categorySection = SectionCategory::insert($sectionCats);
+                        if(!empty($categorySection)){
+                            DB::commit();
+                            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Homepage Section Add Successfully', '', route('admin.section.add_product', $section->section_id));
+                        }else{
+                            throw new Exception('Invalid Category Information',Response::HTTP_BAD_REQUEST);
+                        }
+                    }
                     DB::commit();
                     return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Homepage Section Add Successfully', '', route('admin.section.add_product', $section->section_id));
                 }else{
@@ -99,7 +121,8 @@ class HomepageSectionController extends Controller
 
                 $products = ProductHelper::products_list($reqData);
                 if(!empty($products)){
-                    return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $products);
+                    $collection = ProductCollection::collection($products);
+                    return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $collection);
                 }else{
                     return ResponserTrait::allResponse('success', Response::HTTP_BAD_REQUEST, 'Products Not Found');
                 }
@@ -113,6 +136,11 @@ class HomepageSectionController extends Controller
         }
     }
 
+    public function store_section_product(Request $request)
+    {
+
+    }
+
     /**
      * Display the specified resource.
      *
@@ -121,11 +149,10 @@ class HomepageSectionController extends Controller
      */
     public function show(Request $request, $sectionId)
     {
-        $section = HomepageSection::findOrFail($sectionId);
+        $section = HomepageSection::with('sectionCategories.category', 'attachment')->where('section_id',$sectionId)->firstOrFail();
         if(!empty($section)){
             if($request->ajax()){
-                $section = $section->load('sectionCategories.category');
-
+                return ResponserTrait::singleResponse($section, 'success', Response::HTTP_OK, 'Section Data Found');
             }else{
                 return  view('homepage_section.section_show',[
                     'sectionId'=>$sectionId,

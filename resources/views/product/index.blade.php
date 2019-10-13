@@ -14,6 +14,10 @@
         .table > thead> tr > th:first-child{
             width: 50px;
         }
+        table>tbody>tr>td:nth-child(2){
+            padding: 5px!important;
+            width: 50px;
+        }
     </style>
 @endsection
 

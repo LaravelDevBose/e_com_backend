@@ -27,6 +27,12 @@ class HomepageSection extends Model
         'deleted_by'
     ];
 
+    public function getTypeLabelAttribute()
+    {
+        $types = Self::sectionTypeFlip();
+        return $types[$this->attributes['section_type']];
+    }
+
     public static function sectionTypeFlip()
     {
         return array_flip(Self::SectionType);

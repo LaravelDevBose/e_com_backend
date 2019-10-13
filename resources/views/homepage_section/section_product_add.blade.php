@@ -9,6 +9,16 @@
         input[type=checkbox]:checked tr{
             background: green;
         }
+        .pro-img{
+            width:80px;
+            padding:8px;
+        }
+        .table-checkbox{
+            width:40px;
+        }
+        table>tbody>tr>td:nth-child(2){
+            padding: 5px!important;
+        }
     </style>
 
 @endsection

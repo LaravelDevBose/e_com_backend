@@ -39,46 +39,18 @@
 </template>
 
 <script>
-    import  Vue from 'vue'
-    Vue.component('product-status', {
-        template: `<div>
-                        <span v-if="row.status == 1" class="badge badge-success">{{ row.status_label }}</span>
-                        <span v-else-if="row.status == 2" class="badge badge-warning">{{ row.status_label }}</span>
-                        <span v-else class="badge badge-default">{{ row.status_label }}</span>
-                    </div>`,
-        props: ['row'],
-    });
-    Vue.component('product-thumb', {
-        template: `<img :src="row.thumbnail.image_path" :alt="row.product_title"  style="width:90px; height:90px">`,
-        props: ['row'],
-    });
-
-    Vue.component('product-action', {
-        template: `<ul class="icons-list">
-                        <li><a href="#" class="text text-primary-700" @click.prevent="goToDetailsPage(row.product_slug)"><i class="icon-eye"></i></a :href=""></li>
-                        <li><a href="#" class="text text-info" @click.prevent="goToEditPage(row.product_slug)"><i class="icon-pencil7"></i></a></li>
-                        <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp(row.product_slug)"><i class="icon-trash"></i></a></li>
-                    </ul>`,
-        props: ['row'],
-        methods: {
-            goToDetailsPage: function(slug){
-                window.location = '/admin/product/'+slug;
-            },
-            goToEditPage:function (ID) {
-                window.location = '/admin/product/'+slug+'/edit';
-            },
-            showDeletePopUp:function (ID) {
-
-            }
-        },
-    });
-
     import VueSelect2 from '../helper/Select2';
     import {mapGetters, mapActions} from 'vuex';
+    import ProductThumbImg from "../helper/table/ProductThumbImg";
+    import ProductAction from "../helper/table/ProductAction";
+    import ProductStatus from "../helper/table/ProductStatus";
     export default {
         name: "ProductList",
         components:{
-          'vue-select2':VueSelect2,
+            'vue-select2':VueSelect2,
+            'product-thumb-img':ProductThumbImg,
+            'product-action':ProductAction,
+            'product-status':ProductStatus,
         },
         data(){
             return {
@@ -89,7 +61,7 @@
                 rows:'',
                 columns: [
                     { label: '#', field: 'index', align: 'center', filterable: false, sortable:false },
-                    { label: 'Image', component: 'product-thumb', align: 'center', sortable: false },
+                    { label: 'Image', component: 'product-thumb-img', align: 'center', sortable: false },
                     { label: 'Product Name', field: 'product_title',  },
                     { label: 'Product SKU', field: 'sku' , },
                     { label: 'Category', field: 'category.name' },

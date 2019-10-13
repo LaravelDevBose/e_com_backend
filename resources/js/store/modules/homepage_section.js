@@ -3,6 +3,8 @@ const state = {
     section_list:[],
     section_types:[],
     cat_products:[],
+    section_info:{},
+    selectedProIds:[],
 };
 
 //declare Getters
@@ -10,6 +12,8 @@ const getters = {
     homepageSections:(state)=> state.section_list,
     sectionTypes:(state)=>state.section_types,
     catProducts:(state)=>state.cat_products,
+    sectionData:(state)=>state.section_info,
+    selectedProIds:(state)=>state.selectedProIds,
 };
 
 const actions = {
@@ -35,7 +39,7 @@ const actions = {
     },
     async getSectionData({commit}, sectionId){
         try {
-            await axios.get(`/admin/homepage/section/${sectionId}/add/products`)
+            await axios.get(`/admin/homepage/section/${sectionId}`)
                 .then(response=>{
                     commit('setSectionData', response.data.data);
                 })
@@ -65,6 +69,10 @@ const actions = {
         }catch (error) {
             commit('setResponse', error.data);
         }
+    },
+    selectedProductIdUpdate({commit},selectData){
+        commit('setSelectedProduct', selectData);
+        return true;
     }
 };
 
@@ -73,7 +81,20 @@ const mutations = {
         state.section_types = response.type;
     },
     setSectionList:(state, response)=>state.section_list = response,
+    setSectionData:(state, response)=>state.section_info = response,
     setSectionCategoryProducts:(state,response)=>state.cat_products = response,
+    setSelectedProduct:(state, selectData)=>{
+        if(selectData.type === 'add'){
+            state.selectedProIds.push(selectData.productId);
+        }else{
+            state.selectedProIds = state.selectedProIds.filter(productId=>{
+                if(productId !== selectData.productId){
+                    return productId;
+                }
+            });
+        }
+
+    }
 };
 
 export default {

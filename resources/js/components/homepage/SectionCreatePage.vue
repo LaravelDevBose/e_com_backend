@@ -140,14 +140,28 @@
                         }
                     })
                 ;
-            }
+            },
+
         },
         computed:{
             ...mapGetters([
                 'treeList',
                 'sectionTypes',
                 'cropImageIds'
-            ])
+            ]),
+            formDataCheck(){
+                return JSON.parse(JSON.stringify(this.formData));
+            },
+        },
+        watch:{
+            formDataCheck:{
+                handler(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        this.btnDisabled = false;
+                    }
+
+                }
+            },
         }
     }
 </script>
