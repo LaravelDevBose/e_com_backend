@@ -5,6 +5,7 @@ const state = {
     cat_products:[],
     section_info:{},
     selectedProIds:[],
+    selected_products:[],
 };
 
 //declare Getters
@@ -14,6 +15,7 @@ const getters = {
     catProducts:(state)=>state.cat_products,
     sectionData:(state)=>state.section_info,
     selectedProIds:(state)=>state.selectedProIds,
+    selectedProducts:(state)=>state.selected_products,
 };
 
 const actions = {
@@ -91,6 +93,30 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
+
+    async getManageProductsData({commit}, sectionId){
+        try {
+            await axios.get(`/admin/homepage/section/${sectionId}/manage/products`)
+                .then(response=>{
+                    commit('setManageProductsData', response.data.data);
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
+    async sectionProductsUpdate({commit}, fromData){
+        try {
+            return  await axios.post('/admin/homepage/section/products/store', fromData)
+                .then(response=>{
+                    return response.data;
+                }).catch(error=>{
+                    commit('setResponse', error.data);
+                    return error.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {
@@ -111,6 +137,9 @@ const mutations = {
             });
         }
 
+    },
+    setManageProductsData:(state,response)=>{
+        console.log(response);
     }
 };
 

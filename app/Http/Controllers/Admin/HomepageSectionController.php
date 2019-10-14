@@ -101,13 +101,13 @@ class HomepageSectionController extends Controller
                         $categorySection = SectionCategory::insert($sectionCats);
                         if(!empty($categorySection)){
                             DB::commit();
-                            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Homepage Section Add Successfully', '', route('admin.section.add_product', $section->section_id));
+                            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Homepage Section Add Successfully', '', route('admin.section.add.product', $section->section_id));
                         }else{
                             throw new Exception('Invalid Category Information',Response::HTTP_BAD_REQUEST);
                         }
                     }
                     DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Homepage Section Add Successfully', '', route('admin.section.add_product', $section->section_id));
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Homepage Section Add Successfully', '', route('admin.section.add.product', $section->section_id));
                 }else{
                     throw new Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
                 }
@@ -247,6 +247,47 @@ class HomepageSectionController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function manage_section_products(Request $request, $sectionId)
+    {
+        $section = HomepageSection::where('section_id', $sectionId)->first();
+        if(!empty($section)){
+            if($request->ajax()){
+                $productIds = SectionProduct::where('section_id', $sectionId)->pluck('product_id');
+                $categoryIds = SectionCategory::where('section_id', $sectionId)->pluck('category_id');
+                $reqData = [
+                    'categoryIds'=>$categoryIds,
+                    'productIds'=>$productIds,
+                    'productIdsType'=>'remove',
+                ];
+
+                $products = ProductHelper::products_list($reqData);
+                $reqData1 = [
+                    'categoryIds'=>$categoryIds,
+                    'productIds'=>$productIds,
+                    'productIdsType'=>'add',
+                ];
+                $selectedProducts = ProductHelper::products_list($reqData1);
+                if(!empty($products)){
+                    $collection = ProductCollection::collection($products);
+                    $selectedCollection = ProductCollection::collection($selectedProducts);
+                    $data =[
+                        'products'=>$collection,
+                        'selectedProducts'=>$selectedCollection
+                    ];
+                    return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $data);
+                }else{
+                    return ResponserTrait::allResponse('success', Response::HTTP_BAD_REQUEST, 'Products Not Found');
+                }
+            }else{
+                return view('homepage_section.section_product_manage',[
+                    'sectionId'=>$sectionId,
+                ]);
+            }
+        }else{
+            return abort(Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**

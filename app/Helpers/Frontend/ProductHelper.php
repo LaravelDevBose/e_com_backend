@@ -89,7 +89,12 @@ class ProductHelper
         }
 
         if(!empty($request->productIds)){
-            $products = $products->whereNotIn('product_id', $request->productIds);
+            if($request->productIdsType === 'add'){
+                $products = $products->whereIn('product_id', $request->productIds);
+            }else{
+                $products = $products->whereNotIn('product_id', $request->productIds);
+            }
+
         }
 
         if(!empty($request->order_by)){

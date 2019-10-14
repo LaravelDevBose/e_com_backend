@@ -23,13 +23,39 @@
                 </div>
             </div>
         </div>
-        <div class="panel">
-            <div class="panel-heading bg-info">
-                <h5 class="panel-title">Add Section Products</h5>
-            </div>
+        <form action="" @submit.prevent="manageSectionProducts">
+            <div class="panel">
+                <div class="panel-heading bg-info">
+                    <h5 class="panel-title">Selected Products List</h5>
+                </div>
 
-            <div class="panel-body">
-                <form action="" @submit.prevent="storeSectionProducts">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <div class="form-inline" style="margin:1em;">
+                                    <div class="form-group">
+                                        <input type="text" id="filter1" class="form-control" v-model="filter1" placeholder="Filter">
+                                    </div>
+                                </div>
+
+                                <div id="table1">
+                                    <datatable class="table-bordered table-striped" :columns="columns" :data="selectedProducts" :filter-by="filter1"></datatable>
+                                </div>
+                                <div class="form-inline">
+                                    <datatable-pager v-model="page1" type="abbreviated" :per-page="per_page1"></datatable-pager>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading bg-primary">
+                    <h5 class="panel-title">Unselected Products List</h5>
+                </div>
+
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
@@ -47,26 +73,34 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 col-md-offset-6">
-                            <div class="content-group-lg"  style="margin-bottom:0!important;">
-                                <div class="checkbox checkbox-switchery">
-                                    <label>
-                                        <input type="checkbox"  class="switchery-primary" :checked="formData.section_status">
-                                        <span class="text-success text-bold" v-if="formData.section_status" >Active</span>
-                                        <span class="text-danger text-bold" v-else>Inactive</span>
-                                    </label>
+                    </div>
+                </div>
+            </div>
+            <div class="sticky-submit-btn" >
+                <div class="panel panel-default">
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-6">
+                                <div class="content-group-lg"  style="margin-bottom:0!important;">
+                                    <div class="checkbox checkbox-switchery">
+                                        <label>
+                                            <input type="checkbox"  class="switchery-primary" :checked="formData.section_status">
+                                            <span class="text-success text-bold" v-if="formData.section_status" >Active</span>
+                                            <span class="text-danger text-bold" v-else>Inactive</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="text-right form-group" style="margin-bottom:0px;">
+                                    <button type="submit" :disabled="btnDisabled" class="btn btn-success btn-block">Save Section Product <i class="icon-arrow-right14 position-right"></i></button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="text-right form-group" style="margin-bottom:0px;">
-                                <button type="submit" :disabled="btnDisabled" class="btn btn-success btn-block">Save Section Product <i class="icon-arrow-right14 position-right"></i></button>
-                            </div>
-                        </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </template>
 
@@ -78,7 +112,7 @@
     export default {
         name: "SectionProductPage",
         props:{
-            sectionid:[Number]
+            sectionid:[Number],
         },
         components:{
             'product-thumb-img':ProductThumbImg,
@@ -91,10 +125,12 @@
                     section_id:'',
                     section_status:true,
                 },
+                page1: 1,
+                per_page1: 10,
+                filter1: '',
                 page: 1,
                 per_page: 10,
                 filter: '',
-                rows:'',
                 columns: [
                     { label: '#', align: 'center', component: 'product-checkbox', headerClass:'table-checkbox', filterable: false, sortable:false },
                     { label: 'Image', component: 'product-thumb-img', align: 'left', headerClass:'pro-img', sortable: false },
@@ -112,15 +148,16 @@
             this.getSectionData(this.sectionid);
         },
         mounted(){
-            this.getSectionCategoryProducts(this.sectionid);
+            this.getManageProductsData(this.sectionid);
+
         },
         methods:{
             ...mapActions([
                 'getSectionData',
-                'getSectionCategoryProducts',
-                'selectedProductStore',
+                'sectionProductsUpdate',
+                'getManageProductsData'
             ]),
-            storeSectionProducts(){
+            manageSectionProducts(){
                 this.btnDisabled = true;
                 if(this.selectedProIds.length <= 0){
                     Notify.validation('Section Product Not Selected.')
@@ -128,7 +165,7 @@
                     this.formData.productIds = this.selectedProIds;
                 }
 
-                this.selectedProductStore(this.formData)
+                this.sectionProductsUpdate(this.formData)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
                             Notify.success(response.message);
@@ -145,9 +182,10 @@
         },
         computed:{
             ...mapGetters([
-                'catProducts',
                 'sectionData',
                 'selectedProIds',
+                'selectedProducts',
+                'cat_products',
             ]),
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
