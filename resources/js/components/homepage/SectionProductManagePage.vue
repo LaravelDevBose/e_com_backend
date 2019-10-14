@@ -84,14 +84,14 @@
                                 <div class="content-group-lg"  style="margin-bottom:0!important;">
                                     <div class="checkbox checkbox-switchery">
                                         <label>
-                                            <input type="checkbox"  class="switchery-primary" :checked="formData.section_status">
+                                            <input type="checkbox"  class="switchery-primary" :checked="formData.section_status" v-model="formData.section_status">
                                             <span class="text-success text-bold" v-if="formData.section_status" >Active</span>
                                             <span class="text-danger text-bold" v-else>Inactive</span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="text-right form-group" style="margin-bottom:0px;">
                                     <button type="submit" :disabled="btnDisabled" class="btn btn-success btn-block">Save Section Product <i class="icon-arrow-right14 position-right"></i></button>
                                 </div>
@@ -185,10 +185,13 @@
                 'sectionData',
                 'selectedProIds',
                 'selectedProducts',
-                'cat_products',
+                'catProducts',
             ]),
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
+            },
+            sectionDataCheck(){
+                return JSON.parse(JSON.stringify(this.sectionData));
             },
         },
         watch:{
@@ -200,6 +203,15 @@
 
                 }
             },
+            sectionDataCheck:{
+                handler(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        this.formData.section_status = this.sectionData.section_status;
+                    }
+
+                }
+            },
+
         }
     }
 </script>

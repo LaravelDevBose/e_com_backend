@@ -27,7 +27,7 @@ class HomepageSectionController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $sections = HomepageSection::NotDelete()->latest()->get();
+            $sections = HomepageSection::NotDelete()->with('attachment')->latest()->get();
             if(!empty($sections)){
                 $collections = HomepageSectionCollection::collection($sections);
                 return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $collections);
@@ -71,7 +71,6 @@ class HomepageSectionController extends Controller
             'section_title'=>'required|string|max:50',
             'section_type'=>'required',
             'section_position'=>'required',
-            'attachment_id'=>'array'
         ]);
 
         if($validator->passes()){
@@ -254,7 +253,7 @@ class HomepageSectionController extends Controller
         $section = HomepageSection::where('section_id', $sectionId)->first();
         if(!empty($section)){
             if($request->ajax()){
-                $productIds = SectionProduct::where('section_id', $sectionId)->pluck('product_id');
+                $productIds = SectionProduct::where('section_id', $sectionId)->pluck('product_id')->toArray();
                 $categoryIds = SectionCategory::where('section_id', $sectionId)->pluck('category_id');
                 $reqData = [
                     'categoryIds'=>$categoryIds,
@@ -273,6 +272,7 @@ class HomepageSectionController extends Controller
                     $collection = ProductCollection::collection($products);
                     $selectedCollection = ProductCollection::collection($selectedProducts);
                     $data =[
+                        'productIds'=>$productIds,
                         'products'=>$collection,
                         'selectedProducts'=>$selectedCollection
                     ];
@@ -287,6 +287,79 @@ class HomepageSectionController extends Controller
             }
         }else{
             return abort(Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function update_section_product(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'section_id'=>'required',
+            'productIds'=>'required|array',
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+
+                $section = HomepageSection::find($request->section_id);
+                if(empty($section)){
+                    throw new Exception('Invalid Section Information', Response::HTTP_NOT_FOUND);
+                }
+                $lastPosition = SectionProduct::where('section_id', $request->section_id)->latest()->first();
+                $productIds = SectionProduct::where('section_id', $request->section_id)->pluck('product_id')->toArray();
+
+                $i=$lastPosition->product_position;
+                $sectionProducts = array();
+                foreach ($request->productIds as $key=> $productId){
+                    if(!in_array($productId, $productIds)){
+                        $product = Product::where('product_id', $productId)->first();
+                        if(!empty($product)){
+                            array_push($sectionProducts,[
+                                'section_id'=>$request->section_id,
+                                'category_id'=>$product->category_id,
+                                'product_id'=>$productId,
+                                'product_position'=>$i,
+                                'created_by'=>auth()->guard('admin')->id(),
+                                'created_at'=>now(),
+                            ]);
+                            $i++;
+                        }
+                    }
+
+                }
+
+                $removeProductIds = array();
+
+                foreach ($productIds as $key=> $productId){
+                    if(!in_array($productId, $request->productIds)){
+                        array_push($removeProductIds,$productId);
+                    }
+
+                }
+
+                $storeProducts = SectionProduct::insert($sectionProducts);
+
+                if(!empty($storeProducts)){
+                    $section->update([
+                        'section_status'=>(!empty($request->section_status) && count($request->productIds) > 0 )? config('app.active') : config('app.inactive')
+                    ]);
+                    if(!empty($removeProductIds) && count($removeProductIds)>0){
+                        SectionProduct::where('section_id', $request->section_id)->whereIn('product_id', $removeProductIds)->delete();
+                    }
+
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Section Products Update Successfully', '', route('admin.section.index'));
+                }else{
+                    throw new Exception('Invalid Category Information',Response::HTTP_BAD_REQUEST);
+                }
+
+            }catch (Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
         }
     }
 

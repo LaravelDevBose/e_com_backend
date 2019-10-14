@@ -1,5 +1,5 @@
 <template>
-    <input type="checkbox" class="checkbox" value="1" v-model="status">
+    <input type="checkbox" class="checkbox" value="1" v-model="status" @change="updateProductIds">
 </template>
 
 <script>
@@ -18,6 +18,9 @@
                 }
             }
         },
+        mounted(){
+            this.checkProduct();
+        },
         methods:{
             ...mapActions(['selectedProductIdUpdate']),
             updateProductIds(){
@@ -34,16 +37,26 @@
                         }
 
                     })
+            },
+            checkProduct(){
+                this.selectedProIds.filter(productId =>{
+                    if(productId === this.row.id){
+                        this.status = true;
+                    }
+                })
             }
         },
         computed:{
+            ...mapGetters([
+                'selectedProIds'
+            ]),
 
         },
-        watch:{
+        /*watch:{
             status:function () {
                 this.updateProductIds();
             }
-        }
+        }*/
     }
 </script>
 

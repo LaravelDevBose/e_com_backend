@@ -106,7 +106,7 @@ const actions = {
     },
     async sectionProductsUpdate({commit}, fromData){
         try {
-            return  await axios.post('/admin/homepage/section/products/store', fromData)
+            return  await axios.post('/admin/homepage/section/products/update', fromData)
                 .then(response=>{
                     return response.data;
                 }).catch(error=>{
@@ -139,7 +139,9 @@ const mutations = {
 
     },
     setManageProductsData:(state,response)=>{
-        console.log(response);
+        state.selectedProIds = response.productIds;
+        state.cat_products = response.products;
+        state.selected_products = response.selectedProducts;
     }
 };
 

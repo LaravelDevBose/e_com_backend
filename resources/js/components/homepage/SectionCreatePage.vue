@@ -44,16 +44,6 @@
 
                     <div class="row">
                         <div class="col-md-2 col-md-offset-8">
-                            <div class="content-group-lg"  style="margin-bottom:0!important;">
-                                <div class="checkbox checkbox-switchery">
-                                    <label>
-                                        <input type="checkbox" v-model="formData.section_status" class="switchery-primary" checked="checked">
-                                        Publish
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
                             <div class="text-right form-group" style="margin-bottom:0px;">
                                 <button type="submit" :disabled="btnDisabled" class="btn btn-primary btn-block">Save Section <i class="icon-arrow-right14 position-right"></i></button>
                             </div>

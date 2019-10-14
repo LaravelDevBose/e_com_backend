@@ -35,7 +35,7 @@
                                         <td class="text-left">{{ section.title }}</td>
                                         <td class="text-center">{{ section.type }}</td>
                                         <td class="text-center">{{ section.position }}</td>
-                                        <td class="text-center">{{ section.total_product }}</td>
+                                        <td class="text-center">{{ section.total_products }}</td>
                                         <td class="text-center">
                                             <span v-if="section.status === 1" class="badge badge-success">Active</span>
                                             <span v-else class="badge badge-warning">Inactive</span>
@@ -65,7 +65,7 @@
         name: "SectionListPage",
         data(){
             return{
-                image_path:'',
+
             }
         },
         mounted() {
@@ -84,24 +84,25 @@
                 location.href = `${Id}/edit`;
             },
             goToProductManagePage(Id){
-                location.href = `${Id}/manage/products`;
+                location.href = `/admin/homepage/section/${Id}/manage/products`;
             },
             showDeletePopUp(Id){
                 alert('Not Done Yet');
                 return false;
             },
             sectionBanner(section){
-                if(section.hasOwnProperty('banner')){
-                    this.image_path = section.banner.image_path;
+                let image_path='';
+                if(section.hasOwnProperty('banner') && section.banner != null){
+                    image_path = section.banner.image_path;
                 }else {
-                    this.image_path = BASE_URL+'/assets/images/placeholder.jpg';
+                    image_path = BASE_URL+'/assets/images/placeholder.jpg';
                 }
 
 
-                if(this.image_path === '' || this.image_path === false){
-                    this.image_path = BASE_URL+'/assets/images/placeholder.jpg';
+                if(image_path === '' || image_path === false){
+                    image_path = BASE_URL+'/assets/images/placeholder.jpg';
                 }
-                return this.image_path;
+                return image_path;
             }
 
         },
