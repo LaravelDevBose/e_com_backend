@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Frontend\ProductHelper;
+use App\Http\Resources\Admin\HomepageSectionCollection;
 use App\Http\Resources\Admin\ProductCollection;
+use App\Models\Product;
 use App\Models\SectionCategory;
+use App\Models\SectionProduct;
 use Exception;
 use App\Models\HomepageSection;
 use App\Traits\ResponserTrait;
@@ -21,9 +24,19 @@ class HomepageSectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('homepage_section.section_list');
+        if($request->ajax()){
+            $sections = HomepageSection::NotDelete()->latest()->get();
+            if(!empty($sections)){
+                $collections = HomepageSectionCollection::collection($sections);
+                return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $collections);
+            }else{
+                return ResponserTrait::allResponse('error', Response::HTTP_NO_CONTENT, 'No Section Data Found');
+            }
+        }else{
+            return view('homepage_section.section_list');
+        }
     }
 
     /**
@@ -138,7 +151,56 @@ class HomepageSectionController extends Controller
 
     public function store_section_product(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'section_id'=>'required',
+            'productIds'=>'required|array',
+        ]);
 
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+
+                $section = HomepageSection::find($request->section_id);
+                if(empty($section)){
+                    throw new Exception('Invalid Section Information', Response::HTTP_NOT_FOUND);
+                }
+                $i=1;
+                $sectionProducts = array();
+                foreach ($request->productIds as $key=> $productId){
+                    $product = Product::where('product_id', $productId)->first();
+                    if(!empty($product)){
+                        array_push($sectionProducts,[
+                            'section_id'=>$request->section_id,
+                            'category_id'=>$product->category_id,
+                            'product_id'=>$productId,
+                            'product_position'=>$i,
+                            'created_by'=>auth()->guard('admin')->id(),
+                            'created_at'=>now(),
+                        ]);
+                        $i++;
+                    }
+                }
+                $storeProducts = SectionProduct::insert($sectionProducts);
+
+                if(!empty($storeProducts)){
+                    $section->update([
+                        'section_status'=>(!empty($request->section_status) && count($request->productIds) > 0 )? config('app.active') : config('app.inactive')
+                    ]);
+
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Section Products Added Successfully', '', route('admin.section.index'));
+                }else{
+                    throw new Exception('Invalid Category Information',Response::HTTP_BAD_REQUEST);
+                }
+
+            }catch (Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+        }
     }
 
     /**

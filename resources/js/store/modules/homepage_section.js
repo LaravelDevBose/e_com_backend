@@ -29,9 +29,13 @@ const actions = {
     },
     async getSectionList({commit}){
         try {
-            await axios.get('/admin/homepage/section')
+            return await axios.get('/admin/homepage/section')
                 .then(response=>{
-                    commit('setSectionList', response.data.data);
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setSectionList', response.data.data);
+                        delete response.data.data;
+                    }
+                    return response.data;
             })
         }catch (error) {
             commit('setResponse', error.data);
@@ -73,7 +77,20 @@ const actions = {
     selectedProductIdUpdate({commit},selectData){
         commit('setSelectedProduct', selectData);
         return true;
-    }
+    },
+    async selectedProductStore({commit}, fromData){
+        try {
+            return  await axios.post('/admin/homepage/section/products/store', fromData)
+                .then(response=>{
+                    return response.data;
+                }).catch(error=>{
+                    commit('setResponse', error.data);
+                    return error.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {

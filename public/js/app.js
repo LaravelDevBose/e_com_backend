@@ -10466,7 +10466,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.selectData.type = 'remove';
       }
 
-      console.log(this.selectData);
       this.selectedProductIdUpdate(this.selectData).then(function (response) {
         if (_this.status === false) {
           Notify.success('Product Remove.');
@@ -10773,12 +10772,114 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "SectionListPage"
+  name: "SectionListPage",
+  data: function data() {
+    return {
+      image_path: ''
+    };
+  },
+  mounted: function mounted() {
+    this.getSectionList();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getSectionList']), {
+    goToShowPage: function goToShowPage(Id) {
+      location.href = "".concat(Id, "/");
+    },
+    goToEditPage: function goToEditPage(Id) {
+      alert('Not Done Yet');
+      return false;
+      location.href = "".concat(Id, "/edit");
+    },
+    goToProductManagePage: function goToProductManagePage(Id) {
+      location.href = "".concat(Id, "/manage/products");
+    },
+    showDeletePopUp: function showDeletePopUp(Id) {
+      alert('Not Done Yet');
+      return false;
+    },
+    sectionBanner: function sectionBanner(section) {
+      if (section.hasOwnProperty('banner')) {
+        this.image_path = section.banner.image_path;
+      } else {
+        this.image_path = BASE_URL + '/assets/images/placeholder.jpg';
+      }
+
+      if (this.image_path === '' || this.image_path === false) {
+        this.image_path = BASE_URL + '/assets/images/placeholder.jpg';
+      }
+
+      return this.image_path;
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['homepageSections']))
 });
 
 /***/ }),
@@ -10853,6 +10954,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -10869,8 +10988,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       formData: {
         productIds: [],
-        sectionId: '',
-        section_status: 0
+        section_id: '',
+        section_status: true
       },
       page: 1,
       per_page: 10,
@@ -10923,21 +11042,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         id: 100,
         text: 100
-      }]
+      }],
+      btnDisabled: false
     };
   },
   created: function created() {
-    this.formData.sectionId = this.sectionid;
+    this.formData.section_id = this.sectionid;
     this.getSectionData(this.sectionid);
   },
   mounted: function mounted() {
     this.getSectionCategoryProducts(this.sectionid);
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getSectionData', 'getSectionCategoryProducts']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getSectionData', 'getSectionCategoryProducts', 'selectedProductStore']), {
     storeSectionProducts: function storeSectionProducts() {
+      this.btnDisabled = true;
+
       if (this.selectedProIds.length <= 0) {
-        Notify.va;
+        Notify.validation('Section Product Not Selected.');
+      } else {
+        this.formData.productIds = this.selectedProIds;
       }
+
+      this.selectedProductStore(this.formData).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          Notify.success(response.message);
+          setTimeout(function () {
+            location.href = response.url;
+          }, 700);
+        } else if (response.code === 400 && response.status === 'validation') {
+          Notify.validation(response.message);
+        } else {
+          Notify.error(response.message);
+        }
+      });
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['catProducts', 'sectionData', 'selectedProIds']), {
@@ -83732,9 +83869,211 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h2", [_vm._v("Home Page Section List")])
+  return _c("div", { staticClass: "content" }, [
+    _c("div", { staticClass: "panel" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "table-responsive" }, [
+              _c(
+                "table",
+                {
+                  staticClass:
+                    "table table-striped table-hover table-bordered table-sm"
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.homepageSections, function(section, index) {
+                      return _vm.homepageSections
+                        ? _c("tr", { key: index }, [
+                            _c("td", { staticClass: "text-center" }, [
+                              _vm._v(_vm._s(index + 1))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("img", {
+                                staticStyle: { width: "100%" },
+                                attrs: {
+                                  src: _vm.sectionBanner(section),
+                                  alt: section.title
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-left" }, [
+                              _vm._v(_vm._s(section.title))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-center" }, [
+                              _vm._v(_vm._s(section.type))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-center" }, [
+                              _vm._v(_vm._s(section.position))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-center" }, [
+                              _vm._v(_vm._s(section.total_product))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-center" }, [
+                              section.status === 1
+                                ? _c(
+                                    "span",
+                                    { staticClass: "badge badge-success" },
+                                    [_vm._v("Active")]
+                                  )
+                                : _c(
+                                    "span",
+                                    { staticClass: "badge badge-warning" },
+                                    [_vm._v("Inactive")]
+                                  )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-center" }, [
+                              _c("ul", { staticClass: "icons-list" }, [
+                                _c("li", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "text text-primary-700",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.goToShowPage(section.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "icon-eye" })]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "text text-info",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.goToEditPage(section.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "icon-pencil7" })]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "text text-teal-700",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.goToProductManagePage(
+                                            section.id
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "icon-cog2" })]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "text text-danger",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.showDeletePopUp(section.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "icon-trash" })]
+                                  )
+                                ])
+                              ])
+                            ])
+                          ])
+                        : _vm._e()
+                    }),
+                    0
+                  )
+                ]
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading bg-indigo" }, [
+      _c("h5", { staticClass: "panel-title" }, [
+        _vm._v("HomePage Section List")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "heading-elements" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-success btn-sm btn-inline",
+            attrs: { href: "/admin/homepage/section/create" }
+          },
+          [
+            _c("i", { staticClass: "icon-plus-circle2 text-left" }),
+            _vm._v(" Add New section")
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("td", { staticClass: "text-center" }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("td", { staticStyle: { width: "150px" } }, [
+          _vm._v("Section Banner")
+        ]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Section Title")]),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-center" }, [_vm._v("Section Type")]),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-center" }, [_vm._v("Section Position")]),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-center" }, [_vm._v("Total Product")]),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-center" }, [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -83822,79 +84161,157 @@ var render = function() {
       _vm._m(1),
       _vm._v(" "),
       _c("div", { staticClass: "panel-body" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "table-responsive" }, [
-              _c(
-                "div",
-                { staticClass: "form-inline", staticStyle: { margin: "1em" } },
-                [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.filter,
-                          expression: "filter"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        id: "filter",
-                        placeholder: "Filter"
-                      },
-                      domProps: { value: _vm.filter },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+        _c(
+          "form",
+          {
+            attrs: { action: "" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.storeSectionProducts($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-12" }, [
+                _c("div", { staticClass: "table-responsive" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "form-inline",
+                      staticStyle: { margin: "1em" }
+                    },
+                    [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.filter,
+                              expression: "filter"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "filter",
+                            placeholder: "Filter"
+                          },
+                          domProps: { value: _vm.filter },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.filter = $event.target.value
+                            }
                           }
-                          _vm.filter = $event.target.value
+                        })
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { attrs: { id: "table" } },
+                    [
+                      _c("datatable", {
+                        staticClass: "table-bordered table-striped",
+                        attrs: {
+                          columns: _vm.columns,
+                          data: _vm.catProducts,
+                          "filter-by": _vm.filter
                         }
-                      }
-                    })
-                  ])
-                ]
-              ),
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "form-inline" },
+                    [
+                      _c("datatable-pager", {
+                        attrs: {
+                          type: "abbreviated",
+                          "per-page": _vm.per_page
+                        },
+                        model: {
+                          value: _vm.page,
+                          callback: function($$v) {
+                            _vm.page = $$v
+                          },
+                          expression: "page"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { attrs: { id: "table" } },
-                [
-                  _c("datatable", {
-                    staticClass: "table-bordered table-striped",
-                    attrs: {
-                      columns: _vm.columns,
-                      data: _vm.catProducts,
-                      "filter-by": _vm.filter
-                    }
-                  })
-                ],
-                1
-              ),
+              _c("div", { staticClass: "col-md-2 col-md-offset-6" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "content-group-lg",
+                    staticStyle: { "margin-bottom": "0!important" }
+                  },
+                  [
+                    _c("div", { staticClass: "checkbox checkbox-switchery" }, [
+                      _c("label", [
+                        _c("input", {
+                          staticClass: "switchery-primary",
+                          attrs: { type: "checkbox" },
+                          domProps: { checked: _vm.formData.section_status }
+                        }),
+                        _vm._v(" "),
+                        _vm.formData.section_status
+                          ? _c(
+                              "span",
+                              { staticClass: "text-success text-bold" },
+                              [_vm._v("Active")]
+                            )
+                          : _c(
+                              "span",
+                              { staticClass: "text-danger text-bold" },
+                              [_vm._v("Inactive")]
+                            )
+                      ])
+                    ])
+                  ]
+                )
+              ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-inline" },
-                [
-                  _c("datatable-pager", {
-                    attrs: { type: "abbreviated", "per-page": _vm.per_page },
-                    model: {
-                      value: _vm.page,
-                      callback: function($$v) {
-                        _vm.page = $$v
+              _c("div", { staticClass: "col-md-2" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "text-right form-group",
+                    staticStyle: { "margin-bottom": "0px" }
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success btn-block",
+                        attrs: { type: "submit", disabled: _vm.btnDisabled }
                       },
-                      expression: "page"
-                    }
-                  })
-                ],
-                1
-              )
+                      [
+                        _vm._v("Save Section Product "),
+                        _c("i", {
+                          staticClass: "icon-arrow-right14 position-right"
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
             ])
-          ])
-        ])
+          ]
+        )
       ])
     ])
   ])
@@ -112264,24 +112681,28 @@ var actions = {
               _context2.prev = 1;
               _context2.next = 4;
               return axios.get('/admin/homepage/section').then(function (response) {
-                commit('setSectionList', response.data.data);
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setSectionList', response.data.data);
+                  delete response.data.data;
+                }
+
+                return response.data;
               });
 
             case 4:
-              _context2.next = 9;
-              break;
+              return _context2.abrupt("return", _context2.sent);
 
-            case 6:
-              _context2.prev = 6;
+            case 7:
+              _context2.prev = 7;
               _context2.t0 = _context2["catch"](1);
               commit('setResponse', _context2.t0.data);
 
-            case 9:
+            case 10:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 6]]);
+      }, _callee2, null, [[1, 7]]);
     }));
 
     function getSectionList(_x2) {
@@ -112413,7 +112834,48 @@ var actions = {
     var commit = _ref6.commit;
     commit('setSelectedProduct', selectData);
     return true;
-  }
+  },
+  selectedProductStore: function () {
+    var _selectedProductStore = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref7, fromData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              commit = _ref7.commit;
+              _context6.prev = 1;
+              _context6.next = 4;
+              return axios.post('/admin/homepage/section/products/store', fromData).then(function (response) {
+                return response.data;
+              })["catch"](function (error) {
+                commit('setResponse', error.data);
+                return error.data;
+              });
+
+            case 4:
+              return _context6.abrupt("return", _context6.sent);
+
+            case 7:
+              _context6.prev = 7;
+              _context6.t0 = _context6["catch"](1);
+              commit('setResponse', _context6.t0.data);
+
+            case 10:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, null, [[1, 7]]);
+    }));
+
+    function selectedProductStore(_x9, _x10) {
+      return _selectedProductStore.apply(this, arguments);
+    }
+
+    return selectedProductStore;
+  }()
 };
 var mutations = {
   setSectionDependency: function setSectionDependency(state, response) {

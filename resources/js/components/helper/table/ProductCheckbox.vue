@@ -25,7 +25,6 @@
                 if(this.status === false){
                     this.selectData.type = 'remove';
                 }
-                console.log(this.selectData);
                 this.selectedProductIdUpdate(this.selectData)
                     .then(response=>{
                         if(this.status === false){
