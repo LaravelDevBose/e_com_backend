@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Frontend;
 use App\Helpers\Frontend\ProductHelper;
 use App\Helpers\TemplateHelper;
 use App\Models\Category;
+use App\Models\HomepageSection;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductVariation;
+use App\Models\SectionCategory;
+use App\Models\SectionProduct;
 use App\Traits\CommonData;
 use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
@@ -30,6 +33,37 @@ class FrontendController extends Controller
         return view('templates.' . $this->template_name . '.frontend.home', [
             'sliders' => $sliders
         ]);
+    }
+
+    public function section_data_list(Request $request)
+    {
+        $sections = HomepageSection::with(['sectionCategories.category','attachment'])->orderBy('section_position', 'asc')->paginate(1);
+        if(!empty($sections)){
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $sections);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_NO_CONTENT, 'No Section Found');
+        }
+    }
+
+    public function get_section_products($sectionId)
+    {
+        $section = HomepageSection::where('section_id', $sectionId)->first();
+        if(empty($section)){
+            return ResponserTrait::allResponse('error', Response::HTTP_NO_CONTENT, 'Invalid Section Details');
+        }
+        $productIds = SectionProduct::where('section_id', $sectionId)->pluck('product_id')->toArray();
+        $categoryIds = SectionCategory::where('section_id', $sectionId)->pluck('category_id');
+        $reqData1 = [
+            'categoryIds'=>$categoryIds,
+            'productIds'=>$productIds,
+            'productIdsType'=>'add',
+        ];
+        $products = ProductHelper::products_list($reqData1);
+        if(!empty($products)){
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $products);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_NO_CONTENT, 'No Product Found');
+        }
     }
 
     public function category_wish_products(Request $request, $category_slug)

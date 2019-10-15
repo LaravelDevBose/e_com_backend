@@ -2,15 +2,12 @@
 const state = {
     orders:{},
     order_info:{},
-    order_paginate:{},
-
 };
 
 //declare Getters
 const getters = {
     orderList:(state)=>state.orders,
     orderInfo:(state)=>state.order_info,
-    pagination:(state)=>state.order_paginate,
 };
 
 const actions = {
@@ -51,7 +48,7 @@ const mutations = {
         if(response.hasOwnProperty('current_page')){
             state.orders = response.data;
             delete response.data;
-            state.order_paginate = response;
+            state.paginate = response;
         }else{
             state.orders = response
         }

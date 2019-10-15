@@ -11,16 +11,18 @@ import cart from "./modules/cart";
 import checkout from "./modules/checkout";
 import order from "./modules/order";
 import address_book from "./modules/address_book";
+import homepage from "./modules/homepage";
 
 
 export default new Vuex.Store({
     state:{
         resData:'',
         errors:null,
+        paginate:{},
 
     },
     getters:{
-
+        pagination:(state)=>state.paginate,
     },
     actions:{
 
@@ -38,6 +40,7 @@ export default new Vuex.Store({
         checkout,
         order,
         address_book,
+        homepage,
     }
 })
 

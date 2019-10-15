@@ -13,6 +13,8 @@ Route::namespace('Frontend')->as('front.')->group(function () {
 
     Route::post('/product/sidebar/data', 'FrontendController@product_sidebar_data');
     Route::post('/shorting/products', 'FrontendController@sorting_product');
+    Route::get('section/list', 'FrontendController@section_data_list')->name('section.list');
+    Route::get('get/section/{section_id}/products', 'FrontendController@get_section_products')->name('section.products');
 });
 
 Route::post('/attachment/store', 'AttachmentController@store')->name('attachment.store');
