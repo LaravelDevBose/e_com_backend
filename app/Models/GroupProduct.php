@@ -61,7 +61,7 @@ class GroupProduct extends Model
 
     public static function groupsFlip()
     {
-        return array_flip(Self::SectionType);
+        return array_flip(Self::Groups);
     }
 
     public static function groupsSelect()

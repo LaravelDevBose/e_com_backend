@@ -3,12 +3,14 @@ const state = {
     categories:[],
     treeListCategories:[],
     resData:'',
+    category_products:[],
 };
 
 //declare Getters
 const getters = {
     categories:(state)=>state.categories,
     treeList:(state)=>state.treeListCategories,
+    categoryProducts:(state)=>state.category_products,
 };
 
 const actions = {
@@ -73,6 +75,24 @@ const actions = {
             console.log(error);
             commit('setResponse', error.data);
         }
+    },
+    async categoryWishProducts({commit}, reqData){
+        try{
+            return await axios.get('/admin/category/wish/products',reqData)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setCategoryProducts', response.data.data);
+                        delete response.data.data;
+                    }
+                    return response.data;
+            }).catch(errors=>{
+                console.log(error);
+                commit('setResponse', errors.data);
+            })
+        }catch (error) {
+            console.log(error);
+            commit('setResponse', error.data);
+        }
     }
 };
 
@@ -90,6 +110,9 @@ const mutations = {
         state.categories = state.categories.filter(category=>{
             return category.id !== parseInt(catID);
         });
+    },
+    setCategoryProducts:(state,response)=>{
+        state.category_products = response;
     }
 };
 

@@ -4,7 +4,6 @@ const state = {
     section_types:[],
     cat_products:[],
     section_info:{},
-    selectedProIds:[],
     selected_products:[],
 };
 
@@ -14,7 +13,6 @@ const getters = {
     sectionTypes:(state)=>state.section_types,
     catProducts:(state)=>state.cat_products,
     sectionData:(state)=>state.section_info,
-    selectedProIds:(state)=>state.selectedProIds,
     selectedProducts:(state)=>state.selected_products,
 };
 
@@ -76,10 +74,6 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    selectedProductIdUpdate({commit},selectData){
-        commit('setSelectedProduct', selectData);
-        return true;
-    },
     async selectedProductStore({commit}, fromData){
         try {
             return  await axios.post('/admin/homepage/section/products/store', fromData)
@@ -126,18 +120,6 @@ const mutations = {
     setSectionList:(state, response)=>state.section_list = response,
     setSectionData:(state, response)=>state.section_info = response,
     setSectionCategoryProducts:(state,response)=>state.cat_products = response,
-    setSelectedProduct:(state, selectData)=>{
-        if(selectData.type === 'add'){
-            state.selectedProIds.push(selectData.productId);
-        }else{
-            state.selectedProIds = state.selectedProIds.filter(productId=>{
-                if(productId !== selectData.productId){
-                    return productId;
-                }
-            });
-        }
-
-    },
     setManageProductsData:(state,response)=>{
         state.selectedProIds = response.productIds;
         state.cat_products = response.products;

@@ -7,6 +7,9 @@ const state = {
     productSkinTypes:'',
     allProducts:'',
     singleProduct:'',
+    selectedProIds:[],
+    selected_date_time:[],
+
 };
 
 //declare Getters
@@ -17,7 +20,9 @@ const getters = {
     sizes:(state)=>state.productSizes,
     skinTypes:(state)=>state.productSkinTypes,
     products:(state)=>state.allProducts,
-    product:(state)=>state.singleProduct
+    product:(state)=>state.singleProduct,
+    selectedProIds:(state)=>state.selectedProIds,
+    selectedDateTimes:(state)=>state.selected_date_time,
 };
 
 const actions = {
@@ -69,7 +74,15 @@ const actions = {
         }catch (error) {
             commit('setResponse', error.data);
         }
-    }
+    },
+    selectedProductIdUpdate({commit},selectData){
+        commit('setSelectedProduct', selectData);
+        return true;
+    },
+    selectedProductDateTimeUpdate({commit},selectData){
+        commit('setSelectedDateTime', selectData);
+        return true;
+    },
 };
 
 const mutations = {
@@ -85,6 +98,34 @@ const mutations = {
     },
     singleProductData:(state, response)=>{
         state.singleProduct = response;
+    },
+    setSelectedProduct:(state, selectData)=>{
+        if(selectData.type === 'add'){
+            state.selectedProIds.push(selectData.productId);
+        }else{
+            state.selectedProIds = state.selectedProIds.filter(productId=>{
+                if(productId !== selectData.productId){
+                    return productId;
+                }
+            });
+        }
+
+    },
+    setSelectedDateTime:(state,selectedData)=>{
+        if(selectedData.type === 'add'){
+
+            state.selected_date_time.push({
+                'productId':selectedData.productId,
+                'date_time':selectedData.date_time
+            });
+        }else{
+            state.selected_date_time = state.selected_date_time.filter(dateTime=>{
+                if(dateTime.productId !== selectedData.productId){
+                    return dateTime;
+                }
+            });
+        }
+
     }
 };
 

@@ -14,6 +14,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     Route::get('/category/create', 'CategoryController@create')->name('category.create');
     Route::post('/category/store', 'CategoryController@store')->name('category.store');
     Route::post('/category/delete', 'CategoryController@destroy')->name('category.delete');
+    Route::get('/category/wish/products', 'CategoryController@category_wish_products')->name('category_wish.products');
 
     Route::get('/brands','BrandController@index')->name('brand.index');
     Route::get('/brand/list','BrandController@brand_list')->name('brand.list');
@@ -117,6 +118,15 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::get('/{section_id}/manage/products', 'HomepageSectionController@manage_section_products')->name('manage.product');
         Route::post('/products/update', 'HomepageSectionController@update_section_product')->name('products.update');
     });
+
+    Route::prefix('/group/products/')->as('group.')->group(function (){
+        Route::get('/index', 'GroupProductController@index')->name('index');
+        Route::get('/create', 'GroupProductController@create')->name('create');
+        Route::post('/store', 'GroupProductController@store')->name('store');
+        Route::get('/{groupId}/edit', 'GroupProductController@edit')->name('edit');
+        Route::put('/{groupId}/update', 'GroupProductController@update')->name('update');
+    });
+
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Frontend\ProductHelper;
+use App\Http\Resources\Admin\ProductCollection;
+use App\Traits\ResponserTrait;
 use Exception;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\CategoryCollection;
 use App\Http\Resources\Admin\Category as CategoryResource;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -188,6 +192,21 @@ class CategoryController extends Controller
                 'status'=>'error',
                 'message'=>'Invalid Information.!'
             ]);
+        }
+    }
+
+    public function category_wish_products(Request $request)
+    {
+        $reqData = [
+            'categoryIds'=>$request->categoryIds,
+        ];
+
+        $products = ProductHelper::products_list($reqData);
+        if(!empty($products)){
+            $collection = ProductCollection::collection($products);
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $collection);
+        }else{
+            return ResponserTrait::allResponse('success', Response::HTTP_BAD_REQUEST, 'Products Not Found');
         }
     }
 }
