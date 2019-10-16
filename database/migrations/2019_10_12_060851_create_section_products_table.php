@@ -16,9 +16,11 @@ class CreateSectionProductsTable extends Migration
         Schema::create('section_products', function (Blueprint $table) {
             $table->bigIncrements('sec_pro_id');
             $table->unsignedBigInteger('section_id');
+            $table->unsignedBigInteger('sec_cat_id');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedInteger('product_position')->nullable();
+            $table->boolean('status')->default(config('app.active'));
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
             $table->unsignedInteger('deleted_by')->nullable();

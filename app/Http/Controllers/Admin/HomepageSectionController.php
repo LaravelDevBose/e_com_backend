@@ -168,11 +168,15 @@ class HomepageSectionController extends Controller
                 foreach ($request->productIds as $key=> $productId){
                     $product = Product::where('product_id', $productId)->first();
                     if(!empty($product)){
+                        $secCatId = SectionCategory::where('section_id', $request->section_id)->where('category_id', $product->ctegory_id)->value('sec_cat_id');
+
                         array_push($sectionProducts,[
                             'section_id'=>$request->section_id,
                             'category_id'=>$product->category_id,
+                            'sec_cat_id'=>$secCatId,
                             'product_id'=>$productId,
                             'product_position'=>$i,
+                            'status'=>config('app.active'),
                             'created_by'=>auth()->guard('admin')->id(),
                             'created_at'=>now(),
                         ]);
@@ -274,7 +278,7 @@ class HomepageSectionController extends Controller
                     $data =[
                         'productIds'=>$productIds,
                         'products'=>$collection,
-                        'selectedProducts'=>$selectedCollection
+                        'selected_products'=>$selectedCollection
                     ];
                     return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $data);
                 }else{
@@ -307,18 +311,24 @@ class HomepageSectionController extends Controller
                 }
                 $lastPosition = SectionProduct::where('section_id', $request->section_id)->latest()->first();
                 $productIds = SectionProduct::where('section_id', $request->section_id)->pluck('product_id')->toArray();
-
-                $i=$lastPosition->product_position;
+                $i=1;
+                if(!empty($lastPosition)){
+                    $i=$lastPosition->product_position;
+                }
                 $sectionProducts = array();
                 foreach ($request->productIds as $key=> $productId){
                     if(!in_array($productId, $productIds)){
                         $product = Product::where('product_id', $productId)->first();
                         if(!empty($product)){
+                            $secCatId = SectionCategory::where('section_id', $request->section_id)->where('category_id', $product->category_id)->value('sec_cat_id');
+
                             array_push($sectionProducts,[
                                 'section_id'=>$request->section_id,
                                 'category_id'=>$product->category_id,
+                                'sec_cat_id'=>$secCatId,
                                 'product_id'=>$productId,
                                 'product_position'=>$i,
+                                'status'=>config('app.active'),
                                 'created_by'=>auth()->guard('admin')->id(),
                                 'created_at'=>now(),
                             ]);
@@ -334,7 +344,6 @@ class HomepageSectionController extends Controller
                     if(!in_array($productId, $request->productIds)){
                         array_push($removeProductIds,$productId);
                     }
-
                 }
 
                 $storeProducts = SectionProduct::insert($sectionProducts);

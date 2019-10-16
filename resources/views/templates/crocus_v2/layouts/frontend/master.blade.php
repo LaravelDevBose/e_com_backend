@@ -89,13 +89,11 @@
 
 <script type="text/javascript" src="{{ asset('crocus_v2/js/jquery.min.js') }}"  ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/bootstrap.min.js') }}" ></script>
-<script type="text/javascript" src="{{ asset('js/revslider.js') }}"  ></script>
+<script type="text/javascript" src="{{ asset('crocus_v2/js/revslider.js') }}"  ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/common.js') }}"  ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/owl.carousel.min.js') }}" ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/jquery.mobile-menu.min.js') }}" ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/countdown.js') }}" ></script>
-<script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/pnotify.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/pages/components_notifications_pnotify.js') }}"></script>
 <!-- Scripts -->
 @yield('PageJs')
 

@@ -29,6 +29,6 @@ class SectionCategory extends Model
     }
 
     public function secCatProducts(){
-        return $this->hasMany(SectionProduct::class, 'category_id', 'category_id');
+        return $this->hasMany(SectionProduct::class, 'sec_cat_id', 'sec_cat_id');
     }
 }

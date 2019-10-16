@@ -141,7 +141,7 @@ const mutations = {
     setManageProductsData:(state,response)=>{
         state.selectedProIds = response.productIds;
         state.cat_products = response.products;
-        state.selected_products = response.selectedProducts;
+        state.selected_products = response.selected_products;
     }
 };
 

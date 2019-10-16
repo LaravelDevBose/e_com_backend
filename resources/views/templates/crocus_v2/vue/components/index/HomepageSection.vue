@@ -13,7 +13,7 @@
 <script>
     import {mapActions, mapGetters} from 'vuex';
     import TabbedProductSection from "../section/TabbedProductSection";
-    import CarouselProductSection from "../section/CarosulProductSection";
+    import CarouselProductSection from "../section/CarouselProductSection";
     import GridProductSection from "../section/GridProductSection";
     import infiniteScroll from 'vue-infinite-scroll';
 

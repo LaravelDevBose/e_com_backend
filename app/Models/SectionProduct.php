@@ -12,14 +12,20 @@ class SectionProduct extends Model
 
     protected $fillable = [
         'section_id',
+        'sec_cat_id',
         'category_id',
         'product_id',
         'product_position',
+        'status',
         'created_by',
         'updated_by',
-        'deleted_by'
+        'deleted_by',
     ];
 
+    public function scopeIsActive($query)
+    {
+        return $query->where('status', config('app.active'));
+    }
     public function section()
     {
         return $this->belongsTo(HomepageSection::class, 'section_id', 'section_id');
@@ -37,6 +43,6 @@ class SectionProduct extends Model
 
     public function secProCategory()
     {
-        return $this->belongsTo(SectionCategory::class, 'category_id', 'category_id');
+        return $this->belongsTo(SectionCategory::class, 'sec_cat_id', 'sec_cat_id');
     }
 }

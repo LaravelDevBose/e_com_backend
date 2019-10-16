@@ -8,8 +8,8 @@ class HomepageSection extends Model
 {
     const SectionType = [
         'Tabbed'=>1,
-        'Carosul'=>2,
-        'Listed'=>3,
+        'Carousel'=>2,
+        'Grid'=>3,
     ];
 
     protected $table = 'homepage_sections';

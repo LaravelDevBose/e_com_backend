@@ -168,7 +168,7 @@
 </div>
 <!-- end Slider -->
 
-<div class="our-features-box">
+<div class="our-features-box" style="margin-bottom: 1rem;">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-xs-12 col-sm-6 space">
@@ -225,11 +225,13 @@
                                                 </div>
                                             </li>
                                             @if(!empty($section->sectionCategories))
+                                                <?php $i=1; ?>
                                                 @foreach($section->sectionCategories as $sectionCat)
                                                     @if(!empty($sectionCat->secCatProducts) && count($sectionCat->secCatProducts) > 0)
-                                                        <li  class="{{ ($loop->first)? 'active' : '' }}">
+                                                        <li  class="{{ ($i== 1)? 'active' : '' }}">
                                                             <a data-toggle="tab" href="#tab-{{ $sectionCat->category_id }}">{{ $sectionCat->category->category_name }}</a>
                                                         </li>
+                                                            <?php $i++; ?>
                                                     @endif
                                                 @endforeach
                                             @endif
@@ -242,18 +244,23 @@
                                         <div class="product-bestseller-list">
                                             @if(!empty($section->sectionCategories))
                                             <div class="tab-container">
+                                                <?php $i=1; ?>
                                                 @foreach($section->sectionCategories as $sectionCat)
                                                     @if(!empty($sectionCat->secCatProducts) && count($sectionCat->secCatProducts) > 0)
-                                                        <div class="tab-panel active" id="tab-1">
+                                                        <div class="tab-panel {{ ($i== 1)? 'active' : '' }}" id="tab-{{ $sectionCat->category_id }}">
                                                             <div class="category-products">
                                                                 <ul class="products-grid">
-                                                                    <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-                                                                        <product-grid :product=""></product-grid>
-                                                                    </li>
+                                                                    @foreach($sectionCat->secCatProducts as $secCatProduct)
+                                                                        <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                                                                            <product-grid :product="{{ $secCatProduct->product }}"></product-grid>
+                                                                        </li>
+                                                                    @endforeach
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                @endif
+                                                        <?php $i++; ?>
+                                                    @endif
+                                                @endforeach
                                             </div>
                                             @endif
                                         </div>
@@ -261,22 +268,62 @@
                                 </div>
                             </div>
                         @elseif($section->section_type == 2)
-                            <div class="bestsell-pro" v-if="section">
-                    <div class="slider-items-products">
-                        <div class="bestsell-block">
-                            <div class="block-title">
-                                <h2>{{ section.section_title }}</h2>
-                            </div>
-                            <div id="bestsell-slider" class="product-flexslider hidden-buttons">
-                                <div class="slider-items slider-width-col4 products-grid block-content">
-                                    <product-grid v-if="products" v-for="(product,index) in products" :key="index" :product="product"></product-grid>
+                            <div class="bestsell-pro">
+                                <div class="slider-items-products">
+                                    <div class="bestsell-block">
+                                        <div class="block-title">
+                                            <h2>{{ $section->section_title }}</h2>
+                                        </div>
+                                        <div id="bestsell-slider" class="product-flexslider hidden-buttons">
+                                            <div class="slider-items slider-width-col4 products-grid block-content">
+                                                @foreach($section->sectionCategories as $sectionCat)
+                                                    @if(!empty($sectionCat->secCatProducts) && count($sectionCat->secCatProducts) > 0)
+                                                        @foreach($sectionCat->secCatProducts as $secCatProduct)
+                                                            <product-grid :product="{{ $secCatProduct->product }}"></product-grid>
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
                         @else
+                            <div class="category-product">
+                                <div class="navbar nav-menu">
+                                    <div class="navbar-collapse">
+                                        <ul class="nav navbar-nav">
+                                            <li>
+                                                <div class="new_title">
+                                                    <h2>{{ $section->section_title }}</h2>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
 
+                                <div class="product-bestseller">
+                                    <div class="product-bestseller-content">
+                                        <div class="product-bestseller-list">
+                                            @if(!empty($section->sectionCategories))
+                                                @foreach($section->sectionCategories as $sectionCat)
+                                                    @if(!empty($sectionCat->secCatProducts) && count($sectionCat->secCatProducts) > 0)
+                                                        <div class="category-products">
+                                                            <ul class="products-grid">
+                                                                @foreach($sectionCat->secCatProducts as $secCatProduct)
+                                                                    <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                                                                        <product-grid :product="{{ $secCatProduct->product }}"></product-grid>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endif
                     @endforeach
                 @endif
