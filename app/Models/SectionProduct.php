@@ -34,4 +34,9 @@ class SectionProduct extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'product_id');
     }
+
+    public function secProCategory()
+    {
+        return $this->belongsTo(SectionCategory::class, 'category_id', 'category_id');
+    }
 }

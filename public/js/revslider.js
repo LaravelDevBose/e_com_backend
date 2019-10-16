@@ -7049,7 +7049,7 @@ function revslider_showDoubleJqueryError(e) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\lara_ex\public\crocus_v2\js\revslider.js */"./public/crocus_v2/js/revslider.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/public/crocus_v2/js/revslider.js */"./public/crocus_v2/js/revslider.js");
 
 
 /***/ })

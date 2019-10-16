@@ -27,4 +27,8 @@ class SectionCategory extends Model
     {
         return $this->belongsTo(Category::class, 'category_id', 'category_id');
     }
+
+    public function secCatProducts(){
+        return $this->hasMany(SectionProduct::class, 'category_id', 'category_id');
+    }
 }

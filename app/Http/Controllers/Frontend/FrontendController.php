@@ -30,8 +30,30 @@ class FrontendController extends Controller
     public function index()
     {
         $sliders = CommonData::slider_list();
+        /*$sections = HomepageSection::with(['attachment',
+            'sectionProducts'=>function($query){
+                return $query->with(['product.thumbImage','product.singleVariation'])->grounpBy('category_id');
+            },
+            'sectionCategories'=>function($query){
+                return $query->with(['category', 'secCatProducts'=>function($q){
+                    return $q->with(['product.thumbImage','product.singleVariation']);
+                }]);
+        }])->orderBy('section_position', 'asc')->isActive()->get();*/
+
+        $sections = HomepageSection::isActive()->with(['attachment','sectionCategories.category','sectionProducts'])->orderBy('section_position', 'asc')->get();
+
+        foreach ($sections as $section){
+            $reqData = [
+                'productIds'=>$section->pluck('product_id'),
+                'productIdsType'=>'add',
+            ];
+            $section['products'] = ProductHelper::products_list($reqData);
+        }
+
+        dd($sections);
         return view('templates.' . $this->template_name . '.frontend.home', [
-            'sliders' => $sliders
+            'sliders' => $sliders,
+            'sections'=>$sections,
         ]);
     }
 
