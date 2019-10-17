@@ -23,7 +23,7 @@ const actions = {
     },
     async groupProductsStore({commit},reqData){
         try {
-            await axios.post('/admin/group/products/store', reqData)
+            return await axios.post('/admin/group/products/store',reqData)
                 .then(response=>{
                     return response.data;
                 })

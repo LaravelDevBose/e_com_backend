@@ -78,7 +78,7 @@ const actions = {
     },
     async categoryWishProducts({commit}, reqData){
         try{
-            return await axios.get('/admin/category/wish/products',reqData)
+            return await axios.post('/admin/category/wish/products',reqData)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
                         commit('setCategoryProducts', response.data.data);

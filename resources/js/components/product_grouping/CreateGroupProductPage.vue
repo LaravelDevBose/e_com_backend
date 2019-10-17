@@ -132,12 +132,21 @@
                 'groupProductsStore',
             ]),
             storeGroupProducts(){
+                this.formData.productIds = this.selectedProIds;
+                this.formData.expiredAts = this.selectedDateTimes;
+
                 if(this.selectedProIds.length <= 0){
                     Notify.warning('Products Not Selected');
                     return false;
                 }
+                if(this.selectedProIds.length !== this.selectedDateTimes.length){
+                    Notify.warning('In Some Selected Product have no Expired Time');
+                    return false;
+                }
+
                 this.groupProductsStore(this.formData)
                     .then(response=>{
+                        console.log(response);
                         if(typeof response.code !== "undefined" && response.code === 200){
                             Notify.success(response.message);
                             if(response.hasOwnProperty('url')){
@@ -164,6 +173,9 @@
             categoryDataCheck(){
                 return JSON.parse(JSON.stringify(this.categoryIDs));
             },
+            selectedProIdCheck(){
+                return JSON.parse(JSON.stringify(this.selectedProIds));
+            },
         },
         watch:{
             categoryDataCheck:{
@@ -171,9 +183,17 @@
                     if(newVal !== oldVal){
                         this.categoryWishProducts({'categoryIds':this.categoryIDs})
                     }
-
-                }
-            }
+                },
+                deep:true,
+            },
+            selectedProIdCheck:{
+                handler(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        // this.updateSelectedDateTime();
+                    }
+                },
+                deep:true,
+            },
         }
     }
 </script>

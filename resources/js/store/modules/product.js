@@ -113,11 +113,7 @@ const mutations = {
     },
     setSelectedDateTime:(state,selectedData)=>{
         if(selectedData.type === 'add'){
-
-            state.selected_date_time.push({
-                'productId':selectedData.productId,
-                'date_time':selectedData.date_time
-            });
+            state.selected_date_time.push(selectedData);
         }else{
             state.selected_date_time = state.selected_date_time.filter(dateTime=>{
                 if(dateTime.productId !== selectedData.productId){

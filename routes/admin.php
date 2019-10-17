@@ -14,7 +14,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     Route::get('/category/create', 'CategoryController@create')->name('category.create');
     Route::post('/category/store', 'CategoryController@store')->name('category.store');
     Route::post('/category/delete', 'CategoryController@destroy')->name('category.delete');
-    Route::get('/category/wish/products', 'CategoryController@category_wish_products')->name('category_wish.products');
+    Route::post('/category/wish/products', 'CategoryController@category_wish_products')->name('category_wish.products');
 
     Route::get('/brands','BrandController@index')->name('brand.index');
     Route::get('/brand/list','BrandController@brand_list')->name('brand.list');

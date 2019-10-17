@@ -197,16 +197,19 @@ class CategoryController extends Controller
 
     public function category_wish_products(Request $request)
     {
-        $reqData = [
-            'categoryIds'=>$request->categoryIds,
-        ];
+        $products = [];
+        if(!empty($request->categoryIds)){
+            $reqData = [
+                'categoryIds'=>$request->categoryIds,
+            ];
+            $products = ProductHelper::products_list($reqData);
+        }
 
-        $products = ProductHelper::products_list($reqData);
         if(!empty($products)){
             $collection = ProductCollection::collection($products);
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $collection);
         }else{
-            return ResponserTrait::allResponse('success', Response::HTTP_BAD_REQUEST, 'Products Not Found');
+            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Products Not Found',[]);
         }
     }
 }

@@ -43,6 +43,11 @@ class GroupProduct extends Model
         return $types[$this->attributes['group_type']];
     }
 
+    public function getExpiredAtAttribute()
+    {
+        return Carbon::parse($this->attributes['expired_at'])->format(' d m Y h:i:s A');
+    }
+
     public function scopeIsActive($query){
         return $query->where('status', Self::Status['Active']);
     }

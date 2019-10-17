@@ -27,6 +27,8 @@
                 this.selectData.productId = this.row.id;
                 if(this.status === false){
                     this.selectData.type = 'remove';
+                }else{
+                    this.selectData.type = 'add';
                 }
                 this.selectedProductIdUpdate(this.selectData)
                     .then(response=>{

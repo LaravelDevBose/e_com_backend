@@ -1,5 +1,5 @@
 <template>
-    <div class="input-group" v-show="is_selected" style="max-width:15rem">
+    <div class="form-group" v-if="is_selected">
         <datetime
             type="datetime"
             use12-hour
@@ -21,6 +21,7 @@
         props:['row'],
         data(){
             return{
+                check:false,
                 is_selected:false,
                 selectedData:{
                     productId:'',
@@ -29,16 +30,18 @@
                 }
             }
         },
-        /*mounted(){
+        created(){
+            this.selectedData.productId = this.row.id;
+        },
+        mounted(){
             this.checkProduct();
-        },*/
+        },
         updated(){
             this.productDateTimeChange();
         },
         methods:{
             ...mapActions(['selectedProductDateTimeUpdate']),
             productDateTimeChange(){
-                this.selectedData.productId = this.row.id;
                 if(this.selectedData.date_time !== ''){
                     this.selectedProductDateTimeUpdate(this.selectedData)
                         .then(response=>{
@@ -47,23 +50,29 @@
                 }
             },
             checkProduct(){
-                this.selectedProIds.filter(productId =>{
-                    if(productId === this.row.id){
-                        this.is_selected = true;
-                    }else if(productId !== this.row.id){
-                        this.is_selected = false;
+                for (let i=0; i< this.selectedProIds.length; i++){
+                    if(this.selectedProIds[i] === this.row.id){
+                        this.check = true;
+                        break;
+                    }
+                }
+                if(this.check){
+                    this.is_selected = true;
+                }else{
+                    this.is_selected = false;
+                    if(this.selectedData.date_time !== ''){
                         this.selectedData.type = 'remove';
                         this.selectedProductDateTimeUpdate(this.selectedData)
                             .then(response=>{
-                                this.selectedData.data_time ='';
+                                Notify.warning('Date Time Removed');
                                 this.selectedData.type = 'add';
-                                Notify.warning('Date Time Remove & Unselected');
+                                this.selectedData.date_time = '';
                             })
-                    }else{
-                        this.is_selected = false;
                     }
-                })
-            },
+
+                }
+                this.check = false;
+            }
         },
         computed:{
             ...mapGetters([
@@ -71,10 +80,7 @@
             ]),
             productIdsDataCheck(){
                 return JSON.parse(JSON.stringify(this.selectedProIds));
-            },
-            /*selectedDataCheck(){
-                return JSON.parse(JSON.stringify(this.selectedData));
-            },*/
+            }
         },
         watch:{
             productIdsDataCheck:{
@@ -82,23 +88,13 @@
                     if(newVal !== oldVal){
                         setTimeout(()=>{
                             this.checkProduct();
-                        },200)
+                        },500)
 
                     }
 
                 }
-            },
-            /*selectedDataCheck:{
-                handler(newVal, oldVal){
-                    if(newVal !== oldVal){
-                        console.log(this.selectedData);
-                        this.productDateTimeChange();
-                    }
-
-                }
-            }*/
+            }
         }
-
     }
 </script>
 

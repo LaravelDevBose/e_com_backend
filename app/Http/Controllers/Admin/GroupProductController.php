@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
+use Carbon\Carbon;
 use Exception;
 use App\Models\GroupProduct;
 use App\Traits\ResponserTrait;
@@ -24,7 +25,12 @@ class GroupProductController extends Controller
         if($request->ajax()){
             $groupProducts = GroupProduct::with(['product'=>function($query){
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
-            }])->notDelete()->latest()->paginate(20);
+            }])->notDelete()->latest()->get();
+            if(!empty($groupProducts)){
+                return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $groupProducts);
+            }else{
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Group Product Not Found');
+            }
         }else{
             return view('group_products.index');
         }
@@ -73,7 +79,7 @@ class GroupProductController extends Controller
                             'group_type'=>$request->group_type,
                             'product_id'=>$productId,
                             'position'=>$i,
-                            'expired_at'=>(!empty($request->expiredAts))?$expiredAt[$key]:null,
+                            'expired_at'=>(!empty($request->expiredAts))? Carbon::parse($expiredAt[$key]['date_time'])->format('Y-m-d H:i:s') :null,
                             'status'=>config('app.active'),
                             'created_by'=>auth()->guard('admin')->id(),
                             'created_at'=>now(),
@@ -87,7 +93,7 @@ class GroupProductController extends Controller
                 $groups = GroupProduct::insert($groupProducts);
                 if(!empty($groups)){
                     DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Added To this Group Successfully', '', route('admin.group.product.index'));
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Added To this Group Successfully', '', route('admin.group.index'));
                 }else{
                     throw new Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
                 }
