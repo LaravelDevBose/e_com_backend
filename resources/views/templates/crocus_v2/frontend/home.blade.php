@@ -53,91 +53,34 @@
                       <div class="img-block"> <a href="#" class="ves-btnlink img-animation" title="Image"> <img src="{{ asset('crocus_v2/images/mid-banner1.png')}}"  alt="Image"></a> </div>
                       <div class="img-block1"> <a href="#" title="Image"> <img src="{{ asset('crocus_v2/images/mid-banner2.png')}}"  alt="Image"></a> </div>
                     </div>-->
+                @if(!empty($topProducts))
                 <div class="top-products">
                     <div class="title">Top Products</div>
                     <ul>
+                        @foreach($topProducts as $topProduct)
                         <li>
                             <div class="row">
-                                <div class="col-xs-4 col-sm-4 no-margin"> <img alt="product" src="{{ asset('crocus_v2/images/product-img.jpg')}}"> </div>
-                                <div class="col-xs-8 col-sm-8 no-margin"> <a href="#"> ThinkPad X1 Ultrabook</a>
+                                <div class="col-xs-4 col-sm-4 no-margin">
+                                    <img alt="{{ $topProduct->product->product_name }}" src="{{ $topProduct->product->thumbImage->image_path }}">
+                                </div>
+                                <div class="col-xs-8 col-sm-8 no-margin">
+                                    <a href="{{ route('front.product', $topProduct->product->product_slug) }}"> {{ $topProduct->product->product_name }}</a>
                                     <div class="rating">
                                         <div class="ratings">
                                             <div class="rating-box">
                                                 <div style="width:80%" class="rating"></div>
                                             </div>
-                                            <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                            <p class="rating-links"> <a href="#">1 Review(s)</a></p>
                                         </div>
                                     </div>
-                                    <div class="price">$249</div>
+                                    <div class="price">$ {{ $topProduct->product->singleVariation->price }}</div>
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="row">
-                                <div class="col-xs-4 col-sm-4 no-margin"> <img alt="product" src="{{ asset('crocus_v2/images/product-img.jpg')}}"> </div>
-                                <div class="col-xs-8 col-sm-8 no-margin"> <a href="#">Pink Sports Watch</a>
-                                    <div class="rating">
-                                        <div class="ratings">
-                                            <div class="rating-box">
-                                                <div style="width:80%" class="rating"></div>
-                                            </div>
-                                            <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                        </div>
-                                    </div>
-                                    <div class="price">$99</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row">
-                                <div class="col-xs-4 col-sm-4 no-margin"> <img alt="product" src="{{ asset('crocus_v2/images/product-img.jpg')}}"> </div>
-                                <div class="col-xs-8 col-sm-8 no-margin"> <a href="#"> iPhone 6 Plus </a>
-                                    <div class="rating">
-                                        <div class="ratings">
-                                            <div class="rating-box">
-                                                <div style="width:80%" class="rating"></div>
-                                            </div>
-                                            <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                        </div>
-                                    </div>
-                                    <div class="price">$399</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row">
-                                <div class="col-xs-4 col-sm-4 no-margin"> <img alt="product" src="{{ asset('crocus_v2/images/product-img.jpg')}}"> </div>
-                                <div class="col-xs-8 col-sm-8 no-margin"> <a href="#">Superb 450W Juicer</a>
-                                    <div class="rating">
-                                        <div class="ratings">
-                                            <div class="rating-box">
-                                                <div style="width:80%" class="rating"></div>
-                                            </div>
-                                            <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                        </div>
-                                    </div>
-                                    <div class="price">$49</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row">
-                                <div class="col-xs-4 col-sm-4 no-margin"> <img alt="product" src="{{ asset('crocus_v2/images/product-img.jpg')}}"> </div>
-                                <div class="col-xs-8 col-sm-8 no-margin"> <a href="#">Canvas Tab P290</a>
-                                    <div class="rating">
-                                        <div class="ratings">
-                                            <div class="rating-box">
-                                                <div style="width:80%" class="rating"></div>
-                                            </div>
-                                            <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                        </div>
-                                    </div>
-                                    <div class="price">$179</div>
-                                </div>
-                            </div>
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
+                @endif
             </div>
             <div class="col-md-6 col-sm-7 col-xs-12">
                 <div class="small-strip"><img alt="banner" src="{{ asset('crocus_v2/images/small-strip-banner.jpg')}}"></div>

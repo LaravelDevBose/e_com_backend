@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Helpers\Frontend\ProductHelper;
 use App\Helpers\TemplateHelper;
 use App\Models\Category;
+use App\Models\GroupProduct;
 use App\Models\HomepageSection;
 use App\Models\Page;
 use App\Models\Product;
@@ -36,9 +37,20 @@ class FrontendController extends Controller
                     return $q->with(['product.thumbImage','product.singleVariation'])->orderBy('product_position', 'asc');
                 }]);
         }])->orderBy('section_position', 'asc')->isActive()->get();
+        $topProducts = GroupProduct::where('group_type', GroupProduct::Groups['Top Product'])
+            ->with(['product'=>function($query){
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
+            }])->orderBy('position', 'asc')->latest()->get();
+
+        $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Product'])
+            ->with(['product'=>function($query){
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
+            }])->orderBy('position', 'asc')->latest()->get();
         return view('templates.' . $this->template_name . '.frontend.home', [
             'sliders' => $sliders,
             'sections'=>$sections,
+            'topProducts'=>$topProducts,
+            'hotProducts'=>$hotProducts,
         ]);
     }
 
