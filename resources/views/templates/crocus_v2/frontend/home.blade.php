@@ -3,7 +3,19 @@
 @section('Title','Home')
 
 @section('PageCss')
-
+    <style>
+        .owl-item .item {
+            margin: 0 0px;
+        }
+        #testimonials .owl-pagination {
+            top: -33px;
+            text-align: center;
+            position: absolute;
+            right: 2px;
+            background: #e25b60;
+            padding-left: 10px;
+        }
+    </style>
 @endsection
 
 @section('Content')
@@ -272,131 +284,18 @@
                 @endif
             </div>
             <div class="col-md-3">
+                @if(!empty($hotProducts))
                 <div class="hot-deal">
                     <div class="title">Hot Deal</div>
-                    <ul class="products-grid">
-                        <li class="right-space two-height item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info"> <a href="#" title="ThinkPad X1 Ultrabook" class="product-image"> <img src="{{ asset('crocus_v2/images/product-img.jpg')}}" alt="ThinkPad X1 Ultrabook"> </a>
-                                        <div class="new-label new-top-right">New</div>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html"></a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html"></a> </li>
-                                                <li><a class="link-compare" href="compare.html"></a> </li>
-                                            </ul>
-                                        </div>
-                                        <div class="box-timer">
-                                            <div class="countbox_1 timer-grid"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a href="product_detail.html" title="Retis lapen casen"> ThinkPad X1 Ultrabook </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div class="rating" style="width:80%"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$125.00</span> </span> </div>
-                                            </div>
-                                            <div class="action">
-                                                <button data-original-title="Add to Cart" title="" type="button" class="button btn-cart"><span>Add to Cart</span> </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="right-space two-height item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info"> <a href="#" title="ThinkPad X1 Ultrabook" class="product-image"> <img src="{{ asset('crocus_v2/images/product-img.jpg')}}" alt="ThinkPad X1 Ultrabook"> </a>
-                                        <div class="new-label new-top-right">New</div>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html"></a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html"></a> </li>
-                                                <li><a class="link-compare" href="compare.html"></a> </li>
-                                            </ul>
-                                        </div>
-                                        <div class="box-timer">
-                                            <div class="countbox_1 timer-grid"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a href="product_detail.html" title="Retis lapen casen"> ThinkPad X1 Ultrabook </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div class="rating" style="width:80%"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$125.00</span> </span> </div>
-                                            </div>
-                                            <div class="action">
-                                                <button data-original-title="Add to Cart" title="" type="button" class="button btn-cart"><span>Add to Cart</span> </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Testimonials -->
-                <div class="testimonials std">
-                    <div class="slider-items-products">
-                        <div id="testimonials" class="product-flexslider hidden-buttons">
-                            <div class="slider-items slider-width-col1 owl-carousel owl-theme">
-
-                                <!-- Item -->
-                                <div class="item">
-                                    <div class="inner-block">
-                                        <div class="auther-img"><img alt="" src="{{ asset('crocus_v2/images/photo.png')}}"></div>
-                                        <div class="testimonials-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue..." </div>
-                                        <div class="auther-name">John Doe <span>Founder - Xyz company</span> </div>
-                                    </div>
-                                    <div class="inner-block">
-                                        <div class="auther-img"><img alt="" src="{{ asset('crocus_v2/images/photo.png')}}"></div>
-                                        <div class="testimonials-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue..." </div>
-                                        <div class="auther-name">Saraha Smith <span>CEO - Falvours Food</span> </div>
-                                    </div>
-                                </div>
-                                <!-- End Item -->
-
-                                <!-- Item -->
-                                <div class="item">
-                                    <div class="inner-block">
-                                        <div class="auther-img"><img alt="" src="{{ asset('crocus_v2/images/photo.png')}}"></div>
-                                        <div class="testimonials-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue..." </div>
-                                        <div class="auther-name">John Doe <span>Founder - Xyz company</span> </div>
-                                    </div>
-                                    <div class="inner-block">
-                                        <div class="auther-img"><img alt="" src="{{ asset('crocus_v2/images/photo.png')}}"></div>
-                                        <div class="testimonials-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue..." </div>
-                                        <div class="auther-name">Saraha Smith <span>CEO - Falvours Food</span> </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div id="testimonials" class="product-flexslider hidden-buttons" style="margin-top: 0px;">
+                        <div class="products-grid slider-items slider-width-col1 owl-carousel owl-theme">
+                            @foreach($hotProducts as $hotProduct)
+                                <hot-deal-product :product="{{ $hotProduct->product }}"></hot-deal-product>
+                            @endforeach
                         </div>
                     </div>
                 </div>
-
+                @endif
                 <!-- home side banner -->
                 <div class="home-side-banner"> <img alt="banner" src="{{ asset('crocus_v2/images/home-banner.png')}}"> </div>
                 <div class="side-banner-img"> <a href="#" title="Image"> <img src="{{ asset('crocus_v2/images/mid-banner2.png')}}" alt="Image"></a> </div>

@@ -9,7 +9,7 @@ class GroupProduct extends Model
 {
     const Groups=[
         'Top Product'=>1,
-        'Hot Product'=>2,
+        'Hot Deal'=>2,
     ];
     const Status =[
         'Active'=>1,

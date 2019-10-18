@@ -42,7 +42,7 @@ class FrontendController extends Controller
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
             }])->orderBy('position', 'asc')->latest()->get();
 
-        $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Product'])
+        $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product'=>function($query){
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
             }])->orderBy('position', 'asc')->latest()->get();
