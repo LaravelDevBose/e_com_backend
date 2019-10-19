@@ -14,8 +14,7 @@
   margin: 0;
   padding: 0;
   z-index: 9999999;
-  -webkit-transform: translateZ(0) scale(1, 1);
-          transform: translateZ(0) scale(1, 1);
+  transform: translateZ(0) scale(1, 1);
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
@@ -40,8 +39,7 @@
   top: 5%;
   left: 50%;
   width: 325px;
-  -webkit-transform: translate(calc(-50% - .5px)) translateZ(0) scale(1, 1);
-          transform: translate(calc(-50% - .5px)) translateZ(0) scale(1, 1);
+  transform: translate(calc(-50% - .5px)) translateZ(0) scale(1, 1);
 }
 
 #noty_layout__topRight {
@@ -66,8 +64,7 @@
   bottom: 5%;
   left: 50%;
   width: 325px;
-  -webkit-transform: translate(calc(-50% - .5px)) translateZ(0) scale(1, 1);
-          transform: translate(calc(-50% - .5px)) translateZ(0) scale(1, 1);
+  transform: translate(calc(-50% - .5px)) translateZ(0) scale(1, 1);
 }
 
 #noty_layout__bottomRight {
@@ -80,24 +77,21 @@
   top: 50%;
   left: 50%;
   width: 325px;
-  -webkit-transform: translate(calc(-50% - .5px), calc(-50% - .5px)) translateZ(0) scale(1, 1);
-          transform: translate(calc(-50% - .5px), calc(-50% - .5px)) translateZ(0) scale(1, 1);
+  transform: translate(calc(-50% - .5px), calc(-50% - .5px)) translateZ(0) scale(1, 1);
 }
 
 #noty_layout__centerLeft {
   top: 50%;
   left: 20px;
   width: 325px;
-  -webkit-transform: translate(0, calc(-50% - .5px)) translateZ(0) scale(1, 1);
-          transform: translate(0, calc(-50% - .5px)) translateZ(0) scale(1, 1);
+  transform: translate(0, calc(-50% - .5px)) translateZ(0) scale(1, 1);
 }
 
 #noty_layout__centerRight {
   top: 50%;
   right: 20px;
   width: 325px;
-  -webkit-transform: translate(0, calc(-50% - .5px)) translateZ(0) scale(1, 1);
-          transform: translate(0, calc(-50% - .5px)) translateZ(0) scale(1, 1);
+  transform: translate(0, calc(-50% - .5px)) translateZ(0) scale(1, 1);
 }
 
 .noty_progressbar {
@@ -118,7 +112,6 @@
 
 .noty_bar {
   -webkit-backface-visibility: hidden;
-  -webkit-transform: translate(0, 0) translateZ(0) scale(1, 1);
   transform: translate(0, 0) scale(1, 1);
   -webkit-font-smoothing: subpixel-antialiased;
   overflow: hidden;
@@ -126,8 +119,7 @@
 
 .noty_effects_open {
   opacity: 0;
-  -webkit-transform: translate(50%);
-          transform: translate(50%);
+  transform: translate(50%);
   -webkit-animation: noty_anim_in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
           animation: noty_anim_in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   -webkit-animation-fill-mode: forwards;
@@ -225,32 +217,28 @@
 
 @-webkit-keyframes noty_anim_in {
   100% {
-    -webkit-transform: translate(0);
-            transform: translate(0);
+    transform: translate(0);
     opacity: 1;
   }
 }
 
 @keyframes noty_anim_in {
   100% {
-    -webkit-transform: translate(0);
-            transform: translate(0);
+    transform: translate(0);
     opacity: 1;
   }
 }
 
 @-webkit-keyframes noty_anim_out {
   100% {
-    -webkit-transform: translate(50%);
-            transform: translate(50%);
+    transform: translate(50%);
     opacity: 0;
   }
 }
 
 @keyframes noty_anim_out {
   100% {
-    -webkit-transform: translate(50%);
-            transform: translate(50%);
+    transform: translate(50%);
     opacity: 0;
   }
 }

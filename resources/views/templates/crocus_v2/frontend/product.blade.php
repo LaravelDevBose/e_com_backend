@@ -4,6 +4,25 @@
 
 @section('PageCss')
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/flexslider.css') }}">
+    <style>
+        #testimonials .owl-item .item {
+            margin: 0 0px;
+        }
+        #testimonials .owl-pagination {
+            top: -33px;
+            text-align: center;
+            position: absolute;
+            right: 2px;
+            background: #e25b60;
+            padding-left: 10px;
+        }
+        #testimonials .owl-theme .owl-controls .owl-page span{
+            background: #fff0;
+        }
+        #testimonials .owl-theme .owl-controls .active span{
+            background: #0088cc;
+        }
+    </style>
 @endsection
 
 @section('Content')
@@ -50,7 +69,7 @@
                                     <!-- end: more-images -->
                                 </div>
                                 <div class="product-shop col-lg-5 col-sm-5 col-xs-12">
-                                    <div class="product-next-prev"> <a class="product-next" href="#"><span></span></a> <a class="product-prev" href="#"><span></span></a> </div>
+{{--                                    <div class="product-next-prev"> <a class="product-next" href="#"><span></span></a> <a class="product-prev" href="#"><span></span></a> </div>--}}
                                     <div class="product-name">
                                         <h1>{{ $product->product_name}}</h1>
                                     </div>
@@ -79,30 +98,22 @@
                                         <h2>Quick Overview</h2>
                                         {!! $product->highlight !!}
                                     </div>
-                                    <div class="add-to-box">
-                                        <div class="add-to-cart">
-                                            <div class="pull-left">
-                                                <div class="custom pull-left">
-                                                    <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>
-                                                    <input type="text" class="input-text qty" title="Qty" value="1" maxlength="12" id="qty" name="qty">
-                                                    <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
-                                                </div>
-                                            </div>
-                                            <button onClick="productAddToCartForm.submit(this)" class="button btn-cart" title="Add to Cart" type="button">Add to Cart</button>
-                                        </div>
-                                        <div class="email-addto-box">
-                                            <ul class="add-to-links">
-                                                <li> <a class="link-wishlist" href="{{ route('login') }}"><span>Add to Wishlist</span></a></li>
-                                                <li><span class="separator">|</span> <a class="link-compare" href="compare.html"><span>Add to Compare</span></a></li>
-                                            </ul>
-                                            <p class="email-friend"><a href="#" class=""><span>Email to a Friend</span></a></p>
-                                        </div>
-                                    </div>
-
+                                    <single-product-options :product="{{ $product }}"></single-product-options>
                                 </div>
 
                                 <div class="col-lg-3 col-sm-3 col-xs-12 pro-banner">
-                                    <img alt="banner" src="{{ asset('crocus_v2/images/home-banner.png') }}">
+                                    @if(!empty($hotProducts))
+                                        <div class="hot-deal">
+                                            <div class="title">Hot Deal</div>
+                                            <div id="testimonials" class="product-flexslider hidden-buttons" style="margin-top: 0px;">
+                                                <div class="products-grid slider-items slider-width-col1 owl-carousel owl-theme">
+                                                    @foreach($hotProducts as $hotProduct)
+                                                        <hot-deal-product :product="{{ $hotProduct->product }}"></hot-deal-product>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div class="download-app">
                                         <h2>DOWNLOAD THE APP</h2>
                                         <img alt="banner" src="{{ asset('crocus_v2/images/google-play-btn.jpg') }}" class="app-btn">
@@ -269,10 +280,9 @@
 <!-- Related Products Slider -->
 
 <div class="container">
-
+    @if(!empty($relatedProducts))
     <!-- Related Slider -->
     <div class="related-pro">
-
         <div class="slider-items-products">
             <div class="related-block">
                 <div id="related-products-slider" class="product-flexslider hidden-buttons">
@@ -284,619 +294,16 @@
 
                     </div>
                     <div class="slider-items slider-width-col4 products-grid block-content">
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="ThinkPad X1 Ultrabook" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="new-label new-top-right">new</div>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="ThinkPad X1 Ultrabook" href="product_detail.html"> ThinkPad X1 Ultrabook </a> </div>
-                                        <div class="rating">
-                                            <div class="ratings">
-                                                <div class="rating-box">
-                                                    <div style="width:80%" class="rating"></div>
-                                                </div>
-                                                <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                            </div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$125.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Samsung GALAXY Note" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Samsung GALAXY Note </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$235.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
-
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Epson L360 Printer" href="product_detail.html"> <img alt="Epson L360 Printer" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Epson L360 Printer </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$325.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
-
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="QX30 Lens Camera" href="product_detail.html"> <img alt="QX30 Lens Camera" src="{{ asset('crocus_v2') }}"> </a>
-                                        <div class="new-label new-top-left">new</div>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="QX30 Lens Camera" href="product_detail.html"> QX30 Lens Camera </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$425.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Smart Watch A9" href="product_detail.html"> <img alt="Smart Watch A9" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Smart Watch A9" href="product_detail.html"> Smart Watch A9 </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$525.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Touch Notebook 500GB HD" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Touch Notebook 500GB HD" href="product_detail.html"> Touch Notebook 500GB HD </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$225.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Canon Zoom Camera" href="product_detail.html"> <img alt="Canon Zoom Camera" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Canon Zoom Camera" href="product_detail.html"> Canon Zoom Camera </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$185.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
-
+                        @foreach($relatedProducts as $relatedProduct)
+                            <product-grid :product="{{ $relatedProduct }}"></product-grid>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
     <!-- End related products Slider -->
-
-
-
-
-</div>
-<!-- Related Products Slider End -->
-
-<!-- Upsell Product Slider -->
-
-<div class="container">
-    <!-- upsell Slider -->
-    <div class="upsell-pro">
-        <div class="slider-items-products">
-            <div class="upsell-block">
-                <div id="upsell-products-slider" class="product-flexslider hidden-buttons">
-                    <div class="home-block-inner">
-                        <div class="block-title">
-                            <h2>Upsell Product</h2>
-                        </div>
-                        <img alt="banner" src="{{ asset('crocus_v2/images/banner-img1.png') }}">
-                    </div>
-                    <div class="slider-items slider-width-col4 products-grid block-content">
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="iPhone 6 Plus" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="new-label new-top-right">new</div>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="iPhone 6 Plus" href="product_detail.html"> iPhone 6 Plus </a> </div>
-                                        <div class="rating">
-                                            <div class="ratings">
-                                                <div class="rating-box">
-                                                    <div style="width:80%" class="rating"></div>
-                                                </div>
-                                                <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                            </div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$245.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Noise Smart Watch" href="product_detail.html"> <img alt="Noise Smart Watch" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Noise Smart Watch" href="product_detail.html"> Noise Smart Watch </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$155.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
-
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Morphy Optimo Kettle" href="product_detail.html"> <img alt="Morphy Optimo Kettle" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Morphy Optimo Kettle" href="product_detail.html"> Morphy Optimo Kettle </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$185.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
-
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Omega J8004 Juicer" href="product_detail.html"> <img alt="Omega J8004 Juicer" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="new-label new-top-left">new</div>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Omega J8004 Juicer" href="product_detail.html"> Omega J8004 Juicer </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$235.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Item -->
-
-                        <!-- End Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Food Processor" href="product_detail.html"> <img alt="Food Processor" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Food Processor" href="product_detail.html"> Food Processor </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$335.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="{{ asset('crocus_v2/images/product-img.jpg') }}"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a>
-                                                </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Retis lapen casen </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$125.00</span> </span>
-                                                </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <!-- End Upsell  Slider -->
+    @endif
 </div>
 @endsection
 

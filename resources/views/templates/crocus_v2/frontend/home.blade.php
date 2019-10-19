@@ -4,7 +4,7 @@
 
 @section('PageCss')
     <style>
-        .owl-item .item {
+        #testimonials .owl-item .item {
             margin: 0 0px;
         }
         #testimonials .owl-pagination {
@@ -14,6 +14,9 @@
             right: 2px;
             background: #e25b60;
             padding-left: 10px;
+        }
+        #testimonials .owl-theme .owl-controls .owl-page span{
+            background: #fff0;
         }
     </style>
 @endsection

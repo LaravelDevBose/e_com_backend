@@ -5,7 +5,8 @@ const state = {
     weight:'',
     subtotal:0,
     discount:0,
-    total:0
+    total:0,
+    suggested_products:[],
 };
 
 //declare Getters
@@ -16,6 +17,7 @@ const getters = {
     cartSubTotal:(state)=>state.subtotal,
     cartDiscount:(state)=>state.discount,
     cartTotalPrice:(state)=>state.total,
+    sugProducts:(state)=>state.suggested_products,
 };
 
 const actions = {
@@ -25,6 +27,19 @@ const actions = {
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
                         commit('setCartDetails', response.data.data);
+                    }
+                    return response.data;
+                });
+        }catch (error) {
+            console.log(error);
+        }
+    },
+    async getCartSuggestedProducts({commit},reqData=null){
+        try {
+            return await axios.get('/cart/suggested/products',reqData)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setCartSuggestedProducts', response.data.data);
                     }
                     return response.data;
                 });
@@ -100,6 +115,9 @@ const mutations = {
         state.discount = response.discount;
         state.total = response.total;
     },
+    setCartSuggestedProducts:(state,response)=>{
+        state.suggested_products = response;
+    }
 };
 
 export default {

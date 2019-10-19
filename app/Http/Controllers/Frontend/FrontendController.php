@@ -14,6 +14,7 @@ use App\Models\SectionCategory;
 use App\Models\SectionProduct;
 use App\Traits\CommonData;
 use App\Traits\ResponserTrait;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
@@ -150,12 +151,29 @@ class FrontendController extends Controller
         $product = Product::where('product_slug', $slug)
             ->with(['brand', 'category', 'productDetails', 'variations', 'productImages', 'singleVariation', 'thumbImage'])
             ->firstOrFail();
+
         if (empty($product)) {
             return abort(Response::HTTP_NOT_FOUND);
         }
+        $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
+            ->with(['product'=>function($query){
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
+            }])->orderBy('position', 'asc')->latest()->take(5)->get();
+
+        $reqData = [
+            'product_id'=>$product->product_id,
+            'category_id'=>$product->cateory_id,
+            'brand_id'=>$product->brand_id,
+            'order_by'=>'desc',
+            'take'=>12
+        ];
+
+        $relatedProducts = ProductHelper::products_list($reqData);
 
         return view('templates.' . $this->template_name . '.frontend.product', [
             'product' => $product,
+            'hotProducts'=>$hotProducts,
+            'relatedProducts'=>$relatedProducts,
         ]);
     }
 

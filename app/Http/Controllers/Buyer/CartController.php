@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Buyer;
 
+use App\Helpers\Frontend\ProductHelper;
 use App\Models\Product;
 use App\Traits\ResponserTrait;
 use Exception;
@@ -10,6 +11,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -39,6 +41,26 @@ class CartController extends Controller
         }else{
             return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'Cart is Empty');
         }
+    }
+
+    public function cart_suggested_products()
+    {
+        if(!empty(Cart::content())){
+            $productIds = Arr::pluck(Cart::content(), 'id');
+            $cartProducts = Product::whereIn('product_id', $productIds)->get();
+            $reqData = [
+                'productIds'=>$productIds,
+                'productIdsType'=>'remove',
+                'brandIds'=>$cartProducts->pluck('brand_id')->toArray(),
+                'categoryIds'=>$cartProducts->pluck('category_id')->toArray(),
+                'take'=>8
+            ];
+            $sugProducts = ProductHelper::products_list($reqData);
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $sugProducts);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'Cart is Empty');
+        }
+
     }
 
     public function add_to_cart(Request $request){
