@@ -4642,9 +4642,66 @@ ul#magicat li .open-close, .block-layered-nav dt .toggleBtn {
 	background-color: #f4f4f4;
 	border-radius: 3px;
 }
-.sidebar a, .sidebar .block-layered-nav .price .sub {
+.sidebar a, .sidebar span, .sidebar label, .sidebar .block-layered-nav .price .sub {
 	color: #167bcb;
 	font-size: 13px;
+}
+.sidebar input[type=checkbox]:checked + label {
+    color: #e25b60;
+}
+.sidebar input{
+    display: none;
+}
+.sidebar .colorlist .color{
+    height: 20px!important;
+    width: 20px!important;
+    border: 1px solid #ddd;
+    box-shadow: 1px 1px 3px gray;
+    margin: .2rem;
+}
+.sidebar .colorlist input[type=checkbox]:checked + label {
+    border: 1px solid #167bcb;
+    box-shadow: 1px 1px 3px #167bcb;
+}
+.sidebar .colorlist li{
+    display: inline-block;
+
+}
+.sidebar .colorlist li:before {
+    content: '';
+    font-family: FontAwesome;
+    font-size: 12px;
+    padding-right: 2px;
+    color: #999;
+}
+
+#testimonials .owl-item .item {
+    margin: 0 0px;
+}
+#testimonials .owl-pagination {
+    top: -33px;
+    text-align: center;
+    position: absolute;
+    right: 2px;
+    background: #e25b60;
+    padding-left: 10px;
+}
+#testimonials .owl-theme .owl-controls .owl-page span{
+    background: #fff0;
+}
+#testimonials .owl-theme .owl-controls .active span{
+    background: #0088cc;
+}
+#testimonials .flip-clock__piece{
+    background: #167bcb;
+    color: #fff;
+    border: 1px #167bcb solid;
+}
+#testimonials .flip-card {
+    font-size: 2.5rem!important;
+}
+#testimonials .box-timer{
+    left: 0;
 }
 .sidebar .block-layered-nav .price {
 	color: #666;

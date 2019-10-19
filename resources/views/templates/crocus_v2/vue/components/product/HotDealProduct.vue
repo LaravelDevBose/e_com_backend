@@ -13,7 +13,9 @@
                         </ul>
                     </div>
                     <div class="box-timer">
-                        <div class="countbox_1 timer-grid"></div>
+                        <div class="timer-grid">
+                            <flip-countdown :deadline="hotproduct.expired_at"></flip-countdown>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -53,11 +55,12 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
-
+    import FlipCountdown from 'vue2-flip-countdown'
     export default {
         name: "HotDealProduct",
+        components: { FlipCountdown },
         props:{
-            product:{
+            hotproduct:{
                 type:Object,
             }
         },
@@ -70,9 +73,13 @@
                     qty:1,
                     price:0,
                 },
+                product:{},
             }
         },
         created(){
+            this.product = this.hotproduct.product
+        },
+        mounted(){
 
         },
         methods:{

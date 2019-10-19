@@ -5,23 +5,7 @@
 @section('PageCss')
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/flexslider.css') }}">
     <style>
-        #testimonials .owl-item .item {
-            margin: 0 0px;
-        }
-        #testimonials .owl-pagination {
-            top: -33px;
-            text-align: center;
-            position: absolute;
-            right: 2px;
-            background: #e25b60;
-            padding-left: 10px;
-        }
-        #testimonials .owl-theme .owl-controls .owl-page span{
-            background: #fff0;
-        }
-        #testimonials .owl-theme .owl-controls .active span{
-            background: #0088cc;
-        }
+
     </style>
 @endsection
 
@@ -108,7 +92,7 @@
                                             <div id="testimonials" class="product-flexslider hidden-buttons" style="margin-top: 0px;">
                                                 <div class="products-grid slider-items slider-width-col1 owl-carousel owl-theme">
                                                     @foreach($hotProducts as $hotProduct)
-                                                        <hot-deal-product :product="{{ $hotProduct->product }}"></hot-deal-product>
+                                                        <hot-deal-product :hotProduct="{{ $hotProduct }}"></hot-deal-product>
                                                     @endforeach
                                                 </div>
                                             </div>

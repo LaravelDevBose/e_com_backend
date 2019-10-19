@@ -12,16 +12,17 @@
                     <dd class="even" v-if="brands">
                         <ol>
                             <li v-for="(brand, index) in brands" :key="index">
-                                <input v-model="sortData.brandIds" :value="brand.brand_id"  type="checkbox"><span>{{ brand.brand_name }} </span>
+                                <input v-model="sortData.brandIds" :value="brand.brand_id" :id="'brand-'+brand.brand_id"  type="checkbox">
+                                <label :for="'brand-'+brand.brand_id">{{ brand.brand_name }} </label>
                             </li>
                         </ol>
                     </dd>
                     <dt class="odd">Color</dt>
-                    <dd class="odd" v-if="colors">
+                    <dd class="odd colorlist" v-if="colors">
                         <ol>
                             <li v-for="(color,index) in colors" :key="index">
-                                <input v-model="sortData.colorIds" :value="color.color_id" type="checkbox">
-                                <span class="img" :style="{'background-color':color.color_code}"  style=" border: 1px solid #ccc; width: 10px; height: 20px;"></span>
+                                <input v-model="sortData.colorIds" :value="color.color_id" :id="'color-'+color.color_id"  type="checkbox">
+                                <label class="color"  :for="'color-'+color.color_id" :style="{'background-color':color.color_code}" ></label>
                             </li>
                         </ol>
                     </dd>
@@ -30,9 +31,8 @@
                     <dd class="last even" v-if="sizes">
                         <ol>
                             <li v-for="(size, index) in sizes" :key="index">
-                                <label>
-                                    <input type="checkbox" v-model="sortData.sizeIds" :value="size.size_id"><span>{{ size.size_name }}</span>
-                                </label>
+                                <input type="checkbox" :id="'size-'+size.size_id" v-model="sortData.sizeIds" :value="size.size_id">
+                                <label :for="'size-'+size.size_id">{{ size.size_name }}</label>
                             </li>
                         </ol>
                     </dd>

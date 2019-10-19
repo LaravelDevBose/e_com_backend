@@ -4,20 +4,7 @@
 
 @section('PageCss')
     <style>
-        #testimonials .owl-item .item {
-            margin: 0 0px;
-        }
-        #testimonials .owl-pagination {
-            top: -33px;
-            text-align: center;
-            position: absolute;
-            right: 2px;
-            background: #e25b60;
-            padding-left: 10px;
-        }
-        #testimonials .owl-theme .owl-controls .owl-page span{
-            background: #fff0;
-        }
+
     </style>
 @endsection
 
@@ -293,7 +280,7 @@
                     <div id="testimonials" class="product-flexslider hidden-buttons" style="margin-top: 0px;">
                         <div class="products-grid slider-items slider-width-col1 owl-carousel owl-theme">
                             @foreach($hotProducts as $hotProduct)
-                                <hot-deal-product :product="{{ $hotProduct->product }}"></hot-deal-product>
+                                <hot-deal-product :hotProduct="{{ $hotProduct }}"></hot-deal-product>
                             @endforeach
                         </div>
                     </div>
@@ -368,7 +355,7 @@
     });
 </script>
 <!-- Hot Deals Timer 1-->
-<script type="text/javascript">
+{{--<script type="text/javascript">
     var dthen1 = new Date("12/25/17 11:59:00 PM");
     start = "05/09/15 03:02:11 AM";
     start_date = Date.parse(start);
@@ -378,8 +365,7 @@
     else
         ddiff = new Date((dthen1) - (dnow1));
     gsecs1 = Math.floor(ddiff.valueOf() / 1000);
-
     var iid1 = "countbox_1";
     CountBack_slider(gsecs1, "countbox_1", 1);
-</script>
+</script>--}}
 @endsection
