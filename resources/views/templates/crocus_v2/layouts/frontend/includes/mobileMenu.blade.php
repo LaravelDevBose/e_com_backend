@@ -47,11 +47,22 @@
     </ul>
     <div class="top-links">
         <ul class="links">
-            <li><a title="My Account" href="{{ route('login') }}">My Account</a> </li>
-            <li><a title="Wishlist" href="{{ route('login') }}">Wishlist</a> </li>
-            <li><a title="Checkout" href="{{ route('buyer.checkout') }}">Checkout</a> </li>
-            <li class="last"><a title="Login" href="{{ route('login') }}">Login</a> </li>
-            <li class="last"><a title="Login" href="{{ route('login') }}">Seller Login</a> </li>
+            @if(auth()->guest())
+                <li><a title="My Account" href="{{ route('login') }}">My Account</a> </li>
+                <li class="last"><a title="Login" href="{{ route('login') }}">Login</a> </li>
+                <li class="last"><a title="Login" href="{{ route('seller.login') }}">Seller Login</a> </li>
+            @elseif(auth()->guard('admin')->check())
+                <li><a title="My Account" href="{{ route('admin.home') }}">My Account</a> </li>
+                <li class="last"><a title="Login" href="{{ route('admin.logout') }}">Logout</a> </li>
+            @elseif(auth()->guard('seller')->check())
+                <li><a title="My Account" href="{{ route('seller.home') }}">My Account</a> </li>
+                <li class="last"><a title="Login" href="{{ route('seller.logout') }}">Logout</a> </li>
+            @else
+                <li><a title="My Account" href="{{ route('buyer.home') }}">My Account</a> </li>
+                <li><a title="Checkout" href="{{ route('buyer.checkout') }}">Checkout</a> </li>
+                <li class="last"><a title="Login" href="{{ route('buyer.logout') }}">Logout</a> </li>
+            @endif
+
         </ul>
     </div>
 </div>

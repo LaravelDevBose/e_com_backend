@@ -1,21 +1,22 @@
 <footer>
-    <div class="footer-add"> <a href="#"><img src="{{asset('crocus_v2/images/footer-banner.png')}}" alt="download"> </a> </div>
+{{--    <div class="footer-add"> <a href="#"><img src="{{asset('crocus_v2/images/footer-banner.png')}}" alt="download"> </a> </div>--}}
     <div class="footer-inner">
         <div class="container">
 
             <div class="row">
                 <div class="col-sm-8 col-xs-12 col-lg-9">
+                    @if(!empty($headerPageMenus))
                     <div class="footer-column pull-left">
                         <h4>QUICK LINKS</h4>
                         <ul class="links">
-                            <li class="first"><a href="/blog/" title="How to buy">Blog</a></li>
-                            <li><a href="#" title="FAQs">FAQs</a></li>
-                            <li><a href="#" title="Payment">Payment</a></li>
-                            <li><a href="#" title="Shipment">Shipment</a></li>
-                            <li><a href="#" title="Where is my order?">Where is my order?</a></li>
-                            <li class="last"><a href="#" title="Return policy">Return policy</a></li>
+                            @foreach($headerPageMenus as $pageMenu)
+                                <li class=" @if($loop->first) first @elseif($loop->last) last @endif">
+                                    <a href="{{ route('front.pages', $pageMenu->page_slug) }}" title="{{ $pageMenu->menu_title }}">{{ $pageMenu->menu_title }}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
+                    @endif
                     <div class="footer-column pull-left">
                         <h4>Style Advisor</h4>
                         <ul class="links">
@@ -64,11 +65,15 @@
                 <div id="brand-logo-slider" class="product-flexslider hidden-buttons">
                     <div class="slider-items slider-width-col6">
                         @if(!empty($brands))
-                        @foreach($brands as $brand)
-                        <!-- Item -->
-                        <div class="item"> <a href="#"><img src="{{ asset('crocus_v2') }}" alt="Image"> </a> </div>
-                        <!-- End Item -->
-                        @endforeach
+                            @foreach($brands as $brand)
+                                @if(!empty($brand->attachment->image_path))
+                            <!-- Item -->
+                                <div class="item">
+                                    <a href="#"><img src="{{ $brand->attachment->image_path }}" alt="Image"> </a>
+                                </div>
+                                @endif
+                            <!-- End Item -->
+                            @endforeach
                         @endif
 
                     </div>
