@@ -16,7 +16,6 @@
                     <th rowspan="1"><span class="nobr">Product Name</span></th>
                     <th colspan="1" class="a-center"><span class="nobr">Unit Price</span></th>
                     <th class="a-center" rowspan="1">Qty</th>
-                    <th class="a-center" rowspan="1"></th>
                     <th colspan="1" class="a-center">Subtotal</th>
                     <th class="a-center" rowspan="1">&nbsp;</th>
                 </tr>
@@ -41,9 +40,6 @@
                     </td>
                     <td class="a-center movewishlist">
                         <input maxlength="12" class="input-text qty" title="Qty" :disabled="qtyDisable" size="4" :value="cart.qty" @change="cartUpdate($event, cart.rowId)" type="number">
-                    </td>
-                    <td class="a-center movewishlist">
-                        <a href="#"> <i class="fa fa-pencil-square"></i></a>
                     </td>
                     <td class="a-right movewishlist">
                         <span class="cart-price">

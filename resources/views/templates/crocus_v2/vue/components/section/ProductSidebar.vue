@@ -40,29 +40,13 @@
                 </dl>
             </div>
         </div>
-        <div class="block block-list block-viewed">
-            <div class="block-title"> Recently Viewed </div>
-            <div class="block-content">
-                <ol id="recently-viewed-items">
-                    <li class="item odd">
-                        <p class="product-name"><a href="#"> ThinkPad X1 Ultrabook </a></p>
-                    </li>
-                    <li class="item even">
-                        <p class="product-name"><a href="#"> Samsung GALAXY Note </a></p>
-                    </li>
-                    <li class="item last odd">
-                        <p class="product-name"><a href="#"> QX30 Lens Camera </a></p>
-                    </li>
-                </ol>
-            </div>
-        </div>
         <div v-if="tags" class="block block-tags">
             <div class="block-title"> Popular Tags</div>
             <div class="block-content">
                 <ul class="tags-list">
                     <li v-for="(tag,index) in tags" :key="index">
-                        <input type="checkbox" v-model="sortData.tagIds" :value="tag.tag_id">
-                        <span>tag.tag_title</span>
+                        <input type="checkbox" :id="'tag-'+tag.tag_id" v-model="sortData.tagIds" :value="tag.tag_id">
+                        <label :for="'tag-'+tag.tag_id">{{ tag.tag_title }}</label>
                     </li>
                 </ul>
             </div>

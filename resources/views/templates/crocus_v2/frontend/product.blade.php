@@ -61,7 +61,7 @@
                                         <div class="rating-box">
                                             <div style="width:60%" class="rating"></div>
                                         </div>
-                                        <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Your Review</a> </p>
+                                        <p class="rating-links"> <a href="#">1 Review(s)</a></p>
                                     </div>
 
                                     @if(!empty($product->singleVariation))

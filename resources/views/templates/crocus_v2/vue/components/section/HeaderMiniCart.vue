@@ -12,10 +12,6 @@
                             <div class="product-details">
                                 <div class="access">
                                     <a class="btn-remove1" title="Remove Item" href="#" @click.prevent="productRemoveFromCart(cart.rowId)">Remove</a>
-                                    <a class="btn-edit" title="Edit item" href="#">
-                                        <i class="icon-pencil"></i>
-                                        <span class="hidden">Edit item</span>
-                                    </a>
                                 </div>
                                 <!--access--><strong>{{ cart.qty }}</strong> x <span class="price">{{ cart.price }}</span>
                                 <p class="product-name">

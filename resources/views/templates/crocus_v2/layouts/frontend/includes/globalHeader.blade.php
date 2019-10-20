@@ -54,20 +54,27 @@
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 logo-block">
                 <!-- Header Logo -->
-                <div class="logo"> <a title="Magento Commerce" href="{{ route('front.index') }}"><img alt="Magento Commerce" src="{{ asset('crocus_v2/images/logo.png') }}"> </a> </div>
+                <div class="logo">
+                    <a title="Magento Commerce" href="{{ route('front.index') }}">
+                        <img alt="Magento Commerce" src="{{ asset('crocus_v2/images/logo.png') }}">
+                    </a>
+                </div>
                 <!-- End Header Logo -->
             </div>
             <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 hidden-xs">
                 <div class="search-box">
                     <form action="cat" method="POST" id="search_mini_form" name="Categories">
-                        <input type="text" placeholder="Search entire store here..." value="Search entire store" maxlength="70" name="search" id="search">
+                        <input type="text" placeholder="Search entire store here..."  maxlength="70" name="search" id="search">
                         <button type="button" class="search-btn-bg"><span class="glyphicon glyphicon-search"></span>&nbsp;</button>
                     </form>
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <a href="#" title="My Wishlist" class="top-link-wishlist hidden-xs"><i class="fa fa-heart"></i></a>
-
+                @if(auth()->guest())
+                <a href="{{ route('login') }}" title="My Wishlist" class="top-link-wishlist hidden-xs"><i class="fa fa-heart"></i></a>
+                @else
+                <a href="{{ route('buyer.wish_list') }}" title="My Wishlist" class="top-link-wishlist hidden-xs"><i class="fa fa-heart"></i></a>
+                @endif
                 <div class="top-cart-contain pull-right">
                     <!-- Top Cart -->
                     <header-mini-cart></header-mini-cart>
