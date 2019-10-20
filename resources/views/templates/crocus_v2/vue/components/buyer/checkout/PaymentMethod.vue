@@ -2,8 +2,8 @@
     <form action="" id="co-payment-form">
         <dl id="checkout-payment-method-load" v-if="paymentMethods">
             <dt v-for="(paymentMethod, index ) in paymentMethods">
-                <input type="radio" id="p_method_checkmo" v-model="formData.payment_method_id" :value="index" name="payment_method"  :title="paymentMethod" class="radio">
-                <label for="p_method_checkmo">{{ paymentMethod }}</label>
+                <input type="radio" :id="'p_method_'+index" v-model="formData.payment_method_id" :value="index" name="payment_method"  :title="paymentMethod" class="radio">
+                <label :for="'p_method_'+index">{{ paymentMethod }}</label>
             </dt>
         </dl>
     </form>

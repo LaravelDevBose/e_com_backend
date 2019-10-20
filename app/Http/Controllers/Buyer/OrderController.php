@@ -173,6 +173,7 @@ class OrderController extends Controller
                         // TODO return buyer panel invoice page
                         DB::commit();
                         Cart::destroy();
+                        //TODO Change to Invoice Page url
                         return ResponserTrait::allResponse('success', Response::HTTP_CREATED, 'Your Order Place Successfully', '', route('buyer.order.index'));
                     }else{
                         throw new \Exception('Order Item Not Insert.', Response::HTTP_BAD_REQUEST);

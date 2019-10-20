@@ -131,7 +131,7 @@
                     // TODO from validation
                     this.storeAddressInfo(this.formData)
                         .then(response=>{
-                            if(typeof response.code !== "undefined" && response.code === 201){
+                            if(typeof response.code !== "undefined" && response.code === 200){
                                 this.$noty.success(response.message);
                                 this.continueTab();
                             }else if(response.status === 'validation'){

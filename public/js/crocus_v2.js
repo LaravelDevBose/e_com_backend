@@ -2761,7 +2761,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.save_address === true && this.new_address === true) {
         // TODO from validation
         this.storeAddressInfo(this.formData).then(function (response) {
-          if (typeof response.code !== "undefined" && response.code === 201) {
+          if (typeof response.code !== "undefined" && response.code === 200) {
             _this.$noty.success(response.message);
 
             _this.continueTab();
@@ -3028,7 +3028,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.$noty.success(response.message);
 
           setTimeout(function () {
-            location.href = '/';
+            location.href = response.url;
           }, 2000);
         } else if (response.status === 'validation') {
           _this.$noty.warning(response.message);
@@ -48396,7 +48396,7 @@ var render = function() {
                 staticClass: "radio",
                 attrs: {
                   type: "radio",
-                  id: "p_method_checkmo",
+                  id: "p_method_" + index,
                   name: "payment_method",
                   title: paymentMethod
                 },
@@ -48411,7 +48411,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("label", { attrs: { for: "p_method_checkmo" } }, [
+              _c("label", { attrs: { for: "p_method_" + index } }, [
                 _vm._v(_vm._s(paymentMethod))
               ])
             ])
@@ -68644,7 +68644,11 @@ var actions = {
               _context2.next = 4;
               return axios.post('/buyer/address-book', formData).then(function (response) {
                 if (typeof response.data.code !== "undefined" && response.data.code === 200) {
-                  commit('updateAddressBook', response.data.data, formData.address_type);
+                  var resData = {
+                    address: response.data.data,
+                    is_shipping: formData.is_shipping
+                  };
+                  commit('updateAddressBook', resData);
                 }
 
                 return response.data;
@@ -68842,17 +68846,22 @@ var mutations = {
   },
   updateAddressBook: function updateAddressBook(state, response) {
     var address = {
-      id: response.address_id,
-      text: response.full_address
+      id: response.address.address_id,
+      text: response.address.full_address
     };
     state.address_list.push(address);
 
-    if (response.address_type === 1) {
-      state.billing_address = response;
-      state.billing_address_id = response.address_id;
+    if (response.address.address_type === 1) {
+      state.billing_address = response.address;
+      state.billing_address_id = response.address.address_id;
+
+      if (response.is_shipping === 1) {
+        state.shipping_address = response.address;
+        state.shipping_address_id = response.address.address_id;
+      }
     } else {
-      state.shipping_address = response;
-      state.shipping_address_id = response.address_id;
+      state.shipping_address = response.address;
+      state.shipping_address_id = response.address.address_id;
     }
   },
   setAddressInfo: function setAddressInfo(state, formData) {

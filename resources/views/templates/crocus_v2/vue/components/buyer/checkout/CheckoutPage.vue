@@ -157,7 +157,7 @@
                         if(typeof response.code !== "undefined" && response.code === 201){
                             this.$noty.success(response.message);
                             setTimeout(function () {
-                                location.href = '/';
+                                location.href = response.url;
                             },2000);
                         }else if(response.status === 'validation'){
                             this.$noty.warning(response.message);
