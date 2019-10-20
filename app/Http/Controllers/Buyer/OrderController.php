@@ -48,7 +48,7 @@ class OrderController extends Controller
         if($request->ajax()){
             // TODO Order Details info Return
         }
-        return view('template.'.$this->template_name.'order.show',[
+        return view('template.'.$this->template_name.'.order.show',[
             'order_no'=>$order_no,
         ]);
     }
