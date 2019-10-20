@@ -122,9 +122,15 @@ class AddressBookController extends Controller
      * @param  \App\Models\AddressBook  $addressBook
      * @return \Illuminate\Http\Response
      */
-    public function edit(AddressBook $addressBook)
+    public function edit($addressId)
     {
-
+        $addressBook = AddressBook::find($addressId);
+        if(empty($addressBook)){
+            return abort(Response::HTTP_NOT_FOUND);
+        }
+        return view('templates.'.$this->template_name.'.buyer.address_book.address_book_edit',[
+            'addressId'=>$addressBook->address_id,
+        ]);
     }
 
     /**
@@ -134,9 +140,54 @@ class AddressBookController extends Controller
      * @param  \App\Models\AddressBook  $addressBook
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AddressBook $addressBook)
+    public function update(Request $request, $addressId)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'first_name'=>'required|string',
+            'last_name'=>'required|string',
+            'phone_no'=>'required|string',
+            'address'=>'required|string',
+            'city'=>'required|string',
+            'state'=>'required|string',
+            'postal_code'=>'required|string',
+            'country'=>'required|string',
+            'address_type'=>'required',
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+                $addressBook = AddressBook::find($addressId);
+                if(empty($addressBook)){
+                    throw new \Exception('Invalid Address book Information',  Response::HTTP_NOT_FOUND);
+                }
+                $address = $addressBook->update([
+                    'first_name'=> $request->first_name,
+                    'last_name'=>$request->last_name,
+                    'phone_no'=>$request->phone_no,
+                    'address'=>$request->address,
+                    'city'=>$request->city,
+                    'state'=>$request->state,
+                    'postal_code'=>$request->postal_code,
+                    'country'=>$request->country,
+                    'address_type'=>$request->address_type,
+                    'address_status'=>config('app.active')
+                ]);
+                if($address){
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'Address Update Successfully', '', route('buyer.address.book'));
+                }else{
+                    throw new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
+                }
+
+            }catch (\Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+        }
     }
 
     /**

@@ -3,7 +3,7 @@
          <div class="block-title">My Account</div>
          <div class="block-content">
              <ul>
-                 <li :class="nothing">
+                 <li >
                      <a href="{{ route('buyer.home') }}">Account Dashboard</a>
                  </li>
                  <li class="@yield('buyer.order.index')">

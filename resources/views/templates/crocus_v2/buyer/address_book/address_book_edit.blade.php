@@ -1,6 +1,6 @@
 @extends('templates.crocus_v2.layouts.frontend.master')
 
-@section('Title','Dashboard')
+@section('Title','Edit Address Book')
 
 @section('PageCss')
 
@@ -10,12 +10,7 @@
 <div class="main-container col2-right-layout">
     <div class="main container">
         <div class="row">
-            <section class="col-sm-9 wow bounceInUp animated">
-                <div class="col-main">
-                    <buyer-dashboard-page></buyer-dashboard-page>
-                </div>
-            </section>
-
+            <address-book-create :addressId="{{ $addressId }}" :isEdit="1"></address-book-create>
             <!-- right side -->
             @include('templates.crocus_v2.buyer.partials.right_side')
         </div>

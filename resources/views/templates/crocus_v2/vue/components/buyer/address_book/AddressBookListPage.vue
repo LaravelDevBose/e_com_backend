@@ -52,7 +52,7 @@
                 'getAddressBooks'
             ]),
             editAddressBook(addressId){
-                console.log(addressId);
+                location.href = `/buyer/address-book/${addressId}/edit`;
             }
         },
         computed:{

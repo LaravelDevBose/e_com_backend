@@ -12,6 +12,7 @@ import checkout from "./modules/checkout";
 import order from "./modules/order";
 import address_book from "./modules/address_book";
 import homepage from "./modules/homepage";
+import account_info from "./modules/account_info";
 
 
 export default new Vuex.Store({
@@ -41,6 +42,7 @@ export default new Vuex.Store({
         order,
         address_book,
         homepage,
+        account_info,
     }
 })
 

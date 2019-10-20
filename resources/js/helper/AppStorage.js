@@ -5,6 +5,7 @@ class AppStorage {
 
     storeUser(user){
         localStorage.setItem('user', user);
+        // this.storeFullName(user.full_name);
     }
     storeFullName(fullName){
         localStorage.setItem('full_name', fullName);
@@ -15,8 +16,10 @@ class AppStorage {
     }
 
     storeUserInfo(userInfo){
+        let jsonData = JSON.parse(userInfo.user);
         this.storeToken(userInfo.token);
         this.storeUser(userInfo.user);
+        this.storeFullName(jsonData.full_name);
         this.storeWhoIs(userInfo.whoIs);
     }
 

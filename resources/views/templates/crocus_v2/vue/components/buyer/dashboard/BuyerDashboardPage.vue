@@ -4,10 +4,7 @@
             <h2>My Dashboard</h2>
         </div>
         <div class="dashboard">
-            <div class="welcome-msg">
-                <strong>Hello, {{ buyer_name }}!</strong>
-                <p>From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</p>
-            </div>
+            <welcome-message></welcome-message>
             <div class="recent-orders">
                 <div class="title-buttons">
                     <strong>Recent Orders</strong>
@@ -22,10 +19,11 @@
 <script>
     import {mapGetters, mapActions} from 'vuex';
     import OrderListTable from "../order/OrderListTable";
+    import WelcomeMessage from "../section/WelcomeMessage";
 
     export default {
         name: "BuyerDashboardPage",
-        components: {OrderListTable},
+        components: {WelcomeMessage, OrderListTable},
         data(){
             return{
                 reqData:{

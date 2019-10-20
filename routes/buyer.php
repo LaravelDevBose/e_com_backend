@@ -7,6 +7,9 @@ Auth::routes();
 Route::get('buyer/logout', 'Auth\LoginController@logout')->name('buyer.logout');
 Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->group(function (){
 
+    Route::get('/info', 'HomeController@buyer_info')->name('info');
+    Route::post('/info/update', 'HomeController@update_buyer_info')->name('info.update');
+
     Route::get('home', 'HomeController@index')->name('home');
     Route::get('account/information', 'HomeController@account_information')->name('account.info');
     Route::get('edit/contact-info', 'HomeController@edit_contact_info')->name('contact_info.edit');
@@ -33,6 +36,8 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
     Route::get('address-book/create', 'AddressBookController@create')->name('address.book.create');
     Route::post('address-book', 'AddressBookController@store');
     Route::get('address-book/{address_id}/', 'AddressBookController@show')->name('address.book.show');
+    Route::get('address-book/{address_id}/edit', 'AddressBookController@edit')->name('address.book.edit');
+    Route::put('address-book/{address_id}/update', 'AddressBookController@update')->name('address.book.update');
 
 });
 
