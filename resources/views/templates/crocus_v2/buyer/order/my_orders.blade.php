@@ -3,7 +3,21 @@
 @section('Title','My Orders')
 
 @section('PageCss')
-
+    <style>
+        #invoice{
+            padding: 30px;
+        }
+        .text-semibold{
+            font-weight: 600!important;
+        }
+        .list-condensed h5{
+            margin-bottom: 0;
+            font-weight:700;
+        }
+        .text-bold{
+            font-weight: 700!important;
+        }
+    </style>
 @endsection
 
 @section('Content')

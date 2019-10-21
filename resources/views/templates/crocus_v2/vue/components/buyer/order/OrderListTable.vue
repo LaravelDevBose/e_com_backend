@@ -25,7 +25,8 @@
                         <em>{{ order.status_label }}</em>
                     </td>
                     <td class="a-center last text-center">
-                        <a href="#" @click.prevent="viewOrderInfo(order.order_no)"> <i class="fa fa-eye"></i></a>
+<!--                        <a href="#" @click.prevent="viewOrderInfo(order.order_no)"> <i class="fa fa-eye"></i></a>-->
+                        <a href="#" @click.prevent="showInvoiceModal(order.order_no)"> <i class="fa fa-eye"></i></a>
                     </td>
                 </tr>
                 <tr v-else class="last even">
@@ -34,17 +35,36 @@
             </tbody>
         </table>
 <!--        TODO Table Pagination-->
+<!--        <invoice-modal></invoice-modal>-->
+        <invoice-modal-one></invoice-modal-one>
     </div>
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
+    import InvoiceModal from "../section/InvoiceModal";
+    import InvoiceModalOne from "../section/InvoiceModalOne";
 
     export default {
         name: "OrderListTable",
+        components: {InvoiceModalOne, InvoiceModal},
         methods:{
+            ...mapActions([
+                'getOrderInfo'
+            ]),
             viewOrderInfo(order_no){
                 location.href = `/buyer/order/${order_no}/show`;
+            },
+            showInvoiceModal(orderNo){
+                this.getOrderInfo(orderNo)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            $('#invoice').modal('show');
+                        }else{
+                            alert(response.message);
+                        }
+
+                    })
             }
         },
         computed:{

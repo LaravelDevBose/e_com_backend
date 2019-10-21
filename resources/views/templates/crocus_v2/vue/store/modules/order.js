@@ -31,7 +31,7 @@ const actions = {
             return await axios.get(`/buyer/order/${orderId}/show`)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('setOrderList', response.data.data);
+                        commit('setOrderInfo', response.data.data);
                     }
                     return response.data;
                 })

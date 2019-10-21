@@ -86,7 +86,7 @@ class AddressBookController extends Controller
                 ]);
                 if($address){
                     DB::commit();
-                    return ResponserTrait::singleResponse($address, 'success', Response::HTTP_OK,'Address Store Successfully');
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'Address Store Successfully',$address, route('buyer.address.book'));
                 }else{
                     throw new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
                 }
