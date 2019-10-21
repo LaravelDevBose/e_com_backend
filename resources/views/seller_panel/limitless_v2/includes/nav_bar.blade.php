@@ -17,7 +17,7 @@
             <p class="navbar-text"><span class="label bg-success-400">Online</span></p>
 
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
+                {{--<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-bubbles4"></i>
                         <span class="visible-xs-inline-block position-right">Messages</span>
@@ -107,7 +107,7 @@
                         </div>
                     </div>
                 </li>
-
+--}}
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ asset('assets/images/placeholder.jpg') }}" alt="">
@@ -143,7 +143,7 @@
                     <ul class="dropdown-menu width-200">
                         <li><a href="{{ route('seller.product.index') }}"><i class="icon-list-numbered"></i> Product List</a></li>
                         <li><a href="{{ route('seller.product.create') }}"><i class="icon-plus2"></i> New Product</a></li>
-                        <li><a href="{{ route('seller.product.create') }}"><i class="icon-drawer3"></i> Daft List</a></li>
+{{--                        <li><a href="{{ route('seller.product.create') }}"><i class="icon-drawer3"></i> Daft List</a></li>--}}
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -164,8 +164,8 @@
                         <i class=" icon-cart-remove position-left"></i>Return Order <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu width-200">
-                        <li><a href="{{ route('seller.product.index') }}"><i class="icon-reply position-left"></i> New Return</a></li>
-                        <li><a href="{{ route('seller.product.create') }}"><i class="icon-reply-all position-left"></i>Return List</a></li>
+                        <li><a href="{{ route('seller.home') }}"><i class="icon-reply position-left"></i> New Return</a></li>
+                        <li><a href="{{ route('seller.home') }}"><i class="icon-reply-all position-left"></i>Return List</a></li>
                     </ul>
                 </li>
                 {{--<li class="dropdown">

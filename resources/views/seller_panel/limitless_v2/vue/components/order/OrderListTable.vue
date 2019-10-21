@@ -77,13 +77,12 @@
         }
 
     });
-    Vue.component('product-info', {
-        template: ` <a href="#" @click.prevent="showProduct(row.product.product_slug)" class="text-semibold">{{ row.product_name }}</a>
+    Vue.component('order-product-info', {
+        template: `<div><a href="#" @click.prevent="showProduct(row.product.product_slug)" class="text-semibold">{{ row.product_name }}</a>
             <div class="text-muted text-size-small">
-                <span class="status-mark bg-grey position-left"></span>
+                <span class="icon-qrcode bg-grey position-left"></span>
                     {{ row.product.product_sku }}
-            </div>
-        `,
+            </div></div>`,
         props: ['row'],
         methods:{
             showProduct(product_slug){
@@ -91,6 +90,7 @@
             }
         }
     });
+
 
     export default {
         name: "OrderListTable",
@@ -104,7 +104,7 @@
                 rows:'',
                 columns: [
                     { label: 'Image', component: 'thumb-image', align: 'center', sortable: false },
-                    { label: 'Product Name', field: 'product_name', component: 'product-info' },
+                    { label: 'Product Name', component: 'order-product-info' },
                     { label: 'Order No', field: 'order.order_no'},
                     { label: 'Order Date', field: 'order.order_date', filterable: true, sortable:true },
                     { label: 'Buyer', field: 'buyer.user.full_name' , filterable: true, sortable:true },

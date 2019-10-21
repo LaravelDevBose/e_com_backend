@@ -313,7 +313,6 @@
                                             </td>
                                             <td class="text-center">
                                                 <ul class="icons-list">
-                                                    <li><input type="text" class="form-control" maxlength="255" v-model="variations[index].seller_sku"></li>
                                                     <li><a href="#" @click.prevent="removeVariationData(index)" class="text-danger"><i class="icon-trash"></i></a></li>
                                                 </ul>
                                             </td>
@@ -331,9 +330,9 @@
                         <div class="panel-body" >
                             <div class="row">
                                 <div class="col-md-2">
-                                    <div class="text-right form-group" style="margin-bottom:0px;">
+                                    <!--<div class="text-right form-group" style="margin-bottom:0px;">
                                         <button type="submit" class="btn btn-info btn-block">Draft<i class="icon-arrow-right14 position-right"></i></button>
-                                    </div>
+                                    </div>-->
                                 </div>
 
                                 <div class="col-md-6 col-md-offset-1">

@@ -7758,8 +7758,8 @@ Vue.component('status-badge', {
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['itemStatusList']))
 });
-Vue.component('product-info', {
-  template: " <a href=\"#\" @click.prevent=\"showProduct(row.product.product_slug)\" class=\"text-semibold\">{{ row.product_name }}</a>\n        <div class=\"text-muted text-size-small\">\n            <span class=\"status-mark bg-grey position-left\"></span>\n                {{ row.product.product_sku }}\n        </div>\n    ",
+Vue.component('order-product-info', {
+  template: "<div><a href=\"#\" @click.prevent=\"showProduct(row.product.product_slug)\" class=\"text-semibold\">{{ row.product_name }}</a>\n        <div class=\"text-muted text-size-small\">\n            <span class=\"icon-qrcode bg-grey position-left\"></span>\n                {{ row.product.product_sku }}\n        </div></div>",
   props: ['row'],
   methods: {
     showProduct: function showProduct(product_slug) {}
@@ -7782,8 +7782,7 @@ Vue.component('product-info', {
         sortable: false
       }, {
         label: 'Product Name',
-        field: 'product_name',
-        component: 'product-info'
+        component: 'order-product-info'
       }, {
         label: 'Order No',
         field: 'order.order_no'
@@ -7932,7 +7931,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -74816,46 +74814,6 @@ var render = function() {
                                           { staticClass: "icons-list" },
                                           [
                                             _c("li", [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value:
-                                                      _vm.variations[index]
-                                                        .seller_sku,
-                                                    expression:
-                                                      "variations[index].seller_sku"
-                                                  }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: {
-                                                  type: "text",
-                                                  maxlength: "255"
-                                                },
-                                                domProps: {
-                                                  value:
-                                                    _vm.variations[index]
-                                                      .seller_sku
-                                                },
-                                                on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      _vm.variations[index],
-                                                      "seller_sku",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("li", [
                                               _c(
                                                 "a",
                                                 {
@@ -74900,9 +74858,9 @@ var render = function() {
             _c("div", { staticClass: "panel panel-default" }, [
               _c("div", { staticClass: "panel-body" }, [
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(6),
+                  _c("div", { staticClass: "col-md-2" }),
                   _vm._v(" "),
-                  _vm._m(7),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-2 col-md-offset-1" }, [
                     _c(
@@ -75015,33 +74973,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", { staticClass: "col-md-2 text-center" }, [_vm._v("Extra")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2" }, [
-      _c(
-        "div",
-        {
-          staticClass: "text-right form-group",
-          staticStyle: { "margin-bottom": "0px" }
-        },
-        [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-info btn-block",
-              attrs: { type: "submit" }
-            },
-            [
-              _vm._v("Draft"),
-              _c("i", { staticClass: "icon-arrow-right14 position-right" })
-            ]
-          )
-        ]
-      )
     ])
   },
   function() {
