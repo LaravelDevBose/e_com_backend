@@ -104,6 +104,18 @@ const actions = {
         }
     },
 
+    async addAllWListItemsToCart(){
+        try {
+            return await axios.get('/wishlist/toCart/products')
+                .then(response=>{
+                    return response.data;
+                })
+        }catch (ex) {
+            console.log(ex);
+            return  ex;
+        }
+    },
+
 };
 
 const mutations = {

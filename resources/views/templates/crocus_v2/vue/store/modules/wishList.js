@@ -38,12 +38,12 @@ const actions = {
             return  ex;
         }
     },
-    async deleteFromWishList({commit}, productSlug){
+    async deleteFromWishList({commit}, productId){
         try {
-            return await axios.post('/buyer/wishList/remove',{product_slug:productSlug})
+            return await axios.post('/buyer/wishList/remove',{product_id:productId})
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('removeFromWishList', response.data.data);
+                        commit('removeFromWishList', productId);
                     }
                     return response.data;
                 })
@@ -58,7 +58,14 @@ const actions = {
 const mutations = {
     setWishListDetails:(state, response)=>state.wish_list = response,
     addToWishList:(state,response)=>state.wish_list_count++,
-    removeFromWishList:(state,response)=>state.wish_list_count--,
+    removeFromWishList:(state,productId)=>{
+        state.wish_list = state.wish_list.filter(wishList=>{
+            if(wishList.id !== productId){
+                return wishList;
+            }
+        });
+        state.wish_list_count--
+    },
 };
 
 export default {

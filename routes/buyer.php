@@ -21,7 +21,6 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
     Route::get('wishLists', 'WishListController@wish_lists');
     Route::post('/wishList/add', 'WishListController@add_to_wish_list');
     Route::post('/wishList/remove', 'WishListController@remove_from_wish_list');
-
     Route::get('checkout', 'CheckoutController@index')->name('checkout');
 
     /*** Buyer Order Route List ***/
@@ -48,5 +47,7 @@ Route::namespace('Buyer')->group(function (){
     Route::put('/cart/update', 'CartController@cart_update');
     Route::delete('/cart/{cartId}/remove', 'CartController@remove_from_cart');
     Route::delete('/destroy/cart', 'CartController@cart_destroy');
+    Route::get('/wishlist/toCart/products', 'CartController@wishList_to_cart_all_products')->middleware('web')->name('wishlist.to_cart.products');
+
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Buyer;
 
 use App\Helpers\Frontend\ProductHelper;
 use App\Models\Product;
+use App\Models\WishList;
 use App\Traits\ResponserTrait;
 use Exception;
 use App\Helpers\TemplateHelper;
@@ -74,9 +75,12 @@ class CartController extends Controller
             try{
                 DB::beginTransaction();
                 $product = Product::where('product_id',$request->id)->with('thumbImage')->first();
+                if(empty($product)){
+                    throw new Exception('Invalid Product Information', Response::HTTP_NOT_FOUND);
+                }
                 $cartProduct = [
                     'id'=>$request->id,
-                    'name'=>$request->name,
+                    'name'=>$product->product_name,
                     'qty'=>$request->qty,
                     'price'=>$request->price,
                     'weight'=>0,
@@ -161,6 +165,58 @@ class CartController extends Controller
             }
         }catch (Exception $ex){
             return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+        }
+
+    }
+
+    public function wishList_to_cart_all_products()
+    {
+        if(auth()->guard('web')->check()){
+            try{
+                $wishlists = WishList::isActive()->with(['product'=>function($query){
+                     return $query->isActive()->with('thumbImage', 'singleVariation');
+                }])->where('buyer_id', auth()->guard('web')->user()->buyer->buyer_id)->get();
+
+                if(empty($wishlists)){
+                    throw new Exception('Your Wish List is Empty', Response::HTTP_BAD_REQUEST);
+                }
+                $cartArray = array();
+
+                foreach ($wishlists as $wishlist){
+                    if(!empty($wishlist->product)){
+                        $cartProduct = [
+                            'id'=>$wishlist->product->product_id,
+                            'name'=>$wishlist->product->product_name,
+                            'qty'=>1,
+                            'price'=>$wishlist->product->singleVariation->price,
+                            'weight'=>0,
+                            'options' => [
+                                'size' => 'large',
+                                'image'=>$wishlist->product->thumbImage->image_path
+                            ]
+                        ];
+                        array_push($cartArray, $cartProduct);
+                    }
+                }
+
+                if(!empty($cartArray)){
+                    $cart = Cart::add($cartArray);
+
+                    if(!empty($cart)){
+                        DB::commit();
+                        return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Wish list Products Add To Cart Successfully', '', route('front.cart'));
+                    }else{
+                        throw new Exception('Invalid Information!', Response::HTTP_BAD_REQUEST);
+                    }
+                }else{
+                    throw new Exception('Invalid Cart Information', Response::HTTP_BAD_REQUEST);
+                }
+
+            }catch (Exception $ex){
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_UNAUTHORIZED, 'Unauthorized Request.', '', route('login'));
         }
 
     }

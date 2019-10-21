@@ -12,9 +12,9 @@
                  <li class="@yield('MyWishlist')">
                      <a href="{{ route('buyer.wish_list') }}">My Wishlist</a>
                  </li>
-                 <li class="@yield('ProductReviews')">
+                 {{--<li class="@yield('ProductReviews')">
                      <a href="{{ route('buyer.reviews') }}">My Product Reviews</a>
-                 </li>
+                 </li>--}}
                  <li class="@yield('AddressBook')">
                      <a href="{{ route('buyer.address.book') }}">Address Book</a>
                  </li>
