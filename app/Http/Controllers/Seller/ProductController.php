@@ -31,6 +31,9 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->seller_template = TemplateHelper::sellerTemplate();
+        if(empty($this->seller_template)){
+            $this->seller_template = config('app.seller_template');
+        }
         $this->middleware('auth:seller');
     }
 

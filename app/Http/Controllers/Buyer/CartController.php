@@ -23,6 +23,9 @@ class CartController extends Controller
     public function __construct()
     {
         $this->template_name = TemplateHelper::templateName();
+        if(empty($this->template_name)){
+            $this->template_name = config('app.default_template');
+        }
     }
 
     private function cart_content(){
