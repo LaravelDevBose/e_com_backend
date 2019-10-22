@@ -208,4 +208,9 @@ class FrontendController extends Controller
         return view('templates.' . $this->template_name . '.frontend.contact');
     }
 
+    public function searching_data(Request $request)
+    {
+
+    }
+
 }

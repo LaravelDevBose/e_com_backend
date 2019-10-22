@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/revslider.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/style.css') }}" media="all">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/fancybox.css') }}" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/blog.css') }}" media="all">
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400|Raleway:400,300,600,500,700,800' rel='stylesheet' type='text/css'>
 
