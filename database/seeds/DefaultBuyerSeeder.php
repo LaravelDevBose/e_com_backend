@@ -19,7 +19,7 @@ class DefaultBuyerSeeder extends Seeder
             'full_name'=>'Brainchild',
             'user_name'=>'buyer',
             'email'=>'buyer@demo.com',
-            'phone_no'=>'01714711730',
+            'phone_no'=>'01571721910',
             'account_type'=>User::AccountType['buyer'],
             'is_buyer'=>1,
             'is_seller'=>0,
