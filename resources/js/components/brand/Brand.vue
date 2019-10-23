@@ -15,19 +15,19 @@
             <div class="panel-body">
                 <form action="" @submit.prevent="manipulateBrandData">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-6">
                             <div class="form-group">
                                 <label>Brand Name:</label>
                                 <input type="text" v-model="formData.brand_name" class="form-control" placeholder="Brand Name " required>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-4">
                             <div class="form-group">
                                 <label>Brand Banner:</label>
                                 <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                             </div>
                         </div>
-                        <div class="col-md-3 col-md-offset-6">
+                        <div class="col-md-3 col-sm-4 col-md-offset-6 col-sm-offset-6">
                             <div class="content-group-lg">
                                 <div class="checkbox checkbox-switchery">
                                     <label>

@@ -9,6 +9,7 @@ const state = {
     singleProduct:'',
     selectedProIds:[],
     selected_date_time:[],
+    product_type:[],
 
 };
 
@@ -23,6 +24,7 @@ const getters = {
     product:(state)=>state.singleProduct,
     selectedProIds:(state)=>state.selectedProIds,
     selectedDateTimes:(state)=>state.selected_date_time,
+    productType:(state)=>state.product_type,
 };
 
 const actions = {
@@ -30,7 +32,17 @@ const actions = {
         try {
             await axios.get(`/admin/create/product/dependency/${catID}`)
                 .then(response=>{
-                    commit('productCreateDependency', response.data);
+                    commit('productCreateDependency', response.data.data);
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
+    async getProductCreateNeedData({commit}){
+        try {
+            await axios.get(`/admin/product/create`)
+                .then(response=>{
+                    commit('productCreateNeedData', response.data.data);
                 })
         }catch (error) {
             commit('setResponse', error.data);
@@ -87,11 +99,14 @@ const actions = {
 
 const mutations = {
     productCreateDependency:(state,response)=>{
-        state.warrantyType = response.warrantyType;
-        state.dangersGoods = response.dangersGoods;
         state.productColors = response.colors;
         state.productSizes = response.sizes;
+    },
+    productCreateNeedData:(state,response)=>{
+        state.warrantyType = response.warrantyType;
+        state.dangersGoods = response.dangersGoods;
         state.productSkinTypes = response.skinTypes;
+        state.product_type = response.product_type;
     },
     getProductData:(state, response)=>{
         state.allProducts = response.data;

@@ -11,6 +11,11 @@ class Product extends Model
 {
     use ManipulateBy;
 
+    const ProductType=[
+        'Simple'=>1,
+        'Variation'=>2
+    ];
+
     const WarrantyType=[
         1=>'International Manufacturer Warranty',
         2=>'Non-local warranty',
@@ -60,7 +65,11 @@ class Product extends Model
         'video_url',
         'thumb_id',
         'product_slug',
-        'seller_id'
+        'seller_id',
+        'product_type',
+        'product_qty',
+        'product_price',
+        'seller_sku',
     ];
 
     protected static function boot()
@@ -120,6 +129,10 @@ class Product extends Model
         return $query->where('seller_id', \auth()->id());
     }
 
+    public static function flipProductType()
+    {
+        return array_flip(Self::ProductType);
+    }
     public static function product_sku_generate(){
         $sku = '';
         for ($i=1; $i<=4; $i++){
