@@ -5,7 +5,7 @@
                 :height="cropperData.height"
                 :placeholder="cropperData.placeholder"
                 :accept="'image/*'"
-                :file-size-limit="cropperData.file_size*kb"
+                :file-size-limit="fileSizeLimit"
                 :quality="1"
                 :zoom-speed="5"
                 :disabled="uploaded"
@@ -44,7 +44,6 @@
         data(){
             return{
                 cropImage:'',
-                kb:'1048576‬',
                 imgUrl:'',
                 uploaded:false,
             }
@@ -70,11 +69,11 @@
 
             handleCroppaFileSizeExceed(){
                 Notify.warning('Maximum Image Size: '+(this.cropperData.file_size/1024).toFixed(2) +' MB');
-                return;
+                return false;
             },
             handleCroppaFileTypeMismatch(){
                 Notify.warning('File Type Not Match. Use .jpge , .jpg');
-                return;
+                return false;
             },
             handleImageRemove(){
                 if(this.removeImage === true){
@@ -90,10 +89,9 @@
             },
             upload() {
                 if (!this.cropImage.hasImage()) {
-                    alert('no image to upload')
+                    alert('no image to upload');
                     return
                 }
-
 
                 this.cropImage.generateBlob((blob) => {
                     let Imgurl = this.cropImage.generateDataUrl();
@@ -118,9 +116,11 @@
         computed:{
             ...mapGetters([
                 'attachments'
-            ])
+            ]),
 
-
+            fileSizeLimit(){
+                return this.cropperData.file_size*1048576;
+            }
         },
         watch:{
             removeImage:function(value){

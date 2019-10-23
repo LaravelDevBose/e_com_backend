@@ -6926,7 +6926,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       cropImage: '',
-      kb: '1048576‬',
       imgUrl: '',
       uploaded: false
     };
@@ -6944,11 +6943,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     handleCroppaFileSizeExceed: function handleCroppaFileSizeExceed() {
       Notify.warning('Maximum Image Size: ' + (this.cropperData.file_size / 1024).toFixed(2) + ' MB');
-      return;
+      return false;
     },
     handleCroppaFileTypeMismatch: function handleCroppaFileTypeMismatch() {
       Notify.warning('File Type Not Match. Use .jpge , .jpg');
-      return;
+      return false;
     },
     handleImageRemove: function handleImageRemove() {
       if (this.removeImage === true) {
@@ -6993,7 +6992,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['attachments'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['attachments']), {
+    fileSizeLimit: function fileSizeLimit() {
+      return this.cropperData.file_size * 1048576;
+    }
+  }),
   watch: {
     removeImage: function removeImage(value) {
       if (value === true) {
@@ -16220,7 +16223,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -72250,7 +72253,7 @@ var render = function() {
           height: _vm.cropperData.height,
           placeholder: _vm.cropperData.placeholder,
           accept: "image/*",
-          "file-size-limit": _vm.cropperData.file_size * _vm.kb,
+          "file-size-limit": _vm.fileSizeLimit,
           quality: 1,
           "zoom-speed": 5,
           disabled: _vm.uploaded,
@@ -94868,7 +94871,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })

@@ -8,12 +8,15 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
 
     Route::get('home','HomeController@dashboard')->name('home');
 
-    Route::post('/category', 'CategoryController@index')->name('category');
+    Route::get('/category', 'CategoryController@index')->name('category');
     Route::post('/category/tree_list', 'CategoryController@category_tree')->name('category.tree_list');
     Route::post('/all_category/tree_list', 'CategoryController@all_category_tree')->name('all_category.tree_list');
     Route::get('/category/create', 'CategoryController@create')->name('category.create');
     Route::post('/category/store', 'CategoryController@store')->name('category.store');
     Route::post('/category/delete', 'CategoryController@destroy')->name('category.delete');
+    Route::get('category/{category_id}', 'CategoryController@show')->name('category.show');
+    Route::get('category/{category_id}/edit', 'CategoryController@edit')->name('category.edit');
+    Route::put('category/{category_id}/update', 'CategoryController@update')->name('category.update');
     Route::post('/category/wish/products', 'CategoryController@category_wish_products')->name('category_wish.products');
 
     Route::get('/brands','BrandController@index')->name('brand.index');

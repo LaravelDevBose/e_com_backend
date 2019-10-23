@@ -4,6 +4,7 @@ const state = {
     treeListCategories:[],
     resData:'',
     category_products:[],
+    category_data:{},
 };
 
 //declare Getters
@@ -11,19 +12,37 @@ const getters = {
     categories:(state)=>state.categories,
     treeList:(state)=>state.treeListCategories,
     categoryProducts:(state)=>state.category_products,
+    category:(state)=>state.category_data,
 };
 
 const actions = {
     async allCategory({commit}){
-
         try{
-            const response = await axios.post('/admin/category');
-            commit('setCategory', response.data.data);
+            await axios.get('/admin/category')
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setCategory', response.data.data.data);
+                    }
+                });
+
         }catch (error) {
             console.log(error);
             commit('setResponse', error.data);
         }
+    },
+    async getCategoryData({commit},categoryId){
+        try{
+            await axios.get(`/admin/category/${categoryId}`)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setCategoryData', response.data.data);
+                    }
+                });
 
+        }catch (error) {
+            console.log(error);
+            commit('setResponse', error.data);
+        }
     },
     async allTreeListCategories({commit}){
         try{
@@ -53,6 +72,20 @@ const actions = {
                 commit('categoryStore', response.data);
                 return response.data;
             });
+
+        }catch (error) {
+            console.log(error);
+            commit('setResponse', error.data);
+        }
+
+    },
+    async updateCategory({commit},data){
+
+        try{
+            return await axios.put(`/admin/category/${data.id}/update`,data)
+                .then(response=>{
+                    return response.data;
+                });
 
         }catch (error) {
             console.log(error);
@@ -113,7 +146,8 @@ const mutations = {
     },
     setCategoryProducts:(state,response)=>{
         state.category_products = response;
-    }
+    },
+    setCategoryData:(state,response)=>state.category_data = response,
 };
 
 export default {
