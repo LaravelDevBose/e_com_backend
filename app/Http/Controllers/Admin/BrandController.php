@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Brand;
+use App\Traits\ResponserTrait;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -15,7 +17,7 @@ use App\Http\Resources\Admin\Brand as BrandResource;
 class BrandController extends Controller
 {
     public $route = 'admin.brand.';
-
+    public $template_name = 'limitless_v2';
     public function __construct()
     {
         view()->share('route',$this->route);
@@ -26,10 +28,14 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $brands = Brand::notDelete()->with(['attachment'])->latest()->get();
-        return new BrandCollection($brands);
+        if($request->ajax()) {
+            $coll = new BrandCollection($brands);
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $coll);
+        }
+
     }
 
     public function brand_list(){
@@ -44,7 +50,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('brand.index');
+        return view('admin_panel.'.$this->template_name.'.brand.index');
     }
 
     /**
@@ -57,7 +63,6 @@ class BrandController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'brand_name'=>'required',
-            'attachment_id'=>'array'
         ]);
 
         if($validator->passes()){
@@ -67,41 +72,22 @@ class BrandController extends Controller
                 $brand = Brand::create([
                     'brand_name'=>$request->brand_name,
                     'brand_slug'=>Str::slug($request->brnad_name),
-                    'attachment_id'=>(!empty($request->attachment_id))? $request->attachment_id[0]:null,
+                    'attachment_id'=>(!empty($request->attachment_id))? $request->attachment_id:null,
                     'brand_status'=>(!empty($request->brand_status) && $request->brand_status == 1) ? $request->brand_status : 2,
                 ]);
                 if($brand){
                     DB::commit();
-                    return response()->json([
-                        'brand'=> new BrandResource(Brand::find($brand->brand_id)),
-                        'res'=>[
-                            'status'=>'success',
-                            'message'=>'Brand Store Successfully',
-                        ]
-                    ]);
+                    $brand = new BrandResource(Brand::find($brand->brand_id));
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'Brand Store Successfully',$brand);
                 }
 
             }catch (Exception $ex){
                 DB::rollBack();
-                return response()->json([
-                    'status' => 'error',
-                    'message' => $ex->getMessage()
-                ]);
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
             }
         }else{
             $errors = array_values($validator->errors()->getMessages());
-            $message = null;
-            foreach ($errors as $error){
-                if(!empty($error)){
-                    foreach ($error as $errorItem){
-                        $message .=  $errorItem .' ';
-                    }
-                }
-            }
-            return response()->json([
-                'status' => 'validation',
-                'message' => ($message != null) ? $message :'Invalid File!'
-            ]);
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
         }
     }
 
@@ -136,7 +122,37 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'brand_name'=>'required',
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+                $brand = Brand::find($id);
+                if(empty($brand)){
+                    throw new Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
+                }
+                $brand = $brand->update([
+                    'brand_name'=>$request->brand_name,
+                    'brand_slug'=>Str::slug($request->brnad_name),
+                    'attachment_id'=>(!empty($request->attachment_id))? $request->attachment_id:null,
+                    'brand_status'=>(!empty($request->brand_status) && $request->brand_status == 1) ? $request->brand_status : 2,
+                ]);
+                if(!empty($brand)){
+                    $brand = new BrandResource(Brand::where('brand_id',$id)->with('attachment')->first());
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'Brand Update Successfully',$brand, '');
+                }
+
+            }catch (Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+        }
     }
 
     /**
@@ -156,25 +172,17 @@ class BrandController extends Controller
 
                 if($brand){
                     DB::commit();
-                    return response()->json([
-                        'status'=>'success',
-                        'message'=>'Brand Delete Successfully'
-                    ]);
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Brand Delete Successfully');
                 }{
                     throw new Exception('Invalid Information.!');
                 }
             }catch(Exception $ex){
                 DB::rollBack();
-                return response()->json([
-                    'status' => 'error',
-                    'message' => $ex->getMessage()
-                ]);
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
             }
         }else{
-            return response()->json([
-                'status'=>'error',
-                'message'=>'Invalid Information.!'
-            ]);
+            return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Invalid Brand Information');
+
         }
     }
 }

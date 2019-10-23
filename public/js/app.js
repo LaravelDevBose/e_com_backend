@@ -7185,6 +7185,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _attachment_Attachment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../attachment/Attachment */ "./resources/js/components/attachment/Attachment.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../cropper/ImageCropper */ "./resources/js/components/cropper/ImageCropper.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -7293,55 +7294,89 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Brand",
   components: {
-    Attachment: _attachment_Attachment__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Attachment: _attachment_Attachment__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ImageCropper: _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
-      from: {
+      formData: {
+        id: '',
         brand_name: '',
         brand_status: '',
         attachment_id: ''
       },
-      folder: 'brand',
-      multi_file: false,
-      btnDisabled: false
+      cropperData: {
+        width: 200,
+        height: 200,
+        placeholder: 'Choose a image in 200X200',
+        file_size: 1,
+        init_image: '',
+        folder: 'brand'
+      },
+      removeImage: false,
+      btnDisabled: false,
+      isedit: false
     };
   },
   created: function created() {
     this.getBrands();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getBrands', 'storeBrand', 'deleteBrand']), {
-    brandStore: function brandStore() {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getBrands', 'storeBrand', 'deleteBrand', 'updateBrandInfo']), {
+    manipulateBrandData: function manipulateBrandData() {
       var _this = this;
 
-      //TODO from Validation
-      this.from.attachment_id = this.attachment_ids;
-      this.storeBrand(this.from).then(function (response) {
-        console.log(response);
+      if (this.cropImageIds.length !== 0 && this.cropImageIds[0] !== '') {
+        this.formData.attachment_id = this.cropImageIds[0];
+      }
 
-        if (response.status === "success") {
-          Notify.success(response.message);
+      if (this.isedit) {
+        this.updateBrandInfo(this.formData).then(function (response) {
+          if (typeof response.code !== "undefined" && response.code === 200) {
+            Notify.success(response.message);
+            _this.isedit = false;
 
-          _this.formReset();
-        } else if (response.status === "validation") {
-          Notify.validation(response.message);
-        } else {
-          Notify.error(response.message);
-        }
-      })["catch"](function (error) {
-        Notify.info(error.message);
-      });
+            _this.formReset();
+          } else if (response.status === "validation") {
+            Notify.validation(response.message);
+          } else {
+            Notify.error(response.message);
+          }
+        })["catch"](function (error) {
+          Notify.info(error.message);
+        });
+      } else {
+        this.storeBrand(this.formData).then(function (response) {
+          console.log(response);
+
+          if (response.status === "success") {
+            Notify.success(response.message);
+
+            _this.formReset();
+          } else if (response.status === "validation") {
+            Notify.validation(response.message);
+          } else {
+            Notify.error(response.message);
+          }
+        })["catch"](function (error) {
+          Notify.info(error.message);
+        });
+      }
     },
     formReset: function formReset() {
-      this.from.brand_name = '';
-      this.from.brand_status = false;
-      this.from.attachment_id = '';
-      this.$store.commit('emptyAttachmentFile');
+      this.formData.brand_name = '';
+      this.formData.brand_status = false;
+      this.formData.attachment_id = '';
+      this.removeImage = true;
     },
     brandDelete: function brandDelete(brandId) {
       if (confirm('Are You Sure..?')) {
@@ -7355,13 +7390,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else {
         return false;
       }
+    },
+    editBrand: function editBrand(brandId) {
+      var _this2 = this;
+
+      this.brands.filter(function (brand) {
+        if (brand.id === brandId) {
+          _this2.isedit = true;
+          _this2.formData.id = brand.id;
+          _this2.formData.brand_name = brand.name;
+          _this2.formData.brand_status = brand.status;
+
+          if (brand.attachment) {
+            _this2.formData.attachment_id = brand.attachment.attachment_id;
+            _this2.cropperData.init_image = brand.attachment.image_path;
+          }
+        }
+
+        return brand;
+      });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['brands', 'attachment_ids'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['brands', 'cropImageIds']), {
+    checkFormData: function checkFormData() {
+      return JSON.parse(JSON.stringify(this.formData));
+    }
+  }),
   watch: {
-    form: {
+    checkFormData: {
       handler: function handler(newValue, oldValue) {
-        if (oldValue === newValue) {
+        if (oldValue !== newValue) {
           this.btnDisabled = false;
         }
       },
@@ -79052,7 +79110,7 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.brandStore($event)
+                return _vm.manipulateBrandData($event)
               }
             }
           },
@@ -79067,8 +79125,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.from.brand_name,
-                        expression: "from.brand_name"
+                        value: _vm.formData.brand_name,
+                        expression: "formData.brand_name"
                       }
                     ],
                     staticClass: "form-control",
@@ -79077,13 +79135,17 @@ var render = function() {
                       placeholder: "Brand Name ",
                       required: ""
                     },
-                    domProps: { value: _vm.from.brand_name },
+                    domProps: { value: _vm.formData.brand_name },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.from, "brand_name", $event.target.value)
+                        _vm.$set(
+                          _vm.formData,
+                          "brand_name",
+                          $event.target.value
+                        )
                       }
                     }
                   })
@@ -79097,8 +79159,11 @@ var render = function() {
                   [
                     _c("label", [_vm._v("Brand Banner:")]),
                     _vm._v(" "),
-                    _c("attachment", {
-                      attrs: { multi_file: _vm.multi_file, folder: _vm.folder }
+                    _c("image-cropper", {
+                      attrs: {
+                        cropperData: _vm.cropperData,
+                        removeImage: _vm.removeImage
+                      }
                     })
                   ],
                   1
@@ -79114,21 +79179,21 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.from.brand_status,
-                            expression: "from.brand_status"
+                            value: _vm.formData.brand_status,
+                            expression: "formData.brand_status"
                           }
                         ],
                         staticClass: "switchery-primary",
                         attrs: { type: "checkbox" },
                         domProps: {
-                          checked: _vm.from.brand_status,
-                          checked: Array.isArray(_vm.from.brand_status)
-                            ? _vm._i(_vm.from.brand_status, null) > -1
-                            : _vm.from.brand_status
+                          checked: _vm.formData.brand_status,
+                          checked: Array.isArray(_vm.formData.brand_status)
+                            ? _vm._i(_vm.formData.brand_status, null) > -1
+                            : _vm.formData.brand_status
                         },
                         on: {
                           change: function($event) {
-                            var $$a = _vm.from.brand_status,
+                            var $$a = _vm.formData.brand_status,
                               $$el = $event.target,
                               $$c = $$el.checked ? true : false
                             if (Array.isArray($$a)) {
@@ -79137,26 +79202,26 @@ var render = function() {
                               if ($$el.checked) {
                                 $$i < 0 &&
                                   _vm.$set(
-                                    _vm.from,
+                                    _vm.formData,
                                     "brand_status",
                                     $$a.concat([$$v])
                                   )
                               } else {
                                 $$i > -1 &&
                                   _vm.$set(
-                                    _vm.from,
+                                    _vm.formData,
                                     "brand_status",
                                     $$a.slice(0, $$i).concat($$a.slice($$i + 1))
                                   )
                               }
                             } else {
-                              _vm.$set(_vm.from, "brand_status", $$c)
+                              _vm.$set(_vm.formData, "brand_status", $$c)
                             }
                           }
                         }
                       }),
                       _vm._v(" "),
-                      _vm.from.brand_status
+                      _vm.formData.brand_status
                         ? _c("span", { staticClass: "text-success" }, [
                             _vm._v(" Publish")
                           ])
@@ -79168,7 +79233,26 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(1)
+              _c("div", { staticClass: "col-md-3" }, [
+                _c("div", { staticClass: "text-right form-group" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit", disabled: _vm.btnDisabled }
+                    },
+                    [
+                      _vm.isedit
+                        ? _c("span", [_vm._v("Update Brand")])
+                        : _c("span", [_vm._v("Save Brand")]),
+                      _vm._v(" "),
+                      _c("i", {
+                        staticClass: "icon-arrow-right14 position-right"
+                      })
+                    ]
+                  )
+                ])
+              ])
             ])
           ]
         )
@@ -79176,14 +79260,14 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "panel panel-flat" }, [
-      _vm._m(2),
+      _vm._m(1),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
         _c(
           "table",
           { staticClass: "table table-bordered table-striped table-sm" },
           [
-            _vm._m(3),
+            _vm._m(2),
             _vm._v(" "),
             _c(
               "tbody",
@@ -79227,7 +79311,21 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", { staticClass: "text text-center" }, [
                         _c("ul", { staticClass: "icons-list" }, [
-                          _vm._m(4, true),
+                          _c("li", { staticClass: "text-primary-600" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.editBrand(brand.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-pencil7" })]
+                            )
+                          ]),
                           _vm._v(" "),
                           _c("li", { staticClass: "text-danger-600" }, [
                             _c(
@@ -79280,23 +79378,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
-      _c("div", { staticClass: "text-right form-group" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [
-            _vm._v("Save Brand "),
-            _c("i", { staticClass: "icon-arrow-right14 position-right" })
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "panel-heading" }, [
       _c("h5", { staticClass: "panel-title" }, [_vm._v("Brand List")]),
       _vm._v(" "),
@@ -79326,16 +79407,6 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "text-primary-600" }, [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "icon-pencil7" })
       ])
     ])
   }
@@ -113432,8 +113503,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  brands: '',
-  brandList: ''
+  brands: [],
+  brand_list: []
 }; //declare Getters
 
 var getters = {
@@ -113441,7 +113512,7 @@ var getters = {
     return state.brands;
   },
   brandList: function brandList(state) {
-    return state.brandList;
+    return state.brand_list;
   }
 };
 var actions = {
@@ -113458,7 +113529,7 @@ var actions = {
               _context.prev = 1;
               _context.next = 4;
               return axios.get('/admin/brands').then(function (response) {
-                commit('setBrands', response.data.data);
+                commit('setBrands', response.data.data.data);
               });
 
             case 4:
@@ -113570,10 +113641,10 @@ var actions = {
 
     return storeBrand;
   }(),
-  deleteBrand: function () {
-    var _deleteBrand = _asyncToGenerator(
+  updateBrandInfo: function () {
+    var _updateBrandInfo = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, brandID) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, fromData) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
@@ -113582,6 +113653,48 @@ var actions = {
               commit = _ref4.commit;
               _context4.prev = 1;
               _context4.next = 4;
+              return axios.put("/admin/brand/".concat(fromData.id, "/update"), fromData).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('updateBrandData', response.data.data);
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context4.abrupt("return", _context4.sent);
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](1);
+              return _context4.abrupt("return", _context4.t0.data);
+
+            case 10:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 7]]);
+    }));
+
+    function updateBrandInfo(_x5, _x6) {
+      return _updateBrandInfo.apply(this, arguments);
+    }
+
+    return updateBrandInfo;
+  }(),
+  deleteBrand: function () {
+    var _deleteBrand = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, brandID) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit;
+              _context5.prev = 1;
+              _context5.next = 4;
               return axios["delete"]("/admin/brand/".concat(brandID)).then(function (response) {
                 if (response.data.status === "success") {
                   commit('removeBrand', brandID);
@@ -113592,23 +113705,23 @@ var actions = {
               });
 
             case 4:
-              return _context4.abrupt("return", _context4.sent);
+              return _context5.abrupt("return", _context5.sent);
 
             case 7:
-              _context4.prev = 7;
-              _context4.t0 = _context4["catch"](1);
-              commit('setResponse', _context4.t0.data);
-              return _context4.abrupt("return", _context4.t0.data);
+              _context5.prev = 7;
+              _context5.t0 = _context5["catch"](1);
+              commit('setResponse', _context5.t0.data);
+              return _context5.abrupt("return", _context5.t0.data);
 
             case 11:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4, null, [[1, 7]]);
+      }, _callee5, null, [[1, 7]]);
     }));
 
-    function deleteBrand(_x5, _x6) {
+    function deleteBrand(_x7, _x8) {
       return _deleteBrand.apply(this, arguments);
     }
 
@@ -113628,7 +113741,20 @@ var mutations = {
     });
   },
   setBrandList: function setBrandList(state, response) {
-    return state.brandList = response;
+    return state.brand_list = response;
+  },
+  updateBrandData: function updateBrandData(state, response) {
+    state.brand_list = state.brand_list.filter(function (brand) {
+      console.log(brand);
+      /*if(brand.id === response.id){
+          brand.id = response.id;
+          brand.name = response.name;
+          brand.status = response.status;
+          brand.attachment = response.attachment;
+      }*/
+
+      return brand;
+    });
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

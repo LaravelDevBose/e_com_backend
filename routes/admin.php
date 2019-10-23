@@ -23,6 +23,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     Route::get('/brand/list','BrandController@brand_list')->name('brand.list');
     Route::get('brand/create', 'BrandController@create')->name('brand.create');
     Route::post('brand/store', 'BrandController@store')->name('brand.store');
+    Route::put('/brand/{brand}/update', 'BrandController@update')->name('brand.update');
     Route::delete('/brand/{brand}', 'BrandController@destroy')->name('brand.delete');
 
     Route::get('/colors', 'ColorController@index')->name('color');
