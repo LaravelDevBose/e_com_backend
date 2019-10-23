@@ -2,7 +2,7 @@
     <div>
         <div class="search-box">
             <form @submit.prevent="searchingData"  id="search_mini_form" name="Categories">
-                <input type="text" v-model="search_key" placeholder="Search entire store here..."  maxlength="70" name="search" id="search">
+                <input type="text" v-model="searchData.search_key" placeholder="Search entire store here..."  maxlength="70" name="search" id="search">
                 <button type="submit" :disabled="btnDisabled" class="search-btn-bg"><span class="glyphicon glyphicon-search"></span>&nbsp;</button>
             </form>
         </div>
@@ -34,7 +34,7 @@
             },
             searching: _.debounce(function() {
                 this.btnDisabled = true;
-                this.getSearchDetails(this.search_key)
+                this.getSearchDetails(this.searchData)
                     .then(response=>{
                         this.btnDisabled = false;
                     });
@@ -59,5 +59,11 @@
 </script>
 
 <style scoped>
-
+    #search{
+        width: 100%;
+        /*color: #fff;*/
+    }
+    .search-box input[type="text"]{
+        color:#fff!important;
+    }
 </style>

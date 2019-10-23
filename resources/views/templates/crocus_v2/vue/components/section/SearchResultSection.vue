@@ -1,26 +1,44 @@
 <template>
-    <div class="search-content">
+    <div v-if="checkSearchResult" class="search-content">
         <div role="complementary" class="widget_wrapper13" id="secondary">
             <div class="popular-posts widget widget__sidebar wow bounceInUp animated" id="recent-posts-4">
                 <h3 class="widget-title"><span>Most Popular Post</span></h3>
                 <div class="widget-content">
-                    <ul class="posts-list unstyled clearfix">
-                        <li>
+                    <ul v-if="searchResult.products && Object.entries(searchResult.products).length !== 0" class="posts-list unstyled clearfix">
+                        <li v-for="(product,index) in searchResult.products" :key="index">
                             <figure class="featured-thumb">
-                                <a href="blog_single_post.html">
-                                    <img width="50" height="50" alt="blog image" src="/crocus_v2/images/blog-img.jpg">
+                                <a :href="'/product/'+product.product_slug">
+                                    <img v-if="product.thumbImage.image_path" width="50" height="50" :alt="product.productName" :src="product.thumbImage.image_path">
+                                    <img v-else width="50" height="50" :alt="product.productName" src="/crocus_v2/images/blog-img.jpg">
                                 </a>
                             </figure>
                             <!--featured-thumb-->
-                            <h4><a title="Pellentesque posuere" href="#/pellentesque-posuere">Blog Image Post Layout Investigationes</a></h4>
-                            <p class="post-meta"><i class="icon-calendar"></i>
-                                <time datetime="2014-07-10T07:09:31+00:00" class="entry-date">Jul 10, 2016</time>
-                                .</p>
+                            <h4>
+                                <a :title="product.productName" :href="'/product/'+product.product_slug">{{ product.productName}}</a>
+                            </h4>
+                            <p class="post-meta" v-if="product.brand">
+                                <span class="entry-date">{{ product.brand.brand_name }}</span>
+                            </p>
+                            <p class="post-meta" v-if="product.category">
+                                <span class="entry-date">{{ product.category.name }}</span>
+                            </p>
                         </li>
                     </ul>
-                    <ul class="other-list">
-                        <li class="cat-item">
-                            <a class="author" href="#/first-category">Bootstrap</a>
+
+                    <ul class="other-list" v-if="searchResult.categories && Object.entries(searchResult.categories).length !== 0">
+                        <li>
+                            <h3 class="widget-title"><span>Categories</span></h3>
+                        </li>
+                        <li class="cat-item" v-for="(category,index) in searchResult.categories" :key="index">
+                            <a class="author" :href="`/category/${category.slug}/products`">{{ category.name }}</a>
+                        </li>
+                    </ul>
+                    <ul class="other-list" v-if="searchResult.brands && Object.entries(searchResult.brands).length !== 0">
+                        <li>
+                            <h3 class="widget-title"><span>Brands</span></h3>
+                        </li>
+                        <li class="cat-item" v-for="(brand,index) in searchResult.brands" :key="index">
+                            <a class="author" :href="`/category/${brand.brand_slug}/products`">{{ brand.brand_name }}</a>
                         </li>
                     </ul>
                 </div>
@@ -40,7 +58,18 @@
         computed:{
             ...mapGetters([
                 'searchResult',
-            ])
+            ]),
+            checkSearchResult(){
+                if(this.searchResult.products){
+                    return true;
+                }else if(this.searchResult.categories){
+                    return true;
+                }else if(this.searchResult.brands){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
         }
     }
 </script>
@@ -52,9 +81,19 @@
     .other-list{
         padding-left: 0;
     }
+    .cat-item{
+        padding: 4px 0;
+    }
     .other-list .author{
-        padding: 5px;
+        padding: 7px;
+        font-weight: 600;
+    }
+    .cat-title{
+        padding: 7px;
         font-weight: bold;
+    }
+    .popular-posts .post-meta{
+        padding:0;
     }
     .popular-posts{
         border: none;

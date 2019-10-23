@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Helpers\Frontend\ProductHelper;
 use App\Helpers\TemplateHelper;
+use App\Http\Resources\Frontend\brand\BrandCollection;
+use App\Http\Resources\Frontend\category\CategoryCollection;
+use App\Http\Resources\Frontend\product\ProductCollection;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\GroupProduct;
 use App\Models\HomepageSection;
@@ -210,6 +214,43 @@ class FrontendController extends Controller
 
     public function searching_data(Request $request)
     {
+        $result =[
+            'products'=>[],
+            'categories'=>[],
+            'brands'=>[],
+        ];
+        if(!empty($request->search_key)){
+            $products = Product::where('product_status', Product::ProductStatus['Active'])
+                ->where('product_name', 'like', '%'.$request->search_key.'%')
+                ->orWhere('product_sku', 'like', '%'. $request->search_key.'%')
+                ->orWhere('lang_product_name', 'like', '%'. $request->search_key.'%')
+                ->orwhere('lang_highlight','like','%'.$request->search_key.'%')->take(7)->get();
+            ## TODO Product Status Check
+            $productColl = ProductCollection::collection($products);
+            if(!empty($productColl)){
+                $result['products'] = $productColl;
+            }
+
+            $categories = Category::isActive()
+                ->Where('category_name', 'like', '%'.$request->search_key.'%')->take(5)->get();
+            if(!empty($categories)){
+                $result['categories']=CategoryCollection::collection($categories);
+            }
+
+            $brands = Brand::isActive()->where('brand_name','like','%'.$request->search_key.'%')->take(5)->get();
+            if(!empty($brands)){
+                $result['brands']=BrandCollection::collection($brands);
+            }
+
+            if(!empty($result)){
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Search Result Found', $result);
+            }else{
+                return ResponserTrait::allResponse('success', Response::HTTP_NO_CONTENT, 'No Result Found',$result);
+            }
+        }else{
+            return ResponserTrait::allResponse('success', Response::HTTP_BAD_REQUEST, 'No Search Key Found',$result);
+        }
+
 
     }
 

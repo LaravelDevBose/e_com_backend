@@ -13,9 +13,7 @@ const actions = {
         try {
             return await axios.post('/search',reqData)
                 .then(response=>{
-                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('setSearchResult', response.data.data);
-                    }
+                    commit('setSearchResult', response.data.data);
                     return response.data;
                 });
         }catch (error) {
