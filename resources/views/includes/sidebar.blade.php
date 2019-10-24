@@ -56,7 +56,7 @@
                             <li><a href="{{ route('admin.product.create') }}"><i class="icon-plus2"></i> Add Product</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ route('admin.un-publish.index') }}"><i class="icon-users"></i> <span>Publishing Product</span></a></li>
+                    <li><a href="{{ route('admin.un-publish.index') }}"><i class="icon-upload"></i> <span>Publishing Product</span></a></li>
 
                     <li ><a href="{{ route('admin.buyer.index') }}"><i class="icon-users"></i> <span>Customer</span></a></li>
                     <li ><a href="{{ route('admin.shop.index') }}"><i class="icon-store"></i> <span>Shops</span></a></li>

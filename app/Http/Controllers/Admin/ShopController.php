@@ -29,7 +29,7 @@ class ShopController extends Controller
     {
         if($request->ajax()){
             $shops = Seller::notDelete()->with(['user','shop.shopLogo','products'=>function($query){
-                return $query->where('product_status','!=', Product::ProductStatus['Delete']);
+                return $query->notDelete();
             }])->latest()->paginate(20);
 
             if(!empty($shops)){
