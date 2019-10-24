@@ -127,7 +127,7 @@ class Product extends Model
     }
 
     public function scopeInAdminReview($query){
-        return $query->where('product_status', Product::ProductStatus['Review'])->orWhere('product_status', Product::ProductStatus['Pending']);
+        return $query->whereIn('product_status', [Product::ProductStatus['Pending'], Self::ProductStatus['Pending']]);
     }
 
     public function scopeIsOwner($query){
@@ -193,7 +193,8 @@ class Product extends Model
         }
 
         if($request->date_range == 'custom'){
-            $query->whereDate('created_at', '>=', $request->start_date)->whereDate('created_at', $request->end_date);
+            $query->whereDate('created_at', '>=', Carbon::parse($request->start_date)->format('Y-m-d'))
+                ->whereDate('created_at','<=', Carbon::parse($request->end_date)->format('Y-m-d'));
         }
 
         return $query;

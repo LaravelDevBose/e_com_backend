@@ -8,6 +8,8 @@ use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ProductPublishController extends Controller
 {
@@ -20,7 +22,9 @@ class ProductPublishController extends Controller
      */
     public function index(Request $request)
     {
+
         if($request->ajax()){
+//            return \response()->json($request->all());
             $products = Product::with(['thumbImage','category'=>function($query){
                 return $query->with(['parent'=>function($q){
                     return $q->with(['parent']);
@@ -47,9 +51,35 @@ class ProductPublishController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function change_products_status(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'productIds'=>'required|array',
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+
+                $products = Product::whereIn('product_id', $request->productIds)
+                            ->update([
+                                'product_status'=>$request->product_status,
+                            ]);
+                if(!empty($products)){
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'Product Publish Successfully',$request->productIds);
+                }else{
+                    throw new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
+                }
+
+            }catch (\Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+        }
     }
 
     /**

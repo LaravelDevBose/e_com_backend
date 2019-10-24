@@ -17,6 +17,7 @@ class ProductCollection extends Resource
      */
     public function toArray($request)
     {
+        $statusLabel = \App\Models\Product::flipProductStatus();
         return [
             'id'=>$this->product_id,
             'product_title'=>$this->product_name,
@@ -26,25 +27,8 @@ class ProductCollection extends Resource
             'brand'=>New BrandResource($this->whenLoaded('brand')),
             'total_qty'=>$this->variations->sum('quantity'),
             'status'=>$this->product_status,
-            'status_label'=>$this->statusLabel($this->product_status),
+            'status_label'=>$statusLabel[$this->product_status],
             'thumbnail'=> new AttachmentResource($this->whenLoaded('thumbImage')),
         ];
-    }
-
-    private function statusLabel($value){
-        switch ($value):
-            case 0:
-                return 'Delete';
-                break;
-            case 1:
-                return 'Active';
-                break;
-            case 2:
-                return 'Inactive';
-                break;
-            default:
-                return 'Undefined';
-                break;
-        endswitch;
     }
 }

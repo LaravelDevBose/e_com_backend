@@ -11,7 +11,10 @@ const getters = {
 const actions = {
     async getUnPublishProducts({commit},reqData){
         try {
-            await axios.get('/admin/un-publish/products',reqData)
+            await axios.get('/admin/un-publish/products',
+                {
+                    params:reqData
+                })
                 .then(response=>{
                     commit('setUnPublishProduct', response.data.data);
                 });
