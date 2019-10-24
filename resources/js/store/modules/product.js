@@ -5,11 +5,12 @@ const state = {
     productColors:'',
     productSizes:'',
     productSkinTypes:'',
-    allProducts:'',
+    allProducts:[],
     singleProduct:'',
     selectedProIds:[],
     selected_date_time:[],
     product_type:[],
+    status_list:[],
 
 };
 
@@ -25,6 +26,7 @@ const getters = {
     selectedProIds:(state)=>state.selectedProIds,
     selectedDateTimes:(state)=>state.selected_date_time,
     productType:(state)=>state.product_type,
+    productStatus:(state)=>state.status_list,
 };
 
 const actions = {
@@ -43,6 +45,16 @@ const actions = {
             await axios.get(`/admin/product/create`)
                 .then(response=>{
                     commit('productCreateNeedData', response.data.data);
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
+    async getProductStatusList({commit}){
+        try {
+            await axios.get(`/admin/status/list/product`)
+                .then(response=>{
+                    commit('setProductStatusList', response.data.data);
                 })
         }catch (error) {
             commit('setResponse', error.data);
@@ -95,6 +107,19 @@ const actions = {
         commit('setSelectedDateTime', selectData);
         return true;
     },
+    async productStatusChange({commit}, fromData){
+        try {
+            return await axios.post('/admin/product/status/update', fromData)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('updateProductStatus', response.data.data);
+                    }
+                    return response.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {
@@ -137,6 +162,18 @@ const mutations = {
             });
         }
 
+    },
+    setProductStatusList:(state,response)=>state.status_list = response,
+
+    updateProductStatus:(state,response)=>{
+        state.allProducts = state.allProducts.filter(product=>{
+            if(product.id === response.product_id){
+                product.status = response.product_status;
+                product.status_label = response.status_label;
+
+            }
+            return product;
+        });
     }
 };
 

@@ -81,6 +81,10 @@ class ProductController extends Controller
         return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK, '');
     }
 
+    public function get_product_status(){
+        return ResponserTrait::singleResponse(Product::flipProductStatus(),'success', Response::HTTP_OK, '');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -336,6 +340,46 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function product_status_update(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'product_id'=>'required',
+            'product_status'=>'required',
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+                $product = Product::find($request->product_id);
+                if(empty($product)){
+                    throw new Exception('Invalid Product Information', Response::HTTP_BAD_REQUEST);
+                }
+                $statusUpdate = $product->update([
+                    'product_status'=>$request->product_status,
+                ]);
+                if(!empty($statusUpdate)){
+                    $status = Product::flipProductStatus();
+                    $data = [
+                        'product_id'=>$request->product_id,
+                        'product_status'=>$request->product_status,
+                        'status_label'=>$status[$request->product_status]
+                    ];
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'Product Status Update Successfully',$data);
+                }
+
+            }catch (Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+        }
+
     }
 
 }

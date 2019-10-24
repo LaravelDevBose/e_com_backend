@@ -133,6 +133,12 @@ class Product extends Model
     {
         return array_flip(Self::ProductType);
     }
+
+    public static function flipProductStatus()
+    {
+        return array_flip(Self::ProductStatus);
+    }
+
     public static function product_sku_generate(){
         $sku = '';
         for ($i=1; $i<=4; $i++){

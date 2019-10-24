@@ -92,8 +92,9 @@ const mutations = {
                 brand.name = response.name;
                 brand.status = response.status;
                 brand.attachment = response.attachment;
+                return brand;
             }
-            return brand;
+
         });
     }
 };

@@ -56,7 +56,6 @@
             return {
                 page: 1,
                 per_page: 10,
-                products:'',
                 filter: '',
                 rows:'',
                 columns: [
@@ -81,21 +80,14 @@
             }
         },
         created() {
-            this.getProductsData();
+            this.getProducts();
+            this.getProductStatusList();
         },
         methods:{
             ...mapActions([
-                'getProducts'
+                'getProducts',
+                'getProductStatusList'
             ]),
-
-            getProductsData(){
-                let vm = this;
-                vm.getProducts().then(response=>{
-                    vm.products = response.data.data;
-                    vm.rows = vm.products;
-
-                })
-            },
             configPagination(data) {
                 this.pagination.lastPage = data.last_page;
                 this.pagination.currentPage = data.current_page;
@@ -121,7 +113,7 @@
         },
         computed:{
             ...mapGetters([
-
+                'products',
             ])
         }
 

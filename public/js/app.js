@@ -10888,6 +10888,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -10896,9 +10903,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductStatus",
-  props: ['row']
+  props: ['row'],
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['productStatusChange']), {
+    changeProductStatus: function changeProductStatus(productId, status) {
+      var reqData = {
+        product_id: productId,
+        product_status: status
+      };
+      this.productStatusChange(reqData).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          Notify.success(response.message);
+        } else if (response.status === 'validation') {
+          Notify.validation(response.message);
+        } else {
+          Notify.error(response.message);
+        }
+      });
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['productStatus']))
 });
 
 /***/ }),
@@ -13329,7 +13370,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       page: 1,
       per_page: 10,
-      products: '',
       filter: '',
       rows: '',
       columns: [{
@@ -13391,16 +13431,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   created: function created() {
-    this.getProductsData();
+    this.getProducts();
+    this.getProductStatusList();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getProducts']), {
-    getProductsData: function getProductsData() {
-      var vm = this;
-      vm.getProducts().then(function (response) {
-        vm.products = response.data.data;
-        vm.rows = vm.products;
-      });
-    },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getProducts', 'getProductStatusList']), {
     configPagination: function configPagination(data) {
       this.pagination.lastPage = data.last_page;
       this.pagination.currentPage = data.current_page;
@@ -13425,7 +13459,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])([]))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['products']))
 });
 
 /***/ }),
@@ -22555,7 +22589,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -85174,18 +85208,68 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm.row.status === 1
-      ? _c("span", { staticClass: "badge badge-success" }, [
-          _vm._v(_vm._s(_vm.row.status_label))
-        ])
-      : _vm.row.status === 2
-      ? _c("span", { staticClass: "badge badge-warning" }, [
-          _vm._v(_vm._s(_vm.row.status_label))
-        ])
-      : _c("span", { staticClass: "badge badge-default" }, [
-          _vm._v(_vm._s(_vm.row.status_label))
-        ])
+  return _c("div", { staticClass: "btn-group" }, [
+    _c(
+      "span",
+      {
+        staticClass: "label  dropdown-toggle",
+        class: {
+          "bg-success": _vm.row.status === 1,
+          "bg-info": _vm.row.status === 2,
+          "bg-warning": _vm.row.status === 3,
+          "bg-primary": _vm.row.status === 4,
+          "bg-indigo-400": _vm.row.status === 5,
+          "bg-teal": _vm.row.status === 6
+        },
+        attrs: { "data-toggle": "dropdown", "aria-expanded": "false" }
+      },
+      [
+        _vm._v("\n        " + _vm._s(_vm.row.status_label) + "\n        "),
+        _c("span", { staticClass: "caret" })
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", [
+      _vm.productStatus
+        ? _c(
+            "ul",
+            { staticClass: "dropdown-menu dropdown-menu-right" },
+            _vm._l(_vm.productStatus, function(statusName, index) {
+              return _vm.row.status !== index
+                ? _c("li", [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.changeProductStatus(_vm.row.id, index)
+                          }
+                        }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "status-mark position-left",
+                          class: {
+                            "bg-success": index === 1,
+                            "bg-info": index === 2,
+                            "bg-warning": index === 3,
+                            "bg-primary": index === 4,
+                            "bg-indigo-400": index === 5,
+                            "bg-teal": index === 6
+                          }
+                        }),
+                        _vm._v(" " + _vm._s(statusName) + "\n                ")
+                      ]
+                    )
+                  ])
+                : _vm._e()
+            }),
+            0
+          )
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []
@@ -114418,9 +114502,8 @@ var mutations = {
         brand.name = response.name;
         brand.status = response.status;
         brand.attachment = response.attachment;
+        return brand;
       }
-
-      return brand;
     });
   }
 };
@@ -117463,11 +117546,12 @@ var state = {
   productColors: '',
   productSizes: '',
   productSkinTypes: '',
-  allProducts: '',
+  allProducts: [],
   singleProduct: '',
   selectedProIds: [],
   selected_date_time: [],
-  product_type: []
+  product_type: [],
+  status_list: []
 }; //declare Getters
 
 var getters = {
@@ -117500,6 +117584,9 @@ var getters = {
   },
   productType: function productType(state) {
     return state.product_type;
+  },
+  productStatus: function productStatus(state) {
+    return state.status_list;
   }
 };
 var actions = {
@@ -117581,8 +117668,8 @@ var actions = {
 
     return getProductCreateNeedData;
   }(),
-  getProducts: function () {
-    var _getProducts = _asyncToGenerator(
+  getProductStatusList: function () {
+    var _getProductStatusList = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
       var commit;
@@ -117593,37 +117680,37 @@ var actions = {
               commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
-              return axios.get('/admin/collection/product').then(function (response) {
-                commit('getProductData', response.data);
-                return response;
+              return axios.get("/admin/status/list/product").then(function (response) {
+                commit('setProductStatusList', response.data.data);
               });
 
             case 4:
-              return _context3.abrupt("return", _context3.sent);
+              _context3.next = 9;
+              break;
 
-            case 7:
-              _context3.prev = 7;
+            case 6:
+              _context3.prev = 6;
               _context3.t0 = _context3["catch"](1);
-              commit('getProductData', _context3.t0.data);
+              commit('setResponse', _context3.t0.data);
 
-            case 10:
+            case 9:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 7]]);
+      }, _callee3, null, [[1, 6]]);
     }));
 
-    function getProducts(_x4) {
-      return _getProducts.apply(this, arguments);
+    function getProductStatusList(_x4) {
+      return _getProductStatusList.apply(this, arguments);
     }
 
-    return getProducts;
+    return getProductStatusList;
   }(),
-  storeProductData: function () {
-    var _storeProductData = _asyncToGenerator(
+  getProducts: function () {
+    var _getProducts = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, fromData) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
@@ -117632,10 +117719,9 @@ var actions = {
               commit = _ref4.commit;
               _context4.prev = 1;
               _context4.next = 4;
-              return axios.post('/admin/product', fromData).then(function (response) {
-                console.log(response);
-                commit('setResponse', response.data);
-                return response.data;
+              return axios.get('/admin/collection/product').then(function (response) {
+                commit('getProductData', response.data);
+                return response;
               });
 
             case 4:
@@ -117644,7 +117730,7 @@ var actions = {
             case 7:
               _context4.prev = 7;
               _context4.t0 = _context4["catch"](1);
-              commit('setResponse', _context4.t0.data);
+              commit('getProductData', _context4.t0.data);
 
             case 10:
             case "end":
@@ -117654,16 +117740,16 @@ var actions = {
       }, _callee4, null, [[1, 7]]);
     }));
 
-    function storeProductData(_x5, _x6) {
-      return _storeProductData.apply(this, arguments);
+    function getProducts(_x5) {
+      return _getProducts.apply(this, arguments);
     }
 
-    return storeProductData;
+    return getProducts;
   }(),
-  singleProduct: function () {
-    var _singleProduct = _asyncToGenerator(
+  storeProductData: function () {
+    var _storeProductData = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, productID) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, fromData) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
@@ -117672,14 +117758,10 @@ var actions = {
               commit = _ref5.commit;
               _context5.prev = 1;
               _context5.next = 4;
-              return axios.get("/admin/single/product/".concat(productID)).then(function (response) {
+              return axios.post('/admin/product', fromData).then(function (response) {
                 console.log(response);
-
-                if (response.data.status === 'error') {
-                  return response.data;
-                } else {
-                  commit('singleProductData', response.data.data);
-                }
+                commit('setResponse', response.data);
+                return response.data;
               });
 
             case 4:
@@ -117698,22 +117780,108 @@ var actions = {
       }, _callee5, null, [[1, 7]]);
     }));
 
-    function singleProduct(_x7, _x8) {
+    function storeProductData(_x6, _x7) {
+      return _storeProductData.apply(this, arguments);
+    }
+
+    return storeProductData;
+  }(),
+  singleProduct: function () {
+    var _singleProduct = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref6, productID) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              commit = _ref6.commit;
+              _context6.prev = 1;
+              _context6.next = 4;
+              return axios.get("/admin/single/product/".concat(productID)).then(function (response) {
+                console.log(response);
+
+                if (response.data.status === 'error') {
+                  return response.data;
+                } else {
+                  commit('singleProductData', response.data.data);
+                }
+              });
+
+            case 4:
+              return _context6.abrupt("return", _context6.sent);
+
+            case 7:
+              _context6.prev = 7;
+              _context6.t0 = _context6["catch"](1);
+              commit('setResponse', _context6.t0.data);
+
+            case 10:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, null, [[1, 7]]);
+    }));
+
+    function singleProduct(_x8, _x9) {
       return _singleProduct.apply(this, arguments);
     }
 
     return singleProduct;
   }(),
-  selectedProductIdUpdate: function selectedProductIdUpdate(_ref6, selectData) {
-    var commit = _ref6.commit;
+  selectedProductIdUpdate: function selectedProductIdUpdate(_ref7, selectData) {
+    var commit = _ref7.commit;
     commit('setSelectedProduct', selectData);
     return true;
   },
-  selectedProductDateTimeUpdate: function selectedProductDateTimeUpdate(_ref7, selectData) {
-    var commit = _ref7.commit;
+  selectedProductDateTimeUpdate: function selectedProductDateTimeUpdate(_ref8, selectData) {
+    var commit = _ref8.commit;
     commit('setSelectedDateTime', selectData);
     return true;
-  }
+  },
+  productStatusChange: function () {
+    var _productStatusChange = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(_ref9, fromData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              commit = _ref9.commit;
+              _context7.prev = 1;
+              _context7.next = 4;
+              return axios.post('/admin/product/status/update', fromData).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('updateProductStatus', response.data.data);
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context7.abrupt("return", _context7.sent);
+
+            case 7:
+              _context7.prev = 7;
+              _context7.t0 = _context7["catch"](1);
+              commit('setResponse', _context7.t0.data);
+
+            case 10:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7, null, [[1, 7]]);
+    }));
+
+    function productStatusChange(_x10, _x11) {
+      return _productStatusChange.apply(this, arguments);
+    }
+
+    return productStatusChange;
+  }()
 };
 var mutations = {
   productCreateDependency: function productCreateDependency(state, response) {
@@ -117753,6 +117921,19 @@ var mutations = {
         }
       });
     }
+  },
+  setProductStatusList: function setProductStatusList(state, response) {
+    return state.status_list = response;
+  },
+  updateProductStatus: function updateProductStatus(state, response) {
+    state.allProducts = state.allProducts.filter(function (product) {
+      if (product.id === response.product_id) {
+        product.status = response.product_status;
+        product.status_label = response.status_label;
+      }
+
+      return product;
+    });
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -118872,8 +119053,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/e_com_backend/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\tokin\Videos\lara_ex\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\lara_ex\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
