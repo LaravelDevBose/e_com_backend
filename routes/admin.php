@@ -70,6 +70,9 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     Route::post('product/image/store', 'ProductImageController@store')->name('product_image.store');
     Route::delete('product/image/delete/{id}', 'ProductImageController@delete')->name('product_image.delete');
 
+    Route::get('/un-publish/products', 'ProductPublishController@index')->name('un-publish.index');
+    Route::post('products/status/change', 'ProductPublishController@change_products_status')->name('products.status.update');
+
     Route::resource('skinType', 'SkinTypeController');
     Route::post('/import/skinType', 'SkinTypeController@import_file')->name('import.skinType');
 

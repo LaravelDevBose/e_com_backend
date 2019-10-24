@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\ManipulateBy;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -32,10 +33,10 @@ class Product extends Model
     ];
 
     const ProductStatus=[
-        'Delete'=>0,
         'Active'=>1,
         'Inactive'=>2,
         'Pending'=>3,
+        'Review'=>4,
     ];
 
     protected $table = 'products';
@@ -125,6 +126,10 @@ class Product extends Model
         return $query->where('product_status', config('app.active'));
     }
 
+    public function scopeInAdminReview($query){
+        return $query->where('product_status', Product::ProductStatus['Review'])->orWhere('product_status', Product::ProductStatus['Pending']);
+    }
+
     public function scopeIsOwner($query){
         return $query->where('seller_id', \auth()->id());
     }
@@ -164,6 +169,34 @@ class Product extends Model
             }
         }
         return $goods;
+    }
+
+    public function scopeDateRangeWish($query,$request){
+        if($request->date_range == 'today'){
+            $today = Carbon::today()->format('Y-m-d');
+            $query->whereDate('created_at', $today);
+        }
+
+        if($request->date_range == 'week'){
+            $now = Carbon::now();
+            $weekStartDate = $now->startOfWeek()->format('Y-m-d');
+            $weekEndDate = $now->endOfWeek()->format('Y-m-d');
+            $query->whereDate('created_at', '>=', $weekStartDate)->whereDate('created_at', $weekEndDate);
+        }
+
+        if($request->date_range == 'month'){
+            $now = Carbon::now();
+            $monthStartDate = $now->startOfMonth()->format('Y-m-d');
+            $monthEndDate = $now->endOfMonth()->format('Y-m-d');
+            $query->whereDate('created_at', '>=', $monthStartDate)->whereDate('created_at', $monthEndDate);
+
+        }
+
+        if($request->date_range == 'custom'){
+            $query->whereDate('created_at', '>=', $request->start_date)->whereDate('created_at', $request->end_date);
+        }
+
+        return $query;
     }
 
     public function category(){
