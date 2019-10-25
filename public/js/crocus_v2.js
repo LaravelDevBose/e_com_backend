@@ -72554,7 +72554,7 @@ var actions = {
               _context2.next = 4;
               return axios.get("/category/".concat(reqData.slug, "/products"), reqData).then(function (response) {
                 if (typeof response.data.code !== "undefined" && response.data.code === 200) {
-                  commit('setProductsData', response.data.data);
+                  commit('setProductsData', response.data.data.data);
                 }
 
                 delete response.data.data;
@@ -72598,7 +72598,7 @@ var actions = {
               _context3.next = 4;
               return axios.post("/shorting/products", sortData).then(function (response) {
                 if (typeof response.data.code !== "undefined" && response.data.code === 200) {
-                  commit('setProductsData', response.data.data);
+                  commit('setProductsData', response.data.data.data);
                   delete response.data.data;
                 }
 

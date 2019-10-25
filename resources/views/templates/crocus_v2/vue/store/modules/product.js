@@ -47,7 +47,7 @@ const actions = {
             return await axios.get(`/category/${reqData.slug}/products`, reqData)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('setProductsData', response.data.data)
+                        commit('setProductsData', response.data.data.data)
                     }
                     delete response.data.data;
                     return response.data;
@@ -63,7 +63,7 @@ const actions = {
             return await axios.post(`/shorting/products`, sortData)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('setProductsData', response.data.data);
+                        commit('setProductsData', response.data.data.data);
                         delete response.data.data;
                     }
 
