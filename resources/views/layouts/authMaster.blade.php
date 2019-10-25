@@ -45,7 +45,7 @@
 
     @yield('ThemeJs')
 </head>
-<body class="login-container login-cover">
+<body class="login-container ">
     <div id="app">
         <!-- Page container -->
         <div class="page-container">
