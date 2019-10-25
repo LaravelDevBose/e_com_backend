@@ -32,7 +32,8 @@
                             <div class="price-box">
                                 <p class="special-price" >
                                     <span class="price-label">Price</span>
-                                    <span class="price">$ {{ product.single_variation.price }} </span>
+                                    <span class="price" v-if="product.product_type === 1">$ {{ product.product_price }} </span>
+                                    <span class="price" v-else>$ {{ product.single_variation.price }} </span>
                                 </p>
                             </div>
                         </div>

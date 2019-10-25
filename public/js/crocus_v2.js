@@ -5355,6 +5355,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductGrid",
@@ -53058,11 +53059,17 @@ var render = function() {
                 _c("p", { staticClass: "special-price" }, [
                   _c("span", { staticClass: "price-label" }, [_vm._v("Price")]),
                   _vm._v(" "),
-                  _c("span", { staticClass: "price" }, [
-                    _vm._v(
-                      "$ " + _vm._s(_vm.product.single_variation.price) + " "
-                    )
-                  ])
+                  _vm.product.product_type === 1
+                    ? _c("span", { staticClass: "price" }, [
+                        _vm._v("$ " + _vm._s(_vm.product.product_price) + " ")
+                      ])
+                    : _c("span", { staticClass: "price" }, [
+                        _vm._v(
+                          "$ " +
+                            _vm._s(_vm.product.single_variation.price) +
+                            " "
+                        )
+                      ])
                 ])
               ])
             ]),
