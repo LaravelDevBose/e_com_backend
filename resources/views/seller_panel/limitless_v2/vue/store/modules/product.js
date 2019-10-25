@@ -31,6 +31,16 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
+    async getProductCreateNeedData({commit}){
+        try {
+            await axios.get(`/seller/product/create`)
+                .then(response=>{
+                    commit('productCreateNeedData', response.data.data);
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
     async getProducts({commit}){
 
         try {

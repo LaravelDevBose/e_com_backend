@@ -238,9 +238,8 @@ class ProductController extends Controller
                                 $productImages = ProductImage::insert($imageArray);
                             }
                         }
-
-
-
+                    }else{
+                        throw new Exception('Invalid Product Details Information', Response::HTTP_BAD_REQUEST);
                     }
                     DB::commit();
                     return response()->json([
@@ -248,6 +247,9 @@ class ProductController extends Controller
                         'message'=>'Product Store Successfully',
                         'url'=>route('admin.product.index')
                     ]);
+                }else{
+                    throw new Exception('Invalid Product Information', Response::HTTP_BAD_REQUEST);
+
                 }
 
             }catch (Exception $ex){

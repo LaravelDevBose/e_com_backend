@@ -101,7 +101,6 @@
                 filter: '',
                 rows:'',
                 columns: [
-                    { label: '#', field: 'index', align: 'center', filterable: false, sortable:false },
                     { label: 'Image', component: 'thumbImage', align: 'center', sortable: false },
                     { label: 'Product Name', field: 'product_title',  },
                     { label: 'Product SKU', field: 'sku' , },

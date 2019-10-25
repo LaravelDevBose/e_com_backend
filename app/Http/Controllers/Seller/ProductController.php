@@ -61,23 +61,38 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('seller_panel.'.$this->seller_template.'.product.create');
+        if($request->ajax()){
+            $data = [
+                'warrantyType'=>Product::WarrantyType,
+                'dangersGoods'=>Product::DangersGoods,
+                'skinTypes'=>SkinType::isActive()->select('skin_type_id as id', 'skin_type as text')->latest()->get(),
+                'product_type'=>Product::flipProductType(),
+            ];
+            if(!empty($data)){
+                return ResponserTrait::singleResponse($data,'success', Response::HTTP_OK, '');
+            }else{
+                return ResponserTrait::allResponse('error', Response::HTTP_OK, 'Data Not Found', [],'');
+            }
+        }else {
+            return view('seller_panel.' . $this->seller_template . '.product.create');
+        }
     }
 
     public function product_create_dependency($catID){
 
         $sizeGroupIDs = SizeGroupCategory::where('category_id', $catID)->pluck('size_group_id');
         $sizes = Size::whereIn('size_group_id', $sizeGroupIDs)->select('size_id as id','size_name as text')->isActive()->latest()->get();
-        return response()->json([
-            'warrantyType'=>Product::WarrantyType,
-            'dangersGoods'=>Product::DangersGoods,
+        $data = [
             'colors'=>Color::isActive()->select('color_id as id', 'color_name as text')->latest()->get(),
             'sizes'=>$sizes,
-            'skinTypes'=>SkinType::isActive()->select('skin_type_id as id', 'skin_type as text')->latest()->get(),
-        ]);
+        ];
+
+        return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK, '');
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -95,15 +110,25 @@ class ProductController extends Controller
             'product_name'=>'required|string|max:255',
             'highlight'=>'required|string|max:1500',
             'description'=>'required',
+            'product_type'=>'required',
             'package_weight'=>'required',
             'package_length'=>'required',
             'package_width'=>'required',
             'package_height'=>'required',
             'product_status'=>'required',
-            'variations'=>'required|array',
             'imageIds'=>'required|array',
             'thumb_id'=>'required',
         ]);
+
+        $validator->sometimes('seller_sku', 'required|string|max:20', function ($input) {
+            return $input->product_type == 1;
+        });
+        $validator->sometimes(['product_qty', 'product_price'], 'required|integer|min:0|not_in:0', function ($input) {
+            return $input->product_type == 1;
+        });
+        $validator->sometimes('variations', 'required|array', function ($input) {
+            return $input->product_type == 2;
+        });
 
         if($validator->passes()){
             try{
@@ -135,6 +160,7 @@ class ProductController extends Controller
                     'seller_id'=>auth()->guard('seller')->id(),
                 ]);
                 if($product){
+
                     #Store Data in Product Details Table
                     $details= ProductDetails::create([
                         'product_id'=>$product->product_id,
@@ -151,53 +177,84 @@ class ProductController extends Controller
                     ]);
 
                     if(!empty($details)){
-                        #Store Data in Product Variation Table
-                        if(!empty($request->variations)){
-                            $variations = $request->variations;
-                            foreach ($variations as $variation){
+                        if(!empty($request->product_type) && $request->product_type == Product::ProductType['Variation']){
+                            if(!empty($request->variations)){
+                                $variations = $request->variations;
+                                $variationArray = array();
+                                foreach ($variations as $variation){
 
-                                $variation = (object) $variation;
-                                $gift ='';
-                                if(!empty($variation->gift_product)){
-                                    $gift = Product::where('product_sku', $variation->gift_product)->first();
-                                }
+                                    $variation = (object) $variation;
+                                    $gift ='';
+                                    if(!empty($variation->gift_product)){
+                                        $gift = Product::where('product_sku', $variation->gift_product)->first();
+                                    }
 
-                                ProductVariation::create([
-                                    'product_id'=>$product->product_id,
-                                    'seller_sku'=>$variation->seller_sku,
-                                    'pri_id'=>$variation->color_id,
-                                    'pri_model'=>config('app.variation_model.color'),
-                                    'sec_id'=>$variation->size_id,
-                                    'sec_model'=>config('app.variation_model.size'),
-                                    'quantity'=>$variation->qty,
-                                    'price'=>$variation->price,
+                                    array_push($variationArray,[
+                                        'product_id'=>$product->product_id,
+                                        'seller_sku'=>$variation->seller_sku,
+                                        'pri_id'=>$variation->color_id,
+                                        'pri_model'=>config('app.variation_model.color'),
+                                        'sec_id'=>$variation->size_id,
+                                        'sec_model'=>config('app.variation_model.size'),
+                                        'quantity'=>$variation->qty,
+                                        'price'=>$variation->price,
 //                                    'special_price'=>(!empty($variation->special_price))?$variation->special_price:0,
-                                    'gift_product_id'=>(!empty($gift))?$gift->product_id: 0,
-                                    'gift_product_sku'=>(!empty($gift))?$gift->product_sku: '',
-                                ]);
+                                        'gift_product_id'=>(!empty($gift))?$gift->product_id: 0,
+                                        'gift_product_sku'=>(!empty($gift))?$gift->product_sku: '',
+                                    ]);
+
+                                }
+                                $variationProduct = ProductVariation::insert($variationArray);
+                            }
+
+
+                            #Store Data in Product Image Table
+
+                            if(!empty($request->imageIds)){
+                                $imageIds = $request->imageIds;
+                                $imageArray = array();
+                                foreach ($imageIds as  $imageId){
+                                    $imageId = (object)$imageId;
+                                    array_push($imageArray,[
+                                        'product_id'=>$product->product_id,
+                                        'pri_id'=>$imageId->pri_id,
+                                        'model'=>ProductVariation::VARIATION_MODEL[strtolower($request->pri_model)],
+                                        'attachment_id'=>$imageId->image_id,
+                                        'image_status'=>config('app.active')
+                                    ]);
+                                }
+                                $productImages = ProductImage::insert($imageArray);
+                            }
+                        }else{
+                            $product->update([
+                                'product_qty'=>$request->product_qty,
+                                'product_price'=>$request->product_price,
+                                'seller_sku'=>$request->seller_sku,
+                            ]);
+                            if(!empty($request->imageIds)){
+                                $imageIds = $request->imageIds;
+                                $imageArray = array();
+                                foreach ($imageIds as  $imageId){
+                                    $imageId = (object)$imageId;
+                                    array_push($imageArray,[
+                                        'product_id'=>$product->product_id,
+                                        'pri_id'=>'',
+                                        'model'=>'',
+                                        'attachment_id'=>$imageId->image_id,
+                                        'image_status'=>config('app.active')
+                                    ]);
+                                }
+                                $productImages = ProductImage::insert($imageArray);
                             }
                         }
-
-
-                        #Store Data in Product Image Table
-
-                        if(!empty($request->imageIds)){
-                            $imageIds = $request->imageIds;
-                            foreach ($imageIds as  $imageId){
-                                $imageId = (object)$imageId;
-                                ProductImage::create([
-                                    'product_id'=>$product->product_id,
-                                    'pri_id'=>$imageId->pri_id,
-                                    'model'=>ProductVariation::VARIATION_MODEL[strtolower($request->pri_model)],
-                                    'attachment_id'=>$imageId->image_id,
-                                    'image_status'=>config('app.active')
-                                ]);
-                            }
-                        }
-
+                    }else{
+                        throw new Exception('Invalid Product Details Information', Response::HTTP_BAD_REQUEST);
                     }
                     DB::commit();
                     return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Store Successfully','', route('seller.product.index'));
+                }else{
+                    throw new Exception('Invalid Product Information', Response::HTTP_BAD_REQUEST);
+
                 }
 
             }catch (Exception $ex){
