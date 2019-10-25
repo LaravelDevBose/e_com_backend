@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Attachment extends Model
 {
@@ -44,16 +45,7 @@ class Attachment extends Model
     }
 
     public function getImagePathAttribute(){
-        $path = storage_path('app/public/attachments/'.$this->attributes['folder'] .'/'. $this->attributes['file_name']);
-        if(file_exists($path)){
-            //        $path = storage_path('app/public/default/d_addons.png');
-            $type = pathinfo($path, PATHINFO_EXTENSION);
-            $data = file_get_contents($path);
-            return $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-        }
-
-        return false;
-
+        return $path = asset('storage/attachments/'.$this->attributes['folder'] .'/'. $this->attributes['file_name']);
     }
 
     public function getApiImagePathAttribute(){
