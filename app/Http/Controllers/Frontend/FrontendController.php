@@ -116,17 +116,17 @@ class FrontendController extends Controller
                 return abort(Response::HTTP_NOT_FOUND);
             }
 
-            $req['category_id'] = $category->category_id;
+            /*$req['category_id'] = $category->category_id;
 
-            $products = ProductHelper::products_list($req);
+            $products = ProductHelper::products_list($req);*/
             return view('templates.' . $this->template_name . '.frontend.products', [
                 'category' => $category,
                 'categories' => CommonData::category_tree(),
-                'brands' => CommonData::brand_list(),
+                /*'brands' => CommonData::brand_list(),
                 'colors' => CommonData::color_list(),
                 'tags' => CommonData::tag_list(),
                 'sizes' => CommonData::size_list($req),
-                'products' => $products
+                'products' => $products*/
             ]);
         }
     }
