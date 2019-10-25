@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class Category extends Model
 {
@@ -34,6 +35,20 @@ class Category extends Model
         return 'category_slug';
     }
 
+    public static function All_children_Ids($catId)
+    {
+
+        $catIdArray = [$catId];
+        $sedChildID = Self::where('parent_id', $catId)->where('category_status', config('app.active'))->pluck('category_id')->toArray();
+        if(!empty($sedChildID)){
+            $catIdArray = array_merge($catIdArray, $sedChildID);
+            $thirdChildID = Self::whereIn('parent_id', $sedChildID)->where('category_status', config('app.active'))->pluck('category_id')->toArray();
+            if(!empty($thirdChildID)){
+                $catIdArray = array_merge($catIdArray, $thirdChildID);
+            }
+        }
+        return $catIdArray;
+    }
 
     public function scopeIsParent($query){
         $query->whereNull('parent_id');

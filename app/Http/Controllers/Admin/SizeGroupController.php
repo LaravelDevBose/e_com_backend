@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
 use App\Models\Size;
 use Exception;
 use App\Models\SizeGroup;
@@ -67,43 +68,60 @@ class SizeGroupController extends Controller
                     'size_group_status'=>(!empty($request->size_group_status) && $request->size_group_status == 1) ? $request->size_group_status : 2,
                 ]);
                 if($sizeGroup){
-
+                    $sizeGroupCatArray = array();
                     if($request->categoryIDs){
                         foreach ($request->categoryIDs as $key=> $categoryId){
-                            SizeGroupCategory::create([
-                                'size_group_id'=>$sizeGroup->size_group_id,
-                                'category_id'=>$categoryId,
-                                'sgc_status'=> config('app.active')
-                            ]);
+                            $categoryList = Category::All_children_Ids($categoryId);
+                            foreach ($categoryList as $catKey=>$cat){
+                                array_push($sizeGroupCatArray, [
+                                    'size_group_id'=>$sizeGroup->size_group_id,
+                                    'category_id'=>$cat,
+                                    'sgc_status'=> config('app.active')
+                                ]);
+                            }
                         }
+                    }
+                    $groupCategory = SizeGroupCategory::insert($sizeGroupCatArray);
+                    if(!empty($groupCategory)){
+                        if($request->sizeNames){
+                            $sizeNames = $request->sizeNames;
+                            $sizeArray = array();
+                            for ($i=1; $i< count($sizeNames); $i++){
+                                array_push($sizeArray,[
+                                    'size_group_id'=>$sizeGroup->size_group_id,
+                                    'size_name'=>$sizeNames[$i],
+                                    'size_status'=> config('app.active')
+                                ]);
+                            }
+                            if(empty($sizeArray)){
+                                throw new Exception('No Size Name Found');
+                            }
+
+                            $sizes = Size::insert($sizeArray);
+                            DB::commit();
+                            $SGroup = SizeGroup::with(
+                                [
+                                    'categories'=>function($query){ return $query->with('category'); },
+                                    'sizes'=>function($query){ return $query->isActive(); }
+                                ])->find($sizeGroup->size_group_id);
+
+                            return response()->json([
+                                'sizeGroup'=>new SizeGroupResource($SGroup),
+                                'res'=>[
+                                    'status'=>'success',
+                                    'message'=>'Size Group Store Successfully',
+                                ]
+                            ]);
+                        }else{
+                            throw new Exception('No Size Name Found');
+                        }
+                    }else{
+                        throw new Exception('Size Category Not Added');
                     }
 
 //                    return $request->sizeNames;
-                    if($request->sizeNames){
-                        $sizeNames = $request->sizeNames;
-
-                        for ($i=1; $i< count($sizeNames); $i++){
-                            Size::create([
-                                'size_group_id'=>$sizeGroup->size_group_id,
-                                'size_name'=>$sizeNames[$i],
-                                'size_status'=> config('app.active')
-                            ]);
-                        }
-                    }
-                    DB::commit();
-                    $SGroup = SizeGroup::with(
-                        [
-                            'categories'=>function($query){ return $query->with('category'); },
-                            'sizes'=>function($query){ return $query->isActive(); }
-                        ])->find($sizeGroup->size_group_id);
-
-                    return response()->json([
-                        'sizeGroup'=>new SizeGroupResource($SGroup),
-                        'res'=>[
-                            'status'=>'success',
-                            'message'=>'Size Group Store Successfully',
-                        ]
-                    ]);
+                }else{
+                    throw new Exception('Invalid Information');
                 }
 
             }catch (Exception $ex){
