@@ -45,7 +45,11 @@
             addToCart(){
                 this.cartData.id = this.product.product_id;
                 this.cartData.name = this.product.product_name;
-                this.cartData.price = this.product.single_variation.price;
+                if(this.product.product_type === 1){
+                    this.cartInfo.price = this.product.product_price;
+                }else{
+                    this.cartInfo.price = this.product.single_variation.price;
+                }
 
                 this.addToCartProduct(this.cartData)
                     .then(response=>{

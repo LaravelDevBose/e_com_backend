@@ -66,7 +66,7 @@
                                     <img alt="{{ $topProduct->product->product_name }}" src="{{ $topProduct->product->thumbImage->image_path }}">
                                 </div>
                                 <div class="col-xs-8 col-sm-8 no-margin">
-                                    <a href="{{ route('front.product', $topProduct->product->product_slug) }}"> {{ $topProduct->product->product_name }}</a>
+                                    <a href="{{ route('front.product', $topProduct->product->product_slug) }}"> {{ substr($topProduct->product->product_name,0, 40) }} {{ (strlen($topProduct->product->product_name) > 40)?'...':'' }}</a>
                                     <div class="rating">
                                         <div class="ratings">
                                             <div class="rating-box">
@@ -75,7 +75,11 @@
                                             <p class="rating-links"> <a href="#">1 Review(s)</a></p>
                                         </div>
                                     </div>
+                                    @if($topProduct->product->product_type == 1)
+                                    <div class="price">$ {{ $topProduct->product->product_price }}</div>
+                                    @else
                                     <div class="price">$ {{ $topProduct->product->singleVariation->price }}</div>
+                                    @endif
                                 </div>
                             </div>
                         </li>
@@ -169,14 +173,15 @@
                                                     <h2>{{ $section->section_title }}</h2>
                                                 </div>
                                             </li>
+                                            <li  class="active">
+                                                <a data-toggle="tab" href="#tab-all">All</a>
+                                            </li>
                                             @if(!empty($section->sectionCategories))
-                                                <?php $i=1; ?>
                                                 @foreach($section->sectionCategories as $sectionCat)
                                                     @if(!empty($sectionCat->secCatProducts) && count($sectionCat->secCatProducts) > 0)
-                                                        <li  class="{{ ($i== 1)? 'active' : '' }}">
+                                                        <li>
                                                             <a data-toggle="tab" href="#tab-{{ $sectionCat->category_id }}">{{ $sectionCat->category->category_name }}</a>
                                                         </li>
-                                                            <?php $i++; ?>
                                                     @endif
                                                 @endforeach
                                             @endif
@@ -189,10 +194,24 @@
                                         <div class="product-bestseller-list">
                                             @if(!empty($section->sectionCategories))
                                             <div class="tab-container">
-                                                <?php $i=1; ?>
+                                                <div class="tab-panel active" id="tab-all">
+                                                    <div class="category-products">
+                                                        <ul class="products-grid">
+                                                            @foreach($section->sectionCategories as $sectionCat)
+                                                                @if(!empty($sectionCat->secCatProducts) && count($sectionCat->secCatProducts) > 0)
+                                                                    @foreach($sectionCat->secCatProducts as $secCatProduct)
+                                                                        <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                                                                            <product-grid :product="{{ $secCatProduct->product }}"></product-grid>
+                                                                        </li>
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                                 @foreach($section->sectionCategories as $sectionCat)
                                                     @if(!empty($sectionCat->secCatProducts) && count($sectionCat->secCatProducts) > 0)
-                                                        <div class="tab-panel {{ ($i== 1)? 'active' : '' }}" id="tab-{{ $sectionCat->category_id }}">
+                                                        <div class="tab-panel " id="tab-{{ $sectionCat->category_id }}">
                                                             <div class="category-products">
                                                                 <ul class="products-grid">
                                                                     @foreach($sectionCat->secCatProducts as $secCatProduct)
@@ -203,7 +222,6 @@
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <?php $i++; ?>
                                                     @endif
                                                 @endforeach
                                             </div>
@@ -251,19 +269,19 @@
                                     <div class="product-bestseller-content">
                                         <div class="product-bestseller-list">
                                             @if(!empty($section->sectionCategories))
-                                                @foreach($section->sectionCategories as $sectionCat)
-                                                    @if(!empty($sectionCat->secCatProducts) && count($sectionCat->secCatProducts) > 0)
-                                                        <div class="category-products">
-                                                            <ul class="products-grid">
+                                                <div class="category-products">
+                                                    <ul class="products-grid">
+                                                        @foreach($section->sectionCategories as $sectionCat)
+                                                            @if(!empty($sectionCat->secCatProducts) && count($sectionCat->secCatProducts) > 0)
                                                                 @foreach($sectionCat->secCatProducts as $secCatProduct)
                                                                     <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
                                                                         <product-grid :product="{{ $secCatProduct->product }}"></product-grid>
                                                                     </li>
                                                                 @endforeach
-                                                            </ul>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
+                                                            @endif
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
                                             @endif
                                         </div>
                                     </div>

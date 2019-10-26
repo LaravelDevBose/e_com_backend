@@ -1,68 +1,4 @@
-/*
-Theme Name: Crocus
-Description:  Crocus HTML Template
-Version: 1.4
-Text Domain:  Crocus
-License: GNU General Public License v2 or later
-Tags: two-columns, left-sidebar, fixed-layout, responsive-layout, custom-background, custom-colors, custom-header, custom-menu
-*/
-/* TABLE OF CONTENTS
-1. Body
-2. Layout
-3. Header
-4. Navigation
-5. Features Box
-6. Home page Sliders
-   a. Brand Logo Slider
-   b. offer slider
-   c. bestsell slider
-   d. featured slider
-   e. special slider
-   f. Other Slider
-7. Products Grid
-8. Products List
-9. Rating and Price
-10. Latest Blog
-11. Breadcrumbs
-12. Sidebar
-    a. Category boxes
-    b. Block: Account
-    c.  Block: Layered Navigation
-    d. Block: Cart
-    e. Block: Related
-    f. Block: Compare Products
-    g. Block: Recently Viewed
-    h. Block: Recently Compared
-    i. Block: Poll
-    j. Block: Tags
-    k. Block: Subscribe
-    l Block: Recently Viewed
-    m. Block: Reorder
-    n. Block: Banner
-13. custom-slider
-14. Product Sorting Toolbar
-15. Product View
-    a. Product Images
-    b. Product Shop
-    c. Product Collatera
-16. related slider & upsell slider
-17. Global Messages
-18. bottom banner
-19. footer
-20. hot deal
-21. Shopping Cart Table
-22. Wishlist Table
-23. Dashboard
-24. checkout pages
-25. Compare Table
-26. Multiple Addresses Checkout
-27. Account Login
-28. 404 Page
-29. Newsletter popup
-30. Data Table
-31. Responsive
 
-/* */
 /*----------- 1. Body --------------*/
 
 body {
@@ -6228,7 +6164,7 @@ ol#compare-items li.last {
 
 }
 .product-view .product-name h1 {
-    font-size: 34px;
+    font-size: 25px;
     margin: 0 0 2px;
     text-align: left;
     line-height: 1.3em;
@@ -6525,7 +6461,7 @@ color: #fff;
 	font-weight: normal;
 }
 .product-view .product-shop .price {
-	font-size: 24px;
+	font-size: 20px;
 	color: #167bcb;
 	font-weight: bold;
 }
@@ -6544,7 +6480,8 @@ color: #fff;
 	height: 40px;
 	text-align: center;
 	width: 60px;
-	vertical-align: top
+	vertical-align: top;
+    margin:0px;
 }
 .qty-input-text {
 	float: left;

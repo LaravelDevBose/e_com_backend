@@ -7085,6 +7085,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['options', 'value', 'name', 'multiple'],
   name: "Select2",
@@ -7104,27 +7105,19 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   updated: function updated() {
-    $(this.$el).val(value).trigger('change');
+    $(this.$el).val(this.value).trigger('change');
   },
   watch: {
-    value: function (_value) {
-      function value(_x) {
-        return _value.apply(this, arguments);
-      }
-
-      value.toString = function () {
-        return _value.toString();
-      };
-
-      return value;
-    }(function (value) {
+    value: function value(_value) {
       //update value
-      $(this.$el).val(value).trigger('change');
-    }),
+      $(this.$el).val(_value).trigger('change');
+    },
     options: function options(_options) {
       //update Option
       $(this.$el).empty().select2({
         data: _options
+      }, {
+        placeholder: 'Select A Item'
       });
     }
   },
@@ -16351,7 +16344,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
 
 // exports
 
@@ -72532,7 +72525,11 @@ var render = function() {
     "select",
     {
       staticClass: "form-control",
-      attrs: { name: _vm.name, "data-width": "100%" },
+      attrs: {
+        name: _vm.name,
+        placeholder: "Select an Option",
+        "data-width": "100%"
+      },
       domProps: { value: _vm.value }
     },
     [_vm._t("default")],
@@ -95496,7 +95493,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })

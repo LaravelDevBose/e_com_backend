@@ -51,15 +51,15 @@
                         <div class="box-content box-category">
                             <ul>
                                 @foreach($categories as $categoryData)
-                                <li> <a class="active" href="{{ route('front.category.product', $categoryData->category_slug) }}">{{ $categoryData->category_name }}</a>
+                                <li> <a  href="{{ route('front.category.product', $categoryData->category_slug) }}">{{ $categoryData->category_name }}</a>
                                     @if(!empty($categoryData->children) && count($categoryData->children) > 0)
-                                        <span class="subDropdown minus"></span>
-                                        <ul class="level0_415" style="display:block">
+                                        <span class="subDropdown plus"></span>
+                                        <ul class="level0_415" style="display:none">
                                             @foreach($categoryData->children as $secCategory)
                                                 <li> <a href="{{ route('front.category.product', $secCategory->category_slug) }}">{{ $secCategory->category_name }}</a>
                                                     @if(!empty($secCategory->children) && count($secCategory->children) > 0)
                                                         <span class="subDropdown plus"></span>
-                                                        <ul class="level1" style="display:none">
+                                                        <ul class="level1" style="display:block">
                                                             @foreach($secCategory->children as $trdCategory)
                                                                 <li>
                                                                     <a href="{{ route('front.category.product', $trdCategory->category_slug) }}">{{ $trdCategory->category_name }}</a>

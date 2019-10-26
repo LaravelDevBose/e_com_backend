@@ -1,5 +1,6 @@
 <template>
-    <select class="form-control"  :name="name" :value="value" data-width="100%">
+    <select class="form-control"  :name="name" :value="value" placeholder="Select an Option" data-width="100%">
+
         <slot></slot>
     </select>
 </template>
@@ -28,7 +29,7 @@
                 })
         },
         updated() {
-            $(this.$el).val(value).trigger('change');
+            $(this.$el).val(this.value).trigger('change');
         },
         watch:{
             value:function (value) {
@@ -37,7 +38,9 @@
             },
             options:function (options) {
                 //update Option
-                $(this.$el).empty().select2({data:options});
+                $(this.$el).empty().select2({data:options},{
+                    placeholder:'Select A Item'
+                });
             }
         },
         destroyed(){

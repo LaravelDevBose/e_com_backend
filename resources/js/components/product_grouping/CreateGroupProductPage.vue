@@ -11,7 +11,9 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Group Type:</label>
-                                <vue-select2 :options="groupTypes" v-model.number="formData.group_type" ></vue-select2>
+                                <vue-select2 :options="groupTypes" v-model.number="formData.group_type" >
+                                    <option value="">Select A Option</option>
+                                </vue-select2>
                             </div>
                         </div>
                         <div class="col-md-4">

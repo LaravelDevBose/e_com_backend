@@ -235,8 +235,15 @@ class CategoryController extends Controller
     {
         $products = [];
         if(!empty($request->categoryIds)){
+            $categoryIds = array();
+            foreach ($request->categoryIds as $key => $categoryId){
+                $catIds = Category::All_children_Ids($categoryId);
+                if(!empty($catIds)){
+                    $categoryIds = array_merge($categoryIds, $catIds);
+                }
+            }
             $reqData = [
-                'categoryIds'=>$request->categoryIds,
+                'categoryIds'=>$categoryIds,
             ];
             $products = ProductHelper::products_list($reqData);
         }
