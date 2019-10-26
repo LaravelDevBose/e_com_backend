@@ -42,9 +42,11 @@ class FrontendController extends Controller
         $sections = HomepageSection::with(['attachment',
             'sectionCategories'=>function($query){
                 return $query->with(['category', 'secCatProducts'=>function($q){
-                    return $q->with(['product.thumbImage','product.singleVariation'])->orderBy('product_position', 'asc');
+                    return $q->with(['product.thumbImage','product.singleVariation']);
                 }]);
         }])->orderBy('section_position', 'asc')->isActive()->get();
+
+
         $topProducts = GroupProduct::where('group_type', GroupProduct::Groups['Top Product'])
             ->with(['product'=>function($query){
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage');

@@ -173,7 +173,7 @@ class HomepageSectionController extends Controller
                 foreach ($request->productIds as $key=> $productId){
                     $product = Product::where('product_id', $productId)->first();
                     if(!empty($product)){
-                        $secCatId = SectionCategory::where('section_id', $request->section_id)->where('category_id', $product->ctegory_id)->value('sec_cat_id');
+                        $secCatId = SectionCategory::where('section_id', $request->section_id)->where('category_id', $product->category_id)->value('sec_cat_id');
 
                         array_push($sectionProducts,[
                             'section_id'=>$request->section_id,
