@@ -1,6 +1,6 @@
 //declare State
 const state = {
-    orders:{},
+    orders:[],
     order_info:{},
 };
 

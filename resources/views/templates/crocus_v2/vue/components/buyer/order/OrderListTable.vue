@@ -17,7 +17,9 @@
                 <tr v-if="orderList" v-for="(order,index) in orderList" :class="{'first':index === 0, 'last':(index+1) === orderList.length ,'even': index % 2 === 0, 'odd': index % 2 !== 0 }">
                     <td>{{ order.order_no }}</td>
                     <td>{{ order.order_date }}</td>
-                    <td>{{ order.shipping.first_name }} {{ order.shipping.last_name}}</td>
+                    <td>
+                        <span v-if="order.shipping !== null">{{ order.shipping.full_name }}</span>
+                    </td>
                     <td>
                         <span class="price">$ {{order.total }}</span>
                     </td>

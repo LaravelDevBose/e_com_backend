@@ -8,7 +8,7 @@
                 <div class="panel panel-flat bounceInRight" >
                     <div class="panel-body">
                         <h1 class="text text-blue  text-center text-bold">
-                            <span> Well come to 'Seller Panel'
+                            <span> Well come to Seller Panel
                             </span>
                         </h1>
                     </div>

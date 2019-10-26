@@ -3844,6 +3844,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -50458,11 +50460,11 @@ var render = function() {
                       _c("td", [_vm._v(_vm._s(order.order_date))]),
                       _vm._v(" "),
                       _c("td", [
-                        _vm._v(
-                          _vm._s(order.shipping.first_name) +
-                            " " +
-                            _vm._s(order.shipping.last_name)
-                        )
+                        order.shipping !== null
+                          ? _c("span", [
+                              _vm._v(_vm._s(order.shipping.full_name))
+                            ])
+                          : _vm._e()
                       ]),
                       _vm._v(" "),
                       _c("td", [
@@ -72360,7 +72362,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  orders: {},
+  orders: [],
   order_info: {}
 }; //declare Getters
 

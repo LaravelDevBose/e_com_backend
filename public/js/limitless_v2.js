@@ -72756,7 +72756,7 @@ var staticRenderFns = [
                 [
                   _c("span", [
                     _vm._v(
-                      " Well come to 'Seller Panel'\n                        "
+                      " Well come to Seller Panel\n                        "
                     )
                   ])
                 ]

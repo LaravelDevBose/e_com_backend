@@ -84,6 +84,7 @@ class OrderController extends Controller
                 DB::beginTransaction();
                 // get session cart details
                 $carts = Cart::content();
+//                return \response()->json(Cart::subtotal());
                 $buyer = auth()->guard('web')->user()->buyer;
                 //store data on order table
                 // TODO Check is have any error
