@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\Frontend\ProductHelper;
 use App\Http\Resources\Admin\HomepageSectionCollection;
 use App\Http\Resources\Admin\ProductCollection;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\SectionCategory;
 use App\Models\SectionProduct;
@@ -87,12 +88,17 @@ class HomepageSectionController extends Controller
                     $sectionCats = array();
                     if(!empty($request->categoryIDs)){
                         foreach ($request->categoryIDs as $key=>$value){
+                            $catIds = Category::All_children_Ids($value);
+                            if(!empty($catIds)){
+                                foreach ($catIds as $catKey=> $catId){
+                                    array_push($sectionCats, [
+                                        'section_id'=>$section->section_id,
+                                        'category_id'=>$catId,
+                                        'created_by'=>auth()->guard('admin')->id(),
+                                    ]);
+                                }
+                            }
 
-                            array_push($sectionCats, [
-                                'section_id'=>$section->section_id,
-                                'category_id'=>$value,
-                                'created_by'=>auth()->guard('admin')->id(),
-                            ]);
                         }
                     }
 
@@ -130,7 +136,6 @@ class HomepageSectionController extends Controller
                 $reqData = [
                     'categoryIds'=>$categoryIds,
                 ];
-
                 $products = ProductHelper::products_list($reqData);
                 if(!empty($products)){
                     $collection = ProductCollection::collection($products);
