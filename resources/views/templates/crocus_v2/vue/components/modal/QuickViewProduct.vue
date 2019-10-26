@@ -33,7 +33,8 @@
                                         <div class="price-box">
                                             <p class="special-price">
                                                 <span class="price-label">Price</span>
-                                                <span id="product-price-48" class="price"> $ {{ modal_product.single_variation.price }} </span>
+                                                <span class="price" v-if="modal_product.product_type === 1">$ {{ modal_product.product_price }} </span>
+                                                <span class="price" v-else>$ {{ modal_product.single_variation.price }} </span>
                                             </p>
 <!--                                            <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"> $315.99 </span> </p>-->
                                             <p class="availability in-stock pull-right"><span>In Stock</span></p>
@@ -116,8 +117,11 @@
             addToCart(){
                 this.cartInfo.id = this.modal_product.product_id;
                 this.cartInfo.name = this.modal_product.product_name;
-                this.cartInfo.price = this.modal_product.single_variation.price;
-
+                if(this.modal_product.product_type === 1){
+                    this.cartInfo.price = this.modal_product.product_price;
+                }else{
+                    this.cartInfo.price = this.modal_product.single_variation.price;
+                }
                 this.addToCartProduct(this.cartInfo)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
