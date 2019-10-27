@@ -5,18 +5,17 @@
             <tr>
                 <th class="cart_product">Product</th>
                 <th>Description</th>
-                <th>Avail.</th>
-                <th>Unit price</th>
-                <th>Qty</th>
-                <th>Total</th>
-                <th class="action"><i class="fa fa-trash-o"></i></th>
+                <th class="text-right">Unit price</th>
+                <th class="text-center">Qty</th>
+                <th class="text-right">Total</th>
+                <th class="action" style="width: 8%"><i class="fa fa-trash-o"></i></th>
             </tr>
             </thead>
             <tbody>
                 <tr v-if="cartTotal > 0" v-for="(cart,index) in  cartList" :key="index">
                     <td class="cart_product">
                         <a :title="cart.name" :href="cart.options.product_url">
-                            <img :alt="cart.name" :src="cart.options.image">
+                            <img :alt="cart.name" :src="cart.options.image" >
                         </a>
                     </td>
                     <td class="cart_description">
@@ -24,16 +23,12 @@
                             <a :href="cart.options.product_url" >{{ cart.name }}</a>
                         </p>
                         <small class="cart_ref">SKU : #123654999</small><br>
-                        <small><a href="#">Color : Beige</a></small><br>
-                        <small><a href="#">Size : S</a></small>
+                        <small v-if="cart.options.color"><a href="#">Color : {{ cart.options.color }}</a></small><br>
+                        <small v-if="cart.options.size"><a href="#">Size : {{ cart.options.size }}</a></small>
                     </td>
-                    <td class="cart_avail"><span class="label label-success">In stock</span></td>
                     <td class="price"><span>$ {{ cart.price }}</span></td>
                     <td class="qty">
-
-                        <input type="text" :value="cart.qty" :id="cart.rowId" @change="cartUpdate($event, cart.rowId)"  minlength="1" maxlength="12" :disabled="qtyDisable" name="qty0" class="form-control input-sm">
-                        <span  data-field="qty0" data-type="minus" :for="cart.rowId" class="btn-number"><i class="fa fa-caret-up"></i></span>
-                        <span  data-field="qty0" data-type="plus" :for="cart.rowId" class="btn-number"><i class="fa fa-caret-down"></i></span>
+                        <input type="number" :value="cart.qty" :id="cart.rowId" @change="cartUpdate($event, cart.rowId)"  minlength="1" maxlength="12" :disabled="qtyDisable" name="qty0" class="form-control input-sm">
                     </td>
                     <td class="price">
                         <span>$ {{ cart.price*cart.qty }}</span>

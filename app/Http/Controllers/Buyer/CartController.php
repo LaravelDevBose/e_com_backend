@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Helpers\Frontend\ProductHelper;
+use App\Models\Color;
 use App\Models\Product;
+use App\Models\Size;
 use App\Models\WishList;
 use App\Traits\ResponserTrait;
 use Exception;
@@ -81,6 +83,16 @@ class CartController extends Controller
                 if(empty($product)){
                     throw new Exception('Invalid Product Information', Response::HTTP_NOT_FOUND);
                 }
+                $colorName = '';
+                $sizeName = '';
+                if($product->product_type == 2){
+                    if(!empty($request->colorId)){
+                        $colorName = Color::where('color_id', $request->colorId)->value('color_name');
+                    }
+                    if(!empty($request->sizeId)){
+                        $sizeName = Size::where('size_id', $request->sizeId)->value('size_name');
+                    }
+                }
                 $cartProduct = [
                     'id'=>$request->id,
                     'name'=>$product->product_name,
@@ -88,7 +100,10 @@ class CartController extends Controller
                     'price'=>$request->price,
                     'weight'=>0,
                     'options' => [
-                        'size' => 'large',
+                        'sizeId' => (!empty($request->sizeId))?$request->sizeId:'',
+                        'size' => $sizeName,
+                        'colorId' => (!empty($request->colorId))?$request->colorId:'',
+                        'color' => $colorName,
                         'image'=>$product->thumbImage->image_path
                     ]
                 ];
@@ -187,14 +202,28 @@ class CartController extends Controller
 
                 foreach ($wishlists as $wishlist){
                     if(!empty($wishlist->product)){
+                        $colorName = '';
+                        $sizeName = '';
+                        if($wishlist->product->product_type == 2){
+                            if(!empty($wishlist->product->singleVariation->pri_id)){
+                                $colorName = Color::where('color_id', $wishlist->product->singleVariation->pri_id)->value('color_name');
+                            }
+                            if(!empty($wishlist->product->singleVariation->sec_id)){
+                                $sizeName = Size::where('size_id', $wishlist->product->singleVariation->sec_id)->value('size_name');
+                            }
+                        }
+
                         $cartProduct = [
                             'id'=>$wishlist->product->product_id,
                             'name'=>$wishlist->product->product_name,
                             'qty'=>1,
-                            'price'=>$wishlist->product->singleVariation->price,
+                            'price'=>($wishlist->product->product_type == 1)? $wishlist->product->product_price : $wishlist->product->singleVariation->price,
                             'weight'=>0,
                             'options' => [
-                                'size' => 'large',
+                                'sizeId' => ($wishlist->product->product_type == 2)? $wishlist->product->singleVariation->sec_id:'',
+                                'size' => $sizeName,
+                                'colorId' => ($wishlist->product->product_type == 2)? $wishlist->product->singleVariation->pri_id:'',
+                                'color' => $colorName,
                                 'image'=>$wishlist->product->thumbImage->image_path
                             ]
                         ];

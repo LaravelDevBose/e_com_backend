@@ -3839,11 +3839,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4351,15 +4346,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       productData: {},
-      cartInfo: {
+      cartData: {
         id: '',
         name: '',
         qty: 1,
-        price: 0
+        price: 0,
+        colorId: '',
+        sizeId: ''
       }
     };
   },
   created: function created() {},
+  mounted: function mounted() {
+    if (this.product.product_type === 1) {
+      this.cartData.price = parseFloat(this.product.product_price);
+    } else {
+      this.cartData.price = parseFloat(this.product.single_variation.price);
+      this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
+      this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+    }
+  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['productQuickView', 'insertToWishList', 'deleteFromWishList', 'addToCartProduct']), {
     productDetails: function productDetails(slug) {
       location.href = '/product/' + slug;
@@ -4407,16 +4413,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addToCart: function addToCart() {
       var _this3 = this;
 
-      this.cartInfo.id = this.product.product_id;
-      this.cartInfo.name = this.product.product_name;
-
-      if (this.product.product_type === 1) {
-        this.cartInfo.price = this.product.product_price;
-      } else {
-        this.cartInfo.price = this.product.single_variation.price;
-      }
-
-      this.addToCartProduct(this.cartInfo).then(function (response) {
+      this.cartData.id = this.product.product_id;
+      this.cartData.name = this.product.product_name;
+      this.addToCartProduct(this.cartData).then(function (response) {
         if (typeof response.code !== "undefined" && response.code === 200) {
           _this3.$noty.success(response.message);
         } else {
@@ -4613,14 +4612,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   created: function created() {
-    console.log(this.product);
-
     if (this.product.product_type === 1) {
-      this.cartData.price = this.product.product_price;
+      this.cartData.price = parseFloat(this.product.product_price);
     } else {
-      this.cartData.price = this.product.single_variation.price;
-      this.cartData.colorId = this.product.single_variation.pri_id;
-      this.cartData.sizeId = this.product.single_variation.sec_id;
+      this.cartData.price = parseFloat(this.product.single_variation.price);
+      this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
+      this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
     }
   },
   mounted: function mounted() {
@@ -4688,11 +4685,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else {
         location.href = '/login';
       }
+    },
+    setProductPrice: function setProductPrice() {
+      var _this4 = this;
+
+      var variations = this.product.variations;
+      variations.filter(function (variation) {
+        if (parseInt(variation.pri_id) === _this4.cartData.colorId && parseInt(variation.sec_id) === _this4.cartData.sizeId) {
+          console.log(variation);
+          _this4.cartData.price = parseFloat(variation.price);
+        }
+      });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['colors', 'sizes']), {
-    productPrice: function productPrice() {}
-  })
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['colors', 'sizes'])),
+  watch: {
+    'cartData.colorId': {
+      handler: function handler(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.setProductPrice();
+        }
+      }
+    },
+    'cartData.sizeId': {
+      handler: function handler(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.setProductPrice();
+        }
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -48340,13 +48362,23 @@ var render = function() {
                   ]),
                   _c("br"),
                   _vm._v(" "),
-                  _vm._m(1, true),
+                  cart.options.color
+                    ? _c("small", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Color : " + _vm._s(cart.options.color))
+                        ])
+                      ])
+                    : _vm._e(),
                   _c("br"),
                   _vm._v(" "),
-                  _vm._m(2, true)
+                  cart.options.size
+                    ? _c("small", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Size : " + _vm._s(cart.options.size))
+                        ])
+                      ])
+                    : _vm._e()
                 ]),
-                _vm._v(" "),
-                _vm._m(3, true),
                 _vm._v(" "),
                 _c("td", { staticClass: "price" }, [
                   _c("span", [_vm._v("$ " + _vm._s(cart.price))])
@@ -48356,7 +48388,7 @@ var render = function() {
                   _c("input", {
                     staticClass: "form-control input-sm",
                     attrs: {
-                      type: "text",
+                      type: "number",
                       id: cart.rowId,
                       minlength: "1",
                       maxlength: "12",
@@ -48369,33 +48401,7 @@ var render = function() {
                         return _vm.cartUpdate($event, cart.rowId)
                       }
                     }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "btn-number",
-                      attrs: {
-                        "data-field": "qty0",
-                        "data-type": "minus",
-                        for: cart.rowId
-                      }
-                    },
-                    [_c("i", { staticClass: "fa fa-caret-up" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "btn-number",
-                      attrs: {
-                        "data-field": "qty0",
-                        "data-type": "plus",
-                        for: cart.rowId
-                      }
-                    },
-                    [_c("i", { staticClass: "fa fa-caret-down" })]
-                  )
+                  })
                 ]),
                 _vm._v(" "),
                 _c("td", { staticClass: "price" }, [
@@ -48418,7 +48424,7 @@ var render = function() {
                   )
                 ])
               ])
-            : _c("tr", { staticClass: "last even" }, [_vm._m(4)])
+            : _c("tr", { staticClass: "last even" }, [_vm._m(1)])
         }),
         0
       ),
@@ -48447,7 +48453,7 @@ var render = function() {
         _c("tr", [
           _c("td", { attrs: { colspan: "2" } }),
           _vm._v(" "),
-          _vm._m(5),
+          _vm._m(2),
           _vm._v(" "),
           _c("td", { attrs: { colspan: "2" } }, [
             _c("strong", [_vm._v("$ " + _vm._s(_vm.cartTotalPrice))])
@@ -48468,42 +48474,16 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Description")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Avail.")]),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Unit price")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Unit price")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Qty")]),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Total")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Total")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "action" }, [
+        _c("th", { staticClass: "action", staticStyle: { width: "8%" } }, [
           _c("i", { staticClass: "fa fa-trash-o" })
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("small", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Color : Beige")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("small", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Size : S")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "cart_avail" }, [
-      _c("span", { staticClass: "label label-success" }, [_vm._v("In stock")])
     ])
   },
   function() {
@@ -49470,7 +49450,7 @@ var render = function() {
                               key: index,
                               staticClass: "swatch-option color",
                               class:
-                                _vm.cartData.colorId === color.color_id
+                                _vm.cartData.colorId == color.color_id
                                   ? "selected"
                                   : "",
                               style: { "background-color": color.color_code },
@@ -49571,7 +49551,7 @@ var render = function() {
                               key: index,
                               domProps: {
                                 value: size.size_id,
-                                selected: _vm.cartData.sizeId === size.size_id
+                                selected: _vm.cartData.sizeId == size.size_id
                               }
                             },
                             [_vm._v(_vm._s(size.size_name))]

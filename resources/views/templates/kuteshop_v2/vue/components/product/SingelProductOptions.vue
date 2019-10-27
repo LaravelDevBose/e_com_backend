@@ -27,7 +27,7 @@
                         <div v-if="colors" class="swatch-attribute color" >
                             <span class="swatch-attribute-label">Color:</span>
                             <div class="swatch-attribute-options clearfix">
-                                <label v-for="(color, index) in colors" :key="index" :for="'color-'+color.color_id" :class="(cartData.colorId === color.color_id) ? 'selected':'' " class="swatch-option color"  :style="{'background-color':color.color_code}">
+                                <label v-for="(color, index) in colors" :key="index" :for="'color-'+color.color_id" :class="(cartData.colorId == color.color_id) ? 'selected':'' " class="swatch-option color"  :style="{'background-color':color.color_code}">
                                     <input type="radio" :checked="cartData.colorId === color.color_id" style="display: none" name="color" :id="'color-'+color.color_id" v-model="cartData.colorId" :value="color.color_id">
                                 </label>
                             </div>
@@ -37,7 +37,7 @@
                         <label for="forSize" class="label">Size: </label>
                         <div v-if="sizes" class="control">
                             <select v-model="cartData.sizeId"  id="forSize" class="form-control attribute-select">
-                                <option v-for="(size, index) in sizes" :key="index" :value="size.size_id" :selected="cartData.sizeId === size.size_id">{{ size.size_name }}</option>
+                                <option v-for="(size, index) in sizes" :key="index" :value="size.size_id" :selected="cartData.sizeId == size.size_id">{{ size.size_name }}</option>
                             </select>
                         </div>
                         <a href="" class="size-chart">Size chart</a>
@@ -91,13 +91,12 @@
             }
         },
         created(){
-            console.log(this.product);
             if(this.product.product_type === 1){
-                this.cartData.price = this.product.product_price;
+                this.cartData.price = parseFloat(this.product.product_price);
             }else{
-                this.cartData.price = this.product.single_variation.price;
-                this.cartData.colorId = this.product.single_variation.pri_id;
-                this.cartData.sizeId = this.product.single_variation.sec_id;
+                this.cartData.price = parseFloat(this.product.single_variation.price);
+                this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
+                this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
             }
         },
         mounted(){
@@ -166,14 +165,36 @@
                     location.href = '/login';
                 }
             },
+            setProductPrice(){
+                let variations = this.product.variations;
+                variations.filter(variation=>{
+                    if(parseInt(variation.pri_id) === this.cartData.colorId && parseInt(variation.sec_id) === this.cartData.sizeId){
+                        console.log(variation);
+                        this.cartData.price = parseFloat(variation.price);
+                    }
+                })
+            }
         },
         computed:{
             ...mapGetters([
                 'colors',
                 'sizes',
             ]),
-            productPrice(){
-
+        },
+        watch:{
+            'cartData.colorId':{
+                handler(newValue, oldValue){
+                    if(newValue !== oldValue){
+                        this.setProductPrice();
+                    }
+                }
+            },
+            'cartData.sizeId':{
+                handler(newValue, oldValue){
+                    if(newValue !== oldValue){
+                        this.setProductPrice();
+                    }
+                }
             }
         }
     }

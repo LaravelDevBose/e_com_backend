@@ -51,16 +51,27 @@
         data(){
             return{
                 productData:{},
-                cartInfo:{
+                cartData:{
                     id:'',
                     name:'',
                     qty:1,
                     price:0,
+                    colorId:'',
+                    sizeId:'',
                 },
             }
         },
         created(){
 
+        },
+        mounted(){
+            if(this.product.product_type === 1){
+                this.cartData.price = parseFloat(this.product.product_price);
+            }else{
+                this.cartData.price = parseFloat(this.product.single_variation.price);
+                this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
+                this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+            }
         },
         methods:{
             ...mapActions([
@@ -110,16 +121,9 @@
                 this.productQuickView(this.product);
             },
             addToCart(){
-                this.cartInfo.id = this.product.product_id;
-                this.cartInfo.name = this.product.product_name;
-                if(this.product.product_type === 1){
-                    this.cartInfo.price = this.product.product_price;
-                }else{
-                    this.cartInfo.price = this.product.single_variation.price;
-                }
-
-
-                this.addToCartProduct(this.cartInfo)
+                this.cartData.id = this.product.product_id;
+                this.cartData.name = this.product.product_name;
+                this.addToCartProduct(this.cartData)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
                             this.$noty.success(response.message);
