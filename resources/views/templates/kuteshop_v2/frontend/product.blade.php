@@ -77,26 +77,7 @@
                                     </div>
                                 </div>
 
-                                <div class="product-info-price">
-                                    <div class="price-box">
-                                        <span class="price">$ {{ number_format($product->singleVariation->price,2) }}</span>
-{{--                                        <span class="old-price">$52.00</span>--}}
-{{--                                        <span class="label-sale">-30%</span>--}}
-                                    </div>
-                                </div>
-                                <div class="product-code">
-                                    SKU: #{{ $product->product_sku }}
-                                </div>
-                                <div class="product-info-stock">
-                                    <div class="stock available">
-                                        <span class="label">Availability: </span>In stock
-                                    </div>
-                                </div>
-                                <div class="product-overview">
-                                    <div class="overview-content">
-                                        {!! $product->highlight !!}
-                                    </div>
-                                </div>
+
 
                                 <singel-product-options :product="{{ $product }}"></singel-product-options>
                                 {{--<div class="product-addto-links-second">
@@ -514,9 +495,3 @@
     </script>
 
 @endsection
-<script>
-    import SingelProductOptions from "../vue/components/product/SingelProductOptions";
-    export default {
-        components: {SingelProductOptions}
-    }
-</script>

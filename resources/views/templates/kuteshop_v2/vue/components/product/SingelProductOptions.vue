@@ -1,65 +1,75 @@
 <template>
-    <div class="product-add-form">
-        <p>Available Options:</p>
-        <form>
+    <div>
+        <div class="product-info-price">
+            <div class="price-box">
+                <span class="price">$ {{ cartData.price }}</span>
 
-            <div class="product-options-wrapper">
+            </div>
+        </div>
+        <div class="product-code">
+            SKU: #{{ product.product_sku }}
+        </div>
+        <div class="product-info-stock">
+            <div class="stock available">
+                <span class="label">Availability: </span>In stock
+            </div>
+        </div>
+        <div class="product-overview">
+            <div class="overview-content" v-html="product.highlight"> </div>
+        </div>
+        <div class="product-add-form">
+            <p>Available Options:</p>
+            <form>
 
-                <div class="swatch-opt">
-                    <div class="swatch-attribute color" >
-                        <span class="swatch-attribute-label">Color:</span>
-                        <div class="swatch-attribute-options clearfix">
-                            <div class="swatch-option color selected" style="background-color: #0c3b90 ;"></div>
-                            <div class="swatch-option color" style="background-color: #036c5d ;"></div>
-                            <div class="swatch-option color" style="background-color: #5f2363 ;"></div>
-                            <div class="swatch-option color " style="background-color: #ffc000 ;"></div>
-                            <div class="swatch-option color" style="background-color: #36a93c ;"></div>
-                            <div class="swatch-option color" style="background-color: #ff0000 ;"></div>
+                <div class="product-options-wrapper">
+
+                    <div v-if="product.product_type === 2" class="swatch-opt">
+                        <div v-if="colors" class="swatch-attribute color" >
+                            <span class="swatch-attribute-label">Color:</span>
+                            <div class="swatch-attribute-options clearfix">
+                                <label v-for="(color, index) in colors" :key="index" :for="'color-'+color.color_id" :class="(cartData.colorId === color.color_id) ? 'selected':'' " class="swatch-option color"  :style="{'background-color':color.color_code}">
+                                    <input type="radio" :checked="cartData.colorId === color.color_id" style="display: none" name="color" :id="'color-'+color.color_id" v-model="cartData.colorId" :value="color.color_id">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="product.product_type === 2" class="form-configurable">
+                        <label for="forSize" class="label">Size: </label>
+                        <div v-if="sizes" class="control">
+                            <select v-model="cartData.sizeId"  id="forSize" class="form-control attribute-select">
+                                <option v-for="(size, index) in sizes" :key="index" :value="size.size_id" :selected="cartData.sizeId === size.size_id">{{ size.size_name }}</option>
+                            </select>
+                        </div>
+                        <a href="" class="size-chart">Size chart</a>
+                    </div>
+                    <div class="form-qty">
+                        <label class="label">Qty: </label>
+                        <div class="control">
+                            <input type="text" class="form-control input-qty" v-model="cartData.qty" id="qty1" name="qty1"  maxlength="12"  minlength="1">
+                            <button class="btn-number qtyminus" @click.prevent="reducedQty" data-type="minus" data-field="qty1"><span>-</span></button>
+                            <button class="btn-number qtyplus" data-type="plus" @click.prevent="increaseQty" data-field="qty1"><span>+</span></button>
                         </div>
                     </div>
                 </div>
-                <div class="form-qty">
-                    <label class="label">Qty: </label>
-                    <div class="control">
-                        <input type="text" class="form-control input-qty" v-model="cartData.qty" id="qty1" name="qty1"  maxlength="12"  minlength="1">
-                        <button class="btn-number qtyminus" @click.prevent="reducedQty" data-type="minus" data-field="qty1"><span>-</span></button>
-                        <button class="btn-number qtyplus" data-type="plus" @click.prevent="increaseQty" data-field="qty1"><span>+</span></button>
-                    </div>
-                </div>
-                <div class="form-configurable">
-                    <label for="forSize" class="label">Size: </label>
-                    <div class="control">
-                        <select  id="forSize" class="form-control attribute-select">
-                            <option value="1">XXXL</option>
-                            <option value="4">X</option>
-                            <option value="5">L</option>
-                        </select>
-                    </div>
-                    <a href="" class="size-chart">Size chart</a>
-                </div>
-            </div>
 
+                <div class="product-options-bottom clearfix">
+                    <div class="actions">
+                        <button type="submit" @click.prevent="addToCart" title="Add to Cart" class="action btn-cart">
+                            <span>Add to Cart</span>
+                        </button>
+                        <div class="product-addto-links">
 
-
-            <div class="product-options-bottom clearfix">
-
-                <div class="actions">
-
-                    <button type="submit" @click.prevent="addToCart" title="Add to Cart" class="action btn-cart">
-                        <span>Add to Cart</span>
-                    </button>
-                    <div class="product-addto-links">
-
-                        <a href="#" @click.prevent="addWishList(product.product_slug)" class="action btn-wishlist" title="Wish List">
-                            <span>Wishlist</span>
-                        </a>
+                            <a href="#" @click.prevent="addWishList(product.product_slug)" class="action btn-wishlist" title="Wish List">
+                                <span>Wishlist</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-            </div>
-
-        </form>
+            </form>
+        </div>
     </div>
+
 </template>
 
 <script>
@@ -69,28 +79,42 @@
         props:['product'],
         data(){
             return{
+
                 cartData:{
                     id:'',
                     name:'',
                     qty:1,
                     price:0,
+                    colorId:'',
+                    sizeId:'',
                 }
             }
         },
         created(){
             console.log(this.product);
+            if(this.product.product_type === 1){
+                this.cartData.price = this.product.product_price;
+            }else{
+                this.cartData.price = this.product.single_variation.price;
+                this.cartData.colorId = this.product.single_variation.pri_id;
+                this.cartData.sizeId = this.product.single_variation.sec_id;
+            }
+        },
+        mounted(){
+            if(this.product.product_type === 2) {
+                this.getProductVariationInfo(this.product.product_id);
+            }
         },
         methods:{
             ...mapActions([
                 'addToCartProduct',
                 'insertToWishList',
                 'deleteFromWishList',
+                'getProductVariationInfo'
             ]),
             addToCart(){
                 this.cartData.id = this.product.product_id;
                 this.cartData.name = this.product.product_name;
-                this.cartData.price = this.product.single_variation.price;
-
                 this.addToCartProduct(this.cartData)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
@@ -144,7 +168,13 @@
             },
         },
         computed:{
+            ...mapGetters([
+                'colors',
+                'sizes',
+            ]),
+            productPrice(){
 
+            }
         }
     }
 </script>

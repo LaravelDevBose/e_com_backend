@@ -73,6 +73,26 @@ const actions = {
             console.log(error.data);
             return  error.data;
         }
+    },
+    async getProductVariationInfo({commit},productId){
+        try {
+            return await axios.get(`/product/variations/data`,{
+                params:{
+                    product_id:productId,
+                }
+            })
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setProductsVariationInfo', response.data.data);
+                        delete response.data.data;
+                    }
+
+                    return response.data;
+                })
+        }catch (error) {
+            console.log(error.data);
+            return  error.data;
+        }
     }
 };
 
@@ -95,6 +115,10 @@ const mutations = {
         }else{
             state.products = response
         }
+    },
+    setProductsVariationInfo:(state, response)=>{
+        state.colors = response.colorInfos;
+        state.sizes = response.sizeInfos;
     }
 };
 

@@ -61,9 +61,15 @@ trait CommonData
     }
 
     public static function color_list($request=null){
-        $colors = Color::isActive()->bySearch($request)->get();
+        $request = (object)$request;
 
+        $colors = Color::isActive()->bySearch($request);
+
+        if(!empty($request->colorIds)){
+            $colors = $colors->whereIn('color_id', $request->colorIds);
+        }
         if(!empty($colors)){
+            $colors = $colors->get();
             return $colors;
         }{
             return [];
@@ -72,15 +78,18 @@ trait CommonData
 
     public static function size_list($request=null){
         $request = (object)$request;
-
-        if($request->category_id){
+        $sizes = Size::isActive()->bySearch($request);
+        if(!empty($request->category_id)){
             $sizeGroupId = SizeGroupCategory::where('category_id', $request->category_id)->pluck('size_group_id');
-            $sizes = Size::whereIn('size_group_id', $sizeGroupId)->bySearch($request)->get();
-        }{
-            $sizes = Size::isActive()->bySearch($request)->get();
+            $sizes = $sizes->whereIn('size_group_id', $sizeGroupId);
+        }
+
+        if(!empty($request->sizeIds)){
+            $sizes = $sizes->whereIn('size_id', $request->sizeIds);
         }
 
         if(!empty($sizes)){
+            $sizes = $sizes->get();
             return $sizes;
         }{
             return [];

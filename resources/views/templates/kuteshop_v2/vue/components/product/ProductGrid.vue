@@ -19,7 +19,8 @@
                     </strong>
                     <div class="clearfix">
                         <div class="product-item-price">
-                            <span class="price">$ {{ product.single_variation.price }}</span>
+                            <span class="price" v-if="product.product_type === 1 && product.single_variation === null">$ {{ product.product_price }}</span>
+                            <span class="price" v-else>$ {{ product.single_variation.price }}</span>
                         </div>
                         <div class="product-reviews-summary">
                             <div class="rating-summary">
@@ -111,7 +112,12 @@
             addToCart(){
                 this.cartInfo.id = this.product.product_id;
                 this.cartInfo.name = this.product.product_name;
-                this.cartInfo.price = this.product.single_variation.price;
+                if(this.product.product_type === 1){
+                    this.cartInfo.price = this.product.product_price;
+                }else{
+                    this.cartInfo.price = this.product.single_variation.price;
+                }
+
 
                 this.addToCartProduct(this.cartInfo)
                     .then(response=>{

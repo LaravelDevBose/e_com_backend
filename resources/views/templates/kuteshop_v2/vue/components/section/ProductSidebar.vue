@@ -96,6 +96,7 @@
 
 <script>
     import {mapActions, mapGetters} from 'vuex';
+    import _ from 'lodash';
 
     export default {
         name: "ProductSidebar",
@@ -122,7 +123,6 @@
             this.sortData.category_id = this.categoryid;
         },
         mounted(){
-
             this.getProductSidebar(this.reqData)
         },
         methods:{

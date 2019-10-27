@@ -186,6 +186,26 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function product_variation_data(Request $request){
+        if(empty($request->product_id)){
+            return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Invalid Product Info');
+        }
+
+        $variations = ProductVariation::where('product_id', $request->product_id)->get();
+        $colorIds = $variations->pluck('pri_id');
+        $sizeIds = $variations->pluck('sec_id');
+        $reqData = [
+            'colorIds'=>$colorIds,
+            'sizeIds'=>$sizeIds,
+        ];
+
+        $data = [
+            'colorInfos'=>CommonData::color_list($reqData),
+            'sizeInfos'=>CommonData::size_list($reqData)
+        ];
+        return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK, 'Data Found');
+    }
+
     public function checkout()
     {
         return view('templates.' . $this->template_name . '.frontend.checkout');

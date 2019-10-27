@@ -33,7 +33,7 @@
                     </ul><!-- link categori -->
 
                     <!-- List Products -->
-                    <products-page :products="{{ json_encode($products) }}" ></products-page>
+                    <products-page></products-page>
                     <!-- List Products -->
 
                 </div><!-- Main Content -->
