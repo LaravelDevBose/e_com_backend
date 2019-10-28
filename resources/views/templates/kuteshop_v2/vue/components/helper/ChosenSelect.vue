@@ -6,7 +6,7 @@
     export default {
         name: "ChosenSelect",
         props:{
-            value: [Number,String,Array],
+            value: [Number,String,Array, Object],
             multiple: Boolean,
             placeholder:String,
             classList:String,

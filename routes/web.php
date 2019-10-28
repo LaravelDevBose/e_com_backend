@@ -17,6 +17,7 @@ Route::namespace('Frontend')->as('front.')->group(function () {
     Route::get('get/section/{section_id}/products', 'FrontendController@get_section_products')->name('section.products');
     Route::get('/product/variations/data', 'FrontendController@product_variation_data');
     Route::post('/search', 'FrontendController@searching_data')->name('search');
+    Route::get('/all/category/list', 'FrontendController@get_category_list')->name('category.list');
 });
 
 Route::post('/attachment/store', 'AttachmentController@store')->name('attachment.store');

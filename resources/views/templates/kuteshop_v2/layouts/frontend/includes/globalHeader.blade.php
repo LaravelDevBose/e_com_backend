@@ -78,9 +78,7 @@
     <!-- header-content -->
     <div class="header-content">
         <div class="container">
-
             <div class="row">
-
                 <div class="col-md-3 nav-left">
                     <!-- logo -->
                     <strong class="logo">
@@ -102,27 +100,7 @@
                         <div class="block-title">
                             <span>Search</span>
                         </div>
-                        <div class="block-content">
-
-                            <div class="form-search">
-                                <form>
-                                    <div class="box-group">
-                                        <input type="text" class="form-control" placeholder="Search here...">
-                                        <button class="btn btn-search" type="button"><span>search</span></button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="categori-search  ">
-                                <select data-placeholder="All Categories" class="categori-search-option">
-                                    @if(!empty($catList))
-                                    <option>All Categories</option>
-                                        @foreach($catList as $cat)
-                                        <option value="{{ $cat->category_slug }}"> {{ $cat->category_name }}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                            </div>
-                        </div>
+                        <search-section></search-section>
                     </div><!-- block search -->
 
                 </div>

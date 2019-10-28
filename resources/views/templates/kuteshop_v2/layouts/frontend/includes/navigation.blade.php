@@ -16,21 +16,25 @@
                 </a>
                 @if(!empty($category->children) && count($category->children) > 0)
                     <span class="toggle-submenu"></span>
-                    <div class="submenu" @if(!empty($category->attachment)) style="background-image: url({{ $category->attachment->image_path }});" @endif >
-                        <ul class="categori-list clearfix">
-                            @foreach($category->children as $secCategory)
-                            <li class="col-sm-3">
-                                <strong class="title"><a href="{{ route('front.category.product', $secCategory->category_slug) }}">{{ $secCategory->category_name }}</a></strong>
-                                @if(!empty($secCategory->children))
-                                    <ul>
-                                        @foreach($secCategory->children as $trdCategory)
-                                            <li><a href="{{ route('front.category.product', $trdCategory->category_slug) }}">{{ $trdCategory->category_name }}</a></li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </li>
-                            @endforeach
-                        </ul>
+                    <div class="submenu" >
+                        @foreach($category->children as $secCategory)
+                            @if($loop->first || $loop->iteration % 4 == 0 )
+                            <ul class="categori-list row clearfix">
+                            @endif
+                                <li class="col-sm-3">
+                                    <strong class="title"><a href="{{ route('front.category.product', $secCategory->category_slug) }}">{{ $secCategory->category_name }}</a></strong>
+                                    @if(!empty($secCategory->children))
+                                        <ul>
+                                            @foreach($secCategory->children as $trdCategory)
+                                                <li><a href="{{ route('front.category.product', $trdCategory->category_slug) }}">{{ $trdCategory->category_name }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </li>
+                            @if($loop->last || $loop->iteration % 4 == 0 )
+                            </ul>
+                            @endif
+                        @endforeach
                     </div>
                 @endif
             </li>

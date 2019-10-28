@@ -277,4 +277,13 @@ class FrontendController extends Controller
 
     }
 
+    public function get_category_list(){
+        $categories = Category::isActive()->groupBy('category_id','parent_id')->orderBy('category_id', 'asc')->select('category_name as name','category_id as id')->get()->toArray();
+
+        if(!empty($categories)){
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $categories);
+        }else{
+            return ResponserTrait::singleResponse([], 'error', Response::HTTP_NOT_FOUND, 'No Data Found');
+        }
+    }
 }

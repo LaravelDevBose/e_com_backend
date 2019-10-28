@@ -11,6 +11,7 @@ import cart from "./modules/cart";
 import checkout from "./modules/checkout";
 import order from "./modules/order";
 import address_book from "./modules/address_book";
+import search from "./modules/search";
 
 
 export default new Vuex.Store({
@@ -38,6 +39,7 @@ export default new Vuex.Store({
         checkout,
         order,
         address_book,
+        search,
     }
 })
 
