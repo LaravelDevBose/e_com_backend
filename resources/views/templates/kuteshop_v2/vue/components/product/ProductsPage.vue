@@ -1,7 +1,9 @@
 <template>
     <div class="products  products-grid">
         <ol v-if="productList" class="product-items row">
-            <product-grid v-for="(product,index) in productList" :product="product" :key="index"></product-grid>
+            <li class="col-sm-4" v-for="(product,index) in productList" :key="index">
+                <product-grid  :product="product"></product-grid>
+            </li>
         </ol><!-- list product -->
     </div>
 </template>

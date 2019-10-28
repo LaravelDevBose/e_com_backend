@@ -44,8 +44,9 @@ class FrontendController extends Controller
                 return $query->with(['category', 'secCatProducts'=>function($q){
                     return $q->with(['product.thumbImage','product.singleVariation']);
                 }]);
-        }])->orderBy('section_position', 'asc')->isActive()->get();
-
+        }, 'sectionProducts'=>function($q){
+                return $q->isActive()->count();
+            }])->orderBy('section_position', 'asc')->isActive()->get();
 
         $topProducts = GroupProduct::where('group_type', GroupProduct::Groups['Top Product'])
             ->with(['product'=>function($query){
