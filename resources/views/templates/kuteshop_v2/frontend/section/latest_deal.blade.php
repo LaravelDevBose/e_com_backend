@@ -2,10 +2,10 @@
     <div class="block-deals-of-opt2">
         <div class="block-title ">
             <span class="title">Latest Deals</span>
-            <div class="deals-of-countdown">
+            {{--<div class="deals-of-countdown">
                 <span class="title">End In</span>
                 <div class="count-down-time" data-countdown="2016/9/27"></div>
-            </div>
+            </div>--}}
         </div>
         <div class="block-content">
             <div class="owl-carousel"
