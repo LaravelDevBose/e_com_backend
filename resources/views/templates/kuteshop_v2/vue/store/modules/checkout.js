@@ -56,7 +56,11 @@ const actions = {
             return await axios.post('/buyer/address-book',formData)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('updateAddressBook', response.data.data, formData.address_type);
+                        let resData = {
+                            address:response.data.data,
+                            is_shipping:formData.is_shipping
+                        };
+                        commit('updateAddressBook', resData);
                     }
                     return response.data;
                 });
@@ -134,22 +138,28 @@ const mutations = {
     },
     updateAddressBook:(state,response)=> {
         let address = {
-            id:response.address_id,
-            text:response.full_address,
+            id:response.address.address_id,
+            text:response.address.full_address,
         };
         state.address_list.push(address);
-        if(response.address_type === 1){
-            state.billing_address = response;
-            state.billing_address_id = response.address_id;
+        if(response.address.address_type === 1){
+            state.billing_address = response.address;
+            state.billing_address_id = response.address.address_id;
+            console.log(response);
+            if(response.is_shipping === 1 || response.is_shipping === true){
+                console.log('yess');
+                state.shipping_address = response.address;
+                state.shipping_address_id = response.address.address_id;
+            }
         }else{
-            state.shipping_address = response;
-            state.shipping_address_id = response.address_id;
+            state.shipping_address = response.address;
+            state.shipping_address_id = response.address.address_id;
         }
     },
     setAddressInfo:(state,formData)=>{
-        if(formData.address_type == 1){
+        if(formData.address_type === 1){
             state.billing_address = formData;
-            if(formData.is_shipping == 1){
+            if(formData.is_shipping === 1 || formData.is_shipping === true){
                 state.shipping_address = formData;
             }
         }else{
@@ -160,7 +170,7 @@ const mutations = {
         if(response.reqData.address_type === 1){
             state.billing_address = response.address;
             state.billing_address_id  = response.address.address_id;
-            if(response.reqData.is_shipping === 1){
+            if(response.reqData.is_shipping === 1 || response.reqData.is_shipping === true ){
                 state.shipping_address = response.address;
                 state.shipping_address_id  = response.address.address_id;
             }

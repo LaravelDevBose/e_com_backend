@@ -1,27 +1,29 @@
 <template>
-    <div v-if="checkSearchResult" class="search-content">
+    <div v-if="Object.entries(searchResult).length !== 0" class="search-content block-sidebar block-sidebar-products">
         <div role="complementary" class="widget_wrapper13" id="secondary">
             <div class="popular-posts widget widget__sidebar wow bounceInUp animated" id="recent-posts-4">
-                <h3 class="widget-title"><span>Most Popular Post</span></h3>
+                <h3 class="widget-title"><span>Search Products</span></h3>
                 <div class="widget-content">
                     <ul v-if="searchResult.products && Object.entries(searchResult.products).length !== 0" class="posts-list unstyled clearfix">
-                        <li v-for="(product,index) in searchResult.products" :key="index">
-                            <figure class="featured-thumb">
-                                <a :href="'/product/'+product.product_slug">
-                                    <img v-if="product.thumbImage.image_path" width="50" height="50" :alt="product.productName" :src="product.thumbImage.image_path">
-                                    <img v-else width="50" height="50" :alt="product.productName" src="/crocus_v2/images/blog-img.jpg">
-                                </a>
-                            </figure>
-                            <!--featured-thumb-->
-                            <h4>
-                                <a :title="product.productName" :href="'/product/'+product.product_slug">{{ product.productName}}</a>
-                            </h4>
-                            <p class="post-meta" v-if="product.brand">
-                                <span class="entry-date">{{ product.brand.brand_name }}</span>
-                            </p>
-                            <p class="post-meta" v-if="product.category">
-                                <span class="entry-date">{{ product.category.name }}</span>
-                            </p>
+                        <li v-for="(product,index) in searchResult.products" :key="index" class="product-item product-item-opt-2">
+                            <div class="product-item-info">
+                                <figure class="featured-thumb">
+                                    <a :href="'/product/'+product.product_slug">
+                                        <img class="feat-thumb " v-if="product.thumbImage.image_path" :alt="product.productName" :src="product.thumbImage.image_path">
+                                        <img class="feat-thumb img-thumbnail" v-else :alt="product.productName" src="/crocus_v2/images/blog-img.jpg">
+                                    </a>
+                                </figure>
+                                <!--featured-thumb-->
+                                <h4 class="product-name">
+                                    <a :title="product.productName" :href="'/product/'+product.product_slug">{{ product.productName}}</a>
+                                </h4>
+                                <p class="post-meta" v-if="product.brand">
+                                    <span class="entry-date">{{ product.brand.brand_name }}</span>
+                                </p>
+                                <p class="post-meta" v-if="product.category">
+                                    <span class="entry-date">{{ product.category.name }}</span>
+                                </p>
+                            </div>
                         </li>
                     </ul>
 

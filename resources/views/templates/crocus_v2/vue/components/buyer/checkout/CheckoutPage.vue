@@ -150,6 +150,7 @@
                 this.formData.shipping_address_id = this.shippingAddressId;
                 this.formData.payment_method = this.paymentInfo;
                 this.formData.payment_method_id = this.paymentMethodId;
+                this.formData.shipping_method_id = this.shippingMethodId;
                 console.log(this.formData);
                 //TODO Form Validation
                 this.orderProceed(this.formData)
@@ -177,6 +178,7 @@
                 'shippingAddressId',
                 'paymentInfo',
                 'paymentMethodId',
+                'shippingMethodId',
 
                 'billingTab',
                 'shoppingTab',

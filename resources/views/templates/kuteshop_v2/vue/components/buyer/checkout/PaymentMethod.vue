@@ -3,8 +3,8 @@
         <div class="box-border">
             <ul>
                 <li v-if="paymentMethods" v-for="(payment,index) in paymentMethods"  :key="index">
-                    <label for="radio_button_5">
-                        <input checked="" name="radio_4" v-model="formData.payment_method_id" :value="index" id="radio_button_5" type="radio"> {{ payment }}</label>
+                    <label :for="'method-'+index">
+                        <input checked="" name="radio_4" v-model="formData.payment_method_id" :value="index" :id="'method-'+index" type="radio"> {{ payment }}</label>
                 </li>
             </ul>
             <button type="button" @click.prevent="paymentMethodStore" class="button">Continue</button>

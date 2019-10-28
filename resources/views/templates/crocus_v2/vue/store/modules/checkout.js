@@ -8,7 +8,9 @@ const state = {
     shipping_method:'',
     payment_info:{},
     payment_method_id:'',
+    shipping_method_id:'',
     payment_methods:[],
+    shipping_methods:[],
     billing:true,
     shopping:false,
     method:false,
@@ -23,8 +25,10 @@ const getters = {
     shippingAddress:(state)=>state.shipping_address,
     shippingAddressId:(state)=>state.shipping_address_id,
     paymentMethods:(state)=>state.payment_methods,
+    shippingMethods:(state)=>state.shipping_methods,
     paymentInfo:state=>state.payment_info,
     paymentMethodId:(state)=>state.payment_method_id,
+    shippingMethodId:(state)=>state.shipping_method_id,
     billingTab:(state)=>state.billing,
     shoppingTab:(state)=>state.shopping,
     methodTab:(state)=>state.method,
@@ -131,7 +135,7 @@ const mutations = {
         if(response.address.address_type === 1){
             state.billing_address = response.address;
             state.billing_address_id = response.address.address_id;
-            if(response.is_shipping === 1){
+            if(response.is_shipping === 1 || response.is_shipping === true){
                 state.shipping_address = response.address;
                 state.shipping_address_id = response.address.address_id;
             }
@@ -141,9 +145,9 @@ const mutations = {
         }
     },
     setAddressInfo:(state,formData)=>{
-        if(formData.address_type == 1){
+        if(formData.address_type === 1){
             state.billing_address = formData;
-            if(formData.is_shipping == 1){
+            if(formData.is_shipping === 1 || formData.is_shipping === true){
                 state.shipping_address = formData;
             }
         }else{
@@ -154,7 +158,7 @@ const mutations = {
         if(response.reqData.address_type === 1){
             state.billing_address = response.address;
             state.billing_address_id  = response.address.address_id;
-            if(response.reqData.is_shipping === 1){
+            if(response.reqData.is_shipping === 1 || response.reqData.is_shipping === true){
                 state.shipping_address = response.address;
                 state.shipping_address_id  = response.address.address_id;
             }

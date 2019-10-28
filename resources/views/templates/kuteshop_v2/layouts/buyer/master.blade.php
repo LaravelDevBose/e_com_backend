@@ -19,9 +19,17 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{ asset('/assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('/assets/css/colors.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset('kuteshop_v2/css/style.css') }}">
     @yield('PageCss')
+    <style>
+        .btn-teal{
+            background-color:#009688 !important;
+            border-color:#009688 !important;
+        }
+    </style>
 </head>
 
 <body class="cms-index-index index-opt-2">
@@ -43,10 +51,10 @@
     <a href="#" class="back-to-top">
         <i aria-hidden="true" class="fa fa-angle-up"></i>
     </a>
-
+    <invoice-modal-one></invoice-modal-one>
 </div>
 
-<script src="{{ asset('js/kuteshop_v2.js') }}"></script>
+
 <!-- jQuery -->
 <script type="text/javascript" src="{{ asset('kuteshop_v2/js/jquery.min.js') }}"></script>
 
@@ -90,7 +98,7 @@
 
 <!-- Scripts -->
 @yield('PageJs')
-
+<script src="{{ asset('js/kuteshop_v2.js') }}"></script>
 
 </body>
 

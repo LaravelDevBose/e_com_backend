@@ -1,6 +1,5 @@
 <template>
     <div class="block-content">
-
         <div class="form-search">
             <form>
                 <div class="box-group">

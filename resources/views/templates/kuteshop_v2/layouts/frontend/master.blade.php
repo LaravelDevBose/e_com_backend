@@ -22,6 +22,39 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset('kuteshop_v2/css/style.css') }}">
     @yield('PageCss')
+    <style>
+        .search-content .widget-title{
+            margin-top: 0;
+            border-bottom: 1px dotted #0acde6;
+            padding: 10px 0px;
+            font-size: 1.5em;
+        }
+        .widget-content .featured-thumb {
+            display: inline-block;
+            padding: 0;
+            width: 80px;
+            margin-right: 10px;
+            float: left;
+        }
+        .featured-thumb .feat-thumb{
+            width: 100%;
+            height: 80px;
+        }
+        .widget-content .product-name{
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+        .widget-content .product-name a{
+            /*display: inline-block;*/
+            font-size: .7em;
+        }
+        .widget-content .product-item{
+            padding-bottom: 5px;
+        }
+        .widget-content .post-meta{
+            margin-bottom: 0px;
+        }
+    </style>
 </head>
 
 <body class="index-opt-1 catalog-category-view catalog-view_op1">

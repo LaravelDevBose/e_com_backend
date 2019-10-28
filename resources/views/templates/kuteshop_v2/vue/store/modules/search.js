@@ -15,7 +15,6 @@ const actions = {
         try {
             return await axios.get('/all/category/list')
                 .then(response=>{
-                    console.log(response.data.data);
                     commit('setCategoryList', response.data.data);
                     return response.data;
                 });

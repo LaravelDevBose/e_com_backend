@@ -79,14 +79,15 @@
             </ul>
             <ul>
                 <li class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3" v-if="new_address">
                         <label for="save_address" style="padding:10px;">
-                            <input  id="save_address" type="checkbox"> Save as Address Book</label>
-
+                            <input  id="save_address" v-model="save_address" :value="1" type="checkbox"> Save as Address Book
+                        </label>
                     </div>
                     <div class="col-sm-3">
                         <label for="is_shipping" style="padding:10px;">
-                            <input  v-model="formData.is_shipping"   id="is_shipping" type="checkbox"> Also As Shipping Address</label>
+                            <input  v-model="formData.is_shipping"  :value="1"  id="is_shipping" type="checkbox"> Also As Shipping Address
+                        </label>
                     </div>
                 </li>
                 <li style="text-align: right">
@@ -141,7 +142,7 @@
                     // TODO from validation
                     this.storeAddressInfo(this.formData)
                         .then(response=>{
-                            if(typeof response.code !== "undefined" && response.code === 201){
+                            if(typeof response.code !== "undefined" && response.code === 200){
                                 this.$noty.success(response.message);
                                 this.continueTab();
                             }else if(response.status === 'validation'){
@@ -176,7 +177,7 @@
             },
             continueTab(){
                 let data = {};
-                if(this.formData.is_shipping === 1){
+                if(this.formData.is_shipping === 1 || this.formData.is_shipping === true){
                     data={
                         billing:{
                             'tabAction':false,

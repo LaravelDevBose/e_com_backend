@@ -10,7 +10,6 @@ const state = {
 const getters = {
     orderList:(state)=>state.orders,
     orderInfo:(state)=>state.order_info,
-    pagination:(state)=>state.order_paginate,
 };
 
 const actions = {
@@ -34,7 +33,7 @@ const actions = {
             return await axios.get(`/buyer/order/${orderId}/show`)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('setOrderList', response.data.data);
+                        commit('setOrderInfo', response.data.data);
                     }
                     return response.data;
                 })
@@ -51,7 +50,7 @@ const mutations = {
         if(response.hasOwnProperty('current_page')){
             state.orders = response.data;
             delete response.data;
-            state.order_paginate = response;
+            state.paginate = response;
         }else{
             state.orders = response
         }

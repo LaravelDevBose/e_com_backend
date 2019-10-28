@@ -23,7 +23,7 @@
                     <em>{{ order.status_label }}</em>
                 </td>
                 <td class="text-center">
-                    <a href="#" @click.prevent="viewOrderInfo(order.order_no)" class="text-primary"> <i class="fa fa-eye"></i></a>
+                    <a href="#" @click.prevent="showInvoiceModal(order.order_no)" class="text-primary"> <i class="fa fa-eye"></i></a>
                 </td>
             </tr>
             <tr v-else>
@@ -35,13 +35,29 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
+    import InvoiceModelOne from './InvoiceModalOne';
 
     export default {
         name: "OrderListTable",
+        components:{InvoiceModelOne},
         methods:{
+            ...mapActions([
+                'getOrderInfo'
+            ]),
             viewOrderInfo(order_no){
                 location.href = `/buyer/order/${order_no}/show`;
+            },
+            showInvoiceModal(orderNo){
+                this.getOrderInfo(orderNo)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            $('#invoice').modal('show');
+                        }else{
+                            alert(response.message);
+                        }
+
+                    })
             }
         },
         computed:{

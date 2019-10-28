@@ -7,7 +7,7 @@
         <div class="content-text clearfix">
             <order-list-table></order-list-table>
         </div>
-
+        <invoice-modal-one></invoice-modal-one>
     </div>
 </template>
 
