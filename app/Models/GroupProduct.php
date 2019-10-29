@@ -46,6 +46,7 @@ class GroupProduct extends Model
     public function getExpiredAtAttribute()
     {
         return Carbon::parse($this->attributes['expired_at'])->format('Y-m-d H:i:s');
+        return Carbon::parse($this->attributes['expired_at'])->format('Y/m/d');
     }
 
     public function scopeIsActive($query){

@@ -75,6 +75,15 @@ class FrontendController extends Controller
         }
     }
 
+    public function hot_products()
+    {
+        $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
+            ->with(['product'=>function($query){
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
+            }])->orderBy('position', 'asc')->latest()->get();
+        return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $hotProducts);
+    }
+
     public function get_section_products($sectionId)
     {
         $section = HomepageSection::where('section_id', $sectionId)->first();
@@ -122,9 +131,14 @@ class FrontendController extends Controller
             /*$req['category_id'] = $category->category_id;
 
             $products = ProductHelper::products_list($req);*/
+            $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
+                ->with(['product'=>function($query){
+                    return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
+                }])->orderBy('position', 'asc')->latest()->get();
             return view('templates.' . $this->template_name . '.frontend.products', [
                 'category' => $category,
                 'categories' => CommonData::category_tree(),
+                'hotProducts'=>$hotProducts,
                 /*'brands' => CommonData::brand_list(),
                 'colors' => CommonData::color_list(),
                 'tags' => CommonData::tag_list(),

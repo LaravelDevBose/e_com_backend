@@ -7,6 +7,7 @@ const state = {
     tags:[],
     sizes:[],
     products:[],
+    hot_products:[],
 };
 
 //declare Getters
@@ -18,6 +19,7 @@ const getters = {
     tags:(state)=>state.tags,
     sizes:(state)=>state.sizes,
     productsData:(state)=>state.products,
+    hotProducts:(state)=>state.hot_products,
 };
 
 const actions = {
@@ -93,6 +95,21 @@ const actions = {
             console.log(error.data);
             return  error.data;
         }
+    },
+    getHotProducts({commit}){
+        try {
+            axios.get('/get/hot/products')
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setHotProducts', response.data.data);
+                        delete response.data.data;
+                    }
+                    return response.data;
+                })
+        }catch (error) {
+            console.log(error.data);
+            return  error.data;
+        }
     }
 };
 
@@ -119,6 +136,9 @@ const mutations = {
     setProductsVariationInfo:(state, response)=>{
         state.colors = response.colorInfos;
         state.sizes = response.sizeInfos;
+    },
+    setHotProducts:(state,response)=>{
+        state.hot_products = response;
     }
 };
 

@@ -1,5 +1,41 @@
-<footer class="site-footer footer-opt-1">
 
+@if(!empty($brands))
+<div class="block-top-brand-opt14 block-brand-tabs">
+    <div class="container">
+
+        <div class="block-title">
+            <span class="title">Top Brands</span>
+        </div>
+
+        <div class="block-content" >
+
+            <ul class="nav-brand owl-carousel"
+                data-nav="true"
+                data-loop="true"
+                data-dots="false"
+                data-margin="25"
+                data-responsive='{
+                "0":{"items":3},
+                "380":{"items":3},
+                "480":{"items":4},
+                "640":{"items":5},
+                "992":{"items":7}
+                            }'>
+                @foreach($brands as $brand)
+                    @if(!empty($brand->attachment->image_path))
+                        <li>
+                            <img src="{{ $brand->attachment->image_path }}" alt="{{ $brand->brand_name }}" title="{{ $brand->brand_name }}">
+                        </li>
+                    @endif
+                @endforeach
+            </ul>
+        </div>
+
+    </div>
+</div>
+@endif
+
+<footer class="site-footer footer-opt-1">
     <div class="container">
         <div class="footer-column">
 
@@ -25,16 +61,18 @@
                     </table>
                 </div>
                 <div class="col-md-2 col-lg-2 col-xs-6 col">
+                    @if(!empty($headerPageMenus))
                     <div class="links">
                         <h3 class="title">Company</h3>
                         <ul>
-                            <li><a href="">About Us</a></li>
-                            <li><a href="">Testimonials</a></li>
-                            <li><a href="">Affiliate Program</a></li>
-                            <li><a href="">Terms & Conditions</a></li>
-                            <li><a href="">Terms & Conditions</a></li>
+                            @foreach($headerPageMenus as $pageMenu)
+                            <li>
+                                <a href="{{ route('front.pages', $pageMenu->page_slug) }}" title="{{ $pageMenu->menu_title }}">{{ $pageMenu->menu_title }}</a>
+                            </li>
+                            @endforeach
                         </ul>
                     </div>
+                    @endif
                 </div>
                 <div class="col-md-2 col-lg-2 col-xs-6 col">
                     <div class="links">
@@ -61,19 +99,6 @@
                     </div>
                 </div>
                 <div class="col-md-3 col-lg-3 col-xs-6 col">
-                    <div class="block-newletter">
-                        <div class="block-title">NEWSLETTER</div>
-                        <div class="block-content">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Your Email Address">
-                                    <span class="input-group-btn">
-                                            <button class="btn btn-subcribe" type="button"><span>ok</span></button>
-                                        </span>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                     <div class="block-social">
                         <div class="block-title">Let’s Socialize </div>
                         <div class="block-content">

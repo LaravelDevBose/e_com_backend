@@ -37,7 +37,7 @@
 
 @endif
 <!-- Block  bestseller products-->
-
+<hot-deal-products-block :hotProducts="{{ $hotProducts }}"></hot-deal-products-block>
 <product-sidebar :categoryId="{{ $category->category_id }}"></product-sidebar>
 <!-- block slide top -->
 <div class="block-sidebar block-banner-sidebar">

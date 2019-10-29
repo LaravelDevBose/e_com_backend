@@ -56,6 +56,10 @@
         .widget-content .post-meta{
             margin-bottom: 0px;
         }
+        .block-top-brand-opt14 .nav-brand{
+            padding-left: 0px;
+            padding-right: 0px;
+        }
     </style>
 </head>
 
