@@ -1,14 +1,12 @@
 <template>
-    <div class="my-wishlist">
-        <div class="table-responsive">
-            <fieldset>
-                <wish-list-products></wish-list-products>
-
-                <div class="buttons-set buttons-set2">
-                    <button class="button btn-add" @click.prevent="addAllToCart()" title="Add All to Cart" type="button"><span>Add All to Cart</span></button>
-                </div>
-            </fieldset>
+    <div class="content-text clearfix">
+        <wish-list-products></wish-list-products>
+        <div class="text-right">
+            <button type="button" @click.prevent="addAllToCart()" title="Add All to Cart" class="btn btn-primary btn-sm">
+                <span>Add All to Cart</span>
+            </button>
         </div>
+
     </div>
 </template>
 

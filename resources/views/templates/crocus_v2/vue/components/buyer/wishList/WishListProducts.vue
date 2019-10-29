@@ -37,8 +37,14 @@
                     <div class="cart-cell">
                         <div class="price-box">
                             <span class="regular-price">
-                                <span class="price">{{ wishList.singleVariation.price }}</span>
-                                <input type="hidden" :id="'price-'+wishList.id" :value="wishList.singleVariation.price">
+                                <span v-if="wishList.product_type === 1">
+                                     <span class="price"> {{ wishList.price }} </span>
+                                     <input type="hidden" :id="'price-'+wishList.id" :value="wishList.price">
+                                </span>
+                                <span v-else>
+                                    <span class="price" >{{ wishList.singleVariation.price }}</span>
+                                    <input type="hidden" :id="'price-'+wishList.id" :value="wishList.singleVariation.price">
+                                </span>
                             </span>
                         </div>
                     </div>
@@ -49,7 +55,7 @@
                     </div>
                 </td>
                 <td class="wishlist-cell5 customer-wishlist-item-remove last">
-                    <a class="remove-item" title="Remove WishList" @click.prevent="removeWishList(wishList.id)" href="#"><span><span></span></span></a></td>
+                    <a class="remove-item" title="Remove WishList" @click.prevent="removeWishList(wishList.product_slug)" href="#"><span><span></span></span></a></td>
             </tr>
         </tbody>
     </table>
@@ -64,8 +70,11 @@
             return{
                 cartData:{
                     id:'',
-                    qty:'',
-
+                    name:'',
+                    qty:1,
+                    price:0,
+                    colorId:'',
+                    sizeId:'',
                 }
             }
         },
@@ -81,9 +90,9 @@
                 'deleteFromWishList',
                 'addToCartProduct',
             ]),
-            removeWishList(productId){
+            removeWishList(slug){
                 if(AppStorage.getWhoIs() === 'buyer'){
-                    this.deleteFromWishList(productId)
+                    this.deleteFromWishList(slug)
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 this.$noty.success(response.message)

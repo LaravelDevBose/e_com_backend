@@ -1,8 +1,8 @@
 <template>
-    <div class="page-content page-order">
+    <div class="page-content page-order" >
         <div class="order-detail-content">
             <cart-list-table></cart-list-table>
-            <div class="cart_navigation">
+            <div class="cart_navigation" style="margin-bottom: 1em;">
                 <a href="#" @click.prevent="goToShopping" class="prev-btn">Continue shopping</a>
                 <a href="#" @click.prevent="proceedToCheckout" class="next-btn">Proceed to checkout</a>
             </div>

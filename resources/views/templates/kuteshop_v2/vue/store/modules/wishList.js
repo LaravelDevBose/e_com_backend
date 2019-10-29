@@ -43,7 +43,7 @@ const actions = {
             return await axios.post('/buyer/wishList/remove',{product_slug:productSlug})
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('removeFromWishList', response.data.data);
+                        commit('removeFromWishList', productSlug);
                     }
                     return response.data;
                 })
@@ -58,7 +58,14 @@ const actions = {
 const mutations = {
     setWishListDetails:(state, response)=>state.wish_list = response,
     addToWishList:(state,response)=>state.wish_list_count++,
-    removeFromWishList:(state,response)=>state.wish_list_count--,
+    removeFromWishList:(state,productSlug)=>{
+        state.wish_list_count--;
+        state.wish_list = state.wish_list.filter(product=>{
+            if(product.product_slug !== productSlug){
+                return product;
+            }
+        })
+    },
 };
 
 export default {
