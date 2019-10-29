@@ -1,4 +1,4 @@
-@extends('templates.kuteshop_v2.layouts.frontend.master')
+@extends('templates.kuteshop_v2.layouts.buyer.master')
 
 @section('Title','My Orders')
 

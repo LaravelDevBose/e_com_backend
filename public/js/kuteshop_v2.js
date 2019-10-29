@@ -2335,6 +2335,156 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AccountInfoUpdate",
+  data: function data() {
+    return {
+      formData: {
+        full_name: '',
+        phone_no: '',
+        buyer_address: ''
+      },
+      btnDisabled: false
+    };
+  },
+  created: function created() {
+    this.getBuyerDetails();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getBuyerDetails', 'buyerInfoUpdate']), {
+    updateBuyerInfo: function updateBuyerInfo() {
+      var _this = this;
+
+      this.btnDisabled = true;
+      this.buyerInfoUpdate(this.formData).then(function (response) {
+        if (typeof response.code !== 'undefined' && response.code === 200) {
+          _this.$noty.success(response.message);
+
+          _this.btnDisabled = false;
+        } else if (response.status === 'validation') {
+          _this.$noty.warning(response.message);
+        } else {
+          _this.$noty.error(response.message);
+        }
+      });
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['buyerInfo']), {
+    checkBuyerInfo: function checkBuyerInfo() {
+      return JSON.parse(JSON.stringify(this.buyerInfo));
+    },
+    formDataCheck: function formDataCheck() {
+      return JSON.parse(JSON.stringify(this.formData));
+    }
+  }),
+  watch: {
+    checkBuyerInfo: {
+      handler: function handler(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.formData.full_name = this.buyerInfo.full_name;
+          this.formData.phone_no = this.buyerInfo.phone_no;
+          this.formData.buyer_address = this.buyerInfo.buyer.buyer_address;
+        }
+      },
+      deep: true
+    },
+    formDataCheck: {
+      handler: function handler(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.btnDisabled = false;
+        }
+      },
+      deep: true
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/kuteshop_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/kuteshop_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=script&lang=js& ***!
@@ -2422,16 +2572,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddressBookCreate",
+  props: {
+    addressid: {
+      type: [Number],
+      "default": ''
+    },
+    isedit: {
+      type: [Boolean, Number],
+      "default": false
+    }
+  },
   components: {
     ChosenSelect: _helper_ChosenSelect__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
       formData: {
+        address_id: '',
         first_name: '',
         last_name: '',
         phone_no: '',
@@ -2440,8 +2604,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         state: '',
         postal_code: '',
         country: '',
-        address_type: 1,
-        is_shipping: 0
+        address_type: 1
       },
       btnDisabled: false,
       selectOption: {
@@ -2450,37 +2613,81 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeAddressBook']), {
-    storeAddress: function storeAddress() {
+  mounted: function mounted() {
+    if (this.isedit) {
+      this.getAddressBookInfo(this.addressid);
+    }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeAddressBook', 'getAddressBookInfo', 'addressBookUpdate']), {
+    manipulateAddressBook: function manipulateAddressBook() {
       var _this = this;
 
       this.btnDisabled = true; //TODO Form Validation
 
-      this.storeAddressBook(this.formData).then(function (response) {
-        if (typeof response.code !== "undefined" && response.code === 200) {
-          _this.$noty.success(response.message);
+      if (this.isedit !== false && this.addressid !== '') {
+        this.addressBookUpdate(this.formData).then(function (response) {
+          if (typeof response.code !== "undefined" && response.code === 200) {
+            _this.$noty.success(response.message);
 
-          setTimeout(function () {
-            location.href = '/buyer/address-book/list';
-          }, 1000);
-        } else {
-          _this.$noty.error(response.message);
-        }
-      });
+            setTimeout(function () {
+              location.href = response.url;
+            }, 1000);
+          } else if (response.status === 'validation') {
+            _this.$noty.warning(response.message);
+          } else {
+            _this.$noty.error(response.message);
+          }
+        });
+      } else {
+        this.storeAddressBook(this.formData).then(function (response) {
+          if (typeof response.code !== "undefined" && response.code === 200) {
+            _this.$noty.success(response.message);
+
+            setTimeout(function () {
+              location.href = response.url;
+            }, 1000);
+          } else if (response.status === 'validation') {
+            _this.$noty.warning(response.message);
+          } else {
+            _this.$noty.error(response.message);
+          }
+        });
+      }
     }
   }),
-  computed: {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['addressInfo']), {
     formDataCheck: function formDataCheck() {
       return JSON.parse(JSON.stringify(this.formData));
+    },
+    addressInfoCheck: function addressInfoCheck() {
+      return JSON.parse(JSON.stringify(this.addressInfo));
     }
-  },
+  }),
   watch: {
     formDataCheck: {
       handler: function handler(newVal, oldVal) {
         if (newVal !== oldVal) {
           this.btnDisabled = false;
         }
-      }
+      },
+      deep: true
+    },
+    addressInfoCheck: {
+      handler: function handler(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.formData.address_id = this.addressid;
+          this.formData.first_name = this.addressInfo.first_name;
+          this.formData.last_name = this.addressInfo.last_name;
+          this.formData.phone_no = this.addressInfo.phone_no;
+          this.formData.address = this.addressInfo.address;
+          this.formData.city = this.addressInfo.city;
+          this.formData.state = this.addressInfo.state;
+          this.formData.postal_code = this.addressInfo.postal_code;
+          this.formData.country = this.addressInfo.country;
+          this.formData.address_type = this.addressInfo.address_type;
+        }
+      },
+      deep: true
     }
   }
 });
@@ -2551,7 +2758,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getAddressBooks']), {
     editAddressBook: function editAddressBook(addressId) {
-      console.log(addressId);
+      location.href = "/buyer/address-book/".concat(addressId, "/edit");
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['addressBooks']))
@@ -5386,12 +5593,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -46518,6 +46719,238 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue?vue&type=template&id=2e774dbd&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue?vue&type=template&id=2e774dbd&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-8" }, [
+      _c(
+        "form",
+        {
+          attrs: { action: "" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.updateBuyerInfo($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "box-border" }, [
+            _c("ul", [
+              _c("li", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-xs-12" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.full_name,
+                        expression: "formData.full_name"
+                      }
+                    ],
+                    staticClass: "input form-control",
+                    attrs: { id: "full_name", type: "text" },
+                    domProps: { value: _vm.formData.full_name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "full_name", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-sm-6" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.phone_no,
+                        expression: "formData.phone_no"
+                      }
+                    ],
+                    staticClass: "input form-control",
+                    attrs: { id: "telephone", type: "text" },
+                    domProps: { value: _vm.formData.phone_no },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "phone_no", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-xs-12" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.buyer_address,
+                        expression: "formData.buyer_address"
+                      }
+                    ],
+                    staticClass: "input form-control",
+                    attrs: { id: "address", type: "text" },
+                    domProps: { value: _vm.formData.buyer_address },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formData,
+                          "buyer_address",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticStyle: { "text-align": "right", "margin-top": "10px" }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "button",
+                      attrs: { type: "submit", disabled: _vm.btnDisabled }
+                    },
+                    [_c("span", [_vm._v("Update")])]
+                  )
+                ]
+              )
+            ])
+          ])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-4" }, [
+      _c("div", { staticClass: "box-border" }, [
+        _c("ul", [
+          _vm._m(3),
+          _vm._v(" "),
+          _c("li", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-xs-12" }, [
+              _c("label", { staticClass: "required" }, [
+                _vm._v("Username: " + _vm._s(_vm.buyerInfo.user_name))
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-xs-12" }, [
+              _c("label", { staticClass: "required" }, [
+                _vm._v("Email: " + _vm._s(_vm.buyerInfo.email))
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-xs-12" }, [
+              _c("label", { staticClass: "required" }, [
+                _vm._v(" Account Type:\n                            "),
+                _vm.buyerInfo.is_seller === 1
+                  ? _c("span", [_vm._v("Buyer & Seller")])
+                  : _c("span", [_vm._v("Buyer")])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "required", attrs: { for: "full_name" } },
+      [
+        _vm._v("Full Name "),
+        _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "required", attrs: { for: "telephone" } },
+      [
+        _vm._v("Telephone "),
+        _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "required", attrs: { for: "address" } }, [
+      _vm._v("Address "),
+      _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-xs-12" }, [
+        _c("h6", { staticClass: "required text-center" }, [
+          _vm._v("My Account")
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/kuteshop_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=template&id=e516ef74&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/kuteshop_v2/vue/components/buyer/address_book/AddressBookCreate.vue?vue&type=template&id=e516ef74&scoped=true& ***!
@@ -46540,7 +46973,7 @@ var render = function() {
       on: {
         submit: function($event) {
           $event.preventDefault()
-          return _vm.storeAddress($event)
+          return _vm.manipulateAddressBook($event)
         }
       }
     },
@@ -46808,7 +47241,11 @@ var render = function() {
                 staticClass: "button",
                 attrs: { type: "submit", disabled: _vm.btnDisabled }
               },
-              [_vm._v("Save Address")]
+              [
+                _vm.isedit
+                  ? _c("span", [_vm._v("Update Address")])
+                  : _c("span", [_vm._v("Save Address")])
+              ]
             )
           ])
         ])
@@ -46996,7 +47433,7 @@ var staticRenderFns = [
           _c("span", { staticClass: "nobr" }, [_vm._v("Full Address")])
         ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("View|Edit ")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Action ")])
       ])
     ])
   }
@@ -51599,7 +52036,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.checkSearchResult
+  return Object.entries(_vm.searchResult).length !== 0
     ? _c(
         "div",
         { staticClass: "search-content block-sidebar block-sidebar-products" },
@@ -51692,35 +52129,7 @@ var render = function() {
                                         },
                                         [_vm._v(_vm._s(product.productName))]
                                       )
-                                    ]),
-                                    _vm._v(" "),
-                                    product.brand
-                                      ? _c("p", { staticClass: "post-meta" }, [
-                                          _c(
-                                            "span",
-                                            { staticClass: "entry-date" },
-                                            [
-                                              _vm._v(
-                                                _vm._s(product.brand.brand_name)
-                                              )
-                                            ]
-                                          )
-                                        ])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    product.category
-                                      ? _c("p", { staticClass: "post-meta" }, [
-                                          _c(
-                                            "span",
-                                            { staticClass: "entry-date" },
-                                            [
-                                              _vm._v(
-                                                _vm._s(product.category.name)
-                                              )
-                                            ]
-                                          )
-                                        ])
-                                      : _vm._e()
+                                    ])
                                   ]
                                 )
                               ]
@@ -65373,6 +65782,7 @@ var map = {
 	"./components/auth/seller/auth/LoginPage.vue": "./resources/views/templates/kuteshop_v2/vue/components/auth/seller/auth/LoginPage.vue",
 	"./components/auth/seller/auth/RegisterPage.vue": "./resources/views/templates/kuteshop_v2/vue/components/auth/seller/auth/RegisterPage.vue",
 	"./components/auth/seller/auth/SellerAuthPage.vue": "./resources/views/templates/kuteshop_v2/vue/components/auth/seller/auth/SellerAuthPage.vue",
+	"./components/buyer/account_info/AccountInfoUpdate.vue": "./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue",
 	"./components/buyer/address_book/AddressBookCreate.vue": "./resources/views/templates/kuteshop_v2/vue/components/buyer/address_book/AddressBookCreate.vue",
 	"./components/buyer/address_book/AddressBookListPage.vue": "./resources/views/templates/kuteshop_v2/vue/components/buyer/address_book/AddressBookListPage.vue",
 	"./components/buyer/checkout/BillingForm.vue": "./resources/views/templates/kuteshop_v2/vue/components/buyer/checkout/BillingForm.vue",
@@ -65903,6 +66313,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SellerAuthPage_vue_vue_type_template_id_35fa3b18_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SellerAuthPage_vue_vue_type_template_id_35fa3b18_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue ***!
+  \*******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AccountInfoUpdate_vue_vue_type_template_id_2e774dbd_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountInfoUpdate.vue?vue&type=template&id=2e774dbd&scoped=true& */ "./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue?vue&type=template&id=2e774dbd&scoped=true&");
+/* harmony import */ var _AccountInfoUpdate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountInfoUpdate.vue?vue&type=script&lang=js& */ "./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AccountInfoUpdate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AccountInfoUpdate_vue_vue_type_template_id_2e774dbd_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountInfoUpdate_vue_vue_type_template_id_2e774dbd_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "2e774dbd",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************!*\
+  !*** ./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountInfoUpdate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountInfoUpdate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountInfoUpdate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue?vue&type=template&id=2e774dbd&scoped=true&":
+/*!**************************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue?vue&type=template&id=2e774dbd&scoped=true& ***!
+  \**************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountInfoUpdate_vue_vue_type_template_id_2e774dbd_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AccountInfoUpdate.vue?vue&type=template&id=2e774dbd&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/kuteshop_v2/vue/components/buyer/account_info/AccountInfoUpdate.vue?vue&type=template&id=2e774dbd&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountInfoUpdate_vue_vue_type_template_id_2e774dbd_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountInfoUpdate_vue_vue_type_template_id_2e774dbd_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -67989,9 +68468,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_order__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/order */ "./resources/views/templates/kuteshop_v2/vue/store/modules/order.js");
 /* harmony import */ var _modules_address_book__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/address_book */ "./resources/views/templates/kuteshop_v2/vue/store/modules/address_book.js");
 /* harmony import */ var _modules_search__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/search */ "./resources/views/templates/kuteshop_v2/vue/store/modules/search.js");
+/* harmony import */ var _modules_account_info__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/account_info */ "./resources/views/templates/kuteshop_v2/vue/store/modules/account_info.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
 
 
 
@@ -68020,9 +68501,122 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     checkout: _modules_checkout__WEBPACK_IMPORTED_MODULE_6__["default"],
     order: _modules_order__WEBPACK_IMPORTED_MODULE_7__["default"],
     address_book: _modules_address_book__WEBPACK_IMPORTED_MODULE_8__["default"],
-    search: _modules_search__WEBPACK_IMPORTED_MODULE_9__["default"]
+    search: _modules_search__WEBPACK_IMPORTED_MODULE_9__["default"],
+    account_info: _modules_account_info__WEBPACK_IMPORTED_MODULE_10__["default"]
   }
 }));
+
+/***/ }),
+
+/***/ "./resources/views/templates/kuteshop_v2/vue/store/modules/account_info.js":
+/*!*********************************************************************************!*\
+  !*** ./resources/views/templates/kuteshop_v2/vue/store/modules/account_info.js ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//declare State
+var state = {
+  buyer_details: {}
+}; //declare Getters
+
+var getters = {
+  buyerInfo: function buyerInfo(state) {
+    return state.buyer_details;
+  }
+};
+var actions = {
+  getBuyerDetails: function () {
+    var _getBuyerDetails = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.next = 3;
+              return axios.get('/buyer/info').then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setBuyerDetails', response.data.data);
+                  delete response.data.data;
+                }
+
+                return response.data;
+              });
+
+            case 3:
+              return _context.abrupt("return", _context.sent);
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    function getBuyerDetails(_x) {
+      return _getBuyerDetails.apply(this, arguments);
+    }
+
+    return getBuyerDetails;
+  }(),
+  buyerInfoUpdate: function () {
+    var _buyerInfoUpdate = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, formData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.next = 3;
+              return axios.post('/buyer/info/update', formData).then(function (response) {
+                return response.data;
+              });
+
+            case 3:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    function buyerInfoUpdate(_x2, _x3) {
+      return _buyerInfoUpdate.apply(this, arguments);
+    }
+
+    return buyerInfoUpdate;
+  }()
+};
+var mutations = {
+  setBuyerDetails: function setBuyerDetails(state, response) {
+    return state.buyer_details = response;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
 
 /***/ }),
 
@@ -68045,12 +68639,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  address_books: []
+  address_books: [],
+  address_info: {}
 }; //declare Getters
 
 var getters = {
   addressBooks: function addressBooks(state) {
     return state.address_books;
+  },
+  addressInfo: function addressInfo(state) {
+    return state.address_info;
   }
 };
 var actions = {
@@ -68142,6 +68740,88 @@ var actions = {
     }
 
     return storeAddressBook;
+  }(),
+  getAddressBookInfo: function () {
+    var _getAddressBookInfo = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, addressId) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios.get("/buyer/address-book/".concat(addressId)).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setAddress_bookInfo', response.data.data);
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context3.abrupt("return", _context3.sent);
+
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](1);
+              console.log(_context3.t0);
+              return _context3.abrupt("return", _context3.t0.data);
+
+            case 11:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 7]]);
+    }));
+
+    function getAddressBookInfo(_x4, _x5) {
+      return _getAddressBookInfo.apply(this, arguments);
+    }
+
+    return getAddressBookInfo;
+  }(),
+  addressBookUpdate: function () {
+    var _addressBookUpdate = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, formData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              _context4.prev = 1;
+              _context4.next = 4;
+              return axios.put("/buyer/address-book/".concat(formData.address_id, "/update"), formData).then(function (response) {
+                return response.data;
+              });
+
+            case 4:
+              return _context4.abrupt("return", _context4.sent);
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](1);
+              console.log(_context4.t0);
+              return _context4.abrupt("return", _context4.t0.data);
+
+            case 11:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 7]]);
+    }));
+
+    function addressBookUpdate(_x6, _x7) {
+      return _addressBookUpdate.apply(this, arguments);
+    }
+
+    return addressBookUpdate;
   }()
 };
 var mutations = {
@@ -68150,6 +68830,10 @@ var mutations = {
   },
   setAddressBook: function setAddressBook(state, response) {
     state.address_books.push(response);
+  },
+  setAddress_bookInfo: function setAddress_bookInfo(state, response) {
+    console.log(response);
+    state.address_info = response;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -69833,7 +70517,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

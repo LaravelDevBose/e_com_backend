@@ -9,7 +9,7 @@
                 <th>
                     <span class="nobr">Full Address</span>
                 </th>
-                <th class="text-center">View|Edit </th>
+                <th class="text-center">Action </th>
             </tr>
             </thead>
             <tbody>
@@ -52,7 +52,7 @@
                 'getAddressBooks'
             ]),
             editAddressBook(addressId){
-                console.log(addressId);
+                location.href = `/buyer/address-book/${addressId}/edit`;
             }
         },
         computed:{

@@ -2825,13 +2825,20 @@ select.input-sm {
 
 @media (max-width:991px) {
     .site-header .block-nav-categori {
-        width: 160px!important
+        width: 100%!important
     }
     .site-header .block-nav-categori .block-title {
-        width: 160px!important;
+        width: 100%!important;
         padding-left: 12px!important;
         padding-right: 5px!important;
         background-position: center right 9px!important
+    }
+    .header-opt-2 .header-top .nav-left>li{
+        padding: 0 14px!important;
+        margin-right: 0px!important;
+    }
+    .header-opt-2 .header-top .nav-left>li:nth-child(2){
+        display: none;
     }
 }
 

@@ -1,5 +1,5 @@
 <template>
-    <form action="" @submit.prevent="storeAddress">
+    <form action="" @submit.prevent="manipulateAddressBook">
         <div class="box-border">
             <ul>
                 <li class="row">
@@ -60,7 +60,10 @@
                     </div>
                 </li>
                 <li style="text-align: right">
-                    <button type="submit"  :disabled="btnDisabled" class="button">Save Address</button>
+                    <button type="submit"  :disabled="btnDisabled" class="button">
+                        <span v-if="isedit">Update Address</span>
+                        <span v-else>Save Address</span>
+                    </button>
                 </li>
             </ul>
 
@@ -74,10 +77,21 @@
 
     export default {
         name: "AddressBookCreate",
+        props:{
+            addressid:{
+                type:[Number],
+                default: ''
+            },
+            isedit:{
+                type:[Boolean,Number],
+                default:false,
+            }
+        },
         components:{ChosenSelect},
         data(){
             return{
                 formData:{
+                    address_id:'',
                     first_name:'',
                     last_name:'',
                     phone_no:'',
@@ -87,7 +101,6 @@
                     postal_code:'',
                     country:'',
                     address_type:1,
-                    is_shipping:0,
                 },
                 btnDisabled:false,
                 selectOption:{
@@ -96,29 +109,62 @@
                 },
             }
         },
+        mounted(){
+            if(this.isedit){
+                this.getAddressBookInfo(this.addressid);
+            }
+        },
         methods:{
             ...mapActions([
-                'storeAddressBook'
+                'storeAddressBook',
+                'getAddressBookInfo',
+                'addressBookUpdate'
             ]),
-            storeAddress(){
+            manipulateAddressBook(){
                 this.btnDisabled = true;
                 //TODO Form Validation
-                this.storeAddressBook(this.formData)
-                    .then(response=>{
-                        if(typeof response.code !== "undefined" && response.code === 200){
-                            this.$noty.success(response.message);
-                            setTimeout(()=>{
-                                location.href = '/buyer/address-book/list';
-                            },1000);
-                        }else{
-                            this.$noty.error(response.message);
-                        }
-                    })
+                if(this.isedit !== false && this.addressid !== ''){
+                    this.addressBookUpdate(this.formData)
+                        .then(response=>{
+                            if(typeof response.code !== "undefined" && response.code === 200){
+                                this.$noty.success(response.message);
+                                setTimeout(()=>{
+                                    location.href = response.url;
+                                },1000);
+                            }else if(response.status === 'validation'){
+                                this.$noty.warning(response.message);
+                            }else{
+                                this.$noty.error(response.message);
+                            }
+                        })
+                }else{
+                    this.storeAddressBook(this.formData)
+                        .then(response=>{
+                            if(typeof response.code !== "undefined" && response.code === 200){
+                                this.$noty.success(response.message);
+                                setTimeout(()=>{
+                                    location.href = response.url;
+                                },1000);
+                            }else if(response.status === 'validation'){
+                                this.$noty.warning(response.message);
+                            }
+                            else{
+                                this.$noty.error(response.message);
+                            }
+                        })
+                }
+
             }
         },
         computed:{
+            ...mapGetters([
+                'addressInfo'
+            ]),
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
+            },
+            addressInfoCheck(){
+                return JSON.parse(JSON.stringify(this.addressInfo));
             },
         },
         watch: {
@@ -128,7 +174,24 @@
                         this.btnDisabled = false;
                     }
 
-                }
+                },deep:true
+            },
+            addressInfoCheck: {
+                handler(newVal, oldVal) {
+                    if (newVal !== oldVal) {
+                        this.formData.address_id = this.addressid;
+                        this.formData.first_name = this.addressInfo.first_name;
+                        this.formData.last_name = this.addressInfo.last_name;
+                        this.formData.phone_no = this.addressInfo.phone_no;
+                        this.formData.address = this.addressInfo.address;
+                        this.formData.city = this.addressInfo.city;
+                        this.formData.state = this.addressInfo.state;
+                        this.formData.postal_code = this.addressInfo.postal_code;
+                        this.formData.country = this.addressInfo.country;
+                        this.formData.address_type = this.addressInfo.address_type;
+                    }
+
+                },deep:true,
             },
         }
     }

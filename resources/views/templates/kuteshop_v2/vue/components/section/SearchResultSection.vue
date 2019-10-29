@@ -17,12 +17,6 @@
                                 <h4 class="product-name">
                                     <a :title="product.productName" :href="'/product/'+product.product_slug">{{ product.productName}}</a>
                                 </h4>
-                                <p class="post-meta" v-if="product.brand">
-                                    <span class="entry-date">{{ product.brand.brand_name }}</span>
-                                </p>
-                                <p class="post-meta" v-if="product.category">
-                                    <span class="entry-date">{{ product.category.name }}</span>
-                                </p>
                             </div>
                         </li>
                     </ul>

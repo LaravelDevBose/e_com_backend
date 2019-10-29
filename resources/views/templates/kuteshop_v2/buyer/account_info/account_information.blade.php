@@ -19,44 +19,12 @@
 
             <div class="row">
                 <div class="col-md-9 col-md-push-3 col-main">
-                    <div class="box-account">
-                        <div class="page-title">
-                            <h2>Account Information</h2>
-                        </div>
-
-                        <div class="col-md-12"></div>
-                        <div class="col-md-6">
-                            <h4>Contact Information</h4>
-                            <a href="edit-contact-info">Edit</a>
-                            <p>
-                                Jon Doe
-                                <br />jond@gmail.com
-                                <br />
-                                <a href="change-password">Change Password</a>
-                            </p>
-                            <hr />
-                            <h4>Address Book</h4>
-                            <a href="address-book">Manage Addresses</a>
-                            <p>
-                                Jon D
-                                <br />Hunts Ville
-                                <br />MG, Alabama, 46532
-                                <br />United States
-                                <br />T: 454541
-                                <br />
-                            </p>
-                        </div>
-
-                        <div class="col-md-6">
-                            <h4>Primary Billing Address</h4>
-                            <p>
-                                Jon D
-                                <br />Hunts Ville
-                                <br />MG, Alabama, 46532
-                                <br />United States
-                                <br />T: 454541
-                                <br />
-                            </p>
+                    <div class="col-main">
+                        <h2 class="page-heading">
+                            <span class="page-heading-title2">Add New Address</span>
+                        </h2>
+                        <div class="content-text clearfix wow bounceInUp animated">
+                            <account-info-update></account-info-update>
                         </div>
                     </div>
                 </div>
