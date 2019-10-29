@@ -88,7 +88,7 @@ class SellerRegisterController extends Controller
         $validator = Validator::make($request->all(),[
             'shop_name'=>'required|string',
             'full_name'=>'required|string',
-            'user_name'=>'required|string|max:255|unique:users',
+//            'user_name'=>'required|string|max:255|unique:users',
             'phone_no'=>'required',
             'email'=>'required|string|email|max:255|unique:users',
             'password'=>'required|string|min:8|confirmed',
