@@ -74,7 +74,7 @@ class SellerRegisterController extends Controller
     {
         return User::create([
             'full_name' => $data['full_name'],
-            'user_name' => $data['user_name'],
+            'user_name' => (!empty($data['user_name']))?$data['user_name']:$data['full_name'],
             'email' => $data['email'],
             'phone_no' => $data['phone_no'],
             'password' => Hash::make($data['password']),
@@ -88,7 +88,7 @@ class SellerRegisterController extends Controller
         $validator = Validator::make($request->all(),[
             'shop_name'=>'required|string',
             'full_name'=>'required|string',
-            'user_name'=>'required|string|max:255|unique:users',
+//            'user_name'=>'required|string|max:255|unique:users',
             'phone_no'=>'required',
             'email'=>'required|string|email|max:255|unique:users',
             'password'=>'required|string|min:8|confirmed',
