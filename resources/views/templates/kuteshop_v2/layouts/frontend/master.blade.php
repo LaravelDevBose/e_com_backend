@@ -60,6 +60,10 @@
             padding-left: 0px;
             padding-right: 0px;
         }
+        .product-addto-links{
+            display: inline;
+            padding: 0 10px;
+        }
     </style>
 </head>
 
@@ -82,7 +86,7 @@
         <a href="#" class="back-to-top">
             <i aria-hidden="true" class="fa fa-angle-up"></i>
         </a>
-
+        <quick-view-product ></quick-view-product>
     </div>
 
 <!-- jQuery -->

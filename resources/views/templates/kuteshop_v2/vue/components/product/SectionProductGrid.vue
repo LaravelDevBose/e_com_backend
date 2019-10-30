@@ -6,8 +6,8 @@
                     <img :title="product.product_name" :src="product.thumb_image.image_path" style="width:100%; height:auto;">
                 </a>
                 <div class="product-item-actions">
-                    <a href="" class="btn btn-wishlist" @click.prevent="addWishList(product.product_slug)"><span>wishlist</span></a>
-                    <a href="" class="btn btn-quickview" @click.prevent="quickView"><span>Quick view</span></a>
+                    <a href="#" class="btn btn-wishlist"  @click.prevent="addWishList(product.product_slug)"><span>wishlist</span></a>
+                    <a href="#" class="btn btn-quickview" @click.prevent="quickView()"><span>Quick view</span></a>
                 </div>
                 <button class="btn btn-cart" type="button" @click.prevent="addToCart()"><span>Add to Cart</span></button>
                 <!--                    <span class="product-item-label label-price">30% <span>off</span></span>-->
@@ -116,6 +116,7 @@
             },
             quickView(){
                 this.productQuickView(this.product);
+                $('#quickView').modal('show');
             },
             addToCart(){
                 this.cartData.id = this.product.product_id;

@@ -197,10 +197,6 @@
             @endforeach
         </div>
         @endif
-        <!-- Banner -->
-        <banner-ads-section></banner-ads-section>
-        <!-- Banner -->
-
     </main>
 @endsection
 

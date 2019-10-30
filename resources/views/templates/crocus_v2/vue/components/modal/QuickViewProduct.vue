@@ -33,8 +33,7 @@
                                         <div class="price-box">
                                             <p class="special-price">
                                                 <span class="price-label">Price</span>
-                                                <span class="price" v-if="modal_product.product_type === 1">$ {{ modal_product.product_price }} </span>
-                                                <span class="price" v-else>$ {{ modal_product.single_variation.price }} </span>
+                                                <span class="price">$ {{ cartData.price }} </span>
                                             </p>
 <!--                                            <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"> $315.99 </span> </p>-->
                                             <p class="availability in-stock pull-right"><span>In Stock</span></p>
@@ -85,12 +84,23 @@
         data(){
             return{
                 showIn:true,
-                cartInfo:{
+                cartData:{
                     id:'',
                     name:'',
                     qty:1,
                     price:0,
+                    colorId:'',
+                    sizeId:'',
                 },
+            }
+        },
+        mounted(){
+            if(this.modal_product.product_type === 1){
+                this.cartData.price = parseFloat(this.modal_product.product_price);
+            }else{
+                this.cartData.price = parseFloat(this.modal_product.single_variation.price);
+                this.cartData.colorId = parseInt(this.modal_product.single_variation.pri_id);
+                this.cartData.sizeId = parseInt(this.modal_product.single_variation.sec_id);
             }
         },
         methods:{
@@ -115,14 +125,9 @@
                 }
             },
             addToCart(){
-                this.cartInfo.id = this.modal_product.product_id;
-                this.cartInfo.name = this.modal_product.product_name;
-                if(this.modal_product.product_type === 1){
-                    this.cartInfo.price = this.modal_product.product_price;
-                }else{
-                    this.cartInfo.price = this.modal_product.single_variation.price;
-                }
-                this.addToCartProduct(this.cartInfo)
+                this.cartData.id = this.modal_product.product_id;
+                this.cartData.name = this.modal_product.product_name;
+                this.addToCartProduct(this.cartData)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
                             this.$noty.success(response.message);
@@ -132,14 +137,14 @@
                     })
             },
             increaseQty(){
-                this.cartInfo.qty ++;
+                this.cartData.qty ++;
             },
 
             reducedQty(){
-                this.cartInfo.qty --;
-                if(this.cartInfo.qty < 1){
+                this.cartData.qty --;
+                if(this.cartData.qty < 1){
                     this.$noty.warning('Min 1 Qty Required');
-                    this.cartInfo.qty =1 ;
+                    this.cartData.qty =1 ;
                 }
             },
             closeModal(){

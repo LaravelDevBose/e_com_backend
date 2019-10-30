@@ -8,7 +8,7 @@
                     </a>
                     <div class="box-hover">
                         <ul class="add-to-links">
-                            <li><a class="link-quickview" href="#" @click.prevent="quickView">Quick View</a> </li>
+                            <li><a class="link-quickview" href="#"  @click.prevent="quickView">Quick View</a> </li>
                             <li><a class="link-wishlist" href="#" @click.prevent="addWishList(product.product_slug)">Wishlist</a> </li>
                         </ul>
                     </div>

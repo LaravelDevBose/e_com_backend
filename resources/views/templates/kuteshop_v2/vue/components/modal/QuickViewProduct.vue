@@ -1,80 +1,90 @@
 <template>
-<div v-if="showModal">
-    <div style="background-color: rgb(119, 119, 119); opacity: 0.7; cursor: pointer; height: 1024px; display: block;" id="fancybox-overlay"></div>
-    <div style="top: 15%; display: block;" id="fancybox-wrap">
-        <div id="fancybox-outer">
-            <div style="border-width: 10px; width: 1170px; height: auto;" id="fancybox-content">
-                <div style="width:auto;height:auto;overflow: auto;position:relative;">
-                    <div class="product-view">
-                        <div class="product-essential">
-                            <form action="#" method="post" id="product_addtocart_form">
-                                <input name="form_key" value="6UbXroakyQlbfQzK" type="hidden">
-                                <div class="product-img-box col-lg-5 col-sm-5 col-xs-12">
-<!--                                    <div class="new-label new-top-left"> New </div>-->
-                                    <div class="product-image">
-                                        <div class="product-full">
-                                            <img id="product-zoom" :src="modal_product.thumb_image.image_path"  :data-zoom-image="modal_product.thumb_image.image_path"  :alt="modal_product.product_name"/>
-                                        </div>
-                                    </div>
-                                    <!-- end: more-images -->
-                                </div>
-                                <div class="product-shop col-lg-7 col-sm-7 col-xs-12">
+    <div class="modal fade" id="quickView" tabindex="-1" role="dialog"  >
+        <div class="modal-dialog modal-lg" role="document" style="top: 30%;">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" @click="closeModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div v-if="showIn" class="products  products-list">
+                    <div class="product-items">
+                        <div class="product-item ">
+                            <div class="product-item-opt-1">
+                                <div class="product-item-info">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="product-item-photo">
+                                                <a href="" class="product-item-img">
+                                                    <img :src="modal_product.thumb_image.image_path" :alt="modal_product.product_name">
+                                                </a>
+                                                <!--                                        <span class="product-item-label label-price">30% <span>off</span></span>-->
+                                            </div>
+                                            <div class="product-item-detail">
+                                                <strong class="product-item-name">
+                                                    <a href="">{{ modal_product.product_name }}</a>
+                                                </strong>
+                                                <div class="clearfix product-info-des">
 
-                                    <div class="product-name">
-                                        <h1>{{ modal_product.product_name }}</h1>
-                                    </div>
-                                    <div class="ratings">
-                                        <div class="rating-box">
-                                            <div style="width:60%" class="rating"></div>
-                                        </div>
-                                        <p class="rating-links"> <a href="#">1 Review(s)</a></p>
-                                    </div>
-                                    <div class="price-block">
-                                        <div class="price-box">
-                                            <p class="special-price">
-                                                <span class="price-label">Price</span>
-                                                <span id="product-price-48" class="price"> $ {{ modal_product.single_variation.price }} </span>
-                                            </p>
-<!--                                            <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"> $315.99 </span> </p>-->
-                                            <p class="availability in-stock pull-right"><span>In Stock</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="short-description">
-                                        <h2>Quick Overview</h2>
-                                        <span v-html="modal_product.highlight"></span>
-                                    </div>
-                                    <div class="add-to-box">
-                                        <div class="add-to-cart">
-                                            <div class="pull-left">
-                                                <div class="custom pull-left">
-                                                    <button @click.prevent="reducedQty" class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>
-                                                    <input type="text" class="input-text qty" v-model="cartInfo.qty" title="Qty" id="qty" name="qty">
-                                                    <button @click.prevent="increaseQty" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
+                                                    <div class="product-reviews-summary">
+                                                        <div class="rating-summary">
+                                                            <div class="rating-result" title="80%">
+                                                        <span style="width:80%">
+                                                            <span><span>80</span>% of <span>100</span></span>
+                                                        </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-item-price">
+                                                        <span class="price" >$ {{ cartData.price }} </span>
+                                                    </div>
+
+                                                    <div class="product-item-code">
+                                                        <span class="title">Item Code:</span> {{ modal_product.product_sku }}
+                                                    </div>
+                                                    <div class="product-item-stock">
+                                                        <span class="title">Availability:</span> In stock
+                                                    </div>
+                                                    <div class="product-add-form">
+                                                        <p>Available Options:</p>
+                                                        <div class="product-options-wrapper">
+                                                            <div class="form-qty">
+                                                                <label class="label">Qty: </label>
+                                                                <div class="control">
+                                                                    <input type="text" class="form-control input-qty" v-model="cartData.qty" id="qty1" name="qty1"  maxlength="12"  minlength="1">
+                                                                    <button class="btn-number qtyminus" @click.prevent="reducedQty" data-type="minus" data-field="qty1"><span>-</span></button>
+                                                                    <button class="btn-number qtyplus" data-type="plus" @click.prevent="increaseQty" data-field="qty1"><span>+</span></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-options-bottom clearfix" style="margin-top: 0px;">
+                                                            <div class="actions">
+                                                                <button type="submit" @click.prevent="addToCart()" title="Add to Cart" class="action btn-cart">
+                                                                    <span>Add to Cart</span>
+                                                                </button>
+                                                                <div class="product-addto-links">
+
+                                                                    <a href="#" @click.prevent="addWishList(modal_product.product_slug)" class="action btn-wishlist" title="Wish List">
+                                                                        <span>Wishlist</span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <button @click.prevent="addToCart()" class="button btn-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
-                                        </div>
-                                        <div class="email-addto-box">
-                                            <ul class="add-to-links">
-                                                <li> <a class="link-wishlist" href="#" @click.prevent="addWishList(modal_product.product_slug)"><span>Add to Wishlist</span></a></li>
-<!--                                                <li><span class="separator">|</span> <a class="link-compare" href="#" @click.prevent="addCompareProduct(modal_product.product_slug)"><span>Add to Compare</span></a></li>-->
-                                            </ul>
-                                            <p class="email-friend"><a href="#" class=""><span>Email to a Friend</span></a></p>
                                         </div>
                                     </div>
 
+                                    <div class="product-item-des" style="padding: 0 15px;">
+                                        <span v-html="modal_product.highlight"></span>
+                                    </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                    <!--product-view-->
-
                 </div>
             </div>
-            <a style="display: inline;" id="fancybox-close" href="#" @click.prevent="closeModal()"></a> </div>
+        </div>
     </div>
-
-</div>
 </template>
 
 <script>
@@ -83,20 +93,26 @@
         name: "QuickViewProduct",
         data(){
             return{
-                showIn:true,
-                cartInfo:{
+                showIn:false,
+                cartData:{
                     id:'',
                     name:'',
                     qty:1,
                     price:0,
+                    colorId:'',
+                    sizeId:'',
                 },
             }
+        },
+        mounted(){
+
         },
         methods:{
             ...mapActions([
                 'modalClose',
                 'insertToWishList',
-                'addToCartProduct'
+                'addToCartProduct',
+                'getProductVariationInfo'
             ]),
             addWishList(slug){
                 if(AppStorage.getWhoIs() === 'buyer'){
@@ -114,11 +130,10 @@
                 }
             },
             addToCart(){
-                this.cartInfo.id = this.modal_product.product_id;
-                this.cartInfo.name = this.modal_product.product_name;
-                this.cartInfo.price = this.modal_product.single_variation.price;
+                this.cartData.id = this.modal_product.product_id;
+                this.cartData.name = this.modal_product.product_name;
 
-                this.addToCartProduct(this.cartInfo)
+                this.addToCartProduct(this.cartData)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
                             this.$noty.success(response.message);
@@ -128,26 +143,49 @@
                     })
             },
             increaseQty(){
-                this.cartInfo.qty ++;
+                this.cartData.qty ++;
             },
 
             reducedQty(){
-                this.cartInfo.qty --;
-                if(this.cartInfo.qty < 1){
+                this.cartData.qty --;
+                if(this.cartData.qty < 1){
                     this.$noty.warning('Min 1 Qty Required');
-                    this.cartInfo.qty =1 ;
+                    this.cartData.qty =1 ;
                 }
             },
             closeModal(){
                 this.modalClose();
-            }
+                this.showIn = false;
+            },
+            setupPrice(){
+                if(this.modal_product.product_type === 1){
+                    this.cartData.price = parseFloat(this.modal_product.product_price);
+                }else{
+                    this.cartData.price = parseFloat(this.modal_product.single_variation.price);
+                    this.cartData.colorId = parseInt(this.modal_product.single_variation.pri_id);
+                    this.cartData.sizeId = parseInt(this.modal_product.single_variation.sec_id);
+                }
+
+            },
         },
         computed:{
             ...mapGetters([
                 'showModal',
-                'modal_product'
+                'modal_product',
             ]),
-
+            checkModalData(){
+                return JSON.parse(JSON.stringify(this.modal_product));
+            }
+        },
+        watch:{
+            checkModalData:{
+                handler(newVal, oldVal){
+                    if (newVal !== oldVal){
+                        this.setupPrice();
+                        this.showIn = true;
+                    }
+                }
+            }
         }
     }
 </script>

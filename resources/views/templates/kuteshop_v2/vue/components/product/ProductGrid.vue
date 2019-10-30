@@ -117,6 +117,7 @@
             },
             quickView(){
                 this.productQuickView(this.product);
+                $('#quickView').modal('show');
             },
             addToCart(){
                 this.cartData.id = this.product.product_id;
