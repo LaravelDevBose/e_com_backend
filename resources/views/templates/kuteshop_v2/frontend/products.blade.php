@@ -8,15 +8,7 @@
 
 @section('Content')
     <main class="site-main">
-
-        <div class="columns container">
-            <!-- Block  Breadcrumb-->
-            <ol class="breadcrumb no-hide">
-                <li><a href="#">Home    </a></li>
-                <li><a href="#">Electronics    </a></li>
-                <li class="active">Machine Pro</li>
-            </ol><!-- Block  Breadcrumb-->
-
+        <div class="columns container" style="padding-top: 2em;">
             <div class="row">
                 <!-- Main Content -->
                 <div class="col-md-9 col-md-push-3  col-main">

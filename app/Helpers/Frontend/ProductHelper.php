@@ -30,14 +30,16 @@ class ProductHelper
 
         if(!empty($request->category_id)){
             $categoriesID = array();
-            $firstArray = [(int)$request->category_id];
-            $categoriesID= array_merge($categoriesID,$firstArray);
+
+            $categoriesID= array_merge($categoriesID,[
+                $request->category_id
+            ]);
             $category = Category::isActive()->with('children')->where('category_id', $request->category_id)->first();
             if(!empty($category->children)){
-                $childIds = Category::where('parent_id', $category->category_id)->isActive()->with('children')->pluck('category_id')->toArray();
+                $childIds = Category::where('parent_id', $category->category_id)->isActive()->pluck('category_id')->toArray();
                 $categoriesID= array_merge($categoriesID, $childIds);
-                if(!empty($childIds->children)){
-                    $childId = Category::where('parent_id', $category->category_id)->isActive()->pluck('category_id')->toArray();
+                if(!empty($childIds)){
+                    $childId = Category::whereIn('parent_id', $childIds)->isActive()->pluck('category_id')->toArray();
                     $categoriesID= array_merge($categoriesID, $childId);
                 }
             }

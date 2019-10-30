@@ -18,8 +18,7 @@
             </strong>
             <div class="clearfix">
                 <div class="product-item-price">
-                    <span class="price" v-if="product.product_type === 1 && product.single_variation === null">$ {{ product.product_price }}</span>
-                    <span class="price" v-else>$ {{ product.single_variation.price }}</span>
+                    <span class="price" >$ {{ cartData.price }}</span>
                 </div>
                 <div class="product-reviews-summary">
                     <div class="rating-summary">

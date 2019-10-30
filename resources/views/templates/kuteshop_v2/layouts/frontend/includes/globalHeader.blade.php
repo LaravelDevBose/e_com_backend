@@ -100,7 +100,7 @@
                 </div>
                 <div class="nav-mind">
                     <!-- block search -->
-                    <div class="block-search">
+                    <div class="block-search search-hide">
                         <div class="block-title">
                             <span>Search</span>
                         </div>
@@ -126,16 +126,7 @@
                     <div class="block-title">
                         <span>Search</span>
                     </div>
-                    <div class="block-content">
-                        <div class="form-search">
-                            <form>
-                                <div class="box-group">
-                                    <input type="text" class="form-control" placeholder="Search here...">
-                                    <button class="btn btn-search" type="button"><span>search</span></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                    <mini-search-section></mini-search-section>
                 </div>
                 <div class="dropdown setting">
                     <a data-toggle="dropdown" role="button" href="#" class="dropdown-toggle "><span>Settings</span> <i aria-hidden="true" class="fa fa-user"></i></a>

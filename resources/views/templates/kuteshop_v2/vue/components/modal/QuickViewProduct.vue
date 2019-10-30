@@ -1,6 +1,6 @@
 <template>
     <div class="modal fade" id="quickView" tabindex="-1" role="dialog"  >
-        <div class="modal-dialog modal-lg" role="document" style="top: 30%;">
+        <div class="modal-dialog modal-md" role="document" style="top: 10%;">
             <div class="modal-content">
                 <button type="button" class="close" data-dismiss="modal" @click="closeModal()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -13,14 +13,14 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="product-item-photo">
-                                                <a href="" class="product-item-img">
+                                                <a href="#" class="product-item-img">
                                                     <img :src="modal_product.thumb_image.image_path" :alt="modal_product.product_name">
                                                 </a>
                                                 <!--                                        <span class="product-item-label label-price">30% <span>off</span></span>-->
                                             </div>
                                             <div class="product-item-detail">
                                                 <strong class="product-item-name">
-                                                    <a href="">{{ modal_product.product_name }}</a>
+                                                    <a href="#" @click.prevent="productDetails(modal_product.product_slug)">{{ modal_product.product_name }}</a>
                                                 </strong>
                                                 <div class="clearfix product-info-des">
 
@@ -167,6 +167,9 @@
                 }
 
             },
+            productDetails(slug){
+                location.href = '/product/'+slug;
+            },
         },
         computed:{
             ...mapGetters([
@@ -191,5 +194,7 @@
 </script>
 
 <style scoped>
-
+    .products.products-list .product-items .product-item-opt-1 .product-info-des{
+        padding-right: 0px;
+    }
 </style>

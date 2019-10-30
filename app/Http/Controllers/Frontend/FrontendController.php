@@ -22,6 +22,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 
 class FrontendController extends Controller
 {
@@ -150,11 +151,22 @@ class FrontendController extends Controller
 
     public function product_sidebar_data(Request $request)
     {
+        $categoryIds = Category::All_children_Ids($request->category_id);
+        $products = Product::isActive()->whereIn('category_id',$categoryIds)->get();
+        $brandIds = $products->where('brand_id', '!=', 0)->pluck('brand_id')->toArray();
+        $productIds = $products->pluck('product_id')->toArray();
+        $colorIds = ProductVariation::whereIn('product_id', $productIds)->distinct('pri_id')->pluck('pri_id')->toArray();
+        $reqData = [
+            'categoryIds'=>$categoryIds,
+            'brandIds'=>$brandIds,
+            'colorIds'=>$colorIds,
+        ];
+
         $data=[
-            'brands' => CommonData::brand_list(),
-            'colors' => CommonData::color_list(),
+            'brands' => CommonData::brand_list($reqData),
+            'colors' => CommonData::color_list($reqData),
             'tags' => CommonData::tag_list(),
-            'sizes' => CommonData::size_list($request),
+            'sizes' => CommonData::size_list($reqData),
         ];
 
         return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK);

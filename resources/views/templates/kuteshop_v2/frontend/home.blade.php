@@ -182,8 +182,10 @@
                                         @foreach($section->sectionCategories as $sectionCat)
                                             @if(!empty($sectionCat->secCatProducts) && count($sectionCat->secCatProducts) > 0)
                                                 @foreach($sectionCat->secCatProducts as $secCatProduct)
-                                                    <li class="col-sm-3 ">
-                                                    <product-grid :product="{{ $secCatProduct->product }}"></product-grid>
+                                                    <li class="col-sm-3">
+                                                        <div class="product-item  product-item-opt-1">
+                                                            <product-grid :product="{{ $secCatProduct->product }}"></product-grid>
+                                                        </div>
                                                     </li>
                                                 @endforeach
                                             @endif

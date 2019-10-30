@@ -51,9 +51,15 @@ trait CommonData
     }
 
     public static function brand_list($request= null){
-        $brands = Brand::isActive()->with('attachment')->searchBy($request)->get();
+        $request = (object)$request;
 
+        $brands = Brand::isActive()->with('attachment')->searchBy($request);
+
+        if(!empty($request->brandIds)){
+            $brands = $brands->whereIn('brand_id', $request->brandIds);
+        }
         if(!empty($brands)){
+            $brands = $brands->get();
             return  $brands;
         }else{
             return [];
@@ -80,8 +86,13 @@ trait CommonData
         $request = (object)$request;
         $sizes = Size::isActive()->bySearch($request);
         if(!empty($request->category_id)){
-            $sizeGroupId = SizeGroupCategory::where('category_id', $request->category_id)->pluck('size_group_id');
-            $sizes = $sizes->whereIn('size_group_id', $sizeGroupId);
+            $sizeGroupIds = SizeGroupCategory::where('category_id', $request->category_id)->pluck('size_group_id');
+            $sizes = $sizes->whereIn('size_group_id', $sizeGroupIds);
+        }
+
+        if(!empty($request->categoryIds)){
+            $sizeGroupIds = SizeGroupCategory::whereIn('category_id', $request->categoryIds)->pluck('size_group_id');
+            $sizes = $sizes->whereIn('size_group_id', $sizeGroupIds);
         }
 
         if(!empty($request->sizeIds)){
