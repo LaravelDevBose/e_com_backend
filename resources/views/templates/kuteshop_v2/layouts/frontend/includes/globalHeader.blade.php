@@ -87,7 +87,11 @@
                 </div>
                 <div class=" nav-right">
                     <!-- link  wishlish-->
-                    <a href="" class="link-wishlist"><span>wishlish</span></a>
+                    @if(auth()->guard('web')->check())
+                    <a href="{{ route('buyer.wish_list') }}" class="link-wishlist"><span>wishlish</span></a>
+                    @else
+                    <a href="{{ route('login') }}" class="link-wishlist"><span>wishlish</span></a>
+                    @endif
                     <!-- link  wishlish-->
 
                     <!-- block mini cart -->
