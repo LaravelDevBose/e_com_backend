@@ -121,6 +121,11 @@
                 <div class="panel panel-collapsed" >
                     <div class="panel-heading bg-purple-400">
                         <h5 class="panel-title">Product Info in English</h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="panel-body" style="display: none;">
@@ -151,6 +156,11 @@
                 <div class="panel panel-collapsed" >
                     <div class="panel-heading bg-indigo-600">
                         <h5 class="panel-title">More Product Details</h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="panel-body" style="display: none;">
