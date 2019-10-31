@@ -2419,6 +2419,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AccountInfoUpdate",
@@ -47520,9 +47522,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "row" }, [
       _c("div", { staticClass: "col-xs-12" }, [
-        _c("h6", { staticClass: "required text-center" }, [
-          _vm._v("My Account")
-        ])
+        _c(
+          "h5",
+          {
+            staticClass: "page-heading",
+            staticStyle: { "margin-bottom": "5px" }
+          },
+          [
+            _c("span", { staticClass: "page-heading-title1" }, [
+              _vm._v("Identity")
+            ])
+          ]
+        )
       ])
     ])
   }
@@ -72012,7 +72023,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

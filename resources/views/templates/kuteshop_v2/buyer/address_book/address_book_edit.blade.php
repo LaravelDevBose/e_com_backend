@@ -27,16 +27,19 @@
             <!-- Block  Breadcrumb-->
 
             <ol class="breadcrumb no-hide">
-                <li><a href="#">Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol><!-- Block  Breadcrumb-->
+                <li><a href="{{ route('front.index') }}">Home</a></li>
+                <li><a href="{{ route('buyer.home') }}">Dashboard</a></li>
+                <li><a href="{{ route('buyer.address.book') }}">Address List</a></li>
+                <li class="active">Edit Address</li>
+            </ol>
+
 
             <div class="row">
                 <!-- Main Content -->
                 <div class="col-md-9 col-md-push-3">
                     <div class="col-main">
                         <h2 class="page-heading">
-                            <span class="page-heading-title2">Add New Address</span>
+                            <span class="page-heading-title2">Edit Address</span>
                         </h2>
                         <div class="content-text clearfix wow bounceInUp animated">
                             <address-book-create :addressId="{{ $addressId }}" :isEdit="1"></address-book-create>

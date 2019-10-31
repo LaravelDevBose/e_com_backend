@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\GroupProduct;
 use App\Models\Page;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Schema;
@@ -35,6 +36,14 @@ class AppServiceProvider extends ServiceProvider
                 ->with('contactUs', $contactUs)
                 ->with('catList', $catList)
                 ->with('headerPageMenus', $headerPageMenus);
+        });
+
+        View::composer('templates.kuteshop_v2.buyer.partials.right_side', function ($v) {
+            $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
+                ->with(['product'=>function($query){
+                    return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
+                }])->orderBy('position', 'asc')->latest()->get();
+            $v->with('hotProducts', $hotProducts);
         });
     }
 

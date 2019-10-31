@@ -156,34 +156,37 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="switcher  switcher-currency">
-                            <strong class="title">SELECT CURRENCIES</strong>
-                            <ul class="switcher-options ">
-                                <li class="switcher-option">
-                                    <a href="#">
-                                        <i class="fa fa-usd" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="switcher-option switcher-active">
-                                    <a href="#">
-                                        <i class="fa fa-eur" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="switcher-option">
-                                    <a href="#">
-                                        <i class="fa fa-gbp" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-
+                        @if(auth()->guest())
+                            <ul class="account">
+                                <li><a href="{{ route('login') }}" >Customer Login</a></li>
+                                <li><a href="{{ route('seller.login') }}">Seller Login </a></li>
                             </ul>
-                        </div>
-                        <ul class="account">
-                            <li><a href="">Wishlist</a></li>
-                            <li><a href="">My Account</a></li>
-                            <li><a href="">Checkout</a></li>
-                            <li><a href="">Compare</a></li>
-                            <li><a href="">Login/Register</a></li>
-                        </ul>
+                        @else
+                            @if(auth()->guard('admin')->check())
+                                <ul class="account">
+                                    <li><a href="{{ route('admin.home') }}">DashBoard</a></li>
+                                    <li><a href="{{ route('admin.order.index') }}">Orders</a></li>
+                                    <li><a href="{{ route('admin.product.index') }}">Products</a></li>
+                                    <li><a href="">Reviews</a></li>
+                                    <li><a href="{{ route('admin.logout') }}">Logout</a></li>
+                                </ul>
+                            @elseif(auth()->guard('seller')->check())
+                                <ul class="account">
+                                    <li><a href="{{ route('seller.home') }}">DashBoard</a></li>
+                                    <li><a href="{{ route('seller.order.index') }}">Orders</a></li>
+                                    <li><a href="{{ route('seller.product.index') }}">Products</a></li>
+                                    <li><a href="">Reviews</a></li>
+                                    <li><a href="{{ route('seller.logout') }}">Logout</a></li>
+                                </ul>
+                            @else
+                                <ul class="account">
+                                    <li><a href="{{ route('buyer.home') }}">DashBoard</a></li>
+                                    <li><a href="{{ route('buyer.wish_list') }}">Wishlist</a></li>
+                                    <li><a href="{{ route('buyer.order.index') }}">Order</a></li>
+                                    <li><a href="{{ route('buyer.logout') }}">Logout</a></li>
+                                </ul>
+                            @endif
+                        @endif
                     </div>
                 </div>
             </div>

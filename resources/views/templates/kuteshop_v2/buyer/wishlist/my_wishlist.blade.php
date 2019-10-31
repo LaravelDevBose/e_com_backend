@@ -13,8 +13,8 @@
             <!-- Block  Breadcrumb-->
 
             <ol class="breadcrumb no-hide">
-                <li><a href="#">Home    </a></li>
-                <li><a href="#">My account    </a></li>
+                <li><a href="{{ route('front.index') }}">Home</a></li>
+                <li><a href="{{ route('buyer.home') }}">Dashboard</a></li>
                 <li class="active">My wishlist</li>
             </ol><!-- Block  Breadcrumb-->
 

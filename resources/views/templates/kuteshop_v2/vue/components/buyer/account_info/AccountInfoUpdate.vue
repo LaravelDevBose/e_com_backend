@@ -38,7 +38,9 @@
                 <ul>
                     <li class="row">
                         <div class="col-xs-12">
-                            <h6 class="required text-center">My Account</h6>
+                            <h5 class="page-heading" style="margin-bottom:5px;">
+                                <span class="page-heading-title1">Identity</span>
+                            </h5>
                         </div>
                     </li>
                     <li class="row">

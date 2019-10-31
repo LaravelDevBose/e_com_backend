@@ -13,7 +13,7 @@
             <!-- Block  Breadcrumb-->
 
             <ol class="breadcrumb no-hide">
-                <li><a href="#">Home    </a></li>
+                <li><a href="{{ route('front.index') }}">Home    </a></li>
                 <li class="active">Dashboard</li>
             </ol><!-- Block  Breadcrumb-->
 
