@@ -161,6 +161,7 @@
                 }
             },
             clearFormData(){
+                this.form.color_id ='';
                 this.form.color_code = '#ffffff';
                 this.form.color_name = '';
                 this.form.color_status = false;

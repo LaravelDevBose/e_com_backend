@@ -36,6 +36,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     Route::get('/tags','TagController@index')->name('tag');
     Route::get('/tag/create', 'TagController@create')->name('tag.create');
     Route::post('/tag/store', 'TagController@store')->name('tag.store');
+    Route::put('/tag/{tag}/update', 'TagController@update')->name('tag.update');
     Route::delete('/tag/delete/{tag}', 'TagController@destroy')->name('tag.delete');
     Route::post('/import/tags', 'TagController@import_tag')->name('import.tags');
 

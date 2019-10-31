@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Traits\ResponserTrait;
 use Exception;
 use App\Models\Tag;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +24,12 @@ class TagController extends Controller
      */
     public function index()
     {
-        return new TagCollection(Tag::notDelete()->latest()->get());
+        $tags = new TagCollection(Tag::notDelete()->latest()->get());
+        if(!empty($tags)){
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $tags);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_NO_CONTENT, 'No Data Found');
+        }
     }
 
     /**
@@ -58,37 +65,18 @@ class TagController extends Controller
                     'tag_status'=>(!empty($request->tag_status) && $request->tag_status == 1) ? $request->tag_status : 2,
                 ]);
                 if($tag){
+                    $tag= new TagResource(Tag::find($tag->tag_id));
                     DB::commit();
-                    return response()->json([
-                        'tag'=> new TagResource(Tag::find($tag->tag_id)),
-                        'res'=>[
-                            'status'=>'success',
-                            'message'=>'Category Store Successfully',
-                        ]
-                    ]);
+                    return ResponserTrait::allResponse('success', Response::HTTP_CREATED, 'Tag Created Successfully', $tag);
                 }
 
             }catch (Exception $ex){
                 DB::rollBack();
-                return response()->json([
-                    'status' => 'error',
-                    'message' => $ex->getMessage()
-                ]);
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
             }
         }else{
             $errors = array_values($validator->errors()->getMessages());
-            $message = null;
-            foreach ($errors as $error){
-                if(!empty($error)){
-                    foreach ($error as $errorItem){
-                        $message .=  $errorItem .' ';
-                    }
-                }
-            }
-            return response()->json([
-                'status' => 'validation',
-                'message' => ($message != null) ? $message :'Invalid File!'
-            ]);
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
         }
     }
 
@@ -123,7 +111,37 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'tag_title'=>'required|string:max:190',
+            'tag_status'=>'required',
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+                $tag = Tag::where('tag_id', $id)->first();
+                if(empty($tag)){
+                    throw new Exception('Invalid Information', Response::HTTP_NOT_FOUND);
+                }
+                $tag = $tag->update([
+                    'tag_title'=>$request->tag_title,
+                    'tag_slug'=>Str::slug($request->tag_title),
+                    'tag_status'=>(!empty($request->tag_status) && $request->tag_status == 1) ? $request->tag_status : 2,
+                ]);
+                if($tag){
+                    $tag= new TagResource(Tag::find($id));
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Tag Updated Successfully', $tag);
+                }
+
+            }catch (Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+        }
     }
 
     /**
@@ -134,35 +152,28 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        if($tag){
-            try{
-                DB::beginTransaction();
+        try{
+            DB::beginTransaction();
+            if($tag){
+
                 $tag->update([
                     'tag_status'=>0,
                 ]);
 
                 if($tag){
                     DB::commit();
-                    return response()->json([
-                        'status'=>'success',
-                        'message'=>'Tag or Keyword Delete Successfully'
-                    ]);
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Tag Deleted Successfully');
                 }{
-                    throw new Exception('Invalid Information.!');
+                    throw new Exception('Invalid Information.!', Response::HTTP_BAD_REQUEST);
                 }
-            }catch(Exception $ex){
-                DB::rollBack();
-                return response()->json([
-                    'status' => 'error',
-                    'message' => $ex->getMessage()
-                ]);
+            }else{
+                throw new Exception('Invalid Information.!', Response::HTTP_BAD_REQUEST);
             }
-        }else{
-            return response()->json([
-                'status'=>'error',
-                'message'=>'Invalid Information.!'
-            ]);
+        }catch(Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
         }
+
     }
 
     public function import_tag(Request $request){
