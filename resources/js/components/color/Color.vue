@@ -10,7 +10,7 @@
             </div>
 
             <div class="panel-body">
-                <form action="" @submit.prevent="colorStore">
+                <form action="" @submit.prevent="colorManipulate">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -82,7 +82,7 @@
                         </td>
                         <td class="text text-center">
                             <ul class="icons-list">
-                                <li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
+                                <li class="text-primary-600"><a href="#" @click.prevent="editColor(color.id)"><i class="icon-pencil7"></i></a></li>
                                 <li class="text-danger-600"><a href="#" @click.prevent="removeColor(color.id)"><i class="icon-trash"></i></a></li>
                             </ul>
                         </td>
@@ -101,12 +101,14 @@
 
     import {mapGetters, mapActions} from 'vuex';
     import ImportData from "../helper/ImportData";
+
     export default {
         name: "Color",
         components: {ImportData},
         data(){
             return{
                 form:{
+                    color_id:'',
                     color_name:'',
                     color_code:'#ffffff',
                     color_status:false,
@@ -114,7 +116,8 @@
                 btnDisabled:false,
                 format_image:'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
                 action_url:'/admin/import/color',
-                format_file:'http://e_com.pc/excel_demo/color.xlsx'
+                format_file:'http://e_com.pc/excel_demo/color.xlsx',
+                is_edit:0,
             }
         },
         created() {
@@ -124,17 +127,38 @@
             ...mapActions([
                 'getColors',
                 'storeColor',
-                'deleteColor'
+                'deleteColor',
+                'updateColor'
             ]),
-            colorStore(){
+            colorManipulate(){
                 this.btnDisabled = true;
-                this.storeColor(this.form).then(response=>{
-                    if(response.status === 'success'){
-                        Notify.success(response.message);
-                        this.clearFormData();
-                        this.btnDisabled = false;
-                    }
-                })
+                if(this.is_edit){
+                    this.updateColor(this.form).then(response=>{
+                        if(response.code === 200){
+                            Notify.success(response.message);
+                            this.clearFormData();
+                            this.btnDisabled = false;
+                            this.is_edit=false;
+                        }else if(response.status === 'validation'){
+                            Notify.validation(response.message);
+                        }else{
+                            Notify.error(response.message);
+                        }
+                    })
+                }else{
+                    this.storeColor(this.form).then(response=>{
+                        if(response.code === 201){
+                            Notify.success(response.message);
+                            this.clearFormData();
+                            this.btnDisabled = false;
+                        }else if(response.status === 'validation'){
+                            Notify.validation(response.message);
+                        }else{
+                            Notify.error(response.message);
+                        }
+                    })
+
+                }
             },
             clearFormData(){
                 this.form.color_code = '#ffffff';
@@ -146,7 +170,7 @@
                 if(confirm('Are You Sure..?')){
                     this.deleteColor(colorId)
                         .then(response=>{
-                            if(response.status === 'success'){
+                            if(response.code === 200){
                                 Notify.success(response.message);
                             }else {
                                 Notify.error(response.message);
@@ -155,6 +179,17 @@
                 }else{
                     return false;
                 }
+            },
+            editColor(colorId){
+                this.colors.filter(color=>{
+                    if(color.id === colorId){
+                        this.form.color_id= color.id;
+                        this.form.color_name= color.name;
+                        this.form.color_code= color.code;
+                        this.form.color_status = color.status;
+                        this.is_edit = 1;
+                    }
+                });
             }
         },
         computed:{

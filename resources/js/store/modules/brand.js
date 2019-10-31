@@ -86,15 +86,17 @@ const mutations = {
     removeBrand:(state, brandId)=>state.brands = state.brands.filter(brand=>brand.id !==brandId),
     setBrandList:(state,response)=>state.brand_list = response,
     updateBrandData:(state,response)=>{
-        state.brand_list = state.brand_list.filter(brand=>{
+
+        state.brands = state.brands.filter(brand=>{
             if(brand.id === response.id){
+                console.log(response);
                 brand.id = response.id;
                 brand.name = response.name;
                 brand.status = response.status;
                 brand.attachment = response.attachment;
-                return brand;
-            }
 
+            }
+            return brand;
         });
     }
 };

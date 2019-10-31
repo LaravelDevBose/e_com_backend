@@ -29,6 +29,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     Route::get('/colors', 'ColorController@index')->name('color');
     Route::get('/color/create','ColorController@create')->name('color.create');
     Route::post('/color/store', 'ColorController@store')->name('color.store');
+    Route::put('/color/{color}/update', 'ColorController@update')->name('color.update');
     Route::delete('/color/delete/{color}', 'ColorController@destroy')->name('color.delete');
     Route::post('/import/color', 'ColorController@import')->name('color.import');
 

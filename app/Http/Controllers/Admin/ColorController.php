@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Resources\Admin\ColorCollection;
 use App\Http\Resources\Admin\Color as ColorResource;
 use App\Models\Color;
+use App\Traits\ResponserTrait;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,7 +23,12 @@ class ColorController extends Controller
      */
     public function index()
     {
-        return new ColorCollection(Color::notDelete()->latest()->get());
+        $colors = new ColorCollection(Color::notDelete()->latest()->get());
+        if (!empty($colors)){
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $colors);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_NO_CONTENT, 'No Color Data Found', []);
+        }
     }
 
     /**
@@ -58,39 +65,18 @@ class ColorController extends Controller
                     'color_status'=>(!empty($request->color_status) && $request->color_status == 1) ? $request->color_status : 2,
                 ]);
                 if($color){
+                    $color = new ColorResource(Color::find($color->color_id));
                     DB::commit();
-                    $res = [
-                        'status'=>'success',
-                        'message'=>'Color Store Successfully',
-                    ];
-
-                    return response()->json([
-                        'color'=>new ColorResource(Color::find($color->color_id)),
-                        'res'=>$res,
-                    ]);
+                    return ResponserTrait::allResponse('success', Response::HTTP_CREATED, 'Color Created Successfully', $color);
                 }
 
             }catch (Exception $ex){
                 DB::rollBack();
-                return response()->json([
-                    'status' => 'error',
-                    'message' => $ex->getMessage()
-                ]);
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
             }
         }else{
             $errors = array_values($validator->errors()->getMessages());
-            $message = null;
-            foreach ($errors as $error){
-                if(!empty($error)){
-                    foreach ($error as $errorItem){
-                        $message .=  $errorItem .' ';
-                    }
-                }
-            }
-            return response()->json([
-                'status' => 'validation',
-                'message' => ($message != null) ? $message :'Invalid File!'
-            ]);
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
         }
     }
 
@@ -125,7 +111,39 @@ class ColorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'color_name'=>'required|string:max:190',
+            'color_code'=>'required',
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+
+                $color = Color::where('color_id', $id)->first();
+                if(empty($color)){
+                    throw new Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
+                }
+                $color = $color->update([
+                    'color_name'=>$request->color_name,
+                    'color_code'=>$request->color_code,
+                    'color_status'=>(!empty($request->color_status) && $request->color_status == 1) ? $request->color_status : 2,
+                ]);
+                if($color){
+                    DB::commit();
+                    $color =new ColorResource(Color::find($id));
+
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Color Update Successfully', $color);
+                }
+
+            }catch (Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+        }
     }
 
     /**
@@ -145,25 +163,16 @@ class ColorController extends Controller
 
                 if($color){
                     DB::commit();
-                    return response()->json([
-                        'status'=>'success',
-                        'message'=>'Color Delete Successfully'
-                    ]);
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Color Deleted Successfully');
                 }{
                     throw new Exception('Invalid Information.!');
                 }
             }catch(Exception $ex){
                 DB::rollBack();
-                return response()->json([
-                    'status' => 'error',
-                    'message' => $ex->getMessage()
-                ]);
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
             }
         }else{
-            return response()->json([
-                'status'=>'error',
-                'message'=>'Invalid Information.!'
-            ]);
+            return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Invalid Color Info');
         }
     }
 
