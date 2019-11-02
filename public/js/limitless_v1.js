@@ -94840,13 +94840,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  warrantyType: '',
-  dangersGoods: '',
-  productColors: '',
-  productSizes: '',
-  productSkinTypes: '',
+  warrantyType: [],
+  dangersGoods: [],
+  productColors: [],
+  productSizes: [],
+  productSkinTypes: [],
   allProducts: [],
-  singleProduct: '',
+  singleProduct: {},
   product_type: [],
   status_list: []
 }; //declare Getters

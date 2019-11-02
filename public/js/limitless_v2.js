@@ -94961,13 +94961,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  warrantyType: '',
-  dangersGoods: '',
-  productColors: '',
-  productSizes: '',
-  productSkinTypes: '',
-  allProducts: '',
-  singleProduct: ''
+  warrantyType: [],
+  dangersGoods: [],
+  productColors: [],
+  productSizes: [],
+  productSkinTypes: [],
+  allProducts: [],
+  singleProduct: {},
+  product_type: [],
+  status_list: []
 }; //declare Getters
 
 var getters = {
@@ -94991,6 +94993,12 @@ var getters = {
   },
   product: function product(state) {
     return state.singleProduct;
+  },
+  productType: function productType(state) {
+    return state.product_type;
+  },
+  productStatus: function productStatus(state) {
+    return state.status_list;
   }
 };
 var actions = {
@@ -95197,11 +95205,14 @@ var actions = {
 };
 var mutations = {
   productCreateDependency: function productCreateDependency(state, response) {
-    state.warrantyType = response.warrantyType;
-    state.dangersGoods = response.dangersGoods;
     state.productColors = response.colors;
     state.productSizes = response.sizes;
+  },
+  productCreateNeedData: function productCreateNeedData(state, response) {
+    state.warrantyType = response.warrantyType;
+    state.dangersGoods = response.dangersGoods;
     state.productSkinTypes = response.skinTypes;
+    state.product_type = response.product_type;
   },
   getProductData: function getProductData(state, response) {
     state.allProducts = response.data;
