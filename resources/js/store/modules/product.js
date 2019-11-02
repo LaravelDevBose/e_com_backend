@@ -1,12 +1,12 @@
 //declare State
 const state = {
-    warrantyType:'',
-    dangersGoods:'',
-    productColors:'',
-    productSizes:'',
-    productSkinTypes:'',
+    warrantyType:[],
+    dangersGoods:[],
+    productColors:[],
+    productSizes:[],
+    productSkinTypes:[],
     allProducts:[],
-    singleProduct:'',
+    singleProduct:{},
     selectedProIds:[],
     selected_date_time:[],
     product_type:[],

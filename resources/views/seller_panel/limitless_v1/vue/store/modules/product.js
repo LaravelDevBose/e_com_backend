@@ -1,12 +1,14 @@
 //declare State
 const state = {
-    warrantyType:'',
-    dangersGoods:'',
-    productColors:'',
-    productSizes:'',
-    productSkinTypes:'',
-    allProducts:'',
-    singleProduct:'',
+    warrantyType:[],
+    dangersGoods:[],
+    productColors:[],
+    productSizes:[],
+    productSkinTypes:[],
+    allProducts:[],
+    singleProduct:{},
+    product_type:[],
+    status_list:[],
 };
 
 //declare Getters
@@ -17,7 +19,9 @@ const getters = {
     sizes:(state)=>state.productSizes,
     skinTypes:(state)=>state.productSkinTypes,
     products:(state)=>state.allProducts,
-    product:(state)=>state.singleProduct
+    product:(state)=>state.singleProduct,
+    productType:(state)=>state.product_type,
+    productStatus:(state)=>state.status_list,
 };
 
 const actions = {
@@ -83,11 +87,14 @@ const actions = {
 
 const mutations = {
     productCreateDependency:(state,response)=>{
-        state.warrantyType = response.warrantyType;
-        state.dangersGoods = response.dangersGoods;
         state.productColors = response.colors;
         state.productSizes = response.sizes;
+    },
+    productCreateNeedData:(state,response)=>{
+        state.warrantyType = response.warrantyType;
+        state.dangersGoods = response.dangersGoods;
         state.productSkinTypes = response.skinTypes;
+        state.product_type = response.product_type;
     },
     getProductData:(state, response)=>{
         state.allProducts = response.data;
