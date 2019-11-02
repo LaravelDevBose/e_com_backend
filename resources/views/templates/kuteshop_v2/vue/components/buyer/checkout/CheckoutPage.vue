@@ -106,7 +106,8 @@
                 this.formData.payment_method = this.paymentInfo;
                 this.formData.payment_method_id = this.paymentMethodId;
                 this.formData.shipping_method_id = this.shippingMethodId;
-                console.log(this.formData);
+                /*console.log(this.formData);
+                return false;*/
                 //TODO Form Validation
                 this.orderProceed(this.formData)
                     .then(response=>{

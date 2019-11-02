@@ -63,10 +63,10 @@ class AddressBookController extends Controller
             'last_name'=>'required|string',
             'phone_no'=>'required|string',
             'address'=>'required|string',
-            'city'=>'required|string',
-            'state'=>'required|string',
-            'postal_code'=>'required|string',
-            'country'=>'required|string',
+            'city'=>'string',
+            'region'=>'required|string',
+            'district'=>'required|string',
+            'postal_code'=>'string',
             'address_type'=>'required',
         ]);
 
@@ -83,8 +83,10 @@ class AddressBookController extends Controller
                     'city'=>$request->city,
                     'state'=>$request->state,
                     'postal_code'=>$request->postal_code,
-                    'country'=>$request->country,
+                    'country'=>'somalia',
                     'address_type'=>$request->address_type,
+                    'district'=>$request->district,
+                    'region'=>$request->region,
                     'address_status'=>config('app.active')
                 ]);
                 if($address){
@@ -150,10 +152,10 @@ class AddressBookController extends Controller
             'last_name'=>'required|string',
             'phone_no'=>'required|string',
             'address'=>'required|string',
-            'city'=>'required|string',
-            'state'=>'required|string',
-            'postal_code'=>'required|string',
-            'country'=>'required|string',
+            'city'=>'string',
+            'region'=>'required|string',
+            'district'=>'required|string',
+            'postal_code'=>'string',
             'address_type'=>'required',
         ]);
 
@@ -172,8 +174,9 @@ class AddressBookController extends Controller
                     'city'=>$request->city,
                     'state'=>$request->state,
                     'postal_code'=>$request->postal_code,
-                    'country'=>$request->country,
                     'address_type'=>$request->address_type,
+                    'district'=>$request->district,
+                    'region'=>$request->region,
                     'address_status'=>config('app.active')
                 ]);
                 if($address){

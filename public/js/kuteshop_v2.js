@@ -2875,16 +2875,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2902,9 +2892,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         city: '',
         state: '',
         postal_code: '',
-        country: '',
+        country: 'Somalia',
         address_type: 1,
-        is_shipping: 0
+        is_shipping: 0,
+        region: '',
+        district: ''
       },
       btnDisabled: false,
       billing_id: '',
@@ -2984,7 +2976,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.tabChange(data);
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['addressList']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['addressList', 'regions']), {
     formDataCheck: function formDataCheck() {
       return JSON.parse(JSON.stringify(this.formData));
     }
@@ -3145,7 +3137,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.formData.payment_method = this.paymentInfo;
       this.formData.payment_method_id = this.paymentMethodId;
       this.formData.shipping_method_id = this.shippingMethodId;
-      console.log(this.formData); //TODO Form Validation
+      /*console.log(this.formData);
+      return false;*/
+      //TODO Form Validation
 
       this.orderProceed(this.formData).then(function (response) {
         if (typeof response.code !== "undefined" && response.code === 201) {
@@ -3462,15 +3456,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3488,9 +3473,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         city: '',
         state: '',
         postal_code: '',
-        country: '',
+        country: 'Somalia',
         address_type: 2,
-        is_shipping: 0
+        is_shipping: 0,
+        region: '',
+        district: ''
       },
       btnDisabled: false,
       shipping_id: '',
@@ -3574,7 +3561,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.tabChange(data);
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['addressList']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['addressList', 'regions']), {
     formDataCheck: function formDataCheck() {
       return JSON.parse(JSON.stringify(this.formData));
     }
@@ -48077,25 +48064,19 @@ var render = function() {
                     }
                   },
                   [
+                    _c("option", { attrs: { value: "", selected: "" } }, [
+                      _vm._v("Select an Address")
+                    ]),
+                    _vm._v(" "),
                     _c("option", { domProps: { value: 0 } }, [
                       _vm._v("New Address")
                     ]),
                     _vm._v(" "),
                     _vm._l(_vm.addressList, function(address, index) {
                       return _vm.addressList
-                        ? _c(
-                            "option",
-                            {
-                              domProps: {
-                                value: address.id,
-                                selected: {
-                                  selected:
-                                    index === 0 || _vm.billing_id === address.id
-                                }
-                              }
-                            },
-                            [_vm._v(_vm._s(address.text))]
-                          )
+                        ? _c("option", { domProps: { value: address.id } }, [
+                            _vm._v(_vm._s(address.text))
+                          ])
                         : _vm._e()
                     })
                   ],
@@ -48227,7 +48208,9 @@ var render = function() {
         _vm._v(" "),
         _c("li", { staticClass: "row" }, [
           _c("div", { staticClass: "col-sm-6" }, [
-            _vm._m(4),
+            _c("label", { staticClass: "required", attrs: { for: "city" } }, [
+              _vm._v("City")
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -48252,6 +48235,34 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6" }, [
+            _vm._m(4),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.district,
+                  expression: "formData.district"
+                }
+              ],
+              staticClass: "input form-control",
+              attrs: { id: "district", type: "text" },
+              domProps: { value: _vm.formData.district },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "district", $event.target.value)
+                }
+              }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "row" }, [
           _c(
             "div",
             { staticClass: "col-sm-6" },
@@ -48266,35 +48277,38 @@ var render = function() {
                     placeholder: "Select Your State"
                   },
                   model: {
-                    value: _vm.formData.state,
+                    value: _vm.formData.region,
                     callback: function($$v) {
-                      _vm.$set(_vm.formData, "state", $$v)
+                      _vm.$set(_vm.formData, "region", $$v)
                     },
-                    expression: "formData.state"
+                    expression: "formData.region"
                   }
                 },
                 [
-                  _c("option", { attrs: { value: "Alabama" } }, [
-                    _vm._v("Alabama")
+                  _c("option", { attrs: { value: "" } }, [
+                    _vm._v("Select A Region")
                   ]),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "Illinois" } }, [
-                    _vm._v("Illinois")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Kansas" } }, [
-                    _vm._v("Kansas")
-                  ])
-                ]
+                  _vm._l(_vm.regions, function(region, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: region.key } },
+                      [_vm._v(_vm._s(region.name))]
+                    )
+                  })
+                ],
+                2
               )
             ],
             1
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "row" }, [
+          ),
+          _vm._v(" "),
           _c("div", { staticClass: "col-sm-6" }, [
-            _vm._m(6),
+            _c(
+              "label",
+              { staticClass: "required", attrs: { for: "postal_code" } },
+              [_vm._v("Zip/Postal Code")]
+            ),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -48317,52 +48331,7 @@ var render = function() {
                 }
               }
             })
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-sm-6" },
-            [
-              _vm._m(7),
-              _vm._v(" "),
-              _c(
-                "chosen-select",
-                {
-                  attrs: {
-                    classList: _vm.selectOption.classList,
-                    placeholder: "Select Your Country"
-                  },
-                  model: {
-                    value: _vm.formData.country,
-                    callback: function($$v) {
-                      _vm.$set(_vm.formData, "country", $$v)
-                    },
-                    expression: "formData.country"
-                  }
-                },
-                [
-                  _c("option", { attrs: { value: "USA" } }, [_vm._v("USA")]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Australia" } }, [
-                    _vm._v("Australia")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Austria" } }, [
-                    _vm._v("Austria")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Argentina" } }, [
-                    _vm._v("Argentina")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Canada" } }, [
-                    _vm._v("Canada")
-                  ])
-                ]
-              )
-            ],
-            1
-          )
+          ])
         ])
       ]),
       _vm._v(" "),
@@ -48552,29 +48521,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "required", attrs: { for: "city" } }, [
-      _vm._v("City "),
-      _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "required" }, [
-      _vm._v("State/Province "),
-      _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "label",
-      { staticClass: "required", attrs: { for: "postal_code" } },
+      { staticClass: "required", attrs: { for: "district" } },
       [
-        _vm._v("Zip/Postal Code "),
+        _vm._v("District "),
         _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
       ]
     )
@@ -48584,7 +48535,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "required" }, [
-      _vm._v("Country "),
+      _vm._v("Region "),
       _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
     ])
   }
@@ -49021,26 +48972,19 @@ var render = function() {
                       }
                     },
                     [
+                      _c("option", { attrs: { value: "", selected: "" } }, [
+                        _vm._v("Select an Address")
+                      ]),
+                      _vm._v(" "),
                       _c("option", { domProps: { value: 0 } }, [
                         _vm._v("New Address")
                       ]),
                       _vm._v(" "),
                       _vm._l(_vm.addressList, function(address, index) {
                         return _vm.addressList
-                          ? _c(
-                              "option",
-                              {
-                                domProps: {
-                                  value: address.id,
-                                  selected: {
-                                    selected:
-                                      index === 0 ||
-                                      _vm.shipping_id === address.id
-                                  }
-                                }
-                              },
-                              [_vm._v(_vm._s(address.text))]
-                            )
+                          ? _c("option", { domProps: { value: address.id } }, [
+                              _vm._v(_vm._s(address.text))
+                            ])
                           : _vm._e()
                       })
                     ],
@@ -49192,7 +49136,11 @@ var render = function() {
               _vm._v(" "),
               _c("li", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-sm-6" }, [
-                  _vm._m(4),
+                  _c(
+                    "label",
+                    { staticClass: "required", attrs: { for: "city" } },
+                    [_vm._v("City")]
+                  ),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -49222,6 +49170,34 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
+                _c("div", { staticClass: "col-sm-6" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.district,
+                        expression: "formData.district"
+                      }
+                    ],
+                    staticClass: "input form-control",
+                    attrs: { id: "district", type: "text" },
+                    domProps: { value: _vm.formData.district },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "district", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "row" }, [
                 _c(
                   "div",
                   { staticClass: "col-sm-6" },
@@ -49236,35 +49212,38 @@ var render = function() {
                           placeholder: "Select Your State"
                         },
                         model: {
-                          value: _vm.formData.state,
+                          value: _vm.formData.region,
                           callback: function($$v) {
-                            _vm.$set(_vm.formData, "state", $$v)
+                            _vm.$set(_vm.formData, "region", $$v)
                           },
-                          expression: "formData.state"
+                          expression: "formData.region"
                         }
                       },
                       [
-                        _c("option", { attrs: { value: "Alabama" } }, [
-                          _vm._v("Alabama")
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Select A Region")
                         ]),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "Illinois" } }, [
-                          _vm._v("Illinois")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "Kansas" } }, [
-                          _vm._v("Kansas")
-                        ])
-                      ]
+                        _vm._l(_vm.regions, function(region, index) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: region.key } },
+                            [_vm._v(_vm._s(region.name))]
+                          )
+                        })
+                      ],
+                      2
                     )
                   ],
                   1
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "row" }, [
+                ),
+                _vm._v(" "),
                 _c("div", { staticClass: "col-sm-6" }, [
-                  _vm._m(6),
+                  _c(
+                    "label",
+                    { staticClass: "required", attrs: { for: "postal_code" } },
+                    [_vm._v("Zip/Postal Code")]
+                  ),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -49295,59 +49274,12 @@ var render = function() {
                       }
                     }
                   })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-sm-6" },
-                  [
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _c(
-                      "chosen-select",
-                      {
-                        attrs: {
-                          classList: _vm.selectOption.classList,
-                          placeholder: "Select Your Country"
-                        },
-                        model: {
-                          value: _vm.formData.country,
-                          callback: function($$v) {
-                            _vm.$set(_vm.formData, "country", $$v)
-                          },
-                          expression: "formData.country"
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "USA" } }, [
-                          _vm._v("USA")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "Australia" } }, [
-                          _vm._v("Australia")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "Austria" } }, [
-                          _vm._v("Austria")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "Argentina" } }, [
-                          _vm._v("Argentina")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "Canada" } }, [
-                          _vm._v("Canada")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                )
+                ])
               ])
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm._m(8)
+        _vm._m(6)
       ])
     ]
   )
@@ -49404,29 +49336,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "required", attrs: { for: "city" } }, [
-      _vm._v("City "),
-      _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "required" }, [
-      _vm._v("State/Province "),
-      _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "label",
-      { staticClass: "required", attrs: { for: "postal_code" } },
+      { staticClass: "required", attrs: { for: "district" } },
       [
-        _vm._v("Zip/Postal Code "),
+        _vm._v("District "),
         _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
       ]
     )
@@ -49436,7 +49350,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "required" }, [
-      _vm._v("Country "),
+      _vm._v("Region "),
       _c("span", { staticClass: "text text-bold text-danger" }, [_vm._v("*")])
     ])
   },
@@ -69858,9 +69772,68 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     resData: '',
-    errors: null
+    errors: null,
+    region_list: [{
+      key: 'Awdal',
+      name: 'Awdal'
+    }, {
+      key: 'Bakool',
+      name: 'Bakool'
+    }, {
+      key: 'Banaadir',
+      name: 'Banaadir'
+    }, {
+      key: 'Bari',
+      name: 'Bari'
+    }, {
+      key: 'Baay',
+      name: 'Baay'
+    }, {
+      key: 'Galguduud',
+      name: 'Galguduud'
+    }, {
+      key: 'Gedo',
+      name: 'Gedo'
+    }, {
+      key: 'Hiiraan',
+      name: 'Hiiraan'
+    }, {
+      key: 'Jubbada Dhexe',
+      name: 'Jubbada Dhexe'
+    }, {
+      key: 'Jubbada Hoose',
+      name: 'Jubbada Hoose'
+    }, {
+      key: 'Mudug',
+      name: 'Mudug'
+    }, {
+      key: 'Nugaal',
+      name: 'Nugaal'
+    }, {
+      key: 'Sanaag',
+      name: 'Sanaag'
+    }, {
+      key: 'Shabeellaha',
+      name: 'Shabeellaha'
+    }, {
+      key: 'Shabeellaha Hoose',
+      name: 'Shabeellaha Hoose'
+    }, {
+      key: 'Sool',
+      name: 'Sool'
+    }, {
+      key: 'Togdheer',
+      name: 'Togdheer'
+    }, {
+      key: 'Woqooyi Galbeed',
+      name: 'Woqooyi Galbeed'
+    }]
   },
-  getters: {},
+  getters: {
+    regions: function regions(state) {
+      return state.region_list;
+    }
+  },
   actions: {},
   mutations: {
     setResponse: function setResponse(state, res) {

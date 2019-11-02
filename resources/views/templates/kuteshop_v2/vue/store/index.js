@@ -19,10 +19,29 @@ export default new Vuex.Store({
     state:{
         resData:'',
         errors:null,
-
+        region_list:[
+            {key:'Awdal',       name:'Awdal'},
+            {key:'Bakool',      name:'Bakool'},
+            {key:'Banaadir',    name:'Banaadir'},
+            {key:'Bari',        name:'Bari'},
+            {key:'Baay',        name:'Baay'},
+            {key:'Galguduud',   name:'Galguduud'},
+            {key:'Gedo',        name:'Gedo'},
+            {key:'Hiiraan',     name:'Hiiraan'},
+            {key:'Jubbada Dhexe',name:'Jubbada Dhexe'},
+            {key:'Jubbada Hoose',name:'Jubbada Hoose'},
+            {key:'Mudug',       name:'Mudug'},
+            {key:'Nugaal',      name:'Nugaal'},
+            {key:'Sanaag',      name:'Sanaag'},
+            {key:'Shabeellaha', name:'Shabeellaha'},
+            {key:'Shabeellaha Hoose',name:'Shabeellaha Hoose'},
+            {key:'Sool',        name:'Sool'},
+            {key:'Togdheer',    name:'Togdheer'},
+            {key:'Woqooyi Galbeed',name:'Woqooyi Galbeed'},
+        ]
     },
     getters:{
-
+        regions:(state)=>state.region_list,
     },
     actions:{
 

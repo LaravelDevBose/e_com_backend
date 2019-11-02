@@ -150,8 +150,10 @@ class OrderController extends Controller
                             'address'=>$billingInfo->address,
                             'city'=>$billingInfo->city,
                             'state'=>$billingInfo->state,
+                            'district'=>$billingInfo->district,
+                            'region'=>$billingInfo->region,
                             'postal_code'=>$billingInfo->postal_code,
-                            'country'=>$billingInfo->country,
+                            'country'=>'somalia',
                         ]);
 
                         // TODO store order shipping details
@@ -166,8 +168,10 @@ class OrderController extends Controller
                             'address'=>$shippingInfo->address,
                             'city'=>$shippingInfo->city,
                             'state'=>$shippingInfo->state,
+                            'district'=>$shippingInfo->district,
+                            'region'=>$shippingInfo->region,
                             'postal_code'=>$shippingInfo->postal_code,
-                            'country'=>$shippingInfo->country,
+                            'country'=>'somalia',
                         ]);
                         // TODO store order payment details
                         $payment = PaymentInfo::create([

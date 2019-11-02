@@ -10,6 +10,26 @@ class AddressBook extends Model
         'billing'=>1,
         'shipping'=>2
     ];
+    const State = [
+        1=>'Awdal',
+        2=>'Bakool',
+        3=>'Banaadir',
+        4=>'Bari',
+        5=>'Baay',
+        6=>'Galguduud',
+        7=>'Gedo',
+        8=>'Hiiraan',
+        9=>'Jubbada Dhexe',
+        10=>'Jubbada Hoose',
+        11=>'Mudug',
+        12=>'Nugaal',
+        13=>'Sanaag',
+        14=>'Shabeellaha',
+        15=>'Shabeellaha Hoose',
+        16=>'Sool',
+        17=>'Togdheer',
+        18=>'Woqooyi Galbeed',
+    ];
 
     protected $table = 'address_books';
 
@@ -27,6 +47,8 @@ class AddressBook extends Model
         'country',
         'address_type',
         'address_status',
+        'district',
+        'region',
     ];
 
     protected $appends = array('full_address');

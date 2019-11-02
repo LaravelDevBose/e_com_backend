@@ -26,6 +26,8 @@ class ShippingInfo extends Model
         'state',
         'postal_code',
         'country',
+        'district',
+        'region',
     ];
 
     protected $appends = [

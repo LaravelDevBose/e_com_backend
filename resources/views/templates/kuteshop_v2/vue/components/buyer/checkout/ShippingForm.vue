@@ -6,8 +6,9 @@
                     <div class="col-sm-6">
                         <div class="categori-search  ">
                             <chosen-select v-model='shipping_id' :classList="selectOption.classList" :placeholder="selectOption.placeholder" >
+                                <option value="" selected>Select an Address</option>
                                 <option :value="0">New Address</option>
-                                <option v-if="addressList" v-for="(address, index) in addressList"  :value="address.id" :selected="{selected:(index===0 || shipping_id === address.id)}">{{ address.text }}</option>
+                                <option v-if="addressList" v-for="(address, index) in addressList"  :value="address.id" >{{ address.text }}</option>
                             </chosen-select>
                         </div>
                     </div>
@@ -44,36 +45,26 @@
                 </li>
                 <li class="row">
                     <div class="col-sm-6">
-                        <label for="city" class="required">City <span class="text text-bold text-danger">*</span></label>
+                        <label for="city" class="required">City</label>
                         <input class="input form-control" v-model="formData.city" required name="city" id="city" type="text">
-
                     </div>
 
                     <div class="col-sm-6">
-                        <label class="required">State/Province <span class="text text-bold text-danger">*</span></label>
-                        <chosen-select v-model='formData.state' :classList="selectOption.classList" :placeholder="'Select Your State'" >
-                            <option value="Alabama">Alabama</option>
-                            <option value="Illinois">Illinois</option>
-                            <option value="Kansas">Kansas</option>
-                        </chosen-select>
+                        <label for="district" class="required">District <span class="text text-bold text-danger">*</span></label>
+                        <input class="input form-control" v-model="formData.district"  id="district" type="text">
                     </div>
                 </li>
                 <li class="row">
-
                     <div class="col-sm-6">
-                        <label for="postal_code" class="required">Zip/Postal Code <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.postal_code" name="postal_code" id="postal_code" type="text">
-                    </div>
-
-                    <div class="col-sm-6">
-                        <label class="required">Country <span class="text text-bold text-danger">*</span></label>
-                        <chosen-select v-model='formData.country' :classList="selectOption.classList" :placeholder="'Select Your Country'" >
-                            <option value="USA">USA</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Austria">Austria</option>
-                            <option value="Argentina">Argentina</option>
-                            <option value="Canada">Canada</option>
+                        <label class="required">Region <span class="text text-bold text-danger">*</span></label>
+                        <chosen-select v-model='formData.region' :classList="selectOption.classList" :placeholder="'Select Your State'" >
+                            <option value="">Select A Region</option>
+                            <option v-for="(region,index) in regions" :key="index" :value="region.key">{{ region.name }}</option>
                         </chosen-select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="postal_code" class="required">Zip/Postal Code</label>
+                        <input class="input form-control" v-model="formData.postal_code" name="postal_code" id="postal_code" type="text">
                     </div>
                 </li>
             </ul>
@@ -103,9 +94,11 @@
                     city:'',
                     state:'',
                     postal_code:'',
-                    country:'',
+                    country:'Somalia',
                     address_type:2,
                     is_shipping:0,
+                    region:'',
+                    district:'',
                 },
                 btnDisabled:false,
                 shipping_id:'',
@@ -200,6 +193,7 @@
         computed:{
             ...mapGetters([
                 'addressList',
+                'regions',
             ]),
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
