@@ -13,6 +13,7 @@ class Category extends Model
         3=>'Third Level',
     ];
 
+    const InHeader = 1;
     protected $table = 'categories';
 
     protected $primaryKey = 'category_id';
@@ -23,6 +24,7 @@ class Category extends Model
         'parent_id',
         'attachment_id',
         'category_status',
+        'is_show'
     ];
 
     /**

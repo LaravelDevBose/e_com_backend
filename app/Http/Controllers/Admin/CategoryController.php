@@ -99,6 +99,7 @@ class CategoryController extends Controller
                     'parent_id'=>(!empty($request->parent_id))?$request->parent_id : null,
                     'attachment_id'=>(!empty($request->attachmentIds))? $request->attachmentIds:null,
                     'category_status'=>(!empty($request->category_status) && $request->category_status == 1) ? $request->category_status : 2,
+                    'is_show'=>(!empty($request->is_show) && $request->is_show == 1) ? $request->is_show : 2,
                 ]);
                 if($category){
                     DB::commit();
@@ -175,6 +176,7 @@ class CategoryController extends Controller
                     'parent_id'=>(!empty($request->parent_id))?$request->parent_id : null,
                     'attachment_id'=>(!empty($request->attachmentIds))? $request->attachmentIds:null,
                     'category_status'=>(!empty($request->category_status) && $request->category_status == 1) ? $request->category_status : 2,
+                    'is_show'=>(!empty($request->is_show) && $request->is_show == 1) ? $request->is_show : 2,
                 ]);
                 if($category){
                     DB::commit();

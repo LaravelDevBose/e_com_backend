@@ -27,21 +27,31 @@
                                 <input type="text" v-model="formValue.category_name" class="form-control" placeholder="Category Name " required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Category Banner:</label>
                                 <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                             </div>
                         </div>
-                        <div class="col-md-4 col-md-offset-2">
-                            <div class="content-group-lg">
-                                <div class="checkbox checkbox-switchery">
-                                    <label>
-                                        <input type="checkbox" v-model="formValue.category_status" class="switchery-primary" :checked="formValue.category_status">
-                                        <span class="text-success text-bold" v-if="formValue.category_status"> Publish</span>
-                                        <span class="text-danger text-bold" v-else> UnPublish</span>
-                                    </label>
-                                </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="checkbox-style checkbox-inline" for="is_show">
+                                    <span class="text-bold text-success" v-if="formValue.is_show">Show In Header</span>
+                                    <span class="text-bold text-warning" v-else>Not Show</span>
+                                    <input type="checkbox" id="is_show" v-model="formValue.is_show" :checked="formValue.is_show">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="checkbox-style" for="status">
+                                    <span class="text-bold text-success" v-if="formValue.category_status">Active</span>
+                                    <span class="text-bold text-warning" v-else>Inactive</span>
+                                    <input type="checkbox" id="status" v-model="formValue.category_status" :checked="formValue.category_status">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -88,6 +98,7 @@
                     category_name:null,
                     category_status:false,
                     attachmentIds:'',
+                    is_show:false,
                 },
                 normalizer(node) {
                     return {
@@ -180,8 +191,11 @@
                         this.formValue.id = this.category.id;
                         this.formValue.parent_id = this.category.parent_id;
                         this.formValue.category_name = this.category.name;
-                        if(this.category.status !== 1){
-                            this.formValue.category_status = false;
+                        if(this.category.status === 1){
+                            this.formValue.category_status = true;
+                        }
+                        if(this.category.is_show === 1){
+                            this.formValue.is_show = true;
                         }
                         if(this.category.attachment){
                             this.formValue.attachmentIds = this.category.attachment.attachment_id;

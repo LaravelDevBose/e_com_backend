@@ -21,6 +21,7 @@
                         <th>2nd Parent</th>
                         <th>1rd Parent</th>
                         <th class="text-center">Status</th>
+                        <th class="text-center">Show in Header</th>
                         <th class="text-center">Action</th>
                     </tr>
                     </thead>
@@ -42,6 +43,10 @@
                         <td class="text text-center">
                             <span class="badge badge-success" v-if="category.status === 1">Active</span>
                             <span class="badge badge-warning" v-else>De-active</span>
+                        </td>
+                        <td class="text text-center">
+                            <span class="badge badge-success" v-if="category.is_show === 1">Show</span>
+                            <span class="badge badge-warning" v-else>Now Show</span>
                         </td>
                         <td class="text text-center">
                             <ul class="icons-list">
