@@ -15,7 +15,10 @@
             <tr v-if="orderList" v-for="(order,index) in orderList" :key="index">
                 <td>{{ order.order_no }}</td>
                 <td>{{ order.order_date }}</td>
-                <td>{{ order.shipping.first_name }} {{ order.shipping.last_name}}</td>
+                <td>
+                    <span v-if="order.shipping">{{ order.shipping.full_name }}</span>
+                    <span v-else>55</span>
+                </td>
                 <td class="text-right">
                     <span class="price">$ {{order.total }}</span>
                 </td>
@@ -36,11 +39,9 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
-    import InvoiceModelOne from './InvoiceModalOne';
 
     export default {
         name: "OrderListTable",
-        components:{InvoiceModelOne},
         methods:{
             ...mapActions([
                 'getOrderInfo'

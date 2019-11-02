@@ -13,10 +13,11 @@
 
 <script>
     import OrderListTable from "./OrderListTable";
+    import InvoiceModalOne from './InvoiceModalOne';
     import {mapGetters, mapActions} from 'vuex';
     export default {
         name: "MyOrderPage",
-        components: {OrderListTable},
+        components: {OrderListTable, InvoiceModalOne},
         data(){
             return{
                 reqData:{

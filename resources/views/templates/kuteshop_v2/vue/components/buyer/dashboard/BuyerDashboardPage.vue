@@ -7,13 +7,14 @@
         <div class="content-text clearfix">
             <order-list-table></order-list-table>
         </div>
-
+        <invoice-modal-one></invoice-modal-one>
     </div>
 </template>
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
     import OrderListTable from "../order/OrderListTable";
+    import InvoiceModelOne from './../order/InvoiceModalOne';
 
     export default {
         name: "BuyerDashboardPage",

@@ -38,10 +38,12 @@ export default new Vuex.Store({
             {key:'Sool',        name:'Sool'},
             {key:'Togdheer',    name:'Togdheer'},
             {key:'Woqooyi Galbeed',name:'Woqooyi Galbeed'},
-        ]
+        ],
+        paginate:{},
     },
     getters:{
         regions:(state)=>state.region_list,
+        pagination:(state)=>state.paginate,
     },
     actions:{
 

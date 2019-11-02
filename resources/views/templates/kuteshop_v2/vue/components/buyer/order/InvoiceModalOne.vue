@@ -45,8 +45,8 @@
                                 <li><h5>{{ orderInfo.shipping.full_name }}</h5></li>
                                 <li><span class="text-semibold">{{ orderInfo.shipping.phone_no }}</span></li>
                                 <li>{{ orderInfo.shipping.address }}</li>
-                                <li>{{ orderInfo.shipping.city }}</li>
-                                <li>{{ orderInfo.shipping.state }} <span v-if="orderInfo.shipping.postal_code" class="text-semibold">- {{ orderInfo.shipping.postal_code }}</span></li>
+                                <li>{{ orderInfo.shipping.city }}, {{orderInfo.shipping.district }}</li>
+                                <li>{{ orderInfo.shipping.region }} <span v-if="orderInfo.shipping.postal_code" class="text-semibold">- {{ orderInfo.shipping.postal_code }}</span></li>
                                 <li>{{ orderInfo.shipping.country }}</li>
                             </ul>
                         </div>
@@ -56,8 +56,8 @@
                                 <li><h5>{{ orderInfo.billing.full_name }}</h5></li>
                                 <li><span class="text-semibold">{{ orderInfo.billing.phone_no }}</span></li>
                                 <li>{{ orderInfo.billing.address }}</li>
-                                <li>{{ orderInfo.billing.city }}</li>
-                                <li>{{ orderInfo.billing.state }} <span v-if="orderInfo.billing.postal_code" class="text-semibold">- {{ orderInfo.billing.postal_code }}</span></li>
+                                <li>{{ orderInfo.billing.city }},{{orderInfo.billing.district }}</li>
+                                <li>{{ orderInfo.billing.region }} <span v-if="orderInfo.billing.postal_code" class="text-semibold">- {{ orderInfo.billing.postal_code }}</span></li>
                                 <li>{{ orderInfo.billing.country }}</li>
                             </ul>
                         </div>

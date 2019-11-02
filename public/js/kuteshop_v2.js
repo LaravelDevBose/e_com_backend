@@ -3679,6 +3679,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _order_OrderListTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../order/OrderListTable */ "./resources/views/templates/kuteshop_v2/vue/components/buyer/order/OrderListTable.vue");
+/* harmony import */ var _order_InvoiceModalOne__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../order/InvoiceModalOne */ "./resources/views/templates/kuteshop_v2/vue/components/buyer/order/InvoiceModalOne.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3698,6 +3699,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3925,7 +3927,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _OrderListTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OrderListTable */ "./resources/views/templates/kuteshop_v2/vue/components/buyer/order/OrderListTable.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _InvoiceModalOne__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InvoiceModalOne */ "./resources/views/templates/kuteshop_v2/vue/components/buyer/order/InvoiceModalOne.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3947,10 +3950,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MyOrderPage",
   components: {
-    OrderListTable: _OrderListTable__WEBPACK_IMPORTED_MODULE_0__["default"]
+    OrderListTable: _OrderListTable__WEBPACK_IMPORTED_MODULE_0__["default"],
+    InvoiceModalOne: _InvoiceModalOne__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -3964,7 +3969,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.getOrderList(this.reqData);
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getOrderList']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['getOrderList']))
 });
 
 /***/ }),
@@ -3979,7 +3984,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _InvoiceModalOne__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InvoiceModalOne */ "./resources/views/templates/kuteshop_v2/vue/components/buyer/order/InvoiceModalOne.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -4022,13 +4026,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OrderListTable",
-  components: {
-    InvoiceModelOne: _InvoiceModalOne__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getOrderInfo']), {
     viewOrderInfo: function viewOrderInfo(order_no) {
       location.href = "/buyer/order/".concat(order_no, "/show");
@@ -49467,16 +49470,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-9 col-md-push-3   col-main" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "content-text clearfix" },
-      [_c("order-list-table")],
-      1
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "col-md-9 col-md-push-3   col-main" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "content-text clearfix" },
+        [_c("order-list-table")],
+        1
+      ),
+      _vm._v(" "),
+      _c("invoice-modal-one")
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -49624,12 +49634,16 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("li", [
-                              _vm._v(_vm._s(_vm.orderInfo.shipping.city))
+                              _vm._v(
+                                _vm._s(_vm.orderInfo.shipping.city) +
+                                  ", " +
+                                  _vm._s(_vm.orderInfo.shipping.district)
+                              )
                             ]),
                             _vm._v(" "),
                             _c("li", [
                               _vm._v(
-                                _vm._s(_vm.orderInfo.shipping.state) + " "
+                                _vm._s(_vm.orderInfo.shipping.region) + " "
                               ),
                               _vm.orderInfo.shipping.postal_code
                                 ? _c("span", { staticClass: "text-semibold" }, [
@@ -49682,11 +49696,17 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("li", [
-                              _vm._v(_vm._s(_vm.orderInfo.billing.city))
+                              _vm._v(
+                                _vm._s(_vm.orderInfo.billing.city) +
+                                  "," +
+                                  _vm._s(_vm.orderInfo.billing.district)
+                              )
                             ]),
                             _vm._v(" "),
                             _c("li", [
-                              _vm._v(_vm._s(_vm.orderInfo.billing.state) + " "),
+                              _vm._v(
+                                _vm._s(_vm.orderInfo.billing.region) + " "
+                              ),
                               _vm.orderInfo.billing.postal_code
                                 ? _c("span", { staticClass: "text-semibold" }, [
                                     _vm._v(
@@ -50070,11 +50090,9 @@ var render = function() {
                   _c("td", [_vm._v(_vm._s(order.order_date))]),
                   _vm._v(" "),
                   _c("td", [
-                    _vm._v(
-                      _vm._s(order.shipping.first_name) +
-                        " " +
-                        _vm._s(order.shipping.last_name)
-                    )
+                    order.shipping
+                      ? _c("span", [_vm._v(_vm._s(order.shipping.full_name))])
+                      : _c("span", [_vm._v("55")])
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "text-right" }, [
@@ -69827,11 +69845,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     }, {
       key: 'Woqooyi Galbeed',
       name: 'Woqooyi Galbeed'
-    }]
+    }],
+    paginate: {}
   },
   getters: {
     regions: function regions(state) {
       return state.region_list;
+    },
+    pagination: function pagination(state) {
+      return state.paginate;
     }
   },
   actions: {},
@@ -71996,7 +72018,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

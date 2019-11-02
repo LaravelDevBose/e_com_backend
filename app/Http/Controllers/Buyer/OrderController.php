@@ -156,6 +156,10 @@ class OrderController extends Controller
                             'country'=>'somalia',
                         ]);
 
+                        if(empty($billing)){
+                            throw new \Exception('Order Not Place', Response::HTTP_BAD_REQUEST);
+                        }
+
                         // TODO store order shipping details
                         $shippingInfo = (Object) $request->get('shipping_address');
                         $shipping = ShippingInfo::create([
@@ -173,6 +177,11 @@ class OrderController extends Controller
                             'postal_code'=>$shippingInfo->postal_code,
                             'country'=>'somalia',
                         ]);
+
+                        if(empty($shipping)){
+                            throw new \Exception('Invalid Shipping Information',Response::HTTP_BAD_REQUEST);
+                        }
+
                         // TODO store order payment details
                         $payment = PaymentInfo::create([
                             'order_id'=>$order->order_id,
@@ -184,6 +193,10 @@ class OrderController extends Controller
                             'paid_at'=>now(),
                             'payment_status'=>config('app.active'),
                         ]);
+
+                        if(empty($payment)){
+                            throw new \Exception('Invalid Payment Information', Response::HTTP_BAD_REQUEST);
+                        }
 
                         // TODO Sent invoice to buyer email address
 
