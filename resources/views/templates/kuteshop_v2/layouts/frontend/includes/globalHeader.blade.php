@@ -121,6 +121,12 @@
                 <!-- categori -->
                     @include('templates.kuteshop_v2.layouts.frontend.includes.navigation')
                 <!-- categori -->
+                <!-- menu -->
+                    @include('templates.kuteshop_v2.layouts.frontend.includes.headerMenu')
+                <!-- menu -->
+
+                <span data-action="toggle-nav" class="nav-toggle-menu"><span>Menu</span><i aria-hidden="true" class="fa fa-bars"></i></span>
+
                 <header-mini-cart></header-mini-cart>
                 <div class="block-search">
                     <div class="block-title">
