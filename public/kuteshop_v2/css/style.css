@@ -26852,7 +26852,7 @@ img.alignright {
     border-right: 1px solid #eee;
     border-bottom: 1px solid #eee;
     position: relative;
-    padding-top: 64px
+    padding-top: 0px
 }
 
 .block-floor-products-opt2 .product-item .product-item-photo {
@@ -26872,10 +26872,6 @@ img.alignright {
 .block-floor-products-opt2 .product-item .product-item-detail {
     min-height: 64px;
     padding: 8px 10px 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0
 }
 
 .block-floor-products-opt2 .product-item .product-item-actions {

@@ -54,8 +54,12 @@
 
                 <div class="product-options-bottom clearfix">
                     <div class="actions">
-                        <button type="submit" @click.prevent="addToCart" title="Add to Cart" class="action btn-cart">
+                        <button type="submit" @click.prevent="addToCart()" title="Add to Cart" class="action btn-cart">
                             <span>Add to Cart</span>
+                        </button>
+                        <button type="submit" @click.prevent="buyNow()" title="Add to Cart" class="action btn-buy">
+                            <i class="fa fa-cart-plus"></i>
+                            <span>Buy Now</span>
                         </button>
                         <div class="product-addto-links">
 
@@ -123,6 +127,19 @@
                         }
                     })
             },
+            buyNow(){
+                this.cartData.id = this.product.product_id;
+                this.cartData.name = this.product.product_name;
+                this.addToCartProduct(this.cartData)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            /*this.$noty.success(response.message);*/
+                            location.href='/cart';
+                        }else{
+                            this.$noty.error(response.message);
+                        }
+                    })
+            },
             increaseQty(){
                 this.cartData.qty ++;
             },
@@ -135,7 +152,6 @@
                 }
             },
             addWishList(slug){
-                console.log(slug);
                 if(AppStorage.getWhoIs() === 'buyer'){
                     this.insertToWishList(slug)
                         .then(response=>{
@@ -201,5 +217,25 @@
 </script>
 
 <style scoped>
-
+    .catalog-view_op1 .product-options-bottom .btn-buy{
+        height: 36px;
+        background-color: #0db1b9;
+        color: #fff;
+        font-size: 14px;
+        padding: 0 12px;
+        border: none;
+        box-shadow: none;
+        line-height: 36px;
+        -webkit-transition: .2s;
+        -o-transition: .2s;
+        transition: .2s;
+        margin-bottom: 10px;
+    }
+    .catalog-view_op1 .product-options-bottom .btn-buy:hover{
+        background-color: #048d94;
+    }
+    .catalog-view_op1 .product-options-bottom .btn-buy i{
+        font-size: 18px;
+        padding-right:5px;
+    }
 </style>
