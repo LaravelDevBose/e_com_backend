@@ -130,6 +130,25 @@
                 <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment10.png')}}">
             </div>
         </div>
+        @if(!empty($categoryTree))
+        <div class="footer-links">
+            @foreach($categoryTree as $category)
+            <ul class="links">
+                <li><strong class="title">{{ $category->category_name }}</strong></li>
+                @if(!empty($category->children) && count($category->children) > 0)
+                    @foreach($category->children as $secCategory)
+                        <li><a href="{{ route('front.category.product', $secCategory->category_slug) }}">{{ $secCategory->category_name }}</a></li>
+                        @if(!empty($secCategory->children))
+                            @foreach($secCategory->children as $trdCategory)
+                            <li><a href="{{ route('front.category.product', $trdCategory->category_slug) }}">{{ $trdCategory->category_name }}</a></li>
+                            @endforeach
+                        @endif
+                    @endforeach
+                @endif
+            </ul>
+            @endforeach
+        </div>
+        @endif
         <div class="copyright">
 
             Copyright © 2016 KoolShop. All Rights Reserved. Designed by KoolShop
