@@ -2,7 +2,9 @@
     <div class="box-border">
         <ul class="shipping_method">
             <li v-if="shippingMethods" v-for="(shipping, index) in shippingMethods" :key="index">
-                <label for="radio_button_3"><input checked="" v-model="formData.shipping_method_id" :value="index" name="radio_3" id="radio_button_3" type="radio">{{ shipping }}</label>
+                <label for="radio_button_3" >
+                    <input checked="" v-model="formData.shipping_method_id" :value="index" name="radio_3" id="radio_button_3" @click="setDeliveryCharge(deliveryCharge)" type="radio">$ {{ deliveryCharge }} {{ shipping }}
+                </label>
             </li>
         </ul>
         <button type="button" @click.prevent="shippingMethodStore" class="button">Continue</button>
@@ -27,7 +29,8 @@
         methods:{
             ...mapActions([
                 'storeShippingMethod',
-                'tabChange'
+                'tabChange',
+                'deliveryChargeUpdate'
             ]),
             shippingMethodStore(){
                 this.storeShippingMethod(this.formData)
@@ -54,11 +57,15 @@
                 };
                 this.tabChange(data);
 
+            },
+            setDeliveryCharge(charge){
+                this.deliveryChargeUpdate(charge);
             }
         },
         computed:{
             ...mapGetters([
-                'shippingMethods'
+                'shippingMethods',
+                'deliveryCharge'
             ])
         }
     }

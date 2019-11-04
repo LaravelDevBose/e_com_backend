@@ -2932,6 +2932,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.addAddressInfo(this.formData);
         this.continueTab();
       } else {
+        if (this.billing_id == '') {
+          this.btnDisabled = false;
+          this.$noty.warning('Select A Shipping Address');
+          return false;
+        }
+
         var reqData = {
           address_id: this.billing_id,
           is_shipping: this.formData.is_shipping,
@@ -3004,6 +3010,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           } else {
             this.new_address = false;
           }
+
+          this.btnDisabled = false;
         }
       }
     }
@@ -3091,7 +3099,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         shipping_method: '',
         shipping_method_id: '',
         payment_method: '',
-        payment_method_id: ''
+        payment_method_id: '',
+        delivery_charge: ''
       }
     };
   },
@@ -3137,6 +3146,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.formData.payment_method = this.paymentInfo;
       this.formData.payment_method_id = this.paymentMethodId;
       this.formData.shipping_method_id = this.shippingMethodId;
+      this.formData.delivery_charge = this.deliveryCost;
       /*console.log(this.formData);
       return false;*/
       //TODO Form Validation
@@ -3156,7 +3166,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal', 'billingAddress', 'billingAddressId', 'shippingAddress', 'shippingAddressId', 'paymentInfo', 'paymentMethodId', 'shippingMethodId', 'billingTab', 'shoppingTab', 'methodTab', 'paymentTab']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal', 'billingAddress', 'billingAddressId', 'shippingAddress', 'shippingAddressId', 'paymentInfo', 'paymentMethodId', 'shippingMethodId', 'deliveryCost', 'billingTab', 'shoppingTab', 'methodTab', 'paymentTab']))
 });
 
 /***/ }),
@@ -3514,6 +3524,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.$noty.success('Billing and Shipping Address added');
         this.continueTab();
       } else {
+        if (this.shipping_id == '') {
+          this.btnDisabled = false;
+          this.$noty.warning('Select A Shipping Address');
+          return false;
+        }
+
         var reqData = {
           address_id: this.shipping_id,
           is_shipping: this.formData.is_shipping,
@@ -3589,6 +3605,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           } else {
             this.new_address = false;
           }
+
+          this.btnDisabled = false;
         }
       }
     }
@@ -3624,6 +3642,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ShippingMethod",
@@ -3635,7 +3655,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   created: function created() {},
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeShippingMethod', 'tabChange']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeShippingMethod', 'tabChange', 'deliveryChargeUpdate']), {
     shippingMethodStore: function shippingMethodStore() {
       var _this = this;
 
@@ -3661,9 +3681,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       };
       this.tabChange(data);
+    },
+    setDeliveryCharge: function setDeliveryCharge(charge) {
+      this.deliveryChargeUpdate(charge);
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['shippingMethods']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['shippingMethods', 'deliveryCharge']))
 });
 
 /***/ }),
@@ -4352,6 +4375,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4432,7 +4460,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }, 700)
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal', 'cartSubTotal', 'cartDiscount', 'cartTotalPrice'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal', 'cartSubTotal', 'cartDiscount', 'cartTotalPrice', 'deliveryCost'])),
   watch: {
     proQty: function proQty() {
       this.updateCartProduct();
@@ -48944,20 +48972,23 @@ var render = function() {
                       type: "radio"
                     },
                     domProps: {
-                      value: index,
-                      checked: _vm._q(_vm.formData.payment_method_id, index)
+                      value: payment.key,
+                      checked: _vm._q(
+                        _vm.formData.payment_method_id,
+                        payment.key
+                      )
                     },
                     on: {
                       change: function($event) {
                         return _vm.$set(
                           _vm.formData,
                           "payment_method_id",
-                          index
+                          payment.key
                         )
                       }
                     }
                   }),
-                  _vm._v(" " + _vm._s(payment))
+                  _vm._v(_vm._s(payment.value))
                 ])
               ])
             : _vm._e()
@@ -49484,12 +49515,21 @@ var render = function() {
                     checked: _vm._q(_vm.formData.shipping_method_id, index)
                   },
                   on: {
+                    click: function($event) {
+                      return _vm.setDeliveryCharge(_vm.deliveryCharge)
+                    },
                     change: function($event) {
                       return _vm.$set(_vm.formData, "shipping_method_id", index)
                     }
                   }
                 }),
-                _vm._v(_vm._s(shipping))
+                _vm._v(
+                  "$ " +
+                    _vm._s(_vm.deliveryCharge) +
+                    " " +
+                    _vm._s(shipping) +
+                    "\n            "
+                )
               ])
             ])
           : _vm._e()
@@ -50634,13 +50674,37 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
+        _vm.deliveryCost !== 0
+          ? _c("tr", [
+              _c("td", { attrs: { colspan: "2" } }),
+              _vm._v(" "),
+              _c("td", { attrs: { colspan: "3" } }, [
+                _vm._v("Delivery Charge: ")
+              ]),
+              _vm._v(" "),
+              _c("td", { attrs: { colspan: "2" } }, [
+                _vm._v("$ " + _vm._s(_vm.deliveryCost))
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _c("tr", [
           _c("td", { attrs: { colspan: "2" } }),
           _vm._v(" "),
           _vm._m(2),
           _vm._v(" "),
           _c("td", { attrs: { colspan: "2" } }, [
-            _c("strong", [_vm._v("$ " + _vm._s(_vm.cartTotalPrice))])
+            _c("strong", [
+              _vm._v(
+                "$ " +
+                  _vm._s(
+                    (
+                      parseFloat(_vm.cartTotalPrice) +
+                      parseInt(_vm.deliveryCost)
+                    ).toFixed(2)
+                  )
+              )
+            ])
           ])
         ])
       ])
@@ -70903,10 +70967,12 @@ var state = {
   shipping_method_id: '',
   payment_methods: [],
   shipping_methods: [],
+  shipping_price: '',
   billing: true,
   shopping: false,
   method: false,
-  payment: false
+  payment: false,
+  charge: 0
 }; //declare Getters
 
 var getters = {
@@ -70931,6 +70997,9 @@ var getters = {
   shippingMethods: function shippingMethods(state) {
     return state.shipping_methods;
   },
+  deliveryCharge: function deliveryCharge(state) {
+    return state.shipping_price;
+  },
   paymentInfo: function paymentInfo(state) {
     return state.payment_info;
   },
@@ -70951,6 +71020,9 @@ var getters = {
   },
   paymentTab: function paymentTab(state) {
     return state.payment;
+  },
+  deliveryCost: function deliveryCost(state) {
+    return state.charge;
   }
 };
 var actions = {
@@ -71242,13 +71314,18 @@ var actions = {
     }
 
     return orderProceed;
-  }()
+  }(),
+  deliveryChargeUpdate: function deliveryChargeUpdate(_ref9, charge) {
+    var commit = _ref9.commit;
+    commit('setDeliveryCharge', charge);
+  }
 };
 var mutations = {
   setAddressBookList: function setAddressBookList(state, response) {
     state.address_list = response.address_list;
     state.payment_methods = response.payment_methods;
     state.shipping_methods = response.shipping_methods;
+    state.shipping_price = response.shipping_price;
   },
   updateAddressBook: function updateAddressBook(state, response) {
     var address = {
@@ -71326,6 +71403,9 @@ var mutations = {
   },
   placeOrder: function placeOrder(state, response) {
     console.log(response);
+  },
+  setDeliveryCharge: function setDeliveryCharge(state, charge) {
+    return state.charge = charge;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

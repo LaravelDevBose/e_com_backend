@@ -4,7 +4,7 @@
             <ul>
                 <li v-if="paymentMethods" v-for="(payment,index) in paymentMethods"  :key="index">
                     <label :for="'method-'+index">
-                        <input checked="" name="radio_4" v-model="formData.payment_method_id" :value="index" :id="'method-'+index" type="radio"> {{ payment }}</label>
+                        <input checked="" name="radio_4" v-model="formData.payment_method_id" :value="payment.key" :id="'method-'+index" type="radio">{{ payment.value }}</label>
                 </li>
             </ul>
             <button type="button" @click.prevent="paymentMethodStore" class="button">Continue</button>

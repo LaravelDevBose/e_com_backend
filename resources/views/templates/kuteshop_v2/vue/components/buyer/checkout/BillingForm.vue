@@ -148,6 +148,11 @@
                     this.addAddressInfo(this.formData);
                     this.continueTab();
                 }else{
+                    if(this.billing_id == ''){
+                        this.btnDisabled = false;
+                        this.$noty.warning('Select A Shipping Address');
+                        return false;
+                    }
                     let reqData = {
                         address_id: this.billing_id,
                         is_shipping:this.formData.is_shipping,
@@ -228,6 +233,7 @@
                         }else{
                             this.new_address = false;
                         }
+                        this.btnDisabled = false;
                     }
 
                 }

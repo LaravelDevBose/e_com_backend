@@ -18,7 +18,7 @@
         </div>
         <h3 class="checkout-sep">5. Order Review</h3>
         <div class="box-border">
-            <cart-list-table></cart-list-table>
+            <cart-list-table> </cart-list-table>
             <div class="row">
                 <div class="col-md-6 col-md-offset-5">
                     <div class="text-right">
@@ -52,6 +52,7 @@
                     shipping_method_id: '',
                     payment_method:'',
                     payment_method_id:'',
+                    delivery_charge:'',
                 }
             }
         },
@@ -70,7 +71,7 @@
             ...mapActions([
                 'getAddressBookList',
                 'tabChange',
-                'orderProceed'
+                'orderProceed',
             ]),
             continueTab(){
                 let data={
@@ -106,6 +107,7 @@
                 this.formData.payment_method = this.paymentInfo;
                 this.formData.payment_method_id = this.paymentMethodId;
                 this.formData.shipping_method_id = this.shippingMethodId;
+                this.formData.delivery_charge = this.deliveryCost;
                 /*console.log(this.formData);
                 return false;*/
                 //TODO Form Validation
@@ -135,7 +137,7 @@
                 'paymentInfo',
                 'paymentMethodId',
                 'shippingMethodId',
-
+                'deliveryCost',
                 'billingTab',
                 'shoppingTab',
                 'methodTab',

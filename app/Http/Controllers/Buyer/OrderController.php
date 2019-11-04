@@ -96,7 +96,8 @@ class OrderController extends Controller
                     'discount'=>$request->discount,
                     'voucher_id'=>$request->voucher_id,
                     'voucher_price'=>$request->voucher_price,
-                    'total'=>Cart::total(),
+                    'delivery_charge'=>$request->delivery_charge,
+                    'total'=>(Cart::total()+$request->delivery_charge),
                     'order_date'=>now(),
                     'order_status'=>config('app.active'),
                     'shipping_method'=>$request->shipping_method_id

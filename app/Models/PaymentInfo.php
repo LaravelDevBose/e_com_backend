@@ -13,6 +13,12 @@ class PaymentInfo extends Model
         'Paypal'            =>3,
     ];
 
+    const setting_key = [
+        1=>'cash_on_delivery',
+        2=>'card_payment',
+        3=>'paypal_payment',
+    ];
+
     protected $table = 'payment_infos';
 
     protected $primaryKey = 'payment_id';

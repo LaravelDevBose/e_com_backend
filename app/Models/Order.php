@@ -39,6 +39,7 @@ class Order extends Model
         'shipping_method',
         'delivery_date',
         'delivery_media',
+        'delivery_charge'
     ];
 
     protected $appends = array('status_label');

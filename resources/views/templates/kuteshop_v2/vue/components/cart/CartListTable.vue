@@ -52,10 +52,15 @@
                 <td colspan="3">Discount: </td>
                 <td colspan="2">$ {{ cartDiscount }}</td>
             </tr>
+            <tr v-if="deliveryCost!==0">
+                <td colspan="2"></td>
+                <td colspan="3">Delivery Charge: </td>
+                <td colspan="2">$ {{ deliveryCost }}</td>
+            </tr>
             <tr>
                 <td colspan="2"></td>
                 <td colspan="3"><strong>Grand Total</strong></td>
-                <td colspan="2"><strong>$ {{ cartTotalPrice }}</strong></td>
+                <td colspan="2"><strong>$ {{ (parseFloat(cartTotalPrice)+parseInt(deliveryCost)).toFixed(2) }}</strong></td>
             </tr>
             </tfoot>
         </table>
@@ -153,6 +158,7 @@
                 'cartSubTotal',
                 'cartDiscount',
                 'cartTotalPrice',
+                'deliveryCost',
             ]),
 
         },

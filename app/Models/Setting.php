@@ -25,7 +25,11 @@ class Setting extends Model
         'email_subject' => '2',
         'email_heading' => '2',
         'email_body' => '2',
-        'email_footer' => '2'
+        'email_footer' => '2',
+        'delivery_rate'=>4,
+        'cash_on_delivery'=>4,
+        'paypal_payment'=>4,
+        'card_payment'=>4,
     ];
 
     protected $table = 'settings';
