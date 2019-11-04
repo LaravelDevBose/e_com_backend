@@ -112,9 +112,6 @@
                     location.href = '/login';
                 }
             },
-            addCompareProduct(slug){
-
-            },
             quickView(){
                 this.productQuickView(this.product);
                 $('#quickView').modal('show');

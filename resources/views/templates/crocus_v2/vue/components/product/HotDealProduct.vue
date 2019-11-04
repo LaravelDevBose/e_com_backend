@@ -37,8 +37,7 @@
                             <div class="price-box">
                                 <p class="special-price" >
                                     <span class="price-label">Price</span>
-                                    <span class="price" v-if="product.product_type == 1">$ {{ product.product_price }} </span>
-                                    <span class="price" v-else>$ {{ product.single_variation.price }} </span>
+                                    <span class="price">$ {{ cartInfo.price }} </span>
                                 </p>
                             </div>
                         </div>
@@ -73,6 +72,8 @@
                     name:'',
                     qty:1,
                     price:0,
+                    colorId:'',
+                    sizeId:'',
                 },
                 product:{},
             }
@@ -81,7 +82,13 @@
             this.product = this.hotproduct.product
         },
         mounted(){
-
+            if(this.product.product_type === 1){
+                this.cartInfo.price = parseFloat(this.product.product_price);
+            }else{
+                this.cartInfo.price = parseFloat(this.product.single_variation.price);
+                this.cartInfo.colorId = parseInt(this.product.single_variation.pri_id);
+                this.cartInfo.sizeId = parseInt(this.product.single_variation.sec_id);
+            }
         },
         methods:{
             ...mapActions([
@@ -123,9 +130,6 @@
                 }else{
                     location.href = '/login';
                 }
-            },
-            addCompareProduct(slug){
-
             },
             quickView(){
                 this.productQuickView(this.product);

@@ -63,38 +63,6 @@
                                         </div>
                                         <p class="rating-links"> <a href="#">1 Review(s)</a></p>
                                     </div>
-
-                                    @if($product->product_type == 1)
-                                        <div class="price-block">
-                                            <div class="price-box">
-                                                <p class="special-price"><span class="price-label">Price</span>
-                                                    <span class="price">$ {{ number_format($product->product_price,2) }}</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    @else
-                                        @if(!empty($product->singleVariation))
-                                            <div class="price-block">
-                                                @if(!is_null($product->singleVariation->special_price))
-                                                    <div class="price-box">
-                                                        <p class="old-price"><span class="price-label">Regular Price:</span> <span class="price">$ {{ number_format($product->singleVariation->price,2) }} </span> </p>
-                                                        <p class="special-price"><span class="price-label">Special Price</span> <span class="price">$ {{ number_format($product->singleVariation->special_price ,2) }} </span> </p>
-                                                    </div>
-                                                @else
-                                                    <div class="price-box">
-                                                        <p class="special-price"><span class="price-label">Price</span>
-                                                            <span class="price">$ {{ number_format($product->singleVariation->price,2) }}</span>
-                                                        </p>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        @endif
-                                    @endif
-
-                                    <div class="short-description">
-                                        <h2>Quick Overview</h2>
-                                        {!! $product->highlight !!}
-                                    </div>
                                     <single-product-options :product="{{ $product }}"></single-product-options>
                                 </div>
 

@@ -82,7 +82,7 @@
                 <div class="col-md-3 nav-left">
                     <!-- logo -->
                     <strong class="logo">
-                        <a href="{{ route('front.index') }}"><img src="{{ asset('kuteshop_v2/images/media/index2/logo.png') }}" alt="logo"></a>
+                        <a href="{{ route('front.index') }}"><img src="{{ asset('saliim.png') }}" alt="logo" style="height: 80px;"></a>
                     </strong><!-- logo -->
                 </div>
                 <div class=" nav-right">
