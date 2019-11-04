@@ -23,7 +23,7 @@
                 <li class="row">
                     <div class="col-sm-6">
                         <label for="first_name" class="required">First Name <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.first_name" required name="first_name" id="first_name" type="text">
+                        <input class="input form-control" v-model="formData.first_name"  name="first_name" id="first_name" type="text">
                     </div>
                     <div class="col-sm-6">
                         <label for="last_name" class="required">Last Name</label>
@@ -33,25 +33,25 @@
                 <li class="row">
                     <div class="col-sm-6">
                         <label for="telephone" class="required">Telephone <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.phone_no" required name="telephone" id="telephone" type="text">
+                        <input class="input form-control" v-model="formData.phone_no"  name="telephone" id="telephone" type="text">
                     </div>
                 </li>
                 <li class="row">
                     <div class="col-xs-12">
                         <label for="address" class="required">Address <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.address" required name="address" id="address" type="text">
+                        <input class="input form-control" v-model="formData.address"  name="address" id="address" type="text">
                     </div>
 
                 </li>
                 <li class="row">
                     <div class="col-sm-6">
-                        <label for="city" class="required">City</label>
-                        <input class="input form-control" v-model="formData.city" required name="city" id="city" type="text">
+                        <label for="city" class="required">City <span class="text text-bold text-danger">*</span></label>
+                        <input class="input form-control" v-model="formData.city"  name="city" id="city" type="text">
                     </div>
 
                     <div class="col-sm-6">
                         <label for="district" class="required">District <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.district"  id="district" type="text">
+                        <input class="input form-control" v-model="formData.district"   id="district" type="text">
                     </div>
                 </li>
                 <li class="row">
@@ -120,7 +120,9 @@
             shippingAddressStore(){
                 this.btnDisabled = true;
                 if(this.save_address === true && this.new_address === true){
-                    // TODO from validation
+                    if(this.formValidation() === false){
+                        return false;
+                    }
                     this.storeAddressInfo(this.formData)
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 201){
@@ -133,7 +135,9 @@
                             }
                         })
                 }else if(this.save_address === false && this.new_address === true){
-                    // TODO From Validation
+                    if(this.formValidation() === false){
+                        return false;
+                    }
                     this.addAddressInfo(this.formData);
                     this.$noty.success('Billing and Shipping Address added');
                     this.continueTab();
@@ -193,6 +197,33 @@
                 };
                 this.tabChange(data);
 
+            },
+            formValidation(){
+                if(this.formData.first_name === ''){
+                    this.$noty.warning('First Name is Required');
+                    return false;
+                }
+                if(this.formData.phone_no === ''){
+                    this.$noty.warning('Phone No is Required');
+                    return false;
+                }
+                if(this.formData.address === ''){
+                    this.$noty.warning('Address is Required');
+                    return false;
+                }
+                if(this.formData.city === ''){
+                    this.$noty.warning('City is Required');
+                    return false;
+                }
+                if(this.formData.region === ''){
+                    this.$noty.warning('Region is Required');
+                    return false;
+                }
+                if(this.formData.district === ''){
+                    this.$noty.warning('District is Required');
+                    return false;
+                }
+                 return true;
             }
         },
         computed:{

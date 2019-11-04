@@ -45,7 +45,7 @@
                 </li>
                 <li class="row">
                     <div class="col-sm-6">
-                        <label for="city" class="required">City</label>
+                        <label for="city" class="required">City <span class="text text-bold text-danger">*</span></label>
                         <input class="input form-control" v-model="formData.city"  id="city" type="text">
                     </div>
                     <div class="col-sm-6">
@@ -131,7 +131,9 @@
             billingAddressStore(){
                 this.btnDisabled = true;
                 if(this.save_address === true && this.new_address === true){
-                    // TODO from validation
+                    if(this.formValidation() === false){
+                        return false;
+                    }
                     this.storeAddressInfo(this.formData)
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
@@ -144,7 +146,9 @@
                             }
                         })
                 }else if(this.save_address === false && this.new_address === true){
-                    // TODO From Validation
+                    if(this.formValidation() === false){
+                        return false;
+                    }
                     this.addAddressInfo(this.formData);
                     this.continueTab();
                 }else{
@@ -198,6 +202,33 @@
 
                 this.tabChange(data);
 
+            },
+            formValidation(){
+                if(this.formData.first_name === ''){
+                    this.$noty.warning('First Name is Required');
+                    return false;
+                }
+                if(this.formData.phone_no === ''){
+                    this.$noty.warning('Phone No is Required');
+                    return false;
+                }
+                if(this.formData.address === ''){
+                    this.$noty.warning('Address is Required');
+                    return false;
+                }
+                if(this.formData.city === ''){
+                    this.$noty.warning('City is Required');
+                    return false;
+                }
+                if(this.formData.region === ''){
+                    this.$noty.warning('Region is Required');
+                    return false;
+                }
+                if(this.formData.district === ''){
+                    this.$noty.warning('District is Required');
+                    return false;
+                }
+                return true;
             }
         },
         computed:{
