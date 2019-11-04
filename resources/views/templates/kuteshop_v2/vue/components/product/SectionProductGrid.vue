@@ -6,8 +6,9 @@
                     <img :title="product.product_name" :src="product.thumb_image.image_path" style="width:100%; height:auto;">
                 </a>
                 <div class="product-item-actions">
-                    <a href="#" class="btn btn-wishlist"  @click.prevent="addWishList(product.product_slug)"><span>wishlist</span></a>
-                    <a href="#" class="btn btn-quickview" @click.prevent="quickView()"><span>Quick view</span></a>
+                    <a href="#" title="WishList" class="btn btn-wishlist"  @click.prevent="addWishList(product.product_slug)"><span>wishlist</span></a>
+                    <a href="#" title="Quick View" class="btn btn-quickview" @click.prevent="quickView()"><span>Quick view</span></a>
+                    <a href="#" title="Buy Now" class="btn" @click.prevent="buyNow()" style="font-size:18px;"><i class="fa fa-cart-plus"></i></a>
                 </div>
                 <button class="btn btn-cart" type="button" @click.prevent="addToCart()"><span>Add to Cart</span></button>
                 <!--                    <span class="product-item-label label-price">30% <span>off</span></span>-->
@@ -129,7 +130,20 @@
                             this.$noty.error(response.message);
                         }
                     })
-            }
+            },
+            buyNow(){
+                this.cartData.id = this.product.product_id;
+                this.cartData.name = this.product.product_name;
+                this.addToCartProduct(this.cartData)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            /*this.$noty.success(response.message);*/
+                            location.href='/cart';
+                        }else{
+                            this.$noty.error(response.message);
+                        }
+                    })
+            },
         },
         computed:{
             ...mapGetters([

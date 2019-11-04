@@ -4912,6 +4912,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductGrid",
@@ -4998,6 +4999,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this3.$noty.success(response.message);
         } else {
           _this3.$noty.error(response.message);
+        }
+      });
+    },
+    buyNow: function buyNow() {
+      var _this4 = this;
+
+      this.cartData.id = this.product.product_id;
+      this.cartData.name = this.product.product_name;
+      this.addToCartProduct(this.cartData).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          /*this.$noty.success(response.message);*/
+          location.href = '/cart';
+        } else {
+          _this4.$noty.error(response.message);
         }
       });
     }
@@ -5141,6 +5156,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SectionProductGrid",
@@ -5227,6 +5243,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this3.$noty.success(response.message);
         } else {
           _this3.$noty.error(response.message);
+        }
+      });
+    },
+    buyNow: function buyNow() {
+      var _this4 = this;
+
+      this.cartData.id = this.product.product_id;
+      this.cartData.name = this.product.product_name;
+      this.addToCartProduct(this.cartData).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          /*this.$noty.success(response.message);*/
+          location.href = '/cart';
+        } else {
+          _this4.$noty.error(response.message);
         }
       });
     }
@@ -51544,7 +51574,7 @@ var render = function() {
           "a",
           {
             staticClass: "btn btn-wishlist",
-            attrs: { href: "" },
+            attrs: { href: "#", title: "WishList" },
             on: {
               click: function($event) {
                 $event.preventDefault()
@@ -51559,7 +51589,7 @@ var render = function() {
           "a",
           {
             staticClass: "btn btn-quickview",
-            attrs: { href: "" },
+            attrs: { href: "#", title: "Quick View" },
             on: {
               click: function($event) {
                 $event.preventDefault()
@@ -51568,6 +51598,22 @@ var render = function() {
             }
           },
           [_c("span", [_vm._v("Quick view")])]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "btn",
+            staticStyle: { "font-size": "18px" },
+            attrs: { href: "#", title: "Buy Now" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.buyNow()
+              }
+            }
+          },
+          [_c("i", { staticClass: "fa fa-cart-plus" })]
         )
       ]),
       _vm._v(" "),
@@ -51730,7 +51776,7 @@ var render = function() {
             "a",
             {
               staticClass: "btn btn-wishlist",
-              attrs: { href: "#" },
+              attrs: { href: "#", title: "WishList" },
               on: {
                 click: function($event) {
                   $event.preventDefault()
@@ -51745,7 +51791,7 @@ var render = function() {
             "a",
             {
               staticClass: "btn btn-quickview",
-              attrs: { href: "#" },
+              attrs: { href: "#", title: "Quick View" },
               on: {
                 click: function($event) {
                   $event.preventDefault()
@@ -51754,6 +51800,22 @@ var render = function() {
               }
             },
             [_c("span", [_vm._v("Quick view")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "btn",
+              staticStyle: { "font-size": "18px" },
+              attrs: { href: "#", title: "Buy Now" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.buyNow()
+                }
+              }
+            },
+            [_c("i", { staticClass: "fa fa-cart-plus" })]
           )
         ]),
         _vm._v(" "),
