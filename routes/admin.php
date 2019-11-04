@@ -90,6 +90,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::get('/data', 'SettingController@setting_data');
         Route::post('/contact/store', 'SettingController@contact_setting_store');
         Route::post('/campaign/store', 'SettingController@campaign_setting_store');
+        Route::post('/delivery/store', 'SettingController@delivery_setting_store');
         Route::post('/logo/store', 'SettingController@logo_image_store');
     });
 

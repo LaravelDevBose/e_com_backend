@@ -10,6 +10,7 @@ class Setting extends Model
         'contact' => 1,
         'campaign' => 2,
         'template' => 3,
+        'delivery'=>4,
     ];
     const SETTING_KEY = [
         'template_name' => '3',
