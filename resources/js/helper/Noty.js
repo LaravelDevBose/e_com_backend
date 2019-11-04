@@ -7,6 +7,7 @@ const defaults = {
     layout: 'topRight',
     theme: 'mint',
     progressBar: true,
+    timeout: 1300,
     closeWith: ['click'],
 };
 

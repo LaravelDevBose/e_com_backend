@@ -66880,6 +66880,7 @@ var defaults = {
   layout: 'topRight',
   theme: 'mint',
   progressBar: true,
+  timeout: 1300,
   closeWith: ['click']
 };
 var VueNoty = {
