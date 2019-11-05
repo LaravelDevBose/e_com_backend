@@ -97,6 +97,12 @@
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 this.$noty.success(response.message)
+                            }else if(response.code === 401){
+                                this.$noty.error(response.message);
+                                setTimeout(()=>{
+                                    location.href = response.url;
+                                },1000)
+
                             }else{
                                 this.$noty.error('Try Again Later.');
                                 console.log(response);
@@ -112,6 +118,12 @@
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 this.$noty.success(response.message)
+                            }else if(response.code === 401){
+                                this.$noty.error(response.message);
+                                setTimeout(()=>{
+                                    location.href = response.url;
+                                },1000)
+
                             }else{
                                 this.$noty.error(response.message);
                                 console.log(response);
@@ -127,7 +139,6 @@
             addToCart(){
                 this.cartInfo.id = this.product.product_id;
                 this.cartInfo.name = this.product.product_name;
-
                 this.addToCartProduct(this.cartInfo)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){

@@ -4,86 +4,86 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <a href="#" class="btn btn-sm btn-info"> Print</a>
+                    <a href="#" @click.prevent="printInvoice()" class="btn btn-sm btn-info"> Print</a>
                 </div>
-
-                <div class="panel-body no-padding-bottom">
-                    <div class="row" style="border-bottom: 1px solid #ddd; padding-bottom: 1rem; margin-bottom: 1rem;">
-                        <div class="col-md-6 content-group">
-                            <img src="/assets/images/logo_demo.png" class="content-group mt-10" alt="" style="width: 120px;">
-                            <ul class="list-condensed list-unstyled">
-<!--                                TODO add Company Address Dynamic-->
-                                <li><h5 class="text-uppercase text-semibold">Company Name</h5></li>
-                                <li>Address: </li>
-                                <li>Phone: </li>
-                                <li>Email: </li>
-                            </ul>
-                        </div>
-
-                        <div class="col-md-6 content-group">
-                            <div class="invoice-details text-right">
-                                <h5 class="text-uppercase text-semibold">Order No #{{ orderInfo.order_no }}</h5>
+                <div id="invoice_body">
+                    <div class="panel-body no-padding-bottom">
+                        <div class="row" style="border-bottom: 1px solid #ddd; padding-bottom: 1rem; margin-bottom: 1rem;">
+                            <div class="col-md-6 content-group">
+                                <img src="/assets/images/logo_demo.png" class="content-group mt-10" alt="" style="width: 120px;">
                                 <ul class="list-condensed list-unstyled">
-                                    <li>Date: <span class="text-semibold">{{ orderInfo.order_date }}</span></li>
-                                    <li>Delivery date: <span class="text-semibold">{{ orderInfo.delivery_date}}</span></li>
-                                    <li>Status:
-                                        <span  class="label"
-                                            :class="{'bg-info':orderInfo.order_status == 1, 'bg-danger':orderInfo.order_status == 2, 'bg-warning':orderInfo.order_status == 3, 'bg-primary':orderInfo.order_status == 4, 'bg-indigo-400':orderInfo.order_status == 5, 'bg-teal':orderInfo.order_status == 6 }"
+                                    <!--                                TODO add Company Address Dynamic-->
+                                    <li><h5 class="text-uppercase text-semibold">Company Name</h5></li>
+                                    <li>Address: </li>
+                                    <li>Phone: </li>
+                                    <li>Email: </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-6 content-group">
+                                <div class="invoice-details text-right">
+                                    <h5 class="text-uppercase text-semibold">Order No #{{ orderInfo.order_no }}</h5>
+                                    <ul class="list-condensed list-unstyled">
+                                        <li>Date: <span class="text-semibold">{{ orderInfo.order_date }}</span></li>
+                                        <li>Delivery date: <span class="text-semibold">{{ orderInfo.delivery_date}}</span></li>
+                                        <li>Status:
+                                            <span  class="label"
+                                                   :class="{'bg-info':orderInfo.order_status == 1, 'bg-danger':orderInfo.order_status == 2, 'bg-warning':orderInfo.order_status == 3, 'bg-primary':orderInfo.order_status == 4, 'bg-indigo-400':orderInfo.order_status == 5, 'bg-teal':orderInfo.order_status == 6 }"
                                             >
                                                 {{ orderInfo.status_label }}
                                         </span>
-                                    </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div v-if="orderInfo.shipping !== null" class="col-md-4 col-lg-5 content-group">
+                                <span class="text-muted">Shipping To:</span>
+                                <ul class="list-condensed list-unstyled">
+                                    <li><h5>{{ orderInfo.shipping.full_name }}</h5></li>
+                                    <li><span class="text-semibold">{{ orderInfo.shipping.phone_no }}</span></li>
+                                    <li>{{ orderInfo.shipping.address }}</li>
+                                    <li>{{ orderInfo.shipping.city }}, {{ orderInfo.shipping.district }}</li>
+                                    <li>{{ orderInfo.shipping.region }} <span v-if="orderInfo.shipping.postal_code" class="text-semibold">- {{ orderInfo.shipping.postal_code }}</span></li>
+                                    <li>{{ orderInfo.shipping.country }}</li>
+                                </ul>
+                            </div>
+                            <div v-if="orderInfo.billing !== null" class="col-md-4 col-lg-4 content-group">
+                                <span class="text-muted">Billing To:</span>
+                                <ul class="list-condensed list-unstyled">
+                                    <li><h5>{{ orderInfo.billing.full_name }}</h5></li>
+                                    <li><span class="text-semibold">{{ orderInfo.billing.phone_no }}</span></li>
+                                    <li>{{ orderInfo.billing.address }}</li>
+                                    <li>{{ orderInfo.billing.city }}, {{ orderInfo.billing.district }}</li>
+                                    <li>{{ orderInfo.billing.region }} <span v-if="orderInfo.billing.postal_code" class="text-semibold">- {{ orderInfo.billing.postal_code }}</span></li>
+                                    <li>{{ orderInfo.billing.country }}</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4 col-lg-3 content-group">
+                                <span class="text-muted">Payment Details:</span>
+                                <ul class="list-condensed list-unstyled invoice-payment-details">
+                                    <li><h5>Total: <span class="text-right text-semibold">$ {{ orderInfo.total }}</span></h5></li>
+                                    <li>Invoice: <span class="text-bold text-uppercase">{{ orderInfo.payment.invoice_no }}</span></li>
+                                    <li>Paid By: <span class="text-semibold">{{ orderInfo.payment.paid_by }}</span></li>
+                                    <li>Paid At: <span class="text-semibold">{{ orderInfo.payment.paid_at }}</span></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div v-if="orderInfo.shipping !== null" class="col-md-4 col-lg-5 content-group">
-                            <span class="text-muted">Shipping To:</span>
-                            <ul class="list-condensed list-unstyled">
-                                <li><h5>{{ orderInfo.shipping.full_name }}</h5></li>
-                                <li><span class="text-semibold">{{ orderInfo.shipping.phone_no }}</span></li>
-                                <li>{{ orderInfo.shipping.address }}</li>
-                                <li>{{ orderInfo.shipping.city }}</li>
-                                <li>{{ orderInfo.shipping.state }} <span v-if="orderInfo.shipping.postal_code" class="text-semibold">- {{ orderInfo.shipping.postal_code }}</span></li>
-                                <li>{{ orderInfo.shipping.country }}</li>
-                            </ul>
-                        </div>
-                        <div v-if="orderInfo.billing !== null" class="col-md-4 col-lg-4 content-group">
-                            <span class="text-muted">Billing To:</span>
-                            <ul class="list-condensed list-unstyled">
-                                <li><h5>{{ orderInfo.billing.full_name }}</h5></li>
-                                <li><span class="text-semibold">{{ orderInfo.billing.phone_no }}</span></li>
-                                <li>{{ orderInfo.billing.address }}</li>
-                                <li>{{ orderInfo.billing.city }}</li>
-                                <li>{{ orderInfo.billing.state }} <span v-if="orderInfo.billing.postal_code" class="text-semibold">- {{ orderInfo.billing.postal_code }}</span></li>
-                                <li>{{ orderInfo.billing.country }}</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4 col-lg-3 content-group">
-                            <span class="text-muted">Payment Details:</span>
-                            <ul class="list-condensed list-unstyled invoice-payment-details">
-                                <li><h5>Total: <span class="text-right text-semibold">$ {{ orderInfo.total }}</span></h5></li>
-                                <li>Invoice: <span class="text-bold text-uppercase">{{ orderInfo.payment.invoice_no }}</span></li>
-                                <li>Paid By: <span class="text-semibold">{{ orderInfo.payment.paid_by }}</span></li>
-                                <li>Paid At: <span class="text-semibold">{{ orderInfo.payment.paid_at }}</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div v-if="orderInfo.order_items" class="table-responsive" style="padding: 10px;">
-                    <table class="table table-striped table-bordered data-table" id="my-orders-table">
-                        <thead>
+                    <div v-if="orderInfo.order_items" class="table-responsive" style="padding: 10px;">
+                        <table class="table table-striped table-bordered data-table" id="my-orders-table">
+                            <thead>
                             <tr>
                                 <th>Order Item Description</th>
                                 <th class="text-center">Rate</th>
                                 <th class="text-center">QTY</th>
                                 <th class="text-right">Subtotal</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             <tr v-for="(item,index) in orderInfo.order_items" :key="index">
                                 <td>
                                     <h6 class="no-margin text-bold">{{ item.product.product_name}}</h6>
@@ -96,11 +96,11 @@
                                 <td class="text-center">{{ item.qty }}</td>
                                 <td class="text-right"><span class="text-semibold">$ {{ item.total_price }}</span></td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
 
-                <div >
+
                     <div class="row invoice-payment">
                         <!--<div class="col-sm-7">
                             <div class="content-group">
@@ -164,7 +164,18 @@
         methods:{
             ...mapActions([
 
-            ])
+            ]),
+            printInvoice(){
+                let printContents = $('#invoice_body').html(); /*document.getElementById().innerHTML;*/
+                console.log(printContents);
+                let originalContents = document.body.innerHTML;
+
+                document.body.innerHTML = printContents;
+
+                window.print();
+
+                document.body.innerHTML = originalContents;
+            }
         },
         computed:{
             ...mapGetters([
@@ -175,5 +186,11 @@
 </script>
 
 <style scoped>
-
+    @media print
+    {
+        .col-md-4{
+            width: 33.33%!important;
+            height: auto;
+        }
+    }
 </style>

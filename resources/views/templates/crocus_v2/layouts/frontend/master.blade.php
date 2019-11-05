@@ -37,6 +37,14 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/style.css') }}" media="all">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/fancybox.css') }}" media="all">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/blog.css') }}" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/blog.css') }}" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/blog.css') }}" media="all">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap-print/bootstrap-print.css') }}" media="print">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap-print/bootstrap-print-lg.css') }}" media="print">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap-print/bootstrap-print-md.css') }}" media="print">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap-print/bootstrap-print-sm.css') }}" media="print">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap-print/bootstrap-print-xs.css') }}" media="print">
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400|Raleway:400,300,600,500,700,800' rel='stylesheet' type='text/css'>
 
