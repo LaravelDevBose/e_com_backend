@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <button @click.prevent="addToCart" class="button btn-cart" title="Add to Cart" type="button">Add to Cart</button>
-                <button @click.prevent="addToCart" class="button btn-cart" title="Add to Cart" type="button">Add to Cart</button>
+                <button @click.prevent="buyNow()" class="button btn-cart btn-buy" title="Add to Cart" type="button">Buy Now</button>
             </div>
             <div class="email-addto-box">
                 <ul class="add-to-links">

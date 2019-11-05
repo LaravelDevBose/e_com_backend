@@ -60,6 +60,10 @@
                                                                 <button type="submit" @click.prevent="addToCart()" title="Add to Cart" class="action btn-cart">
                                                                     <span>Add to Cart</span>
                                                                 </button>
+                                                                <button type="submit" @click.prevent="buyNow()" title="Buy Now" class="action btn-buy">
+                                                                    <i class="fa fa-cart-plus"></i>
+                                                                    <span>Buy Now</span>
+                                                                </button>
                                                                 <div class="product-addto-links">
 
                                                                     <a href="#" @click.prevent="addWishList(modal_product.product_slug)" class="action btn-wishlist" title="Wish List">
@@ -169,6 +173,19 @@
             },
             productDetails(slug){
                 location.href = '/product/'+slug;
+            },
+            buyNow(){
+                this.cartData.id = this.product.product_id;
+                this.cartData.name = this.product.product_name;
+                this.addToCartProduct(this.cartData)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            /*this.$noty.success(response.message);*/
+                            location.href='/cart';
+                        }else{
+                            this.$noty.error(response.message);
+                        }
+                    })
             },
         },
         computed:{

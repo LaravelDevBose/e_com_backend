@@ -6200,10 +6200,17 @@ ol#compare-items li.last {
 	margin: 1px 0 0 0;
 
 }
+.product-view .product-shop .add-to-box .btn-buy{
+    background: #04bbb4!important;
+    color: #fff;
+}
+.product-view .product-shop .add-to-box .btn-buy:hover{
+    background: #097773!important;
+}
 .product-view .product-shop .add-to-box .btn-cart {
 	font-size: 14px;
 	text-shadow: none;
-	padding: 7px 18px;
+	padding: 7px;
 	float: left;
 	margin-top: 0px;
 	font-weight: bold;

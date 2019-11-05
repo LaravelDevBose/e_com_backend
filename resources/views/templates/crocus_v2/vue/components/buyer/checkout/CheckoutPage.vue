@@ -29,24 +29,7 @@
                 </div>
                 <div id="checkout-step-shipping_method" class="step a-item" :class="methodTab ? 'show':'hidden'">
                     <form id="co-shipping-method-form" action="">
-                        <fieldset>
-                            <div id="checkout-shipping-method-load">
-                                <dl class="shipping-methods">
-                                    <dt>Flat Rate</dt>
-                                    <dd>
-                                        <ul>
-                                            <li>
-                                                <input type="radio" name="shipping_method" v-model="formData.shipping_method" :value="formData.shipping_method" id="s_method_flatrate_flatrate" checked="checked" class="radio">
-                                                <label for="s_method_flatrate_flatrate">Fixed <span class="price">$35.00</span> </label>
-                                            </li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                            </div>
-                            <div class="buttons-set1" id="shipping-method-buttons-container">
-                                <button type="button" class="button" @click.prevent="continueTab"><span>Continue</span></button>
-                                <a href="#" onClick="checkout.back(); return false;" class="back-link">« Back</a> </div>
-                        </fieldset>
+                        <shipping-method></shipping-method>
                     </form>
                 </div>
             </li>
@@ -83,9 +66,10 @@
     import BillingForm from "./BillingForm";
     import ShippingForm from "./ShippingForm";
     import PaymentMethod from "./PaymentMethod";
+    import ShippingMethod from "./ShippingMethod";
     export default {
         name: "CheckoutPage",
-        components: {PaymentMethod, ShippingForm, BillingForm,},
+        components: {ShippingMethod, PaymentMethod, ShippingForm, BillingForm,},
         data(){
             return{
                 formData:{
@@ -93,10 +77,11 @@
                     billing_address_id:'',
                     shipping_address:{},
                     shipping_address_id:'',
-                    shipping_method: 1,
-                    shipping_method_id: 1,
+                    shipping_method: '',
+                    shipping_method_id: '',
                     payment_method:'',
                     payment_method_id:'',
+                    delivery_charge:'',
                 }
             }
         },
@@ -151,6 +136,7 @@
                 this.formData.payment_method = this.paymentInfo;
                 this.formData.payment_method_id = this.paymentMethodId;
                 this.formData.shipping_method_id = this.shippingMethodId;
+                this.formData.delivery_charge = this.deliveryCost;
                 console.log(this.formData);
                 //TODO Form Validation
                 this.orderProceed(this.formData)
@@ -179,7 +165,7 @@
                 'paymentInfo',
                 'paymentMethodId',
                 'shippingMethodId',
-
+                'deliveryCost',
                 'billingTab',
                 'shoppingTab',
                 'methodTab',

@@ -64,6 +64,27 @@
             display: inline;
             padding: 0 10px;
         }
+        .catalog-view_op1 .product-options-bottom .btn-buy{
+            height: 36px;
+            background-color: #0db1b9;
+            color: #fff;
+            font-size: 14px;
+            padding: 0 12px;
+            border: none;
+            box-shadow: none;
+            line-height: 36px;
+            -webkit-transition: .2s;
+            -o-transition: .2s;
+            transition: .2s;
+            margin-bottom: 10px;
+        }
+        .catalog-view_op1 .product-options-bottom .btn-buy:hover{
+            background-color: #048d94;
+        }
+        .catalog-view_op1 .product-options-bottom .btn-buy i{
+            font-size: 18px;
+            padding-right:5px;
+        }
     </style>
 </head>
 

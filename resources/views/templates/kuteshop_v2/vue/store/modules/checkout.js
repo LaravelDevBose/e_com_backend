@@ -153,9 +153,7 @@ const mutations = {
         if(response.address.address_type === 1){
             state.billing_address = response.address;
             state.billing_address_id = response.address.address_id;
-            console.log(response);
             if(response.is_shipping === 1 || response.is_shipping === true){
-                console.log('yess');
                 state.shipping_address = response.address;
                 state.shipping_address_id = response.address.address_id;
             }

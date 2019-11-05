@@ -154,7 +154,7 @@
                 }else{
                     if(this.billing_id == ''){
                         this.btnDisabled = false;
-                        this.$noty.warning('Select A Shipping Address');
+                        this.$noty.warning('Select A Billing Address');
                         return false;
                     }
                     let reqData = {

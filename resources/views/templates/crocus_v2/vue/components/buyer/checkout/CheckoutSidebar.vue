@@ -9,7 +9,7 @@
                         {{ billingAddress.first_name}} {{ billingAddress.last_name }}<br>
                         {{ billingAddress.address }}<br>
                         {{ billingAddress.city }}<br>
-                        {{ billingAddress.state }},  {{ billingAddress.postal_code }}<br>
+                        {{ billingAddress.region }},  {{ billingAddress.postal_code }}<br>
                         {{ billingAddress.country }}<br>
                         T: {{ billingAddress.phone_no }}<br>
                     </address>
@@ -20,7 +20,7 @@
                         {{ shippingAddress.first_name}} {{ shippingAddress.last_name }}<br>
                         {{ shippingAddress.address }}<br>
                         {{ shippingAddress.city }}<br>
-                        {{ shippingAddress.state }},  {{ shippingAddress.postal_code }}<br>
+                        {{ shippingAddress.region }},  {{ shippingAddress.postal_code }}<br>
                         {{ shippingAddress.country }}<br>
                         T: {{ shippingAddress.phone_no }}<br>
                     </address>

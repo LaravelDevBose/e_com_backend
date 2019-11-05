@@ -32,9 +32,11 @@ class CheckoutController extends Controller
             $dataCollection = array();
             $addressBooks = AddressBook::myAddress()->isActive()->latest()->get();
             $address = AddressBook::addressBookSelect($addressBooks);
-            $shippingPrice = Setting::where('key','delivery_rate')->first()->value;
+            $shippingPrice = Setting::where('key','delivery_rate')->first();
             if(empty($shippingPrice)){
                 $shippingPrice = 50;
+            }else{
+                $shippingPrice =  $shippingPrice->value;
             }
             $payment_methods = [];
             $methods = array_flip(PaymentInfo::Payment_Method);

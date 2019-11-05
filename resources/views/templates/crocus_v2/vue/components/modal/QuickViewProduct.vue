@@ -21,7 +21,7 @@
                                 <div class="product-shop col-lg-7 col-sm-7 col-xs-12">
 
                                     <div class="product-name">
-                                        <h1>{{ modal_product.product_name }}</h1>
+                                        <h1 @click.prevent="productDetails(modal_product.product_slug)">{{ modal_product.product_name }}</h1>
                                     </div>
                                     <div class="ratings">
                                         <div class="rating-box">
@@ -48,11 +48,12 @@
                                             <div class="pull-left">
                                                 <div class="custom pull-left">
                                                     <button @click.prevent="reducedQty" class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>
-                                                    <input type="text" class="input-text qty" v-model="cartInfo.qty" title="Qty" id="qty" name="qty">
+                                                    <input type="text" class="input-text qty" v-model="cartData.qty" title="Qty" id="qty" name="qty">
                                                     <button @click.prevent="increaseQty" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
                                                 </div>
                                             </div>
                                             <button @click.prevent="addToCart()" class="button btn-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
+
                                         </div>
                                         <div class="email-addto-box">
                                             <ul class="add-to-links">
@@ -95,19 +96,14 @@
             }
         },
         mounted(){
-            if(this.modal_product.product_type === 1){
-                this.cartData.price = parseFloat(this.modal_product.product_price);
-            }else{
-                this.cartData.price = parseFloat(this.modal_product.single_variation.price);
-                this.cartData.colorId = parseInt(this.modal_product.single_variation.pri_id);
-                this.cartData.sizeId = parseInt(this.modal_product.single_variation.sec_id);
-            }
+
         },
         methods:{
             ...mapActions([
                 'modalClose',
                 'insertToWishList',
-                'addToCartProduct'
+                'addToCartProduct',
+                'getProductVariationInfo'
             ]),
             addWishList(slug){
                 if(AppStorage.getWhoIs() === 'buyer'){
@@ -149,14 +145,52 @@
             },
             closeModal(){
                 this.modalClose();
-            }
+            },
+            setupPrice(){
+                if(this.modal_product.product_type === 1){
+                    this.cartData.price = parseFloat(this.modal_product.product_price);
+                }else{
+                    this.cartData.price = parseFloat(this.modal_product.single_variation.price);
+                    this.cartData.colorId = parseInt(this.modal_product.single_variation.pri_id);
+                    this.cartData.sizeId = parseInt(this.modal_product.single_variation.sec_id);
+                }
+
+            },
+            productDetails(slug){
+                location.href = '/product/'+slug;
+            },
+            buyNow(){
+                this.cartData.id = this.modal_product.product_id;
+                this.cartData.name = this.modal_product.product_name;
+                this.addToCartProduct(this.cartData)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            /*this.$noty.success(response.message);*/
+                            location.href='/cart';
+                        }else{
+                            this.$noty.error(response.message);
+                        }
+                    })
+            },
         },
         computed:{
             ...mapGetters([
                 'showModal',
                 'modal_product'
             ]),
-
+            checkModalData(){
+                return JSON.parse(JSON.stringify(this.modal_product));
+            }
+        },
+        watch:{
+            checkModalData:{
+                handler(newVal, oldVal){
+                    if (newVal !== oldVal){
+                        this.setupPrice();
+                        this.showIn = true;
+                    }
+                }
+            }
         }
     }
 </script>

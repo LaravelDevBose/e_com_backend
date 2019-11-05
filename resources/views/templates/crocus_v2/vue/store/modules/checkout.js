@@ -11,10 +11,12 @@ const state = {
     shipping_method_id:'',
     payment_methods:[],
     shipping_methods:[],
+    shipping_price:'',
     billing:true,
     shopping:false,
     method:false,
     payment:false,
+    charge:0,
 };
 
 //declare Getters
@@ -26,6 +28,7 @@ const getters = {
     shippingAddressId:(state)=>state.shipping_address_id,
     paymentMethods:(state)=>state.payment_methods,
     shippingMethods:(state)=>state.shipping_methods,
+    deliveryCharge:(state)=>state.shipping_price,
     paymentInfo:state=>state.payment_info,
     paymentMethodId:(state)=>state.payment_method_id,
     shippingMethodId:(state)=>state.shipping_method_id,
@@ -33,6 +36,7 @@ const getters = {
     shoppingTab:(state)=>state.shopping,
     methodTab:(state)=>state.method,
     paymentTab:(state)=>state.payment,
+    deliveryCost:(state)=>state.charge,
 };
 
 const actions = {
@@ -104,6 +108,15 @@ const actions = {
             return error.data;
         }
     },
+    async storeShippingMethod({commit}, formData){
+        // TODO Payment method added
+        try {
+            commit('setShippingMethodInfo', formData);
+        }catch (error) {
+            console.log(error);
+            return error.data;
+        }
+    },
     tabChange({commit},data){
         commit('setTabChange',data);
     },
@@ -118,6 +131,9 @@ const actions = {
             console.log(error);
             return error.data;
         }
+    },
+    deliveryChargeUpdate({commit}, charge){
+        commit('setDeliveryCharge', charge);
     }
 };
 
@@ -125,6 +141,8 @@ const mutations = {
     setAddressBookList:(state,response)=> {
         state.address_list = response.address_list;
         state.payment_methods = response.payment_methods;
+        state.shipping_methods = response.shipping_methods;
+        state.shipping_price = response.shipping_price;
     },
     updateAddressBook:(state,response)=> {
         let address = {
@@ -172,6 +190,11 @@ const mutations = {
         state.payment_info = state.payment_methods[response.payment_method_id];
         state.payment_method_id = response.payment_method_id;
     },
+    setShippingMethodInfo:(state,response)=>{
+        // TODO payment Details after using payment gatwaye
+        // state.payment_info = state.payment_methods[response.payment_method_id];
+        state.shipping_method_id = response.shipping_method_id;
+    },
     setTabChange:(state,data)=>{
         if(data.billing){
             state.billing = data.billing.tabAction
@@ -188,7 +211,8 @@ const mutations = {
     },
     placeOrder:(state,response)=>{
         console.log(response);
-    }
+    },
+    setDeliveryCharge:(state, charge)=>state.charge = charge,
 };
 
 export default {
