@@ -16,6 +16,8 @@ use App\Models\Product;
 use App\Models\ProductVariation;
 use App\Models\SectionCategory;
 use App\Models\SectionProduct;
+use App\Models\Seller;
+use App\Models\Shop;
 use App\Traits\CommonData;
 use App\Traits\ResponserTrait;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -259,6 +261,18 @@ class FrontendController extends Controller
     public function contact_pages()
     {
         return view('templates.' . $this->template_name . '.frontend.contact');
+    }
+
+    public function shop_profile($shopSlug)
+    {
+        $shop = Shop::where('shop_slug', $shopSlug)->with(['seller'=>function($query){
+            return $query->with(['products'=>function($qu){
+                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage');
+            }]);
+        }, 'shopLogo','banner'])->first();
+        return view('templates.' . $this->template_name . '.frontend.shop_profile',[
+            'shop'=>$shop,
+        ]);
     }
 
     public function searching_data(Request $request)

@@ -19,6 +19,7 @@ Route::namespace('Frontend')->as('front.')->group(function () {
     Route::post('/search', 'FrontendController@searching_data')->name('search');
     Route::get('/all/category/list', 'FrontendController@get_category_list')->name('category.list');
     Route::get('/get/hot/products', 'FrontendController@hot_products');
+    Route::get('/shop/{shop_slug}', 'FrontendController@shop_profile')->name('shop.profile');
 });
 
 Route::post('/attachment/store', 'AttachmentController@store')->name('attachment.store');

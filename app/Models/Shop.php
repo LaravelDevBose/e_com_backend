@@ -18,6 +18,7 @@ class Shop extends Model
         'phone_no',
         'shop_email',
         'shop_category',
+        'banner_id',
     ];
 
     public function seller(){
@@ -26,5 +27,10 @@ class Shop extends Model
 
     public function shopLogo(){
         return $this->hasOne(Attachment::class, 'attachment_id','logo_id');
+    }
+
+    public function banner(){
+
+        return $this->hasOne(Attachment::class, 'attachment_id','banner_id');
     }
 }
