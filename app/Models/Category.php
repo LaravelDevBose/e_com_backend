@@ -51,6 +51,18 @@ class Category extends Model
         }
         return $catIdArray;
     }
+    public static function All_children_Ids_by_array_data($catIds)
+    {
+        $sedChildID = Self::whereIn('parent_id', $catIds)->pluck('category_id')->toArray();
+        if(!empty($sedChildID)){
+            $catIds = array_merge($catIds, $sedChildID);
+            $thirdChildID = Self::whereIn('parent_id', $sedChildID)->where('category_status', config('app.active'))->pluck('category_id')->toArray();
+            if(!empty($thirdChildID)){
+                $catIdArray = array_merge($catIds, $thirdChildID);
+            }
+        }
+        return $catIds;
+    }
 
     public function scopeIsParent($query){
         $query->whereNull('parent_id');
