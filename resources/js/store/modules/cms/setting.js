@@ -30,6 +30,7 @@ const actions = {
     },
     async storeContactSetting({commit}, formData){
         try {
+            console.log(formData);
             return  await axios.post('/admin/setting/contact/store', formData)
                 .then(response=>{
                     commit('setResponse', response.data);
@@ -71,10 +72,9 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    async storeDeliverySetting({commit},formData){
+    async storeDeliverySetting({commit}, formData){
         try {
-
-            return await axios.post('/admin/setting/delivery/store',formData)
+            return await axios.post('/admin/setting/delivery/store',Object.assign({}, formData))
                 .then(response=>{
                     commit('setResponse', response.data);
                     return response.data;

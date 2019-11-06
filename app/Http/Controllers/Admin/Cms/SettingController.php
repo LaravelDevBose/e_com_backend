@@ -103,7 +103,6 @@ class SettingController extends Controller
     }
     public function delivery_setting_store(Request $request){
         try{
-
             DB::beginTransaction();
             foreach($request->all() as $key=>$value){
                 Setting::updateOrCreate(

@@ -235,7 +235,7 @@
                     cash_on_delivery:false,
                     paypal_payment:false,
                     card_payment:false,
-                }
+                },
 
             }
         },
