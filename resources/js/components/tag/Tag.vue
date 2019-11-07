@@ -28,7 +28,11 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="text-right form-group">
-                                    <button type="submit" :disabled="btnDisabled" class="btn btn-primary">Save Tag <i class="icon-arrow-right14 position-right"></i></button>
+                                    <button type="submit" :disabled="btnDisabled" class="btn btn-primary">
+                                        <span v-if="is_edit">Update Tag</span>
+                                        <span v-else>Save Tag</span>
+                                        <i class="icon-arrow-right14 position-right"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
