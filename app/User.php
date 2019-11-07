@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\Buyer;
 use App\Models\Seller;
+use App\Models\SocialProvider;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -76,5 +77,10 @@ class User extends Authenticatable
 
     public function buyer(){
         return $this->hasOne(Buyer::class, 'user_id', 'user_id');
+    }
+
+    public function social_provider()
+    {
+        return $this->hasOne(SocialProvider::class, 'user_id', 'user_id');
     }
 }

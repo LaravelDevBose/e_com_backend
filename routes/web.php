@@ -27,6 +27,11 @@ Route::post('/crop_image/store', 'AttachmentController@crop_image_store')->name(
 Route::delete('/attachment/delete/{id}', 'AttachmentController@delete')->name('attachment.delete');
 Route::get('/attachment/image/{id}', 'AttachmentController@attachment_image');
 
+/*
+ * Social Provider Login Route
+*/
+Route::get('social/login/{provider}', 'SocialLoginController@redirectToProvider')->name('social-login');
+Route::get('social/login/{provider}/callback', 'SocialLoginController@handleProviderCallback');
 
 Route::prefix('error')->as('error.')->group(function (){
     Route::get('/404', 'ErrorController@error_404')->name('404');
