@@ -10394,10 +10394,11 @@ width: 300px;
 .add-to-cart .qty {
 	margin-bottom: 10px
 }
-.product-view .product-name h1 {
-	font-size: 30px;
+
+    .product-view .product-name h1 {
+	font-size: 15px;
 	padding-right: 0px;
-	line-height: normal;
+	line-height: 1.3em;
 }
 #shopping-cart-table {
 	margin-top: 0px;

@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <div class="panel-group panel-group-control content-group-lg" id="accordion-control">
+        <div class="panel-group panel-group-control content-group-lg" >
             <div class="panel panel-white">
                 <div class="panel-heading">
                     <h6 class="panel-title">
@@ -29,7 +29,7 @@
                             <div class="col-md-5 ">
                                 <div class="form-group">
                                     <label>Shop Address:</label>
-                                    <vue-editor id="contact_address" v-model="formData.shop_address"></vue-editor>
+                                    <textarea v-model="formData.shop_address" class="form-control" id="contact_address" rows="2"></textarea>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-7">

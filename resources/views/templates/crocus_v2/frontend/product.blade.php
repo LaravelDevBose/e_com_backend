@@ -5,7 +5,35 @@
 @section('PageCss')
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/flexslider.css') }}">
     <style>
+        .shop-info .sold-by{
+            font-size: 12px;
+            color: #6d6d6d;
+        }
+        .shop-info .shop-name{
+            font-size: 15px;
+            font-weight: 800;
+            margin: 0;
+            padding-bottom: 5px;
+            color: #333;
+        }
+        .shop-info .shop-address{
+            font-size: 13px;
+            margin: 0;
+            color: #6d6d6d;
 
+        }
+        .shop-info .go-to-store{
+            padding: 7px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .go-to-store a{
+
+            font-weight: bold;
+            font-size: 13px;
+            color: #0db1b9;
+        }
     </style>
 @endsection
 
@@ -67,6 +95,29 @@
                                 </div>
 
                                 <div class="col-lg-3 col-sm-3 col-xs-12 pro-banner">
+                                    <div class="text-widget widget widget__sidebar shop-info">
+                                        <div class="widget-content">
+                                            <span class="sold-by">Sold By</span>
+                                            <h3 class="shop-name">
+                                                <span>{{ $product->seller->shop->shop_name }}</span>
+                                            </h3>
+                                            @if(!empty($product->seller->shop->phone_no))
+                                                <p class="shop-address">
+                                                    <i class="fa fa-phone"></i>
+                                                    <span>{{ $product->seller->shop->phone_no }}</span>
+                                                </p>
+                                            @endif
+                                            @if(!empty($product->seller->shop->shop_address))
+                                                <p class="shop-address">
+                                                    <i class="fa fa-map-marker"></i>
+                                                    <span>{!! $product->seller->shop->shop_address !!}</span>
+                                                </p>
+                                            @endif
+                                        </div>
+                                        <div class="go-to-store">
+                                            <a href="{{ route('front.shop.profile', $product->seller->shop->shop_slug) }}"> Go To Store</a>
+                                        </div>
+                                    </div>
                                     @if(!empty($hotProducts))
                                         <div class="hot-deal">
                                             <div class="title">Hot Deal</div>
@@ -79,10 +130,11 @@
                                             </div>
                                         </div>
                                     @endif
-                                    <div class="download-app">
+                                    {{--<div class="download-app">
                                         <h2>DOWNLOAD THE APP</h2>
                                         <img alt="banner" src="{{ asset('crocus_v2/images/google-play-btn.jpg') }}" class="app-btn">
-                                        <img alt="banner" src="{{ asset('crocus_v2/images/apple-btn.jpg') }}" class="app-btn"></div>
+                                        <img alt="banner" src="{{ asset('crocus_v2/images/apple-btn.jpg') }}" class="app-btn">
+                                    </div>--}}
                                 </div>
                             </form>
                         </div>

@@ -46,7 +46,8 @@ Route::prefix('seller')->middleware('auth:seller')->namespace('Seller')->as('sel
 
     Route::prefix('shop')->as('shop.')->group(function () {
         Route::get('setting', 'ShopController@shop_setting_page')->name('setting');
-        Route::post('setting/update', 'ShopController@shop_setting_update')->name('update');
+        Route::post('setting/update', 'ShopController@shop_setting_update')->name('setting.update');
+        Route::post('banner/update', 'ShopController@shop_banner_update')->name('banner.update');
     });
 
     Route::get('account/setting/page', 'SettingController@account_setting_page')->name('account.setting.page');

@@ -86,4 +86,39 @@ class ShopController extends Controller
             return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
         }
     }
+
+    public function shop_banner_update(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'banner_id'=>'required|string',
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+                $seller = Seller::where('seller_id', auth()->guard('seller')->user()->seller->seller_id)->first();
+                $shop = Shop::updateOrCreate(
+
+                    ['seller_id'=>$seller->seller_id],
+                    [
+                        'banner_id'=>$request->banner_id,
+                    ]
+                );
+
+                if(!empty($shop)){
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Shop Banner update Successfully');
+                }else{
+                    throw new \Exception('Error Found. Shop Banner Not Updated', Response::HTTP_BAD_REQUEST);
+                }
+
+            }catch (\Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+        }
+    }
 }
