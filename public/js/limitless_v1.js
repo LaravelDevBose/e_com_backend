@@ -77009,7 +77009,7 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "col-md-6 col-md-offset-3" }, [
                   _c(
                     "div",
                     { staticClass: "form-group" },
@@ -77027,7 +77027,7 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "col-md-6 col-md-offset-3" }, [
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", [_vm._v("Shop Banner:")]),
                     _vm._v(" "),

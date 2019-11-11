@@ -9,8 +9,8 @@ return [
     */
     'default_template' => 'crocus_v2',
 //    'default_template' => 'kuteshop_v2',
-    'seller_template' => 'limitless_v2',
-//    'seller_template' => 'limitless_v1',
+//    'seller_template' => 'limitless_v2',
+    'seller_template' => 'limitless_v1',
     'active' => 1,
     'activeView' => 'Active',
     'inactive' => 2,
