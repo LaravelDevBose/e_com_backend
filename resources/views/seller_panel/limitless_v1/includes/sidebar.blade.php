@@ -58,14 +58,6 @@
                             <li><a href="{{ route('seller.order.cancel_order') }}"><i class="icon-cart4"></i>  Cancel Order </a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#"><i class="icon-ticket"></i> <span>Return Order </span></a>
-                        <ul>
-                            <li><a href="{{ route('seller.home') }}"><i class="icon-reply position-left"></i> New Return</a></li>
-                            <li><a href="{{ route('seller.home') }}"><i class="icon-reply-all position-left"></i>Return List</a></li>
-                        </ul>
-                    </li>
-
                 </ul>
                 <div style="min-height: 70px; width: 100%;"></div>
             </div>

@@ -56,6 +56,7 @@
                 </div>
             </div>
         </div>
+        <shop-banner-panel :banner_image="shopDetails.banner.image_path" ></shop-banner-panel>
     </div>
 </template>
 
@@ -64,9 +65,10 @@
     import { VueEditor } from "vue2-editor";
     import VueSelect2 from '../../../../../../js/components/helper/Select2';
     import ImageCropper from "../../../../../../js/components/cropper/ImageCropper";
+    import ShopBannerPanel from "./ShopBannerPanel";
     export default {
         name: "ShopSettingPage",
-        components:{ImageCropper,VueSelect2,VueEditor},
+        components:{ShopBannerPanel, ImageCropper,VueSelect2,VueEditor},
         data(){
             return{
                 no_logo:'',

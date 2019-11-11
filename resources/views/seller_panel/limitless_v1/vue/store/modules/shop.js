@@ -35,6 +35,17 @@ const actions = {
             return error.data;
         }
     },
+    async updateShopBanner({commit}, reqData){
+        try {
+            return await axios.post('/seller/shop/banner/update',reqData)
+                .then(response=>{
+                    return response.data;
+                });
+        }catch (error) {
+            console.log(error);
+            return error.data;
+        }
+    },
 };
 
 const mutations = {
