@@ -73,6 +73,7 @@
             return{
                 no_logo:'',
                 logo_image:'',
+                banner_image:'',
                 formData:{
                     shop_name:'',
                     logo_id:'',
@@ -145,6 +146,9 @@
                 handler(newValue,oldValue){
                     if(oldValue !== newValue){
                         Object.assign(this.formData, this.shopDetails);
+                        if(this.shopDetails.banner.image_path !== '' || true ){
+                            this.banner_image = this.shopDetails.banner.image_path;
+                        }
                     }
                 }
             }

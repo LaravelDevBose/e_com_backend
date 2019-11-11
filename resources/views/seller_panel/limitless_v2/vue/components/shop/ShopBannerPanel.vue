@@ -9,13 +9,13 @@
             <div class="panel-body">
                 <form action="" @submit.prevent="shopBannerUpdate">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8 col-md-offset-2">
                             <div class="form-group">
                                 <label>Shop Banner:</label>
                                 <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8 col-md-offset-2">
                             <div class="form-group">
                                 <label>Shop Banner:</label>
                                 <img class="img img-responsive" :src="banner_image" alt="Banner Image">
