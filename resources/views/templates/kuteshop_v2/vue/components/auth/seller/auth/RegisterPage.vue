@@ -1,6 +1,6 @@
 <template>
     <div class="box-authentication">
-        <h3>Create an Seller account</h3>
+        <h3>Sell With Saliim. Create Your Shop.</h3>
         <p>Please enter your Details to create an account.</p>
         <form action="" @submit.prevent="sellerRegister">
             <div class="row">

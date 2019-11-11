@@ -47611,7 +47611,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col-1 new-users" }, [
-    _c("strong", [_vm._v("New Customers")]),
+    _c("strong", [_vm._v("New Seller")]),
     _vm._v(" "),
     _c("div", { staticClass: "content" }, [
       _c(

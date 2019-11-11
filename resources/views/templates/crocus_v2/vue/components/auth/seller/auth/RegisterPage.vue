@@ -1,6 +1,6 @@
 <template>
     <div class="col-1 new-users">
-        <strong>New Customers</strong>
+        <strong>New Seller</strong>
         <div class="content">
             <form action="#" @submit.prevent="sellerRegister">
                 <ul class="form-list">

@@ -8376,6 +8376,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 // import the component
 
  // import the styles
@@ -75718,7 +75721,11 @@ var staticRenderFns = [
           staticClass: "alert alert-warning",
           staticStyle: { "margin-bottom": ".4rem" }
         },
-        [_vm._v("Product Will make Pending and waiting for Admin Approval.")]
+        [
+          _vm._v(
+            "\n                                    Product Will make Pending for Admin Approval.\n                                    With in 3 Days we have been Approve.\n                                "
+          )
+        ]
       )
     ])
   }

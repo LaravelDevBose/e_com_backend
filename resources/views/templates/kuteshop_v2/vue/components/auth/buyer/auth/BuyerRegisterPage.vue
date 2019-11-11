@@ -1,7 +1,7 @@
 <template>
     <div class="box-authentication">
         <h3>Create an account</h3>
-        <p>Please enter your email address to create an account.</p>
+        <p>Please enter your Details to create an account.</p>
         <form action="" @submit.prevent="buyerRegister">
             <div class="row">
                 <div class="col-md-10">

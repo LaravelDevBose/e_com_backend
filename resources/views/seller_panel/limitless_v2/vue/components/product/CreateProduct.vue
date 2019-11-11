@@ -431,7 +431,10 @@
                                 </div>
 
                                 <div class="col-md-6 col-md-offset-1">
-                                    <p class="alert alert-warning" style="margin-bottom:.4rem;">Product Will make Pending and waiting for Admin Approval.</p>
+                                    <p class="alert alert-warning" style="margin-bottom:.4rem;">
+                                        Product Will make Pending for Admin Approval.
+                                        With in 3 Days we have been Approve.
+                                    </p>
                                 </div>
                                 <div class="col-md-2 col-md-offset-1">
                                     <div class="text-right form-group" style="margin-bottom:0px;">

@@ -46738,7 +46738,7 @@ var render = function() {
   return _c("div", { staticClass: "box-authentication" }, [
     _c("h3", [_vm._v("Create an account")]),
     _vm._v(" "),
-    _c("p", [_vm._v("Please enter your email address to create an account.")]),
+    _c("p", [_vm._v("Please enter your Details to create an account.")]),
     _vm._v(" "),
     _c(
       "form",
@@ -47132,7 +47132,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "box-authentication" }, [
-    _c("h3", [_vm._v("Create an Seller account")]),
+    _c("h3", [_vm._v("Sell With Saliim. Create Your Shop.")]),
     _vm._v(" "),
     _c("p", [_vm._v("Please enter your Details to create an account.")]),
     _vm._v(" "),
