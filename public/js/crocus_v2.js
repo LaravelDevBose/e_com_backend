@@ -11056,7 +11056,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../../../../no
 
 
 // module
-exports.push([module.i, "\n.box-authentication[data-v-2e4a8400] {\n    padding-top: 15px!important;\n}\n.social-btn a[data-v-2e4a8400]{\n    font-size: 13px;\n}\n", ""]);
+exports.push([module.i, "\n.box-authentication[data-v-2e4a8400] {\n    padding-top: 15px!important;\n    margin-top: 15px!important;\n    border-top: 1px solid #eee;\n}\n.social-btn a[data-v-2e4a8400]{\n    font-size: 13px;\n    margin-top: 10px;\n}\n", ""]);
 
 // exports
 

@@ -32,8 +32,11 @@
 <style scoped>
     .box-authentication {
         padding-top: 15px!important;
+        margin-top: 15px!important;
+        border-top: 1px solid #eee;
     }
     .social-btn a{
         font-size: 13px;
+        margin-top: 10px;
     }
 </style>
