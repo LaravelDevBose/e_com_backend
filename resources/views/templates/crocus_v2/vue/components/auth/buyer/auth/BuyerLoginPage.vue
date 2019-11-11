@@ -25,19 +25,21 @@
                 <p class="required">* Required Fields</p>
                 <div class="buttons-set">
                     <button type="submit" class="button login" ><span>Login</span></button>
-                    <a class="forgot-word" href="http://demo.themessoft.com/computerstore/customer/account/forgotpassword/">Forgot Your Password?</a>
+                    <a class="forgot-word" href="#">Forgot Your Password?</a>
                 </div>
             </form>
-
         </div>
+        <social-login-btn></social-login-btn>
     </div>
 </template>
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
+    import SocialLoginBtn from "./SocialLoginBtn";
 
     export default {
         name: "BuyerLoginPage",
+        components: {SocialLoginBtn},
         data(){
             return{
                 formData:{
