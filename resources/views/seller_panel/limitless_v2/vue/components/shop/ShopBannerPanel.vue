@@ -9,10 +9,16 @@
             <div class="panel-body">
                 <form action="" @submit.prevent="shopBannerUpdate">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>Logo:</label>
+                                <label>Shop Banner:</label>
                                 <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Shop Banner:</label>
+                                <img class="img img-responsive" :src="banner_image" alt="Banner Image">
                             </div>
                         </div>
                         <div class="col-md-3 col-md-offset-8">
@@ -31,8 +37,14 @@
     import {mapActions, mapGetters} from 'vuex';
     import ImageCropper from "../../../../../../js/components/cropper/ImageCropper";
     export default {
-        name: "ShopSettingPage",
+        name: "ShopBannerPanel",
         components:{ImageCropper},
+        props:{
+            banner_image:{
+                type:[String, Object],
+                default:'',
+            }
+        },
         data(){
             return{
                 no_logo:'',
@@ -55,7 +67,7 @@
             ...mapActions([
                 'updateShopBanner',
             ]),
-            shopSettingUpdate(){
+            shopBannerUpdate(){
                 //TODO From Validation
                 if(this.cropImageIds !== null){
                     this.formData.banner_id = this.cropImageIds[0];

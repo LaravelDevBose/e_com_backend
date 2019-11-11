@@ -29,7 +29,7 @@ class ShopController extends Controller
     public function shop_setting_page(Request $request){
 
         if($request->ajax()){
-            $shopInfo = Shop::where('seller_id', auth()->guard('seller')->user()->seller->seller_id)->with('shopLogo')->first();
+            $shopInfo = Shop::where('seller_id', auth()->guard('seller')->user()->seller->seller_id)->with('shopLogo', 'banner')->first();
             if(!empty($shopInfo)){
                 return ResponserTrait::singleResponse($shopInfo, 'success', Response::HTTP_OK);
             }else{
@@ -90,7 +90,7 @@ class ShopController extends Controller
     public function shop_banner_update(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'banner_id'=>'required|string',
+            'banner_id'=>'required',
         ]);
 
         if($validator->passes()){

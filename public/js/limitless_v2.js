@@ -9736,12 +9736,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ShopSettingPage",
+  name: "ShopBannerPanel",
   components: {
     ImageCropper: _js_components_cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  props: {
+    banner_image: {
+      type: [String, Object],
+      "default": ''
+    }
   },
   data: function data() {
     return {
@@ -9762,7 +9774,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['updateShopBanner']), {
-    shopSettingUpdate: function shopSettingUpdate() {
+    shopBannerUpdate: function shopBannerUpdate() {
       //TODO From Validation
       if (this.cropImageIds !== null) {
         this.formData.banner_id = this.cropImageIds[0];
@@ -9809,6 +9821,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
 /* harmony import */ var _js_components_helper_Select2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../js/components/helper/Select2 */ "./resources/js/components/helper/Select2.vue");
 /* harmony import */ var _js_components_cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../js/components/cropper/ImageCropper */ "./resources/js/components/cropper/ImageCropper.vue");
+/* harmony import */ var _ShopBannerPanel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ShopBannerPanel */ "./resources/views/seller_panel/limitless_v2/vue/components/shop/ShopBannerPanel.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -9876,6 +9889,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+
 
 
 
@@ -9883,6 +9898,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ShopSettingPage",
   components: {
+    ShopBannerPanel: _ShopBannerPanel__WEBPACK_IMPORTED_MODULE_4__["default"],
     ImageCropper: _js_components_cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_3__["default"],
     VueSelect2: _js_components_helper_Select2__WEBPACK_IMPORTED_MODULE_2__["default"],
     VueEditor: vue2_editor__WEBPACK_IMPORTED_MODULE_1__["VueEditor"]
@@ -16460,7 +16476,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -77110,12 +77126,12 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-12" }, [
+                _c("div", { staticClass: "col-md-6" }, [
                   _c(
                     "div",
                     { staticClass: "form-group" },
                     [
-                      _c("label", [_vm._v("Logo:")]),
+                      _c("label", [_vm._v("Shop Banner:")]),
                       _vm._v(" "),
                       _c("image-cropper", {
                         attrs: {
@@ -77126,6 +77142,17 @@ var render = function() {
                     ],
                     1
                   )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Shop Banner:")]),
+                    _vm._v(" "),
+                    _c("img", {
+                      staticClass: "img img-responsive",
+                      attrs: { src: _vm.banner_image, alt: "Banner Image" }
+                    })
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-3 col-md-offset-8" }, [
@@ -77186,216 +77213,225 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "content" }, [
-    _c(
-      "div",
-      { staticClass: "panel-group panel-group-control content-group-lg" },
-      [
-        _c("div", { staticClass: "panel panel-white" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel-body" }, [
-            _c(
-              "form",
-              {
-                attrs: { action: "" },
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.shopSettingUpdate($event)
+  return _c(
+    "div",
+    { staticClass: "content" },
+    [
+      _c(
+        "div",
+        { staticClass: "panel-group panel-group-control content-group-lg" },
+        [
+          _c("div", { staticClass: "panel panel-white" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "panel-body" }, [
+              _c(
+                "form",
+                {
+                  attrs: { action: "" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.shopSettingUpdate($event)
+                    }
                   }
-                }
-              },
-              [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-5 col-md-offset-1" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.shop_name,
-                            expression: "formData.shop_name"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          placeholder: "Shop Name",
-                          required: ""
-                        },
-                        domProps: { value: _vm.formData.shop_name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                },
+                [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-5 col-md-offset-1" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.formData.shop_name,
+                              expression: "formData.shop_name"
                             }
-                            _vm.$set(
-                              _vm.formData,
-                              "shop_name",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Contact No:")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.phone_no,
-                            expression: "formData.phone_no"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "Contact No" },
-                        domProps: { value: _vm.formData.phone_no },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "phone_no",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Shop Email:")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.shop_email,
-                            expression: "formData.shop_email"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "email", placeholder: "Shop Email" },
-                        domProps: { value: _vm.formData.shop_email },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "shop_email",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-5 " }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Shop Address:")]),
-                      _vm._v(" "),
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.shop_address,
-                            expression: "formData.shop_address"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { id: "contact_address", rows: "2" },
-                        domProps: { value: _vm.formData.shop_address },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "shop_address",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-7" }, [
-                        _c(
-                          "div",
-                          { staticClass: "form-group" },
-                          [
-                            _c("label", [_vm._v("Logo:")]),
-                            _vm._v(" "),
-                            _c("image-cropper", {
-                              attrs: {
-                                cropperData: _vm.cropperData,
-                                removeImage: _vm.removeImage
-                              }
-                            })
                           ],
-                          1
-                        )
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Shop Name",
+                            required: ""
+                          },
+                          domProps: { value: _vm.formData.shop_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.formData,
+                                "shop_name",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-4" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _vm.formData.shop_logo
-                            ? _c("img", {
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Contact No:")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.formData.phone_no,
+                              expression: "formData.phone_no"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "Contact No" },
+                          domProps: { value: _vm.formData.phone_no },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.formData,
+                                "phone_no",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Shop Email:")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.formData.shop_email,
+                              expression: "formData.shop_email"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "email", placeholder: "Shop Email" },
+                          domProps: { value: _vm.formData.shop_email },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.formData,
+                                "shop_email",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-5 " }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Shop Address:")]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.formData.shop_address,
+                              expression: "formData.shop_address"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { id: "contact_address", rows: "2" },
+                          domProps: { value: _vm.formData.shop_address },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.formData,
+                                "shop_address",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-7" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [_vm._v("Logo:")]),
+                              _vm._v(" "),
+                              _c("image-cropper", {
                                 attrs: {
-                                  src: _vm.formData.shop_logo.image_path,
-                                  alt: "Company Logo"
+                                  cropperData: _vm.cropperData,
+                                  removeImage: _vm.removeImage
                                 }
                               })
-                            : _c("img", {
-                                attrs: { src: _vm.no_logo, alt: "No Logo" }
-                              })
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _vm.formData.shop_logo
+                              ? _c("img", {
+                                  attrs: {
+                                    src: _vm.formData.shop_logo.image_path,
+                                    alt: "Company Logo"
+                                  }
+                                })
+                              : _c("img", {
+                                  attrs: { src: _vm.no_logo, alt: "No Logo" }
+                                })
+                          ])
                         ])
                       ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3 col-md-offset-8" }, [
-                    _c("div", { staticClass: "text-right form-group" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-success",
-                          attrs: { type: "submit", disabled: _vm.btnDisabled }
-                        },
-                        [
-                          _vm._v("Store Setting"),
-                          _c("i", {
-                            staticClass: "icon-arrow-right14 position-right"
-                          })
-                        ]
-                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-3 col-md-offset-8" }, [
+                      _c("div", { staticClass: "text-right form-group" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            attrs: { type: "submit", disabled: _vm.btnDisabled }
+                          },
+                          [
+                            _vm._v("Store Setting"),
+                            _c("i", {
+                              staticClass: "icon-arrow-right14 position-right"
+                            })
+                          ]
+                        )
+                      ])
                     ])
                   ])
-                ])
-              ]
-            )
+                ]
+              )
+            ])
           ])
-        ])
-      ]
-    )
-  ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("shop-banner-panel", {
+        attrs: { banner_image: _vm.shopDetails.banner.image_path }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -95847,7 +95883,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })
