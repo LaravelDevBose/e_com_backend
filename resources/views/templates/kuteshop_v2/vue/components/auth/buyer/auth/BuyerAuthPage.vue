@@ -14,6 +14,7 @@
                     </div>
                     <div class="col-sm-6">
                         <buyer-login-page></buyer-login-page>
+                        <social-login-btn></social-login-btn>
                     </div>
                 </div>
             </div>
@@ -27,9 +28,10 @@
 
     import BuyerRegisterPage from "./BuyerRegisterPage";
     import BuyerLoginPage from "./BuyerLoginPage";
+    import SocialLoginBtn from "./SocialLoginBtn";
     export default {
         name: "BuyerAuthPage",
-        components: {BuyerLoginPage, BuyerRegisterPage},
+        components: {SocialLoginBtn, BuyerLoginPage, BuyerRegisterPage},
         created(){
             AppStorage.storageClear();
         }

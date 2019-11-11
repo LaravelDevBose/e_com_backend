@@ -17,6 +17,7 @@
                 </div>
             </div>
         </form>
+
     </div>
 </template>
 
@@ -82,5 +83,7 @@
 </script>
 
 <style scoped>
-
+    .box-authentication {
+        margin-bottom: 15px!important;
+    }
 </style>
