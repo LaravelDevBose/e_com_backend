@@ -2825,7 +2825,7 @@ select.input-sm {
 
 @media (max-width:991px) {
     .site-header .block-nav-categori {
-        width: 100%!important
+        width: 160px!important
     }
     .site-header .block-nav-categori .block-title {
         width: 100%!important;

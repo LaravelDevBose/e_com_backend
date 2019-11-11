@@ -3,7 +3,44 @@
 @section('Title', 'Product')
 
 @section('PageCss')
+    <style>
+        .text-widget.widget.widget__sidebar.shop-info {
+            border: 1px solid #eee;
+            margin-bottom: 1em;
+        }
+        .widget-content {
+            padding: 15px;
+        }
+        .shop-info .sold-by{
+            font-size: 12px;
+            color: #6d6d6d;
+        }
+        .shop-info .shop-name{
+            font-size: 15px;
+            font-weight: 800;
+            margin: 0;
+            padding-bottom: 5px;
+            color: #333;
+        }
+        .shop-info .shop-address{
+            font-size: 13px;
+            margin: 0;
+            color: #6d6d6d;
+            line-height: 2rem;
+        }
+        .shop-info .go-to-store{
+            padding: 7px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .go-to-store a{
 
+            font-weight: bold;
+            font-size: 13px;
+            color: #0db1b9;
+        }
+    </style>
 @endsection
 
 @section('Content')
@@ -57,38 +94,66 @@
                         </div>
 
                         <div class="col-sm-6 col-md-7 col-lg-7">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-8 col-lg-8">
+                                    <div class="product-info-main">
 
-                            <div class="product-info-main">
-
-                                <h1 class="page-title">
-                                    {{ $product->product_name }}
-                                </h1>
-                                <div class="product-reviews-summary">
-                                    <div class="rating-summary">
-                                        <div class="rating-result" title="70%">
+                                        <h1 class="page-title">
+                                            {{ $product->product_name }}
+                                        </h1>
+                                        <div class="product-reviews-summary">
+                                            <div class="rating-summary">
+                                                <div class="rating-result" title="70%">
                                                 <span style="width:70%">
                                                     <span><span>70</span>% of <span>100</span></span>
                                                 </span>
+                                                </div>
+                                            </div>
+                                            <div class="reviews-actions">
+                                                <a href="" class="action view">Based  on 3 ratings</a>
+                                                {{--                                        <a href="" class="action add"><img alt="img" src="/kuteshop_v2/images/icon/write.png">&#160;&#160;write a review</a>--}}
+                                            </div>
+                                        </div>
+
+
+
+                                        <singel-product-options :product="{{ $product }}"></singel-product-options>
+                                        {{--<div class="product-addto-links-second">
+                                            <a href="" class="action action-print">Print</a>
+                                            <a href="" class="action action-friend">Send to a friend</a>
+                                        </div>
+                                        <div class="share">
+                                            <img src="/kuteshop_v2/images/media/index1/share.png" alt="share">
+                                        </div>--}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4 col-lg-4">
+                                    <div class="text-widget widget widget__sidebar shop-info">
+                                        <div class="widget-content">
+                                            <span class="sold-by">Sold By</span>
+                                            <h3 class="shop-name">
+                                                <span>{{ $product->seller->shop->shop_name }}</span>
+                                            </h3>
+                                            @if(!empty($product->seller->shop->phone_no))
+                                                <p class="shop-address">
+                                                    <i class="fa fa-phone"></i>
+                                                    <span>{{ $product->seller->shop->phone_no }}</span>
+                                                </p>
+                                            @endif
+                                            @if(!empty($product->seller->shop->shop_address))
+                                                <p class="shop-address">
+                                                    <i class="fa fa-map-marker"></i>
+                                                    <span>{!! $product->seller->shop->shop_address !!}</span>
+                                                </p>
+                                            @endif
+                                        </div>
+                                        <div class="go-to-store">
+                                            <a href="{{ route('front.shop.profile', $product->seller->shop->shop_slug) }}"> Go To Store</a>
                                         </div>
                                     </div>
-                                    <div class="reviews-actions">
-                                        <a href="" class="action view">Based  on 3 ratings</a>
-{{--                                        <a href="" class="action add"><img alt="img" src="/kuteshop_v2/images/icon/write.png">&#160;&#160;write a review</a>--}}
-                                    </div>
                                 </div>
 
-
-
-                                <singel-product-options :product="{{ $product }}"></singel-product-options>
-                                {{--<div class="product-addto-links-second">
-                                    <a href="" class="action action-print">Print</a>
-                                    <a href="" class="action action-friend">Send to a friend</a>
-                                </div>
-                                <div class="share">
-                                    <img src="/kuteshop_v2/images/media/index1/share.png" alt="share">
-                                </div>--}}
-                            </div><!-- detail- product -->
-
+                            </div>
                         </div><!-- Main detail -->
 
                     </div>
