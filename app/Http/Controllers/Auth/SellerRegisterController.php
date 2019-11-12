@@ -98,10 +98,13 @@ class SellerRegisterController extends Controller
             try{
                 DB::beginTransaction();
                 event(new Registered($user = $this->create($request->all())));
-                if($user){
+                if(!empty($user)){
                     $seller = Seller::create([
                         'user_id'=>$user->user_id,
-                        'shop_name'=>$request->shop_name,
+                        'seller_name'=>$request->full_name,
+                        'seller_email'=>$request->email,
+                        'seller_phone'=>$request->phone_no,
+                        'seller_type'=>Seller::SellerType['Normal'],
                     ]);
 
                     if(!empty($seller)){
@@ -110,8 +113,13 @@ class SellerRegisterController extends Controller
                             'shop_name'=>$request->shop_name,
                             'shop_slug'=>Str::slug($request->shop_name),
                         ]);
-                        DB::commit();
-                        return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Seller Created Successfully', '', route('seller.login'));
+                        if(!empty($shop)){
+                            DB::commit();
+                            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Seller Created Successfully. We Are Approve with in 3 days.', '', route('seller.login'));
+                        }else{
+                            throw new \Exception('Shop Not Create. Invalid Information', Response::HTTP_BAD_REQUEST);
+                        }
+
                     }else{
                         throw new \Exception('Seller Not Create. Invalid Information', Response::HTTP_BAD_REQUEST);
                     }

@@ -49,7 +49,6 @@ class SettingController extends Controller
             'email'=>'required|email',
             'phone_no'=>'required|string',
         ]);
-
         if($validator->passes()){
             try{
                 DB::beginTransaction();
@@ -62,6 +61,12 @@ class SettingController extends Controller
                         ]);
 
                 if(!empty($user)){
+                    $seller = Seller::where('user_id',\auth()->guard('seller')->id())
+                        ->update([
+                            'seller_name'=>$request->full_name,
+                            'seller_email'=>$request->email,
+                            'seller_phone'=>$request->phone_no,
+                        ]);
                     DB::commit();
                     return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Account Setting update Successfully', '', route('seller.account.setting.page'));
                 }else{

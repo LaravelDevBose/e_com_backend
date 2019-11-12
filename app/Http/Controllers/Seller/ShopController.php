@@ -67,10 +67,6 @@ class ShopController extends Controller
                     ]);
                 }
                 if(!empty($shop)){
-                    $seller->update([
-                        'shop_name'=>$request->shop_name,
-                    ]);
-
                     DB::commit();
                     return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Shop Details update Successfully');
                 }else{

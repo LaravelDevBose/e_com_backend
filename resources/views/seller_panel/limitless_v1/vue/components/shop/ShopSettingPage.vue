@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <shop-banner-panel :banner_image="shopDetails.banner.image_path" ></shop-banner-panel>
+        <shop-banner-panel :banner_image="banner_image" ></shop-banner-panel>
     </div>
 </template>
 

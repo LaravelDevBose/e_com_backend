@@ -14,17 +14,23 @@ class Seller extends User
         'Block'=>4,
     ];
 
+    const SellerType=[
+        'Normal'=>1,
+        'Individual'=>2
+    ];
+
     protected $table ='sellers';
 
     protected $primaryKey ='seller_id';
 
     protected $fillable=[
         'user_id',
-        'shop_name',
-        'shop_address',
-        'shop_phone',
-        'shop_email',
-        'shop_status',
+        'seller_name',
+        'seller_email',
+        'seller_phone',
+        'seller_address',
+        'seller_type',
+        'seller_status'
     ];
     protected $appends=[
         'status_label'
@@ -33,12 +39,12 @@ class Seller extends User
     public function getStatusLabelAttribute()
     {
         $shopStatus = array_flip(Self::ShopStatus);
-        return $shopStatus[$this->attributes['shop_status']];
+        return $shopStatus[$this->attributes['seller_status']];
     }
 
     public function scopeNotDelete($query)
     {
-        return $query->where('shop_status', '!=', config('app.delete'));
+        return $query->where('seller_status', '!=', config('app.delete'));
     }
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'user_id')->where('is_seller', config('app.one'));
