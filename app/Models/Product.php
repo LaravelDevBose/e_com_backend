@@ -17,6 +17,12 @@ class Product extends Model
         'Variation'=>2
     ];
 
+    const ProductCondition = [
+        'New Product'=>1,
+        'Used Product'=>2,
+        'Republish Product'=>3
+    ];
+
     const WarrantyType=[
         1=>'International Manufacturer Warranty',
         2=>'Non-local warranty',
@@ -71,6 +77,7 @@ class Product extends Model
         'product_qty',
         'product_price',
         'seller_sku',
+        'product_condition',
     ];
 
     protected static function boot()
@@ -107,12 +114,17 @@ class Product extends Model
 
     public static function flipProductType()
     {
-        return array_flip(Self::ProductType);
+        return array_flip(self::ProductType);
     }
 
     public static function flipProductStatus()
     {
-        return array_flip(Self::ProductStatus);
+        return array_flip(self::ProductStatus);
+    }
+
+    public static function flipProductCondition()
+    {
+        return array_flip(self::ProductCondition);
     }
 
     public static function product_sku_generate(){

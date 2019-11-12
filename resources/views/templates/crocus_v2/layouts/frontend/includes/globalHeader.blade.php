@@ -39,8 +39,10 @@
                                 <div class="myaccount"><a title="My Account" href="{{ route('seller.home') }}"><span class="hidden-xs">My Account</span></a> </div>
                                 <div class="login"><a href="{{ route('seller.logout') }}"><span class="hidden-xs">Logout</span></a> </div>
                             @else
+                                @if(auth()->user()->account_type != 3 )
+                                <div class="check"><a title="Sell With Dukaanso" href="{{ route('buyer.seller.register') }}"><span class="hidden-xs">Sell With Dukaanso</span></a> </div>
+                                @endif
                                 <div class="myaccount"><a title="My Account" href="{{ route('buyer.home') }}"><span class="hidden-xs">My Account</span></a> </div>
-                                <div class="check"><a title="Checkout" href="{{ route('buyer.checkout') }}"><span class="hidden-xs">Checkout</span></a> </div>
                                 <div class="login"><a href="{{ route('buyer.logout') }}"><span class="hidden-xs">Logout</span></a> </div>
                             @endif
                         </div>

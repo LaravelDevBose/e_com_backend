@@ -24,4 +24,19 @@
              </ul>
          </div>
      </div>
+     @if(auth()->user()->account_type === 3)
+     <div class="block block-account">
+         <div class="block-title">Seller Option</div>
+         <div class="block-content">
+             <ul>
+                 <li>
+                     <a href="{{ route('buyer.seller.home') }}">Seller Dashboard</a>
+                 </li>
+                 <li>
+                     <a href="{{ route('buyer.seller.product.index') }}">Product List</a>
+                 </li>
+             </ul>
+         </div>
+     </div>
+     @endif
  </aside>

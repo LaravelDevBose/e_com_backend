@@ -38,6 +38,21 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
     Route::get('address-book/{address_id}/edit', 'AddressBookController@edit')->name('address.book.edit');
     Route::put('address-book/{address_id}/update', 'AddressBookController@update')->name('address.book.update');
 
+
+    Route::prefix('seller')->as('seller.')->group(function (){
+        Route::get('/register', 'SellerController@register_page')->name('register');
+        Route::post('/register', 'SellerController@create_seller_account')->name('register');
+
+        Route::get('/dashboard', 'SellerController@index')->name('home');
+
+        Route::get('/product', 'ProductController@index')->name('product.index');
+        Route::post('/product', 'ProductController@store')->name('product.store');
+        Route::get('/product/{product}', 'ProductController@show')->name('product.show');
+        Route::get('/product/{product}/edit', 'ProductController@edit')->name('product.edit');
+        Route::put('/product/{product}/update', 'ProductController@update')->name('product.update');
+        Route::delete('/product/{product}', 'ProductController@destroy')->name('product.destroy');
+    });
+
 });
 
 Route::namespace('Buyer')->group(function (){

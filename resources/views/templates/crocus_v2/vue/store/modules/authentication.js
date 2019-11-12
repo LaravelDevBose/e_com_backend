@@ -45,6 +45,13 @@ const actions={
                 return response.data;
             });
 
+    },
+    async registerSellerAccount({commit}, formData){
+        return  await axios.post('/buyer/seller/register',formData)
+            .then(response=>{
+                return response.data;
+            });
+
     }
 };
 
