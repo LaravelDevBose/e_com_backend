@@ -10,7 +10,7 @@ const state = {
 const getters = {
     brandList:(state)=>state.brands,
     treeList:(state)=>state.categories,
-    conditionList:(state)=>state.condition,
+    conditionList:(state)=>state.conditions,
     products:(state)=>state.products,
 };
 

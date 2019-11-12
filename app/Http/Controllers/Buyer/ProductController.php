@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Buyer;
 
+
+use App\Http\Resources\Admin\Category as CategoryResource;
 use App\Helpers\TemplateHelper;
 use App\Models\Brand;
 use App\Models\Product;
@@ -35,16 +37,16 @@ class ProductController extends Controller
         $brands = Brand::isActive()->select('brand_id as id', 'brand_name as text')->latest()->get();
         $conditions = Product::flipProductCondition();
         $conditionArray = array();
-        foreach ($conditionArray as $key=> $condition){
+        foreach ($conditions as $key=> $condition){
             array_push($conditionArray,[
                 'id'=>$key,
                 'text'=>$condition,
             ]);
         }
         return ResponserTrait::allResponse('success', Response::HTTP_OK, 'found', [
-            'categories'=>$categories,
+            'categories'=>CategoryResource::collection($categories),
             'brands'=>$brands,
-            'condition'=>$condition,
+            'conditions'=>$conditionArray,
         ]);
     }
 

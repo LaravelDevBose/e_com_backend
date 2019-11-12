@@ -84,7 +84,7 @@
         <!-- end mobile menu -->
     <quick-view-product></quick-view-product>
 </div>
-<script src="{{ asset('js/crocus_v2.js') }}"></script>
+
 
 <script type="text/javascript" src="{{ asset('crocus_v2/js/jquery.min.js') }}"  ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/bootstrap.min.js') }}" ></script>
@@ -94,6 +94,8 @@
 <script type="text/javascript" src="{{ asset('crocus_v2/js/jquery.mobile-menu.min.js') }}" ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/countdown.js') }}" ></script>
 <!-- Scripts -->
+
+<script src="{{ asset('js/crocus_v2.js') }}"></script>
 @yield('PageJs')
 
 

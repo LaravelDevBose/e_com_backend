@@ -1,25 +1,40 @@
 <template>
     <section class="col-sm-9 wow bounceInUp animated">
-        <form  @submit.prevent="manipulateAddressBook">
+        <form  @submit.prevent="manipulateProduct">
             <fieldset class="group-select">
                 <fieldset>
                     <legend>Address Book</legend>
                     <ul>
                         <li>
-                            <div class="customer-name">
-                                <div class="input-box name-firstname">
-                                    <label for="billing_firstname"> Product Name <span class="required">*</span> </label>
-                                    <br>
-                                    <input type="text" id="billing_firstname" v-model="formData.product_name" title="First Name" class="input-text required-entry">
-                                </div>
-                            </div>
+                            <label for="billing_firstname"> Product Name <span class="required">*</span> </label>
+                            <br>
+                            <input type="text" id="billing_firstname" v-model="formData.product_name" title="First Name" class="input-text required-entry">
                         </li>
                         <li>
-                            <div class="customer-name">
-                                <div class="input-box name-lastname">
-                                    <label for="category"> Category <span class="required">*</span> </label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="mainCategory"> Category <span class="required">*</span> </label>
                                     <br>
-                                    <treeselect v-model="formData.category_id" id="category"  :options="treeList" :multiple="false" :normalizer="normalizer" />
+                                    <select class="address-select" v-model="formData.main_cat_id" @click.prevent="checkMainCat()" id="mainCategory" style="width:100%;">
+                                        <option value="">Select A Category</option>
+                                        <option v-if="mainCategories" v-for="(mainCat, index) in mainCategories" :key="index" :value="mainCat.id">{{ mainCat.label }}</option>
+                                    </select>
+                                </div>
+                                <div v-if="secCategories.length !== 0" class="col-md-4">
+                                    <label for="subCategory">2nd Category <span class="required">*</span> </label>
+                                    <br>
+                                    <select class="address-select" v-model="formData.sec_cat_id" @click.prevent="checkSecCat()" id="subCategory" style="width:100%;">
+                                        <option value="">Select A Second Category</option>
+                                        <option v-for="(secCat, index) in secCategories" :key="index" :value="secCat.id">{{ secCat.label }}</option>
+                                    </select>
+                                </div>
+                                <div v-if="trdCategories.length !== 0" class="col-md-4">
+                                    <label for="thrdCategory">3rd Category <span class="required">*</span> </label>
+                                    <br>
+                                    <select class="address-select" v-model="formData.trd_cat_id" id="thrdCategory" style="width:100%;">
+                                        <option value="">Select A Third Category</option>
+                                        <option v-for="(trdCat, index) in trdCategories" :key="index" :value="trdCat.id">{{ trdCat.label }}</option>
+                                    </select>
                                 </div>
                             </div>
                         </li>
@@ -27,25 +42,29 @@
                             <div class="input-box">
                                 <label for="brand">Brand <span class="required">*</span></label>
                                 <br>
-                                <vue-select2 v-model="formData.brand_id" id="brand" :options="brandList"> </vue-select2>
+                                <select class="address-select" v-model="formData.brand_id" id="brand" style="width:90%;">
+                                    <option value="">Select A Brand</option>
+                                    <option v-if="brandList" v-for="(brand, index) in brandList" :key="index" :value="brand.id">{{ brand.text}}</option>
+                                </select>
                             </div>
                             <div class="input-box">
                                 <label for="condition">Product Condition <span class="required">*</span></label>
                                 <br>
-                                <vue-select2 v-model="formData.product_condition" id="condition" :options="conditionList"> </vue-select2>
+                                <select class="address-select" v-model="formData.product_condition" id="condition" style="width:90%;">
+                                    <option value="">Select A Product Condition</option>
+                                    <option v-if="conditionList" v-for="(condition, index) in conditionList" :key="index" :value="condition.id">{{ condition.text }}</option>
+                                </select>
                             </div>
                         </li>
                         <li>
-                            <div class="input-box">
-                                <label for="highlight">Highlight <span class="required">*</span></label>
-                                <br>
-                                <vue-editor id="highlight" v-model="formData.highlight"></vue-editor>
-                            </div>
-                            <div class="input-box">
-                                <label for="description">Description <span class="required">*</span></label>
-                                <br>
-                                <vue-editor id="description" v-model="formData.description"></vue-editor>
-                            </div>
+                            <label for="highlight">Highlight <span class="required">*</span></label>
+                            <br>
+                            <vue-editor id="highlight" v-model="formData.highlight"></vue-editor>
+                        </li>
+                        <li>
+                            <label for="description">Description <span class="required">*</span></label>
+                            <br>
+                            <vue-editor id="description" v-model="formData.description"></vue-editor>
                         </li>
                         <li>
                             <div class="input-box">
@@ -76,20 +95,15 @@
 </template>
 
 <script>
-    // import the component
-    import Treeselect from '@riophae/vue-treeselect';
+
     import { VueEditor } from "vue2-editor";
-    // import the styles
-    import '@riophae/vue-treeselect/dist/vue-treeselect.css';
     import {mapGetters, mapActions} from 'vuex';
-    import VueSelect2 from '../../../../../../../../js/components/helper/Select2';
     import ImageCropper from "../../../../../../../../js/components/cropper/ImageCropper";
+
     export default {
         name: "ProductCreate",
         components:{
             ImageCropper,
-            Treeselect,
-            'vue-select2':VueSelect2,
             VueEditor,
         },
         data(){
@@ -106,6 +120,9 @@
                     product_type:1,
                     product_qty:'',
                     product_price:'',
+                    main_cat_id:'',
+                    sec_cat_id:'',
+                    trd_cat_id:'',
                 },
                 btnDisabled:false,
                 is_edit:false,
@@ -116,6 +133,9 @@
                         children: node.children,
                     }
                 },
+                mainCategories:[],
+                secCategories:[],
+                trdCategories:[],
             }
         },
         mounted(){
@@ -124,14 +144,44 @@
         methods:{
             ...mapActions([
                 'getProductCreateDependency',
-            ])
+            ]),
+            checkMainCat(){
+                this.mainCategories.filter(cat=>{
+                    if(cat.id === this.formData.main_cat_id){
+                        this.secCategories = cat.children;
+                    }
+                })
+
+            },
+            checkSecCat(){
+                this.secCategories.filter(cat=>{
+                    if(cat.id === this.formData.sec_cat_id){
+                        this.trdCategories = cat.children;
+                    }
+                })
+            },
+            manipulateProduct(){
+
+            }
         },
         computed:{
             ...mapGetters([
                 'brandList',
                 'treeList',
                 'conditionList'
-            ])
+            ]),
+            checkTreeListIds(){
+                return JSON.parse(JSON.stringify(this.treeList));
+            },
+        },
+        watch:{
+            checkTreeListIds:{
+                handler(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        this.mainCategories = this.treeList;
+                    }
+                }
+            },
         }
     }
 </script>
