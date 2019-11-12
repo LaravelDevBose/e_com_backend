@@ -12,35 +12,39 @@
                                     <br>
                                     <input type="text" id="billing_firstname" v-model="formData.product_name" title="First Name" class="input-text required-entry">
                                 </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="customer-name">
                                 <div class="input-box name-lastname">
-                                    <label for="billing_lastname"> Category <span class="required">*</span> </label>
+                                    <label for="category"> Category <span class="required">*</span> </label>
                                     <br>
-                                    <input type="text" id="billing_lastname" v-model="formData.category_id" title="Last Name" class="input-text required-entry">
+                                    <treeselect v-model="formData.category_id" id="category"  :options="treeList" :multiple="false" :normalizer="normalizer" />
                                 </div>
                             </div>
                         </li>
                         <li>
                             <div class="input-box">
-                                <label for="billing_telephone">Brand <span class="required">*</span></label>
+                                <label for="brand">Brand <span class="required">*</span></label>
                                 <br>
-                                <input type="text" v-model="formData.brand_id" title="Telephone" class="input-text required-entry" id="billing_telephone">
+                                <vue-select2 v-model="formData.brand_id" id="brand" :options="brandList"> </vue-select2>
                             </div>
                             <div class="input-box">
-                                <label for="billing_street">Product Condition <span class="required">*</span></label>
+                                <label for="condition">Product Condition <span class="required">*</span></label>
                                 <br>
-                                <input type="text" v-model="formData.product_condition" title="Street Address" id="billing_street" class="input-text required-entry">
+                                <vue-select2 v-model="formData.product_condition" id="condition" :options="conditionList"> </vue-select2>
                             </div>
                         </li>
                         <li>
                             <div class="input-box">
-                                <label for="billing_city">Highlight <span class="required">*</span></label>
+                                <label for="highlight">Highlight <span class="required">*</span></label>
                                 <br>
-                                <input type="text" title="City" v-model="formData.highlight" class="input-text required-entry" id="billing_city">
+                                <vue-editor id="highlight" v-model="formData.highlight"></vue-editor>
                             </div>
                             <div class="input-box">
-                                <label for="billing_city">Description <span class="required">*</span></label>
+                                <label for="description">Description <span class="required">*</span></label>
                                 <br>
-                                <input type="text" title="City" v-model="formData.description" class="input-text required-entry" id="billing_city">
+                                <vue-editor id="description" v-model="formData.description"></vue-editor>
                             </div>
                         </li>
                         <li>
@@ -72,8 +76,22 @@
 </template>
 
 <script>
+    // import the component
+    import Treeselect from '@riophae/vue-treeselect';
+    import { VueEditor } from "vue2-editor";
+    // import the styles
+    import '@riophae/vue-treeselect/dist/vue-treeselect.css';
+    import {mapGetters, mapActions} from 'vuex';
+    import VueSelect2 from '../../../../../../../../js/components/helper/Select2';
+    import ImageCropper from "../../../../../../../../js/components/cropper/ImageCropper";
     export default {
         name: "ProductCreate",
+        components:{
+            ImageCropper,
+            Treeselect,
+            'vue-select2':VueSelect2,
+            VueEditor,
+        },
         data(){
             return{
                 formData:{
@@ -91,7 +109,29 @@
                 },
                 btnDisabled:false,
                 is_edit:false,
+                normalizer(node) {
+                    return {
+                        id: node.id,
+                        label: node.label,
+                        children: node.children,
+                    }
+                },
             }
+        },
+        mounted(){
+            this.getProductCreateDependency();
+        },
+        methods:{
+            ...mapActions([
+                'getProductCreateDependency',
+            ])
+        },
+        computed:{
+            ...mapGetters([
+                'brandList',
+                'treeList',
+                'conditionList'
+            ])
         }
     }
 </script>

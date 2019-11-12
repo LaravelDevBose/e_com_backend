@@ -27,7 +27,7 @@ class SellerController extends Controller
     }
 
     public function index(){
-
+        return view('templates.'.$this->template_name.'.buyer.seller.dashboard.dashboard');
     }
 
     public function register_page()

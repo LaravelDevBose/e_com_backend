@@ -14,7 +14,7 @@ import address_book from "./modules/address_book";
 import homepage from "./modules/homepage";
 import account_info from "./modules/account_info";
 import search from "./modules/search";
-
+import seller_product from "./modules/seller/seller_product";
 
 export default new Vuex.Store({
     state:{
@@ -65,6 +65,7 @@ export default new Vuex.Store({
         homepage,
         account_info,
         search,
+        seller_product,
     }
 })
 
