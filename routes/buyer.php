@@ -46,6 +46,7 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
         Route::get('/dashboard', 'SellerController@index')->name('home');
 
         Route::get('/product', 'ProductController@index')->name('product.index');
+        Route::get('/product/list', 'ProductController@product_ist')->name('product.list');
         Route::get('/product/create', 'ProductController@create')->name('product.create');
         Route::get('/product/create/dependency', 'ProductController@product_create_dependency');
         Route::post('/product', 'ProductController@store')->name('product.store');

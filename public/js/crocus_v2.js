@@ -5161,12 +5161,78 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ProductList"
+  name: "ProductList",
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {
+    this.getIndividualSellerProducts();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getIndividualSellerProducts'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['individualSellerProducts']))
 });
 
 /***/ }),
@@ -69487,9 +69553,147 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", { staticClass: "table-responsive" }, [
+    _c(
+      "table",
+      { staticClass: "data-table", attrs: { id: "my-orders-table" } },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.individualSellerProducts, function(product, index) {
+            return _vm.individualSellerProducts.length !== 0
+              ? _c(
+                  "tr",
+                  {
+                    class: {
+                      first: index === 0,
+                      last: index + 1 === _vm.individualSellerProducts.length,
+                      even: index % 2 === 0,
+                      odd: index % 2 !== 0
+                    }
+                  },
+                  [
+                    _c("td", [_vm._v(_vm._s((index += 1)))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      product.thumbnail
+                        ? _c("img", {
+                            staticClass: "img-responsive",
+                            staticStyle: {
+                              "max-width": "50px",
+                              "max-height": "50px"
+                            },
+                            attrs: {
+                              src: product.thumbnail.image_path,
+                              alt: product.product_title
+                            }
+                          })
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("div", [
+                        _c("p", [_vm._v(_vm._s(product.product_title))]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(product.sku))])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      product.brand !== null
+                        ? _c("span", [_vm._v(_vm._s(product.brand.name))])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      product.condition === 1
+                        ? _c("span", { staticClass: "badge badge-success" }, [
+                            _vm._v("New")
+                          ])
+                        : product.condition === 2
+                        ? _c("span", { staticClass: "badge badge-primary" }, [
+                            _vm._v("Used")
+                          ])
+                        : _c("span", { staticClass: "badge badge-warning" }, [
+                            _vm._v("Republish")
+                          ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-center" }, [
+                      _vm._v(_vm._s(product.total_qty))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-right" }, [
+                      _vm._v(_vm._s(product.price))
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(1, true),
+                    _vm._v(" "),
+                    _vm._m(2, true)
+                  ]
+                )
+              : _c("tr", { staticClass: "last even" }, [
+                  _c("td", { attrs: { colspan: "9" } }, [
+                    _vm._v("No Product Found")
+                  ])
+                ])
+          }),
+          0
+        )
+      ]
+    )
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", { staticClass: "first last" }, [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { staticStyle: { "max-width": "70px" } }, [_vm._v("Image")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Product Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Brand")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Condition")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Price")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Action ")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "text-center" }, [
+      _c("span", { staticClass: "badge badge-danger" }, [_vm._v("Status")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "a-center last text-center" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fa fa-pencil" })
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "#" } }, [_c("i", { staticClass: "fa fa-eye" })])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -93003,7 +93207,7 @@ var getters = {
   conditionList: function conditionList(state) {
     return state.conditions;
   },
-  products: function products(state) {
+  individualSellerProducts: function individualSellerProducts(state) {
     return state.products;
   }
 };
@@ -93090,6 +93294,50 @@ var actions = {
     }
 
     return storeIndividualSellerProduct;
+  }(),
+  getIndividualSellerProducts: function () {
+    var _getIndividualSellerProducts = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios.get('/buyer/seller/product/list').then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setIndividualSellerProducts', response.data.data);
+                  delete response.data.data;
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context3.abrupt("return", _context3.sent);
+
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](1);
+              console.log(_context3.t0.data);
+              return _context3.abrupt("return", _context3.t0.data);
+
+            case 11:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 7]]);
+    }));
+
+    function getIndividualSellerProducts(_x4) {
+      return _getIndividualSellerProducts.apply(this, arguments);
+    }
+
+    return getIndividualSellerProducts;
   }()
 };
 var mutations = {
@@ -93097,6 +93345,9 @@ var mutations = {
     state.categories = response.categories;
     state.brands = response.brands;
     state.conditions = response.conditions;
+  },
+  setIndividualSellerProducts: function setIndividualSellerProducts(state, response) {
+    return state.products = response;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

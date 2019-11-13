@@ -157,7 +157,7 @@ class ProductController extends Controller
                     'warranty_type'=>$request->warranty_type,
                     'thumb_id'=>$request->thumb_id,
                     'video_url'=>$request->video_url,
-                    'seller_id'=>auth()->guard('seller')->id(),
+                    'seller_id'=>auth()->guard('seller')->user()->seller->seller_id,
                 ]);
                 if($product){
 

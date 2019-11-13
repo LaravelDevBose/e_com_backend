@@ -29,6 +29,8 @@ class ProductCollection extends Resource
             'status'=>$this->product_status,
             'status_label'=>$statusLabel[$this->product_status],
             'thumbnail'=> new AttachmentResource($this->whenLoaded('thumbImage')),
+            'condition'=> $this->product_condition,
+            'price'=>$this->product_price,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Buyer;
 
+use App\Http\Resources\Admin\ProductCollection;
 use Exception;
 use App\Http\Resources\Admin\Category as CategoryResource;
 use App\Helpers\TemplateHelper;
@@ -34,6 +35,16 @@ class ProductController extends Controller
     public function index()
     {
         return view('templates.'.$this->template_name.'.buyer.seller.product.list_product');
+    }
+
+    public function product_ist()
+    {
+        $products = Product::with(['thumbImage','category'=>function($query){
+            return $query->with(['parent'=>function($q){
+                return $q->with(['parent']);
+            }]);
+        }, 'brand'])->where('seller_id', auth()->user()->seller->seller_id)->latest()->get();
+        return ResponserTrait::collectionResponse('success', Response::HTTP_OK, ProductCollection::collection($products));
     }
 
     public function product_create_dependency()

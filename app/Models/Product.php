@@ -109,7 +109,7 @@ class Product extends Model
     }
 
     public function scopeIsOwner($query){
-        return $query->where('seller_id', \auth()->id());
+        return $query->where('seller_id', \auth()->user()->seller->seller_id);
     }
 
     public static function flipProductType()

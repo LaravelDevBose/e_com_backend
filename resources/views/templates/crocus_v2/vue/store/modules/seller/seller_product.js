@@ -11,7 +11,7 @@ const getters = {
     brandList:(state)=>state.brands,
     treeList:(state)=>state.categories,
     conditionList:(state)=>state.conditions,
-    products:(state)=>state.products,
+    individualSellerProducts:(state)=>state.products,
 };
 
 const actions = {
@@ -42,6 +42,22 @@ const actions = {
         }
     },
 
+    async getIndividualSellerProducts({commit}){
+        try {
+            return await axios.get('/buyer/seller/product/list')
+                .then(response=>{
+                    if (typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setIndividualSellerProducts', response.data.data);
+                        delete response.data.data;
+                    }
+                    return response.data;
+                })
+        }catch (error) {
+            console.log(error.data);
+            return  error.data;
+        }
+    },
+
 };
 
 const mutations = {
@@ -49,7 +65,8 @@ const mutations = {
         state.categories = response.categories;
         state.brands = response.brands;
         state.conditions = response.conditions;
-    }
+    },
+    setIndividualSellerProducts:(state,response)=>state.products= response,
 };
 
 export default {
