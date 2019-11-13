@@ -68,11 +68,20 @@
             },
 
             handleCroppaFileSizeExceed(){
-                Notify.warning('Maximum Image Size: '+(this.cropperData.file_size/1024).toFixed(2) +' MB');
+                if(typeof Notify !== "undefined"){
+                    Notify.warning('Maximum Image Size: '+(this.cropperData.file_size/1024).toFixed(2) +' MB');
+                }else{
+                    this.$noty.warning('Maximum Image Size: '+(this.cropperData.file_size/1024).toFixed(2) +' MB');
+                }
                 return false;
             },
             handleCroppaFileTypeMismatch(){
-                Notify.warning('File Type Not Match. Use .jpge , .jpg');
+
+                if(typeof Notify !== "undefined"){
+                    Notify.warning('File Type Not Match. Use .jpge , .jpg');
+                }else{
+                    this.$noty.warning('File Type Not Match. Use .jpge , .jpg');
+                }
                 return false;
             },
             handleImageRemove(){
@@ -103,9 +112,18 @@
                         .then(response=>{
                             if(response.code === 200){
                                 this.uploaded= true;
-                                Notify.success('Image Upload Successfully');
+                                if(typeof Notify !== "undefined"){
+                                    Notify.success('Image Upload Successfully');
+                                }else{
+                                    this.$noty.success('Image Upload Successfully');
+                                }
                             }else{
-                                Notify.info(response.message);
+                                if(typeof Notify !== "undefined"){
+                                    Notify.info(response.message);
+                                }else{
+                                    this.$noty.info(response.message);
+                                }
+
                             }
                     });
 

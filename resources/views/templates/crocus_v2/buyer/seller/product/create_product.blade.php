@@ -8,7 +8,7 @@
 
 @section('Content')
     <div class="main-container col2-right-layout">
-        <div class="main container">
+        <div class="main container" >
             <div class="row">
                 <product-create></product-create>
                 <!-- right side -->

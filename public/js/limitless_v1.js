@@ -6942,11 +6942,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.cropImage.flipY();
     },
     handleCroppaFileSizeExceed: function handleCroppaFileSizeExceed() {
-      Notify.warning('Maximum Image Size: ' + (this.cropperData.file_size / 1024).toFixed(2) + ' MB');
+      if (typeof Notify !== "undefined") {
+        Notify.warning('Maximum Image Size: ' + (this.cropperData.file_size / 1024).toFixed(2) + ' MB');
+      } else {
+        this.$noty.warning('Maximum Image Size: ' + (this.cropperData.file_size / 1024).toFixed(2) + ' MB');
+      }
+
       return false;
     },
     handleCroppaFileTypeMismatch: function handleCroppaFileTypeMismatch() {
-      Notify.warning('File Type Not Match. Use .jpge , .jpg');
+      if (typeof Notify !== "undefined") {
+        Notify.warning('File Type Not Match. Use .jpge , .jpg');
+      } else {
+        this.$noty.warning('File Type Not Match. Use .jpge , .jpg');
+      }
+
       return false;
     },
     handleImageRemove: function handleImageRemove() {
@@ -6984,9 +6994,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.uploadCropImage(fromData).then(function (response) {
           if (response.code === 200) {
             _this.uploaded = true;
-            Notify.success('Image Upload Successfully');
+
+            if (typeof Notify !== "undefined") {
+              Notify.success('Image Upload Successfully');
+            } else {
+              _this.$noty.success('Image Upload Successfully');
+            }
           } else {
-            Notify.info(response.message);
+            if (typeof Notify !== "undefined") {
+              Notify.info(response.message);
+            } else {
+              _this.$noty.info(response.message);
+            }
           }
         });
       });
@@ -16427,7 +16446,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -95765,7 +95784,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v1/vue/limitless_v1.js */"./resources/views/seller_panel/limitless_v1/vue/limitless_v1.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v1\vue\limitless_v1.js */"./resources/views/seller_panel/limitless_v1/vue/limitless_v1.js");
 
 
 /***/ })

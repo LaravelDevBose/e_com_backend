@@ -7,6 +7,9 @@ import store from './store'
 import VueNoty from '../../../../js/helper/Noty'
 Vue.use(VueNoty);
 
+import Croppa from 'vue-croppa'
+Vue.use(Croppa);
+
 import AppStorage from "../../../../js/helper/AppStorage";
 window.AppStorage = AppStorage;
 

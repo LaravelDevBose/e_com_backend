@@ -15,6 +15,9 @@ import homepage from "./modules/homepage";
 import account_info from "./modules/account_info";
 import search from "./modules/search";
 import seller_product from "./modules/seller/seller_product";
+import productHelper from "./modules/helper/productHelper";
+import imageCropper from "./modules/helper/imageCropper";
+
 
 export default new Vuex.Store({
     state:{
@@ -66,6 +69,8 @@ export default new Vuex.Store({
         account_info,
         search,
         seller_product,
+        productHelper,
+        imageCropper,
     }
 })
 

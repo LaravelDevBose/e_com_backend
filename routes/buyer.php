@@ -53,6 +53,8 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
         Route::get('/product/{product}/edit', 'ProductController@edit')->name('product.edit');
         Route::put('/product/{product}/update', 'ProductController@update')->name('product.update');
         Route::delete('/product/{product}', 'ProductController@destroy')->name('product.destroy');
+        Route::post('product/image/store', 'ProductImageController@store')->name('product_image.store');
+        Route::delete('product/image/delete/{id}', 'ProductImageController@delete')->name('product_image.delete');
     });
 
 });

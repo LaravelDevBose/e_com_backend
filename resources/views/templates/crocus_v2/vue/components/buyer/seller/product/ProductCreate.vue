@@ -8,7 +8,7 @@
                         <li>
                             <label for="billing_firstname"> Product Name <span class="required">*</span> </label>
                             <br>
-                            <input type="text" id="billing_firstname" v-model="formData.product_name" title="First Name" class="input-text required-entry">
+                            <input type="text" id="billing_firstname" v-model="formData.product_name" title="First Name" class="input-text required-entry" style="width:100%;">
                         </li>
                         <li>
                             <div class="row">
@@ -39,21 +39,23 @@
                             </div>
                         </li>
                         <li>
-                            <div class="input-box">
-                                <label for="brand">Brand <span class="required">*</span></label>
-                                <br>
-                                <select class="address-select" v-model="formData.brand_id" id="brand" style="width:90%;">
-                                    <option value="">Select A Brand</option>
-                                    <option v-if="brandList" v-for="(brand, index) in brandList" :key="index" :value="brand.id">{{ brand.text}}</option>
-                                </select>
-                            </div>
-                            <div class="input-box">
-                                <label for="condition">Product Condition <span class="required">*</span></label>
-                                <br>
-                                <select class="address-select" v-model="formData.product_condition" id="condition" style="width:90%;">
-                                    <option value="">Select A Product Condition</option>
-                                    <option v-if="conditionList" v-for="(condition, index) in conditionList" :key="index" :value="condition.id">{{ condition.text }}</option>
-                                </select>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="brand">Brand <span class="required">*</span></label>
+                                    <br>
+                                    <select class="address-select" v-model="formData.brand_id" id="brand" style="width:100%;">
+                                        <option value="">Select A Brand</option>
+                                        <option v-if="brandList" v-for="(brand, index) in brandList" :key="index" :value="brand.id">{{ brand.text}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="condition">Product Condition <span class="required">*</span></label>
+                                    <br>
+                                    <select class="address-select" v-model="formData.product_condition" id="condition" style="width:100%;">
+                                        <option value="">Select A Product Condition</option>
+                                        <option v-if="conditionList" v-for="(condition, index) in conditionList" :key="index" :value="condition.id">{{ condition.text }}</option>
+                                    </select>
+                                </div>
                             </div>
                         </li>
                         <li>
@@ -67,16 +69,52 @@
                             <vue-editor id="description" v-model="formData.description"></vue-editor>
                         </li>
                         <li>
-                            <div class="input-box">
-                                <label for="qty">Product Qty<span class="required">*</span></label>
-                                <br>
-                                <input type="number" v-model="formData.postal_code" title="Zip/Postal Code" id="qty" class="input-text required-entry">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="qty">Product Qty<span class="required">*</span></label>
+                                    <br>
+                                    <input type="number" v-model="formData.product_qty" title="qty" id="qty" class="input-text required-entry">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="price">Product Price<span class="required">*</span></label>
+                                    <br>
+                                    <input type="number" v-model="formData.product_price" title="Price" id="price" class="input-text required-entry">
+                                </div>
                             </div>
-                            <div class="input-box">
-                                <label for="price">Product Price<span class="required">*</span></label>
-                                <br>
-                                <input type="number" v-model="formData.postal_code" title="Zip/Postal Code" id="price" class="input-text required-entry">
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="qty">Product Thumb Image<span class="required">*</span></label>
+                                    <br>
+                                    <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="qty">Product Thumb Image<span class="required">*</span></label>
+                                    <br>
+                                    <div id="simProductImg">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <input type="file" class="hidden" ref="files" accept="image/*" :multiple="multi_file"  id="simpleProductImg"  @change="uploadImage">
+                                                    <label for="simpleProductImg" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left" ></i> Select File</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" v-if="productImages.length !== 0">
+                                            <div class="col-xs-4 col-sm-4 col-lg-3" v-for="image in productImages" :key="image.id" >
+                                                <div class="thumb" style="margin-buttom:5px;">
+                                                    <img :src="image.img" alt="" class="img-responsive">
+                                                    <a href="#" @click.prevent="removeAttachment(image.id)" class="text font-weight-bold close-btn">
+                                                        <i class="fa fa-close"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                         </li>
                         <li>
                             <p class="require">
@@ -115,7 +153,7 @@
                     highlight:'',
                     description:'',
                     product_condition:'',
-                    product_images:[],
+                    imageIds:[],
                     thumb_id:'',
                     product_type:1,
                     product_qty:'',
@@ -125,17 +163,21 @@
                     trd_cat_id:'',
                 },
                 btnDisabled:false,
-                is_edit:false,
-                normalizer(node) {
-                    return {
-                        id: node.id,
-                        label: node.label,
-                        children: node.children,
-                    }
+                cropperData:{
+                    width:400,
+                    height:400,
+                    placeholder:'Choose a image in 400X400',
+                    file_size:1,
+                    init_image:'',
+                    folder:'thumbnail',
                 },
+                is_edit:false,
+                removeImage:false,
                 mainCategories:[],
                 secCategories:[],
                 trdCategories:[],
+                multi_file:true,
+                folder:'product',
             }
         },
         mounted(){
@@ -144,6 +186,9 @@
         methods:{
             ...mapActions([
                 'getProductCreateDependency',
+                'uploadProductImage',
+                'imageRemove',
+                'storeIndividualSellerProduct',
             ]),
             checkMainCat(){
                 this.mainCategories.filter(cat=>{
@@ -161,17 +206,83 @@
                 })
             },
             manipulateProduct(){
+                if(!this.formValidation()){
+                    return false;
+                }
+                this.formData.thumb_id = this.cropImageIds[0];
+                this.formData.imageIds = this.imageIds;
+                this.storeIndividualSellerProduct(this.formData)
+                     .then(response=>{
+                         if(typeof response.code !== "undefined" && response.code === 201){
+                             this.$noty.success(response.message);
+                             if (response.hasOwnProperty('url')){
+                                 setTimeout(()=>{
+                                     location.href = response.url;
+                                 }, 1500);
+                             }
+                         }else if(response.status === 'validation'){
+                             this.$noty.warning(response.message);
+                         }else{
+                             this.$noty.error(response.message);
+                         }
+                     })
+            },
 
+            formValidation(){
+
+                if(this.formData.main_cat_id === ''){
+                    this.$noty.warning('Select Main Category');
+                    return false;
+                }
+                if(this.formData.sec_cat_id === '' && this.secCategories.length !== 0){
+                    this.$noty.warning('Select Second Category');
+                    return false;
+                }
+                if(this.formData.trd_cat_id === '' && this.trdCategories.length !== 0){
+                    this.$noty.warning('Select Third Category');
+                    return false;
+                }
+
+                return true;
+            },
+
+            uploadImage(e) {
+                let files = e.target.files || e.dataTransfer.files;
+                let formData = '';
+                formData = new FormData();
+                for( var i = 0; i < files.length; i++ ){
+                    let file = files[i];
+                    formData.append(i, file);
+                }
+                formData.append('folder', this.folder);
+                let vm = this;
+                setTimeout(()=>{
+                    vm.uploadProductImage(formData);
+                },1000);
+
+            },
+            removeAttachment(imageId){
+                console.log(imageId);
+                this.imageRemove(imageId)
+                    .then(response=>{
+                        this.$noty.success('Image Removed');
+                    })
             }
         },
         computed:{
             ...mapGetters([
                 'brandList',
                 'treeList',
-                'conditionList'
+                'conditionList',
+                'productImages',
+                'imageIds',
+                'cropImageIds',
             ]),
             checkTreeListIds(){
                 return JSON.parse(JSON.stringify(this.treeList));
+            },
+            formDataCheck(){
+                return JSON.parse(JSON.stringify(this.formData));
             },
         },
         watch:{
@@ -182,10 +293,25 @@
                     }
                 }
             },
+            formDataCheck:{
+                handler(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        this.btnDisabled = false;
+                    }
+
+                }
+            },
         }
     }
 </script>
 
 <style scoped>
-
+.close-btn{
+    background-color: red;
+    padding: 0 3px;
+    color: #fff;
+    position: absolute;
+    top: 0px;
+    right: 14px;
+}
 </style>

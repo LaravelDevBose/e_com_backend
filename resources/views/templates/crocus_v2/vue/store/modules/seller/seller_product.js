@@ -30,6 +30,17 @@ const actions = {
             return  error.data;
         }
     },
+    async storeIndividualSellerProduct({commit}, formData){
+        try {
+            return await axios.post('/buyer/seller/product', formData)
+                .then(response=>{
+                    return response.data;
+                })
+        }catch (error) {
+            console.log(error.data);
+            return  error.data;
+        }
+    },
 
 };
 
