@@ -25,7 +25,7 @@
     <!-- Styles -->
 
     <!-- CSS Style -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
+{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">--}}
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/font-awesome.css') }}" media="all">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/simple-line-icons.css') }}" media="all">
@@ -86,7 +86,7 @@
     <quick-view-product></quick-view-product>
 </div>
 
-
+<script src="{{ asset('js/crocus_v2.js') }}"></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/jquery.min.js') }}"  ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/bootstrap.min.js') }}" ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/revslider.js') }}"  ></script>
@@ -96,7 +96,7 @@
 <script type="text/javascript" src="{{ asset('crocus_v2/js/countdown.js') }}" ></script>
 <!-- Scripts -->
 
-<script src="{{ asset('js/crocus_v2.js') }}"></script>
+
 @yield('PageJs')
 
 

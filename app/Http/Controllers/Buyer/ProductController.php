@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Http\Resources\Admin\ProductCollection;
+use App\Models\Category;
 use Exception;
 use App\Http\Resources\Admin\Category as CategoryResource;
 use App\Helpers\TemplateHelper;
@@ -223,8 +224,47 @@ class ProductController extends Controller
 
     }
 
-    public function show()
+    public function show($productId)
     {
-        return view('templates.'.$this->template_name.'.buyer.seller.product.show_product');
+        $categoryInfo = array();
+        $product = Product::where('product_id', $productId)->with(['thumbImage','productImages'])->first();
+        $category = Category::where('category_id', $product->category_id)->first();
+        if(!empty($category->parent_id)){
+            $parentCat = Category::where('category_id', $category->parent_id)->first();
+            if(!empty($parentCat->parent_id)){
+                $categoryInfo =[
+                    'main_cat_id'=>$parentCat->parent_id,
+                    'sec_cat_id'=>$parentCat->category_id,
+                    'trd_cat_id'=>$category->category_id,
+                ];
+            }else{
+                $categoryInfo =[
+                    'main_cat_id'=>$parentCat->category_id,
+                    'sec_cat_id'=>$category->category_id,
+                    'trd_cat_id'=>'',
+                ];
+            }
+        }else{
+            $categoryInfo=[
+                'main_cat_id'=>$category->category_id,
+                'sec_cat_id'=>'',
+                'trd_cat_id'=>'',
+            ];
+        }
+        $data =[
+            'product'=>$product,
+            'categoryInfo'=>$categoryInfo,
+        ];
+
+        return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK, 'Product found');
+
+    }
+
+    public function edit($slug)
+    {
+        $product = Product::where('product_slug', $slug)->first();
+        return view('templates.'.$this->template_name.'.buyer.seller.product.edit_product',[
+            'productId'=>$product->product_id
+        ]);
     }
 }

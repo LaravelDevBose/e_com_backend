@@ -82,12 +82,37 @@
                                 </div>
                             </div>
                         </li>
+                        <li v-if="isedit ===1 || isedit === true">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img
+                                        v-if="editProduct.thumbImage"
+                                        :src="editProduct.thumbImage.image_path" alt="Product Thumb Image Not Found"
+                                        class="img img-thumbnail img-responsive"
+                                        style="max-height: 200px; max-width: 200px;"
+                                    />
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row" v-if="editProduct.productImages.length !== 0">
+                                        <div class="col-xs-4 col-sm-4 col-lg-3" v-for="image in editProduct.productImages" :key="image.id" >
+                                            <div class="thumb" style="margin-buttom:5px;">
+                                                <img :src="image.image_path" alt="" class="img-responsive">
+                                                <a href="#" @click.prevent="deleteProductImage()" class="text font-weight-bold close-btn">
+                                                    <i class="fa fa-close"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
                         <li>
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="qty">Product Thumb Image<span class="required">*</span></label>
                                     <br>
-                                    <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                                    <image-cropper :cropperData="cropperData" :removeImage="removeImage" ></image-cropper>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="qty">Product Thumb Image<span class="required">*</span></label>
@@ -121,8 +146,8 @@
                                 <em class="required">*</em>Required Fields
                             </p>
                             <button :disabled="btnDisabled" type="submit" class="button continue">
-                                <span v-if="is_edit">Update Address</span>
-                                <span v-else>Save Address</span>
+                                <span v-if="isedit">Update Product</span>
+                                <span v-else>Save Product</span>
                             </button>
                         </li>
                     </ul>
@@ -140,6 +165,16 @@
 
     export default {
         name: "ProductCreate",
+        props:{
+            productid:{
+                type:[Number,String],
+                default:'',
+            },
+            isedit:{
+                type:[Boolean],
+                default: false,
+            }
+        },
         components:{
             ImageCropper,
             VueEditor,
@@ -171,13 +206,17 @@
                     init_image:'',
                     folder:'thumbnail',
                 },
-                is_edit:false,
                 removeImage:false,
                 mainCategories:[],
                 secCategories:[],
                 trdCategories:[],
                 multi_file:true,
                 folder:'product',
+            }
+        },
+        created(){
+            if(this.is_edit === 1 || this.is_edit === true){
+                this.getEditProductInfo(this.productid);
             }
         },
         mounted(){
@@ -189,6 +228,7 @@
                 'uploadProductImage',
                 'imageRemove',
                 'storeIndividualSellerProduct',
+                'getEditProductInfo'
             ]),
             checkMainCat(){
                 this.mainCategories.filter(cat=>{
@@ -267,6 +307,9 @@
                     .then(response=>{
                         this.$noty.success('Image Removed');
                     })
+            },
+            deleteProductImage(){
+
             }
         },
         computed:{
@@ -277,12 +320,17 @@
                 'productImages',
                 'imageIds',
                 'cropImageIds',
+                'editProduct',
+                'categoryInfo',
             ]),
             checkTreeListIds(){
                 return JSON.parse(JSON.stringify(this.treeList));
             },
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
+            },
+            editDataCheck(){
+                return JSON.parse(JSON.stringify(this.editProduct));
             },
         },
         watch:{
@@ -297,6 +345,30 @@
                 handler(newVal, oldVal){
                     if(newVal !== oldVal){
                         this.btnDisabled = false;
+                    }
+
+                }
+            },
+            editDataCheck:{
+                handler(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        this.formData.product_name = this.editProduct.product_name;
+                        this.formData.brand_id = this.editProduct.brand_id;
+                        this.formData.highlight = this.editProduct.highlight;
+                        this.formData.description = this.editProduct.description;
+                        this.formData.product_condition = this.editProduct.product_condition;
+                        this.formData.product_type = this.editProduct.product_type;
+                        this.formData.product_qty = this.editProduct.product_qty;
+                        this.formData.product_price = this.editProduct.product_price;
+                        this.formData.thumb_id = this.editProduct.thumb_id;
+                        this.formData.main_cat_id = this.categoryInfo.main_cat_id;
+
+                        if(this.categoryInfo.sec_cat_id !== ''){
+                            this.formData.sec_cat_id = this.categoryInfo.sec_cat_id;
+                        }
+                        if(this.categoryInfo.trd_cat_id !== ''){
+                            this.formData.trd_cat_id = this.categoryInfo.trd_cat_id;
+                        }
                     }
 
                 }
