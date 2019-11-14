@@ -30,7 +30,7 @@
                                     <tr v-if="homepageSections" v-for="(section, index) in homepageSections" :key="index">
                                         <td class="text-center">{{ index+1 }}</td>
                                         <td>
-                                            <img  :src="sectionBanner(section)" :alt="section.title" style="width: 100%;">
+                                            <img  :src="sectionBanner(section)" :alt="section.title" class="img img-responsive" style="max-width: 60px; max-height: 60px;">
                                         </td>
                                         <td class="text-left">{{ section.title }}</td>
                                         <td class="text-center">{{ section.type }}</td>
@@ -42,7 +42,7 @@
                                         </td>
                                         <td class="text-center">
                                             <ul class="icons-list">
-                                                <li><a href="#" class="text text-primary-700" @click.prevent="goToShowPage(section.id)"><i class="icon-eye"></i></a></li>
+<!--                                                <li><a href="#" class="text text-primary-700" @click.prevent="goToShowPage(section.id)"><i class="icon-eye"></i></a></li>-->
                                                 <li><a href="#" class="text text-info" @click.prevent="goToEditPage(section.id)"><i class="icon-pencil7"></i></a></li>
                                                 <li><a href="#" class="text text-teal-700" @click.prevent="goToProductManagePage(section.id)"><i class="icon-cog2"></i></a></li>
                                                 <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp(section.id)"><i class="icon-trash"></i></a></li>
