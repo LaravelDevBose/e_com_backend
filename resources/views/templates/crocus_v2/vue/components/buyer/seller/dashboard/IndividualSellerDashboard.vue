@@ -10,7 +10,7 @@
                     <strong>Recent Orders</strong>
                     <a href="/buyer/my-orders" >View All</a>
                 </div>
-
+                <individual-seller-order-list></individual-seller-order-list>
             </div>
         </div>
     </div>
@@ -18,9 +18,10 @@
 
 <script>
     import WelcomeMessage from "../../section/WelcomeMessage";
+    import IndividualSellerOrderList from "../order/IndividualSellerOrderList";
     export default {
         name: "IndividualSellerDashboard",
-        components:[WelcomeMessage,]
+        components:[WelcomeMessage,IndividualSellerOrderList]
     }
 </script>
 

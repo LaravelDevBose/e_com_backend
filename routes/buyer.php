@@ -45,17 +45,24 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
 
         Route::get('/dashboard', 'SellerController@index')->name('home');
 
-        Route::get('/product', 'ProductController@index')->name('product.index');
-        Route::get('/product/list', 'ProductController@product_ist')->name('product.list');
-        Route::get('/product/create', 'ProductController@create')->name('product.create');
-        Route::get('/product/create/dependency', 'ProductController@product_create_dependency');
-        Route::post('/product', 'ProductController@store')->name('product.store');
-        Route::get('/product/{product}', 'ProductController@show')->name('product.show');
-        Route::get('/product/{slug}/edit', 'ProductController@edit')->name('product.edit');
-        Route::put('/product/{productId}/update', 'ProductController@update')->name('product.update');
-        Route::delete('/product/{slug}', 'ProductController@destroy')->name('product.destroy');
-        Route::post('product/image/store', 'ProductImageController@store')->name('product_image.store');
-        Route::delete('product/image/delete/{id}', 'ProductImageController@delete')->name('product_image.delete');
+        Route::prefix('product')->group(function (){
+            Route::get('/', 'ProductController@index')->name('product.index');
+            Route::get('/list', 'ProductController@product_ist')->name('product.list');
+            Route::get('/create', 'ProductController@create')->name('product.create');
+            Route::get('/create/dependency', 'ProductController@product_create_dependency');
+            Route::post('/', 'ProductController@store')->name('product.store');
+            Route::get('/{product}', 'ProductController@show')->name('product.show');
+            Route::get('/{slug}/edit', 'ProductController@edit')->name('product.edit');
+            Route::put('/{productId}/update', 'ProductController@update')->name('product.update');
+            Route::delete('/{slug}', 'ProductController@destroy')->name('product.destroy');
+            Route::post('/image/store', 'ProductImageController@store')->name('product_image.store');
+            Route::delete('/image/delete/{id}', 'ProductImageController@delete')->name('product_image.delete');
+        });
+
+        Route::group(['prefix'=>'order', 'as'=>'order.'], function (){
+            Route::get('/list', 'SellerController@order_list')->name('list');
+            Route::post('/status/change', 'SellerController@change_order_status');
+        });
     });
 
 });

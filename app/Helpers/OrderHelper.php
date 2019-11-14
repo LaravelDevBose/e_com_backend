@@ -54,7 +54,7 @@ class OrderHelper
         $orderItems = OrderItem::with('order','buyer.user','product.thumbImage', 'size', 'color', 'brand');
 
         if(!empty($request->seller_id)){
-            $orderItems = $orderItems->where('seller_id', auth()->guard('seller')->user()->seller->seller_id);
+            $orderItems = $orderItems->where('seller_id', auth()->user()->seller->seller_id);
         }
 
         if(!empty($request->status)){

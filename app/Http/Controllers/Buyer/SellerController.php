@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Buyer;
 
+use App\Helpers\OrderHelper;
+use App\Models\OrderItem;
 use Exception;
 use App\Helpers\TemplateHelper;
 use App\Models\Seller;
@@ -79,6 +81,63 @@ class SellerController extends Controller
                 }
 
             }catch (Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+        }
+    }
+
+    public function order_list(Request $request){
+        $orderItems = OrderHelper::order_item_list($request);
+        if(!empty($orderItems)){
+            // TODO Order Collection added
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $orderItems);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_OK, 'No Order Found');
+        }
+    }
+
+    public function change_order_status(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'item_id'=>'required',
+            'item_status'=>'required|integer'
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+                $orderItem = OrderItem::where('item_id', $request->item_id)->first();
+
+                if(empty($orderItem)){
+                    throw new \Exception('Invalid Order Information', Response::HTTP_BAD_REQUEST);
+                }
+
+                if($orderItem->seller_id === auth()->user()->seller->seller_id){
+                    throw new \Exception('Invalid Order Information', Response::HTTP_BAD_REQUEST);
+                }
+
+                $orderItem = $orderItem->update([
+                    'item_status'=>$request->item_status,
+                ]);
+
+                if(!empty($orderItem)){
+                    DB::commit();
+                    $orderItem = OrderItem::where('item_id', $request->item_id)->first();
+                    $data = [
+                        'item_id'=>$orderItem->item_id,
+                        'item_status'=>$orderItem->item_status,
+                        'item_status_label'=>$orderItem->item_status_label,
+                    ];
+                    return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK, 'Order Status Successfully Updated.');
+                }else{
+                    throw new \Exception('Order Status Not Updated', Response::HTTP_BAD_REQUEST);
+                }
+
+            }catch (\Exception $ex){
                 DB::rollBack();
                 return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
             }
