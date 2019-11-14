@@ -28,9 +28,11 @@ class ShopController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $shops = Seller::notDelete()->with(['user','shop.shopLogo','products'=>function($query){
-                return $query->notDelete();
-            }])->latest()->paginate(20);
+            $shops = Shop::with(['shopLogo','seller'=>function($query){
+                $query->with(['user','orderItems','products'=>function($query){
+                    return $query->notDelete();
+                }])->notDelete();
+            }])->latest()->get();
 
             if(!empty($shops)){
                 return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $shops);

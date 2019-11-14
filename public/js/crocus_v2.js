@@ -64346,7 +64346,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "text-center social-btn" }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "col-md-3" }, [
           _c(
             "a",
             {
@@ -64361,13 +64361,13 @@ var render = function() {
             },
             [
               _c("i", { staticClass: "fa fa-facebook" }),
-              _vm._v(" Sign in with "),
+              _vm._v(" "),
               _c("b", [_vm._v("Facebook")])
             ]
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "col-md-3" }, [
           _c(
             "a",
             {
@@ -64382,13 +64382,13 @@ var render = function() {
             },
             [
               _c("i", { staticClass: "fa fa-twitter" }),
-              _vm._v(" Sign in with "),
+              _vm._v(" "),
               _c("b", [_vm._v("Twitter")])
             ]
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "col-md-3" }, [
           _c(
             "a",
             {
@@ -64403,7 +64403,7 @@ var render = function() {
             },
             [
               _c("i", { staticClass: "fa fa-google" }),
-              _vm._v(" Sign in with "),
+              _vm._v(" "),
               _c("b", [_vm._v("Google")])
             ]
           )

@@ -1,13 +1,12 @@
 <template>
     <div class="content">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Product Size Group List</h5>
+        <div class="panel">
+            <div class="panel-heading bg-teal-400">
+                <h5 class="panel-title">Customer List</h5>
                 <div class="heading-elements">
                     <ul class="icons-list">
                         <li><a data-action="collapse"></a></li>
                         <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
                     </ul>
                 </div>
             </div>
@@ -126,7 +125,6 @@
                 filter: '',
                 rows:'',
                 columns: [
-                    { label: '#', field: 'index', align: 'center', filterable: false, sortable:false },
                     { label: 'Full Name', field: 'user.full_name', sortable: true},
                     { label: 'User Name', field: 'user.user_name',},
                     { label: 'Email', field: 'user.email'},

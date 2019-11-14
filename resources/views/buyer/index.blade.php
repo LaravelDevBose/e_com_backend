@@ -11,9 +11,6 @@
             margin-bottom: 1rem;
             padding: 1rem!important;
         }
-        .table > thead> tr > th:first-child{
-            width: 50px;
-        }
     </style>
 @endsection
 
