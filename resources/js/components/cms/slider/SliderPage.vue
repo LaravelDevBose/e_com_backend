@@ -45,8 +45,8 @@
                         </td>
                         <td class="text text-center">
                             <ul class="icons-list">
-                                <li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
-                                <li class="text-danger-600"><a href="#" @click.prevent="sliderDelete(slider.id)"><i class="icon-trash"></i></a></li>
+<!--                                <li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>-->
+                                    <li class="text-danger-600"><a href="#" @click.prevent="sliderDelete(slider.id)"><i class="icon-trash"></i></a></li>
                             </ul>
                         </td>
                     </tr>

@@ -58,10 +58,10 @@
 
     Vue.component('buyer-action', {
         template: `<ul class="icons-list">
-                        <li><a href="#" class="label label-primary text text-white" @click.prevent="goToDetailsPage(row.buyer_id)"><i class="icon-eye"></i></a></li>
-                        <li v-if="row.user.status != 2"><a href="#" class="label label-warning text text-white" @click.prevent="blockBuyer(row.buyer_id)"><i class="icon-user-block "></i></a></li>
-                        <li v-else><a href="#" class="label label-info text text-white" @click.prevent="unblockBuyer(row.buyer_id)"><i class=" icon-user-check"></i></a></li>
-                        <li><a href="#" class="label label-danger text text-white" @click.prevent="deleteBuyer(row.buyer_id)"><i class="icon-trash"></i></a></li>
+<!--                        <li><a href="#" class="text text-primary" @click.prevent="goToDetailsPage(row.buyer_id)"><i class="icon-eye"></i></a></li>-->
+                        <li v-if="row.user.status != 2"><a href="#" class="text text-warning" @click.prevent="blockBuyer(row.buyer_id)"><i class="icon-user-block "></i></a></li>
+                        <li v-else><a href="#" class="text text-info" @click.prevent="unblockBuyer(row.buyer_id)"><i class=" icon-user-check"></i></a></li>
+                        <li><a href="#" class="text text-danger" @click.prevent="deleteBuyer(row.buyer_id)"><i class="icon-trash"></i></a></li>
                     </ul>`,
         props: ['row'],
         methods: {
@@ -70,7 +70,7 @@
                 'buyerDelete'
             ]),
             goToDetailsPage: function(ID){
-                window.location = '/admin/buyer/'+ID;
+                window.location = `/admin/buyer/${ID}/show`;
             },
 
             unblockBuyer(ID){

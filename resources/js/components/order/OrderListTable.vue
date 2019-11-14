@@ -24,7 +24,7 @@
     import {mapGetters, mapActions} from 'vuex';
     import InvoiceModalView from "../invoice/InvoiceModalView";
 
-    Vue.component('status-badge', {
+    Vue.component('order-status-badge', {
         template: `<div class="btn-group">
                         <span  class="label  dropdown-toggle"
                             :class="{'bg-info':row.order_status == 1, 'bg-danger':row.order_status == 2, 'bg-warning':row.order_status == 3, 'bg-primary':row.order_status == 4, 'bg-indigo-400':row.order_status == 5, 'bg-teal':row.order_status == 6 }"
@@ -60,9 +60,9 @@
                 this.orderStatusChange({order_no:orderNo, status:status})
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
-                            alert(response.message);
+                            Notify.success(response.message);
                         }else{
-                            alert(response.message);
+                            Notify.error(response.message);
                         }
                     })
             }
@@ -78,7 +78,7 @@
     Vue.component('action-btn', {
         template: `<ul class="icons-list">
                         <li><a href="#" class="text text-primary-700" @click.prevent="showInvoiceModalView(row.order_no)"><i class="icon-file-eye"></i></a :href=""></li>
-                        <li class="dropdown">
+                        <!--<li class="dropdown">
                             <a href="#" class="dropdown-toggle text text-teal-600" data-toggle="dropdown" aria-expanded="false">
                                 <i class="icon-cog7"></i>
                                 <span class="caret"></span>
@@ -88,7 +88,7 @@
                                 <li><a href="#"><i class="icon-file-excel"></i> Export to CSV</a></li>
                                 <li><a href="#"><i class="icon-file-word"></i> Export to DOC</a></li>
                             </ul>
-                        </li>
+                        </li>-->
                     </ul>`,
         props: ['row'],
         methods: {
@@ -131,7 +131,7 @@
                     { label: 'Quantity', field: 'total_qty', align: 'right',  },
                     { label: 'Subtotal', field: 'sub_total', align: 'right', sortable: true },
                     { label: 'Total', field: 'total', align: 'right', sortable: true },
-                    { label: 'Status', component: 'status-badge', align: 'center', sortable: false },
+                    { label: 'Status', component: 'order-status-badge', align: 'center', sortable: false },
                     { label: 'Action', component: 'action-btn', align: 'center', sortable: false },
 
                 ],
