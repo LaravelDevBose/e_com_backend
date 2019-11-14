@@ -22,8 +22,8 @@
                 </td>
                 <td>
                     <div>
-                        <p>{{ product.product_title }}</p>
-                        <p>{{ product.sku }}</p>
+                        <p>Name: {{ product.product_title }}</p>
+                        <p>SKU: {{ product.sku }}</p>
                     </div>
                 </td>
                 <td>
@@ -37,11 +37,15 @@
                 <td class="text-center">{{ product.total_qty }}</td>
                 <td class="text-right">{{ product.price }}</td>
                 <td class="text-center">
-                    <span class="badge badge-danger">Status</span>
+                    <span class="badge badge-info">{{ product.status_label }}</span>
                 </td>
                 <td class="a-center last text-center">
-                    <a href="#" > <i class="fa fa-pencil"></i></a>
-                    <a href="#" > <i class="fa fa-eye"></i></a>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                        <a href="#" class="btn btn-sm btn-info" @click.prevent="editProductDetails(product.product_slug)"> <i class="fa fa-pencil"></i></a>
+                        <a :href="'/product/'+product.product_slug" target="_blank" class="btn btn-sm btn-primary" > <i class="fa fa-eye"></i></a>
+                        <a href="#" @click.prevent="deleteProductDetails(product.product_slug)" class="btn btn-sm btn-danger" > <i class="fa fa-trash"></i></a>
+                    </div>
+
                 </td>
             </tr>
             <tr v-else class="last even">
@@ -68,7 +72,21 @@
         methods:{
             ...mapActions([
                 'getIndividualSellerProducts',
-            ])
+                'deleteIndividualSellerProduct'
+            ]),
+            editProductDetails(slug){
+                location.href = `/buyer/seller/product/${slug}/edit`;
+            },
+            deleteProductDetails(slug){
+                this.deleteIndividualSellerProduct(slug)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            this.$noty.success(response.message);
+                        }else{
+                            this.$noty.error(response.message);
+                        }
+                    });
+            }
         },
         computed:{
             ...mapGetters([

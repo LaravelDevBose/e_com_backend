@@ -51,9 +51,9 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
         Route::get('/product/create/dependency', 'ProductController@product_create_dependency');
         Route::post('/product', 'ProductController@store')->name('product.store');
         Route::get('/product/{product}', 'ProductController@show')->name('product.show');
-        Route::get('/product/{product}/edit', 'ProductController@edit')->name('product.edit');
-        Route::put('/product/{product}/update', 'ProductController@update')->name('product.update');
-        Route::delete('/product/{product}', 'ProductController@destroy')->name('product.destroy');
+        Route::get('/product/{slug}/edit', 'ProductController@edit')->name('product.edit');
+        Route::put('/product/{productId}/update', 'ProductController@update')->name('product.update');
+        Route::delete('/product/{slug}', 'ProductController@destroy')->name('product.destroy');
         Route::post('product/image/store', 'ProductImageController@store')->name('product_image.store');
         Route::delete('product/image/delete/{id}', 'ProductImageController@delete')->name('product_image.delete');
     });

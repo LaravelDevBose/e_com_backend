@@ -86,17 +86,17 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <img
-                                        v-if="editProduct.thumbImage"
-                                        :src="editProduct.thumbImage.image_path" alt="Product Thumb Image Not Found"
+                                        v-if="editProduct.thumb_image"
+                                        :src="editProduct.thumb_image.image_path" alt="Product Thumb Image Not Found"
                                         class="img img-thumbnail img-responsive"
                                         style="max-height: 200px; max-width: 200px;"
                                     />
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="row" v-if="editProduct.productImages.length !== 0">
-                                        <div class="col-xs-4 col-sm-4 col-lg-3" v-for="image in editProduct.productImages" :key="image.id" >
+                                    <div class="row" v-if="editProduct.product_images">
+                                        <div class="col-xs-4 col-sm-4 col-lg-3" v-for="image in editProduct.product_images" :key="image.id" >
                                             <div class="thumb" style="margin-buttom:5px;">
-                                                <img :src="image.image_path" alt="" class="img-responsive">
+                                                <img :src="image.attachment.image_path" alt="" class="img img-responsive img-thumbnail">
                                                 <a href="#" @click.prevent="deleteProductImage()" class="text font-weight-bold close-btn">
                                                     <i class="fa fa-close"></i>
                                                 </a>
@@ -126,7 +126,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" v-if="productImages.length !== 0">
+                                        <div class="row" v-if="productImages">
                                             <div class="col-xs-4 col-sm-4 col-lg-3" v-for="image in productImages" :key="image.id" >
                                                 <div class="thumb" style="margin-buttom:5px;">
                                                     <img :src="image.img" alt="" class="img-responsive">
@@ -171,7 +171,7 @@
                 default:'',
             },
             isedit:{
-                type:[Boolean],
+                type:[Boolean,Number],
                 default: false,
             }
         },
@@ -182,6 +182,7 @@
         data(){
             return{
                 formData:{
+                    product_id:'',
                     product_name:'',
                     category_id:'',
                     brand_id:'',
@@ -215,7 +216,7 @@
             }
         },
         created(){
-            if(this.is_edit === 1 || this.is_edit === true){
+            if(this.isedit === 1 || this.isedit === true){
                 this.getEditProductInfo(this.productid);
             }
         },
@@ -228,12 +229,14 @@
                 'uploadProductImage',
                 'imageRemove',
                 'storeIndividualSellerProduct',
-                'getEditProductInfo'
+                'getEditProductInfo',
+                'updateIndividualSellerProduct'
             ]),
             checkMainCat(){
                 this.mainCategories.filter(cat=>{
                     if(cat.id === this.formData.main_cat_id){
                         this.secCategories = cat.children;
+                        this.trdCategories.length =0;
                     }
                 })
 
@@ -249,23 +252,49 @@
                 if(!this.formValidation()){
                     return false;
                 }
-                this.formData.thumb_id = this.cropImageIds[0];
-                this.formData.imageIds = this.imageIds;
-                this.storeIndividualSellerProduct(this.formData)
-                     .then(response=>{
-                         if(typeof response.code !== "undefined" && response.code === 201){
-                             this.$noty.success(response.message);
-                             if (response.hasOwnProperty('url')){
-                                 setTimeout(()=>{
-                                     location.href = response.url;
-                                 }, 1500);
-                             }
-                         }else if(response.status === 'validation'){
-                             this.$noty.warning(response.message);
-                         }else{
-                             this.$noty.error(response.message);
-                         }
-                     })
+                this.btnDisabled=true;
+
+                if(this.cropImageIds.length !== 0 && this.cropImageIds[0] !== ''){
+                    this.formData.thumb_id = this.cropImageIds[0];
+                }
+                if(this.imageIds.length !== 0 && this.imageIds !== ''){
+                    this.formData.imageIds = this.imageIds;
+                }
+
+                if(this.isedit === true || this.isedit === 1){
+                    this.updateIndividualSellerProduct(this.formData)
+                        .then(response=>{
+                            if(typeof response.code !== "undefined" && response.code === 200){
+                                this.$noty.success(response.message);
+                                if (response.hasOwnProperty('url')){
+                                    setTimeout(()=>{
+                                        location.href = response.url;
+                                    }, 1500);
+                                }
+                            }else if(response.status === 'validation'){
+                                this.$noty.warning(response.message);
+                            }else{
+                                this.$noty.error(response.message);
+                            }
+                        })
+                }else {
+                    this.storeIndividualSellerProduct(this.formData)
+                        .then(response=>{
+                            if(typeof response.code !== "undefined" && response.code === 201){
+                                this.$noty.success(response.message);
+                                if (response.hasOwnProperty('url')){
+                                    setTimeout(()=>{
+                                        location.href = response.url;
+                                    }, 1500);
+                                }
+                            }else if(response.status === 'validation'){
+                                this.$noty.warning(response.message);
+                            }else{
+                                this.$noty.error(response.message);
+                            }
+                        })
+                }
+
             },
 
             formValidation(){
@@ -280,6 +309,10 @@
                 }
                 if(this.formData.trd_cat_id === '' && this.trdCategories.length !== 0){
                     this.$noty.warning('Select Third Category');
+                    return false;
+                }
+                if(this.formData.thumb_id === ''){
+                    this.$noty.warning('Add A Product Thumb Image');
                     return false;
                 }
 
@@ -338,6 +371,26 @@
                 handler(newVal, oldVal){
                     if(newVal !== oldVal){
                         this.mainCategories = this.treeList;
+
+                        if(this.isedit === true || this.isedit === 1){
+                            this.mainCategories.filter(cat=>{
+                                if(cat.id === this.categoryInfo.main_cat_id){
+                                    this.secCategories = cat.children;
+                                }
+                            });
+
+                            if(this.categoryInfo.sec_cat_id !== ''){
+                                this.formData.sec_cat_id = this.categoryInfo.sec_cat_id;
+                                this.secCategories.filter(cat=>{
+                                    if(cat.id === this.categoryInfo.sec_cat_id){
+                                        this.trdCategories = cat.children;
+                                    }
+                                });
+                            }
+                            if(this.categoryInfo.trd_cat_id !== ''){
+                                this.formData.trd_cat_id = this.categoryInfo.trd_cat_id;
+                            }
+                        }
                     }
                 }
             },
@@ -352,6 +405,7 @@
             editDataCheck:{
                 handler(newVal, oldVal){
                     if(newVal !== oldVal){
+                        this.formData.product_id = this.editProduct.product_id;
                         this.formData.product_name = this.editProduct.product_name;
                         this.formData.brand_id = this.editProduct.brand_id;
                         this.formData.highlight = this.editProduct.highlight;
@@ -362,13 +416,6 @@
                         this.formData.product_price = this.editProduct.product_price;
                         this.formData.thumb_id = this.editProduct.thumb_id;
                         this.formData.main_cat_id = this.categoryInfo.main_cat_id;
-
-                        if(this.categoryInfo.sec_cat_id !== ''){
-                            this.formData.sec_cat_id = this.categoryInfo.sec_cat_id;
-                        }
-                        if(this.categoryInfo.trd_cat_id !== ''){
-                            this.formData.trd_cat_id = this.categoryInfo.trd_cat_id;
-                        }
                     }
 
                 }

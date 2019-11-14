@@ -95,6 +95,7 @@
                                 </div>
 
                                 <div class="col-lg-3 col-sm-3 col-xs-12 pro-banner">
+                                    @if($product->seller->shop)
                                     <div class="text-widget widget widget__sidebar shop-info">
                                         <div class="widget-content">
                                             <span class="sold-by">Sold By</span>
@@ -118,6 +119,8 @@
                                             <a href="{{ route('front.shop.profile', $product->seller->shop->shop_slug) }}"> Go To Store</a>
                                         </div>
                                     </div>
+                                    @endif
+
                                     @if(!empty($hotProducts))
                                         <div class="hot-deal">
                                             <div class="title">Hot Deal</div>

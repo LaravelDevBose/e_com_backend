@@ -35,6 +35,9 @@
                  <li>
                      <a href="{{ route('buyer.seller.product.index') }}">Product List</a>
                  </li>
+                 <li>
+                     <a href="{{ route('buyer.seller.product.create') }}">Add New Product</a>
+                 </li>
              </ul>
          </div>
      </div>

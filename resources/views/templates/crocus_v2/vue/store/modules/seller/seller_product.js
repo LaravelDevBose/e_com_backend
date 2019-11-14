@@ -76,7 +76,31 @@ const actions = {
             return  error.data;
         }
     },
-
+    async updateIndividualSellerProduct({commit}, formData){
+        try {
+            return await axios.put(`/buyer/seller/product/${formData.product_id}/update`, formData)
+                .then(response=>{
+                    return response.data;
+                })
+        }catch (error) {
+            console.log(error.data);
+            return  error.data;
+        }
+    },
+    async deleteIndividualSellerProduct({commit}, slug){
+        try {
+            return await axios.delete(`/buyer/seller/product/${slug}`)
+                .then(response=>{
+                    if (typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('removeIndividualSellerProduct', slug);
+                    }
+                    return response.data;
+                })
+        }catch (error) {
+            console.log(error.data);
+            return  error.data;
+        }
+    },
 };
 
 const mutations = {
@@ -90,6 +114,11 @@ const mutations = {
         state.edit_product = response.product;
         state.category_info = response.categoryInfo;
 
+    },
+    removeIndividualSellerProduct:(state, slug)=>{
+        state.products = state.products.filter(product=>{
+            return product.product_slug !== slug;
+        })
     }
 };
 

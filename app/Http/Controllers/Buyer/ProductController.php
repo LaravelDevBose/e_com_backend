@@ -44,7 +44,7 @@ class ProductController extends Controller
             return $query->with(['parent'=>function($q){
                 return $q->with(['parent']);
             }]);
-        }, 'brand'])->where('seller_id', auth()->user()->seller->seller_id)->latest()->get();
+        }, 'brand'])->where('seller_id', auth()->user()->seller->seller_id)->notDelete()->latest()->get();
         return ResponserTrait::collectionResponse('success', Response::HTTP_OK, ProductCollection::collection($products));
     }
 
@@ -119,92 +119,23 @@ class ProductController extends Controller
                     'product_qty'=>$request->product_qty,
                     'product_price'=>$request->product_price,
                     'seller_sku'=>$request->seller_sku,
+                    'product_condition'=>$request->product_condition,
                 ]);
-                if($product){
-
-                    #Store Data in Product Details Table
-                    $details= ProductDetails::create([
-                        'product_id'=>$product->product_id,
-                        'main_materials'=>$request->main_materials,
-                        'product_model'=>$request->product_model,
-                        'num_of_pieces'=>$request->num_of_pieces,
-                        'product_occasion'=>$request->product_occasion,
-                        'color_shade'=>$request->color_shade,
-                        'skin_type'=>$request->skin_type,
-                        'extra_details'=>$request->extra_details,
-                        'warranty_policy'=>$request->warranty_policy,
-                        'warranty_policy_eng'=>$request->warranty_policy_eng,
-                        'warranty_period'=>$request->warranty_period,
-                    ]);
-
-                    if(!empty($details)){
-                        if(!empty($request->product_type) && $request->product_type == Product::ProductType['Variation']){
-                            if(!empty($request->variations)){
-                                $variations = $request->variations;
-                                $variationArray = array();
-                                foreach ($variations as $variation){
-
-                                    $variation = (object) $variation;
-                                    $gift ='';
-                                    if(!empty($variation->gift_product)){
-                                        $gift = Product::where('product_sku', $variation->gift_product)->first();
-                                    }
-
-                                    array_push($variationArray,[
-                                        'product_id'=>$product->product_id,
-                                        'seller_sku'=>$variation->seller_sku,
-                                        'pri_id'=>$variation->color_id,
-                                        'pri_model'=>config('app.variation_model.color'),
-                                        'sec_id'=>$variation->size_id,
-                                        'sec_model'=>config('app.variation_model.size'),
-                                        'quantity'=>$variation->qty,
-                                        'price'=>$variation->price,
-//                                    'special_price'=>(!empty($variation->special_price))?$variation->special_price:0,
-                                        'gift_product_id'=>(!empty($gift))?$gift->product_id: 0,
-                                        'gift_product_sku'=>(!empty($gift))?$gift->product_sku: '',
-                                    ]);
-
-                                }
-                                $variationProduct = ProductVariation::insert($variationArray);
-                            }
-
-
-                            #Store Data in Product Image Table
-
-                            if(!empty($request->imageIds)){
-                                $imageIds = $request->imageIds;
-                                $imageArray = array();
-                                foreach ($imageIds as  $imageId){
-                                    $imageId = (object)$imageId;
-                                    array_push($imageArray,[
-                                        'product_id'=>$product->product_id,
-                                        'pri_id'=>$imageId->pri_id,
-                                        'model'=>ProductVariation::VARIATION_MODEL[strtolower($request->pri_model)],
-                                        'attachment_id'=>$imageId->image_id,
-                                        'image_status'=>config('app.active')
-                                    ]);
-                                }
-                                $productImages = ProductImage::insert($imageArray);
-                            }
-                        }else{
-                            if(!empty($request->imageIds)){
-                                $imageIds = $request->imageIds;
-                                $imageArray = array();
-                                foreach ($imageIds as  $imageId){
-                                    $imageId = (object)$imageId;
-                                    array_push($imageArray,[
-                                        'product_id'=>$product->product_id,
-                                        'pri_id'=>'',
-                                        'model'=>'',
-                                        'attachment_id'=>$imageId->image_id,
-                                        'image_status'=>config('app.active')
-                                    ]);
-                                }
-                                $productImages = ProductImage::insert($imageArray);
-                            }
+                if(!empty($product)){
+                    if(!empty($request->imageIds)){
+                        $imageIds = $request->imageIds;
+                        $imageArray = array();
+                        foreach ($imageIds as  $imageId){
+                            $imageId = (object)$imageId;
+                            array_push($imageArray,[
+                                'product_id'=>$product->product_id,
+                                'pri_id'=>'',
+                                'model'=>'',
+                                'attachment_id'=>$imageId->image_id,
+                                'image_status'=>config('app.active')
+                            ]);
                         }
-                    }else{
-                        throw new Exception('Invalid Product Details Information', Response::HTTP_BAD_REQUEST);
+                        $productImages = ProductImage::insert($imageArray);
                     }
                     DB::commit();
                     return ResponserTrait::allResponse('success', Response::HTTP_CREATED, 'Product Store Successfully','', route('buyer.seller.product.index'));
@@ -227,7 +158,7 @@ class ProductController extends Controller
     public function show($productId)
     {
         $categoryInfo = array();
-        $product = Product::where('product_id', $productId)->with(['thumbImage','productImages'])->first();
+        $product = Product::where('product_id', $productId)->with(['thumbImage','productImages.attachment'])->first();
         $category = Category::where('category_id', $product->category_id)->first();
         if(!empty($category->parent_id)){
             $parentCat = Category::where('category_id', $category->parent_id)->first();
@@ -266,5 +197,121 @@ class ProductController extends Controller
         return view('templates.'.$this->template_name.'.buyer.seller.product.edit_product',[
             'productId'=>$product->product_id
         ]);
+    }
+
+    public function update(Request $request, $productId)
+    {
+        $validator = Validator::make($request->all(),[
+            'product_name'=>'required|string|max:255',
+            'highlight'=>'required|string|max:1500',
+            'description'=>'required',
+            'product_type'=>'required',
+            'product_qty'=>'required',
+            'product_price'=>'required',
+            'product_condition'=>'required',
+            'thumb_id'=>'required',
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+                #Store Data in Product Table
+
+                # Get Product Category Id;
+
+                if(!empty($request->main_cat_id)){
+                    $catId = $request->main_cat_id;
+                }else{
+                    throw new Exception('Select a Category', Response::HTTP_BAD_REQUEST);
+                }
+
+                if(!empty($request->sec_cat_id)){
+                    $catId = $request->sec_cat_id;
+                }
+                if(!empty($request->trd_cat_id)){
+                    $catId = $request->trd_cat_id;
+                }
+                $product = Product::where('product_id', $productId)->first();
+
+                if(empty($product)){
+                    throw new Exception('Invalid Product Information', Response::HTTP_NOT_FOUND);
+                }
+
+                if($product->seller_id !== auth()->guard('web')->user()->seller->seller_id){
+                    throw new Exception('Unauthorized for Update This Product ', Response::HTTP_UNAUTHORIZED);
+                }
+                $product = $product->update([
+                    'category_id'=>$catId,
+                    'brand_id'=>$request->brand_id,
+                    'product_name'=>$request->product_name,
+                    'product_slug'=>str_slug($request->product_name),
+                    'highlight'=>$request->highlight,
+                    'description'=>$request->description,
+                    'product_status'=>(!empty($request->product_status)) ? $request->product_status :3,
+                    'thumb_id'=>$request->thumb_id,
+                    'product_qty'=>$request->product_qty,
+                    'product_price'=>$request->product_price,
+                    'seller_sku'=>$request->seller_sku,
+                    'product_condition'=>$request->product_condition,
+                ]);
+                if(!empty($product)){
+                    if(!empty($request->imageIds)){
+                        $imageIds = $request->imageIds;
+                        $imageArray = array();
+                        foreach ($imageIds as  $imageId){
+                            $imageId = (object)$imageId;
+                            array_push($imageArray,[
+                                'product_id'=>$product->product_id,
+                                'pri_id'=>'',
+                                'model'=>'',
+                                'attachment_id'=>$imageId->image_id,
+                                'image_status'=>config('app.active')
+                            ]);
+                        }
+                        $productImages = ProductImage::insert($imageArray);
+                    }
+
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Update Successfully','', route('buyer.seller.product.index'));
+                }else{
+                    throw new Exception('Invalid Product Information', Response::HTTP_BAD_REQUEST);
+                }
+
+            }catch (Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', 400, $errors);
+        }
+
+    }
+
+    public function destroy($slug)
+    {
+        try{
+            $product = Product::where('product_slug', $slug)->first();
+
+            if(empty($product)){
+                throw new Exception('Invalid Product Info', Response::HTTP_NOT_FOUND);
+            }
+
+            if($product->seller_id !== auth()->guard('web')->user()->seller->seller_id){
+                throw new Exception('Unauthorized for Update This Product ', Response::HTTP_UNAUTHORIZED);
+            }
+
+            $product = $product->update([
+                'product_status'=>config('app.delete'),
+            ]);
+
+            if(!empty($product)){
+                DB::commit();
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Deleted Successfully');
+            }
+        }catch (Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+        }
     }
 }
