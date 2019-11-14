@@ -45,6 +45,19 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
+    async deleteGroupProduct({commit}, groupId){
+        try {
+            await axios.delete(`/admin/group/products/${groupId}`)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('removeGroupProduct', groupId);
+                    }
+                    return response.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {
@@ -52,6 +65,7 @@ const mutations = {
         state.group_type = response.groups;
     },
     setGroupList:(state,response)=>state.group_list = response,
+    removeGroupProduct:(state, groupId)=>state.group_list = state.group_list.filter(group=>group.group_id !== groupId),
 };
 
 export default {

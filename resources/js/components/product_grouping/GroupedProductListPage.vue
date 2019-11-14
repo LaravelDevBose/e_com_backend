@@ -35,19 +35,19 @@
 <script>
     import {mapActions, mapGetters} from 'vuex';
     import ProductThumbImg from "../helper/table/ProductThumbImg";
-    import ActiveInactiveStatus from "../helper/table/ActiveInactiveStatus";
     import GroupProductAction from "../helper/table/GroupProductAction";
+    import GroupProductStatus from './GroupProductStatus'
     export default {
         name: "GroupedProductListPage",
         components:{
             'product-thumb-img':ProductThumbImg,
-            'active-inactive-status':ActiveInactiveStatus,
             'group-product-action':GroupProductAction,
+            'group-product-status':GroupProductStatus,
         },
         data(){
             return{
                 page: 1,
-                per_page: 5,
+                per_page: 25,
                 filter: '',
                 rows:'',
                 columns: [
@@ -59,7 +59,7 @@
                     { label: 'Group Title', field: 'group_title', align: 'center', sortable: true },
                     { label: 'Position', field: 'position', align: 'center', sortable: true },
                     { label: 'Expired', field: 'expired_at', align: 'center', sortable: true },
-                    { label: 'Status', component: 'active-inactive-status', align: 'center', sortable: true },
+                    { label: 'Status', component: 'group-product-status', align: 'center', sortable: true },
                     { label: 'Action', component: 'group-product-action', align: 'center', sortable: true },
                 ],
             }

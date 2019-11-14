@@ -1,21 +1,32 @@
 <template>
     <ul class="icons-list">
-        <li><a href="#" class="text text-info" @click.prevent="goToEditPage(row.id)"><i class="icon-pencil7"></i></a></li>
-        <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp(row.id)"><i class="icon-trash"></i></a></li>
+<!--        <li><a href="#" class="text text-info" @click.prevent="goToEditPage(row.id)"><i class="icon-pencil7"></i></a></li>-->
+        <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp(row.group_id)"><i class="icon-trash"></i></a></li>
     </ul>
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
+
     export default {
         name: "GroupProductAction",
         props:['row'],
         methods:{
-            goToEditPage(){
-                alert('Not Done Yet.');
-                return false;
-            },
-            showDeletePopUp(){
-                alert('Not Done Yet.');
+            ...mapActions([
+                'deleteGroupProduct'
+            ]),
+            showDeletePopUp(groupId){
+                let conf = confirm('Are You Sure.?'+groupId);
+                if(conf){
+                    this.deleteGroupProduct(groupId)
+                        .then(response=>{
+                            if(typeof response.code !== "undefined" && response.code === 200){
+                                Notify.success(response.messages);
+                            }else{
+                                Notify.error(response.messages);
+                            }
+                        });
+                }
                 return false;
             }
         }

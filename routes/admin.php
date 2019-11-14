@@ -137,6 +137,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::post('/store', 'GroupProductController@store')->name('store');
         Route::get('/{groupId}/edit', 'GroupProductController@edit')->name('edit');
         Route::put('/{groupId}/update', 'GroupProductController@update')->name('update');
+        Route::delete('/{groupId}', 'GroupProductController@destroy')->name('destroy');
     });
 
 });

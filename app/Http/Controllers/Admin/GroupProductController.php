@@ -148,8 +148,31 @@ class GroupProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($groupId)
     {
-        //
+        try{
+            DB::beginTransaction();
+
+            $group = GroupProduct::where('group_id', $groupId)->first();
+
+            if(empty($group)){
+                throw new Exception('Invalid Group Product Information', Response::HTTP_BAD_REQUEST);
+            }
+
+            $group = $group->update([
+                'status'=>config('app.delete'),
+            ]);
+
+            if(!empty($group)){
+                DB::commit();
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Deleted Successfully');
+            }else{
+                throw new Exception('Delete Unsuccessful', Response::HTTP_BAD_REQUEST);
+            }
+
+        }catch (Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+        }
     }
 }
