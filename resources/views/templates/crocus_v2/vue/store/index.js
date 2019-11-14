@@ -17,6 +17,7 @@ import search from "./modules/search";
 import seller_product from "./modules/seller/seller_product";
 import productHelper from "./modules/helper/productHelper";
 import imageCropper from "./modules/helper/imageCropper";
+import seller_order from "./modules/seller/seller_order";
 
 
 export default new Vuex.Store({
@@ -71,6 +72,7 @@ export default new Vuex.Store({
         seller_product,
         productHelper,
         imageCropper,
+        seller_order,
     }
 })
 

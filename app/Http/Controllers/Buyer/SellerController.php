@@ -109,15 +109,15 @@ class SellerController extends Controller
 
         if($validator->passes()){
             try{
+
                 DB::beginTransaction();
                 $orderItem = OrderItem::where('item_id', $request->item_id)->first();
-
                 if(empty($orderItem)){
                     throw new \Exception('Invalid Order Information', Response::HTTP_BAD_REQUEST);
                 }
 
-                if($orderItem->seller_id === auth()->user()->seller->seller_id){
-                    throw new \Exception('Invalid Order Information', Response::HTTP_BAD_REQUEST);
+                if($orderItem->seller_id !== auth()->user()->seller->seller_id){
+                    throw new \Exception('You Are UnAuthorize For This Action', Response::HTTP_UNAUTHORIZED);
                 }
 
                 $orderItem = $orderItem->update([

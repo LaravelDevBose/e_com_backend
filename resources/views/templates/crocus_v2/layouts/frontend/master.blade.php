@@ -25,7 +25,7 @@
     <!-- Styles -->
 
     <!-- CSS Style -->
-{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">--}}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/font-awesome.css') }}" media="all">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/simple-line-icons.css') }}" media="all">

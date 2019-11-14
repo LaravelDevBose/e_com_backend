@@ -4,10 +4,10 @@
                :class="{'bg-success':row.status === 1, 'bg-info':row.status === 2, 'bg-warning':row.status === 3, 'bg-primary':row.status === 4, 'bg-indigo-400':row.status === 5, 'bg-teal':row.status === 6 }"
                data-toggle="dropdown" aria-expanded="false">
             {{ row.status_label }}
-            <span class="caret"></span>
+            <span v-if="productStatus.length !== 0" class="caret"></span>
         </span>
-        <div >
-            <ul v-if="productStatus" class="dropdown-menu dropdown-menu-right">
+        <div v-if="productStatus.lenght !== 0 ">
+            <ul class="dropdown-menu dropdown-menu-right">
                 <li v-for="(statusName, index) in productStatus" v-if="row.status !== index">
                     <a href="#" @click.prevent="changeProductStatus(row.id, index)">
                         <span

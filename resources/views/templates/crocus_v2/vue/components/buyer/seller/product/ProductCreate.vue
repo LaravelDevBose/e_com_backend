@@ -311,10 +311,6 @@
                     this.$noty.warning('Select Third Category');
                     return false;
                 }
-                if(this.formData.thumb_id === ''){
-                    this.$noty.warning('Add A Product Thumb Image');
-                    return false;
-                }
 
                 return true;
             },

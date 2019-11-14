@@ -4,7 +4,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <a href="#" @click.prevent="printInvoice()" class="btn btn-sm btn-info"> Print</a>
                 </div>
                 <div id="invoice_body">
                     <div class="panel-body no-padding-bottom">

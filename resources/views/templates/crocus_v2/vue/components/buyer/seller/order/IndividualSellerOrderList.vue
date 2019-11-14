@@ -12,42 +12,43 @@
                 <th class="text-center">Qty</th>
                 <th class="text-right">T. Price</th>
                 <th class="text-center">Status</th>
-                <th class="text-center">Action </th>
             </tr>
             </thead>
             <tbody>
             <tr v-if="individualSellerOrders.length !== 0" v-for="(orderItem,index) in individualSellerOrders" :class="{'first':index === 0, 'last':(index+1) === individualSellerOrders.length ,'even': index % 2 === 0, 'odd': index % 2 !== 0 }">
                 <td>{{ orderItem.order.order_no }}</td>
                 <td>
-                    <img v-if="orderItem.product.thumb_image.image_path" :src="orderItem.product.thumb_image.image_path" :alt="orderItem.product.product_name" class="img-responsive" style="max-width: 50px; max-height: 50px">
+                    <img v-if="orderItem.product.thumb_image.image_path" :src="orderItem.product.thumb_image.image_path" :alt="orderItem.product.product_name" class="img img-responsive" style="max-width: 50px; max-height: 50px">
                 </td>
                 <td>
                     <div>
-                        <p>Name: {{ orderItem.product.product_name }}</p>
-                        <p>SKU: {{ orderItem.product.product_sku }}</p>
+                        <p class="mar-0">Name: {{ orderItem.product.product_name }}</p>
+                        <p class="mar-0" >SKU: {{ orderItem.product.product_sku }}</p>
                     </div>
                 </td>
                 <td>
                     <span>{{ orderItem.order.order_date}}</span>
                 </td>
                 <td>
-                    <span v-if="orderItem.brand !== null">{{ orderItem.brand.name }}</span>
+                    <span v-if="orderItem.brand !== null">{{ orderItem.brand.brand_name }}</span>
                 </td>
                 <td class="text-right">{{ orderItem.price }}</td>
                 <td class="text-center">{{ orderItem.qty }}</td>
                 <td class="text-center">{{ orderItem.total_price }}</td>
-                <td class="a-center last text-center">
-                    <div class="btn-group btn-group-sm" role="group">
-                        <div class="dropdown">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ orderItem.item_status_label }}
-                            </a>
-
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#" @click.prevent="changeOrderStatus(orderItem.item_id, 2)">Action</a>
-                                <a class="dropdown-item" href="#" @click.prevent="changeOrderStatus(orderItem.item_id, 5)">Action</a>
-                            </div>
-                        </div>
+                <td class="text-center">
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-sm dropdown-toggle"
+                            :class="{'btn-info':orderItem.item_status ===1, 'btn-danger':orderItem.item_status===2, 'btn-primary':orderItem.item_status===5}"
+                            type="button"
+                            data-toggle="dropdown"
+                        >{{ orderItem.item_status_label }}
+                            <span v-if="orderItem.item_status === 1" class="caret"></span>
+                        </button>
+                        <ul v-if="orderItem.item_status === 1" class="dropdown-menu">
+                            <li><a href="#" class="cancel" @click.prevent="changeOrderStatus(orderItem.item_id, 2)" >Cancel</a></li>
+                            <li><a href="#" class="ready-to-ship"  @click.prevent="changeOrderStatus(orderItem.item_id, 5)" >Ready To Ship</a></li>
+                        </ul>
                     </div>
                 </td>
             </tr>
@@ -110,5 +111,13 @@
 </script>
 
 <style scoped>
-
+    .ready-to-ship{
+        color: #31708f!important;
+    }
+    .cancel{
+        color: #d81f1f!important;
+    }
+    .mar-0{
+        margin: 0px!important;
+    }
 </style>

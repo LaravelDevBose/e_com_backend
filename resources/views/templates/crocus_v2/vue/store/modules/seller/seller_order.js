@@ -11,7 +11,9 @@ const getters = {
 const actions = {
     async getIndividualSellerOrders({commit},reqData){
         try {
-            return await axios.get('/buyer/seller/order/list',{reqData})
+            return await axios.get('/buyer/seller/order/list',{
+                params:reqData,
+            })
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
                         commit('setIndividualSellerOrders', response.data.data)

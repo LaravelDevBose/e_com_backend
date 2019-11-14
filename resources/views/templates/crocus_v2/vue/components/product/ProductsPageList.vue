@@ -1,7 +1,7 @@
 <template>
     <div class="category-products">
         <ul class="products-grid" v-if="productList">
-            <li v-for="(product,index) in productList" class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <li v-for="(product,index) in productList" class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
                 <product-grid :product="product" :key="index"></product-grid>
             </li>
         </ul>
