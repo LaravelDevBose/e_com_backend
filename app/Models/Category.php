@@ -41,10 +41,10 @@ class Category extends Model
     {
 
         $catIdArray = [$catId];
-        $sedChildID = Self::where('parent_id', $catId)->where('category_status', config('app.active'))->pluck('category_id')->toArray();
+        $sedChildID = self::where('parent_id', $catId)->where('category_status', config('app.active'))->pluck('category_id')->toArray();
         if(!empty($sedChildID)){
             $catIdArray = array_merge($catIdArray, $sedChildID);
-            $thirdChildID = Self::whereIn('parent_id', $sedChildID)->where('category_status', config('app.active'))->pluck('category_id')->toArray();
+            $thirdChildID = self::whereIn('parent_id', $sedChildID)->where('category_status', config('app.active'))->pluck('category_id')->toArray();
             if(!empty($thirdChildID)){
                 $catIdArray = array_merge($catIdArray, $thirdChildID);
             }
@@ -53,12 +53,12 @@ class Category extends Model
     }
     public static function All_children_Ids_by_array_data($catIds)
     {
-        $sedChildID = Self::whereIn('parent_id', $catIds)->pluck('category_id')->toArray();
+        $sedChildID = self::whereIn('parent_id', $catIds)->pluck('category_id')->toArray();
         if(!empty($sedChildID)){
             $catIds = array_merge($catIds, $sedChildID);
-            $thirdChildID = Self::whereIn('parent_id', $sedChildID)->where('category_status', config('app.active'))->pluck('category_id')->toArray();
+            $thirdChildID = self::whereIn('parent_id', $sedChildID)->where('category_status', config('app.active'))->pluck('category_id')->toArray();
             if(!empty($thirdChildID)){
-                $catIdArray = array_merge($catIds, $thirdChildID);
+                $catIds = array_merge($catIds, $thirdChildID);
             }
         }
         return $catIds;

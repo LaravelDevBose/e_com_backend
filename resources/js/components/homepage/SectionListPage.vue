@@ -73,22 +73,33 @@
         },
         methods:{
             ...mapActions([
-                'getSectionList'
+                'getSectionList',
+                'deleteSectionDetails',
             ]),
             goToShowPage(Id){
                 location.href = `${Id}/`;
             },
             goToEditPage(Id){
-                alert('Not Done Yet');
-                return false;
-                location.href = `${Id}/edit`;
+
+                location.href = `/admin/homepage/section/${Id}/edit`;
             },
             goToProductManagePage(Id){
                 location.href = `/admin/homepage/section/${Id}/manage/products`;
             },
             showDeletePopUp(Id){
-                alert('Not Done Yet');
-                return false;
+                let conf = confirm('Are You Sure.?');
+                if(conf){
+                    this.deleteSectionDetails(Id)
+                        .then(response=>{
+                            if(typeof response.code !== "undefined" && response.code ===200 ){
+                                Notify.success(response.message);
+                            }else{
+                                Notify.error(response.message);
+                            }
+                        })
+                }else{
+                    return false;
+                }
             },
             sectionBanner(section){
                 let image_path='';

@@ -124,7 +124,9 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::get('/create', 'HomepageSectionController@create')->name('create');
         Route::post('/store', 'HomepageSectionController@store')->name('store');
         Route::get('/{section_id}/edit', 'HomepageSectionController@edit')->name('edit');
+        Route::put('/{section_id}/update', 'HomepageSectionController@update')->name('update');
         Route::get('/{section_id}', 'HomepageSectionController@show')->name('show');
+        Route::delete('/{section_id}', 'HomepageSectionController@destroy')->name('destroy');
         Route::get('/{section_id}/add/products', 'HomepageSectionController@add_section_products')->name('add.product');
         Route::post('/products/store', 'HomepageSectionController@store_section_product')->name('products.store');
         Route::get('/{section_id}/manage/products', 'HomepageSectionController@manage_section_products')->name('manage.product');

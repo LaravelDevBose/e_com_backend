@@ -111,6 +111,35 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
+    async updateSectionDetails({commit}, fromData){
+        try {
+            return  await axios.put(`/admin/homepage/section/${fromData.section_id}/update`, fromData)
+                .then(response=>{
+                    return response.data;
+                }).catch(error=>{
+                    commit('setResponse', error.data);
+                    return error.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
+    async deleteSectionDetails({commit}, sectionId){
+        try {
+            return  await axios.delete(`/admin/homepage/section/${sectionId}`)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('removeSectionInfo', sectionId);
+                    }
+                    return response.data;
+                }).catch(error=>{
+                    commit('setResponse', error.data);
+                    return error.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {
@@ -124,7 +153,8 @@ const mutations = {
         state.selectedProIds = response.productIds;
         state.cat_products = response.products;
         state.selected_products = response.selected_products;
-    }
+    },
+    removeSectionInfo:(state, sectionId)=>state.section_list = state.section_list.filter(section=>section.id !== sectionId),
 };
 
 export default {

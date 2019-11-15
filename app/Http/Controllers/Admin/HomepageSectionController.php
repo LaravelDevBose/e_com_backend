@@ -72,6 +72,7 @@ class HomepageSectionController extends Controller
             'section_title'=>'required|string|max:50',
             'section_type'=>'required',
             'section_position'=>'required',
+            'categoryIDs'=>'required|array',
         ]);
 
         if($validator->passes()){
@@ -241,7 +242,14 @@ class HomepageSectionController extends Controller
      */
     public function edit($sectionId)
     {
-        $section = HomepageSection::findOrFail($sectionId);
+        $section = HomepageSection::find($sectionId);
+        if(empty($section)){
+            abort(Response::HTTP_NOT_FOUND);
+        }
+
+        return  view('homepage_section.section_edit',[
+            'sectionId'=>$sectionId,
+        ]);
 
     }
 
@@ -254,7 +262,76 @@ class HomepageSectionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'section_title'=>'required|string|max:50',
+            'section_type'=>'required',
+            'section_position'=>'required',
+            'categoryIDs'=>'required|array',
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+
+                $section = HomepageSection::where('section_id', $id)->with('sectionCategories')->first();
+                if(empty($section)){
+                    throw new Exception('Invalid Homepage Section Information', Response::HTTP_NOT_FOUND);
+                }
+                $secCategoryIds = $section->sectionCategories->pluck('category_id')->toArray();
+                $section = $section->update([
+                    'section_title'=>$request->section_title,
+                    'section_type'=>$request->section_type,
+                    'section_position'=>$request->section_position,
+                    'attachment_id'=>(!empty($request->attachment_id))? $request->attachment_id:$section->attachment_id,
+                ]);
+                if(!empty($section)){
+                    $sectionCats = array();
+                    $categoryIDs = Category::All_children_Ids_by_array_data($request->categoryIDs);
+
+                    foreach ($categoryIDs as $key=>$value){
+                        if(!in_array($value, $secCategoryIds)){
+                            array_push($sectionCats, [
+                                'section_id'=>$id,
+                                'category_id'=>$value,
+                                'created_by'=>auth()->guard('admin')->id(),
+                            ]);
+                        }
+                    }
+                    $detCategoryIds = array();
+                    foreach ($secCategoryIds as $key=>$value){
+                        if(!in_array($value, $categoryIDs)){
+                            array_push($detCategoryIds,$value);
+                        }
+                    }
+
+                    if(!empty($sectionCats)){
+                        $categorySection = SectionCategory::insert($sectionCats);
+                        if(empty($categorySection)){
+                            throw new Exception('Invalid Category Information',Response::HTTP_BAD_REQUEST);
+                        }
+                    }
+
+                    if(!empty($detCategoryIds)){
+                        $deleteCategorySection = SectionCategory::where('section_id', $id)->whereIn('category_id', $detCategoryIds)->delete();
+                        if(empty($deleteCategorySection)){
+                            throw new Exception('Invalid Category Information. Try Again.',Response::HTTP_BAD_REQUEST);
+                        }
+                    }
+
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Homepage Section Update Successfully', '', route('admin.section.index'));
+                }else{
+                    throw new Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
+                }
+
+            }catch (Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+        }
     }
 
     public function manage_section_products(Request $request, $sectionId)
@@ -385,6 +462,26 @@ class HomepageSectionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $section = HomepageSection::where('section_id', $id)->first();
+            if(empty($section)){
+                throw new Exception('Invalid Homepage Section Information', Response::HTTP_NOT_FOUND);
+            }
+            $section->update([
+                'section_status'=>config('app.delete'),
+            ]);
+
+            if(!empty($section)){
+                DB::commit();
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Homepage Section Deleted Successfully');
+            }{
+                throw new Exception('Invalid Information.!', Response::HTTP_BAD_REQUEST);
+            }
+        }catch(Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+        }
+
     }
 }

@@ -1,9 +1,10 @@
 <template>
     <div class="content">
-        <form action="" @submit.prevent="sectionDetailsStore">
+        <form action="" @submit.prevent="sectionDetailsManipulate">
             <div class="panel">
                 <div class="panel-heading bg-indigo-800">
-                    <h5 class="panel-title">Add HomePage Section</h5>
+                    <h5 class="panel-title" v-if="is_edit">Update HomePage Section</h5>
+                    <h5 class="panel-title" v-else>Add HomePage Section</h5>
                 </div>
 
                 <div class="panel-body">
@@ -30,22 +31,36 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Categories:</label>
-                                <treeselect v-model="formData.categoryIDs" :multiple="true" :options="treeList" :normalizer="normalizer" />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Categories:</label>
+                                        <treeselect v-model="formData.categoryIDs" :multiple="true" :options="treeList" :normalizer="normalizer" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Section Banner:</label>
+                                    <img v-if="sectionData.attachment" :src="sectionData.attachment.image_path" alt="Section Banner" class="img-responcive img-thumbnail" style="width:100%;">
+                                </div>
                             </div>
+
                         </div>
 
                         <div class="col-md-9">
                             <label>Section Banner:</label>
                             <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                         </div>
+
                     </div>
 
                     <div class="row">
                         <div class="col-md-2 col-md-offset-8">
                             <div class="text-right form-group" style="margin-bottom:0px;">
-                                <button type="submit" :disabled="btnDisabled" class="btn btn-primary btn-block">Save Section <i class="icon-arrow-right14 position-right"></i></button>
+                                <button type="submit" :disabled="btnDisabled" class="btn btn-primary btn-block">
+                                    <span v-if="is_edit">Update Section </span>
+                                    <span v-else>Save Section </span>
+                                    <i class="icon-arrow-right14 position-right"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -66,6 +81,16 @@
 
     export default {
         name: "SectionCreatePage",
+        props:{
+            sectionid:{
+                type:[Number],
+                default:'',
+            },
+            is_edit:{
+                type: [Number],
+                default: false,
+            }
+        },
         components:{
             'vue-select2':VueSelect2,
             'product-list':ProductList,
@@ -74,6 +99,7 @@
         data(){
             return{
                 formData:{
+                    section_id:'',
                     section_title:'',
                     attachment_id:'',
                     section_type:'',
@@ -101,6 +127,9 @@
             }
         },
         created() {
+            if(this.is_edit ===1|| this.is_edit=== true){
+                this.getSectionData(this.sectionid);
+            }
             this.allTreeListCategories();
             this.getSectionCreateDependency();
         },
@@ -109,27 +138,48 @@
                 'allTreeListCategories',
                 'getSectionCreateDependency',
                 'storeSectionDetails',
+                'getSectionData',
+                'updateSectionDetails',
             ]),
-            sectionDetailsStore(){
+            sectionDetailsManipulate(){
                 this.btnDisabled = true;
                 if(this.cropImageIds !== ''){
                     this.formData.attachment_id = this.cropImageIds[0];
                 }
-                this.storeSectionDetails(this.formData)
-                    .then(response=>{
-                        if(typeof response.code !== "undefined" && response.code === 200){
-                            Notify.success(response.message);
 
-                            setTimeout(()=>{
-                                location.href = response.url;
-                            })
-                        }else if(response.code === 400 && response.status === 'validation'){
-                            Notify.warning(response.message);
-                        }else{
-                            Notify.error(response.message);
-                        }
-                    })
-                ;
+                if(this.is_edit === 1 || this.is_edit === true){
+                    this.updateSectionDetails(this.formData)
+                        .then(response=>{
+                            if(typeof response.code !== "undefined" && response.code === 200){
+                                Notify.success(response.message);
+
+                                setTimeout(()=>{
+                                    location.href = response.url;
+                                },1500);
+                            }else if(response.code === 400 && response.status === 'validation'){
+                                Notify.warning(response.message);
+                            }else{
+                                Notify.error(response.message);
+                            }
+                        });
+                }else{
+                    this.storeSectionDetails(this.formData)
+                        .then(response=>{
+                            if(typeof response.code !== "undefined" && response.code === 200){
+                                Notify.success(response.message);
+
+                                setTimeout(()=>{
+                                    location.href = response.url;
+                                },1500);
+
+                            }else if(response.code === 400 && response.status === 'validation'){
+                                Notify.warning(response.message);
+                            }else{
+                                Notify.error(response.message);
+                            }
+                        });
+                }
+
             },
 
         },
@@ -137,10 +187,14 @@
             ...mapGetters([
                 'treeList',
                 'sectionTypes',
-                'cropImageIds'
+                'cropImageIds',
+                'sectionData'
             ]),
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
+            },
+            sectionDataCheck(){
+                return JSON.parse(JSON.stringify(this.sectionData));
             },
         },
         watch:{
@@ -149,8 +203,28 @@
                     if(newVal !== oldVal){
                         this.btnDisabled = false;
                     }
+                },
+                deep:true,
+            },
+            sectionDataCheck:{
+                handler(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        let vm = this;
+                        this.formData.section_id = this.sectionData.section_id;
+                        this.formData.section_title = this.sectionData.section_title;
+                        this.formData.attachment_id = this.sectionData.attachment_id;
+                        this.formData.section_type = this.sectionData.section_type;
+                        this.formData.section_position = this.sectionData.section_position;
+                        this.formData.section_status = this.sectionData.section_status;
+                        this.sectionData.section_categories.forEach(function (value,key) {
+                            // console.log(value.category_id);
+                            vm.formData.categoryIDs.push(value.category_id);
+                        });
 
-                }
+                    }
+
+                },
+                deep:true,
             },
         }
     }
