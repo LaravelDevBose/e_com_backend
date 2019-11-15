@@ -9,6 +9,7 @@ use App\Models\OrderItem;
 use App\Models\PaymentInfo;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\ProductVariation;
 use App\Models\ShippingInfo;
 use App\Models\Size;
 use App\Traits\ResponserTrait;
@@ -105,10 +106,34 @@ class OrderController extends Controller
 
                 if(!empty($order)){
                     $orderItemsArray = [];
+                    $productUpdateArray = array();
                     // get single cart product
                         foreach ($carts as $cart){
                             // get product, brand, size, color details
-                            $product = Product::where('product_id',$cart->id)->with('brand')->first();
+                            $product = Product::where('product_id',$cart->id)->with('brand', 'singleVariation')->first();
+                            if($product->product_type == Product::ProductType['Variation']&& !empty($cart->options->sizeId) && !empty($cart->options->colorId)){
+                                $variationProduct = ProductVariation::where('product_id', $cart->id)
+                                    ->where('pri_id', $cart->options->colorId)
+                                    ->where('sec_id', $cart->options->colorId)->first();
+                                $currentQty = $variationProduct->quantity;
+                                $variation_id = $variationProduct->variation_id;
+                            }else{
+                                if($product->product_type === Product::ProductType['Simple']){
+                                    $currentQty = $product->product_qty;
+                                    $variation_id = '';
+                                }else{
+                                    $currentQty = $product->singleVariation->quantity;
+                                    $variation_id= $product->singleVariation->variation_id;
+                                }
+                            }
+
+                            array_push($productUpdateArray,[
+                                'id'=>$product->product_id,
+                                'curtQty'=>$currentQty,
+                                'orderQty'=>$cart->qty,
+                                'variation_id'=>$variation_id,
+                                'status'=>$product->product_status,
+                            ]);
 
                             array_push($orderItemsArray,[
                                 'order_id'=>$order->order_id,
@@ -202,6 +227,32 @@ class OrderController extends Controller
                         // TODO Sent invoice to buyer email address
 
                         // TODO return buyer panel invoice page
+
+                        ## Product Qty Update
+                        foreach ($productUpdateArray as $productInfo){
+                            $newQty = $productInfo['curtQty'] - $productInfo['orderQty'];
+                            $status = $productInfo['status'];
+                            if($newQty<=0){
+                                $newQty = 0;
+                                $status = Product::ProductStatus['Out of Stock'];
+                            }
+                            if(!empty($productInfo['variation_id'])){
+                                $updateArray = [
+                                    'product_status'=>$status
+                                ];
+                                ProductVariation::where('variation_id', $productInfo['variation_id'])
+                                    ->update([
+                                        'quantity'=>$newQty,
+                                    ]);
+                            }else{
+                                $updateArray = [
+                                    'product_qty'=>$newQty,
+                                    'product_status'=>$status
+                                ];
+                            }
+                            Product::where('product_id', $productInfo['id'])->update($updateArray);
+                        }
+
                         DB::commit();
                         Cart::destroy();
                         //TODO Change to Invoice Page url

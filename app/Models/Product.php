@@ -43,6 +43,7 @@ class Product extends Model
         'Inactive'=>2,
         'Pending'=>3,
         'Review'=>4,
+        'Out of Stock'=>5,
     ];
 
     protected $table = 'products';
