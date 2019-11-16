@@ -27,4 +27,8 @@ class Size extends Model
     public function scopeBySearch($query, $request){
         return $query;
     }
+
+    public function orderItems(){
+        return $this->hasMany(OrderItem::class, 'size_id', 'size_id');
+    }
 }

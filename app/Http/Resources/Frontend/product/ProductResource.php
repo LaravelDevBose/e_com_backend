@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Frontend\product;
 
-use App\Http\Resources\attachment\AttachmentResource;
-use App\Http\Resources\brand\BrandResource;
-use App\Http\Resources\category\CategoryResource;
+use App\Http\Resources\Frontend\attachment\AttachmentResource;
+use App\Http\Resources\Frontend\brand\BrandResource;
+use App\Http\Resources\Frontend\category\CategoryResource;
 use App\Models\Product;
 use Illuminate\Http\Resources\Json\Resource;
 

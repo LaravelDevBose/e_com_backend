@@ -2,8 +2,11 @@
 
 namespace App\Exceptions;
 
+use App\Traits\ResponserTrait;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -47,5 +50,28 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         return parent::render($request, $exception);
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+
+        $guard = array_get($exception->guards(), 0);
+        switch ($guard) {
+            case 'admin':
+                $login = 'admin.login';
+                break;
+            case 'seller':
+                $login = 'seller.login';
+                break;
+            default:
+                $login = 'login';
+                break;
+        }
+        if($request->ajax()){
+            return ResponserTrait::allResponse('error', Response::HTTP_UNAUTHORIZED, 'You Are Not Login. Login First', '', route($login));
+        }else{
+            return redirect()->guest(route($login));
+        }
+
     }
 }

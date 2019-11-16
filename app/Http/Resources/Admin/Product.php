@@ -4,9 +4,9 @@ namespace App\Http\Resources\Admin;
 
 use App\Http\Resources\Admin\Category as CategoryResource;
 use App\Http\Resources\Admin\Brand as BrandResource;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\Resource;
 
-class Product extends JsonResource
+class Product extends Resource
 {
     /**
      * Transform the resource into an array.

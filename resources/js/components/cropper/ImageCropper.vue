@@ -5,7 +5,7 @@
                 :height="cropperData.height"
                 :placeholder="cropperData.placeholder"
                 :accept="'image/*'"
-                :file-size-limit="cropperData.file_size*kb"
+                :file-size-limit="fileSizeLimit"
                 :quality="1"
                 :zoom-speed="5"
                 :disabled="uploaded"
@@ -44,7 +44,6 @@
         data(){
             return{
                 cropImage:'',
-                kb:'1048576‬',
                 imgUrl:'',
                 uploaded:false,
             }
@@ -69,12 +68,21 @@
             },
 
             handleCroppaFileSizeExceed(){
-                Notify.warning('Maximum Image Size: '+(this.cropperData.file_size/1024).toFixed(2) +' MB');
-                return;
+                if(typeof Notify !== "undefined"){
+                    Notify.warning('Maximum Image Size: '+(this.cropperData.file_size/1024).toFixed(2) +' MB');
+                }else{
+                    this.$noty.warning('Maximum Image Size: '+(this.cropperData.file_size/1024).toFixed(2) +' MB');
+                }
+                return false;
             },
             handleCroppaFileTypeMismatch(){
-                Notify.warning('File Type Not Match. Use .jpge , .jpg');
-                return;
+
+                if(typeof Notify !== "undefined"){
+                    Notify.warning('File Type Not Match. Use .jpge , .jpg');
+                }else{
+                    this.$noty.warning('File Type Not Match. Use .jpge , .jpg');
+                }
+                return false;
             },
             handleImageRemove(){
                 if(this.removeImage === true){
@@ -90,10 +98,9 @@
             },
             upload() {
                 if (!this.cropImage.hasImage()) {
-                    alert('no image to upload')
+                    alert('no image to upload');
                     return
                 }
-
 
                 this.cropImage.generateBlob((blob) => {
                     let Imgurl = this.cropImage.generateDataUrl();
@@ -105,9 +112,18 @@
                         .then(response=>{
                             if(response.code === 200){
                                 this.uploaded= true;
-                                Notify.success('Image Upload Successfully');
+                                if(typeof Notify !== "undefined"){
+                                    Notify.success('Image Upload Successfully');
+                                }else{
+                                    this.$noty.success('Image Upload Successfully');
+                                }
                             }else{
-                                Notify.info(response.message);
+                                if(typeof Notify !== "undefined"){
+                                    Notify.info(response.message);
+                                }else{
+                                    this.$noty.info(response.message);
+                                }
+
                             }
                     });
 
@@ -118,9 +134,11 @@
         computed:{
             ...mapGetters([
                 'attachments'
-            ])
+            ]),
 
-
+            fileSizeLimit(){
+                return this.cropperData.file_size*1048576;
+            }
         },
         watch:{
             removeImage:function(value){

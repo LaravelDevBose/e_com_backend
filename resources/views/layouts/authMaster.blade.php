@@ -45,7 +45,7 @@
 
     @yield('ThemeJs')
 </head>
-<body class="login-container login-cover">
+<body class="login-container ">
     <div id="app">
         <!-- Page container -->
         <div class="page-container">
@@ -62,24 +62,7 @@
             <!-- /page content -->
         </div>
         <!-- Footer -->
-        <div class="navbar navbar-default navbar-fixed-bottom">
-            <ul class="nav navbar-nav no-border visible-xs-block">
-                <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second"><i class="icon-circle-up2"></i></a></li>
-            </ul>
-
-            <div class="navbar-collapse collapse" id="navbar-second">
-                <div class="navbar-text col-md-6">
-                    &copy;2019. <span>Design And Develop By:</span> <a href="http://brainchildsoft.com" target="__blank">Brain Child Software</a> <small>Your Ultimate Web Solution</small>
-                </div>
-
-                <div class="navbar-right col-md-6">
-                    <ul class="nav navbar-nav">
-                        <li class="display-block pull-right"><a href="#" class="text-semibold" style="display: inline-block!important;">Email: laravel.devbose@gmail.com</a> <a href="#" class="text-semibold" style="display: inline-block!important;">Phone No: +880 1571-721910</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /footer -->
+        r -->
     </div>
 @yield('PageJs')
 </body>
