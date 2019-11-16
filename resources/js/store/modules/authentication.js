@@ -20,6 +20,9 @@ const actions={
     },
     async loginBuyer({commit}, formData){
         return  await axios.post('/login',formData).then(response=>{
+            if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                AppStorage.storeUserInfo(response.data.data);
+            }
             return response.data;
         });
 
@@ -33,7 +36,11 @@ const actions={
     },
     async loginSeller({commit}, formData){
         return  await axios.post('/seller/login',formData).then(response=>{
-            commit('sellerLoginResponse', response);
+            if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                AppStorage.storageClear();
+                AppStorage.storeUserInfo(response.data.data);
+            }
+            commit('loginResponse', response);
             return response.data;
         });
 

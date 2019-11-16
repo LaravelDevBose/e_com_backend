@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\TemplateHelper;
 use App\Http\Controllers\Controller;
 use App\Traits\ResponserTrait;
 use App\User;
@@ -14,12 +15,19 @@ use Illuminate\Support\Facades\Validator;
 class SellerLoginController extends Controller
 {
 
-    public function __construct(){
+    public $template_name;
+
+    public function __construct()
+    {
+        $this->template_name = TemplateHelper::templateName();
+        if(empty($this->template_name)){
+            $this->template_name = config('app.default_template');
+        }
         $this->middleware('guest:seller',['except'=>['logout']]);
     }
 
     public function show_login_page(){
-        return view('auth.seller_login');
+        return view('templates.'.$this->template_name.'.auth.seller_login');
     }
     public function login( Request $request){
 
@@ -38,7 +46,13 @@ class SellerLoginController extends Controller
             ];
 
             if (Auth::guard('seller')->attempt($credentials, $request->remember)) {
-                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successful', '', route('seller.home'));
+                $data =[
+                    'user'=>Auth::guard('seller')->user()->toJson(),
+                    'token'=>base64_encode(\auth()->guard('seller')->user()->user_name),
+                    'whoIs'=>'seller',
+                ];
+
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successful',$data , route('seller.home'));
             }
             return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'Email Or UserName And Password Not Match !');
         }{

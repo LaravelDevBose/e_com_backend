@@ -27,8 +27,12 @@ import  imageCropper from './modules/imageCropper';
 import  slider from "./modules/cms/slider";
 import  general_pages from "./modules/cms/general_pages";
 import  setting from "./modules/cms/setting";
-import  frontProduct from './modules/frontend/product';
-
+import order from "./modules/order";
+import buyer from "./modules/buyer";
+import shop from "./modules/shop";
+import homepage_section from "./modules/homepage_section";
+import group_products from "./modules/group_products";
+import unpublish_product from "./modules/unpublish_product";
 
 export default new Vuex.Store({
     state:{
@@ -36,10 +40,11 @@ export default new Vuex.Store({
         attachmentsFile:[],
         errors:null,
         attachment_ids:[],
+        paginate_data:[]
 
     },
     getters:{
-
+        paginate:(state)=>state.paginate_data,
     },
     actions:{
 
@@ -71,7 +76,12 @@ export default new Vuex.Store({
         slider,
         general_pages,
         setting,
-        frontProduct,
+        order,
+        buyer,
+        shop,
+        homepage_section,
+        group_products,
+        unpublish_product,
     }
 })
 

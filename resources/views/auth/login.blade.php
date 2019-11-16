@@ -1,4 +1,4 @@
-@extends('layouts.frontend.master')
+@extends('templates.crocus_v2.layouts.frontend.master')
 
 @section('Title','Customer Login')
 

@@ -8,6 +8,7 @@ use App\Models\SkinType;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -122,7 +123,57 @@ class SkinTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $validator = Validator::make($request->all(),[
+            'skin_type'=>'required|string:max:190',
+            'skin_type_status'=>'required',
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+                $skinType = SkinType::where('skin_type_id', $id)->first();
+
+                if(empty($skinType)){
+                    throw new Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
+                }
+                $skinType = SkinType::create([
+                    'skin_type'=>$request->skin_type,
+                    'skin_type_status'=>(!empty($request->skin_type_status) && $request->skin_type_status == 1) ? $request->skin_type_status : 2,
+                ]);
+                if($skinType){
+                    DB::commit();
+                    return response()->json([
+                        'tag'=> new SkinTypeResource(SkinType::find($skinType->skin_type_id)),
+                        'res'=>[
+                            'status'=>'success',
+                            'message'=>'Skin Type Store Successfully',
+                        ]
+                    ]);
+                }
+
+            }catch (Exception $ex){
+                DB::rollBack();
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $ex->getMessage()
+                ]);
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            $message = null;
+            foreach ($errors as $error){
+                if(!empty($error)){
+                    foreach ($error as $errorItem){
+                        $message .=  $errorItem .' ';
+                    }
+                }
+            }
+            return response()->json([
+                'status' => 'validation',
+                'message' => ($message != null) ? $message :'Invalid File!'
+            ]);
+        }
     }
 
     /**

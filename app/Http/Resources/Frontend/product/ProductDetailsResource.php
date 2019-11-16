@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Frontend\product;
 
-use App\Http\Resources\skinType\SkinTypeResource;
+use App\Http\Resources\Frontend\skinType\SkinTypeResource;
 use App\Models\ProductDetails;
 use Illuminate\Http\Resources\Json\Resource;
 

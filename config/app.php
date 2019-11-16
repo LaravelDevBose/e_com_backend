@@ -7,31 +7,32 @@ return [
     | Application Custom Define Values
     |--------------------------------------------------------------------------
     */
+    'default_template' => 'crocus_v2',
+//    'default_template' => 'kuteshop_v2',
+    'seller_template' => 'limitless_v1',
+//    'seller_template' => 'limitless_v2',
+    'active' => 1,
+    'activeView' => 'Active',
+    'inactive' => 2,
+    'inactiveView' => 'Inactive',
+    'delete' => 0,
+    'user_default_status' => 3,
+    'admin_default_status' => 1,
+    'admin_default_role' => 2,
 
-    'active'=>1,
-    'activeView'=>'Active',
-    'inactive'=>2,
-    'inactiveView'=>'Inactive',
-    'delete'=>0,
-    'user_default_status'=>3,
-    'admin_default_status'=>1,
-    'admin_default_role'=>2,
-
-    'product'=>[
-        'create'=>1,
-        'update'=>1,
-        'delete'=>1,
+    'product' => [
+        'create' => 1,
+        'update' => 1,
+        'delete' => 1,
     ],
 
-    'variation_model'=>[
-        'color'=>1,
-        'size'=>2,
+    'variation_model' => [
+        'color' => 1,
+        'size' => 2,
     ],
 
-    'one'=>1,
-    'zero'=>0,
-
-
+    'one' => 1,
+    'zero' => 0,
 
 
     /*
@@ -197,8 +198,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Barryvdh\Cors\ServiceProvider::class,
-
+        Laravel\Socialite\SocialiteServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -258,7 +258,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

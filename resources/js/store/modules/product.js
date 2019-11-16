@@ -1,12 +1,17 @@
 //declare State
 const state = {
-    warrantyType:'',
-    dangersGoods:'',
-    productColors:'',
-    productSizes:'',
-    productSkinTypes:'',
-    allProducts:'',
-    singleProduct:'',
+    warrantyType:[],
+    dangersGoods:[],
+    productColors:[],
+    productSizes:[],
+    productSkinTypes:[],
+    allProducts:[],
+    singleProduct:{},
+    selectedProIds:[],
+    selected_date_time:[],
+    product_type:[],
+    status_list:[],
+
 };
 
 //declare Getters
@@ -17,7 +22,11 @@ const getters = {
     sizes:(state)=>state.productSizes,
     skinTypes:(state)=>state.productSkinTypes,
     products:(state)=>state.allProducts,
-    product:(state)=>state.singleProduct
+    product:(state)=>state.singleProduct,
+    selectedProIds:(state)=>state.selectedProIds,
+    selectedDateTimes:(state)=>state.selected_date_time,
+    productType:(state)=>state.product_type,
+    productStatus:(state)=>state.status_list,
 };
 
 const actions = {
@@ -25,7 +34,27 @@ const actions = {
         try {
             await axios.get(`/admin/create/product/dependency/${catID}`)
                 .then(response=>{
-                    commit('productCreateDependency', response.data);
+                    commit('productCreateDependency', response.data.data);
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
+    async getProductCreateNeedData({commit}){
+        try {
+            await axios.get(`/admin/product/create`)
+                .then(response=>{
+                    commit('productCreateNeedData', response.data.data);
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
+    async getProductStatusList({commit}){
+        try {
+            await axios.get(`/admin/status/list/product`)
+                .then(response=>{
+                    commit('setProductStatusList', response.data.data);
                 })
         }catch (error) {
             commit('setResponse', error.data);
@@ -69,22 +98,82 @@ const actions = {
         }catch (error) {
             commit('setResponse', error.data);
         }
-    }
+    },
+    selectedProductIdUpdate({commit},selectData){
+        commit('setSelectedProduct', selectData);
+        return true;
+    },
+    selectedProductDateTimeUpdate({commit},selectData){
+        commit('setSelectedDateTime', selectData);
+        return true;
+    },
+    async productStatusChange({commit}, fromData){
+        try {
+            return await axios.post('/admin/product/status/update', fromData)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('updateProductStatus', response.data.data);
+                    }
+                    return response.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {
     productCreateDependency:(state,response)=>{
-        state.warrantyType = response.warrantyType;
-        state.dangersGoods = response.dangersGoods;
         state.productColors = response.colors;
         state.productSizes = response.sizes;
+    },
+    productCreateNeedData:(state,response)=>{
+        state.warrantyType = response.warrantyType;
+        state.dangersGoods = response.dangersGoods;
         state.productSkinTypes = response.skinTypes;
+        state.product_type = response.product_type;
     },
     getProductData:(state, response)=>{
         state.allProducts = response.data;
     },
     singleProductData:(state, response)=>{
         state.singleProduct = response;
+    },
+    setSelectedProduct:(state, selectData)=>{
+        if(selectData.type === 'add'){
+            state.selectedProIds.push(selectData.productId);
+        }else{
+            state.selectedProIds = state.selectedProIds.filter(productId=>{
+                if(productId !== selectData.productId){
+                    return productId;
+                }
+            });
+        }
+
+    },
+    setSelectedDateTime:(state,selectedData)=>{
+        if(selectedData.type === 'add'){
+            state.selected_date_time.push(selectedData);
+        }else{
+            state.selected_date_time = state.selected_date_time.filter(dateTime=>{
+                if(dateTime.productId !== selectedData.productId){
+                    return dateTime;
+                }
+            });
+        }
+
+    },
+    setProductStatusList:(state,response)=>state.status_list = response,
+
+    updateProductStatus:(state,response)=>{
+        state.allProducts = state.allProducts.filter(product=>{
+            if(product.id === response.product_id){
+                product.status = response.product_status;
+                product.status_label = response.status_label;
+
+            }
+            return product;
+        });
     }
 };
 

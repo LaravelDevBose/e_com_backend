@@ -9,26 +9,30 @@
             </div>
 
             <div class="panel-body">
-                <form action="" @submit.prevent="skinTypeStore">
+                <form action="" @submit.prevent="skinTypeStoreUpdate">
                     <div class="row">
                         <div class="form-group">
                             <label class="col-lg-1 control-label">Skin Type:</label>
                             <div class="col-lg-5">
                                 <input type="text" v-model="form.skin_type" class="form-control" placeholder="Skin Type Name" required />
                             </div>
-                            <div class="col-md-2 ">
-                                <div class="content-group-lg">
-                                    <div class="checkbox checkbox-switchery">
-                                        <label>
-                                            <input type="checkbox" v-model="form.skin_type_status" class="switchery-primary" checked="checked">
-                                            Publish
-                                        </label>
-                                    </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="checkbox-style" for="status">
+                                        <span class="text-bold text-success" v-if="form.skin_type_status">Active</span>
+                                        <span class="text-bold text-warning" v-else>Inactive</span>
+                                        <input type="checkbox" id="status" v-model="form.skin_type_status" :checked="form.skin_type_status">
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="text-right form-group">
-                                    <button type="submit" :disabled="btnDisabled" class="btn btn-primary">Save Skin Type<i class="icon-arrow-right14 position-right"></i></button>
+                                    <button type="submit" :disabled="btnDisabled" class="btn btn-primary">
+                                        <span v-if="is_edit">Update Skin Type</span>
+                                        <span v-else>Save Skin Type</span>
+                                        <i class="icon-arrow-right14 position-right"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +73,7 @@
                         </td>
                         <td class="text text-center">
                             <ul class="icons-list">
-                                <li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
+                                <li class="text-primary-600"><a href="#" @click.prevent="editSkinType(skin_type.id)"><i class="icon-pencil7"></i></a></li>
                                 <li class="text-danger-600"><a href="#" @click.prevent="removeSkinType(skin_type.id)"><i class="icon-trash"></i></a></li>
                             </ul>
                         </td>
@@ -94,6 +98,7 @@
         data(){
             return {
                 form:{
+                    id:'',
                     skin_type:'',
                     skin_type_status:false,
                 },
@@ -101,6 +106,7 @@
                 format_image:'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
                 action_url:'/admin/import/skinType',
                 format_file:'http://e_com.pc/excel_demo/skin_types.xlsx',
+                is_edit:false,
             }
         },
         created() {
@@ -111,16 +117,36 @@
                 'getSkinTypes',
                 'storeSkinType',
                 'deleteSkinType',
+                'updateSkinType'
             ]),
-            skinTypeStore(){
+            skinTypeStoreUpdate(){
                 this.btnDisabled = true;
-                this.storeSkinType(this.form).then(response=>{
-                    if(response.status === 'success'){
-                        Notify.success(response.message);
-                        this.resetForm();
-                        this.btnDisabled = false;
-                    }
-                })
+                if(this.is_edit === true){
+                    this.updateSkinType(this.form).then(response=>{
+                        if(response.status === 'success'){
+                            Notify.success(response.message);
+                            this.resetForm();
+                            this.btnDisabled = false;
+                            this.is_edit = false;
+                        }else if(response.status === 'validation'){
+                            Notify.validation(response.message);
+                        }else{
+                            Notify.error(response.message)
+                        }
+                    })
+                }else{
+                    this.storeSkinType(this.form).then(response=>{
+                        if(response.status === 'success'){
+                            Notify.success(response.message);
+                            this.resetForm();
+                            this.btnDisabled = false;
+                        }else if(response.status === 'validation'){
+                            Notify.validation(response.message);
+                        }else{
+                            Notify.error(response.message)
+                        }
+                    })
+                }
             },
             resetForm(){
                 this.form.skin_type = '';
@@ -135,6 +161,16 @@
                         }
                     });
                 }
+            },
+            editSkinType(ID){
+                this.skin_types.filter(skin=>{
+                    if (skin.id === ID){
+                        this.form.id = skin.id;
+                        this.form.skin_type = skin.skinType_title;
+                        this.form.skin_type_status = skin.skinType_status;
+                        this.is_edit = true;
+                    }
+                });
             }
         },
         computed:{

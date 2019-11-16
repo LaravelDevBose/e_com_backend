@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\Buyer;
 use App\Models\Seller;
+use App\Models\SocialProvider;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -62,11 +63,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+//    protected $appends = [
+//        'status_label',
+//    ];
+
+//    public function getStatusLabelAttribute()
+//    {
+//        return Self::UserStatus[$this->attributes['status']];
+//    }
     public function seller(){
-        return $this->hasOne(Seller::class, 'user_id', 'user_id')->where('is_seller', config('app.one'));
+        return $this->hasOne(Seller::class, 'user_id', 'user_id');
     }
 
     public function buyer(){
-        return $this->hasOne(Buyer::class, 'user_id', 'user_id')->where('is_buyer', config('app.one'));
+        return $this->hasOne(Buyer::class, 'user_id', 'user_id');
+    }
+
+    public function social_provider()
+    {
+        return $this->hasOne(SocialProvider::class, 'user_id', 'user_id');
     }
 }

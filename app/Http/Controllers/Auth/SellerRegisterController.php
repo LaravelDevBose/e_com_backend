@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Resources\Admin\Brand as BrandResource;
 use App\Models\Seller;
+use App\Models\Shop;
 use App\Traits\ResponserTrait;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -73,7 +74,7 @@ class SellerRegisterController extends Controller
     {
         return User::create([
             'full_name' => $data['full_name'],
-            'user_name' => $data['user_name'],
+            'user_name' => (!empty($data['user_name']))?$data['user_name']:$data['full_name'],
             'email' => $data['email'],
             'phone_no' => $data['phone_no'],
             'password' => Hash::make($data['password']),
@@ -87,7 +88,7 @@ class SellerRegisterController extends Controller
         $validator = Validator::make($request->all(),[
             'shop_name'=>'required|string',
             'full_name'=>'required|string',
-            'user_name'=>'required|string|max:255|unique:users',
+//            'user_name'=>'required|string|max:255|unique:users',
             'phone_no'=>'required',
             'email'=>'required|string|email|max:255|unique:users',
             'password'=>'required|string|min:8|confirmed',
@@ -97,15 +98,28 @@ class SellerRegisterController extends Controller
             try{
                 DB::beginTransaction();
                 event(new Registered($user = $this->create($request->all())));
-                if($user){
+                if(!empty($user)){
                     $seller = Seller::create([
                         'user_id'=>$user->user_id,
-                        'shop_name'=>$request->shop_name,
+                        'seller_name'=>$request->full_name,
+                        'seller_email'=>$request->email,
+                        'seller_phone'=>$request->phone_no,
+                        'seller_type'=>Seller::SellerType['Normal'],
                     ]);
 
                     if(!empty($seller)){
-                        DB::commit();
-                        return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Seller Created Successfully', '', route('seller.login'));
+                        $shop = Shop::create([
+                            'seller_id'=>$seller->seller_id,
+                            'shop_name'=>$request->shop_name,
+                            'shop_slug'=>Str::slug($request->shop_name),
+                        ]);
+                        if(!empty($shop)){
+                            DB::commit();
+                            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Seller Created Successfully. We Are Approve with in 3 days.', '', route('seller.login'));
+                        }else{
+                            throw new \Exception('Shop Not Create. Invalid Information', Response::HTTP_BAD_REQUEST);
+                        }
+
                     }else{
                         throw new \Exception('Seller Not Create. Invalid Information', Response::HTTP_BAD_REQUEST);
                     }

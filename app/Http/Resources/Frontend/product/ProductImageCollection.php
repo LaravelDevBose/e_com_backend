@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Frontend\product;
 
-use App\Http\Resources\attachment\AttachmentResource;
+use App\Http\Resources\Frontend\attachment\AttachmentResource;
 use Illuminate\Http\Resources\Json\Resource;
 
 class ProductImageCollection extends Resource

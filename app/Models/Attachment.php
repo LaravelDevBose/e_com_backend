@@ -3,21 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Attachment extends Model
 {
     const attachmentModels = [
 
-        'category' => 1,
-        'product' => 2,
-        'user' => 3,
-        'voucher' => 4,
+        'category'=>1,
+        'product'=>2,
+        'user'=>3,
+        'voucher'=>4,
         'campaign'=>5,
         'brand'=>6,
         'slider'=>7,
         'page'=>8,
         'setting'=>9,
         'thumbnail'=>10,
+        'shop'=>11,
+        'section'=>12,
     ];
 
     protected $table = 'attachments';
@@ -42,16 +45,7 @@ class Attachment extends Model
     }
 
     public function getImagePathAttribute(){
-        $path = storage_path('app/public/attachments/'.$this->attributes['folder'] .'/'. $this->attributes['file_name']);
-        if(file_exists($path)){
-            //        $path = storage_path('app/public/default/d_addons.png');
-            $type = pathinfo($path, PATHINFO_EXTENSION);
-            $data = file_get_contents($path);
-            return $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-        }
-
-        return false;
-
+        return $path = asset('storage/attachments/'.$this->attributes['folder'] .'/'. $this->attributes['file_name']);
     }
 
     public function getApiImagePathAttribute(){
@@ -80,6 +74,10 @@ class Attachment extends Model
         return $this->belongsTo(Campaign::class, 'attachment_id','attachment_id');
     }
 
+    public function campaignAdds(){
+        return $this->belongsTo(Campaign::class, 'attachment_id','adds_attachment_id');
+    }
+
     public function product_image(){
         return $this->hasOne(ProductImage::class, 'attachment_id','attachment_id');
     }
@@ -94,5 +92,10 @@ class Attachment extends Model
 
     public function productThumb(){
         return $this->hasOne(Product::class, 'thumb_id', 'attachment_id');
+    }
+
+    public function homepageSection()
+    {
+        return $this->hasOne(HomepageSection::class, 'attachment_id', 'attachment_id');
     }
 }

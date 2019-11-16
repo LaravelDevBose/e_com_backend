@@ -30,4 +30,8 @@ class Color extends Model
     public function products(){
         return $this->hasMany(ProductVariation::class, 'sec_id', 'color_id');
     }
+
+    public function orderItems(){
+        return $this->hasMany(OrderItem::class, 'color_id', 'color_id');
+    }
 }
