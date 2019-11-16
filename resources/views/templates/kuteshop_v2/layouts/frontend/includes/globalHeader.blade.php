@@ -22,7 +22,6 @@
                                 <li><a href="{{ route('admin.home') }}">DashBoard</a></li>
                                 <li><a href="{{ route('admin.order.index') }}">Orders</a></li>
                                 <li><a href="{{ route('admin.product.index') }}">Products</a></li>
-                                <li><a href="">Reviews</a></li>
                                 <li><a href="{{ route('admin.logout') }}">Logout</a></li>
                             </ul>
                             @elseif(auth()->guard('seller')->check())
@@ -30,7 +29,6 @@
                                     <li><a href="{{ route('seller.home') }}">DashBoard</a></li>
                                     <li><a href="{{ route('seller.order.index') }}">Orders</a></li>
                                     <li><a href="{{ route('seller.product.index') }}">Products</a></li>
-                                    <li><a href="">Reviews</a></li>
                                     <li><a href="{{ route('seller.logout') }}">Logout</a></li>
                                 </ul>
                             @else
@@ -147,7 +145,6 @@
                                     <li><a href="{{ route('admin.home') }}">DashBoard</a></li>
                                     <li><a href="{{ route('admin.order.index') }}">Orders</a></li>
                                     <li><a href="{{ route('admin.product.index') }}">Products</a></li>
-                                    <li><a href="">Reviews</a></li>
                                     <li><a href="{{ route('admin.logout') }}">Logout</a></li>
                                 </ul>
                             @elseif(auth()->guard('seller')->check())
@@ -155,7 +152,6 @@
                                     <li><a href="{{ route('seller.home') }}">DashBoard</a></li>
                                     <li><a href="{{ route('seller.order.index') }}">Orders</a></li>
                                     <li><a href="{{ route('seller.product.index') }}">Products</a></li>
-                                    <li><a href="">Reviews</a></li>
                                     <li><a href="{{ route('seller.logout') }}">Logout</a></li>
                                 </ul>
                             @else

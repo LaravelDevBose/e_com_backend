@@ -54912,7 +54912,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.hotproducts
     ? _c("div", { staticClass: "block-deals-of block-deals-of-opt1" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "block-title " }, [
+          _c("span", { staticClass: "icon" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "heading-title" }, [
+            _vm._v(_vm._s(_vm.$t("products.hot_deals")))
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "block-content" }, [
           _c(
@@ -54953,18 +54959,7 @@ var render = function() {
       ])
     : _vm._e()
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "block-title " }, [
-      _c("span", { staticClass: "icon" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "heading-title" }, [_vm._v("latest deals")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -54996,7 +54991,31 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "block-content" }, [
-        _vm._m(1),
+        _c("div", { staticClass: "filter-options-item filter-options-price" }, [
+          _c("div", { staticClass: "filter-options-title" }, [
+            _vm._v(_vm._s(_vm.$t("products.price")))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "filter-options-content" }, [
+            _c("div", { staticClass: "slider-range" }, [
+              _c("div", { attrs: { id: "slider-range" } }),
+              _vm._v(" "),
+              _c("div", { staticClass: "action" }, [
+                _c("span", { staticClass: "price" }, [
+                  _c("span", [_vm._v(_vm._s(_vm.$t("products.range")) + ":")]),
+                  _vm._v("\n                        $"),
+                  _c("span", { attrs: { id: "amount-left" } }),
+                  _vm._v(
+                    "\n                        -\n                        $"
+                  ),
+                  _c("span", { attrs: { id: "amount-right" } })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(1)
+          ])
+        ]),
         _vm._v(" "),
         _vm.brands
           ? _c(
@@ -55004,7 +55023,7 @@ var render = function() {
               { staticClass: "filter-options-item filter-options-brand" },
               [
                 _c("div", { staticClass: "filter-options-title" }, [
-                  _vm._v("BRAND")
+                  _vm._v(_vm._s(_vm.$t("products.brands")))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "filter-options-content" }, [
@@ -55081,7 +55100,7 @@ var render = function() {
               { staticClass: "filter-options-item filter-options-color" },
               [
                 _c("div", { staticClass: "filter-options-title" }, [
-                  _vm._v("COLOR")
+                  _vm._v(_vm._s(_vm.$t("products.colors")))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "filter-options-content" }, [
@@ -55169,7 +55188,7 @@ var render = function() {
               { staticClass: "filter-options-item filter-options-size" },
               [
                 _c("div", { staticClass: "filter-options-title" }, [
-                  _vm._v("SIZE")
+                  _vm._v(_vm._s(_vm.$t("products.sizes")))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "filter-options-content" }, [
@@ -55254,63 +55273,37 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "filter-options-item filter-options-price" },
-      [
-        _c("div", { staticClass: "filter-options-title" }, [_vm._v("Price")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "filter-options-content" }, [
-          _c("div", { staticClass: "slider-range" }, [
-            _c("div", { attrs: { id: "slider-range" } }),
-            _vm._v(" "),
-            _c("div", { staticClass: "action" }, [
-              _c("span", { staticClass: "price" }, [
-                _c("span", [_vm._v("Range:")]),
-                _vm._v("\n                        $"),
-                _c("span", { attrs: { id: "amount-left" } }),
-                _vm._v(
-                  "\n                        -\n                        $"
-                ),
-                _c("span", { attrs: { id: "amount-right" } })
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("ol", { staticClass: "items" }, [
-            _c("li", { staticClass: "item " }, [
-              _c("label", [
-                _c("input", { attrs: { type: "checkbox" } }),
-                _c("span", [
-                  _vm._v("$20 - $50 "),
-                  _c("span", { staticClass: "count" }, [_vm._v("(20)")])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "item " }, [
-              _c("label", [
-                _c("input", { attrs: { type: "checkbox" } }),
-                _c("span", [
-                  _vm._v("$50 - $100 "),
-                  _c("span", { staticClass: "count" }, [_vm._v("(20)")])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "item " }, [
-              _c("label", [
-                _c("input", { attrs: { type: "checkbox" } }),
-                _c("span", [
-                  _vm._v("$100 - $250 "),
-                  _c("span", { staticClass: "count" }, [_vm._v("(20)")])
-                ])
-              ])
-            ])
+    return _c("ol", { staticClass: "items" }, [
+      _c("li", { staticClass: "item " }, [
+        _c("label", [
+          _c("input", { attrs: { type: "checkbox" } }),
+          _c("span", [
+            _vm._v("$20 - $50 "),
+            _c("span", { staticClass: "count" }, [_vm._v("(20)")])
           ])
         ])
-      ]
-    )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "item " }, [
+        _c("label", [
+          _c("input", { attrs: { type: "checkbox" } }),
+          _c("span", [
+            _vm._v("$50 - $100 "),
+            _c("span", { staticClass: "count" }, [_vm._v("(20)")])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "item " }, [
+        _c("label", [
+          _c("input", { attrs: { type: "checkbox" } }),
+          _c("span", [
+            _vm._v("$100 - $250 "),
+            _c("span", { staticClass: "count" }, [_vm._v("(20)")])
+          ])
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -72631,6 +72624,33 @@ var crocus_v2 = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ENGLISH_TRANSLATIONS", function() { return ENGLISH_TRANSLATIONS; });
 var ENGLISH_TRANSLATIONS = {
+  header: {
+    login: 'Customer Login',
+    seller_login: 'Seller Login',
+    dashBoard: 'DashBoard',
+    orders: 'Orders',
+    products: 'Products',
+    logout: 'Logout',
+    wishlist: 'Wishlist',
+    select_category: 'Select a Category',
+    search_here: 'Search Here..',
+    select_lang: 'Select language',
+    all: 'All',
+    categories: 'Categories',
+    top_brands: 'Top Brands'
+  },
+  footer: {
+    accept_pay_methods: 'Accepted Payment Methods'
+  },
+  products: {
+    latest_deals: 'Latest Deals',
+    hot_deals: 'Hot Deals',
+    price: 'price',
+    range: 'Range',
+    brands: 'Brands',
+    colors: 'Colors',
+    sizes: 'Sizes'
+  },
   state: {
     Awdal: 'Awdal',
     Bakool: 'Bakool',
@@ -72666,6 +72686,33 @@ var ENGLISH_TRANSLATIONS = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SOMALIA_TRANSLATIONS", function() { return SOMALIA_TRANSLATIONS; });
 var SOMALIA_TRANSLATIONS = {
+  header: {
+    login: 'So-Customer Login',
+    seller_login: 'So-Seller Login',
+    dashBoard: 'So-DashBoard',
+    orders: 'So-Orders',
+    products: 'So-Products',
+    logout: 'So-Logout',
+    wishlist: 'So-Wishlist',
+    select_category: 'So-Select a Category',
+    search_here: 'So-Search Here..',
+    select_lang: 'So-Select language',
+    all: 'So-All',
+    categories: 'So-Categories',
+    top_brands: 'So-Top Brands'
+  },
+  footer: {
+    accept_pay_methods: 'So-Accepted Payment Methods'
+  },
+  products: {
+    latest_deals: 'So-Latest Deals',
+    hot_deals: 'So-Hot Deals',
+    price: 'So-price',
+    range: 'So-Range',
+    brands: 'So-Brands',
+    colors: 'So-Colors',
+    sizes: 'So-Sizes'
+  },
   state: {
     Awdal: 'So - Awdal',
     Bakool: 'So - Bakool',
@@ -74975,7 +75022,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })
