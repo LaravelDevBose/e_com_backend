@@ -24,6 +24,7 @@ class Admin extends Authenticatable
         2=>'Block'
     ];
 
+    protected $guard = 'admin';
 
     protected $table = 'admins';
 

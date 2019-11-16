@@ -8,7 +8,7 @@
                 <div class="panel panel-flat bounceInRight" >
                     <div class="panel-body">
                         <h1 class="text text-blue  text-center text-bold">
-                            <span> Well come to E-Commerce Admin
+                            <span> Well come to Admin Panel
                             </span>
                         </h1>
                     </div>
@@ -25,7 +25,8 @@
 
 <script>
     export default {
-        name: "Dashboard"
+        name: "Dashboard",
+        props:['panel']
     }
 </script>
 

@@ -37,6 +37,10 @@ class Page extends Model
         return $query->where('page_status', config('app.active'));
     }
 
+    public function scopeNotShowIn($query, $notShowIn){
+        return $query->where('show_in','!=', $notShowIn);
+    }
+
     public function scopeNotDelete($query){
         return $query->where('page_status', '!=', config('app.delete'));
     }

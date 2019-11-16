@@ -32,4 +32,7 @@ class Slider extends Model
         return $query->where('slider_status','!=', config('app.delete'));
     }
 
+    public function scopeBySearch($query, $request){
+        return $query;
+    }
 }

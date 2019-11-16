@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class Category extends Model
 {
@@ -12,6 +13,7 @@ class Category extends Model
         3=>'Third Level',
     ];
 
+    const InHeader = 1;
     protected $table = 'categories';
 
     protected $primaryKey = 'category_id';
@@ -22,7 +24,45 @@ class Category extends Model
         'parent_id',
         'attachment_id',
         'category_status',
+        'is_show'
     ];
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'category_slug';
+    }
+
+    public static function All_children_Ids($catId)
+    {
+
+        $catIdArray = [$catId];
+        $sedChildID = self::where('parent_id', $catId)->where('category_status', config('app.active'))->pluck('category_id')->toArray();
+        if(!empty($sedChildID)){
+            $catIdArray = array_merge($catIdArray, $sedChildID);
+            $thirdChildID = self::whereIn('parent_id', $sedChildID)->where('category_status', config('app.active'))->pluck('category_id')->toArray();
+            if(!empty($thirdChildID)){
+                $catIdArray = array_merge($catIdArray, $thirdChildID);
+            }
+        }
+        return $catIdArray;
+    }
+    public static function All_children_Ids_by_array_data($catIds)
+    {
+        $sedChildID = self::whereIn('parent_id', $catIds)->pluck('category_id')->toArray();
+        if(!empty($sedChildID)){
+            $catIds = array_merge($catIds, $sedChildID);
+            $thirdChildID = self::whereIn('parent_id', $sedChildID)->where('category_status', config('app.active'))->pluck('category_id')->toArray();
+            if(!empty($thirdChildID)){
+                $catIds = array_merge($catIds, $thirdChildID);
+            }
+        }
+        return $catIds;
+    }
 
     public function scopeIsParent($query){
         $query->whereNull('parent_id');
@@ -36,6 +76,10 @@ class Category extends Model
     }
     public function scopeNotDelete($query){
         return $query->where('category_status', '!=',0);
+    }
+
+    public function scopeBySearch($query, $request){
+        return $query;
     }
 
     public function children(){
@@ -57,4 +101,14 @@ class Category extends Model
     public function products(){
         return $this->hasMany(Product::class, 'category_id', 'category_id');
     }
+
+    public function sectionCategories()
+    {
+        return $this->hasMany(SectionCategory::class, 'category_id', 'category_id');
+    }
+    public function sectionProducts()
+    {
+        return $this->hasMany(SectionProduct::class, 'category_id', 'category_id');
+    }
+
 }

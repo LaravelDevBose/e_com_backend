@@ -36,6 +36,81 @@
     <script type="text/javascript" src="{{ asset('assets/js/pages/components_notifications_pnotify.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('assets/js/pages/animations_css3.js') }}"></script>
+    <style>
+        /* The container */
+        .checkbox-style {
+            display: block;
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Hide the browser's default checkbox */
+        .checkbox-style input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        /* Create a custom checkbox */
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 18px;
+            width: 18px;
+            background-color: #fff;
+            cursor: pointer;
+            color: #455A64;
+            border: 2px solid #607D8B;
+            display: inline-block;
+            text-align: center;
+            border-radius: 2px;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .checkbox-style:hover input ~ .checkmark {
+            background-color: #fff;
+        }
+
+        /* When the checkbox is checked, add a blue background */
+        .checkbox-style input:checked ~ .checkmark {
+            background-color: #fff;
+        }
+
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the checkmark when checked */
+        .checkbox-style input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Style the checkmark/indicator */
+        .checkbox-style .checkmark:after {
+            left: 5px;
+            top: 1px;
+            width: 6px;
+            height: 10px;
+            border: solid #455A64;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    </style>
 </head>
 <body class="navbar-top  pace-done sidebar-xs">
 
@@ -43,7 +118,7 @@
 
     @include('includes.nav_bar')
     <!-- Page container -->
-    <div class="page-container " >
+    <div class="page-container">
 
         <!-- Page content -->
         <div class="page-content" >
@@ -64,23 +139,7 @@
         </div>
         <!-- /page content -->
         <!-- Footer -->
-        <div class="navbar navbar-default navbar-fixed-bottom fff">
-            <ul class="nav navbar-nav no-border visible-xs-block">
-                <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second"><i class="icon-circle-up2"></i></a></li>
-            </ul>
 
-            <div class="navbar-collapse collapse" id="navbar-second">
-                <div class="navbar-text col-md-6">
-                    &copy;2019. <span>Design And Develop By:</span> <a href="http://brainchildsoft.com" target="__blank">Brain Child Software</a> <small>Your Ultimate Web Solution</small>
-                </div>
-
-                <div class="navbar-right col-md-6">
-                    <ul class="nav navbar-nav">
-                        <li class="display-block pull-right"><a href="#" class="text-semibold" style="display: inline-block!important;">Email: laravel.devbose@gmail.com</a> <a href="#" class="text-semibold" style="display: inline-block!important;">Phone No: +880 1571-721910</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         <!-- /footer -->
     </div>
     <!-- /page container -->

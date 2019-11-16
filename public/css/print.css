@@ -1,0 +1,7 @@
+@media print
+{
+    .col-md-4{
+        width: 33.33%!important;
+        height: auto;
+    }
+}

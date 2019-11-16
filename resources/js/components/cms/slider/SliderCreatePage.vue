@@ -26,7 +26,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Slider Position:</label>
-                                <input type="text" v-model="formData.slider_position" class="form-control" placeholder="Button Url" required>
+                                <input type="number" v-model="formData.slider_position" class="form-control" placeholder="Slider Position" required>
                             </div>
 
                             <div class="form-group">
@@ -56,7 +56,7 @@
                         </div>
                         <div class="col-md-3 col-md-offset-6">
                             <div class="text-right form-group">
-                                <button type="submit" class="btn btn-primary">Save Brand <i class="icon-arrow-right14 position-right"></i></button>
+                                <button type="submit" v-if="btnDisabled" class="btn btn-primary">Save Brand <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -104,6 +104,7 @@
                 'storeSlider'
             ]),
             sliderStore(){
+                this.btnDisabled = true;
                 let vm = this;
                 vm.formData.attachmentIds = vm.cropImageIds;
                 vm.storeSlider(vm.formData).then(response=>{
@@ -111,7 +112,13 @@
                         Notify.success(response.message);
                         // this.emptyFormData();
                         this.removeImage= true;
-
+                        if(response.hasOwnProperty('url')){
+                            setTimeout(()=>{
+                                location.href = response.url;
+                            })
+                        }else{
+                            location.reload();
+                        }
                     }else{
                         Notify.warning(response.message);
                     }
