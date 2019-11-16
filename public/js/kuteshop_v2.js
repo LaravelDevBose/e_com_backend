@@ -54031,7 +54031,7 @@ var render = function() {
           "ol",
           { staticClass: "product-items row" },
           _vm._l(_vm.productList, function(product, index) {
-            return _c("li", { key: index, staticClass: "col-sm-4" }, [
+            return _c("li", { key: index, staticClass: "col-sm-3" }, [
               _c(
                 "div",
                 { staticClass: "product-item  product-item-opt-1" },
