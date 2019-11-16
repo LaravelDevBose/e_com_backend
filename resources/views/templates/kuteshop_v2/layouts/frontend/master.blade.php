@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ session('lang') }}">
 
 <head>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -10,6 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="base-url" content="{{ url('/') }}">
+    <meta name="lang" content="{{ session('lang') }}">
 
     <!-- Favicons Icon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon" />

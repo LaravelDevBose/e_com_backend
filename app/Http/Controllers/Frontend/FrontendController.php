@@ -25,6 +25,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Session;
 
 class FrontendController extends Controller
 {
@@ -66,6 +69,14 @@ class FrontendController extends Controller
             'topProducts'=>$topProducts,
             'hotProducts'=>$hotProducts,
         ]);
+    }
+    public function set_lang($lang)
+    {
+        session()->forget('lang');
+        Session::put('lang', $lang);
+        Lang::setLocale($lang);
+
+        return ResponserTrait::allResponse('success', Response::HTTP_OK,'Successful', \session()->get('lang'));
     }
 
     public function section_data_list(Request $request)

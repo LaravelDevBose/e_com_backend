@@ -23,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
 
     public function register()
     {
+        if (!session()->has('lang')) {
+            session()->put('lang', config('app.locale'));
+        }
+
         View::composer('templates.'.config('app.default_template').'.*', function ($v) {
             $categoryTree = CommonData::category_tree_list();
             $headerPageMenus = CommonData::pages_menu_list(Page::MENU_SHOW_IN['Footer']);

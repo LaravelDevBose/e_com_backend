@@ -58,6 +58,10 @@ class AppStorage {
             user: user,
         };
     }
+
+    storeLangInfo(lang){
+        localStorage.setItem('lang', lang);
+    }
 }
 
 export default AppStorage = new AppStorage();

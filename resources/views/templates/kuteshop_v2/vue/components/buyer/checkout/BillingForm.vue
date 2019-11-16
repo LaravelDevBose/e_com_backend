@@ -58,7 +58,7 @@
                         <label class="required">Region <span class="text text-bold text-danger">*</span></label>
                         <chosen-select v-model='formData.region' :classList="selectOption.classList" :placeholder="'Select Your State'" >
                             <option value="">Select A Region</option>
-                            <option v-for="(region,index) in regions" :key="index" :value="region.key">{{ region.name }}</option>
+                            <option v-for="(region,index) in regions" :key="index" :value="region.key">{{ $t("state."+region.name) }}</option>
                         </chosen-select>
                     </div>
                     <div class="col-sm-6">
