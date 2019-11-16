@@ -27,17 +27,23 @@ const actions = {
         try {
             return await axios.post('/admin/size_group', formData)
                 .then(response=>{
-                    if(response.data.res.status === "success"){
-                        commit('addSizeGroup', response.data.sizeGroup);
-                        commit('setResponse',response.data.res);
-                        return response.data.res;
-                    }else{
-                        commit('setResponse', response.data);
-                        return response.data;
+                    if(typeof response.data.code !== "undefined" && response.data.code === 201){
+                        commit('addSizeGroup', response.data.data);
                     }
+                    return response.data;
                 })
-                .catch(error=>{
-                    commit('setResponse', error.data);
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
+    async updateProductSize({commit},formData){
+        try {
+            return await axios.put(`/admin/size_group/${formData.group_id}`, formData)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('updateSizeGroup', response.data.data);
+                    }
+                    return response.data;
                 })
         }catch (error) {
             commit('setResponse', error.data);
@@ -65,7 +71,21 @@ const actions = {
 const mutations = {
     setSizeGroups:(state,response)=>state.allSizeGroups = response,
     addSizeGroup:(state, response)=> state.allSizeGroups.unshift(response),
-    removeSizeGroup:(state, SGroupId)=> state.allSizeGroups = state.allSizeGroups.filter(sizeGroup => sizeGroup.id !== parseInt(SGroupId))
+    removeSizeGroup:(state, SGroupId)=> state.allSizeGroups = state.allSizeGroups.filter(sizeGroup => sizeGroup.id !== parseInt(SGroupId)),
+    updateSizeGroup:(state, response)=>{
+        state.allSizeGroups = state.allSizeGroups.filter(sizeGroup=>{
+            if(sizeGroup.id === response.id){
+                sizeGroup.name = response.name;
+                sizeGroup.categories = 0;
+                sizeGroup.categories = response.categories;
+                sizeGroup.sizes = 0;
+                sizeGroup.sizes = response.sizes;
+                sizeGroup.status = response.status;
+            }
+            return sizeGroup;
+
+        });
+    }
 };
 
 export default {

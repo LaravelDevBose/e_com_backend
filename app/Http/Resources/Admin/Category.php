@@ -23,6 +23,7 @@ class Category extends JsonResource
             'slug' => $this->category_slug,
             'parent_id'=>$this->parent_id,
             'status'=>$this->category_status,
+            'is_show'=>$this->is_show,
             'children'=>CategoryResource::collection($this->whenLoaded('children')),
             'parent'=>new CategoryResource($this->whenLoaded('parent')),
             'attachment'=> new AttachmentResource($this->whenLoaded('attachment')),

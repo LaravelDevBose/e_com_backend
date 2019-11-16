@@ -22,6 +22,7 @@ class SettingController extends Controller
         $contactSettingData= Setting::where('type', Setting::Setting_Type['contact'])->get();
         $contactSetting = array();
         $campaignSetting = array();
+        $deliverySetting = array();
 
         if(!empty($contactSettingData)){
             foreach ($contactSettingData as $setting){
@@ -48,9 +49,17 @@ class SettingController extends Controller
             }
 
         }
+        $deliverySettingData= Setting::where('type', Setting::Setting_Type['delivery'])->get();
+        if(!empty($deliverySettingData)){
+            foreach ($deliverySettingData as $campaign){
+                $deliverySetting[$campaign->key] = $campaign->value;
+            }
+
+        }
         $data = [
             'contactSetting'=>$contactSetting,
             'campaignSetting'=>$campaignSetting,
+            'deliverySetting'=>$deliverySetting,
             'logoImage'=>$logo_image,
         ];
 
@@ -62,9 +71,9 @@ class SettingController extends Controller
 //            return $request->all();
             DB::beginTransaction();
             foreach($request->all() as $key=>$value){
-                Setting::where('key', $key)->update([
-                    'value'=>$value
-                ]);
+                Setting::updateOrCreate(
+                    ['key'=>$key, 'type'=>Setting::Setting_Type['contact']],
+                    [ 'value'=>$value ]);
 
             }
             DB::commit();
@@ -80,13 +89,29 @@ class SettingController extends Controller
 
             DB::beginTransaction();
             foreach($request->all() as $key=>$value){
-                Setting::where('key', $key)->update([
-                    'value'=>$value
-                ]);
+                Setting::updateOrCreate(
+                    ['key'=>$key, 'type'=>Setting::Setting_Type['campaign']],
+                    [ 'value'=>$value ]);
             }
 
             DB::commit();
             return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Campaign Setting Update Successfully');
+        }catch (Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+        }
+    }
+    public function delivery_setting_store(Request $request){
+        try{
+            DB::beginTransaction();
+            foreach($request->all() as $key=>$value){
+                Setting::updateOrCreate(
+                    ['key'=>$key, 'type'=>Setting::Setting_Type['delivery']],
+                    [ 'value'=>$value ]);
+            }
+
+            DB::commit();
+            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Delivery Setting Update Successfully');
         }catch (Exception $ex){
             DB::rollBack();
             return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());

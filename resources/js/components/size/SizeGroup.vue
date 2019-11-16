@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <div class="panel panel-info">
+        <div class="panel panel-info" v-if="!is_edit">
             <div class="panel-heading">
                 <h5 class="panel-title">Product Size Group</h5>
                 <div class="heading-elements">
@@ -40,19 +40,73 @@
                             </div>
                         </div>
                         <div class="col-md-2 col-md-offset-7">
-                            <div class="content-group-lg">
-                                <div class="checkbox checkbox-switchery">
-                                    <label>
-                                        <input type="checkbox" v-model="form.size_group_status" class="switchery-primary" :checked="form.size_group_status">
-                                        <span class="text-success text-bold" v-if="form.size_group_status">Enable</span>
-                                        <span class="text-danger text-bold" v-else>Disable</span>
-                                    </label>
-                                </div>
+                            <div class="form-group">
+                                <label class="checkbox-style" for="paypal_payment">
+                                    <span class="text-bold text-success" v-if="form.size_group_status">Active</span>
+                                    <span class="text-bold text-warning" v-else>Inactive</span>
+                                    <input type="checkbox" id="paypal_payment" v-model="form.size_group_status" :checked="form.size_group_status">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="text-right form-group">
                                 <button type="submit" class="btn btn-primary">Save Size Group <i class="icon-arrow-right14 position-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="panel" v-if="is_edit">
+            <div class="panel-heading bg-teal">
+                <h5 class="panel-title">Edit Product Size Group</h5>
+            </div>
+
+            <div class="panel-body">
+                <form action="" @submit.prevent="sizeGroupUpdate" >
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Categories:</label>
+                                <treeselect v-model="form.categoryIDs" :multiple="true" :options="treeList" :normalizer="normalizer" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Size Group Name:</label>
+                                <input type="text" v-model="form.size_group_title" class="form-control" placeholder="Size Group Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-12" >
+                            <div style="margin-bottom:1rem;">
+                                <label style="margin-left:.5rem">Size Name:</label>
+                                <span class="btn btn-sm btn-success " @click="addSizeField"> <i class="icon-plus-circle2"></i></span>
+                                <span class="btn btn-sm btn-danger " @click="removeSizeField"> <i class="icon-minus-circle2"></i></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2" v-for="inputLng in sizeInput" :key="inputLng" :id="'size-'+inputLng">
+                                    <div class="form-group">
+                                        <input type="text" v-model="form.sizeNames[inputLng]" class="form-control" placeholder="Size Name" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-md-offset-7">
+                            <div class="form-group">
+                                <label class="checkbox-style" for="edit_status">
+                                    <span class="text-bold text-success" v-if="form.size_group_status">Active</span>
+                                    <span class="text-bold text-warning" v-else>Inactive</span>
+                                    <input type="checkbox" id="edit_status" v-model="form.size_group_status" :checked="form.size_group_status">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="text-right form-group">
+                                <button type="submit" class="btn btn-primary">Update Size Group <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -103,7 +157,7 @@
                         </td>
                         <td class="text text-center">
                             <ul class="icons-list">
-                                <li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
+                                <li class="text-primary-600"><a href="#" @click="editSizeGroup(sizeGroup.id)"><i class="icon-pencil7"></i></a></li>
                                 <li class="text-danger-600"><a href="#" @click.prevent="removeSizeGroup(sizeGroup.id)"><i class="icon-trash"></i></a></li>
                             </ul>
                         </td>
@@ -123,13 +177,15 @@
 
     import {mapGetters, mapActions} from 'vuex';
     import ImportData from "../helper/ImportData";
+    import CreateSizeGroup from "./CreateSizeGroup";
 
     export default {
         name: "Size",
-        components:{Treeselect, 'import-data':ImportData},
+        components:{CreateSizeGroup, Treeselect, 'import-data':ImportData},
         data(){
             return{
                 form:{
+                    group_id:'',
                     size_group_title:'',
                     categoryIDs:[],
                     size_group_status:0,
@@ -147,7 +203,8 @@
                 sizeRemove:false,
                 format_image:'https://media.moddb.com/images/engines/1/1/984/img-placeholder.2.jpg',
                 action_url:'',
-                format_file:''
+                format_file:'',
+                is_edit:false,
             }
         },
         created() {
@@ -161,6 +218,7 @@
                 'storeProductSize',
                 'deleteProductSize',
                 'allTreeListCategories',
+                'updateProductSize',
             ]),
             addSizeField(){
 
@@ -190,7 +248,6 @@
             },
             sizeGroupStore(){
                 this.btnDisabled=  true;
-                //#TODO form validation
                 this.storeProductSize(this.form)
                     .then(response=>{
                         if(response.status === "success"){
@@ -206,8 +263,8 @@
             },
             formReset(){
                 this.form.size_group_title = '';
-                this.form.categoryIDs = [];
-                this.form.sizeNames = [];
+                this.form.categoryIDs.length = 0;
+                this.form.sizeNames.length = 0;
                 this.form.size_group_status = 0;
                 this.sizeInput = 1;
                 this.btnDisabled=  false;
@@ -216,17 +273,13 @@
                 if(confirm('Are You Sure..?')){
                     this.deleteProductSize(groupId)
                         .then(response=>{
-
-                            if(response.status === "success"){
-
+                            if(response.code === 200){
                                 Notify.success(response.message);
                             }else{
-
                                 Notify.error(response.message);
                             }
                         })
                         .catch(error=>{
-
                             Notify.error(error.message);
                         })
                 }
@@ -240,7 +293,46 @@
                 this.action_url = '/admin/import/size';
                 this.format_file='http://e_com.pc/excel_demo/size.xlsx'
                 $('#modal_import_file').modal('show');
-            }
+            },
+
+            editSizeGroup(ID){
+                this.sizeGroups.filter(sizeGroup=>{
+                    if(sizeGroup.id === ID){
+                        this.is_edit = true;
+                        this.form.group_id = sizeGroup.id;
+                        this.form.size_group_title = sizeGroup.name;
+                        this.form.size_group_status = sizeGroup.status;
+                        this.form.categoryIDs.length = 0;
+                        sizeGroup.categories.forEach(cat=>{
+                            this.form.categoryIDs.push(cat.category.id);
+                        });
+                        this.sizeInput=0;
+                        this.form.sizeNames.length = 0;
+                        sizeGroup.sizes.forEach(size=>{
+                            this.sizeInput++;
+                            this.form.sizeNames.push(size.size_name);
+                        });
+                        /*this.sizeInput = this.form.sizeNames.length;*/
+                    }
+                })
+            },
+            sizeGroupUpdate(){
+                this.btnDisabled=  true;
+                this.updateProductSize(this.form)
+                    .then(response=>{
+                        if(response.code === 200){
+                            Notify.success(response.message);
+                            this.formReset();
+                        }else if(response.status === 'validation'){
+                            Notify.validation(response.message)
+                        }else{
+                            Notify.error(response.message);
+                        }
+                    })
+                    .catch(error=>{
+                        Notify.error(error.message);
+                    })
+            },
         },
         computed:{
             ...mapGetters([

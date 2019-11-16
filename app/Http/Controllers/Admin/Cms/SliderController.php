@@ -86,4 +86,32 @@ class SliderController extends Controller
 
         }
     }
+
+    public function destroy($sliderId)
+    {
+        try{
+            DB::beginTransaction();
+
+            $slider = Slider::where('slider_id', $sliderId)->first();
+
+            if(empty($slider)){
+                throw new Exception('Invalid Slider Information', Response::HTTP_BAD_REQUEST);
+            }
+
+            $slider = $slider->update([
+                'slider_status'=>config('app.delete'),
+            ]);
+
+            if(!empty($slider)){
+                DB::commit();
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Slider Deleted Successfully');
+            }else{
+                throw new Exception('Slider Delete Unsuccessful', Response::HTTP_BAD_REQUEST);
+            }
+
+        }catch (Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+        }
+    }
 }

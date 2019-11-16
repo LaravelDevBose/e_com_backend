@@ -60,7 +60,7 @@
         methods:{
 
             ...mapActions([
-                'login',
+                'loginAdmin',
             ]),
             checkLoginData:function(){
                 this.identError ='';
@@ -81,7 +81,7 @@
                     return false;
                 }
                 this.disabled = true;
-                this.login(this.form).then(response=>{
+                this.loginAdmin(this.form).then(response=>{
                     if(response.status === 'success'){
                         window.location = response.url;
                     }

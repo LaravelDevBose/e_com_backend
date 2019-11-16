@@ -44,10 +44,10 @@ const actions = {
     },
     async deleteSlider({commit}, sliderID){
         try {
-            return await axios.delete(`/admin/cms/sliders/${brandID}`)
+            return await axios.delete(`/admin/cms/sliders/${sliderID}`)
                 .then(response=>{
                     if(response.data.status === "success"){
-                        commit('removeSlider', brandID);
+                        commit('removeSlider', sliderID);
                     }
                     commit('setResponse', response.data);
                     return response.data;
@@ -61,6 +61,11 @@ const actions = {
 
 const mutations = {
     setSliders:(state, response)=> state.sliders = response,
+    removeSlider:(state, sliderId)=>{
+        state.sliders = state.sliders.filter(slider=>{
+            return slider.id !== sliderId;
+        })
+    }
 };
 
 export default {
