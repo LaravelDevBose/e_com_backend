@@ -44,7 +44,7 @@
 
             <!-- filter brad-->
             <div v-if="brands" class="filter-options-item filter-options-brand">
-                <div class="filter-options-title">{{ $t('products.brands')}}</div>
+                <div class="filter-options-title">{{ $tc('products.brand',brands.length)}}</div>
                 <div class="filter-options-content">
                     <ol class="items">
                         <li class="item" v-for="(brand, index) in brands" :key="index">
@@ -59,7 +59,7 @@
 
             <!-- filter color-->
             <div v-if="colors" class="filter-options-item filter-options-color">
-                <div class="filter-options-title">{{ $t('products.colors')}}</div>
+                <div class="filter-options-title">{{ $tc('products.color',colors.length)}}</div>
                 <div class="filter-options-content">
                     <ol class="items">
                         <li class="item" v-for="(color,index) in colors" :key="index">
@@ -78,7 +78,7 @@
 
             <!-- Filter Item  size-->
             <div v-if="sizes" class="filter-options-item filter-options-size">
-                <div class="filter-options-title">{{ $t('products.sizes')}}</div>
+                <div class="filter-options-title">{{ $tc('products.size',sizes.length)}}</div>
                 <div class="filter-options-content">
                     <ol class="items">
                         <li class="item" v-for="(size, index) in sizes" :key="index">

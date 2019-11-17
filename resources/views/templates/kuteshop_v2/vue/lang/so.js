@@ -5,6 +5,7 @@ export const SOMALIA_TRANSLATIONS  ={
         dashBoard:'So-DashBoard',
         order:'So-Order|So-Orders',
         product:'So-Product|So-Products',
+        review:'So-Review|So-Reviews',
         logout:'So-Logout',
         wishlist:'So-Wishlist',
         select_category:'So-Select a Category',
@@ -30,11 +31,22 @@ export const SOMALIA_TRANSLATIONS  ={
         hot_deals:'So-Hot Deals',
         price:'So-price',
         range:'So-Range',
-        brands:'So-Brands',
-        colors:'So-Colors',
-        sizes:'So-Sizes'
+        brand:'So-Brand|So-Brands',
+        color:'So-Color|So-Colors',
+        size:'So-Size|So-Sizes'
     },
 
+    product:{
+        availability:'So-Availability',
+        qty:'So-Qty',
+        avail_options:'So-Available Options',
+        add_to_cart:'So-Add to Cart',
+        buy_now:'So-Buy Now',
+        sold_by:'So-Sold By',
+        go_to_store:'So-Go To Store',
+        details:'So-Product Details',
+        related_product:'So-Related Product|Related Products',
+    },
     auth:{
         sign_up:'So-Sign Up',
         sign_in:'So-Sign In',

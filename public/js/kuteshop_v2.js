@@ -72605,6 +72605,7 @@ var ENGLISH_TRANSLATIONS = {
     dashBoard: 'DashBoard',
     order: 'Order|Orders',
     product: 'Product|Products',
+    review: 'Review|Reviews',
     logout: 'Logout',
     wishlist: 'Wishlist',
     search: 'Search',
@@ -72633,6 +72634,17 @@ var ENGLISH_TRANSLATIONS = {
     brands: 'Brands',
     colors: 'Colors',
     sizes: 'Sizes'
+  },
+  product: {
+    availability: 'Availability',
+    qty: 'Qty',
+    avail_options: 'Available Options',
+    add_to_cart: 'Add to Cart',
+    buy_now: 'Buy Now',
+    sold_by: 'Sold By',
+    go_to_store: 'Go To Store',
+    details: 'Product Details',
+    related_product: 'Related Product|Related Products'
   },
   auth: {
     sign_up: 'Sign Up',
@@ -72707,6 +72719,7 @@ var SOMALIA_TRANSLATIONS = {
     dashBoard: 'So-DashBoard',
     order: 'So-Order|So-Orders',
     product: 'So-Product|So-Products',
+    review: 'So-Review|So-Reviews',
     logout: 'So-Logout',
     wishlist: 'So-Wishlist',
     select_category: 'So-Select a Category',
@@ -72735,6 +72748,17 @@ var SOMALIA_TRANSLATIONS = {
     brands: 'So-Brands',
     colors: 'So-Colors',
     sizes: 'So-Sizes'
+  },
+  product: {
+    availability: 'So-Availability',
+    qty: 'So-Qty',
+    avail_options: 'So-Available Options',
+    add_to_cart: 'So-Add to Cart',
+    buy_now: 'So-Buy Now',
+    sold_by: 'So-Sold By',
+    go_to_store: 'So-Go To Store',
+    details: 'So-Product Details',
+    related_product: 'So-Related Product|Related Products'
   },
   auth: {
     sign_up: 'So-Sign Up',

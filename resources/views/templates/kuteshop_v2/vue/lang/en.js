@@ -1,10 +1,12 @@
 export const ENGLISH_TRANSLATIONS  ={
+
     header:{
         login:'Customer Login',
         seller_login:'Seller Login',
         dashBoard:'DashBoard',
         order:'Order|Orders',
         product:'Product|Products',
+        review:'Review|Reviews',
         logout:'Logout',
         wishlist:'Wishlist',
         search:'Search',
@@ -30,13 +32,23 @@ export const ENGLISH_TRANSLATIONS  ={
         hot_deals:'Hot Deals',
         price:'price',
         range:'Range',
-        brands:'Brands',
-        colors:'Colors',
-        sizes:'Sizes'
+        brand:'Brand|Brands',
+        color:'Color|Colors',
+        size:'Size|Sizes'
+    },
+    product:{
+        availability:'Availability',
+        qty:'Qty',
+        avail_options:'Available Options',
+        add_to_cart:'Add to Cart',
+        buy_now:'Buy Now',
+        sold_by:'Sold By',
+        go_to_store:'Go To Store',
+        details:'Product Details',
+        related_product:'Related Product|Related Products',
     },
 
     auth:{
-
         sign_up:'Sign Up',
         sign_in:'Sign In',
         register:'Register',
