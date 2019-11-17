@@ -21,7 +21,16 @@ export const SOMALIA_TRANSLATIONS  ={
         qty:'So-Qty',
         total:'So-Total',
         shopping_bag:'So-Shopping Bag',
-        checkout:'So-Checkout'
+        checkout:'So-Checkout',
+        continue_shopping:'So-Continue shopping',
+        continue_checkout:'So-Proceed to checkout',
+        desc:'So-Description',
+        unit_price:'So-Unit Price',
+        empty_cart:'So-Cart is Empty',
+        subtotal:'So-SubTotal',
+        discount:'So-Discount',
+        delivery_charge:'So-Delivery Charge',
+        grand_total:'So-Grand Total',
     },
     footer:{
         accept_pay_methods:'So-Accepted Payment Methods',
@@ -68,7 +77,19 @@ export const SOMALIA_TRANSLATIONS  ={
             create_shop:'So- Create an Shop',
         }
     },
-
+    checkout:{
+        billing_section:'So-Billing Information',
+        shipping_section:'So-Shipping Information',
+        shipping_method:'So-Shipping Method',
+        payment_section:'So-Payment Information',
+        order_review:'So-Order Review',
+        place_order:'So-Place Order',
+        select_address:'So-Select an Address',
+        new_address:'So-New Address',
+        save_address_book:'So-Save as Address Book',
+        also_save_address:'So-Also As Shipping Address',
+        continue:'So-Continue',
+    },
     form:{
         email:'So-Email',
         username:'So-Username',
@@ -79,6 +100,12 @@ export const SOMALIA_TRANSLATIONS  ={
         last_name:'So-Last Name',
         full_name:'So-Full Name',
         shop_name:'So-Shop Name',
+        address:'So-Address',
+        city:'So-City',
+        district:'So-District',
+        region:'So-Region',
+        select_region:'So-Select A Region',
+        postal_code:'So-Postal Code',
     },
     state:{
         Awdal:'So - Awdal',

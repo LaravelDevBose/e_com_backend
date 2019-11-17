@@ -7,7 +7,7 @@
                         <input checked="" name="radio_4" v-model="formData.payment_method_id" :value="payment.key" :id="'method-'+index" type="radio">{{ payment.value }}</label>
                 </li>
             </ul>
-            <button type="button" @click.prevent="paymentMethodStore" class="button">Continue</button>
+            <button type="button" @click.prevent="paymentMethodStore" class="button">{{ $t('checkout.continue')}}</button>
         </div>
     </form>
 </template>

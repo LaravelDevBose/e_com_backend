@@ -5,7 +5,7 @@ return[
     'login'=>'Customer Login',
     'seller_login'=>'Seller Login',
     'my_account'=>'My Account',
-    'dashBoard'=>'DashBoard',
+    'dashboard'=>'DashBoard',
     'order'=>'Order|Orders',
     'product'=>'Product|Products',
     'review'=>'Review|Reviews',

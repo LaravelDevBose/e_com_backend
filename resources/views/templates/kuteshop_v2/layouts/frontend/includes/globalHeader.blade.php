@@ -139,30 +139,30 @@
                         </div>
                         @if(auth()->guest())
                             <ul class="account">
-                                <li><a href="{{ route('login') }}" >@lang('header.login')</a></li>
-                                <li><a href="{{ route('seller.login') }}">@lang('header.seller_login')</a></li>
+                                <li><a href="{{ route('login') }}" >{{ __('header.login')  }}</a></li>
+                                <li><a href="{{ route('seller.login') }}">{{ __('header.seller_login') }}</a></li>
                             </ul>
                         @else
                             @if(auth()->guard('admin')->check())
                                 <ul class="account">
-                                    <li><a href="{{ route('admin.home') }}">@lang('header.dashboard')</a></li>
+                                    <li><a href="{{ route('admin.home') }}">{{ __('header.dashboard') }}</a></li>
                                     <li><a href="{{ route('admin.order.index') }}">{{ trans_choice('header.order',2) }}</a></li>
                                     <li><a href="{{ route('admin.product.index') }}">{{ trans_choice('header.product', 2) }}</a></li>
-                                    <li><a href="{{ route('admin.logout') }}">@lang('logout')</a></li>
+                                    <li><a href="{{ route('admin.logout') }}">{{ __('header.logout') }}</a></li>
                                 </ul>
                             @elseif(auth()->guard('seller')->check())
                                 <ul class="account">
-                                    <li><a href="{{ route('seller.home') }}">@lang('header.dashboard')</a></li>
+                                    <li><a href="{{ route('seller.home') }}">{{ __('header.dashboard') }}</a></li>
                                     <li><a href="{{ route('seller.order.index') }}">{{ trans_choice('header.order',2) }}</a></li>
                                     <li><a href="{{ route('seller.product.index') }}">{{ trans_choice('header.product', 2) }}</a></li>
-                                    <li><a href="{{ route('seller.logout') }}">@lang('logout')</a></li>
+                                    <li><a href="{{ route('seller.logout') }}">{{ __('header.logout')  }}</a></li>
                                 </ul>
                             @else
                                 <ul class="account">
-                                    <li><a href="{{ route('buyer.home') }}">@lang('header.dashboard')</a></li>
-                                    <li><a href="{{ route('buyer.wish_list') }}">@lang('wishlist')</a></li>
+                                    <li><a href="{{ route('buyer.home') }}">{{ __('header.dashboard') }}</a></li>
+                                    <li><a href="{{ route('buyer.wish_list') }}">{{ __('header.wishlist') }}</a></li>
                                     <li><a href="{{ route('buyer.order.index') }}">{{ trans_choice('header.order',2) }}</a></li>
-                                    <li><a href="{{ route('buyer.logout') }}">@lang('logout')</a></li>
+                                    <li><a href="{{ route('buyer.logout') }}">{{ __('header.logout') }}</a></li>
                                 </ul>
                             @endif
                         @endif

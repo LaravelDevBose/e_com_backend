@@ -24,14 +24,8 @@
     <main class="site-main">
 
         <div class="columns container">
-            <!-- Block  Breadcrumb-->
-            <ol class="breadcrumb no-hide">
-                <li><a href="#">Home    </a></li>
-                <li class="active"> Checkout</li>
-            </ol><!-- Block  Breadcrumb-->
-
             <h2 class="page-heading">
-                <span class="page-heading-title2"> Checkout</span>
+                <span class="page-heading-title2">@lang('checkout.page_header')</span>
             </h2>
             <checkout-page></checkout-page>
         </div>

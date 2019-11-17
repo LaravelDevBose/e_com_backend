@@ -6,9 +6,9 @@
                     <div class="col-sm-6">
                         <div class="categori-search  ">
                             <chosen-select v-model='shipping_id' :classList="selectOption.classList" :placeholder="selectOption.placeholder" >
-                                <option value="" selected>Select an Address</option>
-                                <option :value="0">New Address</option>
-                                <option v-if="addressList" v-for="(address, index) in addressList"  :value="address.id" >{{ address.text }}</option>
+                                <option value="" selected>{{ $t('checkout.select_address')}}</option>
+                                <option :value="0">{{ $t('checkout.new_address')}}</option>
+                                <option v-if="addressList" v-for="(address, index) in addressList" :key="index" :value="address.id" >{{ address.text }}</option>
                             </chosen-select>
                         </div>
                     </div>
@@ -17,60 +17,60 @@
             <ul v-if="new_address">
                 <li class="row">
                     <div class="col-sm-12">
-                        <h3 class="text text-semibold text-center">New Address</h3>
+                        <h3 class="text text-semibold text-center">{{ $t('checkout.new_address')}}</h3>
                     </div>
                 </li>
                 <li class="row">
                     <div class="col-sm-6">
-                        <label for="first_name" class="required">First Name <span class="text text-bold text-danger">*</span></label>
+                        <label for="first_name" class="required">{{ $t('form.first_name')}} <span class="text text-bold text-danger">*</span></label>
                         <input class="input form-control" v-model="formData.first_name"  name="first_name" id="first_name" type="text">
                     </div>
                     <div class="col-sm-6">
-                        <label for="last_name" class="required">Last Name</label>
+                        <label for="last_name" class="required">{{ $t('form.last_name')}}</label>
                         <input name="last_name" v-model="formData.last_name"  class="input form-control" id="last_name" type="text">
                     </div>
                 </li>
                 <li class="row">
                     <div class="col-sm-6">
-                        <label for="telephone" class="required">Telephone <span class="text text-bold text-danger">*</span></label>
+                        <label for="telephone" class="required">{{ $t('form.phone_no')}} <span class="text text-bold text-danger">*</span></label>
                         <input class="input form-control" v-model="formData.phone_no"  name="telephone" id="telephone" type="text">
                     </div>
                 </li>
                 <li class="row">
                     <div class="col-xs-12">
-                        <label for="address" class="required">Address <span class="text text-bold text-danger">*</span></label>
+                        <label for="address" class="required">{{ $t('form.address')}} <span class="text text-bold text-danger">*</span></label>
                         <input class="input form-control" v-model="formData.address"  name="address" id="address" type="text">
                     </div>
 
                 </li>
                 <li class="row">
                     <div class="col-sm-6">
-                        <label for="city" class="required">City <span class="text text-bold text-danger">*</span></label>
+                        <label for="city" class="required">{{ $t('form.city')}} <span class="text text-bold text-danger">*</span></label>
                         <input class="input form-control" v-model="formData.city"  name="city" id="city" type="text">
                     </div>
 
                     <div class="col-sm-6">
-                        <label for="district" class="required">District <span class="text text-bold text-danger">*</span></label>
+                        <label for="district" class="required">{{ $t('form.district')}} <span class="text text-bold text-danger">*</span></label>
                         <input class="input form-control" v-model="formData.district"   id="district" type="text">
                     </div>
                 </li>
                 <li class="row">
                     <div class="col-sm-6">
-                        <label class="required">Region <span class="text text-bold text-danger">*</span></label>
-                        <chosen-select v-model='formData.region' :classList="selectOption.classList" :placeholder="'Select Your State'" >
-                            <option value="">Select A Region</option>
-                            <option v-for="(region,index) in regions" :key="index" :value="region.key">{{ region.name }}</option>
+                        <label class="required">{{ $t('form.region')}} <span class="text text-bold text-danger">*</span></label>
+                        <chosen-select v-model='formData.region' :classList="selectOption.classList" :placeholder="$t('form.select_region')" >
+                            <option value="">{{ $t('form.select_region')}}</option>
+                            <option v-for="(region,index) in regions" :key="index" :value="region.key">{{ $t("state."+region.name) }}</option>
                         </chosen-select>
                     </div>
                     <div class="col-sm-6">
-                        <label for="postal_code" class="required">Zip/Postal Code</label>
+                        <label for="postal_code" class="required">{{ $t('form.postal_code')}}</label>
                         <input class="input form-control" v-model="formData.postal_code" name="postal_code" id="postal_code" type="text">
                     </div>
                 </li>
             </ul>
             <ul>
                 <li style="text-align: right">
-                    <button type="submit" class="button">Continue</button>
+                    <button type="submit" class="button">{{ $t('checkout.continue')}}</button>
                 </li>
             </ul>
         </div>

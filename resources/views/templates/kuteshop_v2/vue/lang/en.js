@@ -22,7 +22,16 @@ export const ENGLISH_TRANSLATIONS  ={
         qty:'Qty',
         total:'Total',
         shopping_bag:'Shopping Bag',
-        checkout:'Checkout'
+        checkout:'Checkout',
+        continue_shopping:'Continue shopping',
+        continue_checkout:'Proceed to checkout',
+        desc:'Description',
+        unit_price:'Unit Price',
+        empty_cart:'Cart is Empty',
+        subtotal:'SubTotal',
+        discount:'Discount',
+        delivery_charge:'Delivery Charge',
+        grand_total:'Grand Total',
     },
     footer:{
         accept_pay_methods:'Accepted Payment Methods',
@@ -69,7 +78,19 @@ export const ENGLISH_TRANSLATIONS  ={
             create_shop:' Create an Shop',
         }
     },
-
+    checkout:{
+        billing_section:'Billing Information',
+        shipping_section:'Shipping Information',
+        shipping_method:'Shipping Method',
+        payment_section:'Payment Information',
+        order_review:'Order Review',
+        place_order:'Place Order',
+        select_address:'Select an Address',
+        new_address:'New Address',
+        save_address_book:'Save as Address Book',
+        also_save_address:'Also As Shipping Address',
+        continue:'Continue',
+    },
     form:{
         email:'Email',
         username:'Username',
@@ -80,6 +101,12 @@ export const ENGLISH_TRANSLATIONS  ={
         last_name:'Last Name',
         full_name:'Full Name',
         shop_name:'Shop Name',
+        address:'Address',
+        city:'City',
+        district:'District',
+        region:'Region',
+        select_region:'Select A Region',
+        postal_code:'Postal Code',
     },
     state:{
         Awdal:'Awdal',
