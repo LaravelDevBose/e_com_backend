@@ -4,7 +4,7 @@
     <div class="container">
 
         <div class="block-title">
-            <span class="title">Top Brands</span>
+            <span class="title">{{ trans_choice('footer.top_brand', count($brands)) }}</span>
         </div>
 
         <div class="block-content" >

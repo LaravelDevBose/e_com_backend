@@ -1,10 +1,10 @@
 <template>
     <div class="box-authentication">
-        <h3 class="text-center" style="margin-top: 5px;">Sign in With </h3>
+        <h3 class="text-center" style="margin-top: 5px;">{{ $t('auth.sign_in_with')}} </h3>
         <div class="text-center social-btn">
-            <a href="#" @click.prevent="socialLogin('facebook')" class="btn btn-primary btn-block"><i class="fa fa-facebook"></i> Sign in with <b>Facebook</b></a>
-            <a href="#" @click.prevent="socialLogin('twitter')" class="btn btn-info btn-block"><i class="fa fa-twitter"></i> Sign in with <b>Twitter</b></a>
-            <a href="#" @click.prevent="socialLogin('google')" class="btn btn-danger btn-block"><i class="fa fa-google"></i> Sign in with <b>Google</b></a>
+            <a href="#" @click.prevent="socialLogin('facebook')" class="btn btn-primary btn-block"><i class="fa fa-facebook"></i> {{ $t('auth.sign_in_with')}} <b>Facebook</b></a>
+            <a href="#" @click.prevent="socialLogin('twitter')" class="btn btn-info btn-block"><i class="fa fa-twitter"></i> {{ $t('auth.sign_in_with')}} <b>Twitter</b></a>
+            <a href="#" @click.prevent="socialLogin('google')" class="btn btn-danger btn-block"><i class="fa fa-google"></i> {{ $t('auth.sign_in_with')}} <b>Google</b></a>
         </div>
     </div>
 </template>

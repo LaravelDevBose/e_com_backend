@@ -4,7 +4,7 @@
         <div class="columns container" style="margin-top: 2rem">
             <!-- Block  Breadcrumb-->
             <h2 class="page-heading">
-                <span class="page-heading-title2" >Authentication</span>
+                <span class="page-heading-title2" >{{ $t('auth.seller.page_header')}}</span>
             </h2>
 
             <div class="page-content">

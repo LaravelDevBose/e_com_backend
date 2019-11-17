@@ -34,6 +34,40 @@ export const SOMALIA_TRANSLATIONS  ={
         colors:'So-Colors',
         sizes:'So-Sizes'
     },
+
+    auth:{
+        sign_up:'So-Sign Up',
+        sign_in:'So-Sign In',
+        register:'So-Register',
+        login:'So-Login',
+        forgot_pass:'So-Forgot Your Password.?',
+        sign_in_with:'So-Sign in With',
+        buyer:{
+            page_header:'So-Authentication',
+            login_title:'So-Already registered ?',
+            reg_title:'So-Create an account',
+            reg_sub_title:'So-Please enter your Details to create an account.',
+        },
+        seller:{
+            page_header:'So-Seller Authentication',
+            login_title:'So-Already registered as Seller?',
+            reg_title:'So-Sell With Saliim. Create Your Shop.',
+            reg_sub_title:'So-Please enter your Details to create an account.',
+            create_shop:'So- Create an Shop',
+        }
+    },
+
+    form:{
+        email:'So-Email',
+        username:'So-Username',
+        password:'So-Password',
+        confirm_pass:'So-Confirm Password',
+        phone_no:'So-Mobile Number',
+        first_name:'So-First Name',
+        last_name:'So-Last Name',
+        full_name:'So-Full Name',
+        shop_name:'So-Shop Name',
+    },
     state:{
         Awdal:'So - Awdal',
         Bakool:'So - Bakool',

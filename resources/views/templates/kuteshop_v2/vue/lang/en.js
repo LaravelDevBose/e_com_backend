@@ -34,6 +34,41 @@ export const ENGLISH_TRANSLATIONS  ={
         colors:'Colors',
         sizes:'Sizes'
     },
+
+    auth:{
+
+        sign_up:'Sign Up',
+        sign_in:'Sign In',
+        register:'Register',
+        login:'Login',
+        forgot_pass:'Forgot Your Password.?',
+        sign_in_with:'Sign in With',
+        buyer:{
+            page_header:'Authentication',
+            login_title:'Already registered ?',
+            reg_title:'Create an account',
+            reg_sub_title:'Please enter your Details to create an account.',
+        },
+        seller:{
+            page_header:'Seller Authentication',
+            login_title:'Already registered as Seller?',
+            reg_title:'Sell With Saliim. Create Your Shop.',
+            reg_sub_title:'Please enter your Details to create an account.',
+            create_shop:' Create an Shop',
+        }
+    },
+
+    form:{
+        email:'Email',
+        username:'Username',
+        password:'Password',
+        confirm_pass:'Confirm Password',
+        phone_no:'Mobile Number',
+        first_name:'First Name',
+        last_name:'Last Name',
+        full_name:'Full Name',
+        shop_name:'Shop Name',
+    },
     state:{
         Awdal:'Awdal',
         Bakool:'Bakool',

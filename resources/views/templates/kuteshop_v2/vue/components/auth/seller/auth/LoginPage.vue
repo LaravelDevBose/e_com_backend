@@ -1,19 +1,19 @@
 <template>
     <div class="box-authentication">
-        <h3>Already registered as Seller ?</h3>
+        <h3>{{ $t('auth.seller.login_title')}}</h3>
         <form action="" @submit.prevent="sellerLogin" autocomplete="off">
             <div class="row">
                 <div class="col-md-10">
-                    <label for="emmail_login">Email/Username <span class="text text-danger text-bold">*</span></label>
-                    <input type="text" v-model="formData.identity" autocomplete="off" placeholder="Email/Username" required class="form-control" id="emmail_login">
+                    <label for="emmail_login">{{ $t('form.email')}}/{{ $t('form.username')}}<span class="text text-danger text-bold">*</span></label>
+                    <input type="text" v-model="formData.identity" autocomplete="off" :placeholder="$t('form.email')/$t('form.username')" required class="form-control" id="emmail_login">
                 </div>
                 <div class="col-md-10">
-                    <label for="password_login">Password <span class="text text-danger text-bold">*</span></label>
-                    <input type="password" v-model="formData.password" autocomplete="off" minlength="8" placeholder="Password" required class="form-control" id="password_login">
+                    <label for="password_login">{{ $t('form.password') }} <span class="text text-danger text-bold">*</span></label>
+                    <input type="password" v-model="formData.password" autocomplete="off" minlength="8" :placeholder="$t('form.password')" required class="form-control" id="password_login">
                 </div>
                 <div class="col-md-10">
-                    <p class="forgot-pass"><a href="#">Forgot your password?</a></p>
-                    <button type="submit" class="button text-right"><i class="fa fa-lock"></i> Sign in</button>
+                    <p class="forgot-pass"><a href="#">{{ $t('auth.forgot_pass') }}</a></p>
+                    <button type="submit" class="button text-right"><i class="fa fa-lock"></i> {{ $t('auth.sign_in') }}</button>
                 </div>
             </div>
         </form>

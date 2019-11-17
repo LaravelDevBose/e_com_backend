@@ -48709,7 +48709,11 @@ var render = function() {
         staticStyle: { "margin-top": "2rem" }
       },
       [
-        _vm._m(0),
+        _c("h2", { staticClass: "page-heading" }, [
+          _c("span", { staticClass: "page-heading-title2" }, [
+            _vm._v(_vm._s(_vm.$t("auth.buyer.page_header")))
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "page-content" }, [
           _c("div", { staticClass: "row" }, [
@@ -48732,18 +48736,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h2", { staticClass: "page-heading" }, [
-      _c("span", { staticClass: "page-heading-title2" }, [
-        _vm._v("Authentication")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -48766,7 +48759,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "box-authentication" }, [
-    _c("h3", [_vm._v("Already registered?")]),
+    _c("h3", [_vm._v(_vm._s(_vm.$t("auth.buyer.login_title")))]),
     _vm._v(" "),
     _c(
       "form",
@@ -48782,7 +48775,17 @@ var render = function() {
       [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-10" }, [
-            _vm._m(0),
+            _c("label", { attrs: { for: "emmail_login" } }, [
+              _vm._v(
+                _vm._s(_vm.$t("form.email")) +
+                  "/" +
+                  _vm._s(_vm.$t("form.username")) +
+                  " "
+              ),
+              _c("span", { staticClass: "text text-danger text-bold" }, [
+                _vm._v("*")
+              ])
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -48797,7 +48800,7 @@ var render = function() {
               attrs: {
                 type: "text",
                 autocomplete: "off",
-                placeholder: "Email/Username",
+                placeholder: _vm.$t("form.email") / _vm.$t("form.username"),
                 required: "",
                 id: "emmail_login"
               },
@@ -48814,7 +48817,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
-            _vm._m(1),
+            _c("label", { attrs: { for: "password_login" } }, [
+              _vm._v(_vm._s(_vm.$t("form.password")) + " "),
+              _c("span", { staticClass: "text text-danger text-bold" }, [
+                _vm._v("*")
+              ])
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -48830,7 +48838,7 @@ var render = function() {
                 type: "password",
                 autocomplete: "off",
                 minlength: "8",
-                placeholder: "Password",
+                placeholder: _vm.$t("form.password"),
                 required: "",
                 id: "password_login"
               },
@@ -48846,48 +48854,28 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _vm._m(2)
+          _c("div", { staticClass: "col-md-10" }, [
+            _c("p", { staticClass: "forgot-pass" }, [
+              _c("a", { attrs: { href: "#" } }, [
+                _vm._v(_vm._s(_vm.$t("auth.forgot_pass")))
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              { staticClass: "button text-right", attrs: { type: "submit" } },
+              [
+                _c("i", { staticClass: "fa fa-lock" }),
+                _vm._v(" " + _vm._s(_vm.$t("auth.sign_in")))
+              ]
+            )
+          ])
         ])
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "emmail_login" } }, [
-      _vm._v("Email/Username "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "password_login" } }, [
-      _vm._v("Password "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-10" }, [
-      _c("p", { staticClass: "forgot-pass" }, [
-        _c("a", { attrs: { href: "#" } }, [_vm._v("Forgot your password?")])
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "button text-right", attrs: { type: "submit" } },
-        [_c("i", { staticClass: "fa fa-lock" }), _vm._v(" Sign in")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -48910,9 +48898,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "box-authentication" }, [
-    _c("h3", [_vm._v("Create an account")]),
+    _c("h3", [_vm._v(_vm._s(_vm.$t("auth.buyer.reg_title")))]),
     _vm._v(" "),
-    _c("p", [_vm._v("Please enter your Details to create an account.")]),
+    _c("p", [_vm._v(_vm._s(_vm.$t("auth.buyer.reg_sub_title")))]),
     _vm._v(" "),
     _c(
       "form",
@@ -48928,7 +48916,12 @@ var render = function() {
       [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-10" }, [
-            _vm._m(0),
+            _c("label", { attrs: { for: "full_name" } }, [
+              _vm._v(_vm._s(_vm.$t("form.full_name"))),
+              _c("span", { staticClass: "text text-danger text-bold" }, [
+                _vm._v("*")
+              ])
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -48942,7 +48935,7 @@ var render = function() {
               staticClass: "form-control",
               attrs: {
                 type: "text",
-                placeholder: "Full name",
+                placeholder: _vm.$t("form.full_name"),
                 required: "",
                 id: "full_name"
               },
@@ -48960,7 +48953,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
             _c("label", { attrs: { for: "mobile" } }, [
-              _vm._v("Mobile Number")
+              _vm._v(_vm._s(_vm.$t("form.phone_no")))
             ]),
             _vm._v(" "),
             _c("input", {
@@ -48973,7 +48966,11 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Phone no", id: "mobile" },
+              attrs: {
+                type: "text",
+                placeholder: _vm.$t("form.phone_no"),
+                id: "mobile"
+              },
               domProps: { value: _vm.formData.phone_no },
               on: {
                 input: function($event) {
@@ -48987,7 +48984,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
-            _vm._m(1),
+            _c("label", { attrs: { for: "email" } }, [
+              _vm._v(_vm._s(_vm.$t("form.email")) + " "),
+              _c("span", { staticClass: "text text-danger text-bold" }, [
+                _vm._v("*")
+              ])
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -49018,7 +49020,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
-            _vm._m(2),
+            _c("label", { attrs: { for: "password" } }, [
+              _vm._v(_vm._s(_vm.$t("form.password")) + " "),
+              _c("span", { staticClass: "text text-danger text-bold" }, [
+                _vm._v("*")
+              ])
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -49034,7 +49041,7 @@ var render = function() {
                 type: "password",
                 minlength: "8",
                 required: "",
-                placeholder: "Password",
+                placeholder: _vm.$t("form.password"),
                 id: "password"
               },
               domProps: { value: _vm.formData.password },
@@ -49050,7 +49057,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
-            _vm._m(3),
+            _c("label", { attrs: { for: "password_con" } }, [
+              _vm._v(_vm._s(_vm.$t("form.confirm_pass")) + " "),
+              _c("span", { staticClass: "text text-danger text-bold" }, [
+                _vm._v("*")
+              ])
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -49066,7 +49078,7 @@ var render = function() {
                 type: "password",
                 minlength: "8",
                 required: "",
-                placeholder: "Confirm Password",
+                placeholder: _vm.$t("form.confirm_pass"),
                 id: "password_con"
               },
               domProps: { value: _vm.formData.password_confirmation },
@@ -49085,61 +49097,18 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _vm._m(4)
+          _c("div", { staticClass: "col-md-10" }, [
+            _c("button", { staticClass: "button", attrs: { type: "submit" } }, [
+              _c("i", { staticClass: "fa fa-user" }),
+              _vm._v(" " + _vm._s(_vm.$t("auth.buyer.reg_title")))
+            ])
+          ])
         ])
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "full_name" } }, [
-      _vm._v("Full Name "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "email" } }, [
-      _vm._v("Email "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "password" } }, [
-      _vm._v("Password "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "password_con" } }, [
-      _vm._v("Confirm Password "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-10" }, [
-      _c("button", { staticClass: "button", attrs: { type: "submit" } }, [
-        _c("i", { staticClass: "fa fa-user" }),
-        _vm._v(" Create an account")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -49165,7 +49134,7 @@ var render = function() {
     _c(
       "h3",
       { staticClass: "text-center", staticStyle: { "margin-top": "5px" } },
-      [_vm._v("Sign in With ")]
+      [_vm._v(_vm._s(_vm.$t("auth.sign_in_with")) + " ")]
     ),
     _vm._v(" "),
     _c("div", { staticClass: "text-center social-btn" }, [
@@ -49183,7 +49152,7 @@ var render = function() {
         },
         [
           _c("i", { staticClass: "fa fa-facebook" }),
-          _vm._v(" Sign in with "),
+          _vm._v(" " + _vm._s(_vm.$t("auth.sign_in_with")) + " "),
           _c("b", [_vm._v("Facebook")])
         ]
       ),
@@ -49202,7 +49171,7 @@ var render = function() {
         },
         [
           _c("i", { staticClass: "fa fa-twitter" }),
-          _vm._v(" Sign in with "),
+          _vm._v(" " + _vm._s(_vm.$t("auth.sign_in_with")) + " "),
           _c("b", [_vm._v("Twitter")])
         ]
       ),
@@ -49221,7 +49190,7 @@ var render = function() {
         },
         [
           _c("i", { staticClass: "fa fa-google" }),
-          _vm._v(" Sign in with "),
+          _vm._v(" " + _vm._s(_vm.$t("auth.sign_in_with")) + " "),
           _c("b", [_vm._v("Google")])
         ]
       )
@@ -49251,7 +49220,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "box-authentication" }, [
-    _c("h3", [_vm._v("Already registered as Seller ?")]),
+    _c("h3", [_vm._v(_vm._s(_vm.$t("auth.seller.login_title")))]),
     _vm._v(" "),
     _c(
       "form",
@@ -49267,7 +49236,16 @@ var render = function() {
       [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-10" }, [
-            _vm._m(0),
+            _c("label", { attrs: { for: "emmail_login" } }, [
+              _vm._v(
+                _vm._s(_vm.$t("form.email")) +
+                  "/" +
+                  _vm._s(_vm.$t("form.username"))
+              ),
+              _c("span", { staticClass: "text text-danger text-bold" }, [
+                _vm._v("*")
+              ])
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -49282,7 +49260,7 @@ var render = function() {
               attrs: {
                 type: "text",
                 autocomplete: "off",
-                placeholder: "Email/Username",
+                placeholder: _vm.$t("form.email") / _vm.$t("form.username"),
                 required: "",
                 id: "emmail_login"
               },
@@ -49299,7 +49277,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
-            _vm._m(1),
+            _c("label", { attrs: { for: "password_login" } }, [
+              _vm._v(_vm._s(_vm.$t("form.password")) + " "),
+              _c("span", { staticClass: "text text-danger text-bold" }, [
+                _vm._v("*")
+              ])
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -49315,7 +49298,7 @@ var render = function() {
                 type: "password",
                 autocomplete: "off",
                 minlength: "8",
-                placeholder: "Password",
+                placeholder: _vm.$t("form.password"),
                 required: "",
                 id: "password_login"
               },
@@ -49331,48 +49314,28 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _vm._m(2)
+          _c("div", { staticClass: "col-md-10" }, [
+            _c("p", { staticClass: "forgot-pass" }, [
+              _c("a", { attrs: { href: "#" } }, [
+                _vm._v(_vm._s(_vm.$t("auth.forgot_pass")))
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              { staticClass: "button text-right", attrs: { type: "submit" } },
+              [
+                _c("i", { staticClass: "fa fa-lock" }),
+                _vm._v(" " + _vm._s(_vm.$t("auth.sign_in")))
+              ]
+            )
+          ])
         ])
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "emmail_login" } }, [
-      _vm._v("Email/Username "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "password_login" } }, [
-      _vm._v("Password "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-10" }, [
-      _c("p", { staticClass: "forgot-pass" }, [
-        _c("a", { attrs: { href: "#" } }, [_vm._v("Forgot your password?")])
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "button text-right", attrs: { type: "submit" } },
-        [_c("i", { staticClass: "fa fa-lock" }), _vm._v(" Sign in")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -49395,9 +49358,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "box-authentication" }, [
-    _c("h3", [_vm._v("Sell With Saliim. Create Your Shop.")]),
+    _c("h3", [_vm._v(_vm._s(_vm.$t("auth.buyer.reg_title")))]),
     _vm._v(" "),
-    _c("p", [_vm._v("Please enter your Details to create an account.")]),
+    _c("p", [_vm._v(_vm._s(_vm.$t("auth.buyer.reg_sub_title")))]),
     _vm._v(" "),
     _c(
       "form",
@@ -49413,7 +49376,12 @@ var render = function() {
       [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-10" }, [
-            _vm._m(0),
+            _c("label", { attrs: { for: "shop_name" } }, [
+              _vm._v(_vm._s(_vm.$t("form.shop_name"))),
+              _c("span", { staticClass: "text text-danger text-bold" }, [
+                _vm._v("*")
+              ])
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -49427,7 +49395,7 @@ var render = function() {
               staticClass: "form-control",
               attrs: {
                 type: "text",
-                placeholder: "Shop name",
+                placeholder: _vm.$t("form.shop_name"),
                 required: "",
                 id: "shop_name"
               },
@@ -49444,7 +49412,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
-            _vm._m(1),
+            _c("label", { attrs: { for: "full_name" } }, [
+              _vm._v(_vm._s(_vm.$t("form.full_name"))),
+              _c("span", { staticClass: "text text-danger text-bold" }, [
+                _vm._v("*")
+              ])
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -49458,7 +49431,7 @@ var render = function() {
               staticClass: "form-control",
               attrs: {
                 type: "text",
-                placeholder: "Full name",
+                placeholder: _vm.$t("form.phone_no"),
                 required: "",
                 id: "full_name"
               },
@@ -49476,7 +49449,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
             _c("label", { attrs: { for: "mobile" } }, [
-              _vm._v("Mobile Number")
+              _vm._v(_vm._s(_vm.$t("form.phone_no")))
             ]),
             _vm._v(" "),
             _c("input", {
@@ -49489,7 +49462,11 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Phone no", id: "mobile" },
+              attrs: {
+                type: "text",
+                placeholder: _vm.$t("form.phone_no"),
+                id: "mobile"
+              },
               domProps: { value: _vm.formData.phone_no },
               on: {
                 input: function($event) {
@@ -49503,7 +49480,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
-            _vm._m(2),
+            _c("label", { attrs: { for: "email" } }, [
+              _vm._v(_vm._s(_vm.$t("form.email")) + " "),
+              _c("span", { staticClass: "text text-danger text-bold" }, [
+                _vm._v("*")
+              ])
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -49534,7 +49516,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
-            _vm._m(3),
+            _c("label", { attrs: { for: "password" } }, [
+              _vm._v(_vm._s(_vm.$t("form.password")) + " "),
+              _c("span", { staticClass: "text text-danger text-bold" }, [
+                _vm._v("*")
+              ])
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -49550,7 +49537,7 @@ var render = function() {
                 type: "password",
                 minlength: "8",
                 required: "",
-                placeholder: "Password",
+                placeholder: _vm.$t("form.password"),
                 id: "password"
               },
               domProps: { value: _vm.formData.password },
@@ -49566,7 +49553,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
-            _vm._m(4),
+            _c("label", { attrs: { for: "password_con" } }, [
+              _vm._v(_vm._s(_vm.$t("form.confirm_pass")) + " "),
+              _c("span", { staticClass: "text text-danger text-bold" }, [
+                _vm._v("*")
+              ])
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -49582,7 +49574,7 @@ var render = function() {
                 type: "password",
                 minlength: "8",
                 required: "",
-                placeholder: "Confirm Password",
+                placeholder: _vm.$t("form.confirm_pass"),
                 id: "password_con"
               },
               domProps: { value: _vm.formData.password_confirmation },
@@ -49601,70 +49593,18 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _vm._m(5)
+          _c("div", { staticClass: "col-md-10" }, [
+            _c("button", { staticClass: "button", attrs: { type: "submit" } }, [
+              _c("i", { staticClass: "fa fa-user" }),
+              _vm._v(" " + _vm._s(_vm.$t("auth.seller.create_shop")))
+            ])
+          ])
         ])
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "shop_name" } }, [
-      _vm._v("Shop Name "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "full_name" } }, [
-      _vm._v("Full Name "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "email" } }, [
-      _vm._v("Email "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "password" } }, [
-      _vm._v("Password "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "password_con" } }, [
-      _vm._v("Confirm Password "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-10" }, [
-      _c("button", { staticClass: "button", attrs: { type: "submit" } }, [
-        _c("i", { staticClass: "fa fa-user" }),
-        _vm._v(" Create an account")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -49694,7 +49634,11 @@ var render = function() {
         staticStyle: { "margin-top": "2rem" }
       },
       [
-        _vm._m(0),
+        _c("h2", { staticClass: "page-heading" }, [
+          _c("span", { staticClass: "page-heading-title2" }, [
+            _vm._v(_vm._s(_vm.$t("auth.seller.page_header")))
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "page-content" }, [
           _c("div", { staticClass: "row" }, [
@@ -49707,18 +49651,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h2", { staticClass: "page-heading" }, [
-      _c("span", { staticClass: "page-heading-title2" }, [
-        _vm._v("Authentication")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -72701,6 +72634,38 @@ var ENGLISH_TRANSLATIONS = {
     colors: 'Colors',
     sizes: 'Sizes'
   },
+  auth: {
+    sign_up: 'Sign Up',
+    sign_in: 'Sign In',
+    register: 'Register',
+    login: 'Login',
+    forgot_pass: 'Forgot Your Password.?',
+    sign_in_with: 'Sign in With',
+    buyer: {
+      page_header: 'Authentication',
+      login_title: 'Already registered ?',
+      reg_title: 'Create an account',
+      reg_sub_title: 'Please enter your Details to create an account.'
+    },
+    seller: {
+      page_header: 'Seller Authentication',
+      login_title: 'Already registered as Seller?',
+      reg_title: 'Sell With Saliim. Create Your Shop.',
+      reg_sub_title: 'Please enter your Details to create an account.',
+      create_shop: ' Create an Shop'
+    }
+  },
+  form: {
+    email: 'Email',
+    username: 'Username',
+    password: 'Password',
+    confirm_pass: 'Confirm Password',
+    phone_no: 'Mobile Number',
+    first_name: 'First Name',
+    last_name: 'Last Name',
+    full_name: 'Full Name',
+    shop_name: 'Shop Name'
+  },
   state: {
     Awdal: 'Awdal',
     Bakool: 'Bakool',
@@ -72770,6 +72735,38 @@ var SOMALIA_TRANSLATIONS = {
     brands: 'So-Brands',
     colors: 'So-Colors',
     sizes: 'So-Sizes'
+  },
+  auth: {
+    sign_up: 'So-Sign Up',
+    sign_in: 'So-Sign In',
+    register: 'So-Register',
+    login: 'So-Login',
+    forgot_pass: 'So-Forgot Your Password.?',
+    sign_in_with: 'So-Sign in With',
+    buyer: {
+      page_header: 'So-Authentication',
+      login_title: 'So-Already registered ?',
+      reg_title: 'So-Create an account',
+      reg_sub_title: 'So-Please enter your Details to create an account.'
+    },
+    seller: {
+      page_header: 'So-Seller Authentication',
+      login_title: 'So-Already registered as Seller?',
+      reg_title: 'So-Sell With Saliim. Create Your Shop.',
+      reg_sub_title: 'So-Please enter your Details to create an account.',
+      create_shop: 'So- Create an Shop'
+    }
+  },
+  form: {
+    email: 'So-Email',
+    username: 'So-Username',
+    password: 'So-Password',
+    confirm_pass: 'So-Confirm Password',
+    phone_no: 'So-Mobile Number',
+    first_name: 'So-First Name',
+    last_name: 'So-Last Name',
+    full_name: 'So-Full Name',
+    shop_name: 'So-Shop Name'
   },
   state: {
     Awdal: 'So - Awdal',
