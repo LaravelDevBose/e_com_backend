@@ -3,8 +3,8 @@
         <div class="form-search">
             <form>
                 <div class="box-group">
-                    <input type="text" v-model="searchData.search_key" class="form-control" maxlength="70" placeholder="Search here...">
-                    <button class="btn btn-search" :disabled="btnDisabled" type="button"><span>search</span></button>
+                    <input type="text" v-model="searchData.search_key" class="form-control" maxlength="70" :placeholder="$t('header.search_here')">
+                    <button class="btn btn-search" :disabled="btnDisabled" type="button"><span>{{ $t('header.search')}}</span></button>
                 </div>
             </form>
         </div>

@@ -3,16 +3,24 @@ export const SOMALIA_TRANSLATIONS  ={
         login:'So-Customer Login',
         seller_login:'So-Seller Login',
         dashBoard:'So-DashBoard',
-        orders:'So-Orders',
-        products:'So-Products',
+        order:'So-Order|So-Orders',
+        product:'So-Product|So-Products',
         logout:'So-Logout',
         wishlist:'So-Wishlist',
         select_category:'So-Select a Category',
+        search:'So-Search',
         search_here:'So-Search Here..',
         select_lang:'So-Select language',
         all:'So-All',
-        categories:'So-Categories',
+        category:'So-Category|So-Categories',
         top_brands:'So-Top Brands'
+    },
+    cart:{
+        cart_qty_label:'So You have {cartTotal} item in your cart|You have {cartTotal} item(s) in your cart',
+        qty:'So-Qty',
+        total:'So-Total',
+        shopping_bag:'So-Shopping Bag',
+        checkout:'So-Checkout'
     },
     footer:{
         accept_pay_methods:'So-Accepted Payment Methods',

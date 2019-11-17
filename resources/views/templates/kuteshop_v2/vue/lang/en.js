@@ -3,16 +3,24 @@ export const ENGLISH_TRANSLATIONS  ={
         login:'Customer Login',
         seller_login:'Seller Login',
         dashBoard:'DashBoard',
-        orders:'Orders',
-        products:'Products',
+        order:'Order|Orders',
+        product:'Product|Products',
         logout:'Logout',
         wishlist:'Wishlist',
+        search:'Search',
         select_category:'Select a Category',
         search_here:'Search Here..',
         select_lang:'Select language',
         all:'All',
-        categories:'Categories',
-        top_brands:'Top Brands'
+        category:'Category|Categories',
+        top_brands:'Top Brands',
+    },
+    cart:{
+        cart_qty_label:'You have {cartTotal} item in your cart|You have {cartTotal} item(s) in your cart',
+        qty:'Qty',
+        total:'Total',
+        shopping_bag:'Shopping Bag',
+        checkout:'Checkout'
     },
     footer:{
         accept_pay_methods:'Accepted Payment Methods',

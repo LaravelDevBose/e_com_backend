@@ -72,11 +72,9 @@ class FrontendController extends Controller
     }
     public function set_lang($lang)
     {
-        session()->forget('lang');
         Session::put('lang', $lang);
-        Lang::setLocale($lang);
-
-        return ResponserTrait::allResponse('success', Response::HTTP_OK,'Successful', \session()->get('lang'));
+        App::setLocale($lang);
+        return ResponserTrait::allResponse('success', Response::HTTP_OK,'Successful', App::getLocale());
     }
 
     public function section_data_list(Request $request)

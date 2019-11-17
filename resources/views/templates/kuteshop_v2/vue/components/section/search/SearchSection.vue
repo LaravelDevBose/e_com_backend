@@ -3,14 +3,14 @@
         <div class="form-search">
             <form>
                 <div class="box-group">
-                    <input type="text" v-model="searchData.search_key" class="form-control" maxlength="70" placeholder="Search here...">
-                    <button class="btn btn-search" :disabled="btnDisabled" type="button"><span>search</span></button>
+                    <input type="text" v-model="searchData.search_key" class="form-control" maxlength="70" :placeholder="$t('header.search_here')">
+                    <button class="btn btn-search" :disabled="btnDisabled" type="button"><span>{{ $t('header.search')}}</span></button>
                 </div>
             </form>
         </div>
         <div class="categori-search  ">
-            <chosen-select v-model="searchData.categoryId"  :placeholder="'All Categories'" :class-list="'categori-search-option'">
-                <option :value="0">Select a Category</option>
+            <chosen-select v-model="searchData.categoryId"  :placeholder="$t('header.all') + $tc('header.category',2)" :class-list="'categori-search-option'">
+                <option :value="0">{{$t('header.select_category')}}</option>
                 <option v-if="categories" v-for="(category, index) in categories"  :value="category.id"  :key="index">{{ category.name }}</option>
             </chosen-select>
         </div>
