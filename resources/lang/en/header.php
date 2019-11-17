@@ -8,6 +8,7 @@ return[
     'dashBoard'=>'DashBoard',
     'order'=>'Order|Orders',
     'product'=>'Product|Products',
+    'review'=>'Review|Reviews',
     'logout'=>'Logout',
     'wishlist'=>'Wishlist',
     'select_category'=>'Select a Category',

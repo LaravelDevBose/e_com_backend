@@ -6,6 +6,7 @@ return[
     'seller_login'=>'So-Seller Login',
     'my_account'=>'So-My Account',
     'dashBoard'=>'So-DashBoard',
+    'review'=>'So-Review|So-Reviews',
     'order'=>'So-Order|So-Orders',
     'product'=>'So-Product|So-Products',
     'logout'=>'So-Logout',

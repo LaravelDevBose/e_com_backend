@@ -130,7 +130,7 @@
                                 <div class="col-sm-12 col-md-4 col-lg-4">
                                     <div class="text-widget widget widget__sidebar shop-info">
                                         <div class="widget-content">
-                                            <span class="sold-by">Sold By</span>
+                                            <span class="sold-by">@lang('product.sold_by')</span>
                                             <h3 class="shop-name">
                                                 <span>{{ $product->seller->shop->shop_name }}</span>
                                             </h3>
@@ -148,7 +148,7 @@
                                             @endif
                                         </div>
                                         <div class="go-to-store">
-                                            <a href="{{ route('front.shop.profile', $product->seller->shop->shop_slug) }}"> Go To Store</a>
+                                            <a href="{{ route('front.shop.profile', $product->seller->shop->shop_slug) }}"> @lang('product.go_to_store')</a>
                                         </div>
                                     </div>
                                 </div>
@@ -164,9 +164,9 @@
 
                         <!-- Nav tabs -->
                         <ul class="nav nav-pills" role="tablist">
-                            <li role="presentation" class="active"><a href="#description"  role="tab" data-toggle="tab">Product Details   </a></li>
+                            <li role="presentation" class="active"><a href="#description"  role="tab" data-toggle="tab">@lang('product.details') </a></li>
 {{--                            <li role="presentation"><a href="#tags"  role="tab" data-toggle="tab">information </a></li>--}}
-                            <li role="presentation"><a href="#reviews"  role="tab" data-toggle="tab">reviews</a></li>
+                            <li role="presentation"><a href="#reviews"  role="tab" data-toggle="tab">{{ trans_choice('header.review',2) }}</a></li>
 {{--                            <li role="presentation"><a href="#additional"  role="tab" data-toggle="tab">Extra Tabs</a></li>--}}
 {{--                            <li role="presentation"><a href="#tab-cust"  role="tab" data-toggle="tab">Guarantees</a></li>--}}
                         </ul>
@@ -174,14 +174,14 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="description">
-                                <div class="block-title">Product Details</div>
+                                <div class="block-title">@lang('product.details') </div>
                                 <div class="block-content">
                                     {!! $product->description !!}
                                 </div>
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="reviews">
-                                <div class="block-title">reviews</div>
+                                <div class="block-title">{{ trans_choice('header.review',2) }}</div>
                                 <div class="block-content">
                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
 
@@ -196,7 +196,7 @@
                     <!-- block-related product -->
                     <div class="block-related ">
                         <div class="block-title">
-                            <strong class="title">RELATED products</strong>
+                            <strong class="title">{{ trans_choice('product.related_product',count($relatedProducts) ) }}</strong>
                         </div>
                         <div class="block-content ">
                             <ol class="product-items owl-carousel " data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"992":{"items":3},"1200":{"items":4}}'>

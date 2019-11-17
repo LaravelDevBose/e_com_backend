@@ -5490,7 +5490,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SingelProductOptions",
@@ -54192,7 +54191,14 @@ var render = function() {
       _vm._v("\n        SKU: #" + _vm._s(_vm.product.product_sku) + "\n    ")
     ]),
     _vm._v(" "),
-    _vm._m(0),
+    _c("div", { staticClass: "product-info-stock" }, [
+      _c("div", { staticClass: "stock available" }, [
+        _c("span", { staticClass: "label" }, [
+          _vm._v(_vm._s(_vm.$t("product.availability")) + ": ")
+        ]),
+        _vm._v("In stock\n        ")
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "product-overview" }, [
       _c("div", {
@@ -54202,7 +54208,7 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "product-add-form" }, [
-      _c("p", [_vm._v("Available Options:")]),
+      _c("p", [_vm._v(_vm._s(_vm.$t("product.avail_options")) + ":")]),
       _vm._v(" "),
       _c("form", [
         _c("div", { staticClass: "product-options-wrapper" }, [
@@ -54211,7 +54217,10 @@ var render = function() {
                 _vm.colors
                   ? _c("div", { staticClass: "swatch-attribute color" }, [
                       _c("span", { staticClass: "swatch-attribute-label" }, [
-                        _vm._v("Color:")
+                        _vm._v(
+                          _vm._s(_vm.$tc("products.color", _vm.colors.length)) +
+                            ":"
+                        )
                       ]),
                       _vm._v(" "),
                       _c(
@@ -54280,7 +54289,11 @@ var render = function() {
                 _c(
                   "label",
                   { staticClass: "label", attrs: { for: "forSize" } },
-                  [_vm._v("Size: ")]
+                  [
+                    _vm._v(
+                      _vm._s(_vm.$tc("products.size", _vm.sizes.length)) + ": "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _vm.sizes
@@ -54334,16 +54347,14 @@ var render = function() {
                         0
                       )
                     ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("a", { staticClass: "size-chart", attrs: { href: "" } }, [
-                  _vm._v("Size chart")
-                ])
+                  : _vm._e()
               ])
             : _vm._e(),
           _vm._v(" "),
           _c("div", { staticClass: "form-qty" }, [
-            _c("label", { staticClass: "label" }, [_vm._v("Qty: ")]),
+            _c("label", { staticClass: "label" }, [
+              _vm._v(_vm._s(_vm.$t("product.qty")) + ": ")
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "control" }, [
               _c("input", {
@@ -54421,7 +54432,7 @@ var render = function() {
                   }
                 }
               },
-              [_c("span", [_vm._v("Add to Cart")])]
+              [_c("span", [_vm._v(_vm._s(_vm.$t("product.add_to_cart")))])]
             ),
             _vm._v(" "),
             _c(
@@ -54439,7 +54450,7 @@ var render = function() {
               [
                 _c("i", { staticClass: "fa fa-cart-plus" }),
                 _vm._v(" "),
-                _c("span", [_vm._v("Buy Now")])
+                _c("span", [_vm._v(_vm._s(_vm.$t("product.buy_now")))])
               ]
             ),
             _vm._v(" "),
@@ -54456,7 +54467,7 @@ var render = function() {
                     }
                   }
                 },
-                [_c("span", [_vm._v("Wishlist")])]
+                [_c("span", [_vm._v(_vm._s(_vm.$t("header.wishlist")))])]
               )
             ])
           ])
@@ -54465,19 +54476,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "product-info-stock" }, [
-      _c("div", { staticClass: "stock available" }, [
-        _c("span", { staticClass: "label" }, [_vm._v("Availability: ")]),
-        _vm._v("In stock\n        ")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -54877,7 +54876,7 @@ var render = function() {
               { staticClass: "filter-options-item filter-options-brand" },
               [
                 _c("div", { staticClass: "filter-options-title" }, [
-                  _vm._v(_vm._s(_vm.$t("products.brands")))
+                  _vm._v(_vm._s(_vm.$tc("products.brand", _vm.brands.length)))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "filter-options-content" }, [
@@ -54954,7 +54953,7 @@ var render = function() {
               { staticClass: "filter-options-item filter-options-color" },
               [
                 _c("div", { staticClass: "filter-options-title" }, [
-                  _vm._v(_vm._s(_vm.$t("products.colors")))
+                  _vm._v(_vm._s(_vm.$tc("products.color", _vm.colors.length)))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "filter-options-content" }, [
@@ -55042,7 +55041,7 @@ var render = function() {
               { staticClass: "filter-options-item filter-options-size" },
               [
                 _c("div", { staticClass: "filter-options-title" }, [
-                  _vm._v(_vm._s(_vm.$t("products.sizes")))
+                  _vm._v(_vm._s(_vm.$tc("products.size", _vm.sizes.length)))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "filter-options-content" }, [
@@ -72631,9 +72630,9 @@ var ENGLISH_TRANSLATIONS = {
     hot_deals: 'Hot Deals',
     price: 'price',
     range: 'Range',
-    brands: 'Brands',
-    colors: 'Colors',
-    sizes: 'Sizes'
+    brand: 'Brand|Brands',
+    color: 'Color|Colors',
+    size: 'Size|Sizes'
   },
   product: {
     availability: 'Availability',
@@ -72745,9 +72744,9 @@ var SOMALIA_TRANSLATIONS = {
     hot_deals: 'So-Hot Deals',
     price: 'So-price',
     range: 'So-Range',
-    brands: 'So-Brands',
-    colors: 'So-Colors',
-    sizes: 'So-Sizes'
+    brand: 'So-Brand|So-Brands',
+    color: 'So-Color|So-Colors',
+    size: 'So-Size|So-Sizes'
   },
   product: {
     availability: 'So-Availability',
@@ -75101,7 +75100,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })
