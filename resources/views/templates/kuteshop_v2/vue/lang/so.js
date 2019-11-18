@@ -55,6 +55,7 @@ export const SOMALIA_TRANSLATIONS  ={
         go_to_store:'So-Go To Store',
         details:'So-Product Details',
         related_product:'So-Related Product|Related Products',
+        quick_view:'Quick View',
     },
     auth:{
         sign_up:'So-Sign Up',
@@ -90,6 +91,52 @@ export const SOMALIA_TRANSLATIONS  ={
         also_save_address:'So-Also As Shipping Address',
         continue:'So-Continue',
     },
+
+
+    buyer:{
+        dashboard:{
+            menu:'Menu',
+        },
+        order:{
+            menu:'My Order| My Orders',
+            order_list:'Order List',
+            recent_order_list:'Recent Order List',
+            order:'Order',
+            data:'Date',
+            ship_to:'Ship To.',
+            total_order:'Total Order',
+            status:'Status',
+            view:'View',
+            no_order:'No Purchase yet'
+        },
+        invoice:{
+
+        },
+        wish_list:{
+            menu:'My WishList',
+            image:'Image',
+            product_info:'Product Info',
+            qty:'Quentity',
+            price:'Price',
+            add_all_cart:'Add All To Cart',
+        },
+        address:{
+            menu:'Address Book',
+            address_list:'Address Book List',
+            full_address:'Full Address',
+            action:'Action',
+            save_address:'Save Address',
+            update_address:'Update Address',
+            no_address:'No Address Added',
+        },
+        account:{
+            menu:'Account Information',
+            identity:'Identity',
+            account_type:'Account Type',
+            buyer:'Buyer',
+            both:'Buyer & Seller'
+        },
+    },
     form:{
         email:'So-Email',
         username:'So-Username',
@@ -106,6 +153,7 @@ export const SOMALIA_TRANSLATIONS  ={
         region:'So-Region',
         select_region:'So-Select A Region',
         postal_code:'So-Postal Code',
+        update:'Update',
     },
     state:{
         Awdal:'So - Awdal',

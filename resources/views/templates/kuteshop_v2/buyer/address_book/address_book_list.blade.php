@@ -1,6 +1,6 @@
 @extends('templates.kuteshop_v2.layouts.frontend.master')
 
-@section('Title','Address Book')
+@section('Title', __('buyer.address_list'))
 
 @section('PageCss')
 
@@ -11,9 +11,9 @@
 
         <div class="columns container">
             <ol class="breadcrumb no-hide">
-                <li><a href="{{ route('front.index') }}">Home</a></li>
-                <li><a href="{{ route('buyer.home') }}">Dashboard</a></li>
-                <li class="active">My Address</li>
+                <li><a href="{{ route('front.index') }}">{{ __('buyer.home') }}</a></li>
+                <li><a href="{{ route('buyer.home') }}">{{ __('buyer.dashboard') }}</a></li>
+                <li class="active">{{ __('buyer.address_book') }}</li>
             </ol>
 
 
@@ -23,8 +23,8 @@
                 <div class="col-md-9 col-md-push-3">
                     <div class="col-main">
                         <h2 class="page-heading">
-                            <span class="page-heading-title2">Address List</span>
-                            <a href="{{route('buyer.address.book.create')}}" class="text text-size-mini pull-right" style="text-decoration: underline; font-size: 13px; color: #f78031;"> New Address</a>
+                            <span class="page-heading-title2">{{ __('buyer.address_list') }}</span>
+                            <a href="{{route('buyer.address.book.create')}}" class="text text-size-mini pull-right" style="text-decoration: underline; font-size: 13px; color: #f78031;">{{ __('buyer.new_address') }}</a>
                         </h2>
                         <div class="content-text clearfix wow bounceInUp animated">
                             <address-book-list-page></address-book-list-page>

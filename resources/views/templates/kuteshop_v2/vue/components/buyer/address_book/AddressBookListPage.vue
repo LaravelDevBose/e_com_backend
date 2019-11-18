@@ -4,12 +4,12 @@
             <thead>
             <tr class="first last">
                 <th>#</th>
-                <th>Name </th>
-                <th>Phone No</th>
+                <th>{{ $t('form.full_name')}} </th>
+                <th>{{ $t('form.phone_no')}}</th>
                 <th>
-                    <span class="nobr">Full Address</span>
+                    <span class="nobr">{{ $t('buyer.address.full_address')}}</span>
                 </th>
-                <th class="text-center">Action </th>
+                <th class="text-center">{{ $t('buyer.address.action')}} </th>
             </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
                 </td>
             </tr>
             <tr v-else class="last even">
-                <td colspan="6">No Address Found </td>
+                <td colspan="6">{{ $t('buyer.address.no_address')}} </td>
             </tr>
             </tbody>
         </table>

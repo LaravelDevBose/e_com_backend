@@ -6,26 +6,26 @@
                     <ul>
                         <li class="row">
                             <div class="col-xs-12">
-                                <label for="full_name" class="required">Full Name <span class="text text-bold text-danger">*</span></label>
+                                <label for="full_name" class="required">{{ $t('form.full_name')}}<span class="text text-bold text-danger">*</span></label>
                                 <input class="input form-control" v-model="formData.full_name"  id="full_name" type="text">
                             </div>
                         </li>
                         <li class="row">
                             <div class="col-sm-6">
-                                <label for="telephone" class="required">Telephone <span class="text text-bold text-danger">*</span></label>
+                                <label for="telephone" class="required">{{ $t('form.phone_no')}} <span class="text text-bold text-danger">*</span></label>
                                 <input class="input form-control" v-model="formData.phone_no"  id="telephone" type="text">
                             </div>
                         </li>
                         <li class="row">
                             <div class="col-xs-12">
-                                <label for="address" class="required">Address <span class="text text-bold text-danger">*</span></label>
+                                <label for="address" class="required">{{ $t('form.address')}} <span class="text text-bold text-danger">*</span></label>
                                 <input class="input form-control" v-model="formData.buyer_address"  id="address" type="text">
                             </div>
                         </li>
 
                         <li style="text-align: right; margin-top: 10px;">
                             <button type="submit"  :disabled="btnDisabled" class="button">
-                                <span>Update</span>
+                                <span>{{ $t('form.update')}}</span>
                             </button>
                         </li>
                     </ul>
@@ -39,25 +39,25 @@
                     <li class="row">
                         <div class="col-xs-12">
                             <h5 class="page-heading" style="margin-bottom:5px;">
-                                <span class="page-heading-title1">Identity</span>
+                                <span class="page-heading-title1">{{ $t('buyer.account.identity')}}</span>
                             </h5>
                         </div>
                     </li>
                     <li class="row">
                         <div class="col-xs-12">
-                            <label class="required">Username: {{ buyerInfo.user_name }}</label>
+                            <label class="required">{{ $t('form.username')}}: {{ buyerInfo.user_name }}</label>
                         </div>
                     </li>
                     <li class="row">
                         <div class="col-xs-12">
-                            <label class="required">Email: {{ buyerInfo.email }}</label>
+                            <label class="required">{{ $t('form.email')}}: {{ buyerInfo.email }}</label>
                         </div>
                     </li>
                     <li class="row">
                         <div class="col-xs-12">
-                            <label class="required"> Account Type:
-                                <span v-if="buyerInfo.is_seller === 1">Buyer & Seller</span>
-                                <span v-else>Buyer</span>
+                            <label class="required"> {{ $t('buyer.account.account_type')}}:
+                                <span v-if="buyerInfo.is_seller === 1">{{ $t('buyer.account.both')}}</span>
+                                <span v-else>{{ $t('buyer.account.buyer')}}</span>
                             </label>
                         </div>
                     </li>

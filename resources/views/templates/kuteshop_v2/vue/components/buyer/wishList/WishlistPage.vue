@@ -3,7 +3,7 @@
         <wish-list-products></wish-list-products>
         <div class="text-right">
             <button type="button" @click.prevent="addAllToCart()" title="Add All to Cart" class="btn btn-primary btn-sm">
-                <span>Add All to Cart</span>
+                <span>{{ $t('buyer.wish_list.add_all_cart')}}</span>
             </button>
         </div>
 

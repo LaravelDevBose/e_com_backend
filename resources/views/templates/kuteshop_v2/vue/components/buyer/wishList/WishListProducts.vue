@@ -3,10 +3,10 @@
         <table class="table table-bordered  cart_summary">
             <thead>
                 <tr>
-                    <th>Image</th>
-                    <th>Product Info</th>
-                    <th>Quantity</th>
-                    <th class="text-right">Price</th>
+                    <th>{{ $t('buyer.wish_list.image')}}</th>
+                    <th>{{ $t('buyer.wish_list.product_info')}}</th>
+                    <th>{{ $t('buyer.wish_list.qty')}}</th>
+                    <th class="text-right">{{ $t('buyer.wish_list.price')}}</th>
                     <th></th>
                     <th></th>
                 </tr>

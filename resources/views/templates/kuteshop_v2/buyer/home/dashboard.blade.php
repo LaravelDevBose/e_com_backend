@@ -1,6 +1,6 @@
 @extends('templates.kuteshop_v2.layouts.frontend.master')
 
-@section('Title','Dashboard')
+@section('Title',  __('buyer.dashboard') )
 
 @section('PageCss')
 
@@ -13,8 +13,8 @@
             <!-- Block  Breadcrumb-->
 
             <ol class="breadcrumb no-hide">
-                <li><a href="{{ route('front.index') }}">Home    </a></li>
-                <li class="active">Dashboard</li>
+                <li><a href="{{ route('front.index') }}">{{ __('buyer.home') }}</a></li>
+                <li><a href="#">{{ __('buyer.dashboard') }}</a></li>
             </ol><!-- Block  Breadcrumb-->
 
             <div class="row">

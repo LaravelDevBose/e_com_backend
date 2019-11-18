@@ -55,6 +55,7 @@ export const ENGLISH_TRANSLATIONS  ={
         go_to_store:'Go To Store',
         details:'Product Details',
         related_product:'Related Product|Related Products',
+        quick_view:'Quick View',
     },
 
     auth:{
@@ -91,6 +92,51 @@ export const ENGLISH_TRANSLATIONS  ={
         also_save_address:'Also As Shipping Address',
         continue:'Continue',
     },
+
+    buyer:{
+        dashboard:{
+            menu:'Menu',
+        },
+        order:{
+            menu:'My Order| My Orders',
+            order_list:'Order List',
+            recent_order_list:'Recent Order List',
+            order:'Order',
+            data:'Date',
+            ship_to:'Ship To.',
+            total_order:'Total Order',
+            status:'Status',
+            view:'View',
+            no_order:'No Purchase yet'
+        },
+        invoice:{
+
+        },
+        wish_list:{
+            menu:'My WishList',
+            image:'Image',
+            product_info:'Product Info',
+            qty:'Quentity',
+            price:'Price',
+            add_all_cart:'Add All To Cart',
+        },
+        address:{
+            menu:'Address Book',
+            address_list:'Address Book List',
+            full_address:'Full Address',
+            action:'Action',
+            save_address:'Save Address',
+            update_address:'Update Address',
+            no_address:'No Address Added',
+        },
+        account:{
+            menu:'Account Information',
+            identity:'Identity',
+            account_type:'Account Type',
+            buyer:'Buyer',
+            both:'Buyer & Seller'
+        },
+    },
     form:{
         email:'Email',
         username:'Username',
@@ -107,6 +153,7 @@ export const ENGLISH_TRANSLATIONS  ={
         region:'Region',
         select_region:'Select A Region',
         postal_code:'Postal Code',
+        update:'Update',
     },
     state:{
         Awdal:'Awdal',

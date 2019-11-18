@@ -1,6 +1,6 @@
 @extends('templates.kuteshop_v2.layouts.frontend.master')
 
-@section('Title', 'Checkout')
+@section('Title', __('buyer.checkout'))
 
 @section('PageCss')
     <style>

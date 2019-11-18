@@ -1,6 +1,6 @@
 @extends('templates.kuteshop_v2.layouts.frontend.master')
 
-@section('Title','My Orders')
+@section('Title', __('buyer.my_orders'))
 
 @section('PageCss')
 
@@ -11,9 +11,9 @@
 
         <div class="columns container">
             <ol class="breadcrumb no-hide">
-                <li><a href="{{ route('front.index') }}">Home</a></li>
-                <li><a href="{{ route('buyer.home') }}">Dashboard</a></li>
-                <li class="active">My Order</li>
+                <li><a href="{{ route('front.index') }}">{{ __('buyer.home') }}</a></li>
+                <li><a href="{{ route('buyer.home') }}">{{ __('buyer.dashboard') }}</a></li>
+                <li class="active">{{ __('buyer.my_orders') }}</li>
             </ol>
 
             <div class="row">
