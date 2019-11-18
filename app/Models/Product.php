@@ -96,7 +96,41 @@ class Product extends Model
         return 'product_slug';
     }
 
+    public function getProductNameAttribute()
+    {
+        if (app()->getLocale() == 'so'){
+            if(!empty($this->attributes['lang_product_name'])){
+                return ucfirst($this->attributes['lang_product_name']);
+            }
+            return ucfirst($this->attributes['product_name']);
+        }else{
+            return ucfirst($this->attributes['product_name']);
+        }
+    }
 
+    public function getHighlightAttribute()
+    {
+        if (app()->getLocale() == 'so'){
+            if(!empty($this->attributes['lang_highlight'])){
+                return ucfirst($this->attributes['lang_highlight']);
+            }
+            return ucfirst($this->attributes['highlight']);
+        }else{
+            return ucfirst($this->attributes['highlight']);
+        }
+    }
+
+    public function getDescriptionAttribute()
+    {
+        if (app()->getLocale() == 'so'){
+            if(!empty($this->attributes['lang_description'])){
+                return ucfirst($this->attributes['lang_description']);
+            }
+            return ucfirst($this->attributes['description']);
+        }else{
+            return ucfirst($this->attributes['description']);
+        }
+    }
     public function scopeNotDelete($query){
         return $query->where('product_status', '!=', config('app.delete'));
     }

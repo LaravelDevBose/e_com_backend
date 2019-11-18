@@ -10,11 +10,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="base-url" content="{{ url('/') }}">
+    <meta name="lang" content="en">
 
     <!-- Favicons Icon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>@yield('Title')| {{ config('app.name', 'Laravel') }}</title>
+
 
     <!-- Mobile Specific -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">

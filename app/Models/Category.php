@@ -24,7 +24,8 @@ class Category extends Model
         'parent_id',
         'attachment_id',
         'category_status',
-        'is_show'
+        'is_show',
+        'trans_category_name',
     ];
 
     /**
@@ -35,6 +36,18 @@ class Category extends Model
     public function getRouteKeyName()
     {
         return 'category_slug';
+    }
+
+    public function getCategoryNameAttribute()
+    {
+        if(app()->getLocale() == 'so'){
+            if(!empty($this->attributes['trans_category_name'])){
+                return ucfirst($this->attributes['trans_category_name']);
+            }
+            return ucfirst($this->attributes['category_name']);
+        }else{
+            return ucfirst($this->attributes['category_name']);
+        }
     }
 
     public static function All_children_Ids($catId)

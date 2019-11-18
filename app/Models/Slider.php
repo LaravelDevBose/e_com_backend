@@ -18,7 +18,45 @@ class Slider extends Model
         'slider_position',
         'attachment_id',
         'slider_status',
+        'trans_slider_title',
+        'trans_sub_title',
+        'trans_btn_text',
     ];
+
+    public function getSliderTitleAttribute()
+    {
+        if(app()->getLocale() == 'so'){
+            if(!empty($this->attributes['trans_slider_title'])){
+                return ucfirst($this->attributes['trans_slider_title']);
+            }
+            return ucfirst($this->attributes['slider_title']);
+
+        }else{
+            return ucfirst($this->attributes['slider_title']);
+        }
+    }
+    public function getSubTitleAttribute()
+    {
+        if(app()->getLocale() == 'so'){
+            if(!empty($this->attributes['trans_sub_title'])){
+                return ucfirst($this->attributes['trans_sub_title']);
+            }
+            return ucfirst($this->attributes['sub_title']);
+        }else{
+            return ucfirst($this->attributes['sub_title']);
+        }
+    }
+    public function getBtnTextAttribute()
+    {
+        if(app()->getLocale() == 'so'){
+            if (!empty($this->attributes['trans_btn_text'])){
+                return ucfirst($this->attributes['trans_btn_text']);
+            }
+            return ucfirst($this->attributes['btn_text']);
+        }else{
+            return ucfirst($this->attributes['btn_text']);
+        }
+    }
 
     public function attachment(){
         return $this->hasOne(Attachment::class,'attachment_id', 'attachment_id');
