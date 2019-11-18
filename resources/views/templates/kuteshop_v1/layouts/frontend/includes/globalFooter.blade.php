@@ -81,20 +81,20 @@
              </div>
          </div>
          <div class="payment-methods">
-             <img alt="payment" src="images/media/index12/payment1.jpg">
-             <img alt="payment" src="images/media/index12/payment2.jpg">
-             <img alt="payment" src="images/media/index12/payment3.jpg">
-             <img alt="payment" src="images/media/index12/payment4.jpg">
-             <img alt="payment" src="images/media/index12/payment5.jpg">
-             <img alt="payment" src="images/media/index12/payment6.jpg">
-             <img alt="payment" src="images/media/index12/payment7.jpg">
-             <img alt="payment" src="images/media/index12/payment8.jpg">
-             <img alt="payment" src="images/media/index12/payment9.jpg">
-             <img alt="payment" src="images/media/index12/payment10.jpg">
-             <img alt="payment" src="images/media/index12/payment11.jpg">
-             <img alt="payment" src="images/media/index12/payment12.jpg">
-             <img alt="payment" src="images/media/index12/payment13.jpg">
-             <img alt="payment" src="images/media/index12/payment14.jpg">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment1.jpg')}}">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment2.jpg')}}">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment3.jpg')}}">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment4.jpg')}}">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment5.jpg')}}">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment6.jpg')}}">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment7.jpg')}}">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment8.jpg')}}">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment9.jpg')}}">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment10.jpg')}}">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment11.jpg')}}">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment12.jpg')}}">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment13.jpg')}}">
+             <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment14.jpg')}}">
          </div>
          <div class="footer-bottom">
 
