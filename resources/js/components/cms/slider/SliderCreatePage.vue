@@ -2,7 +2,7 @@
     <div class="content">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h5 class="panel-title">Slider</h5>
+                <h5 class="panel-title">Add Slider Details</h5>
                 <div class="heading-elements">
                     <ul class="icons-list">
                         <li><a data-action="collapse"></a></li>
@@ -15,7 +15,7 @@
             <div class="panel-body">
                 <form action="" @submit.prevent="sliderStore">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5 col-md-offset-1">
                             <div class="form-group">
                                 <label>Slider Title:</label>
                                 <input type="text" v-model="formData.slider_title" class="form-control" placeholder="Slider Title" required>
@@ -25,13 +25,12 @@
                                 <input type="text" v-model="formData.sub_title" class="form-control" placeholder="Sub Title" required>
                             </div>
                             <div class="form-group">
-                                <label>Slider Position:</label>
-                                <input type="number" v-model="formData.slider_position" class="form-control" placeholder="Slider Position" required>
-                            </div>
-
-                            <div class="form-group">
                                 <label>Button Text:</label>
                                 <input type="text" v-model="formData.btn_text" class="form-control" placeholder="Button Text" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Slider Position:</label>
+                                <input type="number" v-model="formData.slider_position" class="form-control" placeholder="Slider Position" required>
                             </div>
                             <div class="form-group">
                                 <label>Button Url:</label>
@@ -39,24 +38,38 @@
                             </div>
                             <div class="content-group-lg">
                                 <label>Slider Status:</label>
-                                <div class="checkbox checkbox-switchery">
-                                    <label>
-                                        <input type="checkbox" v-model="formData.slider_status" class="switchery-primary" :checked="formData.slider_status">
-                                        <span class="text-success" v-if="formData.slider_status"> Publish</span>
-                                        <span class="text-danger" v-else> UnPublish</span>
+                                <div class="form-group">
+                                    <label class="checkbox-style" for="paypal_payment">
+                                        <span class="text-bold text-success" v-if="formData.slider_status">Active</span>
+                                        <span class="text-bold text-warning" v-else>Inactive</span>
+                                        <input type="checkbox" id="paypal_payment" v-model="formData.slider_status"  :checked="formData.slider_status">
+                                        <span class="checkmark"></span>
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>Trans. Slider Title:</label>
+                                <input type="text" v-model="formData.trans_slider_title" class="form-control" placeholder="Slider Title" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Trans. Sub Title:</label>
+                                <input type="text" v-model="formData.trans_sub_title" class="form-control" placeholder="Sub Title" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Trans. Button Text:</label>
+                                <input type="text" v-model="formData.trans_btn_text" class="form-control" placeholder="Button Text" required>
+                            </div>
                             <div class="form-group">
                                 <label>Slider Image:</label>
                                 <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                             </div>
+
                         </div>
                         <div class="col-md-3 col-md-offset-6">
                             <div class="text-right form-group">
-                                <button type="submit" v-if="btnDisabled" class="btn btn-primary">Save Brand <i class="icon-arrow-right14 position-right"></i></button>
+                                <button type="submit" :disabled="btnDisabled" class="btn btn-primary btn-block">Save Slider <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -82,6 +95,9 @@
                     slider_position:'',
                     attachmentIds:'',
                     slider_status:0,
+                    trans_slider_title:'',
+                    trans_sub_title:'',
+                    trans_btn_text:''
                 },
 
                 cropperData:{
@@ -91,6 +107,7 @@
                     file_size:1.5,
                     init_image:'',
                     folder:'slider',
+                    modal_type:3,
                 },
                 removeImage:false,
                 btnDisabled:false,
