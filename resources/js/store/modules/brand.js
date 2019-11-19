@@ -1,12 +1,12 @@
 //declare State
 const state = {
-    brands:[],
+    brands_data:[],
     brand_list:[],
 };
 
 //declare Getters
 const getters = {
-    brands:(state)=> state.brands,
+    brands:(state)=> state.brands_data,
     brandList:(state)=>state.brand_list,
 };
 
@@ -35,13 +35,10 @@ const actions = {
         try {
             return  await axios.post('/admin/brand/store', from)
                 .then(response=>{
-                    if(response.data.res.status === "success"){
-                        commit('storeBrand', response.data.brand);
-                        commit('setResponse', response.data.res);
-                        return response.data.res;
-                    }else{
-                        return  response.data;
+                    if(response.data.status === "success"){
+                        commit('storeBrand', response.data.data);
                     }
+                    return response.data;
                 }).catch(error=>{
                     commit('setResponse', error.data);
                     return error.data;
@@ -81,24 +78,22 @@ const actions = {
 };
 
 const mutations = {
-    setBrands:(state, response)=>state.brands = response,
-    storeBrand:(state,response)=> state.brands.unshift(response),
-    removeBrand:(state, brandId)=>state.brands = state.brands.filter(brand=>brand.id !==brandId),
+    setBrands:(state, response)=>state.brands_data = response,
+    storeBrand:(state,response)=> state.brands_data.unshift(response),
+    removeBrand:(state, brandId)=>state.brands_data = state.brands_data.filter(brand=>brand.id !==brandId),
     setBrandList:(state,response)=>state.brand_list = response,
     updateBrandData:(state,response)=>{
-
-        state.brands = state.brands.filter(brand=>{
-            if(brand.id === response.id){
-                console.log(response);
+        state.brands_data = state.brands_data.filter(brand=>{
+            if(brand.id == response.id){
                 brand.id = response.id;
                 brand.name = response.name;
                 brand.status = response.status;
                 brand.attachment = response.attachment;
-
             }
             return brand;
         });
-    }
+    },
+
 };
 
 export default {

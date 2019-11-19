@@ -15,16 +15,22 @@
             <div class="panel-body">
                 <form action="" @submit.prevent="manipulateCategoryData">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Parent Category:</label>
                                 <treeselect v-model="formValue.parent_id" :options="treeList" :normalizer="normalizer" />
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Category Name:</label>
                                 <input type="text" v-model="formValue.category_name" class="form-control" placeholder="Category Name " required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Trans. Category Name:</label>
+                                <input type="text" v-model="formValue.trans_category_name" class="form-control" placeholder="Trans. Category Name " required>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -99,6 +105,7 @@
                     category_status:false,
                     attachmentIds:'',
                     is_show:false,
+                    trans_category_name:''
                 },
                 normalizer(node) {
                     return {
@@ -114,6 +121,7 @@
                     file_size:1.5,
                     init_image:'',
                     folder:'category',
+                    modal_type:2,
                 },
                 removeImage:false,
                 btnDisabled:false,
@@ -169,6 +177,7 @@
             emptyFormData(){
                 this.formValue.parent_id = null;
                 this.formValue.category_name = '';
+                this.formValue.trans_category_name = '';
                 this.formValue.category_status = false;
                 this.formValue.attachmentIds = '';
                 this.cropperData.removeImage = true;
@@ -191,6 +200,7 @@
                         this.formValue.id = this.category.id;
                         this.formValue.parent_id = this.category.parent_id;
                         this.formValue.category_name = this.category.name;
+                        this.formValue.trans_category_name = this.category.trans_name;
                         if(this.category.status === 1){
                             this.formValue.category_status = true;
                         }

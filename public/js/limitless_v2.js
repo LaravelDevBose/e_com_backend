@@ -6918,6 +6918,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6931,7 +6961,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   created: function created() {},
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['uploadCropImage']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['uploadCropImage', 'resetCropImages']), {
+    modalShow: function modalShow() {
+      this.removeImage = false;
+      $('#thumb_image').modal('show');
+    },
     rotateImage: function rotateImage() {
       this.cropImage.rotate();
     },
@@ -7000,6 +7034,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             } else {
               _this.$noty.success('Image Upload Successfully');
             }
+
+            $('#thumb_image').modal('hide');
           } else {
             if (typeof Notify !== "undefined") {
               Notify.info(response.message);
@@ -7011,16 +7047,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['attachments']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cropImages']), {
     fileSizeLimit: function fileSizeLimit() {
       return this.cropperData.file_size * 1048576;
+    },
+    modalView: function modalView() {
+      var modal_view = 'modal-md';
+
+      if (this.cropperData.modal_type === 1) {
+        modal_view = 'modal-sm';
+      } else if (this.cropperData.modal_type === 2) {
+        modal_view = 'modal-md';
+      } else if (this.cropperData.modal_type === 3) {
+        modal_view = 'modal-lg';
+      } else if (this.cropperData.modal_type === 4) {
+        modal_view = 'modal-full';
+      } else {
+        modal_view = 'modal-md';
+      }
+
+      return modal_view;
     }
   }),
   watch: {
-    removeImage: function removeImage(value) {
-      if (value === true) {
-        this.cropImage.remove();
-        return value;
+    removeImage: {
+      handler: function handler(newVal) {
+        if (newVal === true) {
+          this.cropImage.remove();
+          this.cropImages.length = 0;
+          console.log('watch');
+          this.resetCropImages();
+        }
       }
     }
   }
@@ -16503,7 +16560,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -72524,109 +72581,186 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("croppa", {
-        attrs: {
-          width: _vm.cropperData.width,
-          height: _vm.cropperData.height,
-          placeholder: _vm.cropperData.placeholder,
-          accept: "image/*",
-          "file-size-limit": _vm.fileSizeLimit,
-          quality: 1,
-          "zoom-speed": 5,
-          disabled: _vm.uploaded,
-          "disable-drag-and-drop": _vm.uploaded,
-          "disable-click-to-choose": _vm.uploaded,
-          "disable-drag-to-move": _vm.uploaded,
-          "disable-scroll-to-zoom": _vm.uploaded,
-          "disable-rotation": _vm.uploaded,
-          "prevent-white-space": false,
-          "reverse-scroll-to-zoom": _vm.uploaded,
-          "show-remove-button": true,
-          "remove-button-color": "red",
-          "remove-button-size": 20,
-          "initial-image": _vm.cropperData.init_image
-        },
-        on: {
-          "file-size-exceed": _vm.handleCroppaFileSizeExceed,
-          "file-type-mismatch": _vm.handleCroppaFileTypeMismatch,
-          "image-remove": _vm.handleImageRemove
-        },
-        model: {
-          value: _vm.cropImage,
-          callback: function($$v) {
-            _vm.cropImage = $$v
-          },
-          expression: "cropImage"
-        }
-      }),
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-4" },
+        [
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              {
+                staticClass: "btn btn-info btn-md btn-block",
+                on: {
+                  click: function($event) {
+                    return _vm.modalShow()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-file-media text-left" }),
+                _vm._v("Select Image")
+              ]
+            )
+          ])
+        ]
+      ),
       _vm._v(" "),
-      _c("div", { staticStyle: { "margin-top": ".5rem" } }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm bg-teal",
-            attrs: { type: "button" },
-            on: {
-              click: function($event) {
-                return _vm.rotateImage()
-              }
-            }
-          },
-          [_c("i", { staticClass: "icon-rotate-ccw3" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm bg-teal",
-            attrs: { type: "button" },
-            on: {
-              click: function($event) {
-                return _vm.flipY()
-              }
-            }
-          },
-          [_c("i", { staticClass: "icon-flip-vertical3" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm bg-teal",
-            attrs: { type: "button" },
-            on: {
-              click: function($event) {
-                return _vm.flipX()
-              }
-            }
-          },
-          [_c("i", { staticClass: "icon-flip-vertical4" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm btn-success",
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.upload($event)
-              }
-            }
-          },
-          [_c("i", { staticClass: "icon-upload" }), _vm._v(" Upload")]
-        ),
-        _vm._v(" "),
-        _c("img", { attrs: { src: _vm.imgUrl, alt: "" } })
+      !_vm.removeImage
+        ? _c(
+            "div",
+            { staticClass: "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" },
+            [
+              _c("div", { staticClass: "form-group" }, [
+                _vm.cropImages.length > 0
+                  ? _c("img", {
+                      staticClass: "img-thumbnail img-responsive",
+                      staticStyle: { "max-height": "250px" },
+                      attrs: { src: _vm.cropImages[0].img, alt: "" }
+                    })
+                  : _c("img", {
+                      staticClass: "img-thumbnail img-responsive",
+                      staticStyle: { "max-height": "250px" },
+                      attrs: { src: "", alt: "" }
+                    })
+              ])
+            ]
+          )
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal fade", attrs: { id: "thumb_image" } }, [
+      _c("div", { staticClass: "modal-dialog", class: _vm.modalView }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "panel-body text-center no-padding-bottom" },
+            [
+              _c("croppa", {
+                attrs: {
+                  width: _vm.cropperData.width,
+                  height: _vm.cropperData.height,
+                  placeholder: _vm.cropperData.placeholder,
+                  accept: "image/*",
+                  "file-size-limit": _vm.fileSizeLimit,
+                  quality: 1,
+                  "zoom-speed": 5,
+                  disabled: _vm.uploaded,
+                  "disable-drag-and-drop": _vm.uploaded,
+                  "disable-click-to-choose": _vm.uploaded,
+                  "disable-drag-to-move": _vm.uploaded,
+                  "disable-scroll-to-zoom": _vm.uploaded,
+                  "disable-rotation": _vm.uploaded,
+                  "prevent-white-space": false,
+                  "reverse-scroll-to-zoom": _vm.uploaded,
+                  "show-remove-button": true,
+                  "remove-button-color": "red",
+                  "remove-button-size": 20,
+                  "initial-image": _vm.cropperData.init_image
+                },
+                on: {
+                  "file-size-exceed": _vm.handleCroppaFileSizeExceed,
+                  "file-type-mismatch": _vm.handleCroppaFileTypeMismatch,
+                  "image-remove": _vm.handleImageRemove
+                },
+                model: {
+                  value: _vm.cropImage,
+                  callback: function($$v) {
+                    _vm.cropImage = $$v
+                  },
+                  expression: "cropImage"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-sm bg-teal",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.rotateImage()
+                  }
+                }
+              },
+              [_c("i", { staticClass: "icon-rotate-ccw3" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-sm bg-teal",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.flipY()
+                  }
+                }
+              },
+              [_c("i", { staticClass: "icon-flip-vertical3" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-sm bg-teal",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.flipX()
+                  }
+                }
+              },
+              [_c("i", { staticClass: "icon-flip-vertical4" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-success",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.upload($event)
+                  }
+                }
+              },
+              [_c("i", { staticClass: "icon-upload" }), _vm._v(" Upload")]
+            )
+          ])
+        ])
       ])
-    ],
-    1
-  )
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header bg-teal" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("×")]
+      ),
+      _vm._v(" "),
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Upload Your Thumbnail Image")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -95918,7 +96052,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })

@@ -95,6 +95,7 @@ class CategoryController extends Controller
 
                 $category = Category::create([
                     'category_name'=>$request->category_name,
+                    'trans_category_name'=>$request->trans_category_name,
                     'category_slug'=>Str::slug($request->category_name),
                     'parent_id'=>(!empty($request->parent_id))?$request->parent_id : null,
                     'attachment_id'=>(!empty($request->attachmentIds))? $request->attachmentIds:null,
@@ -172,6 +173,7 @@ class CategoryController extends Controller
 
                 $category = $category->update([
                     'category_name'=>$request->category_name,
+                    'trans_category_name'=>$request->trans_category_name,
                     'category_slug'=>Str::slug($request->category_name),
                     'parent_id'=>(!empty($request->parent_id))?$request->parent_id : null,
                     'attachment_id'=>(!empty($request->attachmentIds))? $request->attachmentIds:null,

@@ -18,6 +18,7 @@
                         <th>#</th>
                         <th style="padding:5px;">Banner Image</th>
                         <th>Category Name</th>
+                        <th>Trans. Category Name</th>
                         <th>2nd Parent</th>
                         <th>1rd Parent</th>
                         <th class="text-center">Status</th>
@@ -33,6 +34,9 @@
                         </td>
                         <td>
                             <span class="text text-bold"> {{ category.name }}</span>
+                        </td>
+                        <td>
+                            <span class="text text-bold" v-if="category.trans_name"> {{ category.trans_name }}</span>
                         </td>
                         <td>
                             <span class="text text-center" v-if="category.parent !== null">{{ category.parent.name }}</span>

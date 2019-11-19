@@ -1,35 +1,65 @@
 <template>
     <div>
-        <croppa v-model="cropImage"
-                :width="cropperData.width"
-                :height="cropperData.height"
-                :placeholder="cropperData.placeholder"
-                :accept="'image/*'"
-                :file-size-limit="fileSizeLimit"
-                :quality="1"
-                :zoom-speed="5"
-                :disabled="uploaded"
-                :disable-drag-and-drop="uploaded"
-                :disable-click-to-choose="uploaded"
-                :disable-drag-to-move="uploaded"
-                :disable-scroll-to-zoom="uploaded"
-                :disable-rotation="uploaded"
-                :prevent-white-space="false"
-                :reverse-scroll-to-zoom="uploaded"
-                :show-remove-button="true"
-                :remove-button-color="'red'"
-                :remove-button-size="20"
-                :initial-image="cropperData.init_image"
-                @file-size-exceed="handleCroppaFileSizeExceed"
-                @file-type-mismatch="handleCroppaFileTypeMismatch"
-                @image-remove="handleImageRemove"
-        ></croppa>
-        <div style="margin-top:.5rem;" >
-            <button type="button" class="btn btn-sm bg-teal" @click="rotateImage()" > <i class="icon-rotate-ccw3"></i></button>
-            <button type="button" class="btn btn-sm bg-teal" @click="flipY()"> <i class="icon-flip-vertical3"></i></button>
-            <button type="button" class="btn btn-sm bg-teal" @click="flipX()"> <i class="icon-flip-vertical4"></i></button>
-            <button class="btn btn-sm btn-success"  @click.prevent="upload"> <i class="icon-upload"></i> Upload</button>
-            <img :src="imgUrl" alt="">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-4">
+                <div class="form-group">
+                    <label @click="modalShow()" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left"></i>Select Image</label>
+                </div>
+            </div>
+            <div v-if="!removeImage" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <img v-if="cropImages.length > 0" :src="cropImages[0].img" class="img-thumbnail img-responsive" style="max-height: 250px;" alt="">
+                    <img v-else src="" class="img-thumbnail img-responsive" style="max-height: 250px;" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div id="thumb_image" class="modal fade">
+            <div
+                class="modal-dialog"
+                :class="modalView"
+            >
+                <div class="modal-content">
+                    <div class="modal-header bg-teal">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title">Upload Your Thumbnail Image</h5>
+                    </div>
+                    <div class="panel-body text-center no-padding-bottom">
+                        <croppa v-model="cropImage"
+                                :width="cropperData.width"
+                                :height="cropperData.height"
+                                :placeholder="cropperData.placeholder"
+                                :accept="'image/*'"
+                                :file-size-limit="fileSizeLimit"
+                                :quality="1"
+                                :zoom-speed="5"
+                                :disabled="uploaded"
+                                :disable-drag-and-drop="uploaded"
+                                :disable-click-to-choose="uploaded"
+                                :disable-drag-to-move="uploaded"
+                                :disable-scroll-to-zoom="uploaded"
+                                :disable-rotation="uploaded"
+                                :prevent-white-space="false"
+                                :reverse-scroll-to-zoom="uploaded"
+                                :show-remove-button="true"
+                                :remove-button-color="'red'"
+                                :remove-button-size="20"
+                                :initial-image="cropperData.init_image"
+                                @file-size-exceed="handleCroppaFileSizeExceed"
+                                @file-type-mismatch="handleCroppaFileTypeMismatch"
+                                @image-remove="handleImageRemove"
+                        ></croppa>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm bg-teal" @click="rotateImage()" > <i class="icon-rotate-ccw3"></i></button>
+                        <button type="button" class="btn btn-sm bg-teal" @click="flipY()"> <i class="icon-flip-vertical3"></i></button>
+                        <button type="button" class="btn btn-sm bg-teal" @click="flipX()"> <i class="icon-flip-vertical4"></i></button>
+                        <button class="btn btn-sm btn-success"  @click.prevent="upload"> <i class="icon-upload"></i> Upload</button>
+<!--                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -53,8 +83,13 @@
         },
         methods:{
             ...mapActions([
-                'uploadCropImage'
+                'uploadCropImage',
+                'resetCropImages',
             ]),
+            modalShow(){
+                this.removeImage=false;
+                $('#thumb_image').modal('show');
+            },
             rotateImage () {
                 this.cropImage.rotate()
             },
@@ -117,6 +152,7 @@
                                 }else{
                                     this.$noty.success('Image Upload Successfully');
                                 }
+                                $('#thumb_image').modal('hide');
                             }else{
                                 if(typeof Notify !== "undefined"){
                                     Notify.info(response.message);
@@ -133,18 +169,38 @@
         },
         computed:{
             ...mapGetters([
-                'attachments'
+                'cropImages'
             ]),
 
             fileSizeLimit(){
                 return this.cropperData.file_size*1048576;
+            },
+            modalView(){
+                let modal_view = 'modal-md';
+                if (this.cropperData.modal_type === 1){
+                    modal_view = 'modal-sm';
+                }else if(this.cropperData.modal_type === 2){
+                    modal_view = 'modal-md';
+                }else if(this.cropperData.modal_type === 3){
+                    modal_view = 'modal-lg';
+                }else if(this.cropperData.modal_type === 4){
+                    modal_view = 'modal-full'
+                }else{
+                    modal_view = 'modal-md';
+                }
+
+                return modal_view;
             }
         },
         watch:{
-            removeImage:function(value){
-                if(value === true){
-                    this.cropImage.remove();
-                    return value;
+            removeImage:{
+                handler(newVal){
+                    if(newVal === true){
+                        this.cropImage.remove();
+                        this.cropImages.length =  0;
+                        console.log('watch');
+                        this.resetCropImages();
+                    }
                 }
             }
         }

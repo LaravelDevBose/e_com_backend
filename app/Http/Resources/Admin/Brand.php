@@ -18,6 +18,7 @@ class Brand extends JsonResource
         return [
             'id'=>$this->brand_id,
             'name'=>ucfirst($this->brand_name),
+            'trans_name'=>ucfirst($this->trans_brand_name),
             'status'=>$this->brand_status,
             'attachment'=> new AttachmentResource($this->whenLoaded('attachment')),
         ];
