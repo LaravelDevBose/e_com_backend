@@ -112,5 +112,6 @@
             border-left: 18px solid #3097D1;
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('css/mail.css') }}" >
 </head>
 <body>
