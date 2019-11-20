@@ -1,7 +1,7 @@
 <div class="block-nav-menu">
     <div class="clearfix"><span data-action="close-nav" class="close-nav"><span>close</span></span></div>
     <ul class="ui-menu">
-        <li class="active"><a href="{{ route('front.index') }}" > @lang('home') </a></li>
+        <li class="active"><a href="{{ route('front.index') }}" > @lang('header.home') </a></li>
         <?php $headerCategories = $categoryTree->where('is_show', 1);?>
         @if(!empty($headerCategories))
             @foreach($headerCategories as $category)

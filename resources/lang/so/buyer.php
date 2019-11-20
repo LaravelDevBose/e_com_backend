@@ -1,16 +1,17 @@
 <?php
 
 return [
-    'home'=>'So-Home',
-    'menu'=>'So-Menu',
-    'dashboard'=>'So-Dashboard',
-    'my_orders'=>'So-My Orders',
-    'wishlist'=>'So-My WishList',
-    'address_book'=>'So-Address Book',
-    'account_info'=>'So-Account Information',
-    'checkout'=>'So-Checkout',
-    'address_list'=>'So-Address List',
-    'new_address'=>'So-New Address',
-    'add_new_address'=>'So-Add New Address',
-    'edit_address'=>'So-Edit Address',
+    'home'=>' Bogga Hore',
+    'menu'=>' Liis',
+    'dashboard'=>' Dashboor',
+    'my_orders'=>' Dalabyadeyda',
+    'wishlist'=>' Liiska Ka Helida',
+    'address_book'=>' Buuga Ciwaanada',
+    'account_info'=>' Warbixinta Akoonka',
+    'checkout'=>' Qeybta Lacag Bixinta',
+    'address_list'=>' Liiska Buuga Ciwaanada',
+    'new_address'=>' Ciwaan Cusub',
+    'add_new_address'=>' Kudar Ciwaan Cusub',
+    'edit_address'=>' Badal Ciwaan',
 ];
+
