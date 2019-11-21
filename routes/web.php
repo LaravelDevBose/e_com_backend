@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/invoice', function (){
-    mail('demo@gmail.com')->view('mail.v1.invoice.invoice_mail');
+    return view('mail.v1.invoice.invoice_mail');
 });
 
 Auth::routes(['verify' => true]);

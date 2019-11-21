@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\NewOrderStoreEvent;
 use App\Events\VerifiedAccount;
+use App\Listeners\InvoiceSendToBuyerEmail;
+use App\Listeners\NotifyAdminForNewOrder;
+use App\Listeners\NotifySellerForNewOrder;
 use App\Listeners\VerifyEmailListener;
 use App\Listeners\VerifiedAccountListener;
 use Illuminate\Support\Facades\Event;
@@ -23,6 +27,11 @@ class EventServiceProvider extends ServiceProvider
         ],
         VerifiedAccount::class=>[
             VerifiedAccountListener::class,
+        ],
+        NewOrderStoreEvent::class=>[
+            InvoiceSendToBuyerEmail::class,
+            NotifyAdminForNewOrder::class,
+            NotifySellerForNewOrder::class,
         ]
     ];
 

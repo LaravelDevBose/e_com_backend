@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Buyer;
 
+use App\Events\NewOrderStoreEvent;
 use App\Helpers\OrderHelper;
 use App\Helpers\TemplateHelper;
 use App\Models\BillingInfo;
@@ -13,6 +14,7 @@ use App\Models\ProductVariation;
 use App\Models\ShippingInfo;
 use App\Models\Size;
 use App\Traits\ResponserTrait;
+use App\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -252,6 +254,8 @@ class OrderController extends Controller
                             }
                             Product::where('product_id', $productInfo['id'])->update($updateArray);
                         }
+                        $user = User::where('user_id', auth()->id())->with('buyer')->first();
+                        event(new NewOrderStoreEvent($user,$order));
 
                         DB::commit();
                         Cart::destroy();
