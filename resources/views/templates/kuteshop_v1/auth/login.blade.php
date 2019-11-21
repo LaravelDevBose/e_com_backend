@@ -1,4 +1,4 @@
-@extends('templates.kuteshop_v2.layouts.frontend.master')
+@extends('templates.kuteshop_v1.layouts.frontend.master')
 
 @section('Title','Customer Login')
 
@@ -11,6 +11,6 @@
 @endsection
 
 @section('PageJs')
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/pnotify.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/pages/components_notifications_pnotify.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/pnotify.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/pages/components_notifications_pnotify.js') }}"></script>
 @endsection

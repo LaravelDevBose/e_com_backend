@@ -1,4 +1,4 @@
-@extends('templates.kuteshop_v2.layouts.frontend.master')
+@extends('templates.kuteshop_v1.layouts.frontend.master')
 
 @section('Title','Seller Authentication')
 
@@ -7,7 +7,7 @@
 @endsection
 
 @section('Content')
-    <seller-auth-page></seller-auth-page>
+<seller-auth-page></seller-auth-page>
 @endsection
 
 @section('PageJs')

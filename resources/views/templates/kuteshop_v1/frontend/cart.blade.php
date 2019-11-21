@@ -1,4 +1,4 @@
-@extends('templates.kuteshop_v2.layouts.frontend.master')
+@extends('templates.kuteshop_v1.layouts.frontend.master')
 
 @section('Title', 'Shopping Cart')
 
@@ -7,19 +7,19 @@
 @endsection
 
 @section('Content')
-    <main class="site-main">
+<main class="site-main">
 
-        <div class="columns container">
-            <!-- Block  Breadcrumb-->
-            <h2 class="page-heading" style="margin-top: 2rem;">
-                <span class="page-heading-title2">Shopping Cart Summary</span>
-            </h2>
-            <cart-page></cart-page>
-            <br>
-        </div>
+    <div class="columns container">
+        <!-- Block  Breadcrumb-->
+        <h2 class="page-heading" style="margin-top: 2rem;">
+            <span class="page-heading-title2">Shopping Cart Summary</span>
+        </h2>
+        <cart-page></cart-page>
+        <br>
+    </div>
 
 
-    </main>
+</main>
 @endsection
 
 @section('PageJs')
