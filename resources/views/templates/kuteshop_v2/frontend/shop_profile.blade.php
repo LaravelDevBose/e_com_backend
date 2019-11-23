@@ -3,44 +3,7 @@
 @section('Title', 'Shop Profile')
 
 @section('PageCss')
-    <style>
-        .text-widget.widget.widget__sidebar{
-            border: 1px solid #eee;
-            margin-bottom: 1em;
-        }
-        .widget-content {
-            padding: 15px;
-        }
-        .shop-info .sold-by{
-            font-size: 12px;
-            color: #6d6d6d;
-        }
-        .shop-info .shop-name{
-            font-size: 15px;
-            font-weight: 800;
-            margin: 0;
-            padding-bottom: 5px;
-            color: #333;
-        }
-        .shop-info .shop-address{
-            font-size: 13px;
-            margin: 0;
-            color: #6d6d6d;
-            line-height: 2rem;
-        }
-        .shop-info .go-to-store{
-            padding: 7px;
-            border-top: 1px solid #eee;
-            text-align: center;
-            text-transform: uppercase;
-        }
-        .go-to-store a{
 
-            font-weight: bold;
-            font-size: 13px;
-            color: #0db1b9;
-        }
-    </style>
 @endsection
 
 @section('Content')
@@ -59,28 +22,43 @@
 
                 </div>
                 <div class="col-md-3 col-sidebar">
-                    <div class="text-widget widget widget__sidebar">
-                        <div class="widget-content">
-                            <div class="item text-center">
-                                @if(!empty($shop->shopLogo->image_path))
-                                    <img class="img img-circle" style="margin: 0 auto;" width="100" height="100" alt="blog image" src="{{ $shop->shopLogo->image_path }}">
-                                @else
-                                    <img class="img img-circle" style="margin: 0 auto;" width="100" height="100" alt="blog image" src="{{ asset('crocus_v2/images/blog-img.jpg') }}">
-                                @endif
+                    <div class="text-widget widget widget__sidebar bg-section shop-info">
+                        <div class="widget-content site-footer">
+                            <div class="cominfo">
+                                <div class="item">
+                                    @if(!empty($shop->shopLogo->image_path))
+                                        <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ $shop->shopLogo->image_path }}">
+                                    @else
+                                        <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ asset('crocus_v2/images/blog-img.jpg') }}">
+                                    @endif
+                                </div>
+                                <h3 class="shop-name float-right">
+                                    <span>{{ $shop->shop_name }}</span>
+                                </h3>
                             </div>
-                            <h3 class="text text-capitalize text-center" style="margin-top: 3px;"><span>{{ $shop->shop_name }}</span></h3>
-                            @if(!empty($shop->phone_no))
-                                <p class="shop-address">
-                                    <i class="fa fa-phone"></i>
-                                    <span>{{ $shop->phone_no }}</span>
-                                </p>
-                            @endif
-                            @if(!empty($shop->shop_address))
-                                <p class="shop-address">
-                                    <i class="fa fa-map-marker"></i>
-                                    <span>{!! $shop->shop_address !!}</span>
-                                </p>
-                            @endif
+                            <div>
+                                @if(!empty($shop->phone_no))
+                                    <p class="shop-address">
+                                        <i class="fa fa-phone"></i>
+                                        <span>{{ $shop->phone_no }}</span>
+                                    </p>
+                                @endif
+                                @if(!empty($shop->shop_address))
+                                    <p class="shop-address">
+                                        <i class="fa fa-map-marker"></i>
+                                        <span>{!! $shop->shop_address !!}</span>
+                                    </p>
+                                @endif
+                                <div class="block-social">
+                                    <div class="block-content" style="text-align: center!important;">
+                                        <a href="" class="sh-facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="" class="sh-pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
+                                        <a href="" class="sh-twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                        <a href="" class="sh-google"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

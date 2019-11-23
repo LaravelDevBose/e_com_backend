@@ -24,6 +24,7 @@
     <link href="{{ asset('/assets/css/colors.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset('kuteshop_v2/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('custom/css/custom_style.css') }}">
     @yield('PageCss')
     <style>
         .search-content .widget-title{

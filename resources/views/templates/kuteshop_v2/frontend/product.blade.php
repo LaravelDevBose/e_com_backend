@@ -3,44 +3,7 @@
 @section('Title', 'Product')
 
 @section('PageCss')
-    <style>
-        .text-widget.widget.widget__sidebar.shop-info {
-            border: 1px solid #eee;
-            margin-bottom: 1em;
-        }
-        .widget-content {
-            padding: 15px;
-        }
-        .shop-info .sold-by{
-            font-size: 12px;
-            color: #6d6d6d;
-        }
-        .shop-info .shop-name{
-            font-size: 15px;
-            font-weight: 800;
-            margin: 0;
-            padding-bottom: 5px;
-            color: #333;
-        }
-        .shop-info .shop-address{
-            font-size: 13px;
-            margin: 0;
-            color: #6d6d6d;
-            line-height: 2rem;
-        }
-        .shop-info .go-to-store{
-            padding: 7px;
-            border-top: 1px solid #eee;
-            text-align: center;
-            text-transform: uppercase;
-        }
-        .go-to-store a{
 
-            font-weight: bold;
-            font-size: 13px;
-            color: #0db1b9;
-        }
-    </style>
 @endsection
 
 @section('Content')
@@ -62,14 +25,11 @@
                     <div class="row">
 
                         <div class="col-sm-6 col-md-5 col-lg-5">
-
                             <div class="product-media media-horizontal">
-
                                 <div class="image_preview_container images-large">
                                     <img id="img_zoom" data-zoom-image="{{ $product->thumbImage->image_path }}" src="{{ $product->thumbImage->image_path }}" alt="{{ $product->product_name }}">
                                     <button class="btn-zoom open_qv"><span>zoom</span></button>
                                 </div>
-
                                 <div class="product_preview images-small">
 
                                     <div class="owl-carousel thumbnails_carousel" id="thumbnails"  data-nav="true" data-dots="false" data-margin="10" data-responsive='{"0":{"items":3},"480":{"items":4},"600":{"items":5},"768":{"items":3}}'>
@@ -85,17 +45,14 @@
                                                 </a>
                                             @endforeach
                                         @endif
-
                                     </div><!--/ .owl-carousel-->
-
                                 </div><!--/ .product_preview-->
-
                             </div><!-- image product -->
                         </div>
 
                         <div class="col-sm-6 col-md-7 col-lg-7">
                             <div class="row">
-                                <div class="col-sm-12 col-md-8 col-lg-8">
+                                <div class="col-sm-12 col-md-7 col-lg-7">
                                     <div class="product-info-main">
 
                                         <h1 class="page-title">
@@ -127,13 +84,73 @@
                                         </div>--}}
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-4 col-lg-4">
-                                    <div class="text-widget widget widget__sidebar shop-info">
+                                <div class="col-sm-12 col-md-5 col-lg-5">
+                                    <div class="text-widget widget widget__sidebar shop-info bg-section">
                                         <div class="widget-content">
-                                            <span class="sold-by">@lang('product.sold_by')</span>
-                                            <h3 class="shop-name">
-                                                <span>{{ $product->seller->shop->shop_name }}</span>
+                                            <h3 class="section-title">
+                                                <span>Delivery Options</span>
                                             </h3>
+                                            <p class="delivery-type">
+                                                <i class="fa fa-truck"></i>
+                                                <span class="text-left type-name">Home Delivery</span>
+                                                <br>
+                                                <span class="delivery-time">(3-4 days)</span>
+                                                <span class="pull-right">$ 50</span>
+                                            </p>
+
+                                            <p class="delivery-type">
+                                                <i class="fa fa-money"></i>
+                                                <span class="text-left type-name">Cash on Delivery Available</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="text-widget widget widget__sidebar shop-info bg-section">
+                                        <div class="widget-content">
+                                            <h3 class="section-title">
+                                                <span>Return & Refund Policy</span>
+                                            </h3>
+                                            <p class="delivery-type">
+                                                <i class="fa fa-undo"></i>
+                                                <span class="text-left type-name">Instant return to delivery man</span>
+                                                <br>
+                                                <span class="delivery-time">Change of mind is not applicable</span>
+                                            </p>
+
+                                            <p class="delivery-type">
+                                                <i class="fa fa-shield"></i>
+                                                <span class="text-left type-name">Check our Refund Policy</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="text-widget widget widget__sidebar shop-info bg-section">
+                                        <div class="widget-content">
+                                            <h3 class="section-title">
+                                                <span>Payment Options</span>
+                                            </h3>
+                                            <div class="payment-options">
+                                                <ul>
+                                                    <li><img alt="payment" src="http://127.0.0.1:8000/kuteshop_v2/images/media/index1/payment1.png"></li>
+                                                    <li><img alt="payment" src="http://127.0.0.1:8000/kuteshop_v2/images/media/index1/payment1.png"></li>
+                                                    <li><img alt="payment" src="http://127.0.0.1:8000/kuteshop_v2/images/media/index1/payment1.png"></li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="text-widget widget widget__sidebar shop-info">
+                                        <div class="widget-content site-footer">
+                                            <div class="cominfo">
+                                                <div class="item">
+                                                    @if(!empty($product->seller->shop->shopLogo->image_path))
+                                                        <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ $product->seller->shop->shopLogo->image_path }}">
+                                                    @else
+                                                        <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ asset('crocus_v2/images/blog-img.jpg') }}">
+                                                    @endif
+                                                </div>
+                                                <h3 class="shop-name float-right" >
+                                                    <span>{{ $product->seller->shop->shop_name }}</span>
+                                                </h3>
+                                            </div>
                                             @if(!empty($product->seller->shop->phone_no))
                                                 <p class="shop-address">
                                                     <i class="fa fa-phone"></i>
@@ -146,6 +163,14 @@
                                                     <span>{!! $product->seller->shop->shop_address !!}</span>
                                                 </p>
                                             @endif
+                                            <div class="block-social">
+                                                <div class="block-content" style="text-align: center!important;">
+                                                    <a href="" class="sh-facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                                    <a href="" class="sh-pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
+                                                    <a href="" class="sh-twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                                    <a href="" class="sh-google"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="go-to-store">
                                             <a href="{{ route('front.shop.profile', $product->seller->shop->shop_slug) }}"> @lang('product.go_to_store')</a>
