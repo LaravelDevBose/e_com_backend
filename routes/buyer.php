@@ -14,7 +14,6 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
     Route::get('account/information', 'HomeController@account_information')->name('account.info');
     Route::get('edit/contact-info', 'HomeController@edit_contact_info')->name('contact_info.edit');
     Route::get('change-password', 'HomeController@change_password')->name('change.password');
-    Route::get('product-reviews', 'HomeController@my_product_reviews')->name('reviews');
     Route::get('wish-list', 'HomeController@my_wishlist')->name('wish_list');
 
     //WishList Data Route
@@ -37,6 +36,13 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
     Route::get('address-book/{address_id}/', 'AddressBookController@show')->name('address.book.show');
     Route::get('address-book/{address_id}/edit', 'AddressBookController@edit')->name('address.book.edit');
     Route::put('address-book/{address_id}/update', 'AddressBookController@update')->name('address.book.update');
+
+    Route::prefix('reviews')->as('reviews.')->group(function (){
+        Route::get('/', 'ReviewController@index')->name('index');
+        Route::get('/list', 'ReviewController@review_list')->name('list');
+        Route::get('/add/{orderId}', 'ReviewController@add_review_page')->name('add');
+        Route::get('/store', 'ReviewController@store')->name('store');
+    });
 
 
     Route::prefix('seller')->as('seller.')->group(function (){
