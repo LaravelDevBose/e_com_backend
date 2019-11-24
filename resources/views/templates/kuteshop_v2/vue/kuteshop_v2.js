@@ -29,7 +29,6 @@ const i18n = new VueI18n({
     locale: LANG,
     messages: TRANSLATIONS,
 });
-console.log(LANG);
 /*
 * End Using Translation
 */

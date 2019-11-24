@@ -24,6 +24,11 @@ class Review extends Model
         return $query->where('review_status', config('app.active'));
     }
 
+    public function scopeNotDelete($query)
+    {
+        return $query->where('review_status','!=', config('app.delete'));
+    }
+
     public function buyer()
     {
         return $this->belongsTo(Buyer::class, 'buyer_id', 'buyer_id');

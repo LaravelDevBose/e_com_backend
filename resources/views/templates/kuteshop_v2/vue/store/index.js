@@ -13,7 +13,7 @@ import order from "./modules/order";
 import address_book from "./modules/address_book";
 import search from "./modules/search";
 import account_info from "./modules/account_info";
-
+import review from "./modules/review";
 
 export default new Vuex.Store({
     state:{
@@ -67,7 +67,8 @@ export default new Vuex.Store({
         order,
         address_book,
         search,
-        account_info
+        account_info,
+        review,
     }
 })
 

@@ -27,6 +27,7 @@
                 </td>
                 <td class="text-center">
                     <a href="#" @click.prevent="showInvoiceModal(order.order_no)" class="text-primary"> <i class="fa fa-eye"></i></a>
+                    <a href="#" @click.prevent="goToAddReviewPage(order.order_id)" class="text-primary"> <i class="fa fa-commenting-o"></i></a>
                 </td>
             </tr>
             <tr v-else>
@@ -59,6 +60,9 @@
                         }
 
                     })
+            },
+            goToAddReviewPage(order_id){
+                location.href = `/buyer/reviews/add/${order_id}`;
             }
         },
         computed:{

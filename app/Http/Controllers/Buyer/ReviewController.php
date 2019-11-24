@@ -43,8 +43,18 @@ class ReviewController extends Controller
         }
     }
 
+    public function get_order_items($orderId)
+    {
+        $orderItems = OrderItem::where('order_id', $orderId)->with('product.thumbImage', 'seller.shop')->get();
+        if(!empty($orderItems)){
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $orderItems);
+        }else{
+            return ResponserTrait::allResponse('success', Response::HTTP_NOT_FOUND, 'No Order Items Found');
+        }
+    }
+
     public function add_review_page($orderId){
-        return view('templates.'.$this->template_name.'.buyer.review.review_history',[
+        return view('templates.'.$this->template_name.'.buyer.review.add_review',[
             'orderId'=>$orderId,
         ]);
     }
