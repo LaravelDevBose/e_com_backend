@@ -258,4 +258,13 @@ class Product extends Model
     {
         return $this->hasMany(SectionProduct::class, 'product_id', 'product_id');
     }
+
+    public function rating(){
+        return $this->hasOne(Rating::class, 'product_id', 'product_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'product_id', 'product_id');
+    }
 }

@@ -51,4 +51,9 @@ class Buyer extends User
     public function paymentInfos(){
         return $this->hasMany(PaymentInfo::class, 'buyer_id', 'buyer_id');
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'buyer_id', 'buyer_id');
+    }
 }

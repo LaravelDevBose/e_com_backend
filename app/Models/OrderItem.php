@@ -89,4 +89,9 @@ class OrderItem extends Model
     public function brand(){
         return $this->belongsTo(Brand::class, 'brand_id', 'brand_id');
     }
+
+    public function review()
+    {
+        return $this->hasMany(Review::class, 'item_id', 'item_id');
+    }
 }
