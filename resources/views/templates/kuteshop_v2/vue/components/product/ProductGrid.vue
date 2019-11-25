@@ -3,7 +3,13 @@
     <div class="product-item-info">
         <div class="product-item-photo">
             <a href="#" @click.prevent="productDetails(product.product_slug)" :title="product.product_name" class="product-item-img">
-                <img :title="product.product_name" :src="product.thumb_image.image_path" style="width:100%; height:auto;">
+                <clazy-load :src="product.thumb_image.image_path">
+                    <img :title="product.product_name" :src="product.thumb_image.image_path" style="width:100%; height:auto;">
+                    <div class="preloader" slot="placeholder">
+                        <img :title="product.product_name" src="/images/placeholder.png" style="width:100%; height:auto;">
+                    </div>
+                </clazy-load>
+
             </a>
             <div class="product-item-actions">
                 <a href="#" title="WishList" class="btn btn-wishlist" @click.prevent="addWishList(product.product_slug)"><span>{{ $t('header.wishlist')}}</span></a>
@@ -21,13 +27,13 @@
                 <div class="product-item-price">
                     <span class="price" >$ {{ cartData.price }}</span>
                 </div>
-                <div class="product-reviews-summary">
-                    <div class="rating-summary">
-                        <div class="rating-result" title="80%">
-                            <span style="width:80%">
-                                <span><span>80</span>% of <span>100</span></span>
-                            </span>
-                        </div>
+                <div class="product-reviews-summary ">
+                    <div class="rating-summary grid-rating">
+                        <star-rating
+                            :star-size="13"
+                            :rating="rating"
+                            :read-only="true"
+                        ></star-rating>
                     </div>
                 </div>
             </div>
@@ -57,6 +63,7 @@
                     colorId:'',
                     sizeId:'',
                 },
+                rating:0,
             }
         },
         created(){
@@ -69,6 +76,11 @@
                 this.cartData.price = parseFloat(this.product.single_variation.price);
                 this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
                 this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+            }
+
+            if(this.product.reviews.length >0 && this.product.reviews !== ''){
+                let sum = this.product.reviews.reduce((acc, item) => acc + parseInt(item.rating), 0);
+                this.rating = sum / this.product.reviews.length;
             }
         },
         methods:{

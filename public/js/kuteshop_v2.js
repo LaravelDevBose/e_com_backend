@@ -5286,6 +5286,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductGrid",
@@ -5304,7 +5310,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         price: 0,
         colorId: '',
         sizeId: ''
-      }
+      },
+      rating: 0
     };
   },
   created: function created() {},
@@ -5315,6 +5322,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.cartData.price = parseFloat(this.product.single_variation.price);
       this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
       this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+    }
+
+    if (this.product.reviews.length > 0 && this.product.reviews !== '') {
+      var sum = this.product.reviews.reduce(function (acc, item) {
+        return acc + parseInt(item.rating);
+      }, 0);
+      this.rating = sum / this.product.reviews.length;
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['productQuickView', 'insertToWishList', 'deleteFromWishList', 'addToCartProduct']), {
@@ -46997,6 +47011,313 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-clazy-load/dist/vue-clazy-load.js":
+/*!************************************************************!*\
+  !*** ./node_modules/vue-clazy-load/dist/vue-clazy-load.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(true)
+		module.exports = factory();
+	else {}
+})(typeof self !== 'undefined' ? self : this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "install", function() { return install; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VueClazyLoad", function() { return VueClazyLoad; });
+/*!
+ * Vue Clazy Load
+ * Component-based lazy (CLazy) load images in Vue.js 2
+ * @author Matheus Grieger
+ * @version 0.4.2
+ */
+var ClazyLoadComponent = {
+  name: 'ClazyLoad',
+  props: {
+    /**
+     * HTML/Component tag name to be used in place of the component
+     * @type {String}
+     * @default div
+     */
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    /**
+     * Image source URL
+     * @type {String}
+     * @required
+     */
+    src: {
+      type: String,
+      required: true
+    },
+    /**
+     * IntersectionObserver root element
+     * @type {String}
+     */
+    element: String,
+    /**
+     * IntersectionObserver threshold
+     * @type {Array, Number}
+     */
+    threshold: {
+      type: [Array, Number],
+      default: function _default() {
+        return [0, 0.5, 1];
+      }
+    },
+    /**
+     * InserectionObserver visibility ratio
+     * @type {Number}
+     */
+    ratio: {
+      type: Number,
+      default: 0.4,
+      validator: function validator(value) {
+        // can't be less or equal to 0 and greater than 1
+        return value > 0 && value <= 1;
+      }
+    },
+    /**
+     * IntersectionObserver root margin
+     * @type {String}
+     */
+    margin: {
+      type: String,
+      default: '0px'
+    },
+    /**
+     * Optional CORS mode ("anonymous" | "use-credentials")
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-crossorigin
+     * @type {String}
+     */
+    crossorigin: {
+      type: String,
+      default: null,
+      validator: function validator(value) {
+        return value === 'anonymous' || value === 'use-credentials';
+      }
+    },
+    /**
+     * Class added to element when it finishes loading
+     * @type {String}
+     * @default loaded
+     */
+    loadedClass: {
+      type: String,
+      default: 'loaded'
+    },
+    /**
+     * Class added to element while it is loading
+     * @type {String}
+     */
+    loadingClass: {
+      type: String,
+      default: 'loading'
+    },
+    /**
+     * Class added to element if loading failed
+     * @type {String}
+     */
+    errorClass: {
+      type: String,
+      default: null
+    }
+  },
+  data: function data() {
+    return {
+      loaded: false,
+      observer: null,
+      errored: false
+    };
+  },
+
+  methods: {
+    /**
+     * Start loading image
+     */
+    load: function load() {
+      var _this = this;
+
+      // emits 'loading' event upwards
+      this.$emit('loading');
+
+      // disconnect observer
+      // so it doesn't load more than once
+      this.observer.disconnect();
+
+      if (!this.loaded) {
+        // fake image
+        var img = new Image();
+
+        img.addEventListener('load', function () {
+          _this.loaded = true;
+          // emits 'load' event upwards
+          _this.$emit('load');
+
+          _clear();
+        });
+
+        img.addEventListener('error', function (event) {
+          _this.errored = true;
+          // emits 'error' event upwards
+          // adds the original event as argument
+          _this.$emit('error', event);
+
+          _clear();
+        });
+
+        // function used to clear variables from memory
+        var _clear = function _clear() {
+          // discard fake image
+          img = null;
+          // remove observer from memory
+          _this.observer = null;
+        };
+
+        // CORS mode configuration
+        if (this.crossorigin !== null) {
+          img.crossOrigin = this.crossorigin;
+        }
+
+        img.src = this.src;
+      }
+    },
+
+
+    /**
+     * Creates IntersectionObserver instance and observe current element
+     */
+    observe: function observe() {
+      var _this2 = this;
+
+      var options = {
+        threshold: this.threshold,
+        root: this.element ? document.querySelector(this.element) : null,
+        rootMargin: this.margin
+
+        // creates IO instance
+      };this.observer = new IntersectionObserver(function (entries) {
+        // as we instantiated one for each component
+        // we can directly access the first index
+        if (entries[0].intersectionRatio >= _this2.ratio) {
+          _this2.load();
+        }
+      }, options);
+
+      // start observing main component
+      this.observer.observe(this.$el);
+    }
+  },
+  render: function render(h) {
+    // class to be added to element indicating load state
+    var elementClass = this.loaded ? this.loadedClass : this.loadingClass;
+
+    return h(this.tag, {
+      // if loading failed adds error class if exists,
+      // otherwhise adds elementClass defined above
+      class: this.errored && this.errorClass ? this.errorClass : elementClass
+    }, [this.loaded ? this.$slots.default || this.$slots.image // allows for "default" slot
+    : this.$slots.placeholder]);
+  },
+  mounted: function mounted() {
+    // start observing the element visibility
+    this.$nextTick(this.observe);
+  }
+};
+
+// Export install function for CDN embeds
+var install = function install(Vue) {
+  Vue.component('clazy-load', ClazyLoadComponent);
+};
+
+// Component object
+var VueClazyLoad = ClazyLoadComponent;
+
+// Exports default object for ES6 modules
+/* harmony default export */ __webpack_exports__["default"] = ({
+  install: install
+});
+
+/***/ })
+/******/ ]);
+});
+
+/***/ }),
+
 /***/ "./node_modules/vue-i18n/dist/vue-i18n.esm.js":
 /*!****************************************************!*\
   !*** ./node_modules/vue-i18n/dist/vue-i18n.esm.js ***!
@@ -54277,14 +54598,39 @@ var render = function() {
           }
         },
         [
-          _c("img", {
-            staticStyle: { width: "100%", height: "auto" },
-            attrs: {
-              title: _vm.product.product_name,
-              src: _vm.product.thumb_image.image_path
-            }
-          })
-        ]
+          _c(
+            "clazy-load",
+            { attrs: { src: _vm.product.thumb_image.image_path } },
+            [
+              _c("img", {
+                staticStyle: { width: "100%", height: "auto" },
+                attrs: {
+                  title: _vm.product.product_name,
+                  src: _vm.product.thumb_image.image_path
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "preloader",
+                  attrs: { slot: "placeholder" },
+                  slot: "placeholder"
+                },
+                [
+                  _c("img", {
+                    staticStyle: { width: "100%", height: "auto" },
+                    attrs: {
+                      title: _vm.product.product_name,
+                      src: "/images/placeholder.png"
+                    }
+                  })
+                ]
+              )
+            ]
+          )
+        ],
+        1
       ),
       _vm._v(" "),
       _c("div", { staticClass: "product-item-actions" }, [
@@ -54375,31 +54721,27 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "product-reviews-summary " }, [
+          _c(
+            "div",
+            { staticClass: "rating-summary grid-rating" },
+            [
+              _c("star-rating", {
+                attrs: {
+                  "star-size": 13,
+                  rating: _vm.rating,
+                  "read-only": true
+                }
+              })
+            ],
+            1
+          )
+        ])
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "product-reviews-summary" }, [
-      _c("div", { staticClass: "rating-summary" }, [
-        _c("div", { staticClass: "rating-result", attrs: { title: "80%" } }, [
-          _c("span", { staticStyle: { width: "80%" } }, [
-            _c("span", [
-              _c("span", [_vm._v("80")]),
-              _vm._v("% of "),
-              _c("span", [_vm._v("100")])
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -73230,6 +73572,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lang_so__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lang/so */ "./resources/views/templates/kuteshop_v2/vue/lang/so.js");
 /* harmony import */ var vue_star_rating__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-star-rating */ "./node_modules/vue-star-rating/dist/star-rating.min.js");
 /* harmony import */ var vue_star_rating__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_star_rating__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var vue_clazy_load__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-clazy-load */ "./node_modules/vue-clazy-load/dist/vue-clazy-load.js");
+/* harmony import */ var vue_clazy_load__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_clazy_load__WEBPACK_IMPORTED_MODULE_8__);
 
 
 __webpack_require__(/*! ../../../../js/bootstrap */ "./resources/js/bootstrap.js");
@@ -73263,6 +73607,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('star-rating', vue_star_rating__WEBPACK_IMPORTED_MODULE_7___default.a);
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_clazy_load__WEBPACK_IMPORTED_MODULE_8___default.a);
 
 var files = __webpack_require__("./resources/views/templates/kuteshop_v2/vue sync recursive \\.vue$/");
 

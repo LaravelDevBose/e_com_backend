@@ -27,68 +27,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('custom/css/custom_style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" />
     @yield('PageCss')
-    <style>
-        .search-content .widget-title{
-            margin-top: 0;
-            border-bottom: 1px dotted #0acde6;
-            padding: 10px 0px;
-            font-size: 1.5em;
-        }
-        .widget-content .featured-thumb {
-            display: inline-block;
-            padding: 0;
-            width: 80px;
-            margin-right: 10px;
-            float: left;
-        }
-        .featured-thumb .feat-thumb{
-            width: 100%;
-            height: 80px;
-        }
-        .widget-content .product-name{
-            margin-top: 0px;
-            margin-bottom: 0px;
-        }
-        .widget-content .product-name a{
-            /*display: inline-block;*/
-            font-size: .7em;
-        }
-        .widget-content .product-item{
-            padding-bottom: 5px;
-        }
-        .widget-content .post-meta{
-            margin-bottom: 0px;
-        }
-        .block-top-brand-opt14 .nav-brand{
-            padding-left: 0px;
-            padding-right: 0px;
-        }
-        .product-addto-links{
-            display: inline;
-            padding: 0 10px;
-        }
-        .catalog-view_op1 .product-options-bottom .btn-buy{
-            height: 36px;
-            background-color: #0db1b9;
-            color: #fff;
-            font-size: 14px;
-            padding: 0 12px;
-            border: none;
-            box-shadow: none;
-            line-height: 36px;
-            -webkit-transition: .2s;
-            -o-transition: .2s;
-            transition: .2s;
-            margin-bottom: 10px;
-        }
-        .catalog-view_op1 .product-options-bottom .btn-buy:hover{
-            background-color: #048d94;
-        }
-        .catalog-view_op1 .product-options-bottom .btn-buy i{
-            font-size: 18px;
-            padding-right:5px;
-        }
-    </style>
 </head>
 
 <body class="index-opt-1 catalog-category-view catalog-view_op1">
