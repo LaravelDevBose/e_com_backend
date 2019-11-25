@@ -163,6 +163,7 @@ class ProductController extends Controller
                         'warranty_policy_eng'=>$request->warranty_policy_eng,
                         'warranty_period'=>$request->warranty_period,
                         'product_type'=>$request->product_type,
+                        'cod_avail'=>$request->cod_avail,
                     ]);
 
                     if(!empty($details)){

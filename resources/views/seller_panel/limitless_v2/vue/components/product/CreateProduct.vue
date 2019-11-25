@@ -16,23 +16,41 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-2 control-label">Category: <span class="text text-danger text-bold h4">*</span></label>
-                        <div class="col-lg-10">
-                            <treeselect v-model="formData.category_id"  :options="treeList" :multiple="false" :normalizer="normalizer" />
-                        </div>
-                    </div>
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-lg-4 control-label">Brand:</label>
+                                <label class="col-lg-4 control-label">Category: <span class="text text-danger text-bold h4">*</span></label>
                                 <div class="col-lg-8">
+                                    <treeselect v-model="formData.category_id"  :options="treeList" :multiple="false" :normalizer="normalizer" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-lg-2 control-label">Brand:</label>
+                                <div class="col-lg-10">
                                     <vue-select2 v-model="formData.brand_id" :options="brandList"> </vue-select2>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5 col-md-offset-1">
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-lg-6 control-label">COD Available:</label>
+                                <div class="col-lg-6">
+                                    <label class="checkbox-style" for="paypal_payment">
+                                        <span class="text-bold text-success" v-if="formData.cod_avail">Yes</span>
+                                        <span class="text-bold text-warning" v-else>No</span>
+                                        <input type="checkbox" id="paypal_payment" v-model="formData.cod_avail"  :checked="formData.cod_avail">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
                             <div class="form-group row">
                                 <label class="col-lg-3 control-label">Product Type: <span class="text text-danger text-bold h4">*</span></label>
                                 <div class="col-lg-8">
@@ -511,6 +529,7 @@
                     product_qty:'',
                     product_price:'',
                     seller_sku:'',
+                    cod_avail:1,
                 },
                 variations:[],
                 btnDisabled:false,

@@ -8455,6 +8455,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import the component
 
  // import the styles
@@ -8513,7 +8531,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         product_type: 1,
         product_qty: '',
         product_price: '',
-        seller_sku: ''
+        seller_sku: '',
+        cod_avail: 1
       },
       variations: [],
       btnDisabled: false,
@@ -16560,7 +16579,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
 
 // exports
 
@@ -73862,42 +73881,44 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group row" }, [
-            _vm._m(2),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-lg-10" },
-              [
-                _c("treeselect", {
-                  attrs: {
-                    options: _vm.treeList,
-                    multiple: false,
-                    normalizer: _vm.normalizer
-                  },
-                  model: {
-                    value: _vm.formData.category_id,
-                    callback: function($$v) {
-                      _vm.$set(_vm.formData, "category_id", $$v)
-                    },
-                    expression: "formData.category_id"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-6" }, [
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-4 control-label" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-lg-8" },
+                  [
+                    _c("treeselect", {
+                      attrs: {
+                        options: _vm.treeList,
+                        multiple: false,
+                        normalizer: _vm.normalizer
+                      },
+                      model: {
+                        value: _vm.formData.category_id,
+                        callback: function($$v) {
+                          _vm.$set(_vm.formData, "category_id", $$v)
+                        },
+                        expression: "formData.category_id"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-lg-2 control-label" }, [
                   _vm._v("Brand:")
                 ]),
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "col-lg-8" },
+                  { staticClass: "col-lg-10" },
                   [
                     _c("vue-select2", {
                       attrs: { options: _vm.brandList },
@@ -73913,9 +73934,90 @@ var render = function() {
                   1
                 )
               ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-4" }, [
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-lg-6 control-label" }, [
+                  _vm._v("COD Available:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-6" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "checkbox-style",
+                      attrs: { for: "paypal_payment" }
+                    },
+                    [
+                      _vm.formData.cod_avail
+                        ? _c(
+                            "span",
+                            { staticClass: "text-bold text-success" },
+                            [_vm._v("Yes")]
+                          )
+                        : _c(
+                            "span",
+                            { staticClass: "text-bold text-warning" },
+                            [_vm._v("No")]
+                          ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formData.cod_avail,
+                            expression: "formData.cod_avail"
+                          }
+                        ],
+                        attrs: { type: "checkbox", id: "paypal_payment" },
+                        domProps: {
+                          checked: _vm.formData.cod_avail,
+                          checked: Array.isArray(_vm.formData.cod_avail)
+                            ? _vm._i(_vm.formData.cod_avail, null) > -1
+                            : _vm.formData.cod_avail
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.formData.cod_avail,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.formData,
+                                    "cod_avail",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.formData,
+                                    "cod_avail",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.formData, "cod_avail", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "checkmark" })
+                    ]
+                  )
+                ])
+              ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-5 col-md-offset-1" }, [
+            _c("div", { staticClass: "col-md-7" }, [
               _c("div", { staticClass: "form-group row" }, [
                 _vm._m(3),
                 _vm._v(" "),
@@ -75653,7 +75755,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "col-lg-2 control-label" }, [
+    return _c("label", { staticClass: "col-lg-4 control-label" }, [
       _vm._v("Category: "),
       _c("span", { staticClass: "text text-danger text-bold h4" }, [
         _vm._v("*")
@@ -96052,7 +96154,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })

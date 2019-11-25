@@ -8398,6 +8398,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import the component
 
  // import the styles
@@ -8456,7 +8465,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         product_type: 1,
         product_qty: '',
         product_price: '',
-        seller_sku: ''
+        seller_sku: '',
+        cod_avail: 1
       },
       variations: [],
       btnDisabled: false,
@@ -16503,7 +16513,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
 
 // exports
 
@@ -73943,8 +73953,83 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-12" }, [
                   _c("div", { staticClass: "form-group row" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "col-md-3" }, [
                       _vm._m(7),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "checkbox-style",
+                          attrs: { for: "paypal_payment" }
+                        },
+                        [
+                          _vm.formData.cod_avail
+                            ? _c(
+                                "span",
+                                { staticClass: "text-bold text-success" },
+                                [_vm._v("Yes")]
+                              )
+                            : _c(
+                                "span",
+                                { staticClass: "text-bold text-warning" },
+                                [_vm._v("No")]
+                              ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.formData.cod_avail,
+                                expression: "formData.cod_avail"
+                              }
+                            ],
+                            attrs: { type: "checkbox", id: "paypal_payment" },
+                            domProps: {
+                              checked: _vm.formData.cod_avail,
+                              checked: Array.isArray(_vm.formData.cod_avail)
+                                ? _vm._i(_vm.formData.cod_avail, null) > -1
+                                : _vm.formData.cod_avail
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.formData.cod_avail,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.formData,
+                                        "cod_avail",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.formData,
+                                        "cod_avail",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.formData, "cod_avail", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "checkmark" })
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-3" }, [
+                      _vm._m(8),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -73974,7 +74059,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-6" }, [
-                      _vm._m(8),
+                      _vm._m(9),
                       _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col-lg-4" }, [
@@ -74081,7 +74166,7 @@ var render = function() {
                   "div",
                   { staticClass: "col-md-6" },
                   [
-                    _vm._m(9),
+                    _vm._m(10),
                     _vm._v(" "),
                     _c("image-cropper", {
                       attrs: {
@@ -74125,7 +74210,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "panel panel-collapsed" }, [
-            _vm._m(10),
+            _vm._m(11),
             _vm._v(" "),
             _c(
               "div",
@@ -74219,7 +74304,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "panel panel-collapsed" }, [
-            _vm._m(11),
+            _vm._m(12),
             _vm._v(" "),
             _c(
               "div",
@@ -74718,13 +74803,13 @@ var render = function() {
           _vm._v(" "),
           _vm.formData.product_type === 1
             ? _c("div", { staticClass: "panel panel-warning" }, [
-                _vm._m(12),
+                _vm._m(13),
                 _vm._v(" "),
                 _c("div", { staticClass: "panel-body" }, [
                   _c("div", { staticClass: "row" }, [
                     _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(13),
+                        _vm._m(14),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -74756,7 +74841,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(14),
+                        _vm._m(15),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -74788,7 +74873,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(15),
+                        _vm._m(16),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -74823,7 +74908,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-12" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(16),
+                        _vm._m(17),
                         _vm._v(" "),
                         _c("div", { attrs: { id: "simProductImg" } }, [
                           _c("div", { staticClass: "row" }, [
@@ -74841,7 +74926,7 @@ var render = function() {
                                   on: { change: _vm.uploadImage }
                                 }),
                                 _vm._v(" "),
-                                _vm._m(17)
+                                _vm._m(18)
                               ])
                             ])
                           ]),
@@ -74906,7 +74991,7 @@ var render = function() {
           _vm._v(" "),
           _vm.formData.product_type === 2
             ? _c("div", { staticClass: "panel panel-warning" }, [
-                _vm._m(18),
+                _vm._m(19),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -75163,7 +75248,7 @@ var render = function() {
                               "table",
                               { staticClass: "table table-striped table-sm" },
                               [
-                                _vm._m(19),
+                                _vm._m(20),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -75478,7 +75563,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-2" }),
                   _vm._v(" "),
-                  _vm._m(20),
+                  _vm._m(21),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-2 col-md-offset-1" }, [
                     _c(
@@ -75585,6 +75670,15 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "control-label" }, [
       _vm._v("Product Description: "),
+      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "control-label" }, [
+      _vm._v("COD Available: "),
       _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
     ])
   },
@@ -95924,7 +96018,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v1\vue\limitless_v1.js */"./resources/views/seller_panel/limitless_v1/vue/limitless_v1.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v1/vue/limitless_v1.js */"./resources/views/seller_panel/limitless_v1/vue/limitless_v1.js");
 
 
 /***/ })

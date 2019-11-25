@@ -19,6 +19,8 @@ class Shop extends Model
         'shop_email',
         'shop_category',
         'banner_id',
+        'min_deli_day',
+        'max_deli_day',
     ];
 
     public function seller(){
