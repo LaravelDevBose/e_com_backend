@@ -3,7 +3,20 @@
 @section('Title', 'Product')
 
 @section('PageCss')
-
+    <style>
+        .single-box {
+            margin-top: 0px;
+        }
+        .comment-list .comment-body {
+            margin-left: 0px;
+        }
+        .comment-list {
+            margin-top: 0px;
+        }
+        .vue-star-rating-rating-text{
+            display: none;
+        }
+    </style>
 @endsection
 
 @section('Content')
@@ -60,14 +73,14 @@
                                         </h1>
                                         <div class="product-reviews-summary">
                                             <div class="rating-summary">
-                                                <div class="rating-result" title="70%">
-                                                <span style="width:70%">
-                                                    <span><span>70</span>% of <span>100</span></span>
-                                                </span>
-                                                </div>
+                                                <star-rating
+                                                    :star-size="18"
+                                                    :rating="{{ $product->reviews->sum('rating')/$product->reviews->count() }}"
+                                                    :read-only="true"
+                                                ></star-rating>
                                             </div>
                                             <div class="reviews-actions">
-                                                <a href="" class="action view">Based  on 3 ratings</a>
+                                                <a href="#" class="action view">Based  on {{ $product->reviews->count() }} ratings</a>
                                                 {{--                                        <a href="" class="action add"><img alt="img" src="/kuteshop_v2/images/icon/write.png">&#160;&#160;write a review</a>--}}
                                             </div>
                                         </div>
@@ -117,7 +130,7 @@
                                             </p>
 
                                             <p class="delivery-type">
-                                                <i class="fa fa-shield"></i>
+                                                <i class="fas fa-shield-alt"></i>
                                                 <span class="text-left type-name">Check our Refund Policy</span>
                                             </p>
                                         </div>
@@ -165,10 +178,10 @@
                                             @endif
                                             <div class="block-social">
                                                 <div class="block-content" style="text-align: center!important;">
-                                                    <a href="" class="sh-facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                                    <a href="" class="sh-pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
-                                                    <a href="" class="sh-twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                                    <a href="" class="sh-google"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                                    <a href="" class="sh-facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                                                    <a href="" class="sh-pinterest"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
+                                                    <a href="" class="sh-twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                                                    <a href="" class="sh-google"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -190,10 +203,7 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-pills" role="tablist">
                             <li role="presentation" class="active"><a href="#description"  role="tab" data-toggle="tab">@lang('product.details') </a></li>
-{{--                            <li role="presentation"><a href="#tags"  role="tab" data-toggle="tab">information </a></li>--}}
                             <li role="presentation"><a href="#reviews"  role="tab" data-toggle="tab">{{ trans_choice('header.review',2) }}</a></li>
-{{--                            <li role="presentation"><a href="#additional"  role="tab" data-toggle="tab">Extra Tabs</a></li>--}}
-{{--                            <li role="presentation"><a href="#tab-cust"  role="tab" data-toggle="tab">Guarantees</a></li>--}}
                         </ul>
 
                         <!-- Tab panes -->
@@ -208,10 +218,34 @@
                             <div role="tabpanel" class="tab-pane" id="reviews">
                                 <div class="block-title">{{ trans_choice('header.review',2) }}</div>
                                 <div class="block-content">
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                                    <div class="single-box">
+                                        @if(!empty($product->reviews))
+                                        <div class="comment-list">
+                                            <ul>
+                                                @foreach($product->reviews as $review)
+                                                <li>
+                                                    <div class="comment-body">
+                                                        <div class="comment-meta">
+                                                            <span class="author"><a href="#">{{ $review->buyer->user->full_name }}</a></span>
+                                                            <span class="date">{{ \Carbon\Carbon::parse($review->created_at)->format('d M Y') }}</span>
+                                                        </div>
+                                                        <div class="comment-meta">
+                                                            <star-rating
+                                                                :star-size="20"
+                                                                :rating="{{ $review->rating }}"
+                                                                :read-only="true"
+                                                            ></star-rating>
+                                                        </div>
+                                                        <div class="comment">
+                                                            {{ $review->review }}
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>

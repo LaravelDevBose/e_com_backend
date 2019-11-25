@@ -27,7 +27,7 @@
                 </td>
                 <td class="text-center">
                     <a href="#" @click.prevent="showInvoiceModal(order.order_no)" class="text-primary"> <i class="fa fa-eye"></i></a>
-                    <a href="#" @click.prevent="goToAddReviewPage(order.order_id)" class="text-primary"> <i class="fa fa-commenting-o"></i></a>
+                    <a href="#" @click.prevent="goToAddReviewPage(order.order_id)" class="text-primary"> <i class="far fa-comment-dots"></i></a>
                 </td>
             </tr>
             <tr v-else>

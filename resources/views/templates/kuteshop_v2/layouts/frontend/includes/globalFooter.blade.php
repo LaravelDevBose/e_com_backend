@@ -102,11 +102,10 @@
                     <div class="block-social">
                         <div class="block-title">Let’s Socialize </div>
                         <div class="block-content">
-                            <a href="" class="sh-facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="" class="sh-pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
-                            <a href="" class="sh-vk"><i class="fa fa-vk" aria-hidden="true"></i></a>
-                            <a href="" class="sh-twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="" class="sh-google"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                            <a href="" class="sh-facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                            <a href="" class="sh-pinterest"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
+                            <a href="" class="sh-twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                            <a href="" class="sh-google"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>

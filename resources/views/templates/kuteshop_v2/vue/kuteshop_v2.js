@@ -33,6 +33,9 @@ const i18n = new VueI18n({
 * End Using Translation
 */
 
+import StarRating from 'vue-star-rating';
+Vue.component('star-rating', StarRating);
+
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 

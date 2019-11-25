@@ -196,7 +196,7 @@ class FrontendController extends Controller
     public function product_details($slug)
     {
         $product = Product::where('product_slug', $slug)
-            ->with(['brand', 'category', 'productDetails', 'variations', 'productImages', 'singleVariation', 'thumbImage', 'seller.shop'])
+            ->with(['brand', 'category', 'productDetails', 'variations', 'productImages', 'singleVariation', 'thumbImage', 'seller.shop', 'reviews.buyer'])
             ->firstOrFail();
 
         if (empty($product)) {

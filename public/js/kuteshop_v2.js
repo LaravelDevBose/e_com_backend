@@ -52731,7 +52731,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_c("i", { staticClass: "fa fa-commenting-o" })]
+                      [_c("i", { staticClass: "far fa-comment-dots" })]
                     )
                   ])
                 ])
@@ -73228,6 +73228,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
 /* harmony import */ var _lang_en__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lang/en */ "./resources/views/templates/kuteshop_v2/vue/lang/en.js");
 /* harmony import */ var _lang_so__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lang/so */ "./resources/views/templates/kuteshop_v2/vue/lang/so.js");
+/* harmony import */ var vue_star_rating__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-star-rating */ "./node_modules/vue-star-rating/dist/star-rating.min.js");
+/* harmony import */ var vue_star_rating__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_star_rating__WEBPACK_IMPORTED_MODULE_7__);
 
 
 __webpack_require__(/*! ../../../../js/bootstrap */ "./resources/js/bootstrap.js");
@@ -73258,6 +73260,9 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({
 /*
 * End Using Translation
 */
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('star-rating', vue_star_rating__WEBPACK_IMPORTED_MODULE_7___default.a);
 
 var files = __webpack_require__("./resources/views/templates/kuteshop_v2/vue sync recursive \\.vue$/");
 

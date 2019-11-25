@@ -1,6 +1,6 @@
 @extends('templates.kuteshop_v2.layouts.frontend.master')
 
-@section('Title', __('buyer.my_orders'))
+@section('Title', 'Review History')
 
 @section('PageCss')
 
