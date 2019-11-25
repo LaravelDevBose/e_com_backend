@@ -45,7 +45,7 @@ class ReviewController extends Controller
 
     public function get_order_items($orderId)
     {
-        $orderItems = OrderItem::where('order_id', $orderId)->with('product.thumbImage', 'seller.shop')->get();
+        $orderItems = OrderItem::where('order_id', $orderId)->with('product.thumbImage', 'seller.shop','review')->get();
         if(!empty($orderItems)){
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $orderItems);
         }else{
@@ -93,7 +93,7 @@ class ReviewController extends Controller
 
                 if(!empty($review)){
                     DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Add To Cart Successfully', route('buyer.reviews.index'));
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Thank you. For Your Great Review.', route('buyer.reviews.index'));
                 }else{
                     throw new Exception('Invalid Information!', Response::HTTP_BAD_REQUEST);
                 }

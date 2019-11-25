@@ -4288,6 +4288,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue_star_rating__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-star-rating */ "./node_modules/vue-star-rating/dist/star-rating.min.js");
+/* harmony import */ var vue_star_rating__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_star_rating__WEBPACK_IMPORTED_MODULE_1__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -4326,15 +4328,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ReviewListTable",
+  components: {
+    'star-rating': vue_star_rating__WEBPACK_IMPORTED_MODULE_1___default.a
+  },
   data: function data() {
     return {};
   },
@@ -4414,6 +4414,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4429,13 +4432,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData: {
         item_id: '',
         product_id: '',
-        rating: '',
+        rating: 0,
         review: ''
       },
-      btnDisabled: false
+      btnDisabled: false,
+      haveReview: false
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['addBuyerReview'])),
+  mounted: function mounted() {
+    if (this.order_item.review !== '' && this.order_item.review !== null) {
+      this.haveReview = true;
+      this.formData.review = this.order_item.review.review;
+      this.formData.rating = this.order_item.review.rating;
+    }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeBuyerReview']), {
+    addBuyerReview: function addBuyerReview() {
+      var _this = this;
+
+      if (!this.checkValidation()) {
+        return false;
+      }
+
+      this.btnDisabled = true;
+      this.formData.item_id = this.order_item.item_id;
+      this.formData.product_id = this.order_item.product_id;
+      this.storeBuyerReview(this.formData).then(function (response) {
+        if (typeof response.code !== 'undefined' && response.code === 200) {
+          _this.haveReview = true;
+
+          _this.$noty.success(response.message);
+        } else if (response.status === 'validation') {
+          _this.$noty.warning(response.message);
+        } else {
+          _this.$noty.error(response.message);
+        }
+      });
+    },
+    checkValidation: function checkValidation() {
+      if (this.formData.rating === '' && this.formData.review === '') {
+        this.$noty.success('Review Form is Empty.');
+        return false;
+      }
+
+      return true;
+    }
+  }),
   computed: {},
   watch: {}
 });
@@ -52815,46 +52857,33 @@ var render = function() {
     { staticClass: "table-responsive wow bounceInUp animated" },
     [
       _c("table", { staticClass: "table table-bordered  cart_summary" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th", [_vm._v("#")]),
-            _vm._v(" "),
-            _c("th", [_vm._v(_vm._s(_vm.$t("buyer.order.order")) + " ")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("product Name")]),
-            _vm._v(" "),
-            _c("th", { staticClass: "text-right" }, [_vm._v("Review")]),
-            _vm._v(" "),
-            _c("th", { staticClass: "text-center" }, [_vm._v("Rating")]),
-            _vm._v(" "),
-            _c("th", { staticClass: "action text-center" }, [_vm._v("Action")])
-          ])
-        ]),
+        _vm._m(0),
         _vm._v(" "),
         _c(
           "tbody",
           _vm._l(_vm.reviewList, function(review, index) {
             return _vm.reviewList
               ? _c("tr", { key: index }, [
-                  _c("td", [_vm._v(_vm._s(index + 1))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(review.order_date))]),
-                  _vm._v(" "),
                   _c("td", [
                     _c("span", [_vm._v(_vm._s(review.product.product_name))])
                   ]),
                   _vm._v(" "),
-                  _c("td", { staticClass: "text-right" }, [
-                    _c("span", { staticClass: "price" }, [
-                      _vm._v(_vm._s(review.review))
-                    ])
-                  ]),
+                  _c("td", [_vm._v(" " + _vm._s(review.review))]),
                   _vm._v(" "),
-                  _c("td", { staticClass: "text-center" }, [
-                    _c("em", [_vm._v(_vm._s(review.rating))])
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(0, true)
+                  _c(
+                    "td",
+                    { staticClass: "text-center" },
+                    [
+                      _c("star-rating", {
+                        attrs: {
+                          "star-size": 15,
+                          rating: review.rating,
+                          "read-only": true
+                        }
+                      })
+                    ],
+                    1
+                  )
                 ])
               : _c("tr", [
                   _c("td", { attrs: { colspan: "6" } }, [
@@ -52873,9 +52902,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("a", { staticClass: "text-primary", attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fa fa-eye" })
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("product Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Review")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Rating")])
       ])
     ])
   }
@@ -52998,7 +53031,11 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("star-rating", {
-                      attrs: { "star-size": 25 },
+                      attrs: {
+                        "star-size": 25,
+                        rating: _vm.formData.rating,
+                        "read-only": _vm.haveReview
+                      },
                       model: {
                         value: _vm.formData.rating,
                         callback: function($$v) {
@@ -53018,50 +53055,71 @@ var render = function() {
                     [_vm._v("Review")]
                   ),
                   _vm._v(" "),
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.review,
-                        expression: "formData.review"
-                      }
-                    ],
-                    staticClass: "input form-control",
-                    attrs: {
-                      id: "review",
-                      rows: "3",
-                      placeholder: "Your Review.."
-                    },
-                    domProps: { value: _vm.formData.review },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                  !_vm.haveReview
+                    ? _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formData.review,
+                            expression: "formData.review"
+                          }
+                        ],
+                        staticClass: "input form-control",
+                        attrs: {
+                          id: "review",
+                          rows: "3",
+                          placeholder: "Your Review.."
+                        },
+                        domProps: { value: _vm.formData.review },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.formData,
+                              "review",
+                              $event.target.value
+                            )
+                          }
                         }
-                        _vm.$set(_vm.formData, "review", $event.target.value)
-                      }
-                    }
-                  })
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.haveReview
+                    ? _c("p", {
+                        staticStyle: {
+                          "margin-bottom": "0px",
+                          "padding-bottom": "5px"
+                        },
+                        domProps: { innerHTML: _vm._s(_vm.formData.review) }
+                      })
+                    : _vm._e()
                 ])
               ]),
               _vm._v(" "),
-              _c(
-                "li",
-                {
-                  staticStyle: { "text-align": "right", "margin-top": "10px" }
-                },
-                [
-                  _c(
-                    "button",
+              !_vm.haveReview
+                ? _c(
+                    "li",
                     {
-                      staticClass: "button",
-                      attrs: { type: "submit", disabled: _vm.btnDisabled }
+                      staticStyle: {
+                        "text-align": "right",
+                        "margin-top": "10px"
+                      }
                     },
-                    [_c("span", [_vm._v("Save")])]
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "button",
+                          attrs: { type: "submit", disabled: _vm.btnDisabled }
+                        },
+                        [_c("span", [_vm._v("Save")])]
+                      )
+                    ]
                   )
-                ]
-              )
+                : _vm._e()
             ])
           ]
         )
@@ -75658,12 +75716,50 @@ var actions = {
     }
 
     return getOrderReviewItems;
+  }(),
+  storeBuyerReview: function () {
+    var _storeBuyerReview = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, formData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios.post("/buyer/reviews/store", formData).then(function (response) {
+                return response.data;
+              });
+
+            case 4:
+              return _context3.abrupt("return", _context3.sent);
+
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](1);
+              console.log(_context3.t0);
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 7]]);
+    }));
+
+    function storeBuyerReview(_x4, _x5) {
+      return _storeBuyerReview.apply(this, arguments);
+    }
+
+    return storeBuyerReview;
   }()
 };
 var mutations = {
   setBuyerReviews: function setBuyerReviews(state, response) {
     if (response.hasOwnProperty('current_page')) {
-      state.review_list = response;
+      state.review_list = response.data;
       delete response.data;
       state.paginate = response;
     } else {
@@ -76025,7 +76121,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

@@ -30,14 +30,17 @@
                         <star-rating
                             v-model="formData.rating"
                             :star-size="25"
+                            :rating="formData.rating"
+                            :read-only="haveReview"
                         ></star-rating>
                     </div>
                     <div class="col-sm-12 col-md-8">
                         <label for="review" class="required">Review</label>
-                        <textarea id="review" class="input form-control" v-model="formData.review" rows="3" placeholder="Your Review.."></textarea>
+                        <textarea v-if="!haveReview" id="review" class="input form-control" v-model="formData.review" rows="3" placeholder="Your Review.."></textarea>
+                        <p v-if="haveReview" v-html="formData.review" style="margin-bottom: 0px; padding-bottom: 5px "></p>
                     </div>
                 </li>
-                <li style="text-align: right; margin-top: 10px;">
+                <li v-if="!haveReview" style="text-align: right; margin-top: 10px;">
                     <button type="submit"  :disabled="btnDisabled" class="button">
                         <span>Save</span>
                     </button>
@@ -63,16 +66,51 @@
                 formData:{
                     item_id:'',
                     product_id:'',
-                    rating:'',
+                    rating:0,
                     review:'',
                 },
                 btnDisabled:false,
+                haveReview:false,
             }
+        },
+        mounted(){
+          if(this.order_item.review !== '' && this.order_item.review !== null){
+              this.haveReview = true;
+              this.formData.review = this.order_item.review.review;
+              this.formData.rating = this.order_item.review.rating;
+          }
         },
         methods:{
           ...mapActions([
-              'addBuyerReview',
-          ])
+              'storeBuyerReview',
+          ]),
+            addBuyerReview(){
+                if(!this.checkValidation()){
+                    return false;
+                }
+                this.btnDisabled=true;
+                this.formData.item_id = this.order_item.item_id;
+                this.formData.product_id = this.order_item.product_id;
+                this.storeBuyerReview(this.formData)
+                    .then(response=>{
+                        if (typeof response.code !== 'undefined' && response.code === 200){
+                            this.haveReview = true;
+                            this.$noty.success(response.message);
+                        }else if(response.status === 'validation'){
+                            this.$noty.warning(response.message);
+                        }else{
+                            this.$noty.error(response.message);
+                        }
+                    })
+            },
+            checkValidation(){
+                if(this.formData.rating === '' && this.formData.review === ''){
+                    this.$noty.success('Review Form is Empty.');
+                    return false;
+                }
+
+                return true;
+            }
         },
         computed:{
 

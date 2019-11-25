@@ -42,7 +42,7 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
         Route::get('/list', 'ReviewController@review_list')->name('list');
         Route::get('/order/{orderId}/items', 'ReviewController@get_order_items')->name('order.items');
         Route::get('/add/{orderId}', 'ReviewController@add_review_page')->name('add');
-        Route::get('/store', 'ReviewController@store')->name('store');
+        Route::post('/store', 'ReviewController@store')->name('store');
     });
 
 

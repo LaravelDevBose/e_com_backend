@@ -13,7 +13,7 @@
             <ol class="breadcrumb no-hide">
                 <li><a href="{{ route('front.index') }}">{{ __('buyer.home') }}</a></li>
                 <li><a href="{{ route('buyer.home') }}">{{ __('buyer.dashboard') }}</a></li>
-                <li class="active">{{ __('buyer.my_orders') }}</li>
+                <li class="active">Review History</li>
             </ol>
 
             <div class="row">

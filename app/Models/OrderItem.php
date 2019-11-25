@@ -92,6 +92,6 @@ class OrderItem extends Model
 
     public function review()
     {
-        return $this->hasMany(Review::class, 'item_id', 'item_id');
+        return $this->hasOne(Review::class, 'item_id', 'item_id');
     }
 }

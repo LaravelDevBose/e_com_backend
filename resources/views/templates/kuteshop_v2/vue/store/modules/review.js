@@ -40,13 +40,23 @@ const actions = {
         }catch (e) {
             console.log(e);
         }
+    },
+    async storeBuyerReview({commit},formData){
+        try {
+            return await axios.post(`/buyer/reviews/store`, formData)
+                .then(response=>{
+                    return response.data;
+                })
+        }catch (e) {
+            console.log(e);
+        }
     }
 };
 
 const mutations = {
     setBuyerReviews:(state,response)=>{
         if(response.hasOwnProperty('current_page')){
-          state.review_list = response;
+          state.review_list = response.data;
           delete response.data;
           state.paginate = response;
         }else{
