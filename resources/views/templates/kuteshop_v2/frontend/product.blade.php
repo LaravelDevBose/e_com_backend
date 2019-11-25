@@ -75,26 +75,15 @@
                                             <div class="rating-summary">
                                                 <star-rating
                                                     :star-size="18"
-                                                    :rating="{{ $product->reviews->sum('rating')/$product->reviews->count() }}"
+                                                    :rating="{{ ($product->reviews->count() > 0)? $product->reviews->sum('rating')/$product->reviews->count(): 0 }}"
                                                     :read-only="true"
                                                 ></star-rating>
                                             </div>
                                             <div class="reviews-actions">
                                                 <a href="#" class="action view">Based  on {{ $product->reviews->count() }} ratings</a>
-                                                {{--                                        <a href="" class="action add"><img alt="img" src="/kuteshop_v2/images/icon/write.png">&#160;&#160;write a review</a>--}}
                                             </div>
                                         </div>
-
-
-
                                         <singel-product-options :product="{{ $product }}"></singel-product-options>
-                                        {{--<div class="product-addto-links-second">
-                                            <a href="" class="action action-print">Print</a>
-                                            <a href="" class="action action-friend">Send to a friend</a>
-                                        </div>
-                                        <div class="share">
-                                            <img src="/kuteshop_v2/images/media/index1/share.png" alt="share">
-                                        </div>--}}
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-5 col-lg-5">
