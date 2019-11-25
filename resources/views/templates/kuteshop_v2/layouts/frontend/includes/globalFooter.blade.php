@@ -24,7 +24,12 @@
                 @foreach($brands as $brand)
                     @if(!empty($brand->attachment->image_path))
                         <li>
-                            <img src="{{ $brand->attachment->image_path }}" alt="{{ $brand->brand_name }}" title="{{ $brand->brand_name }}">
+                            <clazy-load src="{{ $brand->attachment->image_path }}">
+                                <img title="{{ $brand->brand_name }}" src="{{ $brand->attachment->image_path }}" style="width:100%; height:auto;">
+                                <div class="preloader" slot="placeholder">
+                                    <img title="{{ $brand->brand_name }}" src="/images/placeholder.png" style="width:100%; height:auto;">
+                                </div>
+                            </clazy-load>
                         </li>
                     @endif
                 @endforeach

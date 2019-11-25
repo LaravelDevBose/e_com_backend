@@ -5543,6 +5543,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SectionProductGrid",
@@ -54821,14 +54826,39 @@ var render = function() {
             }
           },
           [
-            _c("img", {
-              staticStyle: { width: "100%", height: "auto" },
-              attrs: {
-                title: _vm.product.product_name,
-                src: _vm.product.thumb_image.image_path
-              }
-            })
-          ]
+            _c(
+              "clazy-load",
+              { attrs: { src: _vm.product.thumb_image.image_path } },
+              [
+                _c("img", {
+                  staticStyle: { width: "100%", height: "auto" },
+                  attrs: {
+                    title: _vm.product.product_name,
+                    src: _vm.product.thumb_image.image_path
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "preloader",
+                    attrs: { slot: "placeholder" },
+                    slot: "placeholder"
+                  },
+                  [
+                    _c("img", {
+                      staticStyle: { width: "100%", height: "auto" },
+                      attrs: {
+                        title: _vm.product.product_name,
+                        src: "/images/placeholder.png"
+                      }
+                    })
+                  ]
+                )
+              ]
+            )
+          ],
+          1
         ),
         _vm._v(" "),
         _c("div", { staticClass: "product-item-actions" }, [

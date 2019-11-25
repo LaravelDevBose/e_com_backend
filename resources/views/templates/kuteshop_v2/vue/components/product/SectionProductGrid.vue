@@ -3,7 +3,12 @@
         <div class="product-item-info">
             <div class="product-item-photo">
                 <a href="#" @click.prevent="productDetails(product.product_slug)" :title="product.product_name" class="product-item-img">
-                    <img :title="product.product_name" :src="product.thumb_image.image_path" style="width:100%; height:auto;">
+                    <clazy-load :src="product.thumb_image.image_path">
+                        <img :title="product.product_name" :src="product.thumb_image.image_path" style="width:100%; height:auto;">
+                        <div class="preloader" slot="placeholder">
+                            <img :title="product.product_name" src="/images/placeholder.png" style="width:100%; height:auto;">
+                        </div>
+                    </clazy-load>
                 </a>
                 <div class="product-item-actions">
                     <a href="#" title="WishList" class="btn btn-wishlist"  @click.prevent="addWishList(product.product_slug)"><span>{{ $t('header.wishlist')}}</span></a>

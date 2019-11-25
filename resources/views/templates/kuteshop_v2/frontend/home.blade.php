@@ -57,7 +57,12 @@
                                 </div>
                                 <div class="col-banner">
                                     <a href="#" class="box-img">
-                                        <img  src="{{ $section->attachment->image_path }}" alt="baner-floor" style="width: 100%; height: 100%;">
+                                        <clazy-load src="{{ $section->attachment->image_path }}">
+                                            <img src="{{ $section->attachment->image_path }}" style="width:100%; height:auto;">
+                                            <div class="preloader" slot="placeholder">
+                                                <img src="/images/placeholder.png" style="width:100%; height:auto;">
+                                            </div>
+                                        </clazy-load>
                                     </a>
                                 </div>
                                 @if(!empty($section->sectionCategories))
