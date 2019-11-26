@@ -11,21 +11,25 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\GroupProduct;
 use App\Models\HomepageSection;
+use App\Models\OrderItem;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductVariation;
+use App\Models\Review;
 use App\Models\SectionCategory;
 use App\Models\SectionProduct;
 use App\Models\Seller;
 use App\Models\Shop;
 use App\Traits\CommonData;
 use App\Traits\ResponserTrait;
+use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Session;
 
@@ -45,6 +49,7 @@ class FrontendController extends Controller
     public function index()
     {
         $sliders = CommonData::slider_list();
+
         $sections = HomepageSection::with(['attachment',
             'sectionCategories'=>function($query){
                 return $query->with(['category', 'secCatProducts'=>function($q){
@@ -63,11 +68,42 @@ class FrontendController extends Controller
             ->with(['product'=>function($query){
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
             }])->orderBy('position', 'asc')->latest()->get();
+        $categories = Category::isParent()->isActive()->with('children')->get();
+
+        $categorySection = array();
+        foreach ($categories as $category){
+            $catIds = Category::All_children_Ids($category->category_id);
+            $products = Product::isActive()->whereIn('category_id', $catIds);
+            $productIds = $products->pluck('product_id');
+
+            $bestSellProductId = OrderItem::whereIn('product_id', $productIds)
+                                ->select('order_id','product_id' , DB::raw('count(*) as total'))
+                                ->groupBy('product_id')->orderBy('total', 'desc')
+                                ->pluck('product_id');
+
+            $mostReviewProductIds = Review::whereIn('product_id', $productIds)
+                ->select('review_id','product_id' , DB::raw('count(*) as total'))
+                ->groupBy('product_id')->orderBy('total', 'desc')
+                ->pluck('product_id');
+
+            $bestSellProducts = $products->whereIn('product_id', $bestSellProductId)->get();
+            $mostReviewsProducts = $products->whereIn('product_id', $mostReviewProductIds)->get();
+            $latestProducts = $products->whereDate('created_at', '>=' , Carbon::today()->subDays(7))->get();
+
+            array_push($categorySection,[
+                'category'=>$category,
+                'bestSellProducts'=>$bestSellProducts,
+                'mostReviewsProducts'=>$mostReviewsProducts,
+                'latestProducts'=>$latestProducts,
+            ]);
+        }
+
         return view('templates.' . $this->template_name . '.frontend.home', [
             'sliders' => $sliders,
             'sections'=>$sections,
             'topProducts'=>$topProducts,
             'hotProducts'=>$hotProducts,
+            'categorySection'=>$categorySection,
         ]);
     }
     public function set_lang($lang)
