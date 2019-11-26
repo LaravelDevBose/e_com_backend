@@ -14,7 +14,7 @@ class CodOptionProductDetatilsTable extends Migration
     public function up()
     {
         Schema::table('product_details', function (Blueprint $table) {
-            $table->boolean('cod_avail')->nullable();
+            $table->boolean('cod_avail')->default(0)->nullable();
         });
 
         Schema::table('shops', function (Blueprint $table){

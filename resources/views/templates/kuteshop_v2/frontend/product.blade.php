@@ -96,20 +96,22 @@
                                                 <i class="fa fa-truck"></i>
                                                 <span class="text-left type-name">Home Delivery</span>
                                                 <br>
-                                                <span class="delivery-time">(3-4 days)</span>
+                                                @if(!empty($product->seller->shop))
+                                                <span class="delivery-time">({{ $product->seller->shop->min_deli_day.'-'.$product->seller->shop->max_deli_day }} days)</span>
+                                                @endif
                                                 <span class="pull-right">$ 50</span>
                                             </p>
 
                                             <p class="delivery-type">
                                                 <i class="fa fa-money"></i>
-                                                <span class="text-left type-name">Cash on Delivery Available</span>
+                                                <span class="text-left type-name">Cash on Delivery {{ ($product->productDetails->cod_avail == 1)?'Available':'Not Available' }} </span>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="text-widget widget widget__sidebar shop-info bg-section">
                                         <div class="widget-content">
                                             <h3 class="section-title">
-                                                <span>Return & Refund Policy</span>
+                                                <span> Return & Refund Policy </span>
                                             </h3>
                                             <p class="delivery-type">
                                                 <i class="fa fa-undo"></i>

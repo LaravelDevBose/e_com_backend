@@ -9865,7 +9865,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         placeholder: 'Choose a image in 915 X 215',
         file_size: 1,
         init_image: '',
-        folder: 'shop'
+        folder: 'shop',
+        modal_view: 3
       },
       removeImage: false,
       btnDisabled: false
@@ -9988,6 +9989,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -10012,7 +10023,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         shop_address: '',
         phone_no: '',
         shop_email: '',
-        shop_category: ''
+        shop_category: '',
+        min_deli_day: '',
+        max_deli_day: ''
       },
       cropperData: {
         width: 150,
@@ -10020,7 +10033,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         placeholder: 'Choose a image in 118X29',
         file_size: 1,
         init_image: '',
-        folder: 'shop'
+        folder: 'shop',
+        modal_view: 1
       },
       removeImage: false,
       btnDisabled: false
@@ -16579,7 +16593,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -72774,9 +72788,7 @@ var staticRenderFns = [
         [_vm._v("×")]
       ),
       _vm._v(" "),
-      _c("h5", { staticClass: "modal-title" }, [
-        _vm._v("Upload Your Thumbnail Image")
-      ])
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Upload Image")])
     ])
   }
 ]
@@ -77598,6 +77610,74 @@ var render = function() {
                             }
                           }
                         })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group row" }, [
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("label", [_vm._v("Min. Delivery. Days:")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.formData.min_deli_day,
+                                expression: "formData.min_deli_day"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              placeholder: "Min Delivery Days"
+                            },
+                            domProps: { value: _vm.formData.min_deli_day },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.formData,
+                                  "min_deli_day",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("label", [_vm._v("Max. Delivery Days:")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.formData.max_deli_day,
+                                expression: "formData.max_deli_day"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              placeholder: "Max. Delivery Days"
+                            },
+                            domProps: { value: _vm.formData.max_deli_day },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.formData,
+                                  "max_deli_day",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
                       ])
                     ]),
                     _vm._v(" "),
@@ -96154,7 +96234,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })

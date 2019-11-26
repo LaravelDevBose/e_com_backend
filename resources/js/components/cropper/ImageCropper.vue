@@ -22,7 +22,7 @@
                 <div class="modal-content">
                     <div class="modal-header bg-teal">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h5 class="modal-title">Upload Your Thumbnail Image</h5>
+                        <h5 class="modal-title">Upload Image</h5>
                     </div>
                     <div class="panel-body text-center no-padding-bottom">
                         <croppa v-model="cropImage"

@@ -58,6 +58,8 @@ class ShopController extends Controller
                             'shop_address'=>$request->shop_address,
                             'phone_no'=>$request->phone_no,
                             'shop_email'=>$request->shop_email,
+                            'min_deli_day'=>$request->min_deli_day,
+                            'max_deli_day'=>$request->max_deli_day,
                         ]
                     );
 
