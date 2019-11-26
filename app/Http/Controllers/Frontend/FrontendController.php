@@ -68,12 +68,15 @@ class FrontendController extends Controller
             ->with(['product'=>function($query){
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
             }])->orderBy('position', 'asc')->latest()->get();
-        $categories = Category::isParent()->isActive()->with('children')->get();
+        $categories = Category::isParent()->isActive()->select('category_id', 'category_name','category_slug')
+                ->with(['children'=>function($query){
+                    return $query->isActive();
+                }])->get();
 
         $categorySection = array();
         foreach ($categories as $category){
             $catIds = Category::All_children_Ids($category->category_id);
-            $products = Product::isActive()->whereIn('category_id', $catIds);
+            $products = Product::isActive()->whereIn('category_id', $catIds)->with('thumbImage', 'singleVariation');
             $productIds = $products->pluck('product_id');
 
             $bestSellProductId = OrderItem::whereIn('product_id', $productIds)
@@ -92,9 +95,11 @@ class FrontendController extends Controller
 
             array_push($categorySection,[
                 'category'=>$category,
-                'bestSellProducts'=>$bestSellProducts,
-                'mostReviewsProducts'=>$mostReviewsProducts,
-                'latestProducts'=>$latestProducts,
+                'productList'=>[
+                    'bestSeller'=>$bestSellProducts,
+                    'newArrivals'=>$latestProducts,
+                    'mostReviews'=>$mostReviewsProducts,
+                ]
             ]);
         }
 
