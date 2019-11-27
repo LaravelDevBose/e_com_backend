@@ -60,7 +60,14 @@ class Attachment extends Model
     }
 
     public function category(){
-        return $this->belongsTo(Category::class, 'attachment_id','attachment_id');
+        return $this->belongsTo(Category::class, 'attachment_id','banner_id');
+    }
+    public function sectionBanner(){
+        return $this->belongsTo(Category::class, 'attachment_id','sect_banner_id');
+    }
+
+    public function categoryIcon(){
+        return $this->belongsTo(Category::class, 'attachment_id','icon_id');
     }
 
     public function brand(){

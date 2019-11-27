@@ -97,14 +97,15 @@
                             @endif
                             <div class="col-banner">
                                 <a href="" class="box-img">
-                                    <img src="kuteshop_v2/images/media/index2/baner-floor1.jpg" alt="baner-floor">
+                                    @if(!empty($section['category']->sectionBanner))
+                                        <img src="{{ $section['category']->sectionBanner->image_path }}" alt="baner-floor">
+                                    @endif
                                 </a>
                             </div>
                             <?php $activeCheck = 1; ?>
                             @if(!empty($section['productList']))
-                                @foreach($section['productList'] as $productType)
-
-                                    <div class="col-products tab-content">
+                                <div class="col-products tab-content">
+                                    @foreach($section['productList'] as $productType)
                                         @if(!empty($productType))
                                             <div class="tab-pane {{ ($activeCheck== 1)?'active in  fade ':'' }} " id="floor-{{$key.'-'.$activeCheck }}" role="tabpanel">
                                                 <div class="owl-carousel"
@@ -134,8 +135,8 @@
                                             </div>
                                             <?php $activeCheck++; ?>
                                         @endif
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             @endif
                         </div>
 

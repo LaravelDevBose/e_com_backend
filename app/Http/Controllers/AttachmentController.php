@@ -187,7 +187,7 @@ class AttachmentController extends Controller
                 'file_type'     => $type,
                 'original_name' => null,
                 'file_size'     => null,
-                'modal'         => $modalName
+                'modal'         => $modalName,
             ]);
 
             array_push($attachmentData, [
@@ -195,6 +195,7 @@ class AttachmentController extends Controller
                 'id' => $attachmentSave->attachment_id,
                 'no' => $attachmentSave->attachment_no,
                 'delete_url' => route('attachment.delete',  $attachmentSave->attachment_id),
+                'serial'      => $request->serial,
             ]);
 
             return response()->json([

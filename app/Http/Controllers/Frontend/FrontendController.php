@@ -68,8 +68,8 @@ class FrontendController extends Controller
             ->with(['product'=>function($query){
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
             }])->orderBy('position', 'asc')->latest()->get();
-        $categories = Category::isParent()->isActive()->select('category_id', 'category_name','category_slug')
-                ->with(['children'=>function($query){
+        $categories = Category::isParent()->isActive()->select('category_id', 'category_name','category_slug', 'sect_banner_id')
+                ->with(['sectionBanner','children'=>function($query){
                     return $query->isActive();
                 }])->get();
 
@@ -102,7 +102,6 @@ class FrontendController extends Controller
                 ]
             ]);
         }
-
         return view('templates.' . $this->template_name . '.frontend.home', [
             'sliders' => $sliders,
             'sections'=>$sections,

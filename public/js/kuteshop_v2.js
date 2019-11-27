@@ -49766,7 +49766,7 @@ var render = function() {
           }
         },
         [
-          _c("i", { staticClass: "fa fa-facebook" }),
+          _c("i", { staticClass: "fab fa-facebook-f" }),
           _vm._v(" " + _vm._s(_vm.$t("auth.sign_in_with")) + " "),
           _c("b", [_vm._v("Facebook")])
         ]
@@ -49785,7 +49785,7 @@ var render = function() {
           }
         },
         [
-          _c("i", { staticClass: "fa fa-twitter" }),
+          _c("i", { staticClass: "fab fa-twitter" }),
           _vm._v(" " + _vm._s(_vm.$t("auth.sign_in_with")) + " "),
           _c("b", [_vm._v("Twitter")])
         ]
@@ -49804,7 +49804,7 @@ var render = function() {
           }
         },
         [
-          _c("i", { staticClass: "fa fa-google" }),
+          _c("i", { staticClass: "fab fa-google-plus-g" }),
           _vm._v(" " + _vm._s(_vm.$t("auth.sign_in_with")) + " "),
           _c("b", [_vm._v("Google")])
         ]
@@ -76502,7 +76502,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

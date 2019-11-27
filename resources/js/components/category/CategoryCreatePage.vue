@@ -33,10 +33,16 @@
                                 <input type="text" v-model="formValue.trans_category_name" class="form-control" placeholder="Trans. Category Name " required>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Category Banner:</label>
                                 <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                            </div>
+                        </div>
+                        <div class="col-md-5" v-if="!formValue.parent_id">
+                            <div class="form-group">
+                                <label>Homepage Section:</label>
+                                <image-cropper :cropperData="SectionCropperData" :removeImage="removeImage"></image-cropper>
                             </div>
                         </div>
 
@@ -88,7 +94,7 @@
         components:{ImageCropper, Treeselect},
         props:{
             categoryid:{
-                type:[Number],
+                type:[Number,String],
                 default:''
             },
             isedit:{
@@ -103,9 +109,10 @@
                     parent_id:null,
                     category_name:null,
                     category_status:false,
-                    attachmentIds:'',
+                    banner_id:'',
                     is_show:false,
-                    trans_category_name:''
+                    trans_category_name:'',
+                    sect_banner_id:'',
                 },
                 normalizer(node) {
                     return {
@@ -115,13 +122,26 @@
                     }
                 },
                 cropperData:{
-                    width:500,
-                    height:600,
-                    placeholder:'Choose a image in 600*500',
+                    width:1200,
+                    height:400,
+                    placeholder:'Choose a Banner image (1200 X 400)',
+                    file_size:1.5,
+                    init_image:'',
+                    folder:'category',
+                    modal_type:4,
+                    modal_id:'banner_image',
+                    serial:1,
+                },
+                SectionCropperData:{
+                    width:386,
+                    height:572,
+                    placeholder:'Choose a Homepage Section Image (386X572)',
                     file_size:1.5,
                     init_image:'',
                     folder:'category',
                     modal_type:2,
+                    modal_id:'section_image',
+                    serial:2,
                 },
                 removeImage:false,
                 btnDisabled:false,
@@ -141,9 +161,18 @@
                 'getCategoryData',
             ]),
             manipulateCategoryData(){
-                if(this.cropImageIds.length !== 0 || this.cropImageIds !== ''){
-                    this.formValue.attachmentIds = this.cropImageIds[0];
+                let banner_id = $(`.${this.cropperData.modal_id}`).val();
+                let section_id = $(`.${this.SectionCropperData.modal_id}`).val();
+                if(typeof banner_id !== "undefined" && banner_id !== ''){
+                    console.log(banner_id);
+                    this.formValue.banner_id = banner_id;
                 }
+
+                if(typeof section_id !== "undefined" && section_id !== ''){
+                    console.log(section_id);
+                    this.formValue.sect_banner_id = section_id;
+                }
+
                 if(this.isedit){
                     this.updateCategory(this.formValue).then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 201){
@@ -179,14 +208,14 @@
                 this.formValue.category_name = '';
                 this.formValue.trans_category_name = '';
                 this.formValue.category_status = false;
-                this.formValue.attachmentIds = '';
-                this.cropperData.removeImage = true;
+                this.formValue.banner_id = '';
+                this.formValue.sect_banner_id = '';
+                this.removeImage = true;
             }
         },
         computed:{
             ...mapGetters([
                 'treeList',
-                'cropImageIds',
                 'category'
             ]),
             categoryCheck(){
@@ -208,8 +237,13 @@
                             this.formValue.is_show = true;
                         }
                         if(this.category.attachment){
-                            this.formValue.attachmentIds = this.category.attachment.attachment_id;
+                            this.formValue.banner_id = this.category.banner_id;
                             this.cropperData.init_image = this.category.attachment.image_path;
+                        }
+
+                        if(this.category.parent_id === null && this.category.sectionBanner){
+                            this.formValue.sect_banner_id = this.category.sect_banner_id;
+                            this.SectionCropperData.init_image = this.category.sectionBanner.image_path;
                         }
                     }
                 },deep:true,

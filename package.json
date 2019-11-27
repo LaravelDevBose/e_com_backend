@@ -28,6 +28,7 @@
         "@fancyapps/fancybox": "^3.5.7",
         "@riophae/vue-treeselect": "0.0.38",
         "datatables.net": "^1.10.20",
+        "laravel-vue-pagination": "^2.3.1",
         "luxon": "^1.19.3",
         "noty": "^3.2.0-beta",
         "vue-clazy-load": "^0.4.2",

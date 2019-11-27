@@ -6948,6 +6948,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6957,14 +6962,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       cropImage: '',
       imgUrl: '',
-      uploaded: false
+      uploaded: false,
+      modalId: 'image_modal',
+      serial: 1
     };
   },
-  created: function created() {},
+  created: function created() {
+    if (typeof this.cropperData.serial !== "undefined" && this.cropperData.serial !== '') {
+      this.serial = this.cropperData.serial;
+    }
+  },
+  mounted: function mounted() {
+    if (typeof this.cropperData.modal_id !== "undefined" && this.cropperData.modal_id !== '') {
+      this.modalId = this.cropperData.modal_id;
+    }
+  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['uploadCropImage', 'resetCropImages']), {
     modalShow: function modalShow() {
       this.removeImage = false;
-      $('#thumb_image').modal('show');
+      $('#' + this.modalId).modal('show');
     },
     rotateImage: function rotateImage() {
       this.cropImage.rotate();
@@ -7022,7 +7038,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         var fromData = {
           'image': Imgurl,
-          'folder': _this.cropperData.folder
+          'folder': _this.cropperData.folder,
+          'serial': _this.serial
         };
 
         _this.uploadCropImage(fromData).then(function (response) {
@@ -7035,7 +7052,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               _this.$noty.success('Image Upload Successfully');
             }
 
-            $('#thumb_image').modal('hide');
+            $('#' + _this.modalId).modal('hide');
           } else {
             if (typeof Notify !== "undefined") {
               Notify.info(response.message);
@@ -7045,9 +7062,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         });
       });
+    },
+    checkModal: function checkModal(index) {
+      console.log(index);
+      console.log(this.cropImages[index]);
+      return this.cropImages[index].modal_id === this.modalId;
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cropImages']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cropImages', 'cropImageIds']), {
     fileSizeLimit: function fileSizeLimit() {
       return this.cropperData.file_size * 1048576;
     },
@@ -7075,7 +7097,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (newVal === true) {
           this.cropImage.remove();
           this.cropImages.length = 0;
-          console.log('watch');
           this.resetCropImages();
         }
       }
@@ -16513,7 +16534,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -72535,58 +72556,82 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-4" },
-        [
-          _c("div", { staticClass: "form-group" }, [
-            _c(
-              "label",
-              {
-                staticClass: "btn btn-info btn-md btn-block",
-                on: {
-                  click: function($event) {
-                    return _vm.modalShow()
+    _c(
+      "div",
+      { staticClass: "row" },
+      [
+        _c(
+          "div",
+          { staticClass: "col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-4" },
+          [
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "btn btn-info btn-md btn-block",
+                  on: {
+                    click: function($event) {
+                      return _vm.modalShow()
+                    }
                   }
-                }
-              },
-              [
-                _c("i", { staticClass: "icon-file-media text-left" }),
-                _vm._v("Select Image")
-              ]
-            )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      !_vm.removeImage
-        ? _c(
-            "div",
-            { staticClass: "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" },
-            [
-              _c("div", { staticClass: "form-group" }, [
-                _vm.cropImages.length > 0
-                  ? _c("img", {
-                      staticClass: "img-thumbnail img-responsive",
-                      staticStyle: { "max-height": "250px" },
-                      attrs: { src: _vm.cropImages[0].img, alt: "" }
-                    })
-                  : _c("img", {
-                      staticClass: "img-thumbnail img-responsive",
-                      staticStyle: { "max-height": "250px" },
-                      attrs: { src: "", alt: "" }
-                    })
-              ])
-            ]
-          )
-        : _vm._e()
-    ]),
+                },
+                [
+                  _c("i", { staticClass: "icon-file-media text-left" }),
+                  _vm._v("Select Image")
+                ]
+              )
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _vm._l(_vm.cropImages, function(cropImageData, index) {
+          return !_vm.removeImage
+            ? _c(
+                "div",
+                {
+                  staticClass: "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
+                },
+                [
+                  cropImageData.serial === _vm.serial
+                    ? _c("div", { staticClass: "form-group" }, [
+                        _c("img", {
+                          staticClass: "img-thumbnail img-responsive",
+                          staticStyle: { "max-height": "250px" },
+                          attrs: { src: cropImageData.img, alt: "" }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          class: _vm.modalId,
+                          attrs: { type: "hidden" },
+                          domProps: { value: cropImageData.id }
+                        })
+                      ])
+                    : _vm._e()
+                ]
+              )
+            : _vm._e()
+        })
+      ],
+      2
+    ),
     _vm._v(" "),
-    _c("div", { staticClass: "modal fade", attrs: { id: "thumb_image" } }, [
+    _c("div", { staticClass: "modal fade", attrs: { id: _vm.modalId } }, [
       _c("div", { staticClass: "modal-dialog", class: _vm.modalView }, [
         _c("div", { staticClass: "modal-content" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "modal-header bg-teal" }, [
+            _c(
+              "button",
+              {
+                staticClass: "close",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [_vm._v("×")]
+            ),
+            _vm._v(" "),
+            _c("h5", { staticClass: "modal-title" }, [
+              _vm._v(_vm._s(_vm.cropperData.placeholder))
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -72693,25 +72738,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header bg-teal" }, [
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("×")]
-      ),
-      _vm._v(" "),
-      _c("h5", { staticClass: "modal-title" }, [_vm._v("Upload Image")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -96016,7 +96043,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v1/vue/limitless_v1.js */"./resources/views/seller_panel/limitless_v1/vue/limitless_v1.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v1\vue\limitless_v1.js */"./resources/views/seller_panel/limitless_v1/vue/limitless_v1.js");
 
 
 /***/ })

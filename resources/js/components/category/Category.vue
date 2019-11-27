@@ -63,6 +63,7 @@
                     </tbody>
                 </table>
             </div>
+            <pagination :data="laravelData" @pagination-change-page="getResults"></pagination>
         </div>
         <!-- /basic table -->
     </div>
@@ -74,6 +75,7 @@
         name: "Category",
         data(){
             return{
+                laravelData:{},
             }
         },
         created(){
@@ -96,6 +98,12 @@
                 }else{
                     return false;
                 }
+            },
+            getResults(page = 1) {
+                axios.get('example/results?page=' + page)
+                    .then(response => {
+                        this.laravelData = response.data;
+                    });
             }
         },
         computed:{

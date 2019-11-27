@@ -6,15 +6,20 @@
                     <label @click="modalShow()" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left"></i>Select Image</label>
                 </div>
             </div>
-            <div v-if="!removeImage" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <div class="form-group">
-                    <img v-if="cropImages.length > 0" :src="cropImages[0].img" class="img-thumbnail img-responsive" style="max-height: 250px;" alt="">
-                    <img v-else src="" class="img-thumbnail img-responsive" style="max-height: 250px;" alt="">
+            <div
+                v-if="!removeImage"
+
+                class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
+                v-for="(cropImageData,index) in cropImages"
+            >
+                <div class="form-group" v-if="cropImageData.serial === serial">
+                    <img  :src="cropImageData.img" class="img-thumbnail img-responsive" style="max-height: 250px;" alt="">
+                    <input type="hidden" :class="modalId" :value="cropImageData.id">
                 </div>
             </div>
         </div>
 
-        <div id="thumb_image" class="modal fade">
+        <div :id="modalId" class="modal fade">
             <div
                 class="modal-dialog"
                 :class="modalView"
@@ -22,7 +27,7 @@
                 <div class="modal-content">
                     <div class="modal-header bg-teal">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h5 class="modal-title">Upload Image</h5>
+                        <h5 class="modal-title">{{ cropperData.placeholder}}</h5>
                     </div>
                     <div class="panel-body text-center no-padding-bottom">
                         <croppa v-model="cropImage"
@@ -76,10 +81,19 @@
                 cropImage:'',
                 imgUrl:'',
                 uploaded:false,
+                modalId:'image_modal',
+                serial:1,
             }
         },
         created(){
-
+            if (typeof this.cropperData.serial !== "undefined" && this.cropperData.serial !== ''){
+                this.serial = this.cropperData.serial;
+            }
+        },
+        mounted(){
+            if (typeof this.cropperData.modal_id !== "undefined" && this.cropperData.modal_id !== ''){
+                this.modalId = this.cropperData.modal_id;
+            }
         },
         methods:{
             ...mapActions([
@@ -88,7 +102,7 @@
             ]),
             modalShow(){
                 this.removeImage=false;
-                $('#thumb_image').modal('show');
+                $('#'+this.modalId).modal('show');
             },
             rotateImage () {
                 this.cropImage.rotate()
@@ -141,7 +155,8 @@
                     let Imgurl = this.cropImage.generateDataUrl();
                     let fromData = {
                         'image':Imgurl,
-                        'folder':this.cropperData.folder
+                        'folder':this.cropperData.folder,
+                        'serial':this.serial,
                     };
                     this.uploadCropImage(fromData)
                         .then(response=>{
@@ -152,7 +167,7 @@
                                 }else{
                                     this.$noty.success('Image Upload Successfully');
                                 }
-                                $('#thumb_image').modal('hide');
+                                $('#'+this.modalId).modal('hide');
                             }else{
                                 if(typeof Notify !== "undefined"){
                                     Notify.info(response.message);
@@ -165,11 +180,17 @@
 
                 })
             },
+            checkModal(index){
+                console.log(index);
+                console.log(this.cropImages[index]);
 
+                return (this.cropImages[index].modal_id === this.modalId);
+            },
         },
         computed:{
             ...mapGetters([
-                'cropImages'
+                'cropImages',
+                'cropImageIds'
             ]),
 
             fileSizeLimit(){
@@ -198,7 +219,6 @@
                     if(newVal === true){
                         this.cropImage.remove();
                         this.cropImages.length =  0;
-                        console.log('watch');
                         this.resetCropImages();
                     }
                 }
