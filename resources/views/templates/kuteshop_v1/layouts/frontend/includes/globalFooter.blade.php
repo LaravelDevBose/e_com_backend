@@ -1,3 +1,30 @@
+ <!-- block-brand -->
+ @if(!empty($brands))
+ <div class="block-brand-op12">
+     <div class="container">
+         <div class="owl-carousel" data-nav="true" data-dots="false" data-margin="30" data-loop="true" data-responsive='{
+                            "0":{"items":3},
+                            "480":{"items":4},
+                            "600":{"items":5},
+                            "992":{"items":6},
+                            "1200":{"items":7}
+                        }'>
+             @foreach($brands as $brand)
+             @if(!empty($brand->attachment->image_path))
+             <div class="item">
+                 <a href=""><img src="{{ $brand->attachment->image_path }}" alt="{{ $brand->brand_name }}" title="{{ $brand->brand_name }}">
+                 </a>
+             </div>
+
+             @endif
+             @endforeach
+
+         </div>
+     </div>
+ </div>
+ @endif
+ <!-- block-brand -->
+
  <!-- FOOTER -->
  <footer class="site-footer footer-opt-12">
      <div class="container ">
@@ -20,18 +47,18 @@
                          </div>
                      </div>
                      <div class="col-md-4  col-sm-4">
+                         @if(!empty($headerPageMenus))
                          <div class="links">
-                             <h3 class="title">products</h3>
+                             <h3 class="title">Company</h3>
                              <ul>
-                                 <li><a href="#">New In</a></li>
-                                 <li><a href="#">Women</a></li>
-                                 <li><a href="#">Men</a></li>
-                                 <li><a href="#">Best Sellers</a></li>
-                                 <li><a href="#">Top Brands</a></li>
-                                 <li><a href="#">Sale &amp; Special Offers</a></li>
-                                 <li><a href="#">Lookbook</a></li>
+                                 @foreach($headerPageMenus as $pageMenu)
+                                 <li>
+                                     <a href="{{ route('front.pages', $pageMenu->page_slug) }}" title="{{ $pageMenu->menu_title }}">{{ $pageMenu->menu_title }}</a>
+                                 </li>
+                                 @endforeach
                              </ul>
                          </div>
+                         @endif
                      </div>
                      <div class="col-md-4  col-sm-4">
                          <div class="links">
@@ -96,54 +123,32 @@
              <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment13.jpg')}}">
              <img alt="payment" src="{{ asset('/kuteshop_v1/images/media/index12/payment14.jpg')}}">
          </div>
+         @if(!empty($categoryTree))
          <div class="footer-bottom">
+             @foreach($categoryTree as $category)
+             <ul class="links">
+                 <li><strong class="title">{{ $category->category_name }}</strong></li>
+                 @if(!empty($category->children) && count($category->children) > 0)
+                 @foreach($category->children as $secCategory)
+                 <li><a href="{{ route('front.category.product', $secCategory->category_slug) }}">{{ $secCategory->category_name }}</a></li>
+                 @if(!empty($secCategory->children))
+                 @foreach($secCategory->children as $trdCategory)
+                 <li><a href="{{ route('front.category.product', $trdCategory->category_slug) }}">{{ $trdCategory->category_name }}</a></li>
+                 @endforeach
+                 @endif
+                 @endforeach
+                 @endif
+             </ul>
+             @endforeach
+         </div>
+         @endif
+         <div class="copyright">
 
-
-
-             <div class="links">
-
-                 <ul>
-                     <li><a href="">Online Shopping </a></li>
-                     <li><a href="">Promotions </a></li>
-                     <li><a href="">My Orders </a></li>
-                     <li><a href="">Help </a></li>
-                     <li><a href="">Site Map </a></li>
-                     <li><a href="">Customer Service </a></li>
-                     <li><a href="">Support </a></li>
-                 </ul>
-                 <ul>
-                     <li><a href="">Most Populars </a></li>
-                     <li><a href="">Best Sellers </a></li>
-                     <li><a href="">New Arrivals </a></li>
-                     <li><a href="">Special Products </a></li>
-                     <li><a href=""> Manufacturers </a></li>
-                     <li><a href="">Our Stores </a></li>
-                     <li><a href="">Shipping </a></li>
-                     <li><a href="">Payments </a></li>
-                     <li><a href="">Payments </a></li>
-                     <li><a href="">Refunds </a></li>
-                 </ul>
-                 <ul>
-                     <li><a href="">Terms & Conditions </a></li>
-                     <li><a href="">Policy </a></li>
-                     <li><a href="">Policy </a></li>
-                     <li><a href=""> Shipping </a></li>
-                     <li><a href="">Payments </a></li>
-                     <li><a href="">Returns </a></li>
-                     <li><a href="">Refunds </a></li>
-                     <li><a href="">Warrantee </a></li>
-                     <li><a href="">FAQ </a></li>
-                     <li><a href="">Contact </a></li>
-                 </ul>
-             </div>
-
-             <div class="copyright">
-
-                 Copyright © 2015 KuteShop. All Rights Reserved. Designed by KuteThemes.com
-
-             </div>
+             Copyright © 2015 KuteShop. All Rights Reserved. Designed by KuteThemes.com
 
          </div>
+
+     </div>
 
      </div>
  </footer><!-- end FOOTER -->
