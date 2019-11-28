@@ -37,7 +37,7 @@ class CategoryController extends Controller
         if($request->ajax()){
             $categories = Category::notDelete()->with(['attachment','parent'=>function($query){
                 $query->notDelete()->with('parent');
-            }])->latest()->paginate(10);
+            }])->latest()->get();
             if(!empty($categories)){
                 $coll = new CategoryCollection($categories);
                 return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $coll);

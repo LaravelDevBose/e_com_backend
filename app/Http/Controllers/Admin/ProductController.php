@@ -93,8 +93,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        #TODO Form Validation
-        $validator = Validator::make($request->all(),[
+
+        $rules = [
             'category_id'=>'required',
             'product_name'=>'required|string|max:255',
             'highlight'=>'required|string|max:1500',
@@ -107,17 +107,82 @@ class ProductController extends Controller
             'product_status'=>'required',
             'imageIds'=>'required|array',
             'thumb_id'=>'required',
-        ]);
+        ];
 
-        $validator->sometimes('seller_sku', 'required|string|max:20', function ($input) {
-            return $input->product_type == 1;
-        });
-        $validator->sometimes(['product_qty', 'product_price'], 'required|integer|min:0|not_in:0', function ($input) {
-            return $input->product_type == 1;
-        });
-        $validator->sometimes('variations', 'required|array', function ($input) {
-            return $input->product_type == 2;
-        });
+        $messages = [
+            'category_id.required'=>'Select a Category.',
+            'product_name.required'=>'Add Your Product Name.',
+            'product_name.string'=>'Product Name Must Be a String.',
+            'product_name.max'=>'Product Name Max 255 Character.',
+            'highlight.required'=>'Product Highlight is Required.',
+            'highlight.string'=>'Product Highlight Must Be a String.',
+            'highlight.max'=>'Product Highlight Max 1000 Character.',
+            'description.required'=>'Product Description is Required.',
+            'package_weight.required'=>'Package Weight is Required.',
+            'product_type.required'=>'Product Type is Required.',
+            'package_length.required'=>'Package Length is Required.',
+            'package_width.required'=>'Package Width is Required.',
+            'package_height.required'=>'Package Height is Required.',
+            'product_status.required'=>'Product Status is Required.',
+            'imageIds.required'=>'Select Your Product Image',
+            'thumb_id.required'=>'Select Product Thumbnail Image',
+        ];
+
+        if ($request->product_type == 1){
+            $rules = array_merge($rules,[
+                'seller_sku'=>'required|string|max:20',
+                'product_qty'=>'required|integer|min:0|not_in:0',
+                'product_price'=>'required|integer|min:0|not_in:0',
+            ]);
+
+            $messages = array_merge($messages,[
+                'seller_sku.required'=>'Must Add Product SKU.',
+                'seller_sku.string'=>'SKU Must Be a String.',
+                'seller_sku.max'=>'SKU Max 20 Character.',
+                'product_qty.required'=>'Must Add Product QTY.',
+                'product_qty.string'=>'Product QTY Must Be a Integer.',
+                'product_qty.min'=>'Product QTY Not 0.',
+                'product_qty.not_in'=>'Product QTY Not 0.',
+                'product_price.required'=>'Must Add Product Price.',
+                'product_price.string'=>'Product Price Must Be a Integer.',
+                'product_price.min'=>'Product Price Not 0.',
+                'product_price.not_in'=>'Product Price Not 0.',
+            ]);
+        }
+
+        if ($request->product_type == 2){
+            $rules = array_merge($rules,[
+                'variations'=>'required|array',
+                'variations.*.color_id'=>'required',
+                'variations.*.size_id'=>'required',
+                'variations.*.seller_sku'=>'required',
+                'variations.*.qty'=>'required|integer|min:0|not_in:0',
+                'variations.*.price'=>'required|integer|min:0|not_in:0',
+                'variations.*.status'=>'required',
+            ]);
+
+            $messages = array_merge($messages,[
+                'variations.required'=>'Add Your Product Variations.',
+                'variations.array'=>'Add Your Product Variations.',
+
+                'variations.*.color_id.required'=>'Select Product Colors.',
+                'variations.*.size_id.required'=>'Select Product Sizes.',
+                'variations.*.seller_sku.required'=>'Add Product Seller SKU.',
+                'variations.*.status.required'=>'Active All Variations Status',
+
+                'variations.*.qty.required'=>'Variation Product Qty is Required.',
+                'variations.*.qty.string'=>'Variation Product Qty Must Be a Integer Number.',
+                'variations.*.qty.min'=>'Variation Product Qty Not 0.',
+                'variations.*.qty.not_in'=>'Variation Product Qty Not 0.',
+
+                'variations.*.price.required'=>'Every Variation Product Price is Required.',
+                'variations.*.price.string'=>'Every Variation Product Price Must Be a Integer Number',
+                'variations.*.price.min'=>'Variation Product Price Not 0.',
+                'variations.*.price.not_in'=>'Variation Product Price Not 0.',
+            ]);
+        }
+
+        $validator = Validator::make($request->all(),$rules,$messages);
 
         if($validator->passes()){
             try{
@@ -332,7 +397,95 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'category_id'=>'required',
+            'product_name'=>'required|string|max:255',
+            'highlight'=>'required|string|max:1500',
+            'description'=>'required',
+            'package_weight'=>'required',
+            'product_type'=>'required',
+            'package_length'=>'required',
+            'package_width'=>'required',
+            'package_height'=>'required',
+            'product_status'=>'required',
+            'imageIds'=>'required|array',
+            'thumb_id'=>'required',
+        ];
+
+        $messages = [
+            'category_id.required'=>'Select a Category.',
+            'product_name.required'=>'Add Your Product Name.',
+            'product_name.string'=>'Product Name Must Be a String.',
+            'product_name.max'=>'Product Name Max 255 Character.',
+            'highlight.required'=>'Product Highlight is Required.',
+            'highlight.string'=>'Product Highlight Must Be a String.',
+            'highlight.max'=>'Product Highlight Max 1000 Character.',
+            'description.required'=>'Product Description is Required.',
+            'package_weight.required'=>'Package Weight is Required.',
+            'product_type.required'=>'Product Type is Required.',
+            'package_length.required'=>'Package Length is Required.',
+            'package_width.required'=>'Package Width is Required.',
+            'package_height.required'=>'Package Height is Required.',
+            'product_status.required'=>'Product Status is Required.',
+            'imageIds.required'=>'Select Your Product Image',
+            'thumb_id.required'=>'Select Product Thumbnail Image',
+        ];
+
+        if ($request->product_type == 1){
+            $rules = array_merge($rules,[
+                'seller_sku'=>'required|string|max:20',
+                'product_qty'=>'required|integer|min:0|not_in:0',
+                'product_price'=>'required|integer|min:0|not_in:0',
+            ]);
+
+            $messages = array_merge($messages,[
+                'seller_sku.required'=>'Must Add Product SKU.',
+                'seller_sku.string'=>'SKU Must Be a String.',
+                'seller_sku.max'=>'SKU Max 20 Character.',
+                'product_qty.required'=>'Must Add Product QTY.',
+                'product_qty.string'=>'Product QTY Must Be a Integer.',
+                'product_qty.min'=>'Product QTY Not 0.',
+                'product_qty.not_in'=>'Product QTY Not 0.',
+                'product_price.required'=>'Must Add Product Price.',
+                'product_price.string'=>'Product Price Must Be a Integer.',
+                'product_price.min'=>'Product Price Not 0.',
+                'product_price.not_in'=>'Product Price Not 0.',
+            ]);
+        }
+
+        if ($request->product_type == 2){
+            $rules = array_merge($rules,[
+                'variations'=>'required|array',
+                'variations.*.color_id'=>'required',
+                'variations.*.size_id'=>'required',
+                'variations.*.seller_sku'=>'required',
+                'variations.*.qty'=>'required|integer|min:0|not_in:0',
+                'variations.*.price'=>'required|integer|min:0|not_in:0',
+                'variations.*.status'=>'required',
+            ]);
+
+            $messages = array_merge($messages,[
+                'variations.required'=>'Add Your Product Variations.',
+                'variations.array'=>'Add Your Product Variations.',
+
+                'variations.*.color_id.required'=>'Select Product Colors.',
+                'variations.*.size_id.required'=>'Select Product Sizes.',
+                'variations.*.seller_sku.required'=>'Add Product Seller SKU.',
+                'variations.*.status.required'=>'Active All Variations Status',
+
+                'variations.*.qty.required'=>'Variation Product Qty is Required.',
+                'variations.*.qty.string'=>'Variation Product Qty Must Be a Integer Number.',
+                'variations.*.qty.min'=>'Variation Product Qty Not 0.',
+                'variations.*.qty.not_in'=>'Variation Product Qty Not 0.',
+
+                'variations.*.price.required'=>'Every Variation Product Price is Required.',
+                'variations.*.price.string'=>'Every Variation Product Price Must Be a Integer Number',
+                'variations.*.price.min'=>'Variation Product Price Not 0.',
+                'variations.*.price.not_in'=>'Variation Product Price Not 0.',
+            ]);
+        }
+
+        $validator = Validator::make($request->all(),$rules,$messages);
     }
 
     /**
