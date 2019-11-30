@@ -17,6 +17,14 @@
                     <input type="hidden" :class="modalId" :value="cropImageData.id">
                 </div>
             </div>
+            <div
+                v-if="cropperData.init_image !== '' && cropImages.length === 0"
+                class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
+            >
+                <div class="form-group" v-if="cropperData.serial === serial">
+                    <img  :src="cropperData.init_image" class="img-thumbnail img-responsive" style="max-height: 250px;" alt="">
+                </div>
+            </div>
         </div>
 
         <div :id="modalId" class="modal fade">
@@ -75,7 +83,20 @@
     import 'vue-croppa/dist/vue-croppa.css';
     export default {
         name: "ImageCropper",
-        props:['cropperData','removeImage'],
+        props:{
+            cropperData:{
+                type:[Object],
+                default:''
+            },
+            removeImage:{
+                type: [Boolean,Number],
+                default: false,
+            },
+            initImage:{
+                type:[String],
+                default:'',
+            }
+        },
         data(){
             return{
                 cropImage:'',

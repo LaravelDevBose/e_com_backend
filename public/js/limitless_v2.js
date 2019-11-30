@@ -6953,11 +6953,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ImageCropper",
-  props: ['cropperData', 'removeImage'],
+  props: {
+    cropperData: {
+      type: [Object],
+      "default": ''
+    },
+    removeImage: {
+      type: [Boolean, Number],
+      "default": false
+    },
+    initImage: {
+      type: [String],
+      "default": ''
+    }
+  },
   data: function data() {
     return {
       cropImage: '',
@@ -17578,7 +17599,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
 
 // exports
 
@@ -73654,7 +73675,25 @@ var render = function() {
                 ]
               )
             : _vm._e()
-        })
+        }),
+        _vm._v(" "),
+        _vm.cropperData.init_image !== "" && _vm.cropImages.length === 0
+          ? _c(
+              "div",
+              { staticClass: "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" },
+              [
+                _vm.cropperData.serial === _vm.serial
+                  ? _c("div", { staticClass: "form-group" }, [
+                      _c("img", {
+                        staticClass: "img-thumbnail img-responsive",
+                        staticStyle: { "max-height": "250px" },
+                        attrs: { src: _vm.cropperData.init_image, alt: "" }
+                      })
+                    ])
+                  : _vm._e()
+              ]
+            )
+          : _vm._e()
       ],
       2
     ),
@@ -99463,7 +99502,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })

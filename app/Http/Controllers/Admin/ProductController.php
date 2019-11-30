@@ -212,6 +212,7 @@ class ProductController extends Controller
                     'thumb_id'=>$request->thumb_id,
                     'video_url'=>$request->video_url,
                     'seller_id'=>1, // Seller id 1 = Admin Default
+                    'product_type'=>$request->product_type,
                 ]);
                 if(!empty($product)){
                     #Store Data in Product Details Table
@@ -363,8 +364,10 @@ class ProductController extends Controller
             return $query->with(['parent'=>function($q){
                 return $q->with('parent');
             }]);
-        }, 'brand', 'productDetails', 'variations', 'productImages'=>function($query){
+        }, 'brand','thumbImage','productDetails','productImages'=>function($query){
             return $query->with('attachment')->isActive();
+        },'variations'=>function($q){
+            return $q->with('primaryModel', 'secondaryModel');
         }])->first();
 
         if(!empty($product)){
@@ -383,9 +386,16 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $editData = [
+            'category_id'=>$product->category_id,
+            'product_type'=>$product->product_type,
+        ];
+        return view('admin_panel.'.$this->template_name.'.product.edit',[
+            'productId'=>$product->product_id,
+            'editData'=>$editData,
+        ]);
     }
 
     /**

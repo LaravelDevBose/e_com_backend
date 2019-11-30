@@ -14,7 +14,7 @@
             goToDetailsPage: function(slug){
                 window.location = '/admin/product/'+slug;
             },
-            goToEditPage:function (ID) {
+            goToEditPage:function (slug) {
                 window.location = '/admin/product/'+slug+'/edit';
             },
             showDeletePopUp:function (ID) {
