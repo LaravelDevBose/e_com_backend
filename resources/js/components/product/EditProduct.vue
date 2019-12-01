@@ -589,7 +589,6 @@
 
             this.allTreeListCategories();
             this.getBrandList();
-
         },
         mounted(){
             if(this.productid !== ''){
@@ -960,7 +959,6 @@
             },
             clonedSecondaryIds:{
                 handler(newVal, oldVal){
-                    console.log(newVal);
                     if(newVal !== oldVal && typeof newVal !== "undefined"){
                         if(jQuery.isEmptyObject(newVal) && (jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length)){
                             this.addNewVariationSizeWish(newVal, oldVal);
@@ -1047,13 +1045,34 @@
                             this.formData.seller_sku = this.proData.seller_sku;
 
                         }
+
                         /*** Type Wish Variation Product Field  ***/
                         if (this.proData.product_type === 2 && this.proVariations.length !== 0 && this.proVariations !== ''){
                             this.total=0;
                             this.proVariations.forEach((value,key)=>{
                                 this.total++;
-                                this.pri_id[key]=value.pri_id;
-                                this.sec_id[key]=value.sec_id;
+
+                                console.log(typeof this.pri_id.length);
+                                if(this.pri_id.length === 0){
+                                    this.pri_id.push({key:value.pri_id});
+                                }else{
+                                    this.pri_id.forEach((pri,inx)=>{
+                                        if(pri !== value.pri_id){
+                                            this.pri_id.push({key:value.pri_id});
+                                        }
+                                    });
+                                }
+
+                                if(this.sec_id.length === 0){
+                                    this.sec_id.push({key:value.sec_id});
+                                }else{
+                                    this.sec_id.forEach((sec,inx)=>{
+                                        if(sec !== value.sec_id){
+                                            this.sec_id.push({key:value.sec_id});
+                                        }
+                                    });
+                                }
+
                                 this.variations.push({
                                     color_id:value.pri_id,
                                     size_id:value.sec_id,
