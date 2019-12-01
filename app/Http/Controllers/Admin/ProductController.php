@@ -41,7 +41,7 @@ class ProductController extends Controller
             return $query->with(['parent'=>function($q){
                 return $q->with(['parent']);
             }]);
-        }, 'brand','variations'])->latest()->get();
+        }, 'brand','variations'])->latest()->notDelete()->get();
         return ProductCollection::collection($products);
     }
 

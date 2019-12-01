@@ -46,6 +46,7 @@ const actions = {
             console.log(error);
         }
     },
+
 };
 
 const mutations = {
@@ -64,6 +65,8 @@ const mutations = {
         state.attachmentsFile = [];
         state.attachment_ids = [];
     },
+
+
 };
 
 export default {

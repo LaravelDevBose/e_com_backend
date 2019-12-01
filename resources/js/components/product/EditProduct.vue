@@ -290,8 +290,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row" v-if="product.product_type === 1 && product.productImages.length !== 0">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" v-for="(editImage,index) in product.productImages" :key="index" >
+                                    <div class="row" v-if="product.product_type === 1 && proImages.length !== 0">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" v-for="(editImage,index) in proImages" :key="index" >
                                             <div class="thumbnail">
                                                 <div class="thumb">
                                                     <img :src="editImage.image.image_path" alt="" class="img-thumbnail img-responsive">
@@ -299,7 +299,7 @@
                                                         <span>
                                                             <a
                                                                 href="#"
-                                                                @click="removeAttachment(editImage.attachment_id)"
+                                                                @click.prevent="removeProductImage(editImage.id)"
                                                                 class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
                                                             >
                                                                 <i class="icon-trash"></i>
@@ -607,6 +607,7 @@
                 'uploadProductImage',
                 'storeProductData',
                 'getProductCreateNeedData',
+                'deleteProductImage'
             ]),
             addPriId(PriID){
                 this.priId = PriID;
@@ -860,8 +861,27 @@
                     this.formData.imageIds.length=0;
                 }
             },
+            removeProductImage(imageId){
+                let conf = confirm('Are You Sure.?');
+                if(!conf){
+                    return false;
+                }
+
+                this.deleteProductImage(imageId)
+                .then(response=>{
+                    if(response.code === 200){
+                        Notify.success(response.message);
+                    }else if(response.status === "validation"){
+                        Notify.validation(response.message);
+                    }else if(response.status === "error"){
+                        Notify.error(response.message);
+                    }else {
+                        Notify.info(response.message);
+                    }
+                })
+            },
             removeAttachment(attachmentId){
-                alert('On Process...');
+
             }
         },
         computed:{
@@ -877,7 +897,12 @@
                 'skinTypes',
                 'cropImageIds',
                 'productType',
-                'product'
+                'product',
+
+                'proData',
+                'proDetails',
+                'proVariations',
+                'proImages'
             ]),
             clonedPrimaryIds(){
                 return JSON.parse(JSON.stringify(this.pri_id));
@@ -889,7 +914,7 @@
                 return JSON.parse(JSON.stringify(this.formData));
             },
             productDataCheck(){
-                return JSON.parse(JSON.stringify(this.product));
+                return JSON.parse(JSON.stringify(this.proData));
             },
 
         },
@@ -967,49 +992,49 @@
                 handler(newVal, oldVal){
                     if(newVal !== oldVal && newVal !== ''){
                         /*** Product main Field ***/
-                        this.formData.brand_id=this.product.brand_id;
-                        this.formData.product_name=this.product.product_name;
-                        this.formData.highlight=this.product.highlight;
-                        this.formData.description=this.product.description;
-                        this.formData.lang_product_name=this.product.lang_product_name;
-                        this.formData.lang_highlight=this.product.lang_highlight;
-                        this.formData.lang_description=this.product.lang_description;
+                        this.formData.brand_id=this.proData.brand_id;
+                        this.formData.product_name=this.proData.product_name;
+                        this.formData.highlight=this.proData.highlight;
+                        this.formData.description=this.proData.description;
+                        this.formData.lang_product_name=this.proData.lang_product_name;
+                        this.formData.lang_highlight=this.proData.lang_highlight;
+                        this.formData.lang_description=this.proData.lang_description;
                         this.formData.dangers_goods=[];
-                        this.formData.what_in_box=this.product.what_in_box;
-                        this.formData.package_weight=this.product.package_weight;
-                        this.formData.package_length=this.product.package_length;
-                        this.formData.package_width=this.product.package_width;
-                        this.formData.package_height=this.product.package_height;
-                        this.formData.product_status=this.product.product_status;
-                        this.formData.warranty_type=this.product.warranty_type;
-                        this.formData.video_url=this.product.video_url;
+                        this.formData.what_in_box=this.proData.what_in_box;
+                        this.formData.package_weight=this.proData.package_weight;
+                        this.formData.package_length=this.proData.package_length;
+                        this.formData.package_width=this.proData.package_width;
+                        this.formData.package_height=this.proData.package_height;
+                        this.formData.product_status=this.proData.product_status;
+                        this.formData.warranty_type=this.proData.warranty_type;
+                        this.formData.video_url=this.proData.video_url;
 
                         /*** Product Details Information Field ***/
-                        if(this.product.details !== '' && this.product.details !== null){
-                            this.formData.main_materials=this.product.details.materials;
-                            this.formData.product_model=this.product.details.model;
-                            this.formData.num_of_pieces=this.product.details.pieces;
-                            this.formData.product_occasion=this.product.details.occasion;
-                            this.formData.color_shade=this.product.details.color_shade;
-                            this.formData.skin_type=this.product.details.skin_type;
-                            this.formData.extra_details=this.product.details.extra_details;
-                            this.formData.warranty_policy=this.product.details.warranty_policy;
-                            this.formData.warranty_policy_eng=this.product.details.warranty_policy_eng;
-                            this.formData.warranty_period=this.product.details.warranty_period;
+                        if(this.proDetails !== '' && this.proDetails !== null){
+                            this.formData.main_materials=this.proDetails.materials;
+                            this.formData.product_model=this.proDetails.model;
+                            this.formData.num_of_pieces=this.proDetails.pieces;
+                            this.formData.product_occasion=this.proDetails.occasion;
+                            this.formData.color_shade=this.proDetails.color_shade;
+                            this.formData.skin_type=this.proDetails.skin_type;
+                            this.formData.extra_details=this.proDetails.extra_details;
+                            this.formData.warranty_policy=this.proDetails.warranty_policy;
+                            this.formData.warranty_policy_eng=this.proDetails.warranty_policy_eng;
+                            this.formData.warranty_period=this.proDetails.warranty_period;
                         }
 
                         /*** Type Wish Simple Product Field  ***/
                         if (this.product.product_type === 1){
 
-                            this.formData.product_qty = this.product.product_qty;
-                            this.formData.product_price = this.product.product_price;
-                            this.formData.seller_sku = this.product.seller_sku;
+                            this.formData.product_qty = this.proData.product_qty;
+                            this.formData.product_price = this.proData.product_price;
+                            this.formData.seller_sku = this.proData.seller_sku;
 
                         }
                         /*** Type Wish Variation Product Field  ***/
-                        if (this.product.product_type === 2 && this.product.variations.length !== 0 && this.product.variations !== ''){
+                        if (this.proData.product_type === 2 && this.proVariations.length !== 0 && this.proVariations !== ''){
                             this.total=0;
-                            this.product.variations.forEach((value,key)=>{
+                            this.proVariations.forEach((value,key)=>{
                                 this.total++;
                                 this.pri_id[key]=value.pri_id;
                                 this.sec_id[key]=value.sec_id;
@@ -1025,8 +1050,8 @@
                         }
 
                         /*** Product Thumb Image ***/
-                        if(this.product.thumbImage !== '' && !jQuery.isEmptyObject(this.product.thumbImage) ){
-                            this.cropperData.init_image = this.product.thumbImage.image_path;
+                        if(this.proData.thumbImage !== '' && !jQuery.isEmptyObject(this.proData.thumbImage) ){
+                            this.cropperData.init_image = this.proData.thumbImage.image_path;
                         }
                     }
 

@@ -12,6 +12,10 @@ const state = {
     product_type:[],
     status_list:[],
 
+    product_data:{},
+    product_details:{},
+    variations:[],
+    product_images:[],
 };
 
 //declare Getters
@@ -27,6 +31,11 @@ const getters = {
     selectedDateTimes:(state)=>state.selected_date_time,
     productType:(state)=>state.product_type,
     productStatus:(state)=>state.status_list,
+
+    proData:(state)=>state.product_data,
+    proDetails:(state)=>state.product_details,
+    proVariations:(state)=>state.variations,
+    proImages:(state)=>state.product_images,
 };
 
 const actions = {
@@ -88,7 +97,6 @@ const actions = {
         try {
             return await axios.get(`/admin/single/product/${productID}`)
                 .then(response=>{
-                    console.log(response);
                     if(response.data.status === 'error'){
                         return response.data;
                     }else{
@@ -120,6 +128,21 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
+    async deleteProductImage({commit},imageId){
+        try {
+            return await axios.delete(`/admin/product/image/delete/${imageId}`,)
+                .then(function (response) {
+                    commit('productImageRemove', imageId);
+                    return response.data;
+                }).catch(function (errors) {
+                    console.log(errors);
+                    commit('setResponse', errors.data);
+                    return errors.data;
+                });
+        }catch (error) {
+            console.log(error);
+        }
+    },
 };
 
 const mutations = {
@@ -138,6 +161,15 @@ const mutations = {
     },
     singleProductData:(state, response)=>{
         state.singleProduct = response;
+
+        state.product_details = response.details;
+        delete response.details;
+        state.variations = response.variations;
+        delete response.variations;
+        state.product_images = response.productImages;
+        delete response.productImages;
+        state.product_data = response;
+
     },
     setSelectedProduct:(state, selectData)=>{
         if(selectData.type === 'add'){
@@ -174,6 +206,11 @@ const mutations = {
             }
             return product;
         });
+    },
+    productImageRemove:(state,imageId)=>{
+        state.product_images = state.product_images.filter(image=>{
+            return image.id !== imageId;
+        })
     }
 };
 
