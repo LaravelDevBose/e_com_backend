@@ -291,14 +291,18 @@
                                         </div>
                                     </div>
                                     <div class="row" v-if="productImages">
-                                        <div class="col-xs-4 col-sm-4 col-lg-1" v-for="image in productImages" :key="image.id" >
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" v-for="image in productImages" :key="image.id" >
                                             <div class="thumbnail">
                                                 <div class="thumb">
-                                                    <img :src="image.img" alt="">
+                                                    <img :src="image.img" alt="" class="img-thumbnail img-responsive">
                                                     <div class="caption-overflow">
-                                                        <span>
-                                                            <a :href="image.img" data-fancybox="images"  class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-eye"></i></a>
-                                                        </span>
+                                                        <a
+                                                            href="#"
+                                                            @click.prevent="removeAttachment(image.id)"
+                                                            class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
+                                                        >
+                                                            <i class="icon-trash"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -430,14 +434,13 @@
                                 </div>
 
                                 <div class="col-md-2 col-md-offset-6">
-                                    <div class="content-group-lg"  style="margin-bottom:0!important;">
-                                        <div class="checkbox checkbox-switchery">
-                                            <label>
-                                                <input type="checkbox" id="product_status" class="switchery-primary" v-model="formData.product_status" :checked="formData.product_status">
-                                                <label for="product_status" class="text-success text-bold" v-if="formData.product_status" >Active</label>
-                                                <label for="product_status" class="text-danger text-bold" v-else>Inactive</label>
-                                            </label>
-                                        </div>
+                                    <div class="form-group">
+                                        <label class="checkbox-style" for="paypal_payment">
+                                            <span class="text-bold text-success" v-if="formData.product_status">Active</span>
+                                            <span class="text-bold text-warning" v-else>Inactive</span>
+                                            <input type="checkbox" id="paypal_payment" v-model="formData.product_status"  :checked="formData.product_status">
+                                            <span class="checkmark"></span>
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -814,6 +817,25 @@
                 }
 
 
+            },
+            removeAttachment(attachmentId){
+                let conf = confirm('Are You Sure.?');
+                if(!conf){
+                    return false;
+                }
+
+                this.attachmentImageRemove(attachmentId)
+                    .then(response=>{
+                        if(response.code === 200){
+                            Notify.success(response.message);
+                        }else if(response.status === "validation"){
+                            Notify.validation(response.message);
+                        }else if(response.status === "error"){
+                            Notify.error(response.message);
+                        }else {
+                            Notify.info(response.message);
+                        }
+                    })
             }
         },
         computed:{
