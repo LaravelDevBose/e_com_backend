@@ -52,7 +52,7 @@
                     </div>
                 </div>
             </div>
-            <div v-show="cat_Selected">
+            <div v-if="cat_Selected && loading === 0">
                 <div class="panel" >
                     <div class="panel-heading bg-teal-700">
                         <h5 class="panel-title">Basic Information</h5>
@@ -343,7 +343,7 @@
                             <div class="form-group row">
                                 <label class="col-lg-2 control-label">Color: <span class="text text-danger text-bold h4">*</span></label>
                                 <div class="col-lg-4" @click="priIdIndex(i)">
-                                    <vue-select2 v-model="pri_id[i]" :options="productColors"> </vue-select2>
+                                    <vue-select2 v-model="pri_id[i]" :value="pri_id[i]" :options="productColors"> </vue-select2>
                                 </div>
                                 <div class="col-lg-1" >
                                     <span class="text-danger" @click="removePriIdData(i)"> <i class="icon-trash"></i></span>
@@ -356,7 +356,6 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-
                                                     <input type="file" class="hidden" ref="files" accept="image/*" :multiple="multi_file"  :id="vari_id+pri_id[i]"  @change="uploadImage">
                                                     <label :for="vari_id+pri_id[i]" @click="addPriId(pri_id[i])" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left" ></i> Select File</label>
                                                 </div>
@@ -578,6 +577,7 @@
                 removeImage:false,
                 vari_id:'variaction_',
                 editImages:[],
+                loading:1,
             }
         },
         created() {
@@ -972,7 +972,7 @@
                 handler(newValue, oldValue){
                     if(newValue !== oldValue){
                         this.emptyPrvData();
-                        if(this.formData.product_type === 2){
+                        if(this.formData.product_type === 2 && this.loading === 0){
                             this.getProductCreateDependency(this.formData.category_id);
                         }
                     }
@@ -1049,26 +1049,28 @@
                         /*** Type Wish Variation Product Field  ***/
                         if (this.proData.product_type === 2 && this.proVariations.length !== 0 && this.proVariations !== ''){
                             this.total=0;
+                            let that = this;
                             this.proVariations.forEach((value,key)=>{
                                 this.total++;
-
-                                console.log(typeof this.pri_id.length);
-                                if(this.pri_id.length === 0){
-                                    this.pri_id.push({key:value.pri_id});
+                                let k = key;
+                                if(jQuery.isEmptyObject(this.pri_id)){
+                                    that.pri_id_total++;
+                                    that.pri_id[k]=value.pri_id;
                                 }else{
-                                    this.pri_id.forEach((pri,inx)=>{
-                                        if(pri !== value.pri_id){
-                                            this.pri_id.push({key:value.pri_id});
+                                    $.each(that.pri_id, function(ky, priId ) {
+                                        if(priId !== value.pri_id){
+                                            that.pri_id_total++;
+                                            that.pri_id[k]=value.pri_id;
                                         }
                                     });
                                 }
 
-                                if(this.sec_id.length === 0){
-                                    this.sec_id.push({key:value.sec_id});
+                                if(jQuery.isEmptyObject(this.sec_id)){
+                                    that.sec_id[k]=value.sec_id;
                                 }else{
-                                    this.sec_id.forEach((sec,inx)=>{
-                                        if(sec !== value.sec_id){
-                                            this.sec_id.push({key:value.sec_id});
+                                    $.each(that.sec_id, function( ky, secId ) {
+                                        if(secId !== value.sec_id){
+                                            that.sec_id[k]=value.sec_id;
                                         }
                                     });
                                 }
@@ -1088,6 +1090,8 @@
                         if(this.proData.thumbImage !== '' && !jQuery.isEmptyObject(this.proData.thumbImage) ){
                             this.cropperData.init_image = this.proData.thumbImage.image_path;
                         }
+                        this.loading = 0;
+                        this.getProductCreateDependency(this.formData.category_id);
                     }
 
                 }

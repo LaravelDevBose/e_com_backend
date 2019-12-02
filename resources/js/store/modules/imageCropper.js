@@ -41,8 +41,21 @@ const actions = {
 const mutations = {
     setCropImage:(state,response)=>{
         response.attachments.forEach(file=>{
-            state.crop_images.unshift(file);
-            state.crop_imageIds.push(file.id);
+            if(state.crop_images.length === 0){
+                state.crop_images.unshift(file);
+                state.crop_imageIds.push(file.id);
+            }else{
+                $.each( state.crop_images, function( key, prvImg ) {
+                    if( prvImg.serial === file.serial){
+                        state.crop_images.splice(key, 1);
+                        state.crop_imageIds.splice(key, 1);
+                    }
+                });
+
+                state.crop_images.unshift(file);
+                state.crop_imageIds.push(file.id);
+
+            }
         });
     },
     emptyImageArray:(state,length)=>{
