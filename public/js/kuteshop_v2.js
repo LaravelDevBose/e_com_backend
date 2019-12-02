@@ -2953,6 +2953,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           if (typeof response.code !== "undefined" && response.code === 200) {
             _this.$noty.success(response.message);
 
+            _this.btnDisabled = false;
+
             _this.continueTab();
           } else if (response.status === 'validation') {
             _this.$noty.warning(response.message);
@@ -2966,6 +2968,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
 
         this.addAddressInfo(this.formData);
+        this.btnDisabled = false;
         this.continueTab();
       } else {
         if (this.billing_id == '') {
@@ -2982,6 +2985,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.getAddressInfo(reqData).then(function (response) {
           if (typeof response.code !== "undefined" && response.code === 200) {
             _this.$noty.success(response.message);
+
+            _this.btnDisabled = false;
 
             _this.continueTab();
           } else if (response.status === 'validation') {
@@ -3000,7 +3005,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           billing: {
             'tabAction': false
           },
+          shopping: {
+            'tabAction': false
+          },
           method: {
+            'tabAction': false
+          },
+          payment: {
             'tabAction': true
           }
         };
@@ -3011,6 +3022,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           },
           shopping: {
             'tabAction': true
+          },
+          method: {
+            'tabAction': false
+          },
+          payment: {
+            'tabAction': false
           }
         };
       }
@@ -3143,6 +3160,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3196,11 +3219,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     backTab: function backTab() {
       var data = {
-        method: {
+        billing: {
           'tabAction': false
         },
         shopping: {
+          'tabAction': false
+        },
+        method: {
+          'tabAction': false
+        },
+        payment: {
           'tabAction': true
+        },
+        cart_tab: {
+          'tabAction': false
         }
       };
       this.tabChange(data);
@@ -3235,7 +3267,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal', 'billingAddress', 'billingAddressId', 'shippingAddress', 'shippingAddressId', 'paymentInfo', 'paymentMethodId', 'shippingMethodId', 'deliveryCost', 'billingTab', 'shoppingTab', 'methodTab', 'paymentTab']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList', 'cartTotal', 'billingAddress', 'billingAddressId', 'shippingAddress', 'shippingAddressId', 'paymentInfo', 'paymentMethodId', 'shippingMethodId', 'deliveryCost', 'billingTab', 'shoppingTab', 'methodTab', 'paymentTab', 'cartTab']))
 });
 
 /***/ }),
@@ -3391,6 +3423,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 // TODO payment getwaye intregrate
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3425,6 +3465,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         },
         payment: {
           'tabAction': false
+        },
+        cart_tab: {
+          'tabAction': true
+        }
+      };
+      this.tabChange(data);
+    },
+    backTab: function backTab() {
+      var data = {
+        billing: {
+          'tabAction': false
+        },
+        shopping: {
+          'tabAction': true
+        },
+        method: {
+          'tabAction': false
+        },
+        payment: {
+          'tabAction': false
+        },
+        cart_tab: {
+          'tabAction': false
         }
       };
       this.tabChange(data);
@@ -3456,6 +3519,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3581,6 +3649,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         this.storeAddressInfo(this.formData).then(function (response) {
           if (typeof response.code !== "undefined" && response.code === 201) {
+            _this.btnDisabled = false;
+
             _this.continueTab();
 
             _this.$noty.success(response.message);
@@ -3596,6 +3666,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
 
         this.addAddressInfo(this.formData);
+        this.btnDisabled = false;
         this.$noty.success('Billing and Shipping Address added');
         this.continueTab();
       } else {
@@ -3613,6 +3684,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.getAddressInfo(reqData).then(function (response) {
           if (typeof response.code !== "undefined" && response.code === 200) {
             _this.$noty.success(response.message);
+
+            _this.btnDisabled = false;
 
             _this.continueTab();
           } else if (response.status === 'validation') {
@@ -3632,10 +3705,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'tabAction': false
         },
         method: {
-          'tabAction': true
+          'tabAction': false
         },
         payment: {
-          'tabAction': false
+          'tabAction': true
         }
       };
       this.tabChange(data);
@@ -3646,6 +3719,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'tabAction': true
         },
         shopping: {
+          'tabAction': false
+        },
+        method: {
+          'tabAction': false
+        },
+        payment: {
           'tabAction': false
         }
       };
@@ -51133,7 +51212,7 @@ var render = function() {
                 }
               ],
               staticClass: "input form-control",
-              attrs: { id: "telephone", type: "text" },
+              attrs: { id: "telephone", type: "number" },
               domProps: { value: _vm.formData.phone_no },
               on: {
                 input: function($event) {
@@ -51315,7 +51394,7 @@ var render = function() {
                 }
               ],
               staticClass: "input form-control",
-              attrs: { id: "postal_code", type: "text" },
+              attrs: { id: "postal_code", type: "number" },
               domProps: { value: _vm.formData.postal_code },
               on: {
                 input: function($event) {
@@ -51516,18 +51595,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("h3", { staticClass: "checkout-sep" }, [
-      _vm._v("3. " + _vm._s(_vm.$t("checkout.shipping_method")))
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { class: _vm.methodTab ? "show" : "hidden" },
-      [_c("shipping-method")],
-      1
-    ),
-    _vm._v(" "),
-    _c("h3", { staticClass: "checkout-sep" }, [
-      _vm._v("4. " + _vm._s(_vm.$t("checkout.payment_section")))
+      _vm._v("3. " + _vm._s(_vm.$t("checkout.payment_section")))
     ]),
     _vm._v(" "),
     _c(
@@ -51538,7 +51606,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("h3", { staticClass: "checkout-sep" }, [
-      _vm._v("5. " + _vm._s(_vm.$t("checkout.order_review")))
+      _vm._v("4. " + _vm._s(_vm.$t("checkout.order_review")))
     ]),
     _vm._v(" "),
     _c(
@@ -51547,26 +51615,49 @@ var render = function() {
       [
         _c("cart-list-table"),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-6 col-md-offset-5" }, [
-            _c("div", { staticClass: "text-right" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "button btn-block",
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.proceedToOrder($event)
+        _c(
+          "div",
+          { staticClass: "row", class: _vm.cartTab ? "show" : "hidden" },
+          [
+            _c("div", { staticClass: "col-md-5" }, [
+              _c("div", { staticClass: "text-left" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "button",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.backTab()
+                      }
                     }
-                  }
-                },
-                [_vm._v(_vm._s(_vm.$t("checkout.place_order")))]
-              )
+                  },
+                  [_vm._v("Back")]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6 col-md-offset-1" }, [
+              _c("div", { staticClass: "text-right" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "button btn-block",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.proceedToOrder($event)
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.$t("checkout.place_order")))]
+                )
+              ])
             ])
-          ])
-        ])
+          ]
+        )
       ],
       1
     )
@@ -51791,63 +51882,93 @@ var render = function() {
     _c("div", { staticClass: "box-border" }, [
       _c(
         "ul",
-        _vm._l(_vm.paymentMethods, function(payment, index) {
-          return _vm.paymentMethods
-            ? _c("li", { key: index }, [
-                _c("label", { attrs: { for: "method-" + index } }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.payment_method_id,
-                        expression: "formData.payment_method_id"
-                      }
-                    ],
-                    attrs: {
-                      checked: "",
-                      name: "radio_4",
-                      id: "method-" + index,
-                      type: "radio"
-                    },
-                    domProps: {
-                      value: payment.key,
-                      checked: _vm._q(
-                        _vm.formData.payment_method_id,
-                        payment.key
-                      )
-                    },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(
-                          _vm.formData,
-                          "payment_method_id",
+        [
+          _vm._l(_vm.paymentMethods, function(payment, index) {
+            return _vm.paymentMethods
+              ? _c("li", { key: index }, [
+                  _c("label", { attrs: { for: "method-" + index } }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.payment_method_id,
+                          expression: "formData.payment_method_id"
+                        }
+                      ],
+                      attrs: {
+                        checked: "",
+                        name: "radio_4",
+                        id: "method-" + index,
+                        type: "radio"
+                      },
+                      domProps: {
+                        value: payment.key,
+                        checked: _vm._q(
+                          _vm.formData.payment_method_id,
                           payment.key
                         )
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(
+                            _vm.formData,
+                            "payment_method_id",
+                            payment.key
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(_vm._s(payment.value))
+                  ])
+                ])
+              : _vm._e()
+          }),
+          _vm._v(" "),
+          _c("li", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "button",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.backTab()
+                    }
+                  }
+                },
+                [_vm._v("Back")]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-sm-6",
+                staticStyle: { "text-align": "right" }
+              },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "button",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.paymentMethodStore($event)
                       }
                     }
-                  }),
-                  _vm._v(_vm._s(payment.value))
-                ])
-              ])
-            : _vm._e()
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "button",
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.paymentMethodStore($event)
-            }
-          }
-        },
-        [_vm._v(_vm._s(_vm.$t("checkout.continue")))]
+                  },
+                  [_vm._v(_vm._s(_vm.$t("checkout.continue")))]
+                )
+              ]
+            )
+          ])
+        ],
+        2
       )
     ])
   ])
@@ -52049,7 +52170,11 @@ var render = function() {
                       }
                     ],
                     staticClass: "input form-control",
-                    attrs: { name: "telephone", id: "telephone", type: "text" },
+                    attrs: {
+                      name: "telephone",
+                      id: "telephone",
+                      type: "number"
+                    },
                     domProps: { value: _vm.formData.phone_no },
                     on: {
                       input: function($event) {
@@ -52246,7 +52371,7 @@ var render = function() {
                     attrs: {
                       name: "postal_code",
                       id: "postal_code",
-                      type: "text"
+                      type: "number"
                     },
                     domProps: { value: _vm.formData.postal_code },
                     on: {
@@ -52268,10 +52393,38 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _c("ul", [
-          _c("li", { staticStyle: { "text-align": "right" } }, [
-            _c("button", { staticClass: "button", attrs: { type: "submit" } }, [
-              _vm._v(_vm._s(_vm.$t("checkout.continue")))
-            ])
+          _c("li", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "button",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.backTab()
+                    }
+                  }
+                },
+                [_vm._v("Back")]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-sm-6",
+                staticStyle: { "text-align": "right" }
+              },
+              [
+                _c(
+                  "button",
+                  { staticClass: "button", attrs: { type: "submit" } },
+                  [_vm._v(_vm._s(_vm.$t("checkout.continue")))]
+                )
+              ]
+            )
           ])
         ])
       ])
@@ -53944,7 +54097,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("th", { staticClass: "action", staticStyle: { width: "8%" } }, [
-      _c("i", { staticClass: "fa fa-trash-o" })
+      _c("i", { staticClass: "fas fa-trash-alt" })
     ])
   }
 ]
@@ -75092,6 +75245,7 @@ var state = {
   shopping: false,
   method: false,
   payment: false,
+  cart_tab: false,
   charge: 0
 }; //declare Getters
 
@@ -75140,6 +75294,9 @@ var getters = {
   },
   paymentTab: function paymentTab(state) {
     return state.payment;
+  },
+  cartTab: function cartTab(state) {
+    return state.cart_tab;
   },
   deliveryCost: function deliveryCost(state) {
     return state.charge;
@@ -75517,6 +75674,10 @@ var mutations = {
 
     if (data.payment) {
       state.payment = data.payment.tabAction;
+    }
+
+    if (data.cart_tab) {
+      state.cart_tab = data.cart_tab.tabAction;
     }
   },
   placeOrder: function placeOrder(state, response) {
@@ -76502,7 +76663,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

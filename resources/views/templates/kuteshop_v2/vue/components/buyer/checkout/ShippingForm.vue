@@ -33,7 +33,7 @@
                 <li class="row">
                     <div class="col-sm-6">
                         <label for="telephone" class="required">{{ $t('form.phone_no')}} <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.phone_no"  name="telephone" id="telephone" type="text">
+                        <input class="input form-control" v-model="formData.phone_no"  name="telephone" id="telephone" type="number">
                     </div>
                 </li>
                 <li class="row">
@@ -64,13 +64,18 @@
                     </div>
                     <div class="col-sm-6">
                         <label for="postal_code" class="required">{{ $t('form.postal_code')}}</label>
-                        <input class="input form-control" v-model="formData.postal_code" name="postal_code" id="postal_code" type="text">
+                        <input class="input form-control" v-model="formData.postal_code" name="postal_code" id="postal_code" type="number">
                     </div>
                 </li>
             </ul>
             <ul>
-                <li style="text-align: right">
-                    <button type="submit" class="button">{{ $t('checkout.continue')}}</button>
+                <li class="row">
+                    <div class="col-sm-6">
+                        <button type="button" @click.prevent="backTab()" class="button">Back</button>
+                    </div>
+                    <div class="col-sm-6" style="text-align:right;">
+                        <button type="submit" class="button">{{ $t('checkout.continue')}}</button>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -126,6 +131,7 @@
                     this.storeAddressInfo(this.formData)
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 201){
+                                this.btnDisabled = false;
                                 this.continueTab();
                                 this.$noty.success(response.message);
                             }else if(response.status === 'validation'){
@@ -139,6 +145,7 @@
                         return false;
                     }
                     this.addAddressInfo(this.formData);
+                    this.btnDisabled = false;
                     this.$noty.success('Billing and Shipping Address added');
                     this.continueTab();
                 }else{
@@ -157,6 +164,7 @@
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 this.$noty.success(response.message);
+                                this.btnDisabled = false;
                                 this.continueTab();
                             }else if(response.status === 'validation'){
                                 this.$noty.warning(response.message);
@@ -175,10 +183,10 @@
                         'tabAction':false,
                     },
                     method:{
-                        'tabAction':true,
+                        'tabAction':false,
                     },
                     payment:{
-                        'tabAction':false,
+                        'tabAction':true,
                     },
 
                 };
@@ -191,6 +199,12 @@
                         'tabAction':true,
                     },
                     shopping:{
+                        'tabAction':false,
+                    },
+                    method:{
+                        'tabAction':false,
+                    },
+                    payment:{
                         'tabAction':false,
                     },
 
