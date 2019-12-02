@@ -77,7 +77,7 @@ class OrderController extends Controller
         $validator = Validator::make($request->all(),[
             'billing_address'=>'required|array',
             'shipping_address'=>'required|array',
-            'shipping_method_id'=>'required',
+//            'shipping_method_id'=>'required',
             'payment_method_id'=>'required',
         ]);
 
@@ -103,7 +103,7 @@ class OrderController extends Controller
                     'total'=>(Cart::total()+$request->delivery_charge),
                     'order_date'=>now(),
                     'order_status'=>config('app.active'),
-                    'shipping_method'=>$request->shipping_method_id
+                    'shipping_method'=>(!empty($request->shipping_method_id))?$request->shipping_method_id:1,
                 ]);
 
                 if(!empty($order)){
