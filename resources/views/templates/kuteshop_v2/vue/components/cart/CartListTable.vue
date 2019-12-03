@@ -8,7 +8,7 @@
                 <th class="text-right">{{ $t('cart.unit_price') }}</th>
                 <th class="text-center">{{ $t('cart.qty') }}</th>
                 <th class="text-right">{{ $t('cart.total') }}</th>
-                <th class="action" style="width: 8%"><i class="fa fa-trash-o"></i></th>
+                <th class="action" style="width: 8%"><i class="fas fa-trash-alt"></i></th>
             </tr>
             </thead>
             <tbody>

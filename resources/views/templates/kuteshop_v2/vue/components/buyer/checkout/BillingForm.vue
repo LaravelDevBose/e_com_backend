@@ -33,7 +33,7 @@
                 <li class="row">
                     <div class="col-sm-6">
                         <label for="telephone" class="required">{{ $t('form.phone_no')}} <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.phone_no"  id="telephone" type="text">
+                        <input class="input form-control" v-model="formData.phone_no"  id="telephone" type="number">
                     </div>
                 </li>
                 <li class="row">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-sm-6">
                         <label for="postal_code" class="required">{{ $t('form.postal_code')}}</label>
-                        <input class="input form-control" v-model="formData.postal_code"  id="postal_code" type="text">
+                        <input class="input form-control" v-model="formData.postal_code"  id="postal_code" type="number">
                     </div>
                 </li>
             </ul>
@@ -138,6 +138,7 @@
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 this.$noty.success(response.message);
+                                this.btnDisabled = false;
                                 this.continueTab();
                             }else if(response.status === 'validation'){
                                 this.$noty.warning(response.message);
@@ -150,6 +151,7 @@
                         return false;
                     }
                     this.addAddressInfo(this.formData);
+                    this.btnDisabled = false;
                     this.continueTab();
                 }else{
                     if(this.billing_id == ''){
@@ -167,6 +169,7 @@
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 this.$noty.success(response.message);
+                                this.btnDisabled = false;
                                 this.continueTab();
                             }else if(response.status === 'validation'){
                                 this.$noty.warning(response.message);
@@ -183,7 +186,13 @@
                         billing:{
                             'tabAction':false,
                         },
+                        shopping:{
+                            'tabAction':false,
+                        },
                         method:{
+                            'tabAction':false,
+                        },
+                        payment:{
                             'tabAction':true,
                         },
 
@@ -195,6 +204,12 @@
                         },
                         shopping:{
                             'tabAction':true,
+                        },
+                        method:{
+                            'tabAction':false,
+                        },
+                        payment:{
+                            'tabAction':false,
                         },
 
                     };
