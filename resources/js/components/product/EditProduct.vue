@@ -468,7 +468,16 @@
                                             </td>
                                             <td class="text-center">
                                                 <ul class="icons-list">
-                                                    <li><a href="#" @click.prevent="removeVariationData(index)" class="text-danger"><i class="icon-trash"></i></a></li>
+                                                    <li v-if="variation.hasOwnProperty('id')">
+                                                        <a href="#" @click.prevent="removeVariationFromTable(variation.id)" class="text-danger">
+                                                            <i class="icon-trash"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li v-else>
+                                                        <a href="#" @click.prevent="removeVariationData(index)" class="text-danger">
+                                                            <i class="icon-trash"></i>
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </td>
                                         </tr>
@@ -500,7 +509,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="text-right form-group" style="margin-bottom:0px;">
-                                        <button type="submit" :disabled="btnDisabled" class="btn btn-success btn-block" @submit.prevent="submitFrom"  @click.prevent="submitFrom">Update Product <i class="icon-arrow-right14 position-right"></i></button>
+                                        <button type="submit" :disabled="btnDisabled" class="btn btn-success btn-block" @submit.prevent="updateProduct"  @click.prevent="updateProduct">Update Product <i class="icon-arrow-right14 position-right"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -639,10 +648,11 @@
                 'getBrandList',
                 'getProductCreateDependency',
                 'uploadProductImage',
-                'storeProductData',
+                'updateProductData',
                 'getProductCreateNeedData',
                 'deleteProductImage',
                 'attachmentImageRemove',
+                'variationDataDelete'
             ]),
             addPriId(PriID){
                 this.priId = PriID;
@@ -838,27 +848,35 @@
                 }
 
             },
-            submitFrom(){
+            updateProduct(){
                 // TODO Form Validation
 
                 //Button Disable
                 this.btnDisabled = true;
 
                 // append variation data and images ids in form Data
-                this.formData.thumb_id = this.cropImageIds[0];
-                this.formData.variations = this.variations;
-                this.formData.imageIds = this.imageIds;
+                if(this.cropImageIds.lenght !== 0){
+                    this.formData.thumb_id = this.cropImageIds[0];
+                }
+
+                if(this.variations.length !== 0 &&  this.formData.product_type === 2){
+                    this.formData.variations = this.variations;
+                }
+
+                if(this.imageIds.lenght !== 0){
+                    this.formData.imageIds = this.imageIds;
+                }
+
                 //send Vuex request
-                this.storeProductData(this.formData)
+                this.updateProductData(this.formData)
                     .then(response=>{
-                        console.log(response);
-                        if(response.status === "success"){
+                        if(typeof response.code !== "undefined" && response.code === 200){
                             Notify.success(response.message);
                             this.removeImage = true;
 
                             setTimeout(function () {
                                 window.location = response.url;
-                            });
+                            },2000);
                         }else if(response.status === "validation"){
                             Notify.validation(response.message);
                         }else if(response.status === "error"){
@@ -924,6 +942,35 @@
                 this.attachmentImageRemove(attachmentId)
                     .then(response=>{
                         if(response.code === 200){
+                            Notify.success(response.message);
+                        }else if(response.status === "validation"){
+                            Notify.validation(response.message);
+                        }else if(response.status === "error"){
+                            Notify.error(response.message);
+                        }else {
+                            Notify.info(response.message);
+                        }
+                    })
+            },
+            removeVariationFromTable(variationId){
+                let conf = confirm('Are You Sure ?');
+                if(!conf){
+                    return false;
+                }
+                let reqData = {
+                    product_id:this.productid,
+                    variation_id:variationId,
+                };
+
+                this.variationDataDelete(reqData)
+                    .then(response=>{
+                        if(response.code === 200){
+                            this.variations = this.variations.filter(variation=>{
+                                if(variation.hasOwnProperty('id')){
+                                    return variation.id !== variationId;
+                                }
+                            });
+
                             Notify.success(response.message);
                         }else if(response.status === "validation"){
                             Notify.validation(response.message);
@@ -1086,6 +1133,7 @@
                         if (this.proData.product_type === 2 && this.proVariations.length !== 0 && this.proVariations !== ''){
                             this.proVariations.forEach((value,key)=>{
                                 this.variations.push({
+                                    id:value.variation_id,
                                     color_id:value.pri_id,
                                     color_name:value.primary_model.color_name,
                                     size_id:value.sec_id,
@@ -1108,7 +1156,6 @@
 
                 }
             },
-
         },
 
     }

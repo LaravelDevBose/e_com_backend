@@ -223,12 +223,11 @@ class ProductController extends Controller
                         'num_of_pieces'=>$request->num_of_pieces,
                         'product_occasion'=>$request->product_occasion,
                         'color_shade'=>$request->color_shade,
-                        'skin_type'=>$request->skin_type,
+                        'skin_type_id'=>$request->skin_type,
                         'extra_details'=>$request->extra_details,
                         'warranty_policy'=>$request->warranty_policy,
                         'warranty_policy_eng'=>$request->warranty_policy_eng,
                         'warranty_period'=>$request->warranty_period,
-                        'product_type'=>$request->product_type,
                         'cod_avail'=>$request->cod_avail,
                     ]);
 
@@ -470,7 +469,7 @@ class ProductController extends Controller
                 'variations.*.size_id'=>'required',
                 'variations.*.seller_sku'=>'required',
                 'variations.*.qty'=>'required|integer|min:0|not_in:0',
-                'variations.*.price'=>'required|integer|min:0|not_in:0',
+                'variations.*.price'=>'required|numeric|min:0|not_in:0',
                 'variations.*.status'=>'required',
             ]);
 
@@ -489,7 +488,7 @@ class ProductController extends Controller
                 'variations.*.qty.not_in'=>'Variation Product Qty Not 0.',
 
                 'variations.*.price.required'=>'Every Variation Product Price is Required.',
-                'variations.*.price.string'=>'Every Variation Product Price Must Be a Integer Number',
+                'variations.*.price.numeric'=>'Every Variation Product Price Must Be a Decimal Number',
                 'variations.*.price.min'=>'Variation Product Price Not 0.',
                 'variations.*.price.not_in'=>'Variation Product Price Not 0.',
             ]);
@@ -533,28 +532,45 @@ class ProductController extends Controller
                     'product_type'=>$request->product_type,
                 ]);
                 if(!empty($request->thumb_id)){
-                    $product =$product->update([
+                    Product::where('product_id', $id)->update([
                         'thumb_id'=>$request->thumb_id,
                     ]);
                 }
 
                 if(!empty($product)){
                     #Store Data in Product Details Table
-                    $details= ProductDetails::where('product_id', $id)
-                        ->update([
+                    $details= ProductDetails::where('product_id', $id)->first();
+                    if(!empty($details)){
+                        $details= $details->update([
+                                    'main_materials'=>$request->main_materials,
+                                    'product_model'=>$request->product_model,
+                                    'num_of_pieces'=>$request->num_of_pieces,
+                                    'product_occasion'=>$request->product_occasion,
+                                    'color_shade'=>$request->color_shade,
+                                    'skin_type_id'=>$request->skin_type,
+                                    'extra_details'=>$request->extra_details,
+                                    'warranty_policy'=>$request->warranty_policy,
+                                    'warranty_policy_eng'=>$request->warranty_policy_eng,
+                                    'warranty_period'=>$request->warranty_period,
+                                    'cod_avail'=>$request->cod_avail,
+                                ]);
+                    }else{
+                        $details= ProductDetails::create([
+                            'product_id'=>$id,
                             'main_materials'=>$request->main_materials,
                             'product_model'=>$request->product_model,
                             'num_of_pieces'=>$request->num_of_pieces,
                             'product_occasion'=>$request->product_occasion,
                             'color_shade'=>$request->color_shade,
-                            'skin_type'=>$request->skin_type,
+                            'skin_type_id'=>$request->skin_type,
                             'extra_details'=>$request->extra_details,
                             'warranty_policy'=>$request->warranty_policy,
                             'warranty_policy_eng'=>$request->warranty_policy_eng,
                             'warranty_period'=>$request->warranty_period,
-                            'product_type'=>$request->product_type,
                             'cod_avail'=>$request->cod_avail,
                         ]);
+                    }
+
 
                     if(!empty($details)){
 
@@ -586,7 +602,7 @@ class ProductController extends Controller
                                         ]);
                                     }else{
                                         array_push($variationArray,[
-                                            'product_id'=>$product->product_id,
+                                            'product_id'=>$id,
                                             'seller_sku'=>$variation->seller_sku,
                                             'pri_id'=>$variation->color_id,
                                             'pri_model'=>config('app.variation_model.color'),
@@ -611,7 +627,7 @@ class ProductController extends Controller
                                 foreach ($imageIds as  $imageId){
                                     $imageId = (object)$imageId;
                                     array_push($imageArray,[
-                                        'product_id'=>$product->product_id,
+                                        'product_id'=>$id,
                                         'pri_id'=>$imageId->pri_id,
                                         'model'=>ProductVariation::VARIATION_MODEL[strtolower($request->pri_model)],
                                         'attachment_id'=>$imageId->image_id,
@@ -622,18 +638,19 @@ class ProductController extends Controller
                             }
 
                         }else{
-                            $product->update([
+                            Product::where('product_id', $id)->update([
                                 'product_qty'=>$request->product_qty,
                                 'product_price'=>$request->product_price,
                                 'seller_sku'=>$request->seller_sku,
                             ]);
+
                             if(!empty($request->imageIds)){
                                 $imageIds = $request->imageIds;
                                 $imageArray = array();
                                 foreach ($imageIds as  $imageId){
                                     $imageId = (object)$imageId;
                                     array_push($imageArray,[
-                                        'product_id'=>$product->product_id,
+                                        'product_id'=>$id,
                                         'pri_id'=>'',
                                         'model'=>'',
                                         'attachment_id'=>$imageId->image_id,
@@ -647,7 +664,7 @@ class ProductController extends Controller
                         throw new Exception('Invalid Product Details Information', Response::HTTP_BAD_REQUEST);
                     }
                     DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Update Successfully', route('admin.product.index'));
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Update Successfully','', route('admin.product.index'));
                 }else{
                     throw new Exception('Invalid Product Information', Response::HTTP_BAD_REQUEST);
                 }
@@ -711,6 +728,31 @@ class ProductController extends Controller
             return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
         }
 
+    }
+    public function variation_delete($productId, $variationId)
+    {
+        try{
+            DB::beginTransaction();
+            $product = Product::find($productId);
+            if(empty($product)){
+                throw new Exception('Invalid Product Information', Response::HTTP_BAD_REQUEST);
+            }
+            $variation = ProductVariation::where('product_id', $productId)->where('variation_id', $variationId)->first();
+            if(empty($variation)){
+                throw new Exception('Product Variation Not Found', Response::HTTP_NOT_FOUND);
+            }
+            $variation = $variation->update([
+                'variation_status'=>config('app.delete'),
+            ]);
+            if(!empty($variation)){
+                DB::commit();
+                return ResponserTrait::allResponse('success', Response::HTTP_OK,'Product Variation Delete Successfully');
+            }
+
+        }catch (Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+        }
     }
 
 }

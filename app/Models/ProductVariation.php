@@ -27,6 +27,7 @@ class ProductVariation extends Model
         'special_price',
         'gift_product_id',
         'gift_product_sku',
+        'variation_status',
     ];
 
     public function product(){

@@ -143,6 +143,33 @@ const actions = {
             console.log(error);
         }
     },
+    async variationDataDelete({commit},reqData){
+        try {
+            return await axios.delete(`/admin/product/${reqData.product_id}/validation/${reqData.variation_id}/delete`,)
+                .then(function (response) {
+                    if(typeof response.data.code !== "undefined" && response.data.code ){
+                        commit('removeVariation', reqData.variation_id);
+                    }
+                    return response.data;
+                }).catch(function (errors) {
+                    console.log(errors);
+                    commit('setResponse', errors.data);
+                    return errors.data;
+                });
+        }catch (error) {
+            console.log(error);
+        }
+    },
+    async updateProductData({commit}, fromData){
+        try {
+            return await axios.put(`/admin/product/${fromData.product_id}`, fromData)
+                .then(response=>{
+                    return response.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {
