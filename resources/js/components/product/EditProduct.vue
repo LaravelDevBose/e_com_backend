@@ -316,13 +316,15 @@
                                                 <div class="thumb">
                                                     <img :src="image.img" alt="" class="img-thumbnail img-responsive">
                                                     <div class="caption-overflow">
-                                                        <a
-                                                            href="#"
-                                                            @click.prevent="removeAttachment(image.id)"
-                                                            class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
-                                                        >
-                                                            <i class="icon-trash"></i>
-                                                        </a>
+                                                        <span>
+                                                            <a
+                                                                href="#"
+                                                                @click.prevent="removeAttachment(image.id)"
+                                                                class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
+                                                            >
+                                                                <i class="icon-trash"></i>
+                                                            </a>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -339,39 +341,81 @@
                     </div>
 
                     <div class="panel-body">
-                        <div v-for="i in total" :key="i" :id="i">
-                            <div class="form-group row">
-                                <label class="col-lg-2 control-label">Color: <span class="text text-danger text-bold h4">*</span></label>
-                                <div class="col-lg-4" @click="priIdIndex(i)">
-                                    <vue-select2 v-model="pri_id[i]" :value="pri_id[i]" :options="productColors"> </vue-select2>
-                                </div>
-                                <div class="col-lg-1" >
-                                    <span class="text-danger" @click="removePriIdData(i)"> <i class="icon-trash"></i></span>
-                                </div>
-                            </div>
-                            <div class="form-group row" v-show="pri_id[i]">
-                                <label class="col-lg-2 control-label">Images: <span class="text text-danger text-bold h4">*</span></label>
-                                <div class="col-lg-10" >
-                                    <div id="productImage">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <input type="file" class="hidden" ref="files" accept="image/*" :multiple="multi_file"  :id="vari_id+pri_id[i]"  @change="uploadImage">
-                                                    <label :for="vari_id+pri_id[i]" @click="addPriId(pri_id[i])" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left" ></i> Select File</label>
+                        <div class="row">
+                            <div class="col-md-6" style="border-right: 2px solid #eee;">
+                                <div v-for="i in total" :key="i" :id="i">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 control-label">Color: <span class="text text-danger text-bold h4">*</span></label>
+                                        <div class="col-lg-6" @click="priIdIndex(i)">
+                                            <vue-select2 v-model="pri_id[i]" :value="pri_id[i]" :name="'primaryIds'" :options="productColors"> </vue-select2>
+                                        </div>
+                                        <div class="col-lg-1" >
+                                            <span class="text-danger" @click="removePriIdData(i)"> <i class="icon-trash"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" v-show="pri_id[i]">
+                                        <label class="col-lg-3 control-label">Images: <span class="text text-danger text-bold h4">*</span></label>
+                                        <div class="col-lg-9" >
+                                            <div id="productImage">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <input type="file" class="hidden" ref="files" accept="image/*" :multiple="multi_file"  :id="vari_id+pri_id[i]"  @change="uploadImage">
+                                                            <label :for="vari_id+pri_id[i]" @click="addPriId(pri_id[i])" class="btn btn-info btn-md btn-block"><i class="icon-file-media text-left" ></i> Select File</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" v-if="productImages">
+                                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3" v-for="(image, index) in productImages.filter(img=> img.pri_id === pri_id[i])" :key="image.id" >
+                                                        <div class="thumbnail">
+                                                            <div class="thumb">
+                                                                <img :src="image.img" alt="">
+                                                                <div class="caption-overflow">
+                                                                    <span>
+                                                                        <a
+                                                                            href="#"
+                                                                            @click.prevent="removeAttachment(image.id)"
+                                                                            class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
+                                                                        >
+                                                                            <i class="icon-trash"></i>
+                                                                        </a>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" v-if="productImages">
-                                            <div class="col-xs-4 col-sm-4 col-lg-1" v-for="(image, index) in productImages.filter(img=> img.pri_id === pri_id[i])" :key="image.id" >
-                                                <div class="thumbnail">
-                                                    <div class="thumb">
-                                                        <img :src="image.img" alt="">
-                                                        <div class="caption-overflow">
-                                                        <span>
-                                                            <a :href="image.img" data-fancybox="images"  class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-eye"></i></a>
-                                                        </span>
-                                                        </div>
-                                                    </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-3 control-label">Size: <span class="text text-danger text-bold h4">*</span></label>
+                                    <div class="col-lg-9 selectMulti">
+                                        <multi-select2 v-model="sec_id"  :options="sizes" >
+                                            <option disabled value="0">Select one</option>
+                                        </multi-select2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Previous Product Images: </label>
+                                <div class="row" v-if="proImages">
+                                    <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" v-for="(proImage, index) in proImages" :key="proImage.id" >
+                                        <div class="thumbnail">
+                                            <div class="thumb">
+                                                <img :src="proImage.image.image_path" alt="">
+                                                <div class="caption-overflow">
+                                                    <span>
+                                                        <a
+                                                            href="#"
+                                                            @click.prevent="removeProductImage(proImage.id)"
+                                                            class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
+                                                        >
+                                                            <i class="icon-trash"></i>
+                                                        </a>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -380,14 +424,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Size: <span class="text text-danger text-bold h4">*</span></label>
-                            <div class="col-lg-4 selectMulti">
-                                <multi-select2 v-model="sec_id"  :options="sizes" >
-                                    <option disabled value="0">Select one</option>
-                                </multi-select2>
-                            </div>
-                        </div>
 
                         <div class="row" >
                             <div class="col-md-12">
@@ -561,8 +597,8 @@
                 total:1,
                 pri_id_total:0,
                 priId:'',
-                pri_id:[],
-                sec_id:[],
+                pri_id:{},
+                sec_id:{},
                 pri_id_index:'',
                 cat_Selected:false,
                 cropperData:{
@@ -959,13 +995,13 @@
             },
             clonedSecondaryIds:{
                 handler(newVal, oldVal){
-                    if(newVal !== oldVal && typeof newVal !== "undefined"){
-                        if(jQuery.isEmptyObject(newVal) && (jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length)){
-                            this.addNewVariationSizeWish(newVal, oldVal);
-                        }else if(jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length ){
-                            this.removeVariationSizeWish(newVal, oldVal);
-                        }
+
+                    if(!jQuery.isEmptyObject(newVal) && (jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length)){
+                        this.addNewVariationSizeWish(newVal, oldVal);
+                    }else if(jQuery.isEmptyObject(newVal) && !jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length ){
+                        this.removeVariationSizeWish(newVal, oldVal);
                     }
+
                 }
             },
             'formData.category_id':{
@@ -1048,36 +1084,12 @@
 
                         /*** Type Wish Variation Product Field  ***/
                         if (this.proData.product_type === 2 && this.proVariations.length !== 0 && this.proVariations !== ''){
-                            this.total=0;
-                            let that = this;
                             this.proVariations.forEach((value,key)=>{
-                                this.total++;
-                                let k = key;
-                                if(jQuery.isEmptyObject(this.pri_id)){
-                                    that.pri_id_total++;
-                                    that.pri_id[k]=value.pri_id;
-                                }else{
-                                    $.each(that.pri_id, function(ky, priId ) {
-                                        if(priId !== value.pri_id){
-                                            that.pri_id_total++;
-                                            that.pri_id[k]=value.pri_id;
-                                        }
-                                    });
-                                }
-
-                                if(jQuery.isEmptyObject(this.sec_id)){
-                                    that.sec_id[k]=value.sec_id;
-                                }else{
-                                    $.each(that.sec_id, function( ky, secId ) {
-                                        if(secId !== value.sec_id){
-                                            that.sec_id[k]=value.sec_id;
-                                        }
-                                    });
-                                }
-
                                 this.variations.push({
                                     color_id:value.pri_id,
+                                    color_name:value.primary_model.color_name,
                                     size_id:value.sec_id,
+                                    size_name:value.secondary_model.size_name,
                                     seller_sku:value.seller_sku,
                                     qty:value.quantity,
                                     price:value.price,

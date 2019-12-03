@@ -296,13 +296,16 @@
                                                 <div class="thumb">
                                                     <img :src="image.img" alt="" class="img-thumbnail img-responsive">
                                                     <div class="caption-overflow">
-                                                        <a
-                                                            href="#"
-                                                            @click.prevent="removeAttachment(image.id)"
-                                                            class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
-                                                        >
-                                                            <i class="icon-trash"></i>
-                                                        </a>
+                                                        <span>
+                                                            <a
+                                                                href="#"
+                                                                @click.prevent="removeAttachment(image.id)"
+                                                                class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
+                                                            >
+                                                                <i class="icon-trash"></i>
+                                                            </a>
+                                                        </span>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -349,7 +352,13 @@
                                                         <img :src="image.img" alt="">
                                                         <div class="caption-overflow">
                                                         <span>
-                                                            <a :href="image.img" data-fancybox="images"  class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-eye"></i></a>
+                                                            <a
+                                                                href="#"
+                                                                @click.prevent="removeAttachment(image.id)"
+                                                                class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
+                                                            >
+                                                                <i class="icon-trash"></i>
+                                                            </a>
                                                         </span>
                                                         </div>
                                                     </div>
@@ -895,7 +904,7 @@
                 handler(newVal, oldVal){
                     if(jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length){
                         this.addNewVariationSizeWish(newVal, oldVal);
-                    }else if(jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length ){
+                    }else if(jQuery.isEmptyObject(newVal)  && !jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length ){
                         this.removeVariationSizeWish(newVal, oldVal);
                     }
                 }
