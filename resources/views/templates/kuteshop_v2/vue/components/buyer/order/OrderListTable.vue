@@ -3,12 +3,12 @@
         <table class="table table-bordered  cart_summary">
             <thead>
             <tr>
-                <th>Order #</th>
-                <th>Date</th>
-                <th>Ship To.</th>
-                <th class="text-right">Total Order</th>
-                <th class="text-center">Status</th>
-                <th class="action text-center">View</th>
+                <th>{{ $t('buyer.order.order')}} #</th>
+                <th>{{ $t('buyer.order.date')}}</th>
+                <th>{{ $t('buyer.order.ship_to')}}</th>
+                <th class="text-right">{{ $t('buyer.order.total_order')}}</th>
+                <th class="text-center">{{ $t('buyer.order.status')}}</th>
+                <th class="action text-center">{{ $t('buyer.order.view')}}</th>
             </tr>
             </thead>
             <tbody>
@@ -27,10 +27,11 @@
                 </td>
                 <td class="text-center">
                     <a href="#" @click.prevent="showInvoiceModal(order.order_no)" class="text-primary"> <i class="fa fa-eye"></i></a>
+                    <a href="#" @click.prevent="goToAddReviewPage(order.order_id)" class="text-primary"> <i class="far fa-comment-dots"></i></a>
                 </td>
             </tr>
             <tr v-else>
-                <td colspan="7">On Purchase yet</td>
+                <td colspan="7">{{ $t('buyer.order.no_order')}}</td>
             </tr>
             </tbody>
         </table>
@@ -59,6 +60,9 @@
                         }
 
                     })
+            },
+            goToAddReviewPage(order_id){
+                location.href = `/buyer/reviews/add/${order_id}`;
             }
         },
         computed:{

@@ -26,13 +26,16 @@
                     <tr v-if="slidersData" v-for="(slider , index) in slidersData" :key="slider.id">
                         <td>{{ index }}</td>
                         <td>
-                            <span class="text text-bold"> {{ slider.title }}</span>
+                            <span class="text text-bold"> {{ slider.title }}</span><br>
+                            <span class="text text-bold" v-if="slider.trans_title"> {{ slider.trans_title }}</span>
                         </td>
                         <td>
-                            <span class="text text-bold"> {{ slider.subTitle }}</span>
+                            <span class="text text-bold"> {{ slider.subTitle }}</span><br>
+                            <span class="text text-bold" v-if="slider.trans_subTitle"> {{ slider.trans_subTitle }}</span>
                         </td>
                         <td>
                             <p class="text text-bold"> Text: {{ slider.btnText }}</p>
+                            <p class="text text-bold" v-if="slider.trans_btnText"> Text: {{ slider.trans_btnText }}</p>
                             <a :href="slider.btnUrl" class="text text-small">Url: {{ slider.btnUrl}}</a>
                         </td>
                         <td style="padding:5px; width:200px;">

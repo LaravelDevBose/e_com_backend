@@ -16,6 +16,7 @@ const state = {
     shopping:false,
     method:false,
     payment:false,
+    cart_tab:false,
     charge:0,
 };
 
@@ -36,6 +37,7 @@ const getters = {
     shoppingTab:(state)=>state.shopping,
     methodTab:(state)=>state.method,
     paymentTab:(state)=>state.payment,
+    cartTab:(state)=>state.cart_tab,
     deliveryCost:(state)=>state.charge,
 };
 
@@ -207,6 +209,9 @@ const mutations = {
         }
         if(data.payment){
             state.payment = data.payment.tabAction
+        }
+        if(data.cart_tab){
+            state.cart_tab = data.cart_tab.tabAction
         }
     },
     placeOrder:(state,response)=>{

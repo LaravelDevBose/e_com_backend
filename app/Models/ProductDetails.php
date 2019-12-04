@@ -25,6 +25,7 @@ class ProductDetails extends Model
         'warranty_policy',
         'warranty_policy_eng',
         'warranty_period',
+        'cod_avail',
     ];
 
     public function product(){

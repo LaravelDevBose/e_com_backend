@@ -3,12 +3,12 @@
         <table class="table table-bordered  cart_summary">
             <thead>
             <tr>
-                <th class="cart_product">Product</th>
-                <th>Description</th>
-                <th class="text-right">Unit price</th>
-                <th class="text-center">Qty</th>
-                <th class="text-right">Total</th>
-                <th class="action" style="width: 8%"><i class="fa fa-trash-o"></i></th>
+                <th class="cart_product">{{ $tc('header.product',1)}}</th>
+                <th>{{ $t('cart.desc') }}</th>
+                <th class="text-right">{{ $t('cart.unit_price') }}</th>
+                <th class="text-center">{{ $t('cart.qty') }}</th>
+                <th class="text-right">{{ $t('cart.total') }}</th>
+                <th class="action" style="width: 8%"><i class="fas fa-trash-alt"></i></th>
             </tr>
             </thead>
             <tbody>
@@ -23,8 +23,8 @@
                             <a :href="cart.options.product_url" >{{ cart.name }}</a>
                         </p>
                         <small class="cart_ref">SKU : #123654999</small><br>
-                        <small v-if="cart.options.color"><a href="#">Color : {{ cart.options.color }}</a></small><br>
-                        <small v-if="cart.options.size"><a href="#">Size : {{ cart.options.size }}</a></small>
+                        <small v-if="cart.options.color"><a href="#">{{ $tc('products.color',1) }} : {{ cart.options.color }}</a></small><br>
+                        <small v-if="cart.options.size"><a href="#">{{ $tc('products.size',1)}} : {{ cart.options.size }}</a></small>
                     </td>
                     <td class="price"><span>$ {{ cart.price }}</span></td>
                     <td class="qty">
@@ -38,28 +38,28 @@
                     </td>
                 </tr>
                 <tr v-else class="last even">
-                    <td colspan="7"><span>Cart is Empty </span></td>
+                    <td colspan="7"><span>{{ $t('cart.empty_cart')}}</span></td>
                 </tr>
             </tbody>
             <tfoot>
             <tr>
                 <td colspan="2"></td>
-                <td colspan="3">Subtotal:</td>
+                <td colspan="3">{{ $t('cart.subtotal')}}:</td>
                 <td colspan="2">$ {{ cartSubTotal }}</td>
             </tr>
             <tr>
                 <td colspan="2"></td>
-                <td colspan="3">Discount: </td>
+                <td colspan="3">{{ $t('cart.discount')}}: </td>
                 <td colspan="2">$ {{ cartDiscount }}</td>
             </tr>
             <tr v-if="deliveryCost!==0">
                 <td colspan="2"></td>
-                <td colspan="3">Delivery Charge: </td>
+                <td colspan="3">{{ $t('cart.delivery_charge')}}: </td>
                 <td colspan="2">$ {{ deliveryCost }}</td>
             </tr>
             <tr>
                 <td colspan="2"></td>
-                <td colspan="3"><strong>Grand Total</strong></td>
+                <td colspan="3"><strong>{{ $t('cart.grand_total')}}</strong></td>
                 <td colspan="2"><strong>$ {{ (parseFloat(cartTotalPrice)+parseInt(deliveryCost)).toFixed(2) }}</strong></td>
             </tr>
             </tfoot>

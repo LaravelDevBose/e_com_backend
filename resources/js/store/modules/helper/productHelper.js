@@ -46,6 +46,21 @@ const actions = {
             console.log(error);
         }
     },
+    async attachmentImageRemove({commit},attachmentId){
+        try {
+            return await axios.delete(`/attachment/delete/${attachmentId}`,)
+                .then(function (response) {
+                    commit('removeAttachment', attachmentId);
+                    return response.data;
+                }).catch(function (errors) {
+                    console.log(errors);
+                    commit('setResponse', errors.data);
+                    return errors.data;
+                });
+        }catch (error) {
+            console.log(error);
+        }
+    },
 };
 
 const mutations = {
@@ -64,6 +79,16 @@ const mutations = {
         state.attachmentsFile = [];
         state.attachment_ids = [];
     },
+
+    removeAttachment:(state, attachmentId)=>{
+        state.imagesFile = state.imagesFile.filter(image=>{
+            return image.id !== attachmentId;
+        });
+
+        state.image_ids = state.image_ids.filter(image=>{
+            return image.image_id !== attachmentId;
+        })
+    }
 };
 
 export default {

@@ -10,6 +10,7 @@
 
     <script src="{{ asset('js/limitless_v1.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <meta name="lang" content="en">
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">

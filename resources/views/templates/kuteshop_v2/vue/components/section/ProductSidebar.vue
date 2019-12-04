@@ -6,7 +6,7 @@
         <div class="block-content">
             <!-- filter price -->
             <div class="filter-options-item filter-options-price">
-                <div class="filter-options-title">Price</div>
+                <div class="filter-options-title">{{ $t('products.price')}}</div>
                 <div class="filter-options-content">
                     <div class="slider-range">
 
@@ -14,7 +14,7 @@
 
                         <div class="action">
                         <span class="price">
-                            <span>Range:</span>
+                            <span>{{ $t('products.range')}}:</span>
                             $<span id="amount-left"></span>
                             -
                             $<span id="amount-right"></span>
@@ -44,7 +44,7 @@
 
             <!-- filter brad-->
             <div v-if="brands" class="filter-options-item filter-options-brand">
-                <div class="filter-options-title">BRAND</div>
+                <div class="filter-options-title">{{ $tc('products.brand',brands.length)}}</div>
                 <div class="filter-options-content">
                     <ol class="items">
                         <li class="item" v-for="(brand, index) in brands" :key="index">
@@ -59,7 +59,7 @@
 
             <!-- filter color-->
             <div v-if="colors" class="filter-options-item filter-options-color">
-                <div class="filter-options-title">COLOR</div>
+                <div class="filter-options-title">{{ $tc('products.color',colors.length)}}</div>
                 <div class="filter-options-content">
                     <ol class="items">
                         <li class="item" v-for="(color,index) in colors" :key="index">
@@ -78,7 +78,7 @@
 
             <!-- Filter Item  size-->
             <div v-if="sizes" class="filter-options-item filter-options-size">
-                <div class="filter-options-title">SIZE</div>
+                <div class="filter-options-title">{{ $tc('products.size',sizes.length)}}</div>
                 <div class="filter-options-content">
                     <ol class="items">
                         <li class="item" v-for="(size, index) in sizes" :key="index">

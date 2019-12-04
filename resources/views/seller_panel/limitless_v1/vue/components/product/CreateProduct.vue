@@ -67,7 +67,16 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
+                                        <label class="control-label">COD Available: <span class="text text-danger text-bold">*</span></label>
+                                        <label class="checkbox-style" for="paypal_payment">
+                                            <span class="text-bold text-success" v-if="formData.cod_avail">Yes</span>
+                                            <span class="text-bold text-warning" v-else>No</span>
+                                            <input type="checkbox" id="paypal_payment" v-model="formData.cod_avail"  :checked="formData.cod_avail">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
                                         <label class="control-label">Package Weight (kg): <span class="text text-danger text-bold">*</span></label>
                                         <input type="number" v-model="formData.package_weight" class="form-control"  step="0.01">
                                     </div>
@@ -489,6 +498,7 @@
                     product_qty:'',
                     product_price:'',
                     seller_sku:'',
+                    cod_avail:1,
                 },
                 variations:[],
                 btnDisabled:false,
@@ -844,7 +854,7 @@
                 handler(newVal, oldVal){
                     if(jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length){
                         this.addNewVariationSizeWish(newVal, oldVal);
-                    }else if(jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length ){
+                    }else if(jQuery.isEmptyObject(newVal) && !jQuery.isEmptyObject(newVal) ||  newVal.length < oldVal.length ){
                         this.removeVariationSizeWish(newVal, oldVal);
                     }
                 }

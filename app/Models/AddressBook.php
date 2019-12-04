@@ -19,16 +19,16 @@ class AddressBook extends Model
         6=>'Galguduud',
         7=>'Gedo',
         8=>'Hiiraan',
-        9=>'Jubbada Dhexe',
-        10=>'Jubbada Hoose',
+        9=>'Jubbada_Dhexe',
+        10=>'Jubbada_Hoose',
         11=>'Mudug',
         12=>'Nugaal',
         13=>'Sanaag',
         14=>'Shabeellaha',
-        15=>'Shabeellaha Hoose',
+        15=>'Shabeellaha_Hoose',
         16=>'Sool',
         17=>'Togdheer',
-        18=>'Woqooyi Galbeed',
+        18=>'Woqooyi_Galbeed',
     ];
 
     protected $table = 'address_books';

@@ -1,31 +1,31 @@
 <template>
     <div class="box-authentication">
-        <h3>Create an account</h3>
-        <p>Please enter your Details to create an account.</p>
+        <h3>{{ $t('auth.buyer.reg_title') }}</h3>
+        <p>{{ $t('auth.buyer.reg_sub_title') }}</p>
         <form action="" @submit.prevent="buyerRegister">
             <div class="row">
                 <div class="col-md-10">
-                    <label for="full_name">Full Name <span class="text text-danger text-bold">*</span></label>
-                    <input type="text" v-model="formData.full_name" placeholder="Full name" required class="form-control" id="full_name">
+                    <label for="full_name">{{ $t('form.full_name') }}<span class="text text-danger text-bold">*</span></label>
+                    <input type="text" v-model="formData.full_name" :placeholder="$t('form.full_name')" required class="form-control" id="full_name">
                 </div>
                 <div class="col-md-10">
-                    <label for="mobile">Mobile Number</label>
-                    <input type="text" v-model="formData.phone_no" placeholder="Phone no" class="form-control" id="mobile">
+                    <label for="mobile">{{ $t('form.phone_no') }}</label>
+                    <input type="text" v-model="formData.phone_no" :placeholder="$t('form.phone_no')" class="form-control" id="mobile">
                 </div>
                 <div class="col-md-10">
-                    <label for="email">Email <span class="text text-danger text-bold">*</span></label>
+                    <label for="email">{{ $t('form.email') }} <span class="text text-danger text-bold">*</span></label>
                     <input type="email" v-model="formData.email" required placeholder="your@email.com" class="form-control" id="email">
                 </div>
                 <div class="col-md-10">
-                    <label for="password">Password <span class="text text-danger text-bold">*</span></label>
-                    <input type="password" v-model="formData.password" minlength="8" required placeholder="Password" class="form-control" id="password">
+                    <label for="password">{{ $t('form.password') }} <span class="text text-danger text-bold">*</span></label>
+                    <input type="password" v-model="formData.password" minlength="8" required :placeholder="$t('form.password')" class="form-control" id="password">
                 </div>
                 <div class="col-md-10">
-                    <label for="password_con">Confirm Password <span class="text text-danger text-bold">*</span></label>
-                    <input type="password" v-model="formData.password_confirmation" minlength="8" required placeholder="Confirm Password" class="form-control" id="password_con">
+                    <label for="password_con">{{ $t('form.confirm_pass') }} <span class="text text-danger text-bold">*</span></label>
+                    <input type="password" v-model="formData.password_confirmation" minlength="8" required :placeholder="$t('form.confirm_pass')" class="form-control" id="password_con">
                 </div>
                 <div class="col-md-10">
-                    <button type="submit" class="button"><i class="fa fa-user"></i> Create an account</button>
+                    <button type="submit" class="button"><i class="fa fa-user"></i> {{ $t('auth.buyer.reg_title') }}</button>
                 </div>
             </div>
         </form>

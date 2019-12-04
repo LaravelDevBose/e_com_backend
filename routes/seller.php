@@ -25,6 +25,7 @@ Route::prefix('seller')->middleware('auth:seller')->namespace('Seller')->as('sel
 
     Route::post('product/image/store', 'ProductImageController@store')->name('product_image.store');
     Route::delete('product/image/delete/{id}', 'ProductImageController@delete')->name('product_image.delete');
+    Route::delete('product/{product_id}/validation/{variation_id}/delete', 'ProductController@variation_delete')->name('product.variation.delete');
 
     Route::get('campaigns', 'CampaignController@index')->name('campaign.index');
     Route::get('campaign/joined/list', 'CampaignController@joined_list')->name('campaign.joined.list');

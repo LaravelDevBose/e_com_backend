@@ -7,7 +7,7 @@
         <div class="dropdown-menu">
             <div v-if="cartTotal > 0" class="minicart-content-wrapper" >
                 <div class="subtitle">
-                    You have {{ cartTotal }} item(s) in your cart
+                    {{ $tc('cart.cart_qty_label',cartTotal,{cartTotal:cartTotal})}}
                 </div>
                 <div class="minicart-items-wrapper">
                     <ol class="minicart-items">
@@ -23,7 +23,7 @@
                                     <span class="price">$ {{ cart.price }}</span>
                                 </div>
                                 <div class="product-item-qty">
-                                    <span class="label">Qty: </span ><span class="number">{{ cart.qty }}</span>
+                                    <span class="label">{{ $t('cart.qty')}}: </span ><span class="number">{{ cart.qty }}</span>
                                 </div>
                                 <div class="product-item-actions">
                                     <a class="action delete" href="#" @click.prevent="productRemoveFromCart(cart.rowId)" title="Remove item">
@@ -35,21 +35,21 @@
                     </ol>
                 </div>
                 <div class="subtotal">
-                    <span class="label">Total</span>
+                    <span class="label">{{ $t('cart.total')}}</span>
                     <span class="price">${{ cartTotalPrice }}</span>
                 </div>
                 <div class="actions">
                      <a class="btn btn-viewcart" href="/cart" style="margin-right:.2rem;">
-                            <span>Shopping bag</span>
+                            <span>{{ $t('cart.shopping_bag')}}</span>
                      </a>
                     <button @click.prevent="goToCheckoutPage()" class="btn btn-checkout" type="button" title="Check Out">
-                        <span>Checkout</span>
+                        <span>{{ $t('cart.checkout')}}</span>
                     </button>
                 </div>
             </div>
             <div v-else class="minicart-content-wrapper" >
                 <div class="subtitle">
-                    You have 0 item(s) in your cart
+                    {{ $tc('cart.cart_qty_label',cartTotal,{cartTotal:cartTotal})}}
                 </div>
             </div>
         </div>

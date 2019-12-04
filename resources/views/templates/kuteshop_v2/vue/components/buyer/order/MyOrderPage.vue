@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-9 col-md-push-3   col-main">
         <h2 class="page-heading">
-            <span class="page-heading-title2">My Order List</span>
+            <span class="page-heading-title2">{{ $t('buyer.order.order_list')}}</span>
         </h2>
 
         <div class="content-text clearfix">

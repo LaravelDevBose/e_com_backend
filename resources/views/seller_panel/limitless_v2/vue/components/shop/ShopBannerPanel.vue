@@ -58,6 +58,7 @@
                     file_size:1,
                     init_image:'',
                     folder:'shop',
+                    modal_view:3
                 },
                 removeImage:false,
                 btnDisabled:false,

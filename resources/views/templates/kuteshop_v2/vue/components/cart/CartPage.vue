@@ -3,8 +3,8 @@
         <div class="order-detail-content">
             <cart-list-table></cart-list-table>
             <div class="cart_navigation" style="margin-bottom: 1em;">
-                <a href="#" @click.prevent="goToShopping" class="prev-btn">Continue shopping</a>
-                <a href="#" @click.prevent="proceedToCheckout" class="next-btn">Proceed to checkout</a>
+                <a href="#" @click.prevent="goToShopping" class="prev-btn">{{ $t('cart.continue_shopping')}}</a>
+                <a href="#" @click.prevent="proceedToCheckout" class="next-btn">{{ $t('cart.continue_checkout')}}</a>
             </div>
         </div>
     </div>

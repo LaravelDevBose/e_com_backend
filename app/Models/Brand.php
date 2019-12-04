@@ -14,11 +14,20 @@ class Brand extends Model
         'brand_name',
         'brand_slug',
         'attachment_id',
-        'brand_status'
+        'brand_status',
+        'trans_brand_name'
     ];
 
-    public function getBrandNameAttributes($value){
-        return ucfirst($value);
+    public function getBrandNameAttributes(){
+        if(app()->getLocale() == 'so'){
+            if(!empty($this->attributes['trans_brand_name'])){
+                return ucfirst($this->attributes['trans_brand_name']);
+            }
+            return ucfirst($this->attributes['brand_name']);
+        }else{
+            return ucfirst($this->attributes['brand_name']);
+        }
+
     }
 
     public function scopeNotDelete($query){

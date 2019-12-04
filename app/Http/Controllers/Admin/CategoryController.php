@@ -95,9 +95,11 @@ class CategoryController extends Controller
 
                 $category = Category::create([
                     'category_name'=>$request->category_name,
+                    'trans_category_name'=>$request->trans_category_name,
                     'category_slug'=>Str::slug($request->category_name),
                     'parent_id'=>(!empty($request->parent_id))?$request->parent_id : null,
-                    'attachment_id'=>(!empty($request->attachmentIds))? $request->attachmentIds:null,
+                    'banner_id'=>(!empty($request->banner_id))? $request->banner_id:null,
+                    'sect_banner_id'=>(!empty($request->sect_banner_id))? $request->sect_banner_id:null,
                     'category_status'=>(!empty($request->category_status) && $request->category_status == 1) ? $request->category_status : 2,
                     'is_show'=>(!empty($request->is_show) && $request->is_show == 1) ? $request->is_show : 2,
                 ]);
@@ -172,6 +174,7 @@ class CategoryController extends Controller
 
                 $category = $category->update([
                     'category_name'=>$request->category_name,
+                    'trans_category_name'=>$request->trans_category_name,
                     'category_slug'=>Str::slug($request->category_name),
                     'parent_id'=>(!empty($request->parent_id))?$request->parent_id : null,
                     'attachment_id'=>(!empty($request->attachmentIds))? $request->attachmentIds:null,

@@ -1,15 +1,15 @@
 //declare State
 const state = {
-    cropImages:[],
+    crop_images:[],
     errors:null,
-    cropImageIds:[],
+    crop_imageIds:[],
 
 };
 
 //declare Getters
 const getters = {
-    cropImages:(state)=>state.cropImages,
-    cropImageIds:(state)=>state.cropImageIds,
+    cropImages:(state)=>state.crop_images,
+    cropImageIds:(state)=>state.crop_imageIds,
 };
 
 const actions = {
@@ -31,6 +31,9 @@ const actions = {
             console.log(error);
             return error;
         }
+    },
+    resetCropImages({commit}){
+        commit('emptyImageArray',true);
     }
 
 };
@@ -38,13 +41,27 @@ const actions = {
 const mutations = {
     setCropImage:(state,response)=>{
         response.attachments.forEach(file=>{
-            state.cropImages.unshift(file);
-            state.cropImageIds.push(file.id);
+            if(state.crop_images.length === 0){
+                state.crop_images.unshift(file);
+                state.crop_imageIds.push(file.id);
+            }else{
+                $.each( state.crop_images, function( key, prvImg ) {
+                    if( prvImg.serial === file.serial){
+                        state.crop_images.splice(key, 1);
+                        state.crop_imageIds.splice(key, 1);
+                    }
+                });
+
+                state.crop_images.unshift(file);
+                state.crop_imageIds.push(file.id);
+
+            }
         });
     },
-    emptyAttachmentFile:(state)=>{
-        state.attachmentsFile = [];
-        state.attachment_ids = [];
+    emptyImageArray:(state,length)=>{
+        console.log(length);
+        state.crop_images.length = 0;
+        state.crop_imageIds.length = 0;
     },
 
 };

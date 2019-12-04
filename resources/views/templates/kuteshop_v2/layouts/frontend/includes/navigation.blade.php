@@ -2,11 +2,11 @@
 <div class="block-nav-categori">
 
     <div class="block-title">
-        <span>Categories</span>
+        <span>{{ trans_choice('header.category',2) }}</span>
     </div>
     @if(!empty($categoryTree))
     <div class="block-content">
-        <div class="clearfix"><span data-action="close-cat" class="close-cate"><span>Categories</span></span></div>
+        <div class="clearfix"><span data-action="close-cat" class="close-cate"><span>{{ trans_choice('header.category',2) }}</span></span></div>
         <ul class="ui-categori">
             @foreach($categoryTree as $category)
             <li class="{{ (!empty($category->children) && count($category->children) > 0)?'parent':'' }}">
@@ -42,7 +42,7 @@
         </ul>
 
         <div class="view-all-categori">
-            <a  class="open-cate btn-view-all">All Categories</a>
+            <a  class="open-cate btn-view-all">@lang('header.all') {{ trans_choice('header.category',2) }}</a>
         </div>
     </div>
     @endif

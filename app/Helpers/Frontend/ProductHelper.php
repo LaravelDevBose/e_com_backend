@@ -18,7 +18,7 @@ class ProductHelper
 {
     public static function products_list($request=null){
         $request = (object)$request;
-        $products = Product::isActive()->with(['brand', 'category', 'thumbImage', 'singleVariation']);
+        $products = Product::isActive()->with(['brand', 'category', 'thumbImage', 'singleVariation', 'reviews']);
 
         if(!empty($request->seller_id)){
             $products = $products->where('seller_id', $request->seller_id);

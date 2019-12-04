@@ -27,13 +27,14 @@ class ProductVariation extends Model
         'special_price',
         'gift_product_id',
         'gift_product_sku',
+        'variation_status',
     ];
 
     public function product(){
         return $this->belongsTo(Product::class, 'product_id', 'product_id');
     }
 
-    public function primaryModel(){
+    /*public function primaryModel(){
         switch ($this->attributes['pri_model']){
             case Self::VARIATION_MODEL['color']:
                 $relation = $this->belongsTo(Color::class, 'sec_id', 'color_id');
@@ -55,6 +56,14 @@ class ProductVariation extends Model
                 break;
         }
         return $relation;
+    }
+    */
+    public function primaryModel(){
+        return $this->belongsTo(Color::class, 'pri_id', 'color_id');
+    }
+
+    public function secondaryModel(){
+        return $this->belongsTo(Size::class, 'sec_id', 'size_id');
     }
 
     public function giftProduct(){

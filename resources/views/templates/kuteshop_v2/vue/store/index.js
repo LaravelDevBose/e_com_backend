@@ -13,7 +13,7 @@ import order from "./modules/order";
 import address_book from "./modules/address_book";
 import search from "./modules/search";
 import account_info from "./modules/account_info";
-
+import review from "./modules/review";
 
 export default new Vuex.Store({
     state:{
@@ -28,16 +28,16 @@ export default new Vuex.Store({
             {key:'Galguduud',   name:'Galguduud'},
             {key:'Gedo',        name:'Gedo'},
             {key:'Hiiraan',     name:'Hiiraan'},
-            {key:'Jubbada Dhexe',name:'Jubbada Dhexe'},
-            {key:'Jubbada Hoose',name:'Jubbada Hoose'},
+            {key:'Jubbada Dhexe',name:'Jubbada_Dhexe'},
+            {key:'Jubbada Hoose',name:'Jubbada_Hoose'},
             {key:'Mudug',       name:'Mudug'},
             {key:'Nugaal',      name:'Nugaal'},
             {key:'Sanaag',      name:'Sanaag'},
             {key:'Shabeellaha', name:'Shabeellaha'},
-            {key:'Shabeellaha Hoose',name:'Shabeellaha Hoose'},
+            {key:'Shabeellaha Hoose',name:'Shabeellaha_Hoose'},
             {key:'Sool',        name:'Sool'},
             {key:'Togdheer',    name:'Togdheer'},
-            {key:'Woqooyi Galbeed',name:'Woqooyi Galbeed'},
+            {key:'Woqooyi Galbeed',name:'Woqooyi_Galbeed'},
         ],
         paginate:{},
     },
@@ -46,7 +46,12 @@ export default new Vuex.Store({
         pagination:(state)=>state.paginate,
     },
     actions:{
-
+        changeLanguage({commit},lang){
+            return axios.get(`/set/language/${lang}`)
+                .then(response=>{
+                    return response.data;
+                });
+        }
     },
     mutations:{
         setResponse:(state, res)=>{
@@ -62,7 +67,8 @@ export default new Vuex.Store({
         order,
         address_book,
         search,
-        account_info
+        account_info,
+        review,
     }
 })
 

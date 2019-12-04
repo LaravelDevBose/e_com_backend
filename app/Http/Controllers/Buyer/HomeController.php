@@ -45,10 +45,7 @@ class HomeController extends Controller
         return view('templates.'.$this->template_name.'.buyer.home.dashboard');
     }
 
-    public function my_product_reviews(){
 
-        return view('templates.'.$this->template_name.'.buyer.my_product_reviews');
-    }
     public function my_wishlist(){
 
         $wishListProductIDs = WishList::isActive()->where('buyer_id', auth()->id())->pluck('product_id');

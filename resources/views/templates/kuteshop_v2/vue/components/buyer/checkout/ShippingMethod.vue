@@ -7,7 +7,7 @@
                 </label>
             </li>
         </ul>
-        <button type="button" @click.prevent="shippingMethodStore" class="button">Continue</button>
+        <button type="button" @click.prevent="shippingMethodStore" class="button">{{ $t('checkout.continue')}}</button>
     </div>
 </template>
 

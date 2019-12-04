@@ -4,7 +4,7 @@
     <div class="container">
 
         <div class="block-title">
-            <span class="title">Top Brands</span>
+            <span class="title">{{ trans_choice('footer.top_brand', count($brands)) }}</span>
         </div>
 
         <div class="block-content" >
@@ -24,7 +24,12 @@
                 @foreach($brands as $brand)
                     @if(!empty($brand->attachment->image_path))
                         <li>
-                            <img src="{{ $brand->attachment->image_path }}" alt="{{ $brand->brand_name }}" title="{{ $brand->brand_name }}">
+                            <clazy-load src="{{ $brand->attachment->image_path }}">
+                                <img title="{{ $brand->brand_name }}" src="{{ $brand->attachment->image_path }}" style="width:100%; height:auto;">
+                                <div class="preloader" slot="placeholder">
+                                    <img title="{{ $brand->brand_name }}" src="/images/placeholder.png" style="width:100%; height:auto;">
+                                </div>
+                            </clazy-load>
                         </li>
                     @endif
                 @endforeach
@@ -102,11 +107,10 @@
                     <div class="block-social">
                         <div class="block-title">Let’s Socialize </div>
                         <div class="block-content">
-                            <a href="" class="sh-facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="" class="sh-pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
-                            <a href="" class="sh-vk"><i class="fa fa-vk" aria-hidden="true"></i></a>
-                            <a href="" class="sh-twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="" class="sh-google"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                            <a href="" class="sh-facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                            <a href="" class="sh-pinterest"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
+                            <a href="" class="sh-twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                            <a href="" class="sh-google"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
@@ -118,16 +122,10 @@
                 Accepted Payment Methods
             </div>
             <div class="block-content">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment1.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment2.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment3.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment4.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment5.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment6.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment7.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment8.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment9.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment10.png')}}">
+                <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-1.png')}}">
+                <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-2.png')}}">
+                <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-3.png')}}">
+                <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-4.png')}}">
             </div>
         </div>
         @if(!empty($categoryTree))

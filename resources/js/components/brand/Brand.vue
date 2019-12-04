@@ -15,36 +15,35 @@
             <div class="panel-body">
                 <form action="" @submit.prevent="manipulateBrandData">
                     <div class="row">
-                        <div class="col-md-6 col-sm-6">
+                        <div class="col-md-4 col-md-offset-1">
                             <div class="form-group">
                                 <label>Brand Name:</label>
                                 <input type="text" v-model="formData.brand_name" class="form-control" placeholder="Brand Name " required>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-sm-4">
                             <div class="form-group">
-                                <label>Brand Banner:</label>
-                                <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                                <label>Trans. Brand Name:</label>
+                                <input type="text" v-model="formData.trans_brand_name" class="form-control" placeholder="Somalia Brand Name " required>
                             </div>
-                        </div>
-                        <div class="col-md-3 col-sm-4 col-md-offset-6 col-sm-offset-6">
-                            <div class="content-group-lg">
-                                <div class="checkbox checkbox-switchery">
-                                    <label>
-                                        <input type="checkbox" v-model="formData.brand_status" class="switchery-primary" :checked="formData.brand_status">
-                                        <span class="text-success" v-if="formData.brand_status"> Publish</span>
-                                        <span class="text-danger" v-else> UnPublish</span>
-                                    </label>
-                                </div>
+                            <div class="form-group">
+                                <label class="checkbox-style" for="paypal_payment">
+                                    <span class="text-bold text-success" v-if="formData.brand_status">Active</span>
+                                    <span class="text-bold text-warning" v-else>Inactive</span>
+                                    <input type="checkbox" id="paypal_payment" v-model="formData.brand_status"  :checked="formData.brand_status">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
-                        </div>
-                        <div class="col-md-3">
                             <div class="text-right form-group">
-                                <button type="submit" :disabled="btnDisabled" class="btn btn-primary">
+                                <button type="submit" :disabled="btnDisabled" class="btn btn-success">
                                     <span v-if="isedit">Update Brand</span>
                                     <span v-else>Save Brand</span>
                                     <i class="icon-arrow-right14 position-right"></i>
                                 </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Brand Banner:</label>
+                                <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                             </div>
                         </div>
                     </div>
@@ -71,6 +70,7 @@
                         <th>#</th>
                         <th style="padding:5px;">Banner Image</th>
                         <th>Brand Name</th>
+                        <th>Somalia Brand Name</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -83,6 +83,9 @@
                         </td>
                         <td>
                             <span class="text text-bold"> {{ brand.name }}</span>
+                        </td>
+                        <td>
+                            <span class="text text-bold" v-if="brand.trans_name"> {{ brand.trans_name }}</span>
                         </td>
                         <td class="text text-center">
                             <span class="badge badge-success" v-if="brand.status === 1">Active</span>
@@ -116,6 +119,7 @@
             return{
                 formData:{
                     id:'',
+                    trans_brand_name:'',
                     brand_name:'',
                     brand_status:'',
                     attachment_id:'',
@@ -127,6 +131,7 @@
                     file_size:1,
                     init_image:'',
                     folder:'brand',
+                    modal_type:1,
                 },
                 removeImage:false,
                 btnDisabled:false,
@@ -184,6 +189,7 @@
             },
             formReset(){
                 this.formData.brand_name='';
+                this.formData.trans_brand_name='';
                 this.formData.brand_status = false;
                 this.formData.attachment_id = '';
                 this.removeImage=true;
@@ -209,6 +215,7 @@
                         this.isedit = true;
                         this.formData.id=brand.id;
                         this.formData.brand_name=brand.name;
+                        this.formData.trans_brand_name=brand.trans_name;
                         this.formData.brand_status = brand.status;
                         if(brand.attachment){
                             this.formData.attachment_id = brand.attachment.attachment_id;

@@ -6,9 +6,9 @@
                     <div class="col-sm-6">
                         <div class="categori-search  ">
                             <chosen-select v-model='billing_id' :classList="selectOption.classList" :placeholder="selectOption.placeholder" >
-                                <option value="" selected>Select an Address</option>
-                                <option :value="0">New Address</option>
-                                <option v-if="addressList" v-for="(address, index) in addressList"  :value="address.id" >{{ address.text }}</option>
+                                <option value="" selected>{{ $t('checkout.select_address')}}</option>
+                                <option :value="0">{{ $t('checkout.new_address')}}</option>
+                                <option v-if="addressList" v-for="(address, index) in addressList" :key="index" :value="address.id" >{{ address.text }}</option>
                             </chosen-select>
                         </div>
                     </div>
@@ -17,53 +17,53 @@
             <ul :class="new_address?'show':'hidden'">
                 <li class="row">
                     <div class="col-sm-12">
-                        <h3 class="text text-semibold text-center">New Address</h3>
+                        <h3 class="text text-semibold text-center">{{ $t('checkout.new_address')}}</h3>
                     </div>
                 </li>
                 <li class="row">
                     <div class="col-sm-6">
-                        <label for="first_name" class="required">First Name <span class="text text-bold text-danger">*</span></label>
+                        <label for="first_name" class="required">{{ $t('form.first_name')}}<span class="text text-bold text-danger">*</span></label>
                         <input class="input form-control" v-model="formData.first_name"  id="first_name" type="text">
                     </div>
                     <div class="col-sm-6">
-                        <label for="last_name" class="required">Last Name</label>
+                        <label for="last_name" class="required">{{ $t('form.last_name')}}</label>
                         <input  v-model="formData.last_name"  class="input form-control" id="last_name" type="text">
                     </div>
                 </li>
                 <li class="row">
                     <div class="col-sm-6">
-                        <label for="telephone" class="required">Telephone <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.phone_no"  id="telephone" type="text">
+                        <label for="telephone" class="required">{{ $t('form.phone_no')}} <span class="text text-bold text-danger">*</span></label>
+                        <input class="input form-control" v-model="formData.phone_no"  id="telephone" type="number">
                     </div>
                 </li>
                 <li class="row">
                     <div class="col-xs-12">
-                        <label for="address" class="required">Address <span class="text text-bold text-danger">*</span></label>
+                        <label for="address" class="required">{{ $t('form.address')}} <span class="text text-bold text-danger">*</span></label>
                         <input class="input form-control" v-model="formData.address"  id="address" type="text">
                     </div>
 
                 </li>
                 <li class="row">
                     <div class="col-sm-6">
-                        <label for="city" class="required">City <span class="text text-bold text-danger">*</span></label>
+                        <label for="city" class="required">{{ $t('form.city')}} <span class="text text-bold text-danger">*</span></label>
                         <input class="input form-control" v-model="formData.city"  id="city" type="text">
                     </div>
                     <div class="col-sm-6">
-                        <label for="district" class="required">District <span class="text text-bold text-danger">*</span></label>
+                        <label for="district" class="required">{{ $t('form.district')}} <span class="text text-bold text-danger">*</span></label>
                         <input class="input form-control" v-model="formData.district"  id="district" type="text">
                     </div>
                 </li>
                 <li class="row">
                     <div class="col-sm-6">
-                        <label class="required">Region <span class="text text-bold text-danger">*</span></label>
-                        <chosen-select v-model='formData.region' :classList="selectOption.classList" :placeholder="'Select Your State'" >
-                            <option value="">Select A Region</option>
-                            <option v-for="(region,index) in regions" :key="index" :value="region.key">{{ region.name }}</option>
+                        <label class="required">{{ $t('form.region')}} <span class="text text-bold text-danger">*</span></label>
+                        <chosen-select v-model='formData.region' :classList="selectOption.classList" :placeholder="$t('form.select_region')" >
+                            <option value="">{{ $t('form.select_region')}}</option>
+                            <option v-for="(region,index) in regions" :key="index" :value="region.key">{{ $t("state."+region.name) }}</option>
                         </chosen-select>
                     </div>
                     <div class="col-sm-6">
-                        <label for="postal_code" class="required">Zip/Postal Code</label>
-                        <input class="input form-control" v-model="formData.postal_code"  id="postal_code" type="text">
+                        <label for="postal_code" class="required">{{ $t('form.postal_code')}}</label>
+                        <input class="input form-control" v-model="formData.postal_code"  id="postal_code" type="number">
                     </div>
                 </li>
             </ul>
@@ -71,17 +71,17 @@
                 <li class="row">
                     <div class="col-sm-3" v-if="new_address">
                         <label for="save_address" style="padding:10px;">
-                            <input  id="save_address" v-model="save_address" :value="1" type="checkbox"> Save as Address Book
+                            <input  id="save_address" v-model="save_address" :value="1" type="checkbox">{{ $t('checkout.save_address_book')}}
                         </label>
                     </div>
                     <div class="col-sm-3">
                         <label for="is_shipping" style="padding:10px;">
-                            <input  v-model="formData.is_shipping"  :value="1"  id="is_shipping" type="checkbox"> Also As Shipping Address
+                            <input  v-model="formData.is_shipping"  :value="1"  id="is_shipping" type="checkbox">{{ $t('checkout.also_save_address')}}
                         </label>
                     </div>
                 </li>
                 <li style="text-align: right">
-                    <button type="button" @click.prevent="billingAddressStore" :disabled="btnDisabled" class="button">Continue</button>
+                    <button type="button" @click.prevent="billingAddressStore" :disabled="btnDisabled" class="button">{{ $t('checkout.continue')}}</button>
                 </li>
             </ul>
         </div>
@@ -138,6 +138,7 @@
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 this.$noty.success(response.message);
+                                this.btnDisabled = false;
                                 this.continueTab();
                             }else if(response.status === 'validation'){
                                 this.$noty.warning(response.message);
@@ -150,6 +151,7 @@
                         return false;
                     }
                     this.addAddressInfo(this.formData);
+                    this.btnDisabled = false;
                     this.continueTab();
                 }else{
                     if(this.billing_id == ''){
@@ -167,6 +169,7 @@
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 this.$noty.success(response.message);
+                                this.btnDisabled = false;
                                 this.continueTab();
                             }else if(response.status === 'validation'){
                                 this.$noty.warning(response.message);
@@ -183,7 +186,13 @@
                         billing:{
                             'tabAction':false,
                         },
+                        shopping:{
+                            'tabAction':false,
+                        },
                         method:{
+                            'tabAction':false,
+                        },
+                        payment:{
                             'tabAction':true,
                         },
 
@@ -195,6 +204,12 @@
                         },
                         shopping:{
                             'tabAction':true,
+                        },
+                        method:{
+                            'tabAction':false,
+                        },
+                        payment:{
+                            'tabAction':false,
                         },
 
                     };

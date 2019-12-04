@@ -46,6 +46,13 @@ class Product extends Model
         'Out of Stock'=>5,
     ];
 
+    const DeliveryType=[
+        'Cash On Delivery'=>1,
+        'Master Card'=>2,
+        'E-Dahab'=>3,
+        'Salaam Bank'=>4
+    ];
+
     protected $table = 'products';
 
     protected $primaryKey = 'product_id';
@@ -96,7 +103,41 @@ class Product extends Model
         return 'product_slug';
     }
 
+    public function getProductNameAttribute()
+    {
+        if (app()->getLocale() == 'so'){
+            if(!empty($this->attributes['lang_product_name'])){
+                return ucfirst($this->attributes['lang_product_name']);
+            }
+            return ucfirst($this->attributes['product_name']);
+        }else{
+            return ucfirst($this->attributes['product_name']);
+        }
+    }
 
+    public function getHighlightAttribute()
+    {
+        if (app()->getLocale() == 'so'){
+            if(!empty($this->attributes['lang_highlight'])){
+                return ucfirst($this->attributes['lang_highlight']);
+            }
+            return ucfirst($this->attributes['highlight']);
+        }else{
+            return ucfirst($this->attributes['highlight']);
+        }
+    }
+
+    public function getDescriptionAttribute()
+    {
+        if (app()->getLocale() == 'so'){
+            if(!empty($this->attributes['lang_description'])){
+                return ucfirst($this->attributes['lang_description']);
+            }
+            return ucfirst($this->attributes['description']);
+        }else{
+            return ucfirst($this->attributes['description']);
+        }
+    }
     public function scopeNotDelete($query){
         return $query->where('product_status', '!=', config('app.delete'));
     }
@@ -197,7 +238,7 @@ class Product extends Model
     }
 
     public function variations(){
-        return $this->hasMany(ProductVariation::class, 'product_id', 'product_id');
+        return $this->hasMany(ProductVariation::class, 'product_id', 'product_id')->where('variation_status', config('app.active'));
     }
 
     public function productImages(){
@@ -223,5 +264,14 @@ class Product extends Model
     public function sectionProduct()
     {
         return $this->hasMany(SectionProduct::class, 'product_id', 'product_id');
+    }
+
+    public function rating(){
+        return $this->hasOne(Rating::class, 'product_id', 'product_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'product_id', 'product_id');
     }
 }

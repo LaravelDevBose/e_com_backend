@@ -4,41 +4,17 @@
 
 @section('PageCss')
     <style>
-        .text-widget.widget.widget__sidebar.shop-info {
-            border: 1px solid #eee;
-            margin-bottom: 1em;
+        .single-box {
+            margin-top: 0px;
         }
-        .widget-content {
-            padding: 15px;
+        .comment-list .comment-body {
+            margin-left: 0px;
         }
-        .shop-info .sold-by{
-            font-size: 12px;
-            color: #6d6d6d;
+        .comment-list {
+            margin-top: 0px;
         }
-        .shop-info .shop-name{
-            font-size: 15px;
-            font-weight: 800;
-            margin: 0;
-            padding-bottom: 5px;
-            color: #333;
-        }
-        .shop-info .shop-address{
-            font-size: 13px;
-            margin: 0;
-            color: #6d6d6d;
-            line-height: 2rem;
-        }
-        .shop-info .go-to-store{
-            padding: 7px;
-            border-top: 1px solid #eee;
-            text-align: center;
-            text-transform: uppercase;
-        }
-        .go-to-store a{
-
-            font-weight: bold;
-            font-size: 13px;
-            color: #0db1b9;
+        .vue-star-rating-rating-text{
+            display: none;
         }
     </style>
 @endsection
@@ -62,14 +38,11 @@
                     <div class="row">
 
                         <div class="col-sm-6 col-md-5 col-lg-5">
-
                             <div class="product-media media-horizontal">
-
                                 <div class="image_preview_container images-large">
                                     <img id="img_zoom" data-zoom-image="{{ $product->thumbImage->image_path }}" src="{{ $product->thumbImage->image_path }}" alt="{{ $product->product_name }}">
                                     <button class="btn-zoom open_qv"><span>zoom</span></button>
                                 </div>
-
                                 <div class="product_preview images-small">
 
                                     <div class="owl-carousel thumbnails_carousel" id="thumbnails"  data-nav="true" data-dots="false" data-margin="10" data-responsive='{"0":{"items":3},"480":{"items":4},"600":{"items":5},"768":{"items":3}}'>
@@ -85,17 +58,14 @@
                                                 </a>
                                             @endforeach
                                         @endif
-
                                     </div><!--/ .owl-carousel-->
-
                                 </div><!--/ .product_preview-->
-
                             </div><!-- image product -->
                         </div>
 
                         <div class="col-sm-6 col-md-7 col-lg-7">
                             <div class="row">
-                                <div class="col-sm-12 col-md-8 col-lg-8">
+                                <div class="col-sm-12 col-md-7 col-lg-7">
                                     <div class="product-info-main">
 
                                         <h1 class="page-title">
@@ -103,37 +73,97 @@
                                         </h1>
                                         <div class="product-reviews-summary">
                                             <div class="rating-summary">
-                                                <div class="rating-result" title="70%">
-                                                <span style="width:70%">
-                                                    <span><span>70</span>% of <span>100</span></span>
-                                                </span>
-                                                </div>
+                                                <star-rating
+                                                    :star-size="18"
+                                                    :rating="{{ ($product->reviews->count() > 0)? $product->reviews->sum('rating')/$product->reviews->count(): 0 }}"
+                                                    :read-only="true"
+                                                ></star-rating>
                                             </div>
                                             <div class="reviews-actions">
-                                                <a href="" class="action view">Based  on 3 ratings</a>
-                                                {{--                                        <a href="" class="action add"><img alt="img" src="/kuteshop_v2/images/icon/write.png">&#160;&#160;write a review</a>--}}
+                                                <a href="#" class="action view">Based  on {{ $product->reviews->count() }} ratings</a>
                                             </div>
                                         </div>
-
-
-
                                         <singel-product-options :product="{{ $product }}"></singel-product-options>
-                                        {{--<div class="product-addto-links-second">
-                                            <a href="" class="action action-print">Print</a>
-                                            <a href="" class="action action-friend">Send to a friend</a>
-                                        </div>
-                                        <div class="share">
-                                            <img src="/kuteshop_v2/images/media/index1/share.png" alt="share">
-                                        </div>--}}
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-4 col-lg-4">
-                                    <div class="text-widget widget widget__sidebar shop-info">
+                                <div class="col-sm-12 col-md-5 col-lg-5">
+                                    <div class="text-widget widget widget__sidebar shop-info bg-section">
                                         <div class="widget-content">
-                                            <span class="sold-by">Sold By</span>
-                                            <h3 class="shop-name">
-                                                <span>{{ $product->seller->shop->shop_name }}</span>
+                                            <h3 class="section-title">
+                                                <span>Delivery Options</span>
                                             </h3>
+                                            <p class="delivery-type">
+                                                <i class="fa fa-truck"></i>
+                                                <span class="text-left type-name">Home Delivery</span>
+                                                <br>
+                                                @if(!empty($product->seller->shop))
+                                                <span class="delivery-time">({{ $product->seller->shop->min_deli_day.'-'.$product->seller->shop->max_deli_day }} days)</span>
+                                                @endif
+                                                <span class="pull-right">$ 50</span>
+                                            </p>
+
+                                            <p class="delivery-type">
+                                                <i class="fa fa-money"></i>
+                                                <span class="text-left type-name">Cash on Delivery {{ ($product->productDetails->cod_avail == 1)?'Available':'Not Available' }} </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="text-widget widget widget__sidebar shop-info bg-section">
+                                        <div class="widget-content">
+                                            <h3 class="section-title">
+                                                <span> Return & Refund Policy </span>
+                                            </h3>
+                                            <p class="delivery-type">
+                                                <i class="fa fa-undo"></i>
+                                                <span class="text-left type-name">Instant return to delivery man</span>
+                                                <br>
+                                                <span class="delivery-time">Change of mind is not applicable</span>
+                                            </p>
+
+                                            <p class="delivery-type">
+                                                <i class="fas fa-shield-alt"></i>
+                                                <span class="text-left type-name">Check our Refund Policy</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="text-widget widget widget__sidebar shop-info bg-section">
+                                        <div class="widget-content">
+                                            <h3 class="section-title">
+                                                <span>Payment Options</span>
+                                            </h3>
+                                            <div class="payment-options">
+                                                <ul>
+                                                    <li>
+                                                        <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-s-1.png')}}">
+                                                    </li>
+                                                    <li>
+                                                        <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-s-2.png')}}">
+                                                    </li>
+                                                    <li>
+                                                        <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-s-3.png')}}">
+                                                    </li>
+                                                    <li>
+                                                        <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-s-4.png')}}">
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="text-widget widget widget__sidebar shop-info">
+                                        <div class="widget-content site-footer">
+                                            <div class="cominfo">
+                                                <div class="item">
+                                                    @if(!empty($product->seller->shop->shopLogo->image_path))
+                                                        <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ $product->seller->shop->shopLogo->image_path }}">
+                                                    @else
+                                                        <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ asset('crocus_v2/images/blog-img.jpg') }}">
+                                                    @endif
+                                                </div>
+                                                <h3 class="shop-name float-right" >
+                                                    <span>{{ $product->seller->shop->shop_name }}</span>
+                                                </h3>
+                                            </div>
                                             @if(!empty($product->seller->shop->phone_no))
                                                 <p class="shop-address">
                                                     <i class="fa fa-phone"></i>
@@ -146,9 +176,17 @@
                                                     <span>{!! $product->seller->shop->shop_address !!}</span>
                                                 </p>
                                             @endif
+                                            <div class="block-social">
+                                                <div class="block-content" style="text-align: center!important;">
+                                                    <a href="" class="sh-facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                                                    <a href="" class="sh-pinterest"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
+                                                    <a href="" class="sh-twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                                                    <a href="" class="sh-google"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="go-to-store">
-                                            <a href="{{ route('front.shop.profile', $product->seller->shop->shop_slug) }}"> Go To Store</a>
+                                            <a href="{{ route('front.shop.profile', $product->seller->shop->shop_slug) }}"> @lang('product.go_to_store')</a>
                                         </div>
                                     </div>
                                 </div>
@@ -164,29 +202,50 @@
 
                         <!-- Nav tabs -->
                         <ul class="nav nav-pills" role="tablist">
-                            <li role="presentation" class="active"><a href="#description"  role="tab" data-toggle="tab">Product Details   </a></li>
-{{--                            <li role="presentation"><a href="#tags"  role="tab" data-toggle="tab">information </a></li>--}}
-                            <li role="presentation"><a href="#reviews"  role="tab" data-toggle="tab">reviews</a></li>
-{{--                            <li role="presentation"><a href="#additional"  role="tab" data-toggle="tab">Extra Tabs</a></li>--}}
-{{--                            <li role="presentation"><a href="#tab-cust"  role="tab" data-toggle="tab">Guarantees</a></li>--}}
+                            <li role="presentation" class="active"><a href="#description"  role="tab" data-toggle="tab">@lang('product.details') </a></li>
+                            <li role="presentation"><a href="#reviews"  role="tab" data-toggle="tab">{{ trans_choice('header.review',2) }}</a></li>
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="description">
-                                <div class="block-title">Product Details</div>
+                                <div class="block-title">@lang('product.details') </div>
                                 <div class="block-content">
                                     {!! $product->description !!}
                                 </div>
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="reviews">
-                                <div class="block-title">reviews</div>
+                                <div class="block-title">{{ trans_choice('header.review',2) }}</div>
                                 <div class="block-content">
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                                    <div class="single-box">
+                                        @if(!empty($product->reviews))
+                                        <div class="comment-list">
+                                            <ul>
+                                                @foreach($product->reviews as $review)
+                                                <li>
+                                                    <div class="comment-body">
+                                                        <div class="comment-meta">
+                                                            <span class="author"><a href="#">{{ $review->buyer->user->full_name }}</a></span>
+                                                            <span class="date">{{ \Carbon\Carbon::parse($review->created_at)->format('d M Y') }}</span>
+                                                        </div>
+                                                        <div class="comment-meta">
+                                                            <star-rating
+                                                                :star-size="20"
+                                                                :rating="{{ $review->rating }}"
+                                                                :read-only="true"
+                                                            ></star-rating>
+                                                        </div>
+                                                        <div class="comment">
+                                                            {{ $review->review }}
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +255,7 @@
                     <!-- block-related product -->
                     <div class="block-related ">
                         <div class="block-title">
-                            <strong class="title">RELATED products</strong>
+                            <strong class="title">{{ trans_choice('product.related_product',count($relatedProducts) ) }}</strong>
                         </div>
                         <div class="block-content ">
                             <ol class="product-items owl-carousel " data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"992":{"items":3},"1200":{"items":4}}'>

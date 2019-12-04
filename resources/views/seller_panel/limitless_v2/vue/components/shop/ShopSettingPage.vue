@@ -25,6 +25,16 @@
                                     <label>Shop Email:</label>
                                     <input type="email" v-model="formData.shop_email" class="form-control" placeholder="Shop Email">
                                 </div>
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label>Min. Delivery. Days:</label>
+                                        <input type="number" v-model="formData.min_deli_day" class="form-control" placeholder="Min Delivery Days">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Max. Delivery Days:</label>
+                                        <input type="number" v-model="formData.max_deli_day" class="form-control" placeholder="Max. Delivery Days">
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-5 ">
                                 <div class="form-group">
@@ -81,6 +91,8 @@
                     phone_no:'',
                     shop_email:'',
                     shop_category:'',
+                    min_deli_day:'',
+                    max_deli_day:'',
                 },
                 cropperData:{
                     width:150,
@@ -89,6 +101,8 @@
                     file_size:1,
                     init_image:'',
                     folder:'shop',
+                    modal_view:1,
+
                 },
                 removeImage:false,
                 btnDisabled:false,

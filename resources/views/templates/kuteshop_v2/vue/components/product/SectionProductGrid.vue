@@ -3,14 +3,19 @@
         <div class="product-item-info">
             <div class="product-item-photo">
                 <a href="#" @click.prevent="productDetails(product.product_slug)" :title="product.product_name" class="product-item-img">
-                    <img :title="product.product_name" :src="product.thumb_image.image_path" style="width:100%; height:auto;">
+                    <clazy-load :src="product.thumb_image.image_path">
+                        <img :title="product.product_name" :src="product.thumb_image.image_path" style="width:100%; height:auto;">
+                        <div class="preloader" slot="placeholder">
+                            <img :title="product.product_name" src="/images/placeholder.png" style="width:100%; height:auto;">
+                        </div>
+                    </clazy-load>
                 </a>
                 <div class="product-item-actions">
-                    <a href="#" title="WishList" class="btn btn-wishlist"  @click.prevent="addWishList(product.product_slug)"><span>wishlist</span></a>
-                    <a href="#" title="Quick View" class="btn btn-quickview" @click.prevent="quickView()"><span>Quick view</span></a>
+                    <a href="#" title="WishList" class="btn btn-wishlist"  @click.prevent="addWishList(product.product_slug)"><span>{{ $t('header.wishlist')}}</span></a>
+                    <a href="#" title="Quick View" class="btn btn-quickview" @click.prevent="quickView()"><span>{{ $t('product.quick_view')}}</span></a>
                     <a href="#" title="Buy Now" class="btn" @click.prevent="buyNow()" style="font-size:18px;"><i class="fa fa-cart-plus"></i></a>
                 </div>
-                <button class="btn btn-cart" type="button" @click.prevent="addToCart()"><span>Add to Cart</span></button>
+                <button class="btn btn-cart" type="button" @click.prevent="addToCart()"><span>{{ $t('product.add_to_cart')}}</span></button>
                 <!--                    <span class="product-item-label label-price">30% <span>off</span></span>-->
             </div>
             <div class="product-item-detail">

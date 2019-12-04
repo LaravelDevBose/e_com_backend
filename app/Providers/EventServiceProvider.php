@@ -2,6 +2,13 @@
 
 namespace App\Providers;
 
+use App\Events\NewOrderStoreEvent;
+use App\Events\VerifiedAccount;
+use App\Listeners\InvoiceSendToBuyerEmail;
+use App\Listeners\NotifyAdminForNewOrder;
+use App\Listeners\NotifySellerForNewOrder;
+use App\Listeners\VerifyEmailListener;
+use App\Listeners\VerifiedAccountListener;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -16,8 +23,16 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Registered::class => [
-            SendEmailVerificationNotification::class,
+            VerifyEmailListener::class,
         ],
+        VerifiedAccount::class=>[
+            VerifiedAccountListener::class,
+        ],
+        NewOrderStoreEvent::class=>[
+            InvoiceSendToBuyerEmail::class,
+            NotifyAdminForNewOrder::class,
+            NotifySellerForNewOrder::class,
+        ]
     ];
 
     /**

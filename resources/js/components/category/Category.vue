@@ -18,6 +18,7 @@
                         <th>#</th>
                         <th style="padding:5px;">Banner Image</th>
                         <th>Category Name</th>
+                        <th>Trans. Category Name</th>
                         <th>2nd Parent</th>
                         <th>1rd Parent</th>
                         <th class="text-center">Status</th>
@@ -33,6 +34,9 @@
                         </td>
                         <td>
                             <span class="text text-bold"> {{ category.name }}</span>
+                        </td>
+                        <td>
+                            <span class="text text-bold" v-if="category.trans_name"> {{ category.trans_name }}</span>
                         </td>
                         <td>
                             <span class="text text-center" v-if="category.parent !== null">{{ category.parent.name }}</span>
@@ -59,6 +63,7 @@
                     </tbody>
                 </table>
             </div>
+            <pagination :data="laravelData" @pagination-change-page="getResults"></pagination>
         </div>
         <!-- /basic table -->
     </div>
@@ -70,6 +75,7 @@
         name: "Category",
         data(){
             return{
+                laravelData:{},
             }
         },
         created(){
@@ -92,6 +98,12 @@
                 }else{
                     return false;
                 }
+            },
+            getResults(page = 1) {
+                axios.get('example/results?page=' + page)
+                    .then(response => {
+                        this.laravelData = response.data;
+                    });
             }
         },
         computed:{

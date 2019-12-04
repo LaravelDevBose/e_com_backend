@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\ResponserTrait;
 use Exception;
 use App\Models\Attachment;
 use Illuminate\Http\Request;
 use App\Helpers\AttachmentHelper;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -187,7 +189,7 @@ class AttachmentController extends Controller
                 'file_type'     => $type,
                 'original_name' => null,
                 'file_size'     => null,
-                'modal'         => $modalName
+                'modal'         => $modalName,
             ]);
 
             array_push($attachmentData, [
@@ -195,6 +197,7 @@ class AttachmentController extends Controller
                 'id' => $attachmentSave->attachment_id,
                 'no' => $attachmentSave->attachment_no,
                 'delete_url' => route('attachment.delete',  $attachmentSave->attachment_id),
+                'serial'      => $request->serial,
             ]);
 
             return response()->json([
@@ -221,28 +224,23 @@ class AttachmentController extends Controller
 
     }
 
-    public function delete(Attachment $attachment) {
-        $user = Auth::user();
+    public function delete($attachmentId) {
+
         try {
             DB::beginTransaction();
-            if(empty($attachment->attachment_no) &&  $user->company_id != $attachment->company_id){
-                throw new Exception('Invalid Attachment!', 400);
+            $attachment = Attachment::where('attachment_id',$attachmentId)->first();
+            if(empty($attachment)){
+                throw new Exception('Attachment Not Found', Response::HTTP_NOT_FOUND);
             }
-            $attachment->delete();
-            DB::commit();
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Attachment Successfully Delete.',
-                'url' => 0,
-                'id' => $attachment->attachment_id,
-                'modalForm' => true,
-            ]);
+            if($attachment->delete()){
+                DB::commit();
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Attachment Deleted Successfully');
+            }else{
+                throw new Exception('Image Not Deleted. Try Again.', Response::HTTP_BAD_REQUEST);
+            }
         }catch (Exception $ex) {
             DB::rollBack();
-            return response()->json([
-                'status' => 'error',
-                'message' => $ex->getMessage()
-            ]);
+            return ResponserTrait::allResponse('error', $ex->getCode(), $ex->getMessage());
         }
 
     }

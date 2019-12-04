@@ -11,21 +11,21 @@
         </div>
         <div class="product-info-stock">
             <div class="stock available">
-                <span class="label">Availability: </span>In stock
+                <span class="label">{{ $t('product.availability')}}: </span>In stock
             </div>
         </div>
         <div class="product-overview">
             <div class="overview-content" v-html="product.highlight"> </div>
         </div>
         <div class="product-add-form">
-            <p>Available Options:</p>
+            <p>{{ $t('product.avail_options')}}:</p>
             <form>
 
                 <div class="product-options-wrapper">
 
                     <div v-if="product.product_type === 2" class="swatch-opt">
                         <div v-if="colors" class="swatch-attribute color" >
-                            <span class="swatch-attribute-label">Color:</span>
+                            <span class="swatch-attribute-label">{{ $tc('products.color',colors.length)}}:</span>
                             <div class="swatch-attribute-options clearfix">
                                 <label v-for="(color, index) in colors" :key="index" :for="'color-'+color.color_id" :class="(cartData.colorId == color.color_id) ? 'selected':'' " class="swatch-option color"  :style="{'background-color':color.color_code}">
                                     <input type="radio" :checked="cartData.colorId === color.color_id" style="display: none" name="color" :id="'color-'+color.color_id" v-model="cartData.colorId" :value="color.color_id">
@@ -34,16 +34,15 @@
                         </div>
                     </div>
                     <div v-if="product.product_type === 2" class="form-configurable">
-                        <label for="forSize" class="label">Size: </label>
+                        <label for="forSize" class="label">{{ $tc('products.size',sizes.length)}}: </label>
                         <div v-if="sizes" class="control">
                             <select v-model="cartData.sizeId"  id="forSize" class="form-control attribute-select">
                                 <option v-for="(size, index) in sizes" :key="index" :value="size.size_id" :selected="cartData.sizeId == size.size_id">{{ size.size_name }}</option>
                             </select>
                         </div>
-                        <a href="" class="size-chart">Size chart</a>
                     </div>
                     <div class="form-qty">
-                        <label class="label">Qty: </label>
+                        <label class="label">{{ $t('product.qty')}}: </label>
                         <div class="control">
                             <input type="text" class="form-control input-qty" v-model="cartData.qty" id="qty1" name="qty1"  maxlength="12"  minlength="1">
                             <button class="btn-number qtyminus" @click.prevent="reducedQty" data-type="minus" data-field="qty1"><span>-</span></button>
@@ -55,16 +54,16 @@
                 <div class="product-options-bottom clearfix">
                     <div class="actions">
                         <button type="submit" @click.prevent="addToCart()" title="Add to Cart" class="action btn-cart">
-                            <span>Add to Cart</span>
+                            <span>{{ $t('product.add_to_cart')}}</span>
                         </button>
                         <button type="submit" @click.prevent="buyNow()" title="Buy Now" class="action btn-buy">
                             <i class="fa fa-cart-plus"></i>
-                            <span>Buy Now</span>
+                            <span>{{ $t('product.buy_now')}}</span>
                         </button>
                         <div class="product-addto-links">
 
                             <a href="#" @click.prevent="addWishList(product.product_slug)" class="action btn-wishlist" title="Wish List">
-                                <span>Wishlist</span>
+                                <span>{{ $t('header.wishlist')}}</span>
                             </a>
                         </div>
                     </div>

@@ -22,9 +22,12 @@ class Category extends Model
         'category_name',
         'category_slug',
         'parent_id',
-        'attachment_id',
+        'banner_id',
         'category_status',
-        'is_show'
+        'is_show',
+        'trans_category_name',
+        'sect_banner_id',
+        'icon_id'
     ];
 
     /**
@@ -35,6 +38,18 @@ class Category extends Model
     public function getRouteKeyName()
     {
         return 'category_slug';
+    }
+
+    public function getCategoryNameAttribute()
+    {
+        if(app()->getLocale() == 'so'){
+            if(!empty($this->attributes['trans_category_name'])){
+                return ucfirst($this->attributes['trans_category_name']);
+            }
+            return ucfirst($this->attributes['category_name']);
+        }else{
+            return ucfirst($this->attributes['category_name']);
+        }
     }
 
     public static function All_children_Ids($catId)
@@ -91,7 +106,15 @@ class Category extends Model
     }
 
     public function attachment(){
-        return $this->hasOne(Attachment::class,'attachment_id', 'attachment_id');
+        return $this->hasOne(Attachment::class,'attachment_id', 'banner_id');
+    }
+
+    public function sectionBanner(){
+        return $this->hasOne(Attachment::class,'attachment_id', 'sect_banner_id');
+    }
+
+    public function iconImage(){
+        return $this->hasOne(Attachment::class,'attachment_id', 'icon_id');
     }
 
     public function sizeGroup(){
