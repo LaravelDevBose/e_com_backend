@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('PageTitle','Create New Product')
+@section('PageTitle','All Product List')
 
 @section('PageCss')
     <style>
