@@ -133,9 +133,18 @@
                                             </h3>
                                             <div class="payment-options">
                                                 <ul>
-                                                    <li><img alt="payment" src="http://127.0.0.1:8000/kuteshop_v2/images/media/index1/payment1.png"></li>
-                                                    <li><img alt="payment" src="http://127.0.0.1:8000/kuteshop_v2/images/media/index1/payment1.png"></li>
-                                                    <li><img alt="payment" src="http://127.0.0.1:8000/kuteshop_v2/images/media/index1/payment1.png"></li>
+                                                    <li>
+                                                        <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-s-1.png')}}">
+                                                    </li>
+                                                    <li>
+                                                        <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-s-2.png')}}">
+                                                    </li>
+                                                    <li>
+                                                        <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-s-3.png')}}">
+                                                    </li>
+                                                    <li>
+                                                        <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-s-4.png')}}">
+                                                    </li>
                                                 </ul>
                                             </div>
 

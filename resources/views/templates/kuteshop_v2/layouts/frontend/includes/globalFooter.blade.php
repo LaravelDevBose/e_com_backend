@@ -122,16 +122,10 @@
                 Accepted Payment Methods
             </div>
             <div class="block-content">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment1.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment2.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment3.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment4.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment5.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment6.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment7.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment8.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment9.png')}}">
-                <img alt="payment" src="{{ asset('kuteshop_v2/images/media/index1/payment10.png')}}">
+                <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-1.png')}}">
+                <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-2.png')}}">
+                <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-3.png')}}">
+                <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-4.png')}}">
             </div>
         </div>
         @if(!empty($categoryTree))

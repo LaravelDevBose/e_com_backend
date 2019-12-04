@@ -148,3 +148,15 @@
     padding-right:5px;
 }
 
+@media only screen and (min-device-width: 991px) and (max-device-width: 1199px){
+    .payment-options ul li{
+        width: 93px;
+    }
+    .payment-options ul li img{
+        width: 100%;
+        height: auto;
+    }
+    .shop-info .shop-name {
+        font-size: 1em;
+    }
+}
