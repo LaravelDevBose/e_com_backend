@@ -883,19 +883,20 @@
             },
             clonedSecondaryIds:{
                 handler(newVal, oldVal){
-                    if(jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length){
+                    if(!jQuery.isEmptyObject(newVal) && jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length){
                         this.addNewVariationSizeWish(newVal, oldVal);
-                    }else if(jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length ){
+                    }else if(jQuery.isEmptyObject(newVal) && !jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length ){
                         this.removeVariationSizeWish(newVal, oldVal);
                     }
                 }
             },
             'formData.category_id':{
                 handler(newValue, oldValue){
+                    let that = this;
                     if(newValue !== oldValue){
                         this.emptyPrvData();
                         if(this.formData.product_type === 2){
-                            this.getProductCreateDependency(this.formData.category_id);
+                            that.getProductCreateDependency(this.formData.category_id);
                         }
                     }
 
@@ -907,10 +908,11 @@
             },
             'formData.product_type':{
                 handler(newValue, oldValue){
+                    let that = this;
                     if(newValue !== oldValue){
                         this.emptyPrvData();
                         if(this.formData.product_type === 2){
-                            this.getProductCreateDependency(this.formData.category_id);
+                            that.getProductCreateDependency(this.formData.category_id);
                         }
                     }
                 },

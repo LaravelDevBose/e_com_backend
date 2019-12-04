@@ -969,6 +969,7 @@
                                 if(variation.hasOwnProperty('id')){
                                     return variation.id !== variationId;
                                 }
+                                return variation;
                             });
 
                             Notify.success(response.message);

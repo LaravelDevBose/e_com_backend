@@ -147,9 +147,6 @@ const actions = {
         try {
             return await axios.delete(`/admin/product/${reqData.product_id}/validation/${reqData.variation_id}/delete`,)
                 .then(function (response) {
-                    if(typeof response.data.code !== "undefined" && response.data.code ){
-                        commit('removeVariation', reqData.variation_id);
-                    }
                     return response.data;
                 }).catch(function (errors) {
                     console.log(errors);

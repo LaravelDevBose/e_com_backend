@@ -66,7 +66,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     Route::get('create/product/dependency/{catID}', 'ProductController@product_create_dependency')->name('product.create.dependency');
     Route::get('collection/product', 'ProductController@product_collection')->name('product.collection');
     Route::get('single/product/{product}','ProductController@single_product')->name('single.product');
-//    Route::get('edit/product/{product}','ProductController@single_product')->name('single.product');
+
     Route::get('/status/list/product', 'ProductController@get_product_status');
     Route::post('/product/status/update', 'ProductController@product_status_update')->name('product.status.update');
 

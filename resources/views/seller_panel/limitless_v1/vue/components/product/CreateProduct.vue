@@ -854,7 +854,7 @@
                 handler(newVal, oldVal){
                     if(jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length){
                         this.addNewVariationSizeWish(newVal, oldVal);
-                    }else if(jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length ){
+                    }else if(jQuery.isEmptyObject(newVal) && !jQuery.isEmptyObject(newVal) ||  newVal.length < oldVal.length ){
                         this.removeVariationSizeWish(newVal, oldVal);
                     }
                 }

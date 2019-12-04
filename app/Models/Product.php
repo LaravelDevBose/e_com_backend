@@ -46,6 +46,13 @@ class Product extends Model
         'Out of Stock'=>5,
     ];
 
+    const DeliveryType=[
+        'Cash On Delivery'=>1,
+        'Master Card'=>2,
+        'E-Dahab'=>3,
+        'Salaam Bank'=>4
+    ];
+
     protected $table = 'products';
 
     protected $primaryKey = 'product_id';

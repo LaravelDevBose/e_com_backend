@@ -2,26 +2,36 @@
 const state = {
     warrantyType:[],
     dangersGoods:[],
-    productColors:[],
+    product_colors:[],
     productSizes:[],
     productSkinTypes:[],
     allProducts:[],
     singleProduct:{},
     product_type:[],
     status_list:[],
+
+    product_data:{},
+    product_details:{},
+    variations:[],
+    product_images:[],
 };
 
 //declare Getters
 const getters = {
     warrantyTypes:(state)=> state.warrantyType,
     dangersGoods:(state)=> state.dangersGoods,
-    productColors:(state)=>state.productColors,
+    productColors:(state)=>state.product_colors,
     sizes:(state)=>state.productSizes,
     skinTypes:(state)=>state.productSkinTypes,
     products:(state)=>state.allProducts,
     product:(state)=>state.singleProduct,
     productType:(state)=>state.product_type,
     productStatus:(state)=>state.status_list,
+
+    proData:(state)=>state.product_data,
+    proDetails:(state)=>state.product_details,
+    proVariations:(state)=>state.variations,
+    proImages:(state)=>state.product_images,
 };
 
 const actions = {
@@ -29,7 +39,7 @@ const actions = {
         try {
             await axios.get(`/seller/product/dependency/${catID}`)
                 .then(response=>{
-                    commit('productCreateDependency', response.data);
+                    commit('productCreateDependency', response.data.data);
                 })
         }catch (error) {
             commit('setResponse', error.data);
@@ -82,12 +92,51 @@ const actions = {
         }catch (error) {
             commit('setResponse', error.data);
         }
-    }
+    },
+    async deleteProductImage({commit},imageId){
+        try {
+            return await axios.delete(`/seller/product/image/delete/${imageId}`,)
+                .then(function (response) {
+                    commit('productImageRemove', imageId);
+                    return response.data;
+                }).catch(function (errors) {
+                    console.log(errors);
+                    commit('setResponse', errors.data);
+                    return errors.data;
+                });
+        }catch (error) {
+            console.log(error);
+        }
+    },
+    async variationDataDelete({commit},reqData){
+        try {
+            return await axios.delete(`/seller/product/${reqData.product_id}/validation/${reqData.variation_id}/delete`,)
+                .then(function (response) {
+                    return response.data;
+                }).catch(function (errors) {
+                    console.log(errors);
+                    commit('setResponse', errors.data);
+                    return errors.data;
+                });
+        }catch (error) {
+            console.log(error);
+        }
+    },
+    async updateProductData({commit}, fromData){
+        try {
+            return await axios.put(`/seller/product/${fromData.product_id}`, fromData)
+                .then(response=>{
+                    return response.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {
     productCreateDependency:(state,response)=>{
-        state.productColors = response.colors;
+        state.product_colors = response.colors;
         state.productSizes = response.sizes;
     },
     productCreateNeedData:(state,response)=>{
@@ -101,6 +150,19 @@ const mutations = {
     },
     singleProductData:(state, response)=>{
         state.singleProduct = response;
+
+        state.product_details = response.details;
+        delete response.details;
+        state.variations = response.variations;
+        delete response.variations;
+        state.product_images = response.productImages;
+        delete response.productImages;
+        state.product_data = response;
+    },
+    productImageRemove:(state,imageId)=>{
+        state.product_images = state.product_images.filter(image=>{
+            return image.id !== imageId;
+        })
     }
 };
 
