@@ -1,8 +1,8 @@
 <template>
     <div class="content">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Product Size Group List</h5>
+        <div class="panel">
+            <div class="panel-heading bg-teal">
+                <h5 class="panel-title">Product List</h5>
                 <div class="heading-elements">
                     <ul class="icons-list">
                         <li><a data-action="collapse"></a></li>
