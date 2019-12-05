@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -17746,7 +17746,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -95851,12 +95851,19 @@ var regionDayMap = {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 window.BASE_URL = document.querySelector('meta[name="base-url"][content]').content;
-window.LANG = document.querySelector('meta[name="lang"][content]').content;
+var lang = document.querySelector('meta[name="lang"][content]');
+
+if (lang) {
+  window.LANG = lang.content;
+} else {
+  console.log('multi language not supported');
+}
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
  * code may be modified to fit the specific needs of your application.
  */
+
 
 try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"]; // window.$ = window.jQuery = jQuery = require('jquery');
@@ -99904,14 +99911,14 @@ var mutations = {
 
 /***/ }),
 
-/***/ 4:
+/***/ 5:
 /*!*****************************************************************************!*\
   !*** multi ./resources/views/seller_panel/limitless_v1/vue/limitless_v1.js ***!
   \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v1/vue/limitless_v1.js */"./resources/views/seller_panel/limitless_v1/vue/limitless_v1.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v1\vue\limitless_v1.js */"./resources/views/seller_panel/limitless_v1/vue/limitless_v1.js");
 
 
 /***/ })
