@@ -61,7 +61,7 @@ class FrontendController extends Controller
 
         $topProducts = GroupProduct::where('group_type', GroupProduct::Groups['Top Product'])
             ->with(['product'=>function($query){
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews');
             }])->orderBy('position', 'asc')->latest()->get();
 
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
@@ -87,7 +87,7 @@ class FrontendController extends Controller
         $categorySection = array();
         foreach ($categories as $category){
             $catIds = Category::All_children_Ids($category->category_id);
-            $products = Product::isActive()->whereIn('category_id', $catIds)->with('thumbImage', 'singleVariation');
+            $products = Product::isActive()->whereIn('category_id', $catIds)->with('thumbImage', 'singleVariation', 'reviews');
             $productIds = $products->pluck('product_id');
 
             $bestSellProductId = OrderItem::whereIn('product_id', $productIds)
@@ -143,7 +143,7 @@ class FrontendController extends Controller
     {
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product'=>function($query){
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews');
             }])->orderBy('position', 'asc')->latest()->get();
         return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $hotProducts);
     }
@@ -197,7 +197,7 @@ class FrontendController extends Controller
             $products = ProductHelper::products_list($req);*/
             $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
                 ->with(['product'=>function($query){
-                    return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
+                    return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews');
                 }])->orderBy('position', 'asc')->latest()->get();
             return view('templates.' . $this->template_name . '.frontend.products', [
                 'category' => $category,
