@@ -5645,7 +5645,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         price: 0,
         colorId: '',
         sizeId: ''
-      }
+      },
+      rating: 0
     };
   },
   created: function created() {},
@@ -5656,6 +5657,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.cartData.price = parseFloat(this.product.single_variation.price);
       this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
       this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+    }
+
+    if (this.product.reviews !== '' && this.product.reviews.length > 0) {
+      var sum = this.product.reviews.reduce(function (acc, item) {
+        return acc + parseInt(item.rating);
+      }, 0);
+      this.rating = sum / this.product.reviews.length;
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['productQuickView', 'insertToWishList', 'deleteFromWishList', 'addToCartProduct']), {
@@ -54852,7 +54860,13 @@ var render = function() {
           }
         },
         [_c("span", [_vm._v(_vm._s(_vm.$t("product.add_to_cart")))])]
-      )
+      ),
+      _vm._v(" "),
+      _vm.product.seller_id === 1
+        ? _c("span", { staticClass: "product-item-label label-sale-off" }, [
+            _vm._v("saliim Mall")
+          ])
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "product-item-detail" }, [
@@ -55075,7 +55089,13 @@ var render = function() {
             }
           },
           [_c("span", [_vm._v(_vm._s(_vm.$t("product.add_to_cart")))])]
-        )
+        ),
+        _vm._v(" "),
+        _vm.product.seller_id === 1
+          ? _c("span", { staticClass: "product-item-label label-sale-off" }, [
+              _vm._v("saliim Mall")
+            ])
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "product-item-detail" }, [
@@ -55107,32 +55127,28 @@ var render = function() {
                 ])
           ]),
           _vm._v(" "),
-          _vm._m(0)
+          _c("div", { staticClass: "product-reviews-summary " }, [
+            _c(
+              "div",
+              { staticClass: "rating-summary grid-rating" },
+              [
+                _c("star-rating", {
+                  attrs: {
+                    "star-size": 13,
+                    rating: _vm.rating,
+                    "read-only": true
+                  }
+                })
+              ],
+              1
+            )
+          ])
         ])
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "product-reviews-summary" }, [
-      _c("div", { staticClass: "rating-summary" }, [
-        _c("div", { staticClass: "rating-result", attrs: { title: "80%" } }, [
-          _c("span", { staticStyle: { width: "80%" } }, [
-            _c("span", [
-              _c("span", [_vm._v("80")]),
-              _vm._v("% of "),
-              _c("span", [_vm._v("100")])
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -76670,7 +76686,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

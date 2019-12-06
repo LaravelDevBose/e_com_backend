@@ -16,7 +16,7 @@
                     <a href="#" title="Buy Now" class="btn" @click.prevent="buyNow()" style="font-size:18px;"><i class="fa fa-cart-plus"></i></a>
                 </div>
                 <button class="btn btn-cart" type="button" @click.prevent="addToCart()"><span>{{ $t('product.add_to_cart')}}</span></button>
-                <!--                    <span class="product-item-label label-price">30% <span>off</span></span>-->
+                <span v-if="product.seller_id === 1" class="product-item-label label-sale-off">saliim Mall</span>
             </div>
             <div class="product-item-detail">
                 <strong class="product-item-name">
@@ -27,13 +27,13 @@
                         <span class="price" v-if="product.product_type === 1 && product.single_variation === null">$ {{ product.product_price }}</span>
                         <span class="price" v-else>$ {{ product.single_variation.price }}</span>
                     </div>
-                    <div class="product-reviews-summary">
-                        <div class="rating-summary">
-                            <div class="rating-result" title="80%">
-                                    <span style="width:80%">
-                                        <span><span>80</span>% of <span>100</span></span>
-                                    </span>
-                            </div>
+                    <div class="product-reviews-summary ">
+                        <div class="rating-summary grid-rating">
+                            <star-rating
+                                :star-size="13"
+                                :rating="rating"
+                                :read-only="true"
+                            ></star-rating>
                         </div>
                     </div>
                 </div>
@@ -62,6 +62,7 @@
                     colorId:'',
                     sizeId:'',
                 },
+                rating:0,
             }
         },
         created(){
@@ -74,6 +75,10 @@
                 this.cartData.price = parseFloat(this.product.single_variation.price);
                 this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
                 this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+            }
+            if(this.product.reviews !== '' && this.product.reviews.length >0){
+                let sum = this.product.reviews.reduce((acc, item) => acc + parseInt(item.rating), 0);
+                this.rating = sum / this.product.reviews.length;
             }
         },
         methods:{

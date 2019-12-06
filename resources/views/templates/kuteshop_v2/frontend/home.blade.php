@@ -23,9 +23,33 @@
                 </div>
             </div>
         </div>
+        @if(!empty($adminBestSellProducts))
+            <div class="container">
+                <div class="block-deals-of-opt2">
+                    <div class="block-title ">
+                        <span class="title">Saliim Mall Products</span>
+                    </div>
+                    <div class="block-content">
+                        <div class="owl-carousel"
+                             data-nav="true"
+                             data-dots="false"
+                             data-margin="8"
+                             data-responsive='{
+                                "0":{"items":1},
+                                "480":{"items":2},
+                                "640":{"items":3},
+                                "992":{"items":4},
+                                "1200":{"items":5}
+                                }'>
+                            @foreach($adminBestSellProducts as $product)
+                                <section-product-grid :product="{{ $product }}"></section-product-grid>
+                            @endforeach
+                        </div>
 
-        <!-- Block deals of -->
-
+                    </div>
+                </div>
+            </div>
+        @endif
         @if(!empty($categorySection))
             <div class="clearfix" style="background-color: #eeeeee;margin-bottom: 30px; padding-top:30px;">
                 @foreach($categorySection as $key=> $section)

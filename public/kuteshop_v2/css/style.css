@@ -17171,15 +17171,16 @@ select.input-sm {
 }
 
 .product-item-opt-2 .product-item-label.label-sale-off {
-    background-color: #b30000;
+    background-color: #f60;
     right: 5px;
     top: 9px;
-    height: 38px;
+    height: 25px;
     line-height: 1;
-    padding-top: 3px;
+    padding-top: 4px;
     font-family: 'Arial Narrow';
     font-size: 16px;
-    color: #fff
+    color: #fff;
+    font-width: 600;
 }
 
 .product-item-opt-2 .product-item-label.label-sale-off span {
@@ -17192,7 +17193,7 @@ select.input-sm {
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 19px 11px 19px 0;
+    border-width: 0;
     border-color: transparent #b30000 transparent transparent;
     position: absolute;
     bottom: auto;

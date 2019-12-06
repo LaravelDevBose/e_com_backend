@@ -66,8 +66,19 @@ class FrontendController extends Controller
 
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product'=>function($query){
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews');
             }])->orderBy('position', 'asc')->latest()->get();
+
+
+        $adminBestSellProIds = OrderItem::where('seller_id', 1) //seller id 1 is Booked for admin
+        ->select('order_id','product_id' , DB::raw('count(*) as total'))
+            ->groupBy('product_id')->orderBy('total', 'desc')
+            ->take(20)
+            ->pluck('product_id');
+        $adminBestSellProducts = Product::isActive()->whereIn('product_id', $adminBestSellProIds)
+            ->with('thumbImage', 'singleVariation','reviews')->take(16)->get();
+
+
         $categories = Category::isParent()->isActive()->select('category_id', 'category_name','category_slug', 'sect_banner_id')
                 ->with(['sectionBanner','children'=>function($query){
                     return $query->isActive();
@@ -108,6 +119,7 @@ class FrontendController extends Controller
             'topProducts'=>$topProducts,
             'hotProducts'=>$hotProducts,
             'categorySection'=>$categorySection,
+            'adminBestSellProducts'=>$adminBestSellProducts,
         ]);
     }
     public function set_lang($lang)

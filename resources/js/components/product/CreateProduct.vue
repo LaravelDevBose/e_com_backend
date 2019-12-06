@@ -575,6 +575,7 @@
                 'uploadProductImage',
                 'storeProductData',
                 'getProductCreateNeedData',
+                'attachmentImageRemove'
             ]),
             addPriId(PriID){
                 this.priId = PriID;
