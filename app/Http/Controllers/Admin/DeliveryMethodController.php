@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Exception;
+use App\Http\Resources\Admin\DeliveryMethod as DeliveryMethodResource;
 use App\Models\DeliveryMethod;
 use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
@@ -13,7 +15,7 @@ use Illuminate\Support\Str;
 
 class DeliveryMethodController extends Controller
 {
-    public $route = 'admin.delivery.';
+    public $route = 'admin.delivery.method.';
     public $template_name = 'limitless_v2';
     public function __construct()
     {
@@ -23,59 +25,54 @@ class DeliveryMethodController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
-        $brands = DeliveryMethod::notDelete()->with(['attachment'])->latest()->get();
-        if($request->ajax()) {
+        return view('admin_panel.'.$this->template_name.'.delivery_methods.index');
+    }
+
+    public function delivery_method_list(){
+        $deliveryMethods = DeliveryMethod::notDelete()->latest()->get();
+        if(!empty($deliveryMethods)){
+            $coll = DeliveryMethodResource::collection($deliveryMethods);
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $coll);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Delivery Methods not Found');
         }
-
     }
 
-    public function brand_list(){
-        $brands = Brand::isActive()->select('brand_id as id', 'brand_name as text')->latest()->get();
-        return response()->json($brands);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('admin_panel.'.$this->template_name.'.brand.index');
-    }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'brand_name'=>'required',
+            'delivery_title'=>'required',
+            'min_time'=>'required',
+            'max_time'=>'required',
+            'cost_price'=>'required',
         ]);
 
         if($validator->passes()){
             try{
                 DB::beginTransaction();
 
-                $brand = Brand::create([
-                    'brand_name'=>$request->brand_name,
-                    'trans_brand_name'=>$request->trans_brand_name,
-                    'brand_slug'=>Str::slug($request->brnad_name),
-                    'attachment_id'=>(!empty($request->attachment_id))? $request->attachment_id:null,
-                    'brand_status'=>(!empty($request->brand_status) && $request->brand_status == 1) ? $request->brand_status : 2,
+                $method = DeliveryMethod::create([
+                    'delivery_title'=>$request->delivery_title,
+                    'min_time'=>$request->min_time,
+                    'max_time'=>$request->max_time,
+                    'cost_price'=>$request->cost_price,
+                    'delivery_status'=>(!empty($request->delivery_status) && $request->delivery_status == 1) ? $request->delivery_status : 2,
                 ]);
-                if($brand){
+                if($method){
                     DB::commit();
-                    $brand = new BrandResource(Brand::find($brand->brand_id));
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'Brand Store Successfully',$brand);
+                    $data = new DeliveryMethodResource(DeliveryMethod::find($method->delivery_id));
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'Delivery Method Store Successfully',$data);
                 }
 
             }catch (Exception $ex){
@@ -92,56 +89,56 @@ class DeliveryMethodController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Brand $brand)
+    public function show($deliveryId)
     {
-        return new BrandResource($brand);
+        $method = DeliveryMethod::where('delivery_id', $deliveryId)->first();
+        if(!empty($method)){
+            $data = new DeliveryMethodResource($method);
+
+            return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK, 'Delivery Method Find');
+        }else{
+            return ResponserTrait::allResponse('success', Response::HTTP_NOT_FOUND, 'Delivery Method Not Found');
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(),[
-            'brand_name'=>'required',
-            'trans_brand_name'=>'required',
+            'delivery_title'=>'required',
+            'min_time'=>'required',
+            'max_time'=>'required',
+            'cost_price'=>'required',
         ]);
 
         if($validator->passes()){
             try{
                 DB::beginTransaction();
-                $brand = Brand::find($id);
-                if(empty($brand)){
-                    throw new Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
+
+                $method = DeliveryMethod::where('delivery_id', $id)->first();
+                if(empty($method)){
+                    throw new Exception('Delivery Method Not Found.', Response::HTTP_NOT_FOUND);
                 }
-                $brand = $brand->update([
-                    'brand_name'=>$request->brand_name,
-                    'trans_brand_name'=>$request->trans_brand_name,
-                    'brand_slug'=>Str::slug($request->brnad_name),
-                    'attachment_id'=>(!empty($request->attachment_id))? $request->attachment_id:null,
-                    'brand_status'=>(!empty($request->brand_status) && $request->brand_status == 1) ? $request->brand_status : 2,
+
+                $method = DeliveryMethod::create([
+                    'delivery_title'=>$request->delivery_title,
+                    'min_time'=>$request->min_time,
+                    'max_time'=>$request->max_time,
+                    'cost_price'=>$request->cost_price,
+                    'delivery_status'=>(!empty($request->delivery_status) && $request->delivery_status == 1) ? $request->delivery_status : 2,
                 ]);
-                if(!empty($brand)){
-                    $brand = new BrandResource(Brand::where('brand_id',$id)->with('attachment')->first());
+                if($method){
                     DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'Brand Update Successfully',$brand, '');
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'Delivery Method Update Successfully');
                 }
 
             }catch (Exception $ex){
@@ -158,30 +155,27 @@ class DeliveryMethodController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Brand $brand)
+    public function destroy($deliveryId)
     {
-        if($brand){
-            try{
-                DB::beginTransaction();
-                $brand->update([
-                    'brand_status'=>0,
-                ]);
+        try{
+            DB::beginTransaction();
+            $method = DeliveryMethod::where('delivery_id', $deliveryId)->first();
 
-                if($brand){
-                    DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Brand Delete Successfully');
-                }{
-                    throw new Exception('Invalid Information.!');
-                }
-            }catch(Exception $ex){
-                DB::rollBack();
-                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            $method->update([
+                'delivery_status'=>config('app.delete'),
+            ]);
+
+            if($method){
+                DB::commit();
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Delivery Method Delete Successfully');
+            }{
+                throw new Exception('Invalid Information.!', Response::HTTP_BAD_REQUEST);
             }
-        }else{
-            return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Invalid Brand Information');
-
+        }catch(Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', $ex->getCode(), $ex->getMessage());
         }
     }
 }

@@ -3,9 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\Self_;
 
 class DeliveryMethod extends Model
 {
+    const Status = [
+        1=>'Active',
+        2=>'Inactive'
+    ];
+
     protected $table = 'delivery_methods';
 
     protected $primaryKey = 'delivery_id';
@@ -22,7 +28,7 @@ class DeliveryMethod extends Model
     ];
 
     public function getStatusLabelAttribute(){
-
+        return self::Status[$this->attributes['delivery_status']];
     }
 
     public function scopeNotDelete($query)

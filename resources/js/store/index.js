@@ -33,6 +33,7 @@ import shop from "./modules/shop";
 import homepage_section from "./modules/homepage_section";
 import group_products from "./modules/group_products";
 import unpublish_product from "./modules/unpublish_product";
+import delivery_method from "./modules/delivery_method";
 
 export default new Vuex.Store({
     state:{
@@ -82,6 +83,7 @@ export default new Vuex.Store({
         homepage_section,
         group_products,
         unpublish_product,
+        delivery_method,
     }
 })
 

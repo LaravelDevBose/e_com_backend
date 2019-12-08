@@ -68,6 +68,7 @@
                     <li ><a href="{{ route('admin.size_group.create') }}"><i class="icon-rulers"></i> <span>Product Size</span></a></li>
 {{--                    <li ><a href="{{ route('admin.delivery_cost.create') }}"><i class="icon-truck"></i> <span>Delivery Cost</span></a></li>--}}
                     <li ><a href="{{ route('admin.skinType.create') }}"><i class="icon-woman"></i> <span>SkinType</span></a></li>
+                    <li ><a href="{{ route('admin.delivery.method.index') }}"><i class="icon-truck"></i> <span>Delivery Method</span></a></li>
                     {{--<li>
                         <a href="#"><i class="icon-megaphone"></i> <span>Campaign</span></a>
                         <ul>

@@ -144,6 +144,15 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::delete('/{groupId}', 'GroupProductController@destroy')->name('destroy');
     });
 
+    Route::prefix('delivery')->as('delivery.')->group(function (){
+        Route::get('method', 'DeliveryMethodController@index')->name('method.index');
+        Route::get('method/list', 'DeliveryMethodController@delivery_method_list')->name('method.list');
+        Route::post('method/store', 'DeliveryMethodController@store')->name('method.store');
+        Route::get('method/{delivery_id}/edit', 'DeliveryMethodController@edit')->name('method.edit');
+        Route::put('method/{delivery_id}/update', 'DeliveryMethodController@update')->name('method.update');
+        Route::delete('method/{delivery_id}/delete', 'DeliveryMethodController@destroy')->name('method.delete');
+    });
+
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){

@@ -16,6 +16,7 @@ class DeliveryMethod extends JsonResource
     {
         return [
             'id'=>$this->delivery_id,
+            'title'=>$this->delivery_title,
             'min_time'=> $this->min_time,
             'max_time'=> $this->max_time,
             'price'=> $this->cost_price,
