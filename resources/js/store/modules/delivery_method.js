@@ -41,9 +41,9 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    async updateDeliveryMethodInfo({commit},fromData){
+    async updateDeliveryMethodInfo({commit},formData){
         try {
-            return await axios.put(`/admin/delivery/method/${fromData.id}/update`, fromData)
+            return await axios.put(`/admin/delivery/method/${formData.id}/update`, formData)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
                         commit('updateDeliveryMethodData', response.data.data);
@@ -77,12 +77,13 @@ const mutations = {
     deliveryMethodStore:(state,response)=> state.delivery_methods.unshift(response),
     removeDeliveryMethod:(state, deliveryId)=>state.delivery_methods = state.delivery_methods.filter(method=>method.id !== deliveryId),
     updateDeliveryMethodData:(state,response)=>{
+        console.log(response);
         state.delivery_methods = state.delivery_methods.filter(method=>{
-            if(method.id == response.id){
+            if(method.id === response.id){
                 method.title = response.title;
-                method.min_time = response.min_time;
-                method.max_time = response.max_time;
-                method.price = response.price;
+                method.min_days = response.min_days;
+                method.max_days = response.max_days;
+                method.charge = response.charge;
                 method.status = response.status;
                 method.status_label = response.status_label;
             }

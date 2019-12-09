@@ -150,7 +150,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::post('method/store', 'DeliveryMethodController@store')->name('method.store');
         Route::get('method/{delivery_id}/edit', 'DeliveryMethodController@edit')->name('method.edit');
         Route::put('method/{delivery_id}/update', 'DeliveryMethodController@update')->name('method.update');
-        Route::delete('method/{delivery_id}/delete', 'DeliveryMethodController@destroy')->name('method.delete');
+        Route::delete('method/{delivery_id}', 'DeliveryMethodController@destroy')->name('method.delete');
     });
 
 });

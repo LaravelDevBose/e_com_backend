@@ -29,7 +29,7 @@ class DeliveryMethodController extends Controller
      */
     public function index()
     {
-        return view('admin_panel.'.$this->template_name.'.delivery_methods.index');
+        return view('admin_panel.'.$this->template_name.'.delivery_method.index');
     }
 
     public function delivery_method_list(){
@@ -129,7 +129,7 @@ class DeliveryMethodController extends Controller
                     throw new Exception('Delivery Method Not Found.', Response::HTTP_NOT_FOUND);
                 }
 
-                $method = DeliveryMethod::create([
+                $method =$method->update([
                     'delivery_title'=>$request->delivery_title,
                     'min_time'=>$request->min_time,
                     'max_time'=>$request->max_time,
@@ -138,7 +138,8 @@ class DeliveryMethodController extends Controller
                 ]);
                 if($method){
                     DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'Delivery Method Update Successfully');
+                    $data = new DeliveryMethodResource(DeliveryMethod::find($id));
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'Delivery Method Update Successfully', $data);
                 }
 
             }catch (Exception $ex){

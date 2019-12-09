@@ -2,48 +2,52 @@
     <div class="content">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h5 class="panel-title">Brand</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
+                <h5 class="panel-title">Delivery Method</h5>
             </div>
 
             <div class="panel-body">
-                <form action="" @submit.prevent="manipulateBrandData">
+                <form action="" @submit.prevent="manipulateDeliveryMethodData">
                     <div class="row">
-                        <div class="col-md-4 col-md-offset-1">
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label>Brand Name:</label>
-                                <input type="text" v-model="formData.brand_name" class="form-control" placeholder="Brand Name " required>
+                                <label>Delivery Title: <span class="text text-bold text-danger">*</span></label>
+                                <input type="text" v-model="formData.delivery_title" class="form-control" placeholder="Delivery Method Title" required>
                             </div>
+                        </div>
+                        <div class="col-md-2">
                             <div class="form-group">
-                                <label>Trans. Brand Name:</label>
-                                <input type="text" v-model="formData.trans_brand_name" class="form-control" placeholder="Somalia Brand Name " required>
+                                <label>Min. Day(s): <span class="text text-bold text-danger">*</span></label>
+                                <input type="number" v-model="formData.min_time" class="form-control" placeholder="Min. Day(s)" required>
                             </div>
+                        </div>
+                        <div class="col-md-2">
                             <div class="form-group">
+                                <label>Max. Day(s): <span class="text text-bold text-danger">*</span></label>
+                                <input type="number" v-model="formData.max_time" class="form-control" placeholder="Max. Day(s)" required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Delivery Change: <span class="text text-bold text-danger">*</span></label>
+                                <input type="number" v-model="formData.cost_price" class="form-control" placeholder="Delivery Charge" required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Delivery Status:</label>
                                 <label class="checkbox-style" for="paypal_payment">
-                                    <span class="text-bold text-success" v-if="formData.brand_status">Active</span>
+                                    <span class="text-bold text-success" v-if="formData.delivery_status">Active</span>
                                     <span class="text-bold text-warning" v-else>Inactive</span>
-                                    <input type="checkbox" id="paypal_payment" v-model="formData.brand_status"  :checked="formData.brand_status">
+                                    <input type="checkbox" id="paypal_payment" v-model="formData.delivery_status"  :checked="formData.delivery_status">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                             <div class="text-right form-group">
                                 <button type="submit" :disabled="btnDisabled" class="btn btn-success">
-                                    <span v-if="isedit">Update Brand</span>
-                                    <span v-else>Save Brand</span>
+                                    <span v-if="isedit">Update Method</span>
+                                    <span v-else>Save Method</span>
                                     <i class="icon-arrow-right14 position-right"></i>
                                 </button>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Brand Banner:</label>
-                                <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                             </div>
                         </div>
                     </div>
@@ -53,14 +57,7 @@
         <!-- Basic table -->
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title">Brand List</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
+                <h5 class="panel-title">Delivery Method List</h5>
             </div>
 
             <div class="table-responsive">
@@ -68,33 +65,37 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th style="padding:5px;">Banner Image</th>
-                        <th>Brand Name</th>
-                        <th>Somalia Brand Name</th>
+                        <th>Delivery Title</th>
+                        <th>Min. Day(s)</th>
+                        <th>Max. Day(s)</th>
+                        <th>Delivery charge</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-if="brands" v-for="(brand , index) in brands" :key="brand.id">
-                        <td>{{ index }}</td>
-                        <td style="padding:5px; width:120px;">
-                            <img v-if="brand.attachment" :src="brand.attachment.image_path" :alt="brand.name" class="img-preview img-responsive" style="width:100px; height:35px;" >
+                    <tr v-if="deliveryMethods" v-for="(method , index) in deliveryMethods" :key="method.id">
+                        <td>{{ index +1 }}</td>
+                        <td>
+                            <span class="text text-bold"> {{ method.title }}</span>
                         </td>
                         <td>
-                            <span class="text text-bold"> {{ brand.name }}</span>
+                            <span class="text text-bold"> {{ method.min_days }}</span>
                         </td>
                         <td>
-                            <span class="text text-bold" v-if="brand.trans_name"> {{ brand.trans_name }}</span>
+                            <span class="text text-bold"> {{ method.max_days }}</span>
+                        </td>
+                        <td>
+                            <span class="text text-bold"> {{ method.charge }}</span>
                         </td>
                         <td class="text text-center">
-                            <span class="badge badge-success" v-if="brand.status === 1">Active</span>
+                            <span class="badge badge-success" v-if="method.status === 1">Active</span>
                             <span class="badge badge-warning" v-else>De-active</span>
                         </td>
                         <td class="text text-center">
                             <ul class="icons-list">
-                                <li class="text-primary-600"><a href="#" @click.prevent="editBrand(brand.id)"><i class="icon-pencil7"></i></a></li>
-                                <li class="text-danger-600"><a href="#" @click.prevent="brandDelete(brand.id)"><i class="icon-trash"></i></a></li>
+                                <li class="text-primary-600"><a href="#" @click.prevent="editDeliveryMethod(method.id)"><i class="icon-pencil7"></i></a></li>
+                                <li class="text-danger-600"><a href="#" @click.prevent="deliveryMethodDelete(method.id)"><i class="icon-trash"></i></a></li>
                             </ul>
                         </td>
                     </tr>
@@ -115,41 +116,29 @@
             return{
                 formData:{
                     id:'',
-                    trans_brand_name:'',
-                    brand_name:'',
-                    brand_status:'',
-                    attachment_id:'',
+                    delivery_title:'',
+                    min_time:'',
+                    max_time:'',
+                    cost_price:'',
+                    delivery_status:'',
                 },
-                cropperData:{
-                    width:200,
-                    height:200,
-                    placeholder:'Choose a image in 200X200',
-                    file_size:1,
-                    init_image:'',
-                    folder:'brand',
-                    modal_type:1,
-                },
-                removeImage:false,
                 btnDisabled:false,
                 isedit:false,
             }
         },
         created() {
-            this.getBrands();
+            this.getDeliveryMethodList();
         },
         methods:{
             ...mapActions([
-                'getBrands',
-                'storeBrand',
-                'deleteBrand',
-                'updateBrandInfo',
+                'getDeliveryMethodList',
+                'storeDeliveryMethod',
+                'updateDeliveryMethodInfo',
+                'deleteDeliveryMethod',
             ]),
-            manipulateBrandData(){
-                if(this.cropImageIds.length !== 0 && this.cropImageIds[0] !== ''){
-                    this.formData.attachment_id = this.cropImageIds[0];
-                }
-                if(this.isedit){
-                    this.updateBrandInfo(this.formData)
+            manipulateDeliveryMethodData(){
+                if(this.isedit === true || 1){
+                    this.updateDeliveryMethodInfo(this.formData)
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 Notify.success(response.message);
@@ -165,7 +154,7 @@
                             Notify.info(error.message);
                         })
                 }else{
-                    this.storeBrand(this.formData)
+                    this.storeDeliveryMethod(this.formData)
                         .then(response=>{
                             console.log(response);
                             if(response.status === "success"){
@@ -184,15 +173,15 @@
 
             },
             formReset(){
-                this.formData.brand_name='';
-                this.formData.trans_brand_name='';
-                this.formData.brand_status = false;
-                this.formData.attachment_id = '';
-                this.removeImage=true;
+                this.formData.delivery_title='';
+                this.formData.min_time='';
+                this.formData.max_time = '';
+                this.formData.cost_price='';
+                this.formData.delivery_status = false;
             },
-            brandDelete(brandId){
+            deliveryMethodDelete(deliveryId){
                 if(confirm('Are You Sure..?')){
-                    this.deleteBrand(brandId)
+                    this.deleteDeliveryMethod(deliveryId)
                         .then(response=>{
                             if(response.status === "success"){
                                 Notify.success(response.message);
@@ -204,29 +193,26 @@
                     return false;
                 }
             },
-            editBrand(brandId){
+            editDeliveryMethod(deliveryId){
 
-                this.brands.filter(brand=>{
-                    if(brand.id === brandId){
+                this.deliveryMethods.filter(delivery=>{
+                    if(delivery.id === deliveryId){
                         this.isedit = true;
-                        this.formData.id=brand.id;
-                        this.formData.brand_name=brand.name;
-                        this.formData.trans_brand_name=brand.trans_name;
-                        this.formData.brand_status = brand.status;
-                        if(brand.attachment){
-                            this.formData.attachment_id = brand.attachment.attachment_id;
-                            this.cropperData.init_image = brand.attachment.image_path;
-                        }
+                        this.formData.id=delivery.id;
+                        this.formData.delivery_title=delivery.title;
+                        this.formData.min_time=delivery.min_days;
+                        this.formData.max_time =delivery.max_days;
+                        this.formData.cost_price=delivery.charge;
+                        this.formData.delivery_status = delivery.status;
                     }
-                    return brand;
+                    return delivery;
                 })
             }
 
         },
         computed:{
             ...mapGetters([
-                'brands',
-                'cropImageIds',
+                'deliveryMethods',
             ]),
             checkFormData(){
                 return JSON.parse(JSON.stringify(this.formData))
