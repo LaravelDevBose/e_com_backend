@@ -29,7 +29,7 @@ class ProductPublishController extends Controller
                 return $query->with(['parent'=>function($q){
                     return $q->with(['parent']);
                 }]);
-            }, 'brand','variations'])
+            }, 'brand','variations', 'seller.shop'])
                 ->inAdminReview()->dateRangeWish($request)->get();
 
             if(!empty($products)){

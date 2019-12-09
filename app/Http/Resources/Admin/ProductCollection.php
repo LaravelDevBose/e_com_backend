@@ -31,6 +31,7 @@ class ProductCollection extends Resource
             'thumbnail'=> new AttachmentResource($this->whenLoaded('thumbImage')),
             'condition'=> $this->product_condition,
             'price'=>$this->product_price,
+            'seller'=> new SellerResource($this->whenLoaded('seller'))
         ];
     }
 }

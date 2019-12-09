@@ -1,5 +1,5 @@
 <template>
-    <img :src="image_path" :alt="row.product_title"  style="width:100%;">
+    <img :src="image_path" :alt="row.product_title"  style="width:100%; max-height:40px">
 </template>
 
 <script>

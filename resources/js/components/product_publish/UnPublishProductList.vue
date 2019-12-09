@@ -102,8 +102,6 @@
         components:{
             'vue-select2':VueSelect2,
             'product-thumb-img':ProductThumbImg,
-            'product-action':ProductAction,
-            'product-status':ProductStatus,
             'product-checkbox':ProductCheckbox,
         },
         data(){
@@ -114,13 +112,13 @@
                 columns: [
                     { label: '#', align: 'center', component: 'product-checkbox', headerClass:'table-checkbox', filterable: false, sortable:false },
                     { label: 'Image', component: 'product-thumb-img', align: 'center', sortable: false },
-                    { label: 'Product Name', field: 'product_title',  },
+                    { label: 'Product Name', field: 'product_title',},
                     { label: 'Product SKU', field: 'sku' , },
                     { label: 'Category', field: 'category.name' },
                     { label: 'Brand', field: 'brand.name', sortable: true },
+                    { label: 'Shop', field: 'seller.shop.name', sortable: true },
+                    { label: 'Seller', field: 'seller.name', sortable: true },
                     { label: 'Quantity', field: 'total_qty', align: 'center', sortable: true },
-                    { label: 'Status', component: 'product-status', align: 'center', sortable: false },
-                    { label: 'Action', component: 'product-action', align: 'center', sortable: false },
 
                 ],
                 perPages: [
