@@ -8,16 +8,16 @@
         <div :class="shoppingTab ? 'show':'hidden'">
             <shipping-form></shipping-form>
         </div>
-        <!--<h3 class="checkout-sep">3. {{ $t('checkout.shipping_method')}}</h3>
+        <h3 class="checkout-sep">3. {{ $t('checkout.shipping_method')}}</h3>
         <div :class="methodTab ? 'show':'hidden'">
             <shipping-method></shipping-method>
-        </div>-->
-        <h3 class="checkout-sep">3. {{ $t('checkout.payment_section')}}</h3>
+        </div>
+        <h3 class="checkout-sep">4. {{ $t('checkout.payment_section')}}</h3>
         <div :class="paymentTab ? 'show':'hidden'">
             <payment-method></payment-method>
         </div>
 
-        <h3 class="checkout-sep">4. {{ $t('checkout.order_review')}}</h3>
+        <h3 class="checkout-sep">5. {{ $t('checkout.order_review')}}</h3>
         <div class="box-border">
             <cart-list-table> </cart-list-table>
             <div class="row" :class="cartTab ? 'show':'hidden'">

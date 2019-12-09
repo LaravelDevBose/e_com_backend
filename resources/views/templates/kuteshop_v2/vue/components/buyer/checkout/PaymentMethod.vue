@@ -72,10 +72,10 @@
                         'tabAction':false,
                     },
                     shopping:{
-                        'tabAction':true,
+                        'tabAction':false,
                     },
                     method:{
-                        'tabAction':false,
+                        'tabAction':true,
                     },
                     payment:{
                         'tabAction':false,

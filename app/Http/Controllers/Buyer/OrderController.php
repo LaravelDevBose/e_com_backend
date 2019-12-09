@@ -77,7 +77,7 @@ class OrderController extends Controller
         $validator = Validator::make($request->all(),[
             'billing_address'=>'required|array',
             'shipping_address'=>'required|array',
-//            'shipping_method_id'=>'required',
+            'shipping_method_id'=>'required',
             'payment_method_id'=>'required',
         ]);
 

@@ -183,10 +183,10 @@
                         'tabAction':false,
                     },
                     method:{
-                        'tabAction':false,
+                        'tabAction':true,
                     },
                     payment:{
-                        'tabAction':true,
+                        'tabAction':false,
                     },
 
                 };

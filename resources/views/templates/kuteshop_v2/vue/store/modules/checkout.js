@@ -18,6 +18,7 @@ const state = {
     payment:false,
     cart_tab:false,
     charge:0,
+    delivery_methods:[],
 };
 
 //declare Getters
@@ -39,6 +40,7 @@ const getters = {
     paymentTab:(state)=>state.payment,
     cartTab:(state)=>state.cart_tab,
     deliveryCost:(state)=>state.charge,
+    deliveryMethods:(state)=>state.delivery_methods,
 };
 
 const actions = {
@@ -145,6 +147,7 @@ const mutations = {
         state.payment_methods = response.payment_methods;
         state.shipping_methods = response.shipping_methods;
         state.shipping_price = response.shipping_price;
+        state.delivery_methods = response.delivery_methods;
     },
     updateAddressBook:(state,response)=> {
         let address = {

@@ -3009,10 +3009,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             'tabAction': false
           },
           method: {
-            'tabAction': false
+            'tabAction': true
           },
           payment: {
-            'tabAction': true
+            'tabAction': false
           }
         };
       } else {
@@ -3478,10 +3478,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'tabAction': false
         },
         shopping: {
-          'tabAction': true
+          'tabAction': false
         },
         method: {
-          'tabAction': false
+          'tabAction': true
         },
         payment: {
           'tabAction': false
@@ -3705,10 +3705,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'tabAction': false
         },
         method: {
-          'tabAction': false
+          'tabAction': true
         },
         payment: {
-          'tabAction': true
+          'tabAction': false
         }
       };
       this.tabChange(data);
@@ -3831,6 +3831,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ShippingMethod",
@@ -3869,11 +3879,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       };
       this.tabChange(data);
     },
+    backTab: function backTab() {
+      var data = {
+        billing: {
+          'tabAction': false
+        },
+        shopping: {
+          'tabAction': true
+        },
+        method: {
+          'tabAction': false
+        },
+        payment: {
+          'tabAction': false
+        },
+        cart_tab: {
+          'tabAction': false
+        }
+      };
+      this.tabChange(data);
+    },
     setDeliveryCharge: function setDeliveryCharge(charge) {
       this.deliveryChargeUpdate(charge);
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['shippingMethods', 'deliveryCharge']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['deliveryMethods', 'deliveryCharge']))
 });
 
 /***/ }),
@@ -51603,7 +51633,18 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("h3", { staticClass: "checkout-sep" }, [
-      _vm._v("3. " + _vm._s(_vm.$t("checkout.payment_section")))
+      _vm._v("3. " + _vm._s(_vm.$t("checkout.shipping_method")))
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { class: _vm.methodTab ? "show" : "hidden" },
+      [_c("shipping-method")],
+      1
+    ),
+    _vm._v(" "),
+    _c("h3", { staticClass: "checkout-sep" }, [
+      _vm._v("4. " + _vm._s(_vm.$t("checkout.payment_section")))
     ]),
     _vm._v(" "),
     _c(
@@ -51614,7 +51655,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("h3", { staticClass: "checkout-sep" }, [
-      _vm._v("4. " + _vm._s(_vm.$t("checkout.order_review")))
+      _vm._v("5. " + _vm._s(_vm.$t("checkout.order_review")))
     ]),
     _vm._v(" "),
     _c(
@@ -52465,65 +52506,104 @@ var render = function() {
     _c(
       "ul",
       { staticClass: "shipping_method" },
-      _vm._l(_vm.shippingMethods, function(shipping, index) {
-        return _vm.shippingMethods
-          ? _c("li", { key: index }, [
-              _c("label", { attrs: { for: "radio_button_3" } }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.formData.shipping_method_id,
-                      expression: "formData.shipping_method_id"
+      [
+        _vm._l(_vm.deliveryMethods, function(method, index) {
+          return _vm.deliveryMethods
+            ? _c("li", { key: index }, [
+                _c("label", { attrs: { for: "radio_button_3" } }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.shipping_method_id,
+                        expression: "formData.shipping_method_id"
+                      }
+                    ],
+                    attrs: {
+                      checked: "",
+                      name: "radio_3",
+                      id: "radio_button_3",
+                      type: "radio"
+                    },
+                    domProps: {
+                      value: method.delivery_id,
+                      checked: _vm._q(
+                        _vm.formData.shipping_method_id,
+                        method.delivery_id
+                      )
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(
+                          _vm.formData,
+                          "shipping_method_id",
+                          method.delivery_id
+                        )
+                      }
                     }
-                  ],
-                  attrs: {
-                    checked: "",
-                    name: "radio_3",
-                    id: "radio_button_3",
-                    type: "radio"
-                  },
-                  domProps: {
-                    value: index,
-                    checked: _vm._q(_vm.formData.shipping_method_id, index)
-                  },
+                  }),
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(method.delivery_title) +
+                      "-  $ " +
+                      _vm._s(method.cost_price) +
+                      "\n                "
+                  ),
+                  _c("br"),
+                  _vm._v(
+                    "\n                (" +
+                      _vm._s(method.min_time) +
+                      "-" +
+                      _vm._s(method.max_time) +
+                      ") working days\n            "
+                  )
+                ])
+              ])
+            : _vm._e()
+        }),
+        _vm._v(" "),
+        _c("li", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c(
+              "button",
+              {
+                staticClass: "button",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.backTab()
+                  }
+                }
+              },
+              [_vm._v("Back")]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-sm-6", staticStyle: { "text-align": "right" } },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "button",
+                  attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      return _vm.setDeliveryCharge(_vm.deliveryCharge)
-                    },
-                    change: function($event) {
-                      return _vm.$set(_vm.formData, "shipping_method_id", index)
+                      $event.preventDefault()
+                      return _vm.shippingMethodStore($event)
                     }
                   }
-                }),
-                _vm._v(
-                  "$ " +
-                    _vm._s(_vm.deliveryCharge) +
-                    " " +
-                    _vm._s(shipping) +
-                    "\n            "
-                )
-              ])
-            ])
-          : _vm._e()
-      }),
-      0
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "button",
-        attrs: { type: "button" },
-        on: {
-          click: function($event) {
-            $event.preventDefault()
-            return _vm.shippingMethodStore($event)
-          }
-        }
-      },
-      [_vm._v(_vm._s(_vm.$t("checkout.continue")))]
+                },
+                [_vm._v(_vm._s(_vm.$t("checkout.continue")))]
+              )
+            ]
+          )
+        ])
+      ],
+      2
     )
   ])
 }
@@ -75269,7 +75349,8 @@ var state = {
   method: false,
   payment: false,
   cart_tab: false,
-  charge: 0
+  charge: 0,
+  delivery_methods: []
 }; //declare Getters
 
 var getters = {
@@ -75323,6 +75404,9 @@ var getters = {
   },
   deliveryCost: function deliveryCost(state) {
     return state.charge;
+  },
+  deliveryMethods: function deliveryMethods(state) {
+    return state.delivery_methods;
   }
 };
 var actions = {
@@ -75626,6 +75710,7 @@ var mutations = {
     state.payment_methods = response.payment_methods;
     state.shipping_methods = response.shipping_methods;
     state.shipping_price = response.shipping_price;
+    state.delivery_methods = response.delivery_methods;
   },
   updateAddressBook: function updateAddressBook(state, response) {
     var address = {
