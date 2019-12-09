@@ -64,7 +64,7 @@ class ShopController extends Controller
             }
 
             $seller = $seller->update([
-                'shop_status'=>$request->status
+                'seller_status'=>$request->status
             ]);
             if(!empty($seller)){
                 $status = array_flip(Seller::ShopStatus);

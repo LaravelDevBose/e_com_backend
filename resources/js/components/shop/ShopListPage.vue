@@ -36,7 +36,7 @@
 <script>
     import  Vue from 'vue';
     Vue.component('shop-logo', {
-        template: `<img  v-if="row.shop_logo.image_path" :src="row.shop_logo.image_path" :alt="row.shop_name" class="img img-responsive" style="max-width:50px; max-height:50px">`,
+        template: `<img  v-if="row.shop_logo" :src="row.shop_logo.image_path" :alt="row.shop_name" class="img img-responsive" style="max-width:50px; max-height:50px">`,
         props: ['row'],
     });
 
@@ -60,7 +60,7 @@
                         <div>
                             <ul v-if="shopStatus" class="dropdown-menu dropdown-menu-right">
                               <li v-for="(status, index) in shopStatus" :key="index" v-if="row.seller.seller_status != index">
-                                  <a href="#" @click.prevent="changeShopStatus(row.seller.seller_id, index)">
+                                  <a href="#" @click.prevent="changeShopStatus(row.seller_id, index)">
                                     <span
                                     class="status-mark position-left"
                                     :class="{'bg-success':index == 1, 'bg-primary':index == 2, 'bg-warning':index == 3, 'bg-danger':index == 4 }"
@@ -104,7 +104,7 @@
     });
     Vue.component('seller-action', {
         template: `<ul class="icons-list">
-                        <li><a href="#" class="text text-primary" @click.prevent="goToShopDetails(row.seller.seller_id)"><i class="icon-eye"></i></a></li>
+<!--                        <li><a href="#" class="text text-primary" @click.prevent="goToShopDetails(row.seller.seller_id)"><i class="icon-eye"></i></a></li>-->
                         <li><a href="#" class="text text-danger" @click.prevent="deleteShop(row.seller.seller_id)"><i class="icon-trash"></i></a></li>
                     </ul>`,
         props: ['row'],

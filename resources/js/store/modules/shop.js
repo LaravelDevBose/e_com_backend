@@ -111,10 +111,12 @@ const mutations = {
         }
     },
     setShopStatusUpdate:(state, response)=>{
+        console.log(response);
         state.shop_list = state.shop_list.filter(shop=>{
             if(shop.seller_id == response.seller_id){
-                shop.shop_status = response.status;
-                shop.status_label = response.status_label;
+                shop.seller.seller_status = response.status;
+                shop.seller.status_label = response.status_label;
+                console.log(shop)
             }
             return shop;
         })
