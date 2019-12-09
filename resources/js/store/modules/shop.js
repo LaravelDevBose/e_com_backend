@@ -79,7 +79,6 @@ const actions = {
                     return  response.data;
                 });
         }catch (error) {
-            console.log(error);
             commit('setResponse', error.data);
         }
     },
@@ -111,14 +110,12 @@ const mutations = {
         }
     },
     setShopStatusUpdate:(state, response)=>{
-        console.log(response);
-        state.shop_list = state.shop_list.filter(shop=>{
-            if(shop.seller_id == response.seller_id){
-                shop.seller.seller_status = response.status;
-                shop.seller.status_label = response.status_label;
-                console.log(shop)
+        state.shop_list = state.shop_list.filter(seller=>{
+            if(seller.seller_id == response.seller_id){
+                seller.seller_status = response.status;
+                seller.status_label = response.status_label;
             }
-            return shop;
+            return seller;
         })
     },
     removeShop:(state, sellerId)=>state.shop_list = state.shop_list.filter(shop=>shop.seller_id !== sellerId),

@@ -28,14 +28,14 @@ class ShopController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $shops = Shop::with(['shopLogo','seller'=>function($query){
-                $query->with(['user','orderItems','products'=>function($query){
-                    return $query->notDelete();
-                }])->notDelete();
-            }])->latest()->get();
+            $sellers = Seller::with(['user','products'=>function($query){
+                return $query->notDelete();
+            }, 'shop.shopLogo', 'orderItems'=>function($q){
+                return $q->where('item_status', OrderItem::AllItemStatus['Delivered']);
+            }])->where('seller_id', '!=', 1)->notDelete()->latest()->get();
 
-            if(!empty($shops)){
-                return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $shops);
+            if(!empty($sellers)){
+                return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $sellers);
             }else{
                 return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'No Shop Found');
             }
@@ -135,7 +135,7 @@ class ShopController extends Controller
 
             //TODO check active product and active order then delete
             $seller = $seller->update([
-                'shop_status'=> config('app.delete')
+                'seller_status'=> config('app.delete')
             ]);
             if(!empty($seller)){
                 DB::commit();
