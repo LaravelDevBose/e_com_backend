@@ -19,7 +19,9 @@ trait CommonData
 {
     public static function category_tree_list($request=null){
         $categories = Category::isActive()->isParent()->with(['attachment','children'=>function($query){
-            return $query->isActive()->with('children');
+            return $query->isActive()->with(['children'=>function($q){
+                return $q->isActive();
+            }]);
         }])->get();
 
         if(!empty($categories)){
@@ -31,7 +33,9 @@ trait CommonData
 
     public static function category_tree($request=null){
         $categories = Category::isActive()->isParent()->with(['children'=>function($query){
-            return $query->isActive()->with('children');
+            return $query->isActive()->with(['children'=>function($q){
+                return $q->isActive();
+            }]);
         }])->get();
 
         if(!empty($categories)){
