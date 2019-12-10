@@ -153,6 +153,17 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::delete('method/{delivery_id}', 'DeliveryMethodController@destroy')->name('method.delete');
     });
 
+    Route::group(['prefix'=>'account', 'as'=>'account.'], function(){
+        Route::get('/','AdminAccountController@index')->name('index');
+        Route::post('/store','AdminAccountController@store')->name('store');
+        Route::get('/{admin_id}','AdminAccountController@show')->name('show');
+        Route::get('/{admin_id}/update','AdminAccountController@update')->name('update');
+        Route::delete('/{admin_id}/delete', 'AdminAccountController@destroy')->name('destroy');
+
+        Route::get('/setting/page', 'AdminAccountController@setting_page')->name('setting.page');
+        Route::post('details/update', 'AdminAccountController@details_update')->name('details.update');
+        Route::post('password/update', 'AdminAccountController@change_password')->name('password.change');
+    });
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){

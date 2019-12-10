@@ -67,10 +67,13 @@ class Admin extends Authenticatable
         'avatar'
     ];
 
-    public function getRoleAttribute(){
-        return Self::AdminRole[$this->attributes['admin_role']];
+    public function getRoleLabelAttribute(){
+        return self::AdminRole[$this->attributes['admin_role']];
     }
 
+    public function getStatusLabelAttribute(){
+        return self::AdminStatus[$this->attributes['admin_status']];
+    }
 
     public function getAvatarAttribute(){
         return $path = asset('assets/images/admin.png');
@@ -88,6 +91,9 @@ class Admin extends Authenticatable
 
     public function scopeIsDelete($query){
         return $query->where('admin_status', config('app.delete'));
+    }
+    public function scopeNotDelete($query){
+        return $query->where('admin_status','!=', config('app.delete'));
     }
 
     public function scopeRole($query, $role){
