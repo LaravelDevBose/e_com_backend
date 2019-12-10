@@ -1,42 +1,51 @@
 //declare State
 const state = {
-    brands_data:[],
-    brand_list:[],
+    admin_list:[],
+    admin_data:{},
 };
 
 //declare Getters
 const getters = {
-    brands:(state)=> state.brands_data,
-    brandList:(state)=>state.brand_list,
+    adminList:(state)=>state.admin_list,
+    adminData:(state)=> state.admin_data,
 };
 
 const actions = {
-    async getAccountData({commit}){
+    async getAdminList({commit}){
         try {
-            await axios.get('/admin/brands')
+            await axios.get('/admin/account/list')
                 .then(response=>{
-                    commit('setBrands', response.data.data.data);
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setAdminList', response.data.data);
+                        delete response.data.data;
+                    }
+                    return response.data;
             })
         }catch (error) {
             commit('setResponse', error.data);
         }
     },
-    async getBrandList({commit}){
+    async getAdminData({commit}, adminId){
         try {
-            await axios.get('/admin/brand/list')
+            await axios.get(`/admin/account/${adminId}`)
                 .then(response=>{
-                    commit('setBrandList', response.data);
+                    if (typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setAdminData', response.data.data);
+                        delete response.data.data;
+                    }
+                    return response.data;
             })
         }catch (error) {
             commit('setResponse', error.data);
         }
     },
-    async storeBrand({commit}, from){
+    async storeAdminInfo({commit}, formData){
         try {
-            return  await axios.post('/admin/brand/store', from)
+            return  await axios.post('/admin/account/store', formData)
                 .then(response=>{
-                    if(response.data.status === "success"){
-                        commit('storeBrand', response.data.data);
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('adminInfoStore', response.data.data);
+                        delete response.data.data;
                     }
                     return response.data;
                 }).catch(error=>{
@@ -47,12 +56,13 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-    async updateBrandInfo({commit},fromData){
+    async updateAdminInfo({commit},formData){
         try {
-            return await axios.put(`/admin/brand/${fromData.id}/update`, fromData)
+            return await axios.put(`/admin/account/${formData.id}/update`, formData)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('updateBrandData', response.data.data);
+                        commit('updateAdminInfo', response.data.data);
+                        delete response.data.data;
                     }
                     return response.data;
                 });
@@ -60,40 +70,70 @@ const actions = {
             return  error.data;
         }
     },
-    async deleteBrand({commit}, brandID){
+    async deleteAccountInfo({commit}, adminId){
         try {
-            return await axios.delete(`/admin/brand/${brandID}`)
+            return await axios.delete(`/admin/account/${adminId}`)
                 .then(response=>{
                     if(response.data.status === "success"){
-                        commit('removeBrand', brandID);
+                        commit('removeAdminInfo', adminId);
                     }
-                    commit('setResponse', response.data);
                     return response.data;
                 })
         }catch (error) {
             commit('setResponse', error.data);
             return error.data;
         }
-    }
+    },
+    async updateAccountDetails({commit}, formData){
+        try {
+            return  await axios.post('/admin/account/details/update', formData)
+                .then(response=>{
+                    return response.data;
+                }).catch(error=>{
+                    commit('setResponse', error.data);
+                    return error.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
+
+    async updateAccountPassword({commit}, formData){
+        try {
+            return  await axios.post('/admin/account/password/update', formData)
+                .then(response=>{
+                    return response.data;
+                }).catch(error=>{
+                    commit('setResponse', error.data);
+                    return error.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {
-    setBrands:(state, response)=>state.brands_data = response,
-    storeBrand:(state,response)=> state.brands_data.unshift(response),
-    removeBrand:(state, brandId)=>state.brands_data = state.brands_data.filter(brand=>brand.id !==brandId),
-    setBrandList:(state,response)=>state.brand_list = response,
-    updateBrandData:(state,response)=>{
-        state.brands_data = state.brands_data.filter(brand=>{
-            if(brand.id == response.id){
-                brand.id = response.id;
-                brand.name = response.name;
-                brand.status = response.status;
-                brand.attachment = response.attachment;
+    setAdminList:(state, response)=>state.admin_list = response,
+    setAdminData:(state, response)=>state.admin_data = response,
+    adminInfoStore:(state,response)=> state.admin_list.unshift(response),
+    updateAdminInfo:(state,response)=>{
+        state.admin_list = state.admin_list.filter(admin=>{
+            if(admin.id === response.id){
+                admin.id = response.id;
+                admin.fullName = response.fullName;
+                admin.userName = response.userName;
+                admin.email = response.email;
+                admin.phoneNo = response.phoneNo;
+                admin.role = response.role;
+                admin.role_label = response.role_label;
+                admin.status = response.status;
+                admin.status_label = response.status_label;
             }
-            return brand;
+            return admin;
         });
     },
-
+    removeBrand:(state, adminId)=>state.admin_list = state.admin_list.filter(admin=>admin.id !== adminId),
 };
 
 export default {
