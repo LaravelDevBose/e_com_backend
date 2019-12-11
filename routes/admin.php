@@ -158,7 +158,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::get('/list','AdminAccountController@admin_list')->name('list');
         Route::post('/store','AdminAccountController@store')->name('store');
         Route::get('/{admin_id}','AdminAccountController@show')->name('show');
-        Route::get('/{admin_id}/update','AdminAccountController@update')->name('update');
+        Route::put('/{admin_id}/update','AdminAccountController@update')->name('update');
         Route::delete('/{admin_id}', 'AdminAccountController@destroy')->name('destroy');
 
         Route::get('/setting/page', 'AdminAccountController@setting_page')->name('setting.page');

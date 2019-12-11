@@ -70,7 +70,7 @@ const actions = {
             return  error.data;
         }
     },
-    async deleteAccountInfo({commit}, adminId){
+    async deleteAdminAccount({commit}, adminId){
         try {
             return await axios.delete(`/admin/account/${adminId}`)
                 .then(response=>{
@@ -133,7 +133,7 @@ const mutations = {
             return admin;
         });
     },
-    removeBrand:(state, adminId)=>state.admin_list = state.admin_list.filter(admin=>admin.id !== adminId),
+    removeAdminInfo:(state, adminId)=>state.admin_list = state.admin_list.filter(admin=>admin.id !== adminId),
 };
 
 export default {
