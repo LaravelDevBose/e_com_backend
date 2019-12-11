@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <account-setting-page></account-setting-page>
+    <account-setting-page :adminid="{{ auth()->guard('admin')->user()->admin_id }}"></account-setting-page>
 @endsection
 @section('PageJs')
 

@@ -34,7 +34,7 @@ class AdminAccountController extends Controller
     }
 
     public function admin_list(){
-        $admins = Admin::notDelete()->where('admin_id', '!=', auth()->guard('admin')->admin_id)->latest()->get();
+        $admins = Admin::notDelete()->where('admin_id', '!=', auth()->guard('admin')->user()->admin_id)->latest()->get();
         if(!empty($admins)){
             $coll = AdminResource::collection($admins);
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $coll);
@@ -120,8 +120,8 @@ class AdminAccountController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'full_name'=>'required|string|max:120',
-            'user_name'=>'required|string|max:120|unique:admins,user_name,'.$id,
-            'email'=>'required|string|email|max:255|unique:admins,email,'.$id,
+            'user_name'=>'required|string|max:120|unique:admins,user_name,'.$id.',admin_id',
+            'email'=>'required|string|email|max:255|unique:admins,email,'.$id.',admin_id',
             'phone_no'=>'required|string|max:12',
             'admin_role'=>'required',
         ]);
@@ -198,15 +198,15 @@ class AdminAccountController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'full_name'=>'required|string|max:120',
-            'user_name'=>'required|string|max:120|unique:admins,user_name,'.auth()->guard('admin')->admin_id,
-            'email'=>'required|string|email|max:255|unique:admins,email,'.auth()->guard('admin')->admin_id,
+            'user_name'=>'required|string|max:120|unique:admins,user_name,'.auth()->guard('admin')->user()->admin_id.',admin_id',
+            'email'=>'required|string|email|max:255|unique:admins,email,'.auth()->guard('admin')->user()->admin_id.',admin_id',
             'phone_no'=>'required|string|max:12',
         ]);
 
         if($validator->passes()){
             try{
                 DB::beginTransaction();
-                $admin = Admin::where('admin_id', auth()->guard('admin')->admin_id)->first();
+                $admin = Admin::where('admin_id', auth()->guard('admin')->user()->admin_id)->first();
                 if(empty($admin)){
                     throw new Exception('Invalid Information.', Response::HTTP_NOT_FOUND);
                 }
@@ -244,11 +244,11 @@ class AdminAccountController extends Controller
             try{
                 DB::beginTransaction();
 
-                if(auth()->guard('admin')->getAuthPassword() !== Hash::check($request->current_password)){
-                    throw new Exception('Invalid Current Pa.', Response::HTTP_NOT_FOUND);
+                if(!Hash::check($request->current_password, auth()->guard('admin')->user()->getAuthPassword())){
+                    throw new Exception('Invalid Current Password.', Response::HTTP_NOT_FOUND);
                 }
 
-                $admin = Admin::where('admin_id', auth()->guard('admin')->admin_id)->first();
+                $admin = Admin::where('admin_id', auth()->guard('admin')->user()->admin_id)->first();
                 if(empty($admin)){
                     throw new Exception('Invalid Information.', Response::HTTP_NOT_FOUND);
                 }

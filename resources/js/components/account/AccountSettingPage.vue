@@ -132,10 +132,13 @@
                     });
             },
             accountPasswordUpdate(){
-                this.updateAccountPassword(this.accFormData)
+                this.updateAccountPassword(this.passFormData)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
                             Notify.success(response.message);
+                            this.passFormData.current_password='';
+                            this.passFormData.password='';
+                            this.passFormData.password_confirmation='';
                         }else if(response.status === "validation"){
                             Notify.validation(response.message);
                         }else{
@@ -146,7 +149,7 @@
         },
         computed:{
             ...mapGetters([
-                'adminData'
+                'adminData',
             ]),
             checkAdminData(){
                 return JSON.parse(JSON.stringify(this.adminData));

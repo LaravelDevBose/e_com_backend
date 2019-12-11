@@ -34,6 +34,7 @@ import homepage_section from "./modules/homepage_section";
 import group_products from "./modules/group_products";
 import unpublish_product from "./modules/unpublish_product";
 import delivery_method from "./modules/delivery_method";
+import admin from "./modules/admin";
 
 export default new Vuex.Store({
     state:{
@@ -84,6 +85,7 @@ export default new Vuex.Store({
         group_products,
         unpublish_product,
         delivery_method,
+        admin,
     }
 })
 
