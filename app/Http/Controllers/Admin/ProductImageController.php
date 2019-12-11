@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use JD\Cloudder\Facades\Cloudder;
 
 class ProductImageController extends Controller
 {
@@ -64,11 +65,10 @@ class ProductImageController extends Controller
                 if(empty($attachmentModels[$folder])){
                     throw new Exception('Invalid Model!', 400);
                 }
-
+                $model = $attachmentModels[$folder];
                 $attachmentData= [];
+//                dd($attachments);
                 foreach ($attachments as $key => $attachment){
-
-                    $model = $attachmentModels[$folder];
 
                     $ext = $attachment->guessExtension();
                     $type = $attachment->getMimeType();
@@ -77,10 +77,9 @@ class ProductImageController extends Controller
                     $file_size = AttachmentHelper::byteToHuman( $attachment->getClientSize() );
 
                     $name =  md5(rand(1111, 9999). time()) .'.'.$ext;
-
+                    $folder = $folder.'/'.$max_number;
                     $name_full = $this->attachmentFolder . $folder . '/' . $name;
-                    Storage::disk('local')->put( $name_full, File::get($attachment) );
-
+                    Storage::disk('local')->put( $name_full, File::get($attachment));
 
                     $attachmentSave = Attachment::create([
                         'attachment_no'    => $max_number,
@@ -89,15 +88,34 @@ class ProductImageController extends Controller
                         'folder'        => $folder,
                         'file_type'          => $type,
                         'original_name' => $original_name,
-                        'file_size'     => $file_size
+                        'file_size'     => $file_size,
                     ]);
 
+                    $options = [
+                        "folder" => "my_folder/my_sub_folder/",
+                        "resource_type" => "image"
+                    ];
+                    $publicId = $model.'_'.$max_number;
+                    Cloudder::upload(realpath($attachment), $publicId, $options);
+
+                    $showOption = [
+                        "width"=>60,
+                        "height"=>'auto',
+                        "gravity"=>"face",
+                        "crop"=>"fill",
+                        "fetch_format"=>"auto",
+                        "type"=>"fetch"
+                    ];
+                    $img = Cloudder::show($publicId, $showOption);
                     array_push($attachmentData, [
                         'pri_id'=>$request->pri_id,
-                        'img' => $attachmentSave->image_path,
+                        'img' => $img,
                         'id' => $attachmentSave->attachment_id,
                         'no' => $attachmentSave->attachment_no,
                         'delete_url' => route('attachment.delete',  $attachmentSave->attachment_id),
+                    ]);
+                    $attachmentSave->update([
+                        'cloud_public_id' =>$publicId,
                     ]);
                     $max_number++;
                 }

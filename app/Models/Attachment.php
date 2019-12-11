@@ -35,7 +35,8 @@ class Attachment extends Model
         'folder',
         'file_type',
         'file_size',
-        'original_name'
+        'original_name',
+        'cloud_public_id',
     ];
     protected $appends = array('image_path');
 
