@@ -30,7 +30,7 @@ const actions = {
     },
     async getOrderInfo({commit},orderId){
         try {
-            return await axios.get(`/buyer/order/${orderId}/show`)
+            return await axios.get(`/buyer/order/${orderId}/invoice`)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
                         commit('setOrderInfo', response.data.data);

@@ -49,23 +49,30 @@ class OrderController extends Controller
         }
     }
 
-    public function show(Request $request, $order_no){
-        $orderInfo = Order::where('order_no', $order_no)->with('buyer.user', 'orderItems.product','orderItems.seller', 'billing', 'shipping', 'payment')->first();
-
-        if($request->ajax()){
-            if(!empty($orderInfo)) {
-                return ResponserTrait::singleResponse($orderInfo, 'success', Response::HTTP_OK, 'Order Details Found');
-            }else{
-                return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Order Details Not Found');
-            }
-        }else{
-            if(empty($orderInfo)){
-                return abort(Response::HTTP_NOT_FOUND);
-            }
-            return view('template.'.$this->template_name.'.order.show',[
-                'order_no'=>$order_no,
-            ]);
+    public function show($order_no){
+        $orderInfo = Order::where('order_no', $order_no)->first();
+        if(empty($orderInfo)){
+            return abort(Response::HTTP_NOT_FOUND);
         }
+        return view('templates.'.$this->template_name.'.buyer.order.order_details',[
+            'orderId'=>$orderInfo->order_id,
+        ]);
+
+    }
+
+    public function Order_details($orderId)
+    {
+        $orderInfo = Order::where('order_id', $orderId)
+            ->with(['buyer.user','billing', 'shipping', 'payment', 'orderItems'=>function($query){
+                return $query->with('product.thumbImage', 'seller.shop');
+            } ])->first();
+
+        if(!empty($orderInfo)) {
+            return ResponserTrait::singleResponse($orderInfo, 'success', Response::HTTP_OK, 'Order Details Found');
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Order Details Not Found');
+        }
+
     }
 
     public function order_store(Request $request){

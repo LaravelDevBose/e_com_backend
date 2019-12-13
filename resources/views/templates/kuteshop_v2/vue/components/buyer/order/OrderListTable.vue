@@ -27,7 +27,8 @@
                 </td>
                 <td class="text-center">
                     <a href="#" @click.prevent="showInvoiceModal(order.order_no)" class="text-primary"> <i class="fa fa-eye"></i></a>
-                    <a href="#" @click.prevent="goToAddReviewPage(order.order_id)" class="text-primary"> <i class="far fa-comment-dots"></i></a>
+                    <a href="#" @click.prevent="showInvoiceDetails(order.order_no)" class="text-warning"> <i class="fa fa-newspaper"></i></a>
+                    <a href="#" @click.prevent="goToAddReviewPage(order.order_id)" class="text-success"> <i class="far fa-comment-dots"></i></a>
                 </td>
             </tr>
             <tr v-else>
@@ -63,6 +64,9 @@
             },
             goToAddReviewPage(order_id){
                 location.href = `/buyer/reviews/add/${order_id}`;
+            },
+            showInvoiceDetails(orderId){
+                location.href = `/buyer/order/${orderId}/show`;
             }
         },
         computed:{

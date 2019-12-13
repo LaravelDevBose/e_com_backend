@@ -108,7 +108,7 @@
                     { label: 'Order No', field: 'order.order_no'},
                     { label: 'Order Date', field: 'order.order_date', filterable: true, sortable:true },
                     { label: 'Buyer', field: 'buyer.user.full_name' , filterable: true, sortable:true },
-                    { label: 'Brand', field: 'brand', filterable: true, sortable:true },
+                    { label: 'Brand', field: 'brand.brand_name', filterable: true, sortable:true },
                     { label: 'Price', field: 'price', align: 'right',},
                     { label: 'Quantity', field: 'qty', align: 'right',  },
                     { label: 'Total', field: 'total_price', align: 'right', sortable: true },

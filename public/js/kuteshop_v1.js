@@ -71968,7 +71968,7 @@ var actions = {
               commit = _ref2.commit;
               _context2.prev = 1;
               _context2.next = 4;
-              return axios.get("/buyer/order/".concat(orderId, "/show")).then(function (response) {
+              return axios.get("/buyer/order/".concat(orderId, "/invoice")).then(function (response) {
                 if (typeof response.data.code !== "undefined" && response.data.code === 200) {
                   commit('setOrderInfo', response.data.data);
                 }
@@ -72662,7 +72662,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v1\vue\kuteshop_v1.js */"./resources/views/templates/kuteshop_v1/vue/kuteshop_v1.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v1/vue/kuteshop_v1.js */"./resources/views/templates/kuteshop_v1/vue/kuteshop_v1.js");
 
 
 /***/ })
