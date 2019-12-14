@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Seller;
 
+use App\Events\OnCancelOrderItem;
 use App\Helpers\OrderHelper;
 use App\Helpers\TemplateHelper;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
+use App\Models\ProductVariation;
 use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -85,6 +88,10 @@ class OrderController extends Controller
                 ]);
 
                 if(!empty($orderItem)){
+                    // Update Product Qty If Seller Cancel the Order;
+                    if($request->item_status == OrderItem::AllItemStatus['Cancel']){
+                        event(new OnCancelOrderItem($request->item_id));
+                    }
                     DB::commit();
                     $orderItem = OrderItem::where('item_id', $request->item_id)->first();
                     $data = [
@@ -93,6 +100,8 @@ class OrderController extends Controller
                         'item_status_label'=>$orderItem->item_status_label,
                     ];
                     return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK, 'Order Status Successfully Updated.');
+
+
                 }else{
                     throw new \Exception('Order Status Not Updated', Response::HTTP_BAD_REQUEST);
                 }
