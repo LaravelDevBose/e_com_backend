@@ -67,7 +67,6 @@ class ProductImageController extends Controller
                 }
                 $model = $attachmentModels[$folder];
                 $attachmentData= [];
-//                dd($attachments);
                 foreach ($attachments as $key => $attachment){
 
                     $ext = $attachment->guessExtension();
@@ -76,46 +75,31 @@ class ProductImageController extends Controller
                     $original_name = $attachment->getClientOriginalName();
                     $file_size = AttachmentHelper::byteToHuman( $attachment->getClientSize() );
 
-                    $name =  md5(rand(1111, 9999). time()) .'.'.$ext;
-                    $folder = $folder.'/'.$max_number;
-                    $name_full = $this->attachmentFolder . $folder . '/' . $name;
+                    $publicId = md5(rand(1111, 9999). time());
+
+                    $name =  $publicId .'.'.$ext;
+                    $folderPath = $folder.'/'.$max_number;
+                    $name_full = $this->attachmentFolder . $folderPath . '/' . $name;
                     Storage::disk('local')->put( $name_full, File::get($attachment));
 
                     $attachmentSave = Attachment::create([
-                        'attachment_no'    => $max_number,
-                        'reference'          => $model,
-                        'file_name'          => $name,
-                        'folder'        => $folder,
-                        'file_type'          => $type,
+                        'attachment_no' => $max_number,
+                        'reference'     => $model,
+                        'file_name'     => $name,
+                        'folder'        => $folderPath,
+                        'file_type'     => $type,
                         'original_name' => $original_name,
                         'file_size'     => $file_size,
+                        'cloud_public_id' =>$publicId,
                     ]);
 
-                    $options = [
-                        "folder" => "my_folder/my_sub_folder/",
-                        "resource_type" => "image"
-                    ];
-                    $publicId = $model.'_'.$max_number;
-                    Cloudder::upload(realpath($attachment), $publicId, $options);
 
-                    $showOption = [
-                        "width"=>60,
-                        "height"=>'auto',
-                        "gravity"=>"face",
-                        "crop"=>"fill",
-                        "fetch_format"=>"auto",
-                        "type"=>"fetch"
-                    ];
-                    $img = Cloudder::show($publicId, $showOption);
                     array_push($attachmentData, [
                         'pri_id'=>$request->pri_id,
-                        'img' => $img,
+                        'img' => $attachmentSave->image_path,
                         'id' => $attachmentSave->attachment_id,
                         'no' => $attachmentSave->attachment_no,
                         'delete_url' => route('attachment.delete',  $attachmentSave->attachment_id),
-                    ]);
-                    $attachmentSave->update([
-                        'cloud_public_id' =>$publicId,
                     ]);
                     $max_number++;
                 }
@@ -148,6 +132,7 @@ class ProductImageController extends Controller
             ]);
         }
     }
+
 
     public function download(Attachment $attachment) {
         $user = Auth::user();

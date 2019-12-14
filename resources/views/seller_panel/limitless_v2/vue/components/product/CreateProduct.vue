@@ -314,7 +314,13 @@
                                                     <img :src="image.img" alt="">
                                                     <div class="caption-overflow">
                                                         <span>
-                                                            <a :href="image.img" data-fancybox="images"  class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-eye"></i></a>
+                                                            <a
+                                                                href="#"
+                                                                @click.prevent="removeAttachment(image.id)"
+                                                                class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
+                                                            >
+                                                                <i class="icon-trash"></i>
+                                                            </a>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -361,9 +367,15 @@
                                                     <div class="thumb">
                                                         <img :src="image.img" alt="">
                                                         <div class="caption-overflow">
-                                                        <span>
-                                                            <a :href="image.img" data-fancybox="images"  class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-eye"></i></a>
-                                                        </span>
+                                                            <span>
+                                                                <a
+                                                                    href="#"
+                                                                    @click.prevent="removeAttachment(image.id)"
+                                                                    class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
+                                                                >
+                                                                    <i class="icon-trash"></i>
+                                                                </a>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -577,7 +589,8 @@
                 'getProductCreateDependency',
                 'uploadProductImage',
                 'sellerStoreProductData',
-                'getProductCreateNeedData'
+                'getProductCreateNeedData',
+                'attachmentImageRemove'
             ]),
             addPriId(PriID){
                 this.priId = PriID;
@@ -830,7 +843,26 @@
                 }
 
 
-            }
+            },
+            removeAttachment(attachmentId){
+                let conf = confirm('Are You Sure.?');
+                if(!conf){
+                    return false;
+                }
+
+                this.attachmentImageRemove(attachmentId)
+                    .then(response=>{
+                        if(response.code === 200){
+                            Notify.success(response.message);
+                        }else if(response.status === "validation"){
+                            Notify.validation(response.message);
+                        }else if(response.status === "error"){
+                            Notify.error(response.message);
+                        }else {
+                            Notify.info(response.message);
+                        }
+                    })
+            },
         },
         computed:{
             ...mapGetters([

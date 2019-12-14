@@ -8515,6 +8515,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import the component
 
  // import the styles
@@ -8614,7 +8626,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.getProductCreateNeedData();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['allTreeListCategories', 'getBrandList', 'getProductCreateDependency', 'uploadProductImage', 'sellerStoreProductData', 'getProductCreateNeedData']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['allTreeListCategories', 'getBrandList', 'getProductCreateDependency', 'uploadProductImage', 'sellerStoreProductData', 'getProductCreateNeedData', 'attachmentImageRemove']), {
     addPriId: function addPriId(PriID) {
       this.priId = PriID;
     },
@@ -8898,6 +8910,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.formData.imageIds.length > 0) {
         this.formData.imageIds.length = 0;
       }
+    },
+    removeAttachment: function removeAttachment(attachmentId) {
+      var conf = confirm('Are You Sure.?');
+
+      if (!conf) {
+        return false;
+      }
+
+      this.attachmentImageRemove(attachmentId).then(function (response) {
+        if (response.code === 200) {
+          Notify.success(response.message);
+        } else if (response.status === "validation") {
+          Notify.validation(response.message);
+        } else if (response.status === "error") {
+          Notify.error(response.message);
+        } else {
+          Notify.info(response.message);
+        }
+      });
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds', 'skinTypes', 'cropImageIds', 'productType']), {
@@ -17830,7 +17861,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -76362,15 +76393,20 @@ var render = function() {
                                                 "a",
                                                 {
                                                   staticClass:
-                                                    "btn border-white text-white btn-flat btn-icon btn-rounded",
-                                                  attrs: {
-                                                    href: image.img,
-                                                    "data-fancybox": "images"
+                                                    "btn btn-danger border-danger text-white  btn-icon btn-rounded",
+                                                  attrs: { href: "#" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      $event.preventDefault()
+                                                      return _vm.removeAttachment(
+                                                        image.id
+                                                      )
+                                                    }
                                                   }
                                                 },
                                                 [
                                                   _c("i", {
-                                                    staticClass: "icon-eye"
+                                                    staticClass: "icon-trash"
                                                   })
                                                 ]
                                               )
@@ -76558,18 +76594,25 @@ var render = function() {
                                                               "a",
                                                               {
                                                                 staticClass:
-                                                                  "btn border-white text-white btn-flat btn-icon btn-rounded",
+                                                                  "btn btn-danger border-danger text-white  btn-icon btn-rounded",
                                                                 attrs: {
-                                                                  href:
-                                                                    image.img,
-                                                                  "data-fancybox":
-                                                                    "images"
+                                                                  href: "#"
+                                                                },
+                                                                on: {
+                                                                  click: function(
+                                                                    $event
+                                                                  ) {
+                                                                    $event.preventDefault()
+                                                                    return _vm.removeAttachment(
+                                                                      image.id
+                                                                    )
+                                                                  }
                                                                 }
                                                               },
                                                               [
                                                                 _c("i", {
                                                                   staticClass:
-                                                                    "icon-eye"
+                                                                    "icon-trash"
                                                                 })
                                                               ]
                                                             )
@@ -100140,7 +100183,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })
