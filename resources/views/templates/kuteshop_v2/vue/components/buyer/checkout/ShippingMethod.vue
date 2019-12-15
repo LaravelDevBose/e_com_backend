@@ -30,6 +30,7 @@
             return{
                 formData:{
                     shipping_method_id:'',
+                    cost_price:0,
                 }
             }
         },
@@ -43,6 +44,11 @@
                 'deliveryChargeUpdate'
             ]),
             shippingMethodStore(){
+                this.deliveryMethods.filter(method=>{
+                    if(method.delivery_id === this.formData.shipping_method_id){
+                        this.formData.cost_price = method.cost_price
+                    }
+                });
                 this.storeShippingMethod(this.formData)
                     .then(response=>{
                         this.$noty.success('Shipping Information Added.');

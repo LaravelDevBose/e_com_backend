@@ -199,6 +199,7 @@ const mutations = {
         // TODO payment Details after using payment gatwaye
         // state.payment_info = state.payment_methods[response.payment_method_id];
         state.shipping_method_id = response.shipping_method_id;
+        state.charge = response.cost_price;
     },
     setTabChange:(state,data)=>{
         if(data.billing){

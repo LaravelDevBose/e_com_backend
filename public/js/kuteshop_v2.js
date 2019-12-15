@@ -3847,7 +3847,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       formData: {
-        shipping_method_id: ''
+        shipping_method_id: '',
+        cost_price: 0
       }
     };
   },
@@ -3856,6 +3857,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     shippingMethodStore: function shippingMethodStore() {
       var _this = this;
 
+      this.deliveryMethods.filter(function (method) {
+        if (method.delivery_id === _this.formData.shipping_method_id) {
+          _this.formData.cost_price = method.cost_price;
+        }
+      });
       this.storeShippingMethod(this.formData).then(function (response) {
         _this.$noty.success('Shipping Information Added.');
 
@@ -5040,11 +5046,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
 //
 //
 //
@@ -54723,18 +54724,6 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("tr", [
-          _c("td", { attrs: { colspan: "2" } }),
-          _vm._v(" "),
-          _c("td", { attrs: { colspan: "3" } }, [
-            _vm._v(_vm._s(_vm.$t("cart.discount")) + ": ")
-          ]),
-          _vm._v(" "),
-          _c("td", { attrs: { colspan: "2" } }, [
-            _vm._v("$ " + _vm._s(_vm.cartDiscount))
-          ])
-        ]),
-        _vm._v(" "),
         _vm.deliveryCost !== 0
           ? _c("tr", [
               _c("td", { attrs: { colspan: "2" } }),
@@ -76431,6 +76420,7 @@ var mutations = {
     // TODO payment Details after using payment gatwaye
     // state.payment_info = state.payment_methods[response.payment_method_id];
     state.shipping_method_id = response.shipping_method_id;
+    state.charge = response.cost_price;
   },
   setTabChange: function setTabChange(state, data) {
     if (data.billing) {

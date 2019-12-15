@@ -47,11 +47,6 @@
                 <td colspan="3">{{ $t('cart.subtotal')}}:</td>
                 <td colspan="2">$ {{ cartSubTotal }}</td>
             </tr>
-            <tr>
-                <td colspan="2"></td>
-                <td colspan="3">{{ $t('cart.discount')}}: </td>
-                <td colspan="2">$ {{ cartDiscount }}</td>
-            </tr>
             <tr v-if="deliveryCost!==0">
                 <td colspan="2"></td>
                 <td colspan="3">{{ $t('cart.delivery_charge')}}: </td>
