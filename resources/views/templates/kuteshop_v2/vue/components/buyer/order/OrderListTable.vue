@@ -26,8 +26,8 @@
                     <em>{{ order.status_label }}</em>
                 </td>
                 <td class="text-center">
-                    <a href="#" @click.prevent="showInvoiceModal(order.order_no)" class="text-primary"> <i class="fa fa-eye"></i></a>
-                    <a href="#" @click.prevent="showInvoiceDetails(order.order_no)" class="text-warning"> <i class="fa fa-newspaper"></i></a>
+                    <a href="#" @click.prevent="showInvoiceModal(order.order_id)" class="text-primary"> <i class="fa fa-eye"></i></a>
+                    <a href="#" @click.prevent="showInvoiceDetails(order.order_id)" class="text-warning"> <i class="fa fa-newspaper"></i></a>
                     <a href="#" @click.prevent="goToAddReviewPage(order.order_id)" class="text-success"> <i class="far fa-comment-dots"></i></a>
                 </td>
             </tr>
@@ -48,8 +48,8 @@
             ...mapActions([
                 'getOrderInfo'
             ]),
-            viewOrderInfo(order_no){
-                location.href = `/buyer/order/${order_no}/show`;
+            viewOrderInfo(order_id){
+                location.href = `/buyer/order/${order_id}/show`;
             },
             showInvoiceModal(orderNo){
                 this.getOrderInfo(orderNo)
@@ -65,8 +65,8 @@
             goToAddReviewPage(order_id){
                 location.href = `/buyer/reviews/add/${order_id}`;
             },
-            showInvoiceDetails(orderId){
-                location.href = `/buyer/order/${orderId}/show`;
+            showInvoiceDetails(order_id){
+                location.href = `/buyer/order/${order_id}/show`;
             }
         },
         computed:{

@@ -49,8 +49,8 @@ class OrderController extends Controller
         }
     }
 
-    public function show($order_no){
-        $orderInfo = Order::where('order_no', $order_no)->first();
+    public function show($order_id){
+        $orderInfo = Order::where('order_id', $order_id)->first();
         if(empty($orderInfo)){
             return abort(Response::HTTP_NOT_FOUND);
         }
@@ -82,7 +82,7 @@ class OrderController extends Controller
         }
         // TODO check Validation
         $validator = Validator::make($request->all(),[
-            'billing_address'=>'required|array',
+            'billing_address'=>'array',
             'shipping_address'=>'required|array',
             'shipping_method_id'=>'required',
             'payment_method_id'=>'required',
@@ -102,12 +102,12 @@ class OrderController extends Controller
                     'order_no'=>uniqid(),
                     'buyer_id'=>$buyer->buyer_id,
                     'total_qty'=>Cart::count(),
-                    'sub_total'=>Cart::subtotal(),
+                    'sub_total'=>0,
                     'discount'=>$request->discount,
                     'voucher_id'=>$request->voucher_id,
                     'voucher_price'=>$request->voucher_price,
                     'delivery_charge'=>$request->delivery_charge,
-                    'total'=>(Cart::total()+$request->delivery_charge),
+                    'total'=>0,
                     'order_date'=>now(),
                     'order_status'=>config('app.active'),
                     'shipping_method'=>(!empty($request->shipping_method_id))?$request->shipping_method_id:1,
@@ -116,6 +116,7 @@ class OrderController extends Controller
                 if(!empty($order)){
                     $orderItemsArray = [];
                     $productUpdateArray = array();
+                    $orderTotal = 0;
                     // get single cart product
                         foreach ($carts as $cart){
                             // get product, brand, size, color details
@@ -162,6 +163,7 @@ class OrderController extends Controller
                                 'discount'=>0,
                                 'total_price'=>($cart->qty*$cart->price)
                             ]);
+                            $orderTotal += ($cart->qty*$cart->price);
                         }
 
                     // Store order items
@@ -172,27 +174,29 @@ class OrderController extends Controller
                     }
 
                     if(!empty($orderItems)){
+
                         // TODO store order billing details
-                        $billingInfo = (Object) $request->get('billing_address');
+                         $billingInfo = (Object) $request->get('billing_address');
+                        if(!empty($request->get('billing_address'))){
+                            $billing = BillingInfo::create([
+                                'order_id'=>$order->order_id,
+                                'buyer_id'=>$buyer->buyer_id,
+                                'address_id'=>$request->billing_address_id,
+                                'first_name'=>$billingInfo->first_name,
+                                'last_name'=>$billingInfo->last_name,
+                                'phone_no'=>$billingInfo->phone_no,
+                                'address'=>$billingInfo->address,
+                                'city'=>$billingInfo->city,
+                                'state'=>$billingInfo->state,
+                                'district'=>$billingInfo->district,
+                                'region'=>$billingInfo->region,
+                                'postal_code'=>$billingInfo->postal_code,
+                                'country'=>'somalia',
+                            ]);
 
-                        $billing = BillingInfo::create([
-                            'order_id'=>$order->order_id,
-                            'buyer_id'=>$buyer->buyer_id,
-                            'address_id'=>$request->billing_address_id,
-                            'first_name'=>$billingInfo->first_name,
-                            'last_name'=>$billingInfo->last_name,
-                            'phone_no'=>$billingInfo->phone_no,
-                            'address'=>$billingInfo->address,
-                            'city'=>$billingInfo->city,
-                            'state'=>$billingInfo->state,
-                            'district'=>$billingInfo->district,
-                            'region'=>$billingInfo->region,
-                            'postal_code'=>$billingInfo->postal_code,
-                            'country'=>'somalia',
-                        ]);
-
-                        if(empty($billing)){
-                            throw new \Exception('Order Not Place', Response::HTTP_BAD_REQUEST);
+                            if(empty($billing)){
+                                throw new \Exception('Order Not Place', Response::HTTP_BAD_REQUEST);
+                            }
                         }
 
                         // TODO store order shipping details
@@ -263,11 +267,19 @@ class OrderController extends Controller
                         }
                         $user = User::where('user_id', auth()->id())->with('buyer')->first();
                         event(new NewOrderStoreEvent($user,$order));
+                        $order = $order->update([
+                            'sub_total'=>$orderTotal,
+                            'total'=>$orderTotal+$request->delivery_charge
+                        ]);
+                        if(!empty($order)){
+                            DB::commit();
+                            Cart::destroy();
+                            //TODO Change to Invoice Page url
+                            return ResponserTrait::allResponse('success', Response::HTTP_CREATED, 'Your Order Place Successfully', '', route('buyer.order.index'));
+                        }else{
+                            throw new \Exception('Order Not Place. Try Again.', Response::HTTP_BAD_REQUEST);
+                        }
 
-                        DB::commit();
-                        Cart::destroy();
-                        //TODO Change to Invoice Page url
-                        return ResponserTrait::allResponse('success', Response::HTTP_CREATED, 'Your Order Place Successfully', '', route('buyer.order.index'));
                     }else{
                         throw new \Exception('Order Item Not Insert.', Response::HTTP_BAD_REQUEST);
                     }

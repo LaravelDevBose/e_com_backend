@@ -34,8 +34,8 @@
                         <div class="invoice-details text-right">
                             <h5 class="text-uppercase text-semibold">Order No #{{ orderInfo.order_no }}</h5>
                             <ul class="list-condensed list-unstyled">
-                                <li>Date: <span class="text-semibold">{{ orderInfo.order_date }}</span></li>
-                                <li>Delivery date: <span class="text-semibold">{{ orderInfo.delivery_date}}</span></li>
+                                <li>Order Date: <span class="text-semibold">{{ orderInfo.order_date }}</span></li>
+<!--                                <li>Delivery date: <span class="text-semibold">{{ orderInfo.delivery_date}}</span></li>-->
                                 <li>Order Status:
                                     <span  class="label "
                                        :class="{
@@ -118,14 +118,14 @@
                             <div class="table-responsive no-border">
                                 <table class="table">
                                     <tbody>
-                                        <!--<tr>
+                                        <tr>
                                             <th>Subtotal:</th>
                                             <td class="text-right text-bold">$ {{ orderInfo.sub_total }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Tax: <span class="text-regular">(0%)</span></th>
-                                            <td class="text-right text-bold">$ 0.00</td>
-                                        </tr>-->
+                                            <th>Delivery: </th>
+                                            <td class="text-right text-bold">$ {{ orderInfo.delivery_charge !== 0 ? orderInfo.delivery_charge : 0 }}</td>
+                                        </tr>
                                         <tr>
                                             <th>Total:</th>
                                             <td class="text-right text-primary"><h5 class="text-bold">$ {{ orderInfo.total }}</h5></td>

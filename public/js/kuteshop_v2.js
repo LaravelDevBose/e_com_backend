@@ -3957,7 +3957,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       reqData: {
         buyer_id: 'buyer',
-        take: 5,
+        take: 10,
         order_by: 'desc'
       },
       buyerInfo: {},
@@ -4360,6 +4360,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InvoiceModalOne",
@@ -4413,7 +4414,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       reqData: {
         buyer_id: 'buyer',
-        paginate: 5,
         order_by: 'desc'
       }
     };
@@ -4487,8 +4487,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OrderListTable",
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getOrderInfo']), {
-    viewOrderInfo: function viewOrderInfo(order_no) {
-      location.href = "/buyer/order/".concat(order_no, "/show");
+    viewOrderInfo: function viewOrderInfo(order_id) {
+      location.href = "/buyer/order/".concat(order_id, "/show");
     },
     showInvoiceModal: function showInvoiceModal(orderNo) {
       this.getOrderInfo(orderNo).then(function (response) {
@@ -4502,8 +4502,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     goToAddReviewPage: function goToAddReviewPage(order_id) {
       location.href = "/buyer/reviews/add/".concat(order_id);
     },
-    showInvoiceDetails: function showInvoiceDetails(orderId) {
-      location.href = "/buyer/order/".concat(orderId, "/show");
+    showInvoiceDetails: function showInvoiceDetails(order_id) {
+      location.href = "/buyer/order/".concat(order_id, "/show");
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['orderList', 'pagination']))
@@ -51822,18 +51822,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "page-content checkout-page" }, [
     _c("h3", { staticClass: "checkout-sep" }, [
-      _vm._v("1. " + _vm._s(_vm.$t("checkout.billing_section")))
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { class: _vm.billingTab ? "show" : "hidden" },
-      [_c("billing-form")],
-      1
-    ),
-    _vm._v(" "),
-    _c("h3", { staticClass: "checkout-sep" }, [
-      _vm._v("2. " + _vm._s(_vm.$t("checkout.shipping_section")))
+      _vm._v("1. " + _vm._s(_vm.$t("checkout.shipping_section")))
     ]),
     _vm._v(" "),
     _c(
@@ -51844,7 +51833,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("h3", { staticClass: "checkout-sep" }, [
-      _vm._v("3. " + _vm._s(_vm.$t("checkout.shipping_method")))
+      _vm._v("2. " + _vm._s(_vm.$t("checkout.shipping_method")))
     ]),
     _vm._v(" "),
     _c(
@@ -51855,7 +51844,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("h3", { staticClass: "checkout-sep" }, [
-      _vm._v("4. " + _vm._s(_vm.$t("checkout.payment_section")))
+      _vm._v("3. " + _vm._s(_vm.$t("checkout.payment_section")))
     ]),
     _vm._v(" "),
     _c(
@@ -51866,7 +51855,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("h3", { staticClass: "checkout-sep" }, [
-      _vm._v("5. " + _vm._s(_vm.$t("checkout.order_review")))
+      _vm._v("4. " + _vm._s(_vm.$t("checkout.order_review")))
     ]),
     _vm._v(" "),
     _c(
@@ -52654,27 +52643,10 @@ var render = function() {
         _vm._v(" "),
         _c("ul", [
           _c("li", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "button",
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.backTab()
-                    }
-                  }
-                },
-                [_vm._v("Back")]
-              )
-            ]),
-            _vm._v(" "),
             _c(
               "div",
               {
-                staticClass: "col-sm-6",
+                staticClass: "col-sm-6 col-md-offset-6",
                 staticStyle: { "text-align": "right" }
               },
               [
@@ -52999,21 +52971,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("ul", { staticClass: "list-condensed list-unstyled" }, [
                   _c("li", [
-                    _vm._v("Date: "),
+                    _vm._v("Order Date: "),
                     _c("span", { staticClass: "text-semibold" }, [
                       _vm._v(_vm._s(_vm.orderInfo.order_date))
                     ])
                   ]),
                   _vm._v(" "),
                   _c("li", [
-                    _vm._v("Delivery date: "),
-                    _c("span", { staticClass: "text-semibold" }, [
-                      _vm._v(_vm._s(_vm.orderInfo.delivery_date))
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _vm._v("Order Status:\n                                "),
+                    _vm._v(
+                      "Order Status:\n                                    "
+                    ),
                     _c(
                       "span",
                       {
@@ -53029,9 +52996,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                                    " +
+                          "\n                                        " +
                             _vm._s(_vm.orderInfo.status_label) +
-                            "\n                                "
+                            "\n                                    "
                         )
                       ]
                     )
@@ -53118,9 +53085,9 @@ var render = function() {
                               },
                               [
                                 _vm._v(
-                                  "\n                            " +
+                                  "\n                                " +
                                     _vm._s(item.item_status_label) +
-                                    "\n                        "
+                                    "\n                            "
                                 )
                               ]
                             )
@@ -53202,6 +53169,29 @@ var render = function() {
                 _c("div", { staticClass: "table-responsive no-border" }, [
                   _c("table", { staticClass: "table" }, [
                     _c("tbody", [
+                      _c("tr", [
+                        _c("th", [_vm._v("Subtotal:")]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right text-bold" }, [
+                          _vm._v("$ " + _vm._s(_vm.orderInfo.sub_total))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("th", [_vm._v("Delivery: ")]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right text-bold" }, [
+                          _vm._v(
+                            "$ " +
+                              _vm._s(
+                                _vm.orderInfo.delivery_charge !== 0
+                                  ? _vm.orderInfo.delivery_charge
+                                  : 0
+                              )
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
                       _c("tr", [
                         _c("th", [_vm._v("Total:")]),
                         _vm._v(" "),
@@ -53306,16 +53296,9 @@ var render = function() {
                           { staticClass: "list-condensed list-unstyled" },
                           [
                             _c("li", [
-                              _vm._v("Date: "),
+                              _vm._v("Order Date: "),
                               _c("span", { staticClass: "text-semibold" }, [
                                 _vm._v(_vm._s(_vm.orderInfo.order_date))
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("li", [
-                              _vm._v("Delivery date: "),
-                              _c("span", { staticClass: "text-semibold" }, [
-                                _vm._v(_vm._s(_vm.orderInfo.delivery_date))
                               ])
                             ]),
                             _vm._v(" "),
@@ -53357,7 +53340,7 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-4 col-lg-4" }, [
+                  _c("div", { staticClass: "col-sm-6 col-md-4 col-lg-4 " }, [
                     _vm.orderInfo.shipping !== null
                       ? _c("div", { staticClass: "content-group" }, [
                           _c("span", { staticClass: "text-muted" }, [
@@ -53425,127 +53408,78 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-4 col-lg-4 " }, [
-                    _vm.orderInfo.billing !== null
-                      ? _c("div", { staticClass: "content-group" }, [
-                          _c("span", { staticClass: "text-muted" }, [
-                            _vm._v("Billing To:")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "ul",
-                            { staticClass: "list-condensed list-unstyled" },
-                            [
-                              _c("li", [
-                                _c("h5", [
-                                  _vm._v(
-                                    _vm._s(_vm.orderInfo.billing.full_name)
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("li", [
-                                _c("span", { staticClass: "text-semibold" }, [
-                                  _vm._v(_vm._s(_vm.orderInfo.billing.phone_no))
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("li", [
-                                _vm._v(_vm._s(_vm.orderInfo.billing.address))
-                              ]),
-                              _vm._v(" "),
-                              _c("li", [
-                                _vm._v(
-                                  _vm._s(_vm.orderInfo.billing.city) +
-                                    "," +
-                                    _vm._s(_vm.orderInfo.billing.district)
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("li", [
-                                _vm._v(
-                                  _vm._s(_vm.orderInfo.billing.region) + " "
-                                ),
-                                _vm.orderInfo.billing.postal_code
-                                  ? _c(
+                  _vm.orderInfo.payment
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-sm-6 col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4"
+                        },
+                        [
+                          _c("div", { staticClass: "content-group" }, [
+                            _c("span", { staticClass: "text-muted" }, [
+                              _vm._v("Payment Details:")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "ul",
+                              {
+                                staticClass:
+                                  "list-condensed list-unstyled invoice-payment-details"
+                              },
+                              [
+                                _c("li", [
+                                  _c("h5", [
+                                    _vm._v("Total: "),
+                                    _c(
                                       "span",
-                                      { staticClass: "text-semibold" },
+                                      {
+                                        staticClass: "text-right text-semibold"
+                                      },
                                       [
                                         _vm._v(
-                                          "- " +
-                                            _vm._s(
-                                              _vm.orderInfo.billing.postal_code
-                                            )
+                                          "$ " + _vm._s(_vm.orderInfo.total)
                                         )
                                       ]
                                     )
-                                  : _vm._e()
-                              ]),
-                              _vm._v(" "),
-                              _c("li", [
-                                _vm._v(_vm._s(_vm.orderInfo.billing.country))
-                              ])
-                            ]
-                          )
-                        ])
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _vm.orderInfo.payment
-                    ? _c("div", { staticClass: "col-md-4 col-lg-3" }, [
-                        _c("div", { staticClass: "content-group" }, [
-                          _c("span", { staticClass: "text-muted" }, [
-                            _vm._v("Payment Details:")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "ul",
-                            {
-                              staticClass:
-                                "list-condensed list-unstyled invoice-payment-details"
-                            },
-                            [
-                              _c("li", [
-                                _c("h5", [
-                                  _vm._v("Total: "),
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _vm._v("Invoice: "),
                                   _c(
                                     "span",
-                                    { staticClass: "text-right text-semibold" },
-                                    [_vm._v("$ " + _vm._s(_vm.orderInfo.total))]
+                                    { staticClass: "text-bold text-uppercase" },
+                                    [
+                                      _vm._v(
+                                        _vm._s(_vm.orderInfo.payment.invoice_no)
+                                      )
+                                    ]
                                   )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("li", [
-                                _vm._v("Invoice: "),
-                                _c(
-                                  "span",
-                                  { staticClass: "text-bold text-uppercase" },
-                                  [
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _vm._v("Paid By: "),
+                                  _c("span", { staticClass: "text-semibold" }, [
                                     _vm._v(
-                                      _vm._s(_vm.orderInfo.payment.invoice_no)
+                                      _vm._s(_vm.orderInfo.payment.paid_by)
                                     )
-                                  ]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("li", [
-                                _vm._v("Paid By: "),
-                                _c("span", { staticClass: "text-semibold" }, [
-                                  _vm._v(_vm._s(_vm.orderInfo.payment.paid_by))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _vm._v("Paid At: "),
+                                  _c("span", { staticClass: "text-semibold" }, [
+                                    _vm._v(
+                                      _vm._s(_vm.orderInfo.payment.paid_at)
+                                    )
+                                  ])
                                 ])
-                              ]),
-                              _vm._v(" "),
-                              _c("li", [
-                                _vm._v("Paid At: "),
-                                _c("span", { staticClass: "text-semibold" }, [
-                                  _vm._v(_vm._s(_vm.orderInfo.payment.paid_at))
-                                ])
-                              ])
-                            ]
-                          )
-                        ])
-                      ])
+                              ]
+                            )
+                          ])
+                        ]
+                      )
                     : _vm._e()
                 ])
               ]),
@@ -53647,6 +53581,30 @@ var render = function() {
                       _c("div", { staticClass: "table-responsive no-border" }, [
                         _c("table", { staticClass: "table" }, [
                           _c("tbody", [
+                            _c("tr", [
+                              _c("th", [_vm._v("Subtotal:")]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticClass: "text-right text-bold" },
+                                [_vm._v("$ " + _vm._s(_vm.orderInfo.sub_total))]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Delivery: ")]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticClass: "text-right text-bold" },
+                                [
+                                  _vm._v(
+                                    "$ " + _vm._s(_vm.orderInfo.delivery_charge)
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
                             _c("tr", [
                               _c("th", [_vm._v("Total:")]),
                               _vm._v(" "),
@@ -53860,7 +53818,7 @@ var render = function() {
                         on: {
                           click: function($event) {
                             $event.preventDefault()
-                            return _vm.showInvoiceModal(order.order_no)
+                            return _vm.showInvoiceModal(order.order_id)
                           }
                         }
                       },
@@ -53875,7 +53833,7 @@ var render = function() {
                         on: {
                           click: function($event) {
                             $event.preventDefault()
-                            return _vm.showInvoiceDetails(order.order_no)
+                            return _vm.showInvoiceDetails(order.order_id)
                           }
                         }
                       },
@@ -74679,7 +74637,7 @@ var ENGLISH_TRANSLATIONS = {
       order_list: 'Order List',
       recent_order_list: 'Recent Order List',
       order: 'Order',
-      data: 'Date',
+      date: 'Date',
       ship_to: 'Ship To.',
       total_order: 'Total Order',
       status: 'Status',
@@ -74865,7 +74823,7 @@ var SOMALIA_TRANSLATIONS = {
       order_list: 'Liiska Dalabyada',
       recent_order_list: 'Liiska Dalabyadi U Danbeeye',
       order: 'Dalab',
-      data: 'Taariikh',
+      date: 'Taariikh',
       ship_to: 'Ku Qaadis',
       total_order: 'Wadarta Dalabyada',
       status: 'Xaalad',
@@ -75998,8 +75956,8 @@ var state = {
   payment_methods: [],
   shipping_methods: [],
   shipping_price: '',
-  billing: true,
-  shopping: false,
+  billing: false,
+  shopping: true,
   method: false,
   payment: false,
   cart_tab: false,

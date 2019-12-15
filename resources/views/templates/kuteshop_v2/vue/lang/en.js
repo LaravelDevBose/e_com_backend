@@ -102,7 +102,7 @@ export const ENGLISH_TRANSLATIONS  ={
             order_list:'Order List',
             recent_order_list:'Recent Order List',
             order:'Order',
-            data:'Date',
+            date:'Date',
             ship_to:'Ship To.',
             total_order:'Total Order',
             status:'Status',

@@ -70,10 +70,10 @@
             </ul>
             <ul>
                 <li class="row">
-                    <div class="col-sm-6">
+                    <!--<div class="col-sm-6">
                         <button type="button" @click.prevent="backTab()" class="button">Back</button>
-                    </div>
-                    <div class="col-sm-6" style="text-align:right;">
+                    </div>-->
+                    <div class="col-sm-6 col-md-offset-6" style="text-align:right;">
                         <button type="submit" class="button">{{ $t('checkout.continue')}}</button>
                     </div>
                 </li>

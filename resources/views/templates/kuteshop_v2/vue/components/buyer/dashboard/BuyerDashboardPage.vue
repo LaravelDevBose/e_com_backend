@@ -23,7 +23,7 @@
             return{
                 reqData:{
                     buyer_id:'buyer',
-                    take:5,
+                    take:10,
                     order_by:'desc'
                 },
                 buyerInfo:{},

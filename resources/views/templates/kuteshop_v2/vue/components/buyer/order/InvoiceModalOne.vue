@@ -23,8 +23,8 @@
                             <div class="invoice-details text-right">
                                 <h5 class="text-uppercase text-semibold">Order No #{{ orderInfo.order_no }}</h5>
                                 <ul class="list-condensed list-unstyled">
-                                    <li>Date: <span class="text-semibold">{{ orderInfo.order_date }}</span></li>
-                                    <li>Delivery date: <span class="text-semibold">{{ orderInfo.delivery_date}}</span></li>
+                                    <li>Order Date: <span class="text-semibold">{{ orderInfo.order_date }}</span></li>
+<!--                                    <li>Delivery date: <span class="text-semibold">{{ orderInfo.delivery_date}}</span></li>-->
                                     <li>Status:
                                         <span  class="label "
                                             :class="{'btn-info':orderInfo.order_status == 1, 'btn-danger':orderInfo.order_status == 2, 'btn-warning':orderInfo.order_status == 3, 'btn-primary':orderInfo.order_status == 4, 'btn-indigo-400':orderInfo.order_status == 5, 'btn-teal':orderInfo.order_status == 6 }"
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-sm-6 col-md-4 col-lg-4 ">
                             <div v-if="orderInfo.shipping !== null" class="content-group">
                                 <span class="text-muted">Shipping To:</span>
                                 <ul class="list-condensed list-unstyled">
@@ -51,7 +51,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-md-4 col-lg-4 ">
+                        <!--<div class="col-md-4 col-lg-4 ">
                             <div v-if="orderInfo.billing !== null" class="content-group">
                                 <span class="text-muted">Billing To:</span>
                                 <ul class="list-condensed list-unstyled">
@@ -63,8 +63,8 @@
                                     <li>{{ orderInfo.billing.country }}</li>
                                 </ul>
                             </div>
-                        </div>
-                        <div v-if="orderInfo.payment" class="col-md-4 col-lg-3">
+                        </div>-->
+                        <div v-if="orderInfo.payment" class="col-sm-6 col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
                             <div class="content-group">
                                 <span class="text-muted">Payment Details:</span>
                                 <ul class="list-condensed list-unstyled invoice-payment-details">
@@ -75,6 +75,7 @@
                                 </ul>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -129,14 +130,14 @@
                                 <div class="table-responsive no-border">
                                     <table class="table">
                                         <tbody>
-                                        <!--<tr>
+                                        <tr>
                                             <th>Subtotal:</th>
                                             <td class="text-right text-bold">$ {{ orderInfo.sub_total }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Tax: <span class="text-regular">(0%)</span></th>
-                                            <td class="text-right text-bold">$ 0.00</td>
-                                        </tr>-->
+                                            <th>Delivery: </th>
+                                            <td class="text-right text-bold">$ {{ orderInfo.delivery_charge }}</td>
+                                        </tr>
                                         <tr>
                                             <th>Total:</th>
                                             <td class="text-right text-primary"><h5 class="text-bold">$ {{ orderInfo.total }}</h5></td>

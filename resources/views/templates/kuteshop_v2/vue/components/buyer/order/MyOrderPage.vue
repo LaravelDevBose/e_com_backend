@@ -22,7 +22,6 @@
             return{
                 reqData:{
                     buyer_id:'buyer',
-                    paginate:5,
                     order_by:'desc'
                 }
             }

@@ -2,7 +2,7 @@
 @include('mail.v1.include.header')
 <div class="container">
     <div class="row my-3 invoice-info">
-        <div class="col-sm-4">
+        <div class="col-sm-5 col-sm-offset-1">
             <h6 class="mb-3 head-title">Shipping To:</h6>
             <div>
                 <strong>{{ $orderInfo->shipping->full_name }}</strong>
@@ -12,17 +12,7 @@
             <div class="address">{{ $orderInfo->shipping->region }}-{{ $orderInfo->shipping->postal_code }}</div>
             <div class="phone"><strong>Phone:</strong> {{ $orderInfo->shipping->phone_no }}</div>
         </div>
-        <div class="col-sm-4">
-            <h6 class="mb-3 head-title">Billing To:</h6>
-            <div>
-                <strong>{{ $orderInfo->billing->full_name }}</strong>
-            </div>
-            <div class="address">{{ $orderInfo->billing->address }}</div>
-            <div class="address">{{ $orderInfo->billing->city }},{{ $orderInfo->billing->district }}</div>
-            <div class="address">{{ $orderInfo->billing->region }}-{{ $orderInfo->billing->postal_code }}</div>
-            <div class="phone"><strong>Phone:</strong> {{ $orderInfo->billing->phone_no }}</div>
-        </div>
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <h6 class="mb-3 head-title">Payment Details:</h6>
             <div>
                 <strong>Invoice: #{{ $orderInfo->payment->invoice_no }}</strong>

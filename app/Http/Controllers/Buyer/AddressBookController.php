@@ -147,7 +147,6 @@ class AddressBookController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'first_name'=>'required|string',
-            'last_name'=>'required|string',
             'phone_no'=>'required|string',
             'address'=>'required|string',
             'city'=>'string',

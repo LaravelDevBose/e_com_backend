@@ -103,7 +103,7 @@ export const SOMALIA_TRANSLATIONS  ={
             order_list:'Liiska Dalabyada',
             recent_order_list:'Liiska Dalabyadi U Danbeeye',
             order:'Dalab',
-            data:'Taariikh',
+            date:'Taariikh',
             ship_to:'Ku Qaadis',
             total_order:'Wadarta Dalabyada',
             status:'Xaalad',
