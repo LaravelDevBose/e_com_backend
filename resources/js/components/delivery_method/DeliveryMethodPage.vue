@@ -137,7 +137,7 @@
                 'deleteDeliveryMethod',
             ]),
             manipulateDeliveryMethodData(){
-                if(this.isedit === true || 1){
+                if(this.isedit === true){
                     this.updateDeliveryMethodInfo(this.formData)
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
