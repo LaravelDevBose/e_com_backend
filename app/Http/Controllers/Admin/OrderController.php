@@ -41,20 +41,22 @@ class OrderController extends Controller
         }
     }
 
-    public function show(Request $request, $orderNo){
-
-        if($request->ajax()){
-            $order = Order::where('order_no', $orderNo)->with('buyer.user', 'orderItems.product','orderItems.seller', 'billing', 'shipping', 'payment')->first();
-            if(!empty($order)){
-                return ResponserTrait::singleResponse($order, 'success', Response::HTTP_OK);
-            }else{
-                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Order Not Found', '', route('admin.order.index'));
-            }
+    public function show($orderId){
+        $order = Order::where('order_id', $orderId)->first();
+        if(empty($order)){
+            abort(Response::HTTP_NOT_FOUND);
         }
-
         return view('order.show',[
-            'orderNo'=>$orderNo,
+            'orderId'=>$orderId,
         ]);
+    }
+    public function order_details($orderId){
+        $order = Order::where('order_id', $orderId)->with('buyer.user', 'orderItems.product','orderItems.seller.shop', 'billing', 'shipping', 'payment')->first();
+        if(!empty($order)){
+            return ResponserTrait::singleResponse($order, 'success', Response::HTTP_OK);
+        }else{
+            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Order Not Found', '', route('admin.order.index'));
+        }
     }
 
     public function update_order_status(Request $request){

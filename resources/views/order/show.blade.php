@@ -25,7 +25,7 @@
 @endsection
 
 @section('content')
-    <show-product :productid="{{ $product_id }}"></show-product>
+    <order-details-page :orderid="{{$orderId}}"></order-details-page>
 @endsection
 @section('PageJs')
 

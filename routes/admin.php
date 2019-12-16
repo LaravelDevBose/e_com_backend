@@ -101,7 +101,8 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::get('/latest', 'OrderController@latest_order')->name('latest');
         Route::post('/list', 'OrderController@order_list')->name('list');
         Route::get('/status', 'OrderController@order_status');
-        Route::get('/{order_no}/show', 'OrderController@show')->name('show');
+        Route::get('/{order_id}/show', 'OrderController@show')->name('show');
+        Route::get('/{order_id}/details', 'OrderController@order_details')->name('details');
         Route::post('/status/update', 'OrderController@update_order_status')->name('status.update');
     });
 
