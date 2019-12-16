@@ -22,6 +22,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -313,8 +314,16 @@ class ProductController extends Controller
                     }else{
                         throw new Exception('Invalid Product Details Information', Response::HTTP_BAD_REQUEST);
                     }
-                    DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Store Successfully','', route('seller.product.index'));
+                    $product = $product->update([
+                        'product_slug'=>Str::slug($request->product_name).'-'.$product->product_id,
+                    ]);
+                    if(!empty($product)){
+                        DB::commit();
+                        return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Store Successfully','', route('seller.product.index'));
+                    }else{
+                        throw new Exception('Invalid Product Information', Response::HTTP_BAD_REQUEST);
+                    }
+
                 }else{
                     throw new Exception('Invalid Product Information', Response::HTTP_BAD_REQUEST);
 

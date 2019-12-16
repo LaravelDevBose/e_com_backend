@@ -17861,7 +17861,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -99121,17 +99121,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  cropImages: [],
+  crop_images: [],
   errors: null,
-  cropImageIds: []
+  crop_imageIds: []
 }; //declare Getters
 
 var getters = {
   cropImages: function cropImages(state) {
-    return state.cropImages;
+    return state.crop_images;
   },
   cropImageIds: function cropImageIds(state) {
-    return state.cropImageIds;
+    return state.crop_imageIds;
   }
 };
 var actions = {
@@ -99187,13 +99187,25 @@ var actions = {
 var mutations = {
   setCropImage: function setCropImage(state, response) {
     response.attachments.forEach(function (file) {
-      state.cropImages.unshift(file);
-      state.cropImageIds.push(file.id);
+      if (state.crop_images.length === 0) {
+        state.crop_images.unshift(file);
+        state.crop_imageIds.push(file.id);
+      } else {
+        $.each(state.crop_images, function (key, prvImg) {
+          if (prvImg.serial === file.serial) {
+            state.crop_images.splice(key, 1);
+            state.crop_imageIds.splice(key, 1);
+          }
+        });
+        state.crop_images.unshift(file);
+        state.crop_imageIds.push(file.id);
+      }
     });
   },
-  emptyAttachmentFile: function emptyAttachmentFile(state) {
-    state.attachmentsFile = [];
-    state.attachment_ids = [];
+  emptyImageArray: function emptyImageArray(state, length) {
+    console.log(length);
+    state.crop_images.length = 0;
+    state.crop_imageIds.length = 0;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -100183,7 +100195,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })
