@@ -10262,40 +10262,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('select-row', {
-  template: "<div>\n                        <span v-if=\"row.status == 1\" class=\"badge badge-success\">{{ row.status_label }}</span>\n                        <span v-else-if=\"row.status == 2\" class=\"badge badge-warning\">{{ row.status_label }}</span>\n                        <span v-else class=\"badge badge-default\">{{ row.status_label }}</span>\n                    </div>",
+  template: "<div>\n                    <span v-if=\"row.status == 1\" class=\"badge badge-success\">{{ row.status_label }}</span>\n                    <span v-else-if=\"row.status == 2\" class=\"badge badge-warning\">{{ row.status_label }}</span>\n                    <span v-else class=\"badge badge-default\">{{ row.status_label }}</span>\n                </div>",
   props: ['row']
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('thumbImage', {
-  template: "<img :src=\"row.thumbnail.image_path\" :alt=\"row.product_title\"  style=\"width:90px; height:90px\">",
+  template: "<img :src=\"row.thumbnail.image_path\" :alt=\"row.product_title\"  style=\"width:45px; height:45px\">",
   props: ['row']
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
-  template: "<ul class=\"icons-list\">\n                        <li><a href=\"#\" class=\"text text-primary-700\" @click.prevent=\"goToDetailsPage(row.id)\"><i class=\"icon-eye\"></i></a></li>\n                        <li><a href=\"#\" class=\"text text-info\" @click.prevent=\"goToEditPage(row.product_slug)\"><i class=\"icon-pencil7\"></i></a></li>\n<!--                        <li><a href=\"#\" class=\"text text-danger\" @click.prevent=\"showDeletePopUp(row.id)\"><i class=\"icon-trash\"></i></a></li>-->\n\n                    </ul>",
+  template: "<ul class=\"icons-list\">\n                    <li><a href=\"#\" class=\"text text-primary-700\" @click.prevent=\"goToDetailsPage(row.id)\"><i class=\"icon-eye\"></i></a></li>\n                    <li><a href=\"#\" class=\"text text-info\" @click.prevent=\"goToEditPage(row.product_slug)\"><i class=\"icon-pencil7\"></i></a></li>\n                    <li><a href=\"#\" class=\"text text-danger\" @click.prevent=\"showDeletePopUp(row.id)\"><i class=\"icon-trash\"></i></a></li>\n                </ul>",
   props: ['row'],
-  methods: {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['deleteProductData']), {
     goToDetailsPage: function goToDetailsPage(ID) {
       window.location = '/seller/product/' + ID;
     },
     goToEditPage: function goToEditPage(slug) {
       window.location = '/seller/product/' + slug + '/edit';
     },
-    showDeletePopUp: function showDeletePopUp(ID) {}
-  }
+    showDeletePopUp: function showDeletePopUp(ID) {
+      var conf = confirm('Are You Sure. Want To delete.?');
+
+      if (!conf) {
+        return false;
+      }
+
+      this.deleteProductData(ID).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          Notify.success(response.message);
+        } else {
+          Notify.error(response.message);
+        }
+      });
+    }
+  })
 });
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductList",
   components: {
@@ -10305,9 +10309,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
     return {
       page: 1,
       per_page: 10,
-      products: '',
       filter: '',
-      rows: '',
       columns: [{
         label: 'Image',
         component: 'thumbImage',
@@ -10361,16 +10363,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
     };
   },
   created: function created() {
-    this.getProductsData();
+    this.getProducts();
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['getProducts']), {
-    getProductsData: function getProductsData() {
-      var vm = this;
-      vm.getProducts().then(function (response) {
-        vm.products = response.data.data;
-        vm.rows = vm.products;
-      });
-    },
     configPagination: function configPagination(data) {
       this.pagination.lastPage = data.last_page;
       this.pagination.currentPage = data.current_page;
@@ -10395,7 +10390,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])([]))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['products']))
 });
 
 /***/ }),
@@ -17861,7 +17856,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
 
 // exports
 
@@ -79694,101 +79689,83 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content" }, [
-    _c("div", { staticClass: "panel panel-flat" }, [
+    _c("div", { staticClass: "panel" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "table-responsive" }, [
+      _c("div", { staticClass: "panel-body" }, [
         _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            {
-              staticClass: "col-xs-12 form-inline",
-              staticStyle: { margin: "1em" }
-            },
-            [
-              _c("div", { staticClass: "form-group" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.filter,
-                      expression: "filter"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", id: "filter", placeholder: "Filter" },
-                  domProps: { value: _vm.filter },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "table-responsive" }, [
+              _c(
+                "div",
+                { staticClass: "form-inline", staticStyle: { margin: "1em" } },
+                [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.filter,
+                          expression: "filter"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "filter",
+                        placeholder: "Filter"
+                      },
+                      domProps: { value: _vm.filter },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.filter = $event.target.value
+                        }
                       }
-                      _vm.filter = $event.target.value
-                    }
-                  }
-                })
-              ]),
+                    })
+                  ])
+                ]
+              ),
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "form-group" },
+                { attrs: { id: "table" } },
                 [
-                  _c("vue-select2", {
-                    attrs: { options: _vm.perPages },
+                  _c("datatable", {
+                    staticClass: "table-bordered table-striped",
+                    attrs: {
+                      columns: _vm.columns,
+                      data: _vm.products,
+                      "filter-by": _vm.filter
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-inline" },
+                [
+                  _c("datatable-pager", {
+                    attrs: { type: "abbreviated", "per-page": _vm.per_page },
                     model: {
-                      value: _vm.per_page,
+                      value: _vm.page,
                       callback: function($$v) {
-                        _vm.per_page = $$v
+                        _vm.page = $$v
                       },
-                      expression: "per_page"
+                      expression: "page"
                     }
                   })
                 ],
                 1
               )
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            {
-              staticClass: "col-xs-12 table-responsive",
-              attrs: { id: "table" }
-            },
-            [
-              _c("datatable", {
-                staticClass: "table-bordered table-striped",
-                attrs: {
-                  columns: _vm.columns,
-                  data: _vm.products,
-                  "filter-by": _vm.filter
-                }
-              })
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-xs-12 form-inline" },
-          [
-            _c("datatable-pager", {
-              attrs: { type: "abbreviated", "per-page": _vm.per_page },
-              model: {
-                value: _vm.page,
-                callback: function($$v) {
-                  _vm.page = $$v
-                },
-                expression: "page"
-              }
-            })
-          ],
-          1
-        )
+            ])
+          ])
+        ])
       ])
     ])
   ])
@@ -79798,20 +79775,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading" }, [
-      _c("h5", { staticClass: "panel-title" }, [
-        _vm._v("Product Size Group List")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "heading-elements" }, [
-        _c("ul", { staticClass: "icons-list" }, [
-          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-          _vm._v(" "),
-          _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-          _vm._v(" "),
-          _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-        ])
-      ])
+    return _c("div", { staticClass: "panel-heading bg-teal" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Product List")])
     ])
   }
 ]
@@ -99586,7 +99551,8 @@ var actions = {
               _context3.prev = 1;
               _context3.next = 4;
               return axios.get('/seller/collection/product').then(function (response) {
-                commit('getProductData', response.data);
+                console.log(response);
+                commit('getProductData', response.data.data);
                 return response;
               });
 
@@ -99817,6 +99783,48 @@ var actions = {
     }
 
     return updateProductData;
+  }(),
+  deleteProductData: function () {
+    var _deleteProductData = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(_ref9, productId) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              commit = _ref9.commit;
+              _context9.prev = 1;
+              _context9.next = 4;
+              return axios["delete"]("/seller/product/".concat(productId)).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('removeProductData', productId);
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context9.abrupt("return", _context9.sent);
+
+            case 7:
+              _context9.prev = 7;
+              _context9.t0 = _context9["catch"](1);
+              commit('setResponse', _context9.t0.data);
+
+            case 10:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9, null, [[1, 7]]);
+    }));
+
+    function deleteProductData(_x15, _x16) {
+      return _deleteProductData.apply(this, arguments);
+    }
+
+    return deleteProductData;
   }()
 };
 var mutations = {
@@ -99831,7 +99839,7 @@ var mutations = {
     state.product_type = response.product_type;
   },
   getProductData: function getProductData(state, response) {
-    state.allProducts = response.data;
+    state.allProducts = response;
   },
   singleProductData: function singleProductData(state, response) {
     state.singleProduct = response;
@@ -99846,6 +99854,13 @@ var mutations = {
   productImageRemove: function productImageRemove(state, imageId) {
     state.product_images = state.product_images.filter(function (image) {
       return image.id !== imageId;
+    });
+  },
+  removeProductData: function removeProductData(state, productId) {
+    state.allProducts = state.allProducts.filter(function (product) {
+      if (product.id !== productId) {
+        return product;
+      }
     });
   }
 };
@@ -100195,7 +100210,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v2/vue/limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })

@@ -49,12 +49,13 @@ class ProductController extends Controller
     }
 
     public function product_collection(Request $request){
-        $products = Product::with(['thumbImage','category'=>function($query){
-            return $query->with(['parent'=>function($q){
-                return $q->with(['parent']);
-            }]);
-        }, 'brand','variations'])->isOwner()->latest()->get();
+        $products = Product::where('seller_id', auth()->guard('seller')->user()->seller->seller_id)->with(['thumbImage','category', 'brand','variations'])->notDelete()->latest()->get();
         return ProductCollection::collection($products);
+        if(!empty($products)){
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $products);
+        }else{
+            return ResponserTrait::allResponse('success', Response::HTTP_BAD_REQUEST, 'No Products Found');
+        }
     }
 
     /**
@@ -675,11 +676,37 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $product = Product::where('product_id', $id)->first();
+            if(empty($product)){
+                throw new Exception('Invalid Product Information', Response::HTTP_NOT_FOUND);
+            }
+
+            if($product->seller_id !== auth()->guard('seller')->user()->seller->seller_id){
+                throw new Exception("You Are Not Owner Of This Product. You Can't Delete This.", Response::HTTP_UNAUTHORIZED);
+            }
+
+            $product = $product->update([
+                'product_status'=>config('app.delete')
+            ]);
+
+            if(!empty($product)){
+                DB::commit();
+                return ResponserTrait::allResponse('success', Response::HTTP_OK,'Product Deleted Successfully');
+            }else{
+                throw new Exception('Product Not Deleted Successfully', Response::HTTP_BAD_REQUEST);
+            }
+
+        }catch (Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', $ex->getCode(), $ex->getMessage());
+        }
     }
 
     public function variation_delete($productId, $variationId)

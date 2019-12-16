@@ -167,6 +167,19 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
+    async deleteProductData({commit}, productId){
+        try {
+            return await axios.delete(`/admin/product/${productId}`)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('removeProductData', productId);
+                    }
+                    return response.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {
@@ -235,7 +248,8 @@ const mutations = {
         state.product_images = state.product_images.filter(image=>{
             return image.id !== imageId;
         })
-    }
+    },
+    removeProductData:(state, productId)=> state.allProducts = state.allProducts.filter(product => product.id !== productId),
 };
 
 export default {

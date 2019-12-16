@@ -1,5 +1,5 @@
 @extends('seller_panel.limitless_v2.seller')
-@section('PageTitle','Create New Product')
+@section('PageTitle','Product List')
 
 @section('PageCss')
     <style>
