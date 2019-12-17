@@ -3,7 +3,7 @@
         <div class="product-info-price">
             <div class="price-box">
                 <span class="price">$ {{ cartData.price }}</span>
-
+                <span class="old-price" v-if="oldPrice !== 0 && oldPrice !== '' ">$ {{ oldPrice}}</span>
             </div>
         </div>
         <div class="product-code">
@@ -90,7 +90,8 @@
                     price:0,
                     colorId:'',
                     sizeId:'',
-                }
+                },
+                oldPrice:0,
             }
         },
         created(){
@@ -101,6 +102,12 @@
                 this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
                 this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
             }
+
+            if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                this.oldPrice = this.cartData.price;
+                this.cartData.price = this.oldPrice -  parseFloat(this.product.discount_price);
+            }
+
         },
         mounted(){
             if(this.product.product_type === 2) {

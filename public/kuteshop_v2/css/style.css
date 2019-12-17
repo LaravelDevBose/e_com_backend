@@ -16675,7 +16675,7 @@ select.input-sm {
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 19px 11px 19px 0;
+    border-width:  0;
     border-color: transparent #b30000 transparent transparent;
     position: absolute;
     bottom: auto;
@@ -17172,7 +17172,7 @@ select.input-sm {
 
 .product-item-opt-2 .product-item-label.label-sale-off {
     background-color: #f60;
-    right: 5px;
+    right: 0px;
     top: 9px;
     height: 25px;
     line-height: 1;
@@ -17207,7 +17207,7 @@ select.input-sm {
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 7px 7px 0 0;
+    border-width: 0;
     border-color: #510000 transparent transparent;
     position: absolute;
     left: auto;

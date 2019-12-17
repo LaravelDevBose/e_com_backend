@@ -5443,6 +5443,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "QuickViewProduct",
@@ -5456,7 +5457,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         price: 0,
         colorId: '',
         sizeId: ''
-      }
+      },
+      rating: 0,
+      oldPrice: 0
     };
   },
   mounted: function mounted() {},
@@ -5514,6 +5517,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.cartData.colorId = parseInt(this.modal_product.single_variation.pri_id);
         this.cartData.sizeId = parseInt(this.modal_product.single_variation.sec_id);
       }
+
+      if (typeof this.modal_product.discount_price !== "undefined" && this.modal_product.discount_price > 0) {
+        this.oldPrice = this.cartData.price;
+        this.cartData.price = this.oldPrice - parseFloat(this.modal_product.discount_price);
+      }
+
+      if (this.modal_product.reviews !== '' && this.modal_product.reviews.length > 0) {
+        var sum = this.modal_product.reviews.reduce(function (acc, item) {
+          return acc + parseInt(item.rating);
+        }, 0);
+        this.rating = sum / this.modal_product.reviews.length;
+      }
     },
     productDetails: function productDetails(slug) {
       location.href = '/product/' + slug;
@@ -5542,6 +5557,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     checkModalData: {
       handler: function handler(newVal, oldVal) {
         if (newVal !== oldVal) {
+          console.log(this.modal_product);
           this.setupPrice();
           this.showIn = true;
         }
@@ -5612,6 +5628,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductGrid",
@@ -5631,7 +5648,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         colorId: '',
         sizeId: ''
       },
-      rating: 0
+      rating: 0,
+      oldPrice: 0
     };
   },
   created: function created() {},
@@ -5642,6 +5660,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.cartData.price = parseFloat(this.product.single_variation.price);
       this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
       this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+    }
+
+    if (typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0) {
+      this.oldPrice = this.cartData.price;
+      this.cartData.price = this.oldPrice - parseFloat(this.product.discount_price);
     }
 
     if (this.product.reviews.length > 0 && this.product.reviews !== '') {
@@ -5887,7 +5910,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         colorId: '',
         sizeId: ''
       },
-      rating: 0
+      rating: 0,
+      oldPrice: 0
     };
   },
   created: function created() {},
@@ -5898,6 +5922,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.cartData.price = parseFloat(this.product.single_variation.price);
       this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
       this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+    }
+
+    if (typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0) {
+      this.oldPrice = this.cartData.price;
+      this.cartData.price = this.oldPrice - parseFloat(this.product.discount_price);
     }
 
     if (this.product.reviews !== '' && this.product.reviews.length > 0) {
@@ -6091,7 +6120,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         price: 0,
         colorId: '',
         sizeId: ''
-      }
+      },
+      oldPrice: 0
     };
   },
   created: function created() {
@@ -6101,6 +6131,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.cartData.price = parseFloat(this.product.single_variation.price);
       this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
       this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+    }
+
+    if (typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0) {
+      this.oldPrice = this.cartData.price;
+      this.cartData.price = this.oldPrice - parseFloat(this.product.discount_price);
     }
   },
   mounted: function mounted() {
@@ -55007,7 +55042,32 @@ var render = function() {
                                       staticClass: "clearfix product-info-des"
                                     },
                                     [
-                                      _vm._m(0),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "product-reviews-summary "
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "rating-summary grid-rating"
+                                            },
+                                            [
+                                              _c("star-rating", {
+                                                attrs: {
+                                                  "star-size": 13,
+                                                  rating: _vm.rating,
+                                                  "read-only": true
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ]
+                                      ),
                                       _vm._v(" "),
                                       _c(
                                         "div",
@@ -55019,7 +55079,20 @@ var render = function() {
                                                 _vm._s(_vm.cartData.price) +
                                                 " "
                                             )
-                                          ])
+                                          ]),
+                                          _vm._v(" "),
+                                          _vm.oldPrice !== 0 &&
+                                          _vm.oldPrice !== ""
+                                            ? _c(
+                                                "span",
+                                                { staticClass: "old-price" },
+                                                [
+                                                  _vm._v(
+                                                    "$ " + _vm._s(_vm.oldPrice)
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e()
                                         ]
                                       ),
                                       _vm._v(" "),
@@ -55040,7 +55113,7 @@ var render = function() {
                                         ]
                                       ),
                                       _vm._v(" "),
-                                      _vm._m(1),
+                                      _vm._m(0),
                                       _vm._v(" "),
                                       _c(
                                         "div",
@@ -55326,24 +55399,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "product-reviews-summary" }, [
-      _c("div", { staticClass: "rating-summary" }, [
-        _c("div", { staticClass: "rating-result", attrs: { title: "80%" } }, [
-          _c("span", { staticStyle: { width: "80%" } }, [
-            _c("span", [
-              _c("span", [_vm._v("80")]),
-              _vm._v("% of "),
-              _c("span", [_vm._v("100")])
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "product-item-stock" }, [
       _c("span", { staticClass: "title" }, [_vm._v("Availability:")]),
       _vm._v(" In stock\n                                                ")
@@ -55512,7 +55567,13 @@ var render = function() {
         _c("div", { staticClass: "product-item-price" }, [
           _c("span", { staticClass: "price" }, [
             _vm._v("$ " + _vm._s(_vm.cartData.price))
-          ])
+          ]),
+          _vm._v(" "),
+          _vm.oldPrice !== 0 && _vm.oldPrice !== ""
+            ? _c("span", { staticClass: "old-price" }, [
+                _vm._v("$ " + _vm._s(_vm.oldPrice))
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "product-reviews-summary " }, [
@@ -55566,7 +55627,7 @@ var render = function() {
             return _c("li", { key: index, staticClass: "col-sm-3" }, [
               _c(
                 "div",
-                { staticClass: "product-item  product-item-opt-1" },
+                { staticClass: "product-item  product-item-opt-2" },
                 [_c("product-grid", { attrs: { product: product } })],
                 1
               )
@@ -55739,14 +55800,15 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "clearfix" }, [
           _c("div", { staticClass: "product-item-price" }, [
-            _vm.product.product_type === 1 &&
-            _vm.product.single_variation === null
-              ? _c("span", { staticClass: "price" }, [
-                  _vm._v("$ " + _vm._s(_vm.product.product_price))
+            _c("span", { staticClass: "price" }, [
+              _vm._v("$ " + _vm._s(_vm.cartData.price))
+            ]),
+            _vm._v(" "),
+            _vm.oldPrice !== 0 && _vm.oldPrice !== ""
+              ? _c("span", { staticClass: "old-price" }, [
+                  _vm._v("$ " + _vm._s(_vm.oldPrice))
                 ])
-              : _c("span", { staticClass: "price" }, [
-                  _vm._v("$ " + _vm._s(_vm.product.single_variation.price))
-                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "product-reviews-summary " }, [
@@ -55797,7 +55859,13 @@ var render = function() {
       _c("div", { staticClass: "price-box" }, [
         _c("span", { staticClass: "price" }, [
           _vm._v("$ " + _vm._s(_vm.cartData.price))
-        ])
+        ]),
+        _vm._v(" "),
+        _vm.oldPrice !== 0 && _vm.oldPrice !== ""
+          ? _c("span", { staticClass: "old-price" }, [
+              _vm._v("$ " + _vm._s(_vm.oldPrice))
+            ])
+          : _vm._e()
       ])
     ]),
     _vm._v(" "),
@@ -56405,7 +56473,7 @@ var render = function() {
                 "div",
                 {
                   key: index,
-                  staticClass: "product-item  product-item-opt-1 "
+                  staticClass: "product-item  product-item-opt-2 "
                 },
                 [
                   _c("div", { staticClass: "deals-of-countdown" }, [

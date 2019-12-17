@@ -188,6 +188,9 @@ class ProductController extends Controller
         if($validator->passes()){
             try{
                 DB::beginTransaction();
+                if(!empty($request->discount_price) && $request->discount_price >= $request->product_price){
+                    throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
+                }
                 #Store Data in Product Table
                 $product = Product::create([
                     'product_sku'=>Product::product_sku_generate(),
@@ -241,7 +244,9 @@ class ProductController extends Controller
                                 $variations = $request->variations;
                                 $variationArray = array();
                                 foreach ($variations as $variation){
-
+                                    if(!empty($request->discount_price) && $request->discount_price >= $variation->price){
+                                        throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
+                                    }
                                     $variation = (object) $variation;
                                     $gift ='';
                                     if(!empty($variation->gift_product)){
@@ -508,6 +513,10 @@ class ProductController extends Controller
         if($validator->passes()){
             try{
                 DB::beginTransaction();
+                if(!empty($request->discount_price) && $request->discount_price >= $request->product_price){
+                    throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
+                }
+
                 #Store Data in Product Table
                 $product = Product::where('product_id', $id)->first();
 
@@ -590,6 +599,9 @@ class ProductController extends Controller
                                 $variations = $request->variations;
                                 $variationArray = array();
                                 foreach ($variations as $variation){
+                                    if(!empty($request->discount_price) && $request->discount_price >= $variation->price){
+                                        throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
+                                    }
 
                                     $variation = (object) $variation;
                                     $gift ='';

@@ -24,8 +24,8 @@
                 </strong>
                 <div class="clearfix">
                     <div class="product-item-price">
-                        <span class="price" v-if="product.product_type === 1 && product.single_variation === null">$ {{ product.product_price }}</span>
-                        <span class="price" v-else>$ {{ product.single_variation.price }}</span>
+                        <span class="price">$ {{ cartData.price }}</span>
+                        <span class="old-price" v-if="oldPrice !== 0 && oldPrice !== '' ">$ {{ oldPrice}}</span>
                     </div>
                     <div class="product-reviews-summary ">
                         <div class="rating-summary grid-rating">
@@ -63,6 +63,7 @@
                     sizeId:'',
                 },
                 rating:0,
+                oldPrice:0,
             }
         },
         created(){
@@ -75,6 +76,10 @@
                 this.cartData.price = parseFloat(this.product.single_variation.price);
                 this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
                 this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+            }
+            if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                this.oldPrice = this.cartData.price;
+                this.cartData.price = this.oldPrice -  parseFloat(this.product.discount_price);
             }
             if(this.product.reviews !== '' && this.product.reviews.length >0){
                 let sum = this.product.reviews.reduce((acc, item) => acc + parseInt(item.rating), 0);

@@ -18,7 +18,7 @@
                         "1200":{"items":1}
                         }'>
 
-                <div v-for="(hotProduct,index) in hotproducts" :key="index" class="product-item  product-item-opt-1 ">
+                <div v-for="(hotProduct,index) in hotproducts" :key="index" class="product-item  product-item-opt-2 ">
                     <div class="deals-of-countdown">
                         <div class="count-down-time" :data-countdown="hotProduct.expired_at"></div>
                     </div>

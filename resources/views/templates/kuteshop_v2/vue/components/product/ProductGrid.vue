@@ -26,6 +26,7 @@
             <div class="clearfix">
                 <div class="product-item-price">
                     <span class="price" >$ {{ cartData.price }}</span>
+                    <span class="old-price" v-if="oldPrice !== 0 && oldPrice !== '' ">$ {{ oldPrice}}</span>
                 </div>
                 <div class="product-reviews-summary ">
                     <div class="rating-summary grid-rating">
@@ -64,6 +65,7 @@
                     sizeId:'',
                 },
                 rating:0,
+                oldPrice:0,
             }
         },
         created(){
@@ -76,6 +78,10 @@
                 this.cartData.price = parseFloat(this.product.single_variation.price);
                 this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
                 this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+            }
+            if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                this.oldPrice = this.cartData.price;
+                this.cartData.price = this.oldPrice -  parseFloat(this.product.discount_price);
             }
 
             if(this.product.reviews.length >0 && this.product.reviews !== ''){

@@ -24,17 +24,18 @@
                                                 </strong>
                                                 <div class="clearfix product-info-des">
 
-                                                    <div class="product-reviews-summary">
-                                                        <div class="rating-summary">
-                                                            <div class="rating-result" title="80%">
-                                                        <span style="width:80%">
-                                                            <span><span>80</span>% of <span>100</span></span>
-                                                        </span>
-                                                            </div>
+                                                    <div class="product-reviews-summary ">
+                                                        <div class="rating-summary grid-rating">
+                                                            <star-rating
+                                                                :star-size="13"
+                                                                :rating="rating"
+                                                                :read-only="true"
+                                                            ></star-rating>
                                                         </div>
                                                     </div>
                                                     <div class="product-item-price">
                                                         <span class="price" >$ {{ cartData.price }} </span>
+                                                        <span class="old-price" v-if="oldPrice !== 0 && oldPrice !== '' ">$ {{ oldPrice}}</span>
                                                     </div>
 
                                                     <div class="product-item-code">
@@ -106,6 +107,8 @@
                     colorId:'',
                     sizeId:'',
                 },
+                rating:0,
+                oldPrice:0,
             }
         },
         mounted(){
@@ -169,7 +172,14 @@
                     this.cartData.colorId = parseInt(this.modal_product.single_variation.pri_id);
                     this.cartData.sizeId = parseInt(this.modal_product.single_variation.sec_id);
                 }
-
+                if(typeof this.modal_product.discount_price !== "undefined" && this.modal_product.discount_price > 0){
+                    this.oldPrice = this.cartData.price;
+                    this.cartData.price = this.oldPrice -  parseFloat(this.modal_product.discount_price);
+                }
+                if(this.modal_product.reviews !== '' && this.modal_product.reviews.length >0){
+                    let sum = this.modal_product.reviews.reduce((acc, item) => acc + parseInt(item.rating), 0);
+                    this.rating = sum / this.modal_product.reviews.length;
+                }
             },
             productDetails(slug){
                 location.href = '/product/'+slug;
@@ -201,6 +211,7 @@
             checkModalData:{
                 handler(newVal, oldVal){
                     if (newVal !== oldVal){
+                        console.log(this.modal_product);
                         this.setupPrice();
                         this.showIn = true;
                     }
