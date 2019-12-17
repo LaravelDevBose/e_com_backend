@@ -8527,6 +8527,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import the component
 
  // import the styles
@@ -8586,7 +8595,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         product_qty: '',
         product_price: '',
         seller_sku: '',
-        cod_avail: 1
+        cod_avail: 1,
+        discount_price: ''
       },
       variations: [],
       btnDisabled: false,
@@ -9563,6 +9573,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import the component
 
  // import the styles
@@ -9629,7 +9648,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         product_type: 1,
         product_qty: 1,
         product_price: 1,
-        seller_sku: ''
+        seller_sku: '',
+        discount_price: ''
       },
       variations: [],
       btnDisabled: false,
@@ -10154,6 +10174,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           this.formData.product_status = this.proData.product_status;
           this.formData.warranty_type = this.proData.warranty_type;
           this.formData.video_url = this.proData.video_url;
+          this.formData.discount_price = this.proData.discount;
           /*** Product Details Information Field ***/
 
           if (this.proDetails !== '' && this.proDetails !== null) {
@@ -75587,13 +75608,49 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("label", { staticClass: "col-lg-2 control-label" }, [
+                      _vm._v("Discount:")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-10" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formData.discount_price,
+                            expression: "formData.discount_price"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "number", step: "0.01" },
+                        domProps: { value: _vm.formData.discount_price },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.formData,
+                              "discount_price",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-8" }, [
                   _c("div", { staticClass: "row" }, [
                     _vm._m(9),
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "col-lg-8" },
+                      { staticClass: "col-lg-10" },
                       [
                         _c("image-cropper", {
                           attrs: {
@@ -75604,42 +75661,6 @@ var render = function() {
                       ],
                       1
                     )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("label", { staticClass: "col-lg-2 control-label" }, [
-                      _vm._v("Video Url:")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-lg-10" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.video_url,
-                            expression: "formData.video_url"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", maxlength: "255" },
-                        domProps: { value: _vm.formData.video_url },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "video_url",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
                   ])
                 ])
               ])
@@ -77140,7 +77161,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "col-lg-4 control-label" }, [
+    return _c("label", { staticClass: "col-lg-2 control-label" }, [
       _vm._v("Thumb Image: "),
       _c("span", { staticClass: "text text-danger text-bold h4" }, [
         _vm._v("*")
@@ -77673,13 +77694,49 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
-                  _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c("label", { staticClass: "col-lg-2 control-label" }, [
+                        _vm._v("Discount:")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-lg-10" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.formData.discount_price,
+                              expression: "formData.discount_price"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "number", step: "0.01" },
+                          domProps: { value: _vm.formData.discount_price },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.formData,
+                                "discount_price",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-8" }, [
                     _c("div", { staticClass: "row" }, [
                       _vm._m(9),
                       _vm._v(" "),
                       _c(
                         "div",
-                        { staticClass: "col-lg-8" },
+                        { staticClass: "col-lg-10" },
                         [
                           _c("image-cropper", {
                             attrs: {
@@ -77690,42 +77747,6 @@ var render = function() {
                         ],
                         1
                       )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "row" }, [
-                      _c("label", { staticClass: "col-lg-2 control-label" }, [
-                        _vm._v("Video Url:")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-lg-10" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.video_url,
-                              expression: "formData.video_url"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", maxlength: "255" },
-                          domProps: { value: _vm.formData.video_url },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.formData,
-                                "video_url",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
                     ])
                   ])
                 ])
@@ -79443,7 +79464,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "col-lg-4 control-label" }, [
+    return _c("label", { staticClass: "col-lg-2 control-label" }, [
       _vm._v("Product Thumb Image: "),
       _c("span", { staticClass: "text text-danger text-bold h4" }, [
         _vm._v("*")

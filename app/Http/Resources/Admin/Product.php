@@ -43,6 +43,7 @@ class Product extends Resource
             'product_price'=>$this->product_price,
             'seller_sku'=>$this->seller_sku,
             'condition'=>$this->product_condition,
+            'discount'=>$this->discount_price,
             'thumbImage'=> new AttachmentResource($this->whenLoaded('thumbImage')),
             'category'=>new CategoryResource($this->whenLoaded('category')),
             'brand'=>new BrandResource($this->whenLoaded('brand')),

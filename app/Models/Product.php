@@ -86,6 +86,7 @@ class Product extends Model
         'product_price',
         'seller_sku',
         'product_condition',
+        'discount_price',
     ];
 
     protected static function boot()

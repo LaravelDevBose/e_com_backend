@@ -99,22 +99,31 @@
 
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="row">
-                                    <label class="col-lg-4 control-label">Product Thumb Image: <span class="text text-danger text-bold h4">*</span></label>
-                                    <div class="col-lg-8">
+                                    <label class="col-lg-2 control-label">Discount:</label>
+                                    <div class="col-lg-10">
+                                        <input type="number" step="0.01" v-model="formData.discount_price" class="form-control" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <label class="col-lg-2 control-label">Product Thumb Image: <span class="text text-danger text-bold h4">*</span></label>
+                                    <div class="col-lg-10">
                                         <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+
+                            <!--<div class="col-md-6">
                                 <div class="row">
                                     <label class="col-lg-2 control-label">Video Url:</label>
                                     <div class="col-lg-10">
                                         <input type="text" v-model="formData.video_url" class="form-control" maxlength="255">
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
                         </div>
                     </div>
@@ -586,6 +595,7 @@
                     product_qty:1,
                     product_price:1,
                     seller_sku:'',
+                    discount_price:'',
                 },
                 variations:[],
                 btnDisabled:false,
@@ -1102,6 +1112,7 @@
                         this.formData.product_status=this.proData.product_status;
                         this.formData.warranty_type=this.proData.warranty_type;
                         this.formData.video_url=this.proData.video_url;
+                        this.formData.discount_price=this.proData.discount;
 
                         /*** Product Details Information Field ***/
                         if(this.proDetails !== '' && this.proDetails !== null){

@@ -221,6 +221,7 @@ class ProductController extends Controller
                     'warranty_type'=>$request->warranty_type,
                     'thumb_id'=>$request->thumb_id,
                     'video_url'=>$request->video_url,
+                    'discount_price'=>$request->discount_price,
                     'seller_id'=>auth()->guard('seller')->user()->seller->seller_id,
                 ]);
                 if($product){
@@ -523,6 +524,7 @@ class ProductController extends Controller
                     'video_url'=>$request->video_url,
                     'seller_id'=>1, // Seller id 1 = Admin Default
                     'product_type'=>$request->product_type,
+                    'discount_price'=>$request->discount_price,
                 ]);
                 if(!empty($request->thumb_id)){
                     Product::where('product_id', $id)->update([

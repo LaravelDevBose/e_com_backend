@@ -214,6 +214,7 @@ class ProductController extends Controller
                     'video_url'=>$request->video_url,
                     'seller_id'=>1, // Seller id 1 = Admin Default
                     'product_type'=>$request->product_type,
+                    'discount_price'=>$request->discount_price,
                 ]);
                 if(!empty($product)){
                     #Store Data in Product Details Table
@@ -538,6 +539,7 @@ class ProductController extends Controller
                     'video_url'=>$request->video_url,
                     'seller_id'=>1, // Seller id 1 = Admin Default
                     'product_type'=>$request->product_type,
+                    'discount_price'=>$request->discount_price,
                 ]);
                 if(!empty($request->thumb_id)){
                     Product::where('product_id', $id)->update([
