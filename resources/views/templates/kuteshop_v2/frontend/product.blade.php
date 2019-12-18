@@ -92,16 +92,21 @@
                                             <h3 class="section-title">
                                                 <span>Delivery Options</span>
                                             </h3>
-                                            <p class="delivery-type">
-                                                <i class="fa fa-truck"></i>
-                                                <span class="text-left type-name">Home Delivery</span>
-                                                <br>
-                                                @if(!empty($product->seller->shop))
-                                                <span class="delivery-time">({{ $product->seller->shop->min_deli_day.'-'.$product->seller->shop->max_deli_day }} days)</span>
-                                                @endif
-                                                <span class="pull-right">$ 50</span>
-                                            </p>
+                                            @if(!empty($deliveryMethods))
+                                                @foreach($deliveryMethods as $method)
+                                                <p class="delivery-type">
+                                                    <i class="fa fa-truck"></i>
+                                                    <span class="text-left type-name">{{ $method->delivery_title }}</span>
+                                                    <br>
 
+                                                    <span class="delivery-time">
+                                                        ({{ $method->min_time.'-'.$method->max_time }} days)
+                                                    </span>
+
+                                                    <span class="pull-right">$ {{ $method->cost_price }}</span>
+                                                </p>
+                                                @endforeach
+                                            @endif
                                             <p class="delivery-type">
                                                 <i class="fa fa-money"></i>
                                                 <span class="text-left type-name">Cash on Delivery {{ ($product->productDetails->cod_avail == 1)?'Available':'Not Available' }} </span>

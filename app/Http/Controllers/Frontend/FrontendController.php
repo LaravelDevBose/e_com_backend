@@ -9,6 +9,7 @@ use App\Http\Resources\Frontend\category\CategoryCollection;
 use App\Http\Resources\Frontend\product\ProductCollection;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\DeliveryMethod;
 use App\Models\GroupProduct;
 use App\Models\HomepageSection;
 use App\Models\OrderItem;
@@ -268,11 +269,12 @@ class FrontendController extends Controller
         ];
 
         $relatedProducts = ProductHelper::products_list($reqData);
-
+        $deliveryMethods = DeliveryMethod::isActive()->get();
         return view('templates.' . $this->template_name . '.frontend.product', [
             'product' => $product,
             'hotProducts'=>$hotProducts,
             'relatedProducts'=>$relatedProducts,
+            'deliveryMethods'=>$deliveryMethods,
         ]);
     }
 
