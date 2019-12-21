@@ -26,6 +26,12 @@ class OrderItem extends Model
         'Return'=>7,
     ];
 
+    const CancelBy = [
+        'Admin'=>1,
+        'Buyer'=>2,
+        'Seller'=>3
+    ];
+
     protected $table = 'order_items';
     protected $primaryKey  = 'item_id';
 
@@ -46,7 +52,8 @@ class OrderItem extends Model
         'subtotal',
         'discount',
         'total_price',
-        'item_status'
+        'item_status',
+        'cancel_by'
     ];
 
     protected $appends = [

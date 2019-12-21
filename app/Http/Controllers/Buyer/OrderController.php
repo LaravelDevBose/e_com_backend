@@ -297,4 +297,36 @@ class OrderController extends Controller
             return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
         }
     }
+
+    public function order_item_cancel($item_id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $orderItem = OrderItem::where('item_id',$item_id)->first();
+
+            if(empty($orderItem)){
+                throw new \Exception('Invalid Order Item Information', Response::HTTP_NOT_FOUND);
+            }
+            if(!empty($orderItem) && $orderItem->item_status !== OrderItem::ItemStatus['Active']){
+                throw new \Exception('Not able To Cancel. Contract With Admin.', Response::HTTP_NOT_ACCEPTABLE);
+            }
+
+            $orderItem = $orderItem->update([
+                'item_status'=>OrderItem::ItemStatus['Cancel'],
+                'cancel_by'=>OrderItem::CancelBy['Buyer'],
+            ]);
+
+            if(!empty($orderItem)){
+                ## TODO Order History Added,
+                DB::commit();
+                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Order Item Cancel Successfully');
+            }else{
+                throw new \Exception('Some Error Found. Try Again.', Response::HTTP_BAD_REQUEST);
+            }
+        }catch (\Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', $ex->getCode(), $ex->getMessage());
+        }
+    }
 }

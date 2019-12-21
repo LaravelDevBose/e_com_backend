@@ -4144,6 +4144,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4174,7 +4189,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getOrderInfo'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getOrderInfo', 'cancelOrderItem']), {
+    changeOrderItemCancel: function changeOrderItemCancel(itemId) {
+      var _this2 = this;
+
+      this.cancelOrderItem(itemId).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          _this2.$noty.success(response.message);
+        } else if (response.status === 'validation') {
+          _this2.$noty.warning(response.message);
+        } else {
+          _this2.$noty.error(response.message);
+        }
+      });
+    }
+  }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['orderInfo'])),
   watch: {}
 });
@@ -53106,26 +53135,71 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _c(
-                              "span",
-                              {
-                                staticClass: "label ",
-                                class: {
-                                  "btn-info": item.item_status == 1,
-                                  "btn-danger": item.item_status == 2,
-                                  "btn-warning": item.item_status == 3,
-                                  "btn-primary": item.item_status == 5,
-                                  "btn-teal": item.item_status == 6
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(item.item_status_label) +
-                                    "\n                            "
-                                )
-                              ]
-                            )
+                            _c("div", { staticClass: "btn-group" }, [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "label  dropdown-toggle",
+                                  class: {
+                                    "btn-info": item.item_status === 1,
+                                    "btn-danger": item.item_status === 2,
+                                    "btn-warning": item.item_status === 3,
+                                    "btn-primary": item.item_status === 4,
+                                    "btn-teal": item.item_status === 5,
+                                    "btn-success": item.item_status === 6
+                                  },
+                                  attrs: {
+                                    "data-toggle": "dropdown",
+                                    "aria-expanded": "false"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(item.item_status_label) +
+                                      "\n                                    "
+                                  ),
+                                  item.item_status === 1
+                                    ? _c("span", { staticClass: "caret" })
+                                    : _vm._e()
+                                ]
+                              ),
+                              _vm._v(" "),
+                              item.item_status === 1
+                                ? _c("div", [
+                                    _c(
+                                      "ul",
+                                      {
+                                        staticClass:
+                                          "dropdown-menu dropdown-menu-right"
+                                      },
+                                      [
+                                        _c("li", [
+                                          _c(
+                                            "a",
+                                            {
+                                              attrs: { href: "#" },
+                                              on: {
+                                                click: function($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.changeOrderItemCancel(
+                                                    item.item_id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                                Cancel\n                                            "
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  ])
+                                : _vm._e()
+                            ])
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
@@ -76604,6 +76678,49 @@ var actions = {
     }
 
     return getOrderInfo;
+  }(),
+  cancelOrderItem: function () {
+    var _cancelOrderItem = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, itemId) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios.get("/buyer/order/item/".concat(itemId, "/cancel")).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setOrderItemCancel', itemId);
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context3.abrupt("return", _context3.sent);
+
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](1);
+              console.log(_context3.t0);
+              return _context3.abrupt("return", _context3.t0.data);
+
+            case 11:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 7]]);
+    }));
+
+    function cancelOrderItem(_x5, _x6) {
+      return _cancelOrderItem.apply(this, arguments);
+    }
+
+    return cancelOrderItem;
   }()
 };
 var mutations = {
@@ -76618,6 +76735,16 @@ var mutations = {
   },
   setOrderInfo: function setOrderInfo(state, response) {
     return state.order_info = response;
+  },
+  setOrderItemCancel: function setOrderItemCancel(state, itemId) {
+    state.order_info.order_items = state.order_info.order_items.filter(function (orderItem) {
+      if (orderItem.item_id === itemId) {
+        orderItem.item_status = 2;
+        orderItem.item_status_label = 'Cancel';
+      }
+
+      return orderItem;
+    });
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -77452,7 +77579,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

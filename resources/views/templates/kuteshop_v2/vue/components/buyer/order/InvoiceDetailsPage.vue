@@ -79,17 +79,32 @@
                             </span>
                         </td>
                         <td class="text-center">
-                            <span  class="label "
+                            <div class="btn-group">
+                                <span
+                                    class="label  dropdown-toggle"
                                    :class="{
-                                'btn-info':item.item_status == 1,
-                                'btn-danger':item.item_status == 2,
-                                'btn-warning':item.item_status == 3,
-                                'btn-primary':item.item_status == 5,
-                                'btn-teal':item.item_status == 6
-                            }"
-                            >
-                                {{ item.item_status_label }}
-                            </span>
+                                        'btn-info':item.item_status === 1,
+                                        'btn-danger':item.item_status === 2,
+                                        'btn-warning':item.item_status === 3,
+                                        'btn-primary':item.item_status === 4,
+                                        'btn-teal':item.item_status === 5,
+                                        'btn-success':item.item_status === 6
+                                        }"
+                                       data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {{ item.item_status_label }}
+                                    <span v-if="item.item_status === 1" class="caret"></span>
+                                </span>
+                                <div v-if="item.item_status === 1">
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>
+                                            <a href="#" @click.prevent="changeOrderItemCancel(item.item_id)">
+                                                Cancel
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </td>
                         <td class="text-center">$ {{ item.price }}</td>
                         <td class="text-center">{{ item.qty }}</td>
@@ -176,8 +191,21 @@
         },
         methods:{
             ...mapActions([
-                'getOrderInfo'
+                'getOrderInfo',
+                'cancelOrderItem'
             ]),
+            changeOrderItemCancel(itemId){
+                this.cancelOrderItem(itemId)
+                .then(response=>{
+                    if(typeof response.code !== "undefined" && response.code === 200){
+                        this.$noty.success(response.message);
+                    }else if(response.status === 'validation'){
+                        this.$noty.warning(response.message);
+                    }else {
+                        this.$noty.error(response.message);
+                    }
+                })
+            }
         },
         computed:{
             ...mapGetters([

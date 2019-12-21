@@ -28,6 +28,7 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
     Route::post('/order/list', 'OrderController@order_list');
     Route::get('/order/{order_no}/show', 'OrderController@show')->name('order.show');
     Route::get('/order/{order_id}/invoice', 'OrderController@order_details');
+    Route::get('/order/item/{item_id}/cancel', 'OrderController@order_item_cancel');
 
     /**** Address Book Route List ****/
     Route::get('address-book/list', 'AddressBookController@index')->name('address.book');
