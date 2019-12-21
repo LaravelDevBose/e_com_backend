@@ -35,6 +35,7 @@
 
 <script>
     import  Vue from 'vue';
+    var shopSerial=1;
     Vue.component('shop-logo', {
         template: `<img  v-if="row.shop && row.shop.shop_logo" :src="row.shop.shop_logo.image_path" :alt="row.shop.shop_name" class="img img-responsive" style="max-width:50px; max-height:50px">`,
         props: ['row'],
@@ -48,7 +49,10 @@
         template: `<span>{{ row.order_items.length }}</span>`,
         props: ['row'],
     });
-
+    Vue.component('shop-serial', {
+        template: `<span>{{ shopSerial++ }}</span>`,
+        props: ['row'],
+    });
     Vue.component('shop-status', {
         template: `<div class="btn-group">
                         <span  class="label dropdown-toggle"
@@ -144,7 +148,7 @@
                 filter: '',
                 rows:'',
                 columns: [
-                    { label: 'ID', field: 'shop.shop_id', align: 'center', filterable: true, sortable:true },
+                    { label: 'ID', component: 'shop-serial', align: 'center', filterable: true, sortable:true },
                     { label: 'Logo', component: 'shop-logo', align: 'center', filterable: false, sortable:false },
                     { label: 'Shop Name', field: 'shop.shop_name', sortable: true},
                     { label: 'Seller Name', field: 'seller_name',},
