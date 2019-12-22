@@ -319,8 +319,54 @@ class OrderController extends Controller
 
             if(!empty($orderItem)){
                 ## TODO Order History Added,
+                ## TODO Check if All Item Are Cancel then update the order status as Cancel
                 DB::commit();
                 return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Order Item Cancel Successfully');
+            }else{
+                throw new \Exception('Some Error Found. Try Again.', Response::HTTP_BAD_REQUEST);
+            }
+        }catch (\Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', $ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function order_cancel($orderId)
+    {
+        try {
+            DB::beginTransaction();
+
+            $order = Order::where('order_id', $orderId)->with('orderItems')->first();
+
+            if(empty($order)){
+                throw new \Exception('Invalid Order Information', Response::HTTP_NOT_FOUND);
+            }
+            if(!empty($order) && $order->order_status !== Order::OrderStatus['Active']){
+                throw new \Exception('Not able To Cancel This. Contract With Admin.', Response::HTTP_NOT_ACCEPTABLE);
+            }
+            $totalOrderItem = $order->orderItems->count();
+            $itemStatus = $order->orderItems->where('item_status', OrderItem::ItemStatus['Active'])->count();
+
+            if($totalOrderItem !== $itemStatus){
+                throw new \Exception('Not Able To Cancel this Order. Contract With Admin.', Response::HTTP_NOT_ACCEPTABLE);
+            }
+            $order = $order->update([
+                'order_status'=>Order::OrderStatus['Cancel'],
+            ]);
+
+            if(!empty($order)){
+                $items = OrderItem::where('order_id', $orderId)->where('item_status', OrderItem::ItemStatus['Active'])
+                    ->update([
+                        'item_status'=>OrderItem::ItemStatus['Cancel'],
+                        'cancel_by'=>OrderItem::CancelBy['Buyer'],
+                    ]);
+                if(!empty($items)){
+                    ## TODO ADd Order History
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Order Item Cancel Successfully');
+                }else{
+                    throw new \Exception('Some Error Found. Try Again.', Response::HTTP_BAD_REQUEST);
+                }
             }else{
                 throw new \Exception('Some Error Found. Try Again.', Response::HTTP_BAD_REQUEST);
             }

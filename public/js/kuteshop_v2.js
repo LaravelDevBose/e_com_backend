@@ -4159,6 +4159,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4189,7 +4203,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getOrderInfo', 'cancelOrderItem']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getOrderInfo', 'cancelOrderItem', 'orderCancel']), {
     changeOrderItemCancel: function changeOrderItemCancel(itemId) {
       var _this2 = this;
 
@@ -4200,6 +4214,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this2.$noty.warning(response.message);
         } else {
           _this2.$noty.error(response.message);
+        }
+      });
+    },
+    cancelOrder: function cancelOrder(orderId) {
+      var _this3 = this;
+
+      this.orderCancel(orderId).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          _this3.$noty.success(response.message);
+        } else if (response.status === 'validation') {
+          _this3.$noty.warning(response.message);
+        } else {
+          _this3.$noty.error(response.message);
         }
       });
     }
@@ -53045,27 +53072,70 @@ var render = function() {
                     _vm._v(
                       "Order Status:\n                                    "
                     ),
-                    _c(
-                      "span",
-                      {
-                        staticClass: "label ",
-                        class: {
-                          "btn-info": _vm.orderInfo.order_status == 1,
-                          "btn-danger": _vm.orderInfo.order_status == 2,
-                          "btn-warning": _vm.orderInfo.order_status == 3,
-                          "btn-primary": _vm.orderInfo.order_status == 4,
-                          "btn-indigo-400": _vm.orderInfo.order_status == 5,
-                          "btn-teal": _vm.orderInfo.order_status == 6
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                        " +
-                            _vm._s(_vm.orderInfo.status_label) +
-                            "\n                                    "
-                        )
-                      ]
-                    )
+                    _c("div", { staticClass: "btn-group" }, [
+                      _c(
+                        "span",
+                        {
+                          staticClass: "label  dropdown-toggle",
+                          class: {
+                            "btn-info": _vm.orderInfo.order_status == 1,
+                            "btn-danger": _vm.orderInfo.order_status == 2,
+                            "btn-warning": _vm.orderInfo.order_status == 3,
+                            "btn-primary": _vm.orderInfo.order_status == 4,
+                            "btn-indigo-400": _vm.orderInfo.order_status == 5,
+                            "btn-teal": _vm.orderInfo.order_status == 6
+                          },
+                          attrs: {
+                            "data-toggle": "dropdown",
+                            "aria-expanded": "false"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.orderInfo.status_label) +
+                              "\n                                    "
+                          ),
+                          _vm.orderInfo.order_status === 1
+                            ? _c("span", { staticClass: "caret" })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.orderInfo.order_status === 1
+                        ? _c("div", [
+                            _c(
+                              "ul",
+                              {
+                                staticClass: "dropdown-menu dropdown-menu-right"
+                              },
+                              [
+                                _c("li", [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.cancelOrder(
+                                            _vm.orderInfo.order_id
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                                        Cancel\n                                                    "
+                                      )
+                                    ]
+                                  )
+                                ])
+                              ]
+                            )
+                          ])
+                        : _vm._e()
+                    ])
                   ])
                 ])
               ])
@@ -76721,6 +76791,49 @@ var actions = {
     }
 
     return cancelOrderItem;
+  }(),
+  orderCancel: function () {
+    var _orderCancel = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, orderId) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              _context4.prev = 1;
+              _context4.next = 4;
+              return axios.get("/buyer/order/".concat(orderId, "/cancel")).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setOrderCancel', orderId);
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context4.abrupt("return", _context4.sent);
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](1);
+              console.log(_context4.t0);
+              return _context4.abrupt("return", _context4.t0.data);
+
+            case 11:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 7]]);
+    }));
+
+    function orderCancel(_x7, _x8) {
+      return _orderCancel.apply(this, arguments);
+    }
+
+    return orderCancel;
   }()
 };
 var mutations = {
@@ -76735,6 +76848,15 @@ var mutations = {
   },
   setOrderInfo: function setOrderInfo(state, response) {
     return state.order_info = response;
+  },
+  setOrderCancel: function setOrderCancel(state, orderId) {
+    state.order_info.order_status = 2;
+    state.order_info.status_label = 'Cancel';
+    state.order_info.order_items = state.order_info.order_items.filter(function (orderItem) {
+      orderItem.item_status = 2;
+      orderItem.item_status_label = 'Cancel';
+      return orderItem;
+    });
   },
   setOrderItemCancel: function setOrderItemCancel(state, itemId) {
     state.order_info.order_items = state.order_info.order_items.filter(function (orderItem) {
@@ -77579,7 +77701,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

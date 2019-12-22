@@ -37,17 +37,31 @@
                                 <li>Order Date: <span class="text-semibold">{{ orderInfo.order_date }}</span></li>
 <!--                                <li>Delivery date: <span class="text-semibold">{{ orderInfo.delivery_date}}</span></li>-->
                                 <li>Order Status:
-                                    <span  class="label "
-                                       :class="{
+                                    <div class="btn-group">
+                                <span
+                                    class="label  dropdown-toggle"
+                                    :class="{
                                         'btn-info':orderInfo.order_status == 1,
                                         'btn-danger':orderInfo.order_status == 2,
                                         'btn-warning':orderInfo.order_status == 3,
                                         'btn-primary':orderInfo.order_status == 4,
                                         'btn-indigo-400':orderInfo.order_status == 5,
                                         'btn-teal':orderInfo.order_status == 6 }"
-                                    >
-                                        {{ orderInfo.status_label }}
-                                    </span>
+                                    data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {{ orderInfo.status_label }}
+                                    <span v-if="orderInfo.order_status === 1" class="caret"></span>
+                                </span>
+                                        <div v-if="orderInfo.order_status === 1">
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li>
+                                                    <a href="#" @click.prevent="cancelOrder(orderInfo.order_id)">
+                                                        Cancel
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -192,7 +206,8 @@
         methods:{
             ...mapActions([
                 'getOrderInfo',
-                'cancelOrderItem'
+                'cancelOrderItem',
+                'orderCancel'
             ]),
             changeOrderItemCancel(itemId){
                 this.cancelOrderItem(itemId)
@@ -205,6 +220,18 @@
                         this.$noty.error(response.message);
                     }
                 })
+            },
+            cancelOrder(orderId){
+                this.orderCancel(orderId)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            this.$noty.success(response.message);
+                        }else if(response.status === 'validation'){
+                            this.$noty.warning(response.message);
+                        }else {
+                            this.$noty.error(response.message);
+                        }
+                    })
             }
         },
         computed:{
