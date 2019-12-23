@@ -148,7 +148,7 @@
                 filter: '',
                 rows:'',
                 columns: [
-                    // { label: 'ID', component: 'shop-serial', align: 'center', filterable: true, sortable:true },
+                    { label: 'ID', field: 'shop.shop_id', align: 'center', filterable: true, sortable:true },
                     { label: 'Logo', component: 'shop-logo', align: 'center', filterable: false, sortable:false },
                     { label: 'Shop Name', field: 'shop.shop_name', sortable: true},
                     { label: 'Seller Name', field: 'seller_name',},

@@ -30,6 +30,7 @@ Route::namespace('Frontend')->as('front.')->group(function () {
     Route::get('/all/category/list', 'FrontendController@get_category_list')->name('category.list');
     Route::get('/get/hot/products', 'FrontendController@hot_products');
     Route::get('/shop/{shop_slug}', 'FrontendController@shop_profile')->name('shop.profile');
+    Route::get('/mall', 'FrontendController@mall_products')->name('mall');
 });
 
 Route::post('/attachment/store', 'AttachmentController@store')->name('attachment.store');
