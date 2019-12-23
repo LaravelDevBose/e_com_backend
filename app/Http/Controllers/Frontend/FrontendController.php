@@ -80,7 +80,7 @@ class FrontendController extends Controller
             ->with('thumbImage', 'singleVariation','reviews')->take(16)->get();
 
         $adminLatestProducts = Product::isActive()->where('seller_id', 1)
-            ->with('thumbImage', 'singleVariation','reviews')->latest()->take(20)->get();
+            ->with('thumbImage', 'singleVariation','reviews', 'brand.attachment')->latest()->take(20)->get();
 
         $categories = Category::isParent()->isActive()->select('category_id', 'category_name','category_slug', 'sect_banner_id')
                 ->with(['sectionBanner','children'=>function($query){

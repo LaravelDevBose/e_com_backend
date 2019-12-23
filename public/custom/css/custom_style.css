@@ -147,7 +147,26 @@
     font-size: 18px;
     padding-right:5px;
 }
-
+.brand-container{
+    text-align: center;
+}
+.mall-brand{
+    height: 80px;
+    border: 2px solid rgb(214, 214, 214);
+    width: 80px;
+    position: absolute;
+    bottom: 62px;
+    left: 38%;
+    margin-bottom: 10px;
+    background: white;
+}
+.brand-name{
+    font-size: 15px;
+    font-weight: 700;
+}
+.mall-product:hover .brand-container{
+    display: none;
+}
 @media only screen and (min-device-width: 991px) and (max-device-width: 1199px){
     .payment-options ul li{
         width: 93px;
@@ -158,5 +177,10 @@
     }
     .shop-info .shop-name {
         font-size: 1em;
+    }
+}
+@media only screen and (min-device-width: 768px){
+    .mall-brand{
+        left: 32%;
     }
 }

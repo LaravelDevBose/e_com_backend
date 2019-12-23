@@ -72,7 +72,7 @@
                                 "1200":{"items":5}
                                 }'>
                             @foreach($adminLatestProducts as $product)
-                                <section-product-grid :product="{{ $product }}"></section-product-grid>
+                                <mall-product-grid :product="{{ $product }}"></mall-product-grid>
                             @endforeach
                         </div>
                         <a href="{{ route('front.mall') }}" style="float: right; color: #f78031;">See All</a>

@@ -5631,6 +5631,195 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "MallProductGrid",
+  props: {
+    product: {
+      type: Object
+    }
+  },
+  data: function data() {
+    return {
+      productData: {},
+      cartData: {
+        id: '',
+        name: '',
+        qty: 1,
+        price: 0,
+        colorId: '',
+        sizeId: ''
+      },
+      rating: 0,
+      oldPrice: 0
+    };
+  },
+  created: function created() {},
+  mounted: function mounted() {
+    if (this.product.product_type === 1) {
+      this.cartData.price = parseFloat(this.product.product_price);
+    } else {
+      this.cartData.price = parseFloat(this.product.single_variation.price);
+      this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
+      this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+    }
+
+    if (typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0) {
+      this.oldPrice = this.cartData.price;
+      this.cartData.price = this.oldPrice - parseFloat(this.product.discount_price);
+    }
+
+    if (this.product.reviews !== '' && this.product.reviews.length > 0) {
+      var sum = this.product.reviews.reduce(function (acc, item) {
+        return acc + parseInt(item.rating);
+      }, 0);
+      this.rating = sum / this.product.reviews.length;
+    }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['productQuickView', 'insertToWishList', 'deleteFromWishList', 'addToCartProduct']), {
+    productDetails: function productDetails(slug) {
+      location.href = '/product/' + slug;
+    },
+    addWishList: function addWishList(slug) {
+      var _this = this;
+
+      console.log(slug);
+
+      if (AppStorage.getWhoIs() === 'buyer') {
+        this.insertToWishList(slug).then(function (response) {
+          if (typeof response.code !== "undefined" && response.code === 200) {
+            _this.$noty.success(response.message);
+          } else {
+            _this.$noty.error('Try Again Later.');
+
+            console.log(response);
+          }
+        });
+      } else {
+        location.href = '/login';
+      }
+    },
+    removeWishList: function removeWishList(slug) {
+      var _this2 = this;
+
+      if (AppStorage.getWhoIs() === 'buyer') {
+        this.deleteFromWishList(slug).then(function (response) {
+          if (typeof response.code !== "undefined" && response.code === 200) {
+            _this2.$noty.success(response.message);
+          } else {
+            _this2.$noty.error(response.message);
+
+            console.log(response);
+          }
+        });
+      } else {
+        location.href = '/login';
+      }
+    },
+    addCompareProduct: function addCompareProduct(slug) {},
+    quickView: function quickView() {
+      this.productQuickView(this.product);
+      $('#quickView').modal('show');
+    },
+    addToCart: function addToCart() {
+      var _this3 = this;
+
+      this.cartData.id = this.product.product_id;
+      this.cartData.name = this.product.product_name;
+      this.addToCartProduct(this.cartData).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          _this3.$noty.success(response.message);
+        } else {
+          _this3.$noty.error(response.message);
+        }
+      });
+    },
+    buyNow: function buyNow() {
+      var _this4 = this;
+
+      this.cartData.id = this.product.product_id;
+      this.cartData.name = this.product.product_name;
+      this.addToCartProduct(this.cartData).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          /*this.$noty.success(response.message);*/
+          location.href = '/cart';
+        } else {
+          _this4.$noty.error(response.message);
+        }
+      });
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList']))
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/kuteshop_v2/vue/components/product/ProductGrid.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/kuteshop_v2/vue/components/product/ProductGrid.vue?vue&type=script&lang=js& ***!
@@ -55621,6 +55810,221 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue?vue&type=template&id=7c2652e5&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue?vue&type=template&id=7c2652e5&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "product-item product-item-opt-2 mall-product" },
+    [
+      _c("div", { staticClass: "product-item-info" }, [
+        _c("div", { staticClass: "product-item-photo" }, [
+          _c(
+            "a",
+            {
+              staticClass: "product-item-img",
+              attrs: { href: "#", title: _vm.product.product_name },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.productDetails(_vm.product.product_slug)
+                }
+              }
+            },
+            [
+              _c(
+                "clazy-load",
+                { attrs: { src: _vm.product.thumb_image.image_path } },
+                [
+                  _c("img", {
+                    staticStyle: { width: "100%", height: "auto" },
+                    attrs: {
+                      title: _vm.product.product_name,
+                      src: _vm.product.thumb_image.image_path
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "preloader",
+                      attrs: { slot: "placeholder" },
+                      slot: "placeholder"
+                    },
+                    [
+                      _c("img", {
+                        staticStyle: { width: "100%", height: "auto" },
+                        attrs: {
+                          title: _vm.product.product_name,
+                          src: "/images/placeholder.png"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "product-item-actions" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-wishlist",
+                attrs: { href: "#", title: "WishList" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.addWishList(_vm.product.product_slug)
+                  }
+                }
+              },
+              [_c("span", [_vm._v(_vm._s(_vm.$t("header.wishlist")))])]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-quickview",
+                attrs: { href: "#", title: "Quick View" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.quickView()
+                  }
+                }
+              },
+              [_c("span", [_vm._v(_vm._s(_vm.$t("product.quick_view")))])]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "btn",
+                staticStyle: { "font-size": "18px" },
+                attrs: { href: "#", title: "Buy Now" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.buyNow()
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fa fa-cart-plus" })]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-cart",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.addToCart()
+                }
+              }
+            },
+            [_c("span", [_vm._v(_vm._s(_vm.$t("product.add_to_cart")))])]
+          ),
+          _vm._v(" "),
+          _vm.product.seller_id === 1
+            ? _c("span", { staticClass: "product-item-label label-sale-off" }, [
+                _vm._v("saliim Mall")
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product-item-detail" }, [
+          _vm.product.brand
+            ? _c("div", { staticClass: "brand-container" }, [
+                _c("div", { staticClass: "mall-brand" }, [
+                  _c("img", {
+                    attrs: {
+                      src: _vm.product.brand.attachment.image_path,
+                      alt: _vm.product.brand.brand_name
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "brand-name" }, [
+                  _vm._v(_vm._s(_vm.product.brand.brand_name))
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("strong", { staticClass: "product-item-name" }, [
+            _c(
+              "a",
+              {
+                attrs: { title: _vm.product.product_name, href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.productDetails(_vm.product.product_slug)
+                  }
+                }
+              },
+              [_vm._v(_vm._s(_vm.product.product_name))]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "clearfix" }, [
+            _c("div", { staticClass: "product-item-price" }, [
+              _c("span", { staticClass: "price" }, [
+                _vm._v("$ " + _vm._s(_vm.cartData.price))
+              ]),
+              _vm._v(" "),
+              _vm.oldPrice !== 0 && _vm.oldPrice !== ""
+                ? _c("span", { staticClass: "old-price" }, [
+                    _vm._v("$ " + _vm._s(_vm.oldPrice))
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "product-reviews-summary " }, [
+              _c(
+                "div",
+                { staticClass: "rating-summary grid-rating" },
+                [
+                  _c("star-rating", {
+                    attrs: {
+                      "star-size": 13,
+                      rating: _vm.rating,
+                      "read-only": true
+                    }
+                  })
+                ],
+                1
+              )
+            ])
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/kuteshop_v2/vue/components/product/ProductGrid.vue?vue&type=template&id=284f7cce&scoped=true&":
 /*!***************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/kuteshop_v2/vue/components/product/ProductGrid.vue?vue&type=template&id=284f7cce&scoped=true& ***!
@@ -71228,6 +71632,7 @@ var map = {
 	"./components/helper/ChosenSelect.vue": "./resources/views/templates/kuteshop_v2/vue/components/helper/ChosenSelect.vue",
 	"./components/home/Dashboard.vue": "./resources/views/templates/kuteshop_v2/vue/components/home/Dashboard.vue",
 	"./components/modal/QuickViewProduct.vue": "./resources/views/templates/kuteshop_v2/vue/components/modal/QuickViewProduct.vue",
+	"./components/product/MallProductGrid.vue": "./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue",
 	"./components/product/ProductGrid.vue": "./resources/views/templates/kuteshop_v2/vue/components/product/ProductGrid.vue",
 	"./components/product/ProductsPage.vue": "./resources/views/templates/kuteshop_v2/vue/components/product/ProductsPage.vue",
 	"./components/product/SectionProductGrid.vue": "./resources/views/templates/kuteshop_v2/vue/components/product/SectionProductGrid.vue",
@@ -73682,6 +74087,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_QuickViewProduct_vue_vue_type_template_id_2c8f1f4b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_QuickViewProduct_vue_vue_type_template_id_2c8f1f4b_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue":
+/*!******************************************************************************************!*\
+  !*** ./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MallProductGrid_vue_vue_type_template_id_7c2652e5_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MallProductGrid.vue?vue&type=template&id=7c2652e5&scoped=true& */ "./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue?vue&type=template&id=7c2652e5&scoped=true&");
+/* harmony import */ var _MallProductGrid_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MallProductGrid.vue?vue&type=script&lang=js& */ "./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MallProductGrid_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MallProductGrid_vue_vue_type_template_id_7c2652e5_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MallProductGrid_vue_vue_type_template_id_7c2652e5_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "7c2652e5",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MallProductGrid_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./MallProductGrid.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MallProductGrid_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue?vue&type=template&id=7c2652e5&scoped=true&":
+/*!*************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue?vue&type=template&id=7c2652e5&scoped=true& ***!
+  \*************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MallProductGrid_vue_vue_type_template_id_7c2652e5_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./MallProductGrid.vue?vue&type=template&id=7c2652e5&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/kuteshop_v2/vue/components/product/MallProductGrid.vue?vue&type=template&id=7c2652e5&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MallProductGrid_vue_vue_type_template_id_7c2652e5_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MallProductGrid_vue_vue_type_template_id_7c2652e5_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
