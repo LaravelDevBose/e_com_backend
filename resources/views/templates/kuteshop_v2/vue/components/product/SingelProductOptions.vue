@@ -6,9 +6,9 @@
                 <span class="old-price" v-if="oldPrice !== 0 && oldPrice !== '' ">$ {{ oldPrice}}</span>
             </div>
         </div>
-        <div class="product-code">
+        <!--<div class="product-code">
             SKU: #{{ product.product_sku }}
-        </div>
+        </div>-->
         <div class="product-info-stock">
             <div class="stock available">
                 <span class="label">{{ $t('product.availability')}}: </span>In stock

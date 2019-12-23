@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-10">
                     <label for="emmail_login">{{ $t('form.email')}}/{{ $t('form.username')}}<span class="text text-danger text-bold">*</span></label>
-                    <input type="text" v-model="formData.identity" autocomplete="off" :placeholder="$t('form.email')/$t('form.username')" required class="form-control" id="emmail_login">
+                    <input type="text" v-model="formData.identity" autocomplete="off" placeholder="email/username" required class="form-control" id="emmail_login">
                 </div>
                 <div class="col-md-10">
                     <label for="password_login">{{ $t('form.password') }} <span class="text text-danger text-bold">*</span></label>

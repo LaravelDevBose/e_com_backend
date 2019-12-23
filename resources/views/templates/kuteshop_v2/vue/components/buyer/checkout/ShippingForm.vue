@@ -70,6 +70,13 @@
             </ul>
             <ul>
                 <li class="row">
+                    <div class="col-sm-3" v-if="new_address">
+                        <label for="save_address" style="padding:10px;">
+                            <input  id="save_address" v-model="save_address" :value="1" type="checkbox">{{ $t('checkout.save_address_book')}}
+                        </label>
+                    </div>
+                </li>
+                <li class="row">
                     <!--<div class="col-sm-6">
                         <button type="button" @click.prevent="backTab()" class="button">Back</button>
                     </div>-->
@@ -130,7 +137,7 @@
                     }
                     this.storeAddressInfo(this.formData)
                         .then(response=>{
-                            if(typeof response.code !== "undefined" && response.code === 201){
+                            if(typeof response.code !== "undefined" && response.code === 200){
                                 this.btnDisabled = false;
                                 this.continueTab();
                                 this.$noty.success(response.message);

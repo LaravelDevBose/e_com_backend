@@ -3603,6 +3603,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3648,7 +3655,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
 
         this.storeAddressInfo(this.formData).then(function (response) {
-          if (typeof response.code !== "undefined" && response.code === 201) {
+          if (typeof response.code !== "undefined" && response.code === 200) {
             _this.btnDisabled = false;
 
             _this.continueTab();
@@ -49834,7 +49841,7 @@ var render = function() {
               attrs: {
                 type: "text",
                 autocomplete: "off",
-                placeholder: _vm.$t("form.email") / _vm.$t("form.username"),
+                placeholder: "email/username",
                 required: "",
                 id: "emmail_login"
               },
@@ -50294,7 +50301,7 @@ var render = function() {
               attrs: {
                 type: "text",
                 autocomplete: "off",
-                placeholder: _vm.$t("form.email") / _vm.$t("form.username"),
+                placeholder: "email/username",
                 required: "",
                 id: "emmail_login"
               },
@@ -50465,7 +50472,7 @@ var render = function() {
               staticClass: "form-control",
               attrs: {
                 type: "text",
-                placeholder: _vm.$t("form.phone_no"),
+                placeholder: _vm.$t("form.full_name"),
                 required: "",
                 id: "full_name"
               },
@@ -52733,6 +52740,65 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _c("ul", [
+          _c("li", { staticClass: "row" }, [
+            _vm.new_address
+              ? _c("div", { staticClass: "col-sm-3" }, [
+                  _c(
+                    "label",
+                    {
+                      staticStyle: { padding: "10px" },
+                      attrs: { for: "save_address" }
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.save_address,
+                            expression: "save_address"
+                          }
+                        ],
+                        attrs: { id: "save_address", type: "checkbox" },
+                        domProps: {
+                          value: 1,
+                          checked: Array.isArray(_vm.save_address)
+                            ? _vm._i(_vm.save_address, 1) > -1
+                            : _vm.save_address
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.save_address,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = 1,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  (_vm.save_address = $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  (_vm.save_address = $$a
+                                    .slice(0, $$i)
+                                    .concat($$a.slice($$i + 1)))
+                              }
+                            } else {
+                              _vm.save_address = $$c
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(
+                        _vm._s(_vm.$t("checkout.save_address_book")) +
+                          "\n                    "
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
           _c("li", { staticClass: "row" }, [
             _c(
               "div",
@@ -56011,10 +56077,6 @@ var render = function() {
             ])
           : _vm._e()
       ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "product-code" }, [
-      _vm._v("\n        SKU: #" + _vm._s(_vm.product.product_sku) + "\n    ")
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "product-info-stock" }, [
@@ -77701,7 +77763,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

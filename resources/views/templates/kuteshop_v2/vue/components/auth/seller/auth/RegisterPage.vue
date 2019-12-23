@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-md-10">
                     <label for="full_name">{{ $t('form.full_name') }}<span class="text text-danger text-bold">*</span></label>
-                    <input type="text" v-model="formData.full_name" :placeholder="$t('form.phone_no')" required class="form-control" id="full_name">
+                    <input type="text" v-model="formData.full_name" :placeholder="$t('form.full_name')" required class="form-control" id="full_name">
                 </div>
                 <div class="col-md-10">
                     <label for="mobile">{{ $t('form.phone_no') }}</label>
