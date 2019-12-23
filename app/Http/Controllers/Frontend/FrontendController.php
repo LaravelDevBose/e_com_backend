@@ -79,6 +79,8 @@ class FrontendController extends Controller
         $adminBestSellProducts = Product::isActive()->whereIn('product_id', $adminBestSellProIds)
             ->with('thumbImage', 'singleVariation','reviews')->take(16)->get();
 
+        $adminLatestProducts = Product::isActive()->where('seller_id', 1)
+            ->with('thumbImage', 'singleVariation','reviews')->latest()->take(20)->get();
 
         $categories = Category::isParent()->isActive()->select('category_id', 'category_name','category_slug', 'sect_banner_id')
                 ->with(['sectionBanner','children'=>function($query){
@@ -101,9 +103,9 @@ class FrontendController extends Controller
                 ->groupBy('product_id')->orderBy('total', 'desc')
                 ->pluck('product_id');
 
-            $bestSellProducts = $products->whereIn('product_id', $bestSellProductId)->get();
-            $mostReviewsProducts = $products->whereIn('product_id', $mostReviewProductIds)->get();
-            $latestProducts = $products->whereDate('created_at', '>=' , Carbon::today()->subDays(7))->get();
+            $bestSellProducts = $products->whereIn('product_id', $bestSellProductId)->take(12)->get();
+            $mostReviewsProducts = $products->whereIn('product_id', $mostReviewProductIds)->take(12)->get();
+            $latestProducts = $products->latest()->take(18)->get();
 
             array_push($categorySection,[
                 'category'=>$category,
@@ -121,6 +123,7 @@ class FrontendController extends Controller
             'hotProducts'=>$hotProducts,
             'categorySection'=>$categorySection,
             'adminBestSellProducts'=>$adminBestSellProducts,
+            'adminLatestProducts'=>$adminLatestProducts,
         ]);
     }
     public function set_lang($lang)
@@ -330,7 +333,18 @@ class FrontendController extends Controller
     {
         $shop = Shop::where('shop_slug', $shopSlug)->with(['seller'=>function($query){
             return $query->with(['products'=>function($qu){
-                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage');
+                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage')->isActive();
+            }]);
+        }, 'shopLogo','banner'])->first();
+        return view('templates.' . $this->template_name . '.frontend.shop_profile',[
+            'shop'=>$shop,
+        ]);
+    }
+
+    public function mall_products(){
+        $shop = Shop::where('shop_id', 1)->with(['seller'=>function($query){
+            return $query->with(['products'=>function($qu){
+                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage')->isActive();
             }]);
         }, 'shopLogo','banner'])->first();
         return view('templates.' . $this->template_name . '.frontend.shop_profile',[

@@ -54,7 +54,7 @@
                     </div>
                 </div>
             @endif
-            @if(!empty($adminBestSellProducts))
+            @if(!empty($adminLatestProducts))
                 <div class="block-deals-of-opt2">
                     <div class="block-title ">
                         <span class="title">Saliim Mall Products</span>
@@ -71,11 +71,11 @@
                                 "992":{"items":4},
                                 "1200":{"items":5}
                                 }'>
-                            @foreach($adminBestSellProducts as $product)
+                            @foreach($adminLatestProducts as $product)
                                 <section-product-grid :product="{{ $product }}"></section-product-grid>
                             @endforeach
                         </div>
-
+                        <a href="{{ route('front.mall') }}" style="float: right; color: #f78031;">See All</a>
                     </div>
                 </div>
             @endif
