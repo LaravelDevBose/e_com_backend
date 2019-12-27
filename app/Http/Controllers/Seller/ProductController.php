@@ -45,7 +45,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('seller_panel.'.$this->seller_template.'.product.index');
+        $products = Product::where('seller_id', auth()->guard('seller')->user()->seller->seller_id)->with(['thumbImage','category', 'brand','variations'])->notDelete()->latest()->get();
+        $status = Product::flipProductStatus();
+        return view('seller_panel.'.$this->seller_template.'.product.index',[
+            'products'=>$products,
+            'status'=>$status,
+        ]);
     }
 
     public function product_collection(Request $request){
@@ -142,7 +147,7 @@ class ProductController extends Controller
             $rules = array_merge($rules,[
                 'seller_sku'=>'required|string|max:20',
                 'product_qty'=>'required|integer|min:0|not_in:0',
-                'product_price'=>'required|integer|min:0|not_in:0',
+                'product_price'=>'required|min:0|not_in:0',
             ]);
 
             $messages = array_merge($messages,[
@@ -167,7 +172,7 @@ class ProductController extends Controller
                 'variations.*.size_id'=>'required',
                 'variations.*.seller_sku'=>'required',
                 'variations.*.qty'=>'required|integer|min:0|not_in:0',
-                'variations.*.price'=>'required|integer|min:0|not_in:0',
+                'variations.*.price'=>'required|min:0|not_in:0',
                 'variations.*.status'=>'required',
             ]);
 
@@ -196,9 +201,6 @@ class ProductController extends Controller
         if($validator->passes()){
             try{
                 DB::beginTransaction();
-                if(!empty($request->discount_price) && $request->discount_price >= $request->product_price){
-                    throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
-                }
                 #Store Data in Product Table
                 $product = Product::create([
                     'product_sku'=>Product::product_sku_generate(),
@@ -251,9 +253,9 @@ class ProductController extends Controller
                                 $variations = $request->variations;
                                 $variationArray = array();
                                 foreach ($variations as $variation){
-                                    if(!empty($request->discount_price) && $request->discount_price >= $variation->price){
+                                    /*if(!empty($request->discount_price) && $request->discount_price >= $variation->price){
                                         throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
-                                    }
+                                    }*/
                                     $variation = (object) $variation;
                                     $gift ='';
                                     if(!empty($variation->gift_product)){
@@ -276,6 +278,9 @@ class ProductController extends Controller
 
                                 }
                                 $variationProduct = ProductVariation::insert($variationArray);
+                                if(!empty($variationProduct)){
+                                    throw new Exception('Invalid Product Variation Information', Response::HTTP_BAD_REQUEST);
+                                }
                             }
 
 
@@ -295,6 +300,9 @@ class ProductController extends Controller
                                     ]);
                                 }
                                 $productImages = ProductImage::insert($imageArray);
+                                if(!empty($productImages)){
+                                    throw new Exception('Invalid Product Image Information', Response::HTTP_BAD_REQUEST);
+                                }
                             }
                         }else{
                             $product->update([
@@ -316,6 +324,9 @@ class ProductController extends Controller
                                     ]);
                                 }
                                 $productImages = ProductImage::insert($imageArray);
+                                if(!empty($productImages)){
+                                    throw new Exception('Invalid Product Image Information', Response::HTTP_BAD_REQUEST);
+                                }
                             }
                         }
                     }else{
@@ -352,32 +363,36 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $productId)
-    {
-        $product = Product::find($productId);
-        if($request->ajax()){
-            $product = Product::where('product_id', $productId)->with(['category'=>function($query){
-                return $query->with(['parent'=>function($q){
-                    return $q->with('parent');
-                }]);
-            }, 'brand','thumbImage','productDetails','productImages'=>function($query){
-                return $query->with('attachment')->isActive();
-            },'variations'=>function($q){
-                return $q->with('primaryModel', 'secondaryModel');
-            }])->first();
 
-            if(!empty($product)){
-                $data = new ProductResource($product);
-                return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK);
-            }else{
-                return ResponserTrait::allResponse('success', Response::HTTP_NOT_FOUND, 'Product Not Found');
-            }
-        }
+    public function show(Product $product)
+    {
         return view('seller_panel.'.$this->seller_template.'.product.show',[
             'product_id'=>$product->product_id,
         ]);
     }
 
+    public function single_product($productId){
+
+
+        $product = Product::where('product_id', $productId)->with(['category'=>function($query){
+            return $query->with(['parent'=>function($q){
+                return $q->with('parent');
+            }]);
+        }, 'brand','seller.shop','thumbImage','productDetails','productImages'=>function($query){
+            return $query->with('attachment')->isActive();
+        },'variations'=>function($q){
+            return $q->with('primaryModel', 'secondaryModel');
+        }])->first();
+
+        if(!empty($product)){
+            $data = new ProductResource($product);
+            return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Product Not Found', '', route('error.404'));
+        }
+
+
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -443,7 +458,7 @@ class ProductController extends Controller
             $rules = array_merge($rules,[
                 'seller_sku'=>'required|string|max:20',
                 'product_qty'=>'required|integer|min:0|not_in:0',
-                'product_price'=>'required|integer|min:0|not_in:0',
+                'product_price'=>'required|min:0|not_in:0',
             ]);
 
             $messages = array_merge($messages,[
@@ -498,9 +513,9 @@ class ProductController extends Controller
         if($validator->passes()){
             try{
                 DB::beginTransaction();
-                if(!empty($request->discount_price) && $request->discount_price >= $request->product_price){
+                /*if(!empty($request->discount_price) && $request->discount_price >= $request->product_price){
                     throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
-                }
+                }*/
 
                 #Store Data in Product Table
                 $product = Product::where('product_id', $id)->first();
@@ -641,6 +656,9 @@ class ProductController extends Controller
                                     ]);
                                 }
                                 $productImages = ProductImage::insert($imageArray);
+                                if(!empty($productImages)){
+                                    throw new Exception('Invalid Product Image Information', Response::HTTP_BAD_REQUEST);
+                                }
                             }
 
                         }else{
@@ -664,6 +682,9 @@ class ProductController extends Controller
                                     ]);
                                 }
                                 $productImages = ProductImage::insert($imageArray);
+                                if(!empty($productImages)){
+                                    throw new Exception('Invalid Product Image Information', Response::HTTP_BAD_REQUEST);
+                                }
                             }
                         }
                     }else{

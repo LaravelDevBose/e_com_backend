@@ -10416,10 +10416,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('action-btn', {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/seller_panel/limitless_v2/vue/components/product/ShowProduct.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/seller_panel/limitless_v2/vue/components/product/ShowProduct.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10440,81 +10440,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "SellerProductAction",
+  props: ['row'],
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['deleteProductData']), {
+    goToDetailsPage: function goToDetailsPage(slug) {
+      window.location = '/seller/product/' + slug;
+    },
+    goToEditPage: function goToEditPage(slug) {
+      window.location = '/seller/product/' + slug + '/edit';
+    },
+    showDeletePopUp: function showDeletePopUp(ID) {
+      var conf = confirm('Are You Sure. Want To delete.?');
+
+      if (!conf) {
+        return false;
+      }
+
+      this.deleteProductData(ID).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          Notify.success(response.message);
+        } else {
+          Notify.error(response.message);
+        }
+      });
+    }
+  })
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/seller_panel/limitless_v2/vue/components/product/ShowProduct.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/seller_panel/limitless_v2/vue/components/product/ShowProduct.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -10778,7 +10750,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       handler: function handler(newVal, oldVal) {
         var _this = this;
 
-        newVal.productImages.forEach(function (image) {
+        newVal.images.forEach(function (image) {
           var img = '<img src="' + image.image.image_path + '" class="img-thumbnail">';
 
           _this.slider.push(img);
@@ -10786,14 +10758,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (newVal.category !== null) {
           this.category = newVal.category;
+        }
 
-          if (newVal.category.parent !== null) {
-            this.sec_category = newVal.category.parent;
+        if (newVal.category.parent !== null) {
+          this.sec_category = newVal.category.parent;
+        }
 
-            if (newVal.category.parent.parent !== null) {
-              this.trd_category = newVal.category.parent.parent;
-            }
-          }
+        if (newVal.category.parent.parent !== null) {
+          this.trd_category = newVal.category.parent.parent;
         }
       }
     }
@@ -79805,6 +79777,81 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue?vue&type=template&id=49cb8428&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue?vue&type=template&id=49cb8428&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("ul", { staticClass: "icons-list" }, [
+    _c("li", [
+      _c(
+        "a",
+        {
+          staticClass: "text text-primary-700",
+          attrs: { href: "#" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.goToDetailsPage(_vm.row.product_slug)
+            }
+          }
+        },
+        [_c("i", { staticClass: "icon-eye" })]
+      )
+    ]),
+    _vm._v(" "),
+    _c("li", [
+      _c(
+        "a",
+        {
+          staticClass: "text text-info",
+          attrs: { href: "#" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.goToEditPage(_vm.row.product_slug)
+            }
+          }
+        },
+        [_c("i", { staticClass: "icon-pencil7" })]
+      )
+    ]),
+    _vm._v(" "),
+    _c("li", [
+      _c(
+        "a",
+        {
+          staticClass: "text text-danger",
+          attrs: { href: "#" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.showDeletePopUp(_vm.row.id)
+            }
+          }
+        },
+        [_c("i", { staticClass: "icon-trash" })]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/seller_panel/limitless_v2/vue/components/product/ShowProduct.vue?vue&type=template&id=b27f2b50&scoped=true&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/seller_panel/limitless_v2/vue/components/product/ShowProduct.vue?vue&type=template&id=b27f2b50&scoped=true& ***!
@@ -79822,552 +79869,486 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content" }, [
     _c("div", { staticClass: "row" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-10" }, [
-        _c("div", { staticClass: "container-detached" }, [
-          _c("div", { staticClass: "content-detached" }, [
-            _c("div", { staticClass: "tab-content" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "panel panel-info" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" }, [
+            _c("div", { staticClass: "row" }, [
               _c(
                 "div",
-                {
-                  staticClass: "tab-pane fade in active",
-                  attrs: { id: "basic" }
-                },
+                { staticClass: "col-md-6" },
                 [
-                  _c("div", { staticClass: "panel panel-info" }, [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "panel-body" }, [
-                      _c("div", { staticClass: "row" }, [
-                        _c(
-                          "div",
-                          { staticClass: "col-md-6" },
-                          [
-                            _c("carousel", {
-                              attrs: { data: _vm.slider, indicators: "hover" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c(
-                            "h3",
-                            {
-                              staticClass: "text-semibold",
-                              staticStyle: { "margin-top": "0px" }
-                            },
-                            [
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "text-default",
-                                  attrs: { href: "#" }
-                                },
-                                [_vm._v(_vm._s(_vm.product.product_name))]
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _vm.product.product_sku !== ""
-                            ? _c(
-                                "p",
-                                { staticStyle: { "margin-bottom": "5px" } },
-                                [
-                                  _c("i", {
-                                    staticClass: "icon-barcode2 text-primary",
-                                    staticStyle: { "margin-right": ".5rem" }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "span",
-                                    {
-                                      staticClass: "text text-bold text-teal "
-                                    },
-                                    [_vm._v(_vm._s(_vm.product.product_sku))]
-                                  )
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm.category !== ""
-                            ? _c(
-                                "p",
-                                {
-                                  staticClass:
-                                    "text text-bold font-weight-bold text-teal",
-                                  staticStyle: { "margin-bottom": "5px" }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "icon-list2 text-primary",
-                                    staticStyle: { "margin-right": ".5rem" }
-                                  }),
-                                  _vm._v(" "),
-                                  _vm.trd_category !== ""
-                                    ? _c("span", [
-                                        _vm._v(
-                                          " " +
-                                            _vm._s(_vm.trd_category.name) +
-                                            " "
-                                        ),
-                                        _c("i", {
-                                          staticClass: "icon-arrow-right15"
-                                        })
-                                      ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _vm.sec_category !== ""
-                                    ? _c("span", [
-                                        _vm._v(
-                                          _vm._s(_vm.sec_category.name) + " "
-                                        ),
-                                        _c("i", {
-                                          staticClass: "icon-arrow-right15"
-                                        })
-                                      ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _c("span", [
-                                    _vm._v(_vm._s(_vm.category.name))
-                                  ])
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm.product.brand !== null
-                            ? _c(
-                                "p",
-                                { staticStyle: { "margin-bottom": "5px" } },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "icon-hammer-wrench text-primary",
-                                    staticStyle: { "margin-right": ".5rem" }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "span",
-                                    {
-                                      staticClass: "text text-bold text-teal "
-                                    },
-                                    [_vm._v(_vm._s(_vm.product.brand.name))]
-                                  )
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "content-group" }, [
-                            _c("p", {
-                              domProps: {
-                                innerHTML: _vm._s(_vm.product.highlight)
-                              }
-                            })
-                          ])
-                        ])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "panel panel-info" }, [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "panel-body" }, [
-                      _c("div", {
-                        staticClass: "content-group",
-                        domProps: { innerHTML: _vm._s(_vm.product.description) }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "panel panel-info" }, [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "panel-body" }, [
-                      _c("div", { staticClass: "content-group" }, [
-                        _c("p", { staticClass: "text text-bold" }, [
-                          _vm._v(
-                            "Product Name (EN) : " +
-                              _vm._s(_vm.product.lang_product_name)
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "content-group" }, [
-                        _c(
-                          "p",
-                          {
-                            staticClass: "text text-bold",
-                            staticStyle: { "margin-bottom": ".5rem" }
-                          },
-                          [_vm._v("Product Highlight (EN): ")]
-                        ),
-                        _vm._v(" "),
-                        _c("p", {
-                          domProps: {
-                            innerHTML: _vm._s(_vm.product.lang_highlight)
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "content-group" }, [
-                        _c(
-                          "p",
-                          {
-                            staticClass: "text text-bold",
-                            staticStyle: { "margin-bottom": ".5rem" }
-                          },
-                          [_vm._v("Product Description (EN): ")]
-                        ),
-                        _vm._v(" "),
-                        _c("p", {
-                          domProps: {
-                            innerHTML: _vm._s(_vm.product.lang_description)
-                          }
-                        })
-                      ])
-                    ])
-                  ])
-                ]
+                  _c("carousel", {
+                    attrs: { data: _vm.slider, indicators: "hover" }
+                  })
+                ],
+                1
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "tab-pane fade", attrs: { id: "details" } },
-                [
-                  _c("div", { staticClass: "panel " }, [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "panel-body" }, [
-                      _c("div", { staticClass: "content-group" }, [
-                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                          _c("span", { staticClass: "text-bold" }, [
-                            _vm._v("Main Material: ")
-                          ]),
-                          _vm._v(" "),
-                          _vm.product.details.materials
-                            ? _c("span", {
-                                domProps: {
-                                  innerHTML: _vm._s(
-                                    _vm.product.details.materials
-                                  )
-                                }
-                              })
-                            : _c(
-                                "span",
-                                {
-                                  staticClass: "text-size-small text-slate-400"
-                                },
-                                [_vm._v("No Data")]
-                              )
-                        ])
-                      ]),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c(
+                  "h3",
+                  {
+                    staticClass: "text-semibold",
+                    staticStyle: { "margin-top": "0px" }
+                  },
+                  [
+                    _c(
+                      "a",
+                      { staticClass: "text-default", attrs: { href: "#" } },
+                      [_vm._v(_vm._s(_vm.product.product_name))]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.product.product_sku !== ""
+                  ? _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
+                      _c("i", {
+                        staticClass: "icon-barcode2 text-primary",
+                        staticStyle: { "margin-right": ".5rem" }
+                      }),
                       _vm._v(" "),
-                      _c("div", { staticClass: "content-group" }, [
-                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                          _c("span", { staticClass: "text-bold" }, [
-                            _vm._v("Product Model: ")
-                          ]),
-                          _vm._v(" "),
-                          _vm.product.details.model
-                            ? _c("span", {
-                                domProps: {
-                                  innerHTML: _vm._s(_vm.product.details.model)
-                                }
-                              })
-                            : _c(
-                                "span",
-                                {
-                                  staticClass: "text-size-small text-slate-400"
-                                },
-                                [_vm._v("No Data")]
-                              )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "content-group" }, [
-                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                          _c("span", { staticClass: "text-bold" }, [
-                            _vm._v("No. Of Pieces : ")
-                          ]),
-                          _vm._v(" "),
-                          _vm.product.details.pieces
-                            ? _c("span", {
-                                domProps: {
-                                  innerHTML: _vm._s(_vm.product.details.pieces)
-                                }
-                              })
-                            : _c(
-                                "span",
-                                {
-                                  staticClass: "text-size-small text-slate-400"
-                                },
-                                [_vm._v("No Data")]
-                              )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "content-group" }, [
-                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                          _c("span", { staticClass: "text-bold" }, [
-                            _vm._v("Product Occasion: ")
-                          ]),
-                          _vm._v(" "),
-                          _vm.product.details.occasion
-                            ? _c("span", {
-                                domProps: {
-                                  innerHTML: _vm._s(
-                                    _vm.product.details.occasion
-                                  )
-                                }
-                              })
-                            : _c(
-                                "span",
-                                {
-                                  staticClass: "text-size-small text-slate-400"
-                                },
-                                [_vm._v("No Data")]
-                              )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "content-group" }, [
-                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                          _c("span", { staticClass: "text-bold" }, [
-                            _vm._v("Color Shade : ")
-                          ]),
-                          _vm._v(" "),
-                          _vm.product.details.color_shade
-                            ? _c("span", {
-                                domProps: {
-                                  innerHTML: _vm._s(
-                                    _vm.product.details.color_shade
-                                  )
-                                }
-                              })
-                            : _c(
-                                "span",
-                                {
-                                  staticClass: "text-size-small text-slate-400"
-                                },
-                                [_vm._v("No Data")]
-                              )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "content-group" }, [
-                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                          _c("span", { staticClass: "text-bold" }, [
-                            _vm._v("Skin Type: ")
-                          ]),
-                          _vm._v(" "),
-                          _vm.product.details.skin_type
-                            ? _c("span", {
-                                domProps: {
-                                  innerHTML: _vm._s(
-                                    _vm.product.details.skin_type
-                                  )
-                                }
-                              })
-                            : _c(
-                                "span",
-                                {
-                                  staticClass: "text-size-small text-slate-400"
-                                },
-                                [_vm._v("No Data")]
-                              )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "content-group" }, [
-                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                          _c("span", { staticClass: "text-bold" }, [
-                            _vm._v("Extra Details : ")
-                          ]),
-                          _vm._v(" "),
-                          _vm.product.details.extra_details
-                            ? _c("span", {
-                                domProps: {
-                                  innerHTML: _vm._s(
-                                    _vm.product.details.extra_details
-                                  )
-                                }
-                              })
-                            : _c(
-                                "span",
-                                {
-                                  staticClass: "text-size-small text-slate-400"
-                                },
-                                [_vm._v("No Data")]
-                              )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "content-group" }, [
-                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                          _c("span", { staticClass: "text-bold" }, [
-                            _vm._v("Warranty Policy: ")
-                          ]),
-                          _vm._v(" "),
-                          _vm.product.details.warranty_policy
-                            ? _c("span", {
-                                domProps: {
-                                  innerHTML: _vm._s(
-                                    _vm.product.details.warranty_policy
-                                  )
-                                }
-                              })
-                            : _c(
-                                "span",
-                                {
-                                  staticClass: "text-size-small text-slate-400"
-                                },
-                                [_vm._v("No Data")]
-                              )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "content-group" }, [
-                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                          _c("span", { staticClass: "text-bold" }, [
-                            _vm._v("Warranty Policy (EN): ")
-                          ]),
-                          _vm._v(" "),
-                          _vm.product.details.warranty_policy_eng
-                            ? _c("span", {
-                                domProps: {
-                                  innerHTML: _vm._s(
-                                    _vm.product.details.warranty_policy_eng
-                                  )
-                                }
-                              })
-                            : _c(
-                                "span",
-                                {
-                                  staticClass: "text-size-small text-slate-400"
-                                },
-                                [_vm._v("No Data")]
-                              )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "content-group" }, [
-                        _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                          _c("span", { staticClass: "text-bold" }, [
-                            _vm._v("Warranty Period : ")
-                          ]),
-                          _vm._v(" "),
-                          _vm.product.details.warranty_period
-                            ? _c("span", [
-                                _vm._v(
-                                  _vm._s(_vm.product.details.warranty_period) +
-                                    " days"
-                                )
-                              ])
-                            : _c(
-                                "span",
-                                {
-                                  staticClass: "text-size-small text-slate-400"
-                                },
-                                [_vm._v("0 Day")]
-                              )
-                        ])
+                      _c("span", { staticClass: "text text-bold text-teal " }, [
+                        _vm._v(_vm._s(_vm.product.product_sku))
                       ])
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(5)
-                ]
-              ),
-              _vm._v(" "),
-              _vm._m(6),
-              _vm._v(" "),
-              _vm._m(7)
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.category !== ""
+                  ? _c(
+                      "p",
+                      {
+                        staticClass:
+                          "text text-bold font-weight-bold text-teal",
+                        staticStyle: { "margin-bottom": "5px" }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "icon-list2 text-primary",
+                          staticStyle: { "margin-right": ".5rem" }
+                        }),
+                        _vm._v(" "),
+                        _vm.trd_category !== ""
+                          ? _c("span", [
+                              _vm._v(" " + _vm._s(_vm.trd_category.name) + " "),
+                              _c("i", { staticClass: "icon-arrow-right15" })
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.sec_category !== ""
+                          ? _c("span", [
+                              _vm._v(_vm._s(_vm.sec_category.name) + " "),
+                              _c("i", { staticClass: "icon-arrow-right15" })
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(_vm.category.name))])
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.product.brand
+                  ? _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
+                      _c("i", {
+                        staticClass: "icon-hammer-wrench text-primary",
+                        staticStyle: { "margin-right": ".5rem" }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text text-bold text-teal " }, [
+                        _vm._v(_vm._s(_vm.product.brand.name))
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.product.seller.shop
+                  ? _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
+                      _c("i", {
+                        staticClass: "icon-store2 text-primary",
+                        staticStyle: { "margin-right": ".5rem" }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text text-bold text-teal " }, [
+                        _vm._v(_vm._s(_vm.product.seller.shop.name))
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.product.seller !== null && _vm.product.seller.name !== ""
+                  ? _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
+                      _c("i", {
+                        staticClass: "icon-user text-primary",
+                        staticStyle: { "margin-right": ".5rem" }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text text-bold text-teal " }, [
+                        _vm._v(_vm._s(_vm.product.seller.name))
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.product.product_type === 1
+                  ? _c("div", { staticClass: "content-group" }, [
+                      _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
+                        _vm._v(
+                          "\n                                    Price:\n                                    "
+                        ),
+                        _c(
+                          "span",
+                          { staticClass: "text text-bold text-teal " },
+                          [_vm._v(_vm._s(_vm.product.product_price))]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
+                        _vm._v(
+                          "\n                                    Qty:\n                                    "
+                        ),
+                        _c(
+                          "span",
+                          { staticClass: "text text-bold text-teal " },
+                          [_vm._v(_vm._s(_vm.product.product_qty))]
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.product.discount_price !== 0 &&
+                _vm.product.discount_price !== ""
+                  ? _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
+                      _vm._v(
+                        "\n                                Discount:\n                                "
+                      ),
+                      _c("span", { staticClass: "text text-bold text-teal " }, [
+                        _vm._v(_vm._s(_vm.product.discount_price))
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-group" }, [
+                  _c("p", {
+                    domProps: { innerHTML: _vm._s(_vm.product.highlight) }
+                  })
+                ])
+              ])
             ])
           ])
-        ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "panel panel-info" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" }, [
+            _c("div", {
+              staticClass: "content-group",
+              domProps: { innerHTML: _vm._s(_vm.product.description) }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "panel panel-info" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" }, [
+            _c("div", { staticClass: "content-group" }, [
+              _c("p", { staticClass: "text text-bold" }, [
+                _vm._v(
+                  "Product Name (EN) : " + _vm._s(_vm.product.lang_product_name)
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "content-group" }, [
+              _c(
+                "p",
+                {
+                  staticClass: "text text-bold",
+                  staticStyle: { "margin-bottom": ".5rem" }
+                },
+                [_vm._v("Product Highlight (EN): ")]
+              ),
+              _vm._v(" "),
+              _c("p", {
+                domProps: { innerHTML: _vm._s(_vm.product.lang_highlight) }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "content-group" }, [
+              _c(
+                "p",
+                {
+                  staticClass: "text text-bold",
+                  staticStyle: { "margin-bottom": ".5rem" }
+                },
+                [_vm._v("Product Description (EN): ")]
+              ),
+              _vm._v(" "),
+              _c("p", {
+                domProps: { innerHTML: _vm._s(_vm.product.lang_description) }
+              })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        typeof _vm.product.details !== "undefined" && _vm.product.details !== ""
+          ? _c("div", { staticClass: "panel" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c("div", { staticClass: "panel-body" }, [
+                _c("div", { staticClass: "content-group" }, [
+                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                    _c("span", { staticClass: "text-bold" }, [
+                      _vm._v("Main Material: ")
+                    ]),
+                    _vm._v(" "),
+                    _vm.product.details.materials
+                      ? _c("span", {
+                          domProps: {
+                            innerHTML: _vm._s(_vm.product.details.materials)
+                          }
+                        })
+                      : _c(
+                          "span",
+                          { staticClass: "text-size-small text-slate-400" },
+                          [_vm._v("No Data")]
+                        )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-group" }, [
+                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                    _c("span", { staticClass: "text-bold" }, [
+                      _vm._v("Product Model: ")
+                    ]),
+                    _vm._v(" "),
+                    _vm.product.details.model
+                      ? _c("span", {
+                          domProps: {
+                            innerHTML: _vm._s(_vm.product.details.model)
+                          }
+                        })
+                      : _c(
+                          "span",
+                          { staticClass: "text-size-small text-slate-400" },
+                          [_vm._v("No Data")]
+                        )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-group" }, [
+                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                    _c("span", { staticClass: "text-bold" }, [
+                      _vm._v("No. Of Pieces : ")
+                    ]),
+                    _vm._v(" "),
+                    _vm.product.details.pieces
+                      ? _c("span", {
+                          domProps: {
+                            innerHTML: _vm._s(_vm.product.details.pieces)
+                          }
+                        })
+                      : _c(
+                          "span",
+                          { staticClass: "text-size-small text-slate-400" },
+                          [_vm._v("No Data")]
+                        )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-group" }, [
+                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                    _c("span", { staticClass: "text-bold" }, [
+                      _vm._v("Product Occasion: ")
+                    ]),
+                    _vm._v(" "),
+                    _vm.product.details.occasion
+                      ? _c("span", {
+                          domProps: {
+                            innerHTML: _vm._s(_vm.product.details.occasion)
+                          }
+                        })
+                      : _c(
+                          "span",
+                          { staticClass: "text-size-small text-slate-400" },
+                          [_vm._v("No Data")]
+                        )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-group" }, [
+                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                    _c("span", { staticClass: "text-bold" }, [
+                      _vm._v("Color Shade : ")
+                    ]),
+                    _vm._v(" "),
+                    _vm.product.details.color_shade
+                      ? _c("span", {
+                          domProps: {
+                            innerHTML: _vm._s(_vm.product.details.color_shade)
+                          }
+                        })
+                      : _c(
+                          "span",
+                          { staticClass: "text-size-small text-slate-400" },
+                          [_vm._v("No Data")]
+                        )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-group" }, [
+                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                    _c("span", { staticClass: "text-bold" }, [
+                      _vm._v("Skin Type: ")
+                    ]),
+                    _vm._v(" "),
+                    _vm.product.details.skin_type
+                      ? _c("span", {
+                          domProps: {
+                            innerHTML: _vm._s(_vm.product.details.skin_type)
+                          }
+                        })
+                      : _c(
+                          "span",
+                          { staticClass: "text-size-small text-slate-400" },
+                          [_vm._v("No Data")]
+                        )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-group" }, [
+                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                    _c("span", { staticClass: "text-bold" }, [
+                      _vm._v("Extra Details : ")
+                    ]),
+                    _vm._v(" "),
+                    _vm.product.details.extra_details
+                      ? _c("span", {
+                          domProps: {
+                            innerHTML: _vm._s(_vm.product.details.extra_details)
+                          }
+                        })
+                      : _c(
+                          "span",
+                          { staticClass: "text-size-small text-slate-400" },
+                          [_vm._v("No Data")]
+                        )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-group" }, [
+                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                    _c("span", { staticClass: "text-bold" }, [
+                      _vm._v("Warranty Policy: ")
+                    ]),
+                    _vm._v(" "),
+                    _vm.product.details.warranty_policy
+                      ? _c("span", {
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.product.details.warranty_policy
+                            )
+                          }
+                        })
+                      : _c(
+                          "span",
+                          { staticClass: "text-size-small text-slate-400" },
+                          [_vm._v("No Data")]
+                        )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-group" }, [
+                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                    _c("span", { staticClass: "text-bold" }, [
+                      _vm._v("Warranty Policy (EN): ")
+                    ]),
+                    _vm._v(" "),
+                    _vm.product.details.warranty_policy_eng
+                      ? _c("span", {
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.product.details.warranty_policy_eng
+                            )
+                          }
+                        })
+                      : _c(
+                          "span",
+                          { staticClass: "text-size-small text-slate-400" },
+                          [_vm._v("No Data")]
+                        )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-group" }, [
+                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
+                    _c("span", { staticClass: "text-bold" }, [
+                      _vm._v("Warranty Period : ")
+                    ]),
+                    _vm._v(" "),
+                    _vm.product.details.warranty_period
+                      ? _c("span", [
+                          _vm._v(
+                            _vm._s(_vm.product.details.warranty_period) +
+                              " days"
+                          )
+                        ])
+                      : _c(
+                          "span",
+                          { staticClass: "text-size-small text-slate-400" },
+                          [_vm._v("0 Day")]
+                        )
+                  ])
+                ])
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.product.variationsData.length !== 0 &&
+        typeof _vm.product.variationsData !== "undefined"
+          ? _c("div", { staticClass: "panel" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _c("div", { staticClass: "panel-body" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table table-sm table-responsive table-bordered"
+                  },
+                  [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.product.variationsData, function(variaction) {
+                        return _c("tr", [
+                          _c("td", [
+                            _vm._v(_vm._s(variaction.primary_model.color_name))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(variaction.secondary_model.size_name))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(variaction.seller_sku))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(variaction.quantity))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(" " + _vm._s(variaction.price))])
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ])
+            ])
+          : _vm._e()
       ])
     ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2" }, [
-      _c("div", { staticClass: " sidebar-default" }, [
-        _c(
-          "div",
-          {
-            staticClass: "sidebar-content",
-            staticStyle: { "padding-bottom": "0px" }
-          },
-          [
-            _c(
-              "div",
-              {
-                staticClass: "panel no-border-top no-border-radius-top ",
-                staticStyle: { "margin-bottom": "0px" }
-              },
-              [
-                _c("ul", { staticClass: "navigation" }, [
-                  _c("li", { staticClass: "navigation-header" }, [
-                    _vm._v("Navigation")
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "active" }, [
-                    _c(
-                      "a",
-                      { attrs: { href: "#basic", "data-toggle": "tab" } },
-                      [
-                        _c("i", { staticClass: "icon-files-empty" }),
-                        _vm._v(" Basic Info")
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c(
-                      "a",
-                      { attrs: { href: "#details", "data-toggle": "tab" } },
-                      [
-                        _c("i", { staticClass: "icon-files-empty" }),
-                        _vm._v(" Details")
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c(
-                      "a",
-                      { attrs: { href: "#reviews", "data-toggle": "tab" } },
-                      [
-                        _c("i", { staticClass: "icon-files-empty" }),
-                        _vm._v(" Reviews")
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c(
-                      "a",
-                      { attrs: { href: "#orders", "data-toggle": "tab" } },
-                      [
-                        _c("i", { staticClass: "icon-files-empty" }),
-                        _vm._v(" Orders")
-                      ]
-                    )
-                  ])
-                ])
-              ]
-            )
-          ]
-        )
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -80436,119 +80417,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel panel-flat" }, [
-      _c("div", { staticClass: "panel-heading" }, [
-        _c("h6", { staticClass: "panel-title" }, [_vm._v("My details")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "heading-elements" }, [
-          _c("ul", { staticClass: "icons-list" }, [
-            _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "panel-body" })
+    return _c("div", { staticClass: "panel-heading bg-teal" }, [
+      _c("h6", { staticClass: "panel-title" }, [_vm._v("Product Variations")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "tab-pane fade", attrs: { id: "reviews" } },
-      [
-        _c("div", { staticClass: "panel panel-flat" }, [
-          _c("div", { staticClass: "panel-heading" }, [
-            _c("h6", { staticClass: "panel-title" }, [
-              _vm._v("Available hours")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "heading-elements" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-                _vm._v(" "),
-                _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-                _vm._v(" "),
-                _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel-body" })
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("td", [_vm._v("Color")]),
         _vm._v(" "),
-        _c("div", { staticClass: "panel panel-flat" }, [
-          _c("div", { staticClass: "panel-heading" }, [
-            _c("h6", { staticClass: "panel-title" }, [_vm._v("My details")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "heading-elements" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-                _vm._v(" "),
-                _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-                _vm._v(" "),
-                _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel-body" })
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "tab-pane fade", attrs: { id: "orders" } },
-      [
-        _c("div", { staticClass: "panel panel-flat" }, [
-          _c("div", { staticClass: "panel-heading" }, [
-            _c("h6", { staticClass: "panel-title" }, [
-              _vm._v("Available hours")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "heading-elements" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-                _vm._v(" "),
-                _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-                _vm._v(" "),
-                _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel-body" })
-        ]),
+        _c("td", [_vm._v("Size")]),
         _vm._v(" "),
-        _c("div", { staticClass: "panel panel-flat" }, [
-          _c("div", { staticClass: "panel-heading" }, [
-            _c("h6", { staticClass: "panel-title" }, [_vm._v("My details")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "heading-elements" }, [
-              _c("ul", { staticClass: "icons-list" }, [
-                _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-                _vm._v(" "),
-                _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-                _vm._v(" "),
-                _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel-body" })
-        ])
-      ]
-    )
+        _c("td", [_vm._v("SKU")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Price")])
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -96608,6 +96497,7 @@ var map = {
 	"./components/product/CreateProduct.vue": "./resources/views/seller_panel/limitless_v2/vue/components/product/CreateProduct.vue",
 	"./components/product/EditProduct.vue": "./resources/views/seller_panel/limitless_v2/vue/components/product/EditProduct.vue",
 	"./components/product/ProductList.vue": "./resources/views/seller_panel/limitless_v2/vue/components/product/ProductList.vue",
+	"./components/product/SellerProductAction.vue": "./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue",
 	"./components/product/ShowProduct.vue": "./resources/views/seller_panel/limitless_v2/vue/components/product/ShowProduct.vue",
 	"./components/setting/AccountSettingPage.vue": "./resources/views/seller_panel/limitless_v2/vue/components/setting/AccountSettingPage.vue",
 	"./components/setting/OtherChangeSection.vue": "./resources/views/seller_panel/limitless_v2/vue/components/setting/OtherChangeSection.vue",
@@ -97617,6 +97507,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductList_vue_vue_type_template_id_51b4985a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductList_vue_vue_type_template_id_51b4985a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue":
+/*!**************************************************************************************************!*\
+  !*** ./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SellerProductAction_vue_vue_type_template_id_49cb8428_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SellerProductAction.vue?vue&type=template&id=49cb8428&scoped=true& */ "./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue?vue&type=template&id=49cb8428&scoped=true&");
+/* harmony import */ var _SellerProductAction_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SellerProductAction.vue?vue&type=script&lang=js& */ "./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SellerProductAction_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SellerProductAction_vue_vue_type_template_id_49cb8428_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SellerProductAction_vue_vue_type_template_id_49cb8428_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "49cb8428",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SellerProductAction_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SellerProductAction.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SellerProductAction_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue?vue&type=template&id=49cb8428&scoped=true&":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue?vue&type=template&id=49cb8428&scoped=true& ***!
+  \*********************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SellerProductAction_vue_vue_type_template_id_49cb8428_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SellerProductAction.vue?vue&type=template&id=49cb8428&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/seller_panel/limitless_v2/vue/components/product/SellerProductAction.vue?vue&type=template&id=49cb8428&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SellerProductAction_vue_vue_type_template_id_49cb8428_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SellerProductAction_vue_vue_type_template_id_49cb8428_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -99648,7 +99607,7 @@ var actions = {
               commit = _ref5.commit;
               _context5.prev = 1;
               _context5.next = 4;
-              return axios.get("/seller/product/".concat(productID)).then(function (response) {
+              return axios.get("/seller/single/product/".concat(productID)).then(function (response) {
                 console.log(response);
 
                 if (response.data.status === 'error') {

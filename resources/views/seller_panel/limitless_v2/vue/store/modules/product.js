@@ -81,7 +81,7 @@ const actions = {
     },
     async singleProduct({commit}, productID){
         try {
-            return await axios.get(`/seller/product/${productID}`)
+            return await axios.get(`/seller/single/product/${productID}`)
                 .then(response=>{
                     console.log(response);
                     if(response.data.status === 'error'){

@@ -34,7 +34,12 @@ class ProductController extends Controller
 
     public function index()
     {
-        return view('admin_panel.'.$this->template_name.'.product.index');
+        $products = Product::with(['thumbImage','category','brand','variations'])->latest()->notDelete()->get();
+        $status = Product::flipProductStatus();
+        return view('admin_panel.'.$this->template_name.'.product.index',[
+            'products'=>$products,
+            'status'=>$status,
+        ]);
     }
 
     public function product_collection(Request $request){
@@ -133,7 +138,7 @@ class ProductController extends Controller
             $rules = array_merge($rules,[
                 'seller_sku'=>'required|string|max:20',
                 'product_qty'=>'required|integer|min:0|not_in:0',
-                'product_price'=>'required|integer|min:0|not_in:0',
+                'product_price'=>'required|min:0|not_in:0',
             ]);
 
             $messages = array_merge($messages,[
@@ -158,7 +163,7 @@ class ProductController extends Controller
                 'variations.*.size_id'=>'required',
                 'variations.*.seller_sku'=>'required',
                 'variations.*.qty'=>'required|integer|min:0|not_in:0',
-                'variations.*.price'=>'required|integer|min:0|not_in:0',
+                'variations.*.price'=>'required|min:0|not_in:0',
                 'variations.*.status'=>'required',
             ]);
 
@@ -188,9 +193,9 @@ class ProductController extends Controller
         if($validator->passes()){
             try{
                 DB::beginTransaction();
-                if(!empty($request->discount_price) && $request->discount_price >= $request->product_price){
+                /*if(!empty($request->discount_price) && $request->discount_price >= $request->product_price){
                     throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
-                }
+                }*/
                 #Store Data in Product Table
                 $product = Product::create([
                     'product_sku'=>Product::product_sku_generate(),
@@ -244,9 +249,9 @@ class ProductController extends Controller
                                 $variations = $request->variations;
                                 $variationArray = array();
                                 foreach ($variations as $variation){
-                                    if(!empty($request->discount_price) && $request->discount_price >= $variation->price){
+                                    /*if(!empty($request->discount_price) && $request->discount_price >= $variation->price){
                                         throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
-                                    }
+                                    }*/
                                     $variation = (object) $variation;
                                     $gift ='';
                                     if(!empty($variation->gift_product)){
@@ -269,6 +274,9 @@ class ProductController extends Controller
 
                                 }
                                 $variationProduct = ProductVariation::insert($variationArray);
+                                if(!empty($variationProduct)){
+                                    throw new Exception('Invalid Product Variation Information', Response::HTTP_BAD_REQUEST);
+                                }
                             }
 
 
@@ -288,6 +296,9 @@ class ProductController extends Controller
                                     ]);
                                 }
                                 $productImages = ProductImage::insert($imageArray);
+                                if(!empty($productImages)){
+                                    throw new Exception('Invalid Product Image Information', Response::HTTP_BAD_REQUEST);
+                                }
                             }
 
                         }else{
@@ -310,6 +321,9 @@ class ProductController extends Controller
                                     ]);
                                 }
                                 $productImages = ProductImage::insert($imageArray);
+                                if(!empty($productImages)){
+                                    throw new Exception('Invalid Product Image Information', Response::HTTP_BAD_REQUEST);
+                                }
                             }
                         }
                     }else{
@@ -377,7 +391,7 @@ class ProductController extends Controller
             return $query->with(['parent'=>function($q){
                 return $q->with('parent');
             }]);
-        }, 'brand','thumbImage','productDetails','productImages'=>function($query){
+        }, 'brand','seller.shop','thumbImage','productDetails','productImages'=>function($query){
             return $query->with('attachment')->isActive();
         },'variations'=>function($q){
             return $q->with('primaryModel', 'secondaryModel');
@@ -458,7 +472,7 @@ class ProductController extends Controller
             $rules = array_merge($rules,[
                 'seller_sku'=>'required|string|max:20',
                 'product_qty'=>'required|integer|min:0|not_in:0',
-                'product_price'=>'required|integer|min:0|not_in:0',
+                'product_price'=>'required|min:0|not_in:0',
             ]);
 
             $messages = array_merge($messages,[
@@ -513,9 +527,9 @@ class ProductController extends Controller
         if($validator->passes()){
             try{
                 DB::beginTransaction();
-                if(!empty($request->discount_price) && $request->discount_price >= $request->product_price){
+                /*if(!empty($request->discount_price) && $request->discount_price >= $request->product_price){
                     throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
-                }
+                }*/
 
                 #Store Data in Product Table
                 $product = Product::where('product_id', $id)->first();
@@ -546,7 +560,6 @@ class ProductController extends Controller
                     'product_status'=>(!empty($request->product_status) && $request->product_status == 1) ? $request->product_status : 2,
                     'warranty_type'=>$request->warranty_type,
                     'video_url'=>$request->video_url,
-                    'seller_id'=>1, // Seller id 1 = Admin Default
                     'product_type'=>$request->product_type,
                     'discount_price'=>$request->discount_price,
                 ]);
@@ -599,9 +612,9 @@ class ProductController extends Controller
                                 $variations = $request->variations;
                                 $variationArray = array();
                                 foreach ($variations as $variation){
-                                    if(!empty($request->discount_price) && $request->discount_price >= $variation->price){
+                                    /*if(!empty($request->discount_price) && $request->discount_price >= $variation->price){
                                         throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
-                                    }
+                                    }*/
 
                                     $variation = (object) $variation;
                                     $gift ='';
