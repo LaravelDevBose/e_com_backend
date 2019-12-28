@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Brand extends Model
 {
+    const Status = [
+        'Active'=>1,
+        'Inactive'=>2,
+        'Requested'=>3
+    ];
+
     protected $table = 'brands';
 
     protected $primaryKey = 'brand_id';

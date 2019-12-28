@@ -29,8 +29,13 @@
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-lg-2 control-label">Brand:</label>
-                                <div class="col-lg-10">
+                                <div class="col-lg-9">
                                     <vue-select2 v-model="formData.brand_id" :options="brandList"> </vue-select2>
+                                </div>
+                                <div class="col-md-1">
+                                    <a href="#" @click.prevent="showBrandReqModal()" class="btn btn-sm btn-success" title="Request A Brand Name">
+                                        <i class="icon-add"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -486,6 +491,7 @@
                 </div>
             </div>
         </div>
+        <brand-request-modal></brand-request-modal>
     </div>
 </template>
 
@@ -499,10 +505,12 @@
     import VueSelect2 from '../../../../../../js/components/helper/Select2';
     import MultiSelect2 from '../../../../../../js/components/helper/MultipleSelect2';
     import ImageCropper from "../../../../../../js/components/cropper/ImageCropper";
+    import BrandRequestModal from "../brand/BrandRequestModal";
 
     export default {
         name: "CreateProduct",
         components:{
+            BrandRequestModal,
             ImageCropper,
             Treeselect,
             'vue-select2':VueSelect2,
@@ -873,6 +881,10 @@
                         }
                     })
             },
+
+            showBrandReqModal(){
+                $('#brand_req').modal('show');
+            }
         },
         computed:{
             ...mapGetters([

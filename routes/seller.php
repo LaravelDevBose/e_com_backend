@@ -55,4 +55,6 @@ Route::prefix('seller')->middleware('auth:seller')->namespace('Seller')->as('sel
     Route::get('account/info', 'SettingController@account_info')->name('account.info');
     Route::post('update/account/info', 'SettingController@update_account_info')->name('update.account.info');
     Route::post('update/password', 'SettingController@update_password')->name('update.password');
+
+    Route::post('brand/request/store', 'GeneralDataListController@brand_req_store')->name('brand.req.store');
 });
