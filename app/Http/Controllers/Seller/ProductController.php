@@ -546,7 +546,6 @@ class ProductController extends Controller
                     'product_status'=>(!empty($request->product_status) && $request->product_status == 1) ? $request->product_status : 2,
                     'warranty_type'=>$request->warranty_type,
                     'video_url'=>$request->video_url,
-                    'seller_id'=>1, // Seller id 1 = Admin Default
                     'product_type'=>$request->product_type,
                     'discount_price'=>$request->discount_price,
                 ]);
