@@ -85,6 +85,7 @@ class SellerLoginController extends Controller
         $identity  = request()->get('identity');
         $fieldName = filter_var($identity, FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
         request()->merge([$fieldName => $identity]);
-        return $fieldName;
+//        return $fieldName;
+        return 'email';
     }
 }

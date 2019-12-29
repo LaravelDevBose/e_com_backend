@@ -50006,12 +50006,7 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-10" }, [
             _c("label", { attrs: { for: "emmail_login" } }, [
-              _vm._v(
-                _vm._s(_vm.$t("form.email")) +
-                  "/" +
-                  _vm._s(_vm.$t("form.username")) +
-                  " "
-              ),
+              _vm._v(_vm._s(_vm.$t("form.email")) + " "),
               _c("span", { staticClass: "text text-danger text-bold" }, [
                 _vm._v("*")
               ])
@@ -50028,9 +50023,9 @@ var render = function() {
               ],
               staticClass: "form-control",
               attrs: {
-                type: "text",
+                type: "email",
                 autocomplete: "off",
-                placeholder: "email/username",
+                placeholder: "email",
                 required: "",
                 id: "emmail_login"
               },
@@ -50467,11 +50462,7 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-10" }, [
             _c("label", { attrs: { for: "emmail_login" } }, [
-              _vm._v(
-                _vm._s(_vm.$t("form.email")) +
-                  "/" +
-                  _vm._s(_vm.$t("form.username"))
-              ),
+              _vm._v(_vm._s(_vm.$t("form.email"))),
               _c("span", { staticClass: "text text-danger text-bold" }, [
                 _vm._v("*")
               ])
@@ -50488,9 +50479,9 @@ var render = function() {
               ],
               staticClass: "form-control",
               attrs: {
-                type: "text",
+                type: "email",
                 autocomplete: "off",
-                placeholder: "email/username",
+                placeholder: "email",
                 required: "",
                 id: "emmail_login"
               },
