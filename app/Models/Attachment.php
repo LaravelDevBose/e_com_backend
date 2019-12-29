@@ -22,6 +22,7 @@ class Attachment extends Model
         'shop'=>11,
         'section'=>12,
         'Review'=>13,
+        'mall'=>14,
     ];
 
     protected $table = 'attachments';

@@ -16,6 +16,7 @@ class MallInfoProductsTable extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->string('mall_comp_name')->nullable();
             $table->unsignedBigInteger('mall_comp_logo')->nullable();
+            $table->boolean('mall_product')->default(0);
         });
     }
 
@@ -27,7 +28,7 @@ class MallInfoProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn(['mall_comp_name', 'mall_comp_logo']);
+            $table->dropColumn(['mall_comp_name', 'mall_comp_logo','mall_product']);
         });
     }
 }

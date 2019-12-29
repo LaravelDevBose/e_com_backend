@@ -39,9 +39,7 @@ import admin from "./modules/admin";
 export default new Vuex.Store({
     state:{
         resData:'',
-        attachmentsFile:[],
         errors:null,
-        attachment_ids:[],
         paginate_data:[]
 
     },

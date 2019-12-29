@@ -89,6 +89,7 @@ class Product extends Model
         'discount_price',
         'mall_comp_name',
         'mall_comp_logo',
+        'mall_product',
     ];
 
     protected static function boot()

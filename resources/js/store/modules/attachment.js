@@ -1,6 +1,7 @@
 //declare State
 const state = {
-
+    attachmentsFile:[],
+    attachment_ids:[],
 };
 
 //declare Getters
@@ -18,12 +19,12 @@ const actions = {
                                 'Content-Type': 'application/x-www-form-urlencoded'
                             }
                         }).then(function (response) {
-                            commit('setAttachment',response.data);
+                            if(response.data.status === 'success'){
+                                commit('setAttachment',response.data);
+                            }
                         }).catch(function (errors) {
                             console.log(errors)
                         });
-
-
         }catch (error) {
             console.log(error);
         }
@@ -33,15 +34,11 @@ const actions = {
 
 const mutations = {
     setAttachment:(state,response)=>{
-        if(response.status === 'success'){
-            response.attachments.forEach(file=>{
-                state.attachmentsFile.unshift(file);
-                state.attachment_ids.push(file.id);
-            });
+        response.attachments.forEach(file=>{
+            state.attachmentsFile.unshift(file);
+            state.attachment_ids.unshift(file.id);
+        });
 
-        }else{
-            state.errors = response;
-        }
     },
     emptyAttachmentFile:(state)=>{
         state.attachmentsFile = [];

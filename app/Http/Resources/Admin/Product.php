@@ -53,6 +53,7 @@ class Product extends Resource
             'seller'=> new SellerResource($this->whenLoaded('seller')),
             'mall_comp_name'=>$this->mall_comp_name,
             'mall_logo'=>new AttachmentResource($this->whenLoaded('mallLogo')),
+            'mall_product'=> $this->mall_product,
         ];
     }
 }

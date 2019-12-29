@@ -101,8 +101,8 @@
                         <div class="form-group row">
                             <div class="col-md-4">
                                 <div class="row">
-                                    <label class="col-lg-4 control-label">Discount:</label>
-                                    <div class="col-lg-8">
+                                    <label class="col-lg-6 control-label">Discount:</label>
+                                    <div class="col-lg-6">
                                         <input type="number" v-model="formData.discount_price" class="form-control" placeholder="Discount Price">
                                     </div>
                                 </div>
@@ -134,11 +134,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <div class="row">
-                                    <label class="col-lg-2 control-label">Mall Company Logo: <span class="text text-danger text-bold h4">*</span></label>
-                                    <div class="col-lg-10">
-                                        <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                                    <label class="col-lg-3 control-label">Mall Company Logo: <span class="text text-danger text-bold h4">*</span></label>
+                                    <div class="col-lg-9">
+                                        <attachment :multi_file="mall_multi_file" :folder="mall_folder"></attachment>
                                     </div>
                                 </div>
                             </div>
@@ -586,6 +586,9 @@
                 },
                 removeImage:false,
                 vari_id:'variaction_',
+                mall_folder:'mall',
+                mall_multi_file:true,
+                mall_logo_id:'',
             }
         },
         created() {
@@ -807,6 +810,9 @@
                 this.formData.thumb_id = this.cropImageIds[0];
                 this.formData.variations = this.variations;
                 this.formData.imageIds = this.imageIds;
+                if(this.mall_logo_id !== ''){
+                    this.formData.mall_comp_logo = this.mall_logo_id;
+                }
                 //send Vuex request
                 this.storeProductData(this.formData)
                     .then(response=>{
@@ -890,6 +896,7 @@
                 'skinTypes',
                 'cropImageIds',
                 'productType',
+                'attachment_ids',
             ]),
             clonedPrimaryIds(){
                 return JSON.parse(JSON.stringify(this.pri_id));
@@ -904,7 +911,9 @@
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
             },
-
+            attachment_idsDataCheck(){
+                return JSON.parse(JSON.stringify(this.attachment_ids));
+            },
         },
         watch:{
             clonedPrimaryIds:{
@@ -969,6 +978,22 @@
                 handler(newVal, oldVal){
                     if(newVal !== oldVal){
                         this.btnDisabled = false;
+                    }
+
+                }
+            },
+            attachment_idsDataCheck:{
+                handler(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        if(this.mall_multi_file === true || this.mall_multi_file === 'true' || this.mall_multi_file === 1){
+                            if(this.attachment_ids.length > 1){
+                                this.mall_logo_id = this.attachment_ids[0];
+                            }else{
+                                this.mall_logo_id = this.attachment_ids;
+                            }
+                        }else{
+                            this.mall_logo_id = this.attachment_ids;
+                        }
                     }
 
                 }
