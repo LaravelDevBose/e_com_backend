@@ -364,7 +364,16 @@ class FrontendController extends Controller
                 ->where('product_name', 'like', '%'.$request->search_key.'%')
                 ->orWhere('product_sku', 'like', '%'. $request->search_key.'%')
                 ->orWhere('lang_product_name', 'like', '%'. $request->search_key.'%')
-                ->orwhere('lang_highlight','like','%'.$request->search_key.'%')->take(7)->get();
+                ->orwhere('lang_highlight','like','%'.$request->search_key.'%')
+                ->isActive();
+
+            if(!empty($request->categoryId)){
+                $products = $products->where('category_id', $request->categoryId)->take(7)->get();
+            }else{
+                $products = $products->take(7)->get();
+            }
+
+
             ## TODO Product Status Check
             $productColl = ProductCollection::collection($products);
             if(!empty($productColl)){
