@@ -74,7 +74,7 @@ class SellerRegisterController extends Controller
     {
         return User::create([
             'full_name' => $data['full_name'],
-            'user_name' => (!empty($data['user_name']))?$data['user_name']:$data['full_name'],
+            'user_name' => (!empty($data['user_name']))? Str::slug($data['user_name']): " ",
             'email' => $data['email'],
             'phone_no' => $data['phone_no'],
             'password' => Hash::make($data['password']),
@@ -86,7 +86,7 @@ class SellerRegisterController extends Controller
 
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
-            'shop_name'=>'required|string',
+            'shop_name'=>'required|string|unique:shops,shop_name',
             'full_name'=>'required|string',
 //            'user_name'=>'required|string|max:255|unique:users',
             'phone_no'=>'required',
