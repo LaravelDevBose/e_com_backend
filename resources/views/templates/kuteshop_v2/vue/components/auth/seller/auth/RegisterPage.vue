@@ -65,9 +65,9 @@
                         console.log(response);
                         if(typeof  response.code !== "undefined" && response.code === 200){
                             this.$noty.success(response.message);
-                            setTimeout(function () {
-                                location.href = response.url;
-                            },800)
+                            // setTimeout(function () {
+                            //     location.href = response.url;
+                            // },800)
                         }else if(response.status === 'validation'){
                             this.$noty.error(response.message);
                         }else{
