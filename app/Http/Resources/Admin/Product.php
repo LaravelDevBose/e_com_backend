@@ -51,6 +51,8 @@ class Product extends Resource
             'variations'=> ProductVariationResource::collection($this->whenLoaded('variations')),
             'productImages'=> ProductImageResource::collection($this->productImages),
             'seller'=> new SellerResource($this->whenLoaded('seller')),
+            'mall_comp_name'=>$this->mall_comp_name,
+            'mall_logo'=>new AttachmentResource($this->whenLoaded('mallLogo')),
         ];
     }
 }

@@ -87,6 +87,8 @@ class Product extends Model
         'seller_sku',
         'product_condition',
         'discount_price',
+        'mall_comp_name',
+        'mall_comp_logo',
     ];
 
     protected static function boot()
@@ -276,5 +278,9 @@ class Product extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class, 'product_id', 'product_id');
+    }
+
+    public function mallLogo(){
+        return $this->belongsTo(Attachment::class, 'mall_comp_logo', 'attachment_id');
     }
 }

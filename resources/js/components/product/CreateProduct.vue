@@ -125,6 +125,24 @@
                                 </div>
                             </div>-->
                         </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <label class="col-lg-4 control-label">Mall Company Name:</label>
+                                    <div class="col-lg-8">
+                                        <input type="number" v-model="formData.discount_price" class="form-control" placeholder="Discount Price">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <label class="col-lg-2 control-label">Mall Company Logo: <span class="text text-danger text-bold h4">*</span></label>
+                                    <div class="col-lg-10">
+                                        <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="panel panel-collapsed" >
@@ -536,6 +554,8 @@
                     product_price:'',
                     seller_sku:'',
                     discount_price:'',
+                    mall_comp_name:'',
+                    mall_comp_logo:'',
                 },
                 variations:[],
                 btnDisabled:false,

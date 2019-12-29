@@ -223,6 +223,8 @@ class ProductController extends Controller
                     'seller_id'=>1, // Seller id 1 = Admin Default
                     'product_type'=>$request->product_type,
                     'discount_price'=>$request->discount_price,
+                    'mall_comp_name'=>$request->mall_comp_name,
+                    'mall_comp_logo'=>$request->mall_comp_logo,
                 ]);
                 if(!empty($product)){
                     #Store Data in Product Details Table
@@ -562,10 +564,17 @@ class ProductController extends Controller
                     'video_url'=>$request->video_url,
                     'product_type'=>$request->product_type,
                     'discount_price'=>$request->discount_price,
+                    'mall_comp_name'=>$request->mall_comp_name,
                 ]);
                 if(!empty($request->thumb_id)){
                     Product::where('product_id', $id)->update([
                         'thumb_id'=>$request->thumb_id,
+                    ]);
+                }
+
+                if(!empty($request->mall_comp_logo)){
+                    Product::where('product_id', $id)->update([
+                        'mall_comp_logo'=>$request->mall_comp_logo,
                     ]);
                 }
 
