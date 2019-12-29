@@ -108,7 +108,7 @@
         right: 0px;
         background: #fff;
         padding: .6rem;
-        z-index: 100;
+        z-index: 999;
         box-shadow: 0 0 15px -7px #666;
         border-radius: 5px;
         min-width: 250px;
