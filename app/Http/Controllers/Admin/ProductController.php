@@ -295,10 +295,10 @@ class ProductController extends Controller
                                         'image_status'=>config('app.active')
                                     ]);
                                 }
-                                $productImages = ProductImage::insert($imageArray);
-                                if(!empty($productImages)){
+                                ProductImage::insert($imageArray);
+                                /*if(!empty($productImages)){
                                     throw new Exception('Invalid Product Image Information', Response::HTTP_BAD_REQUEST);
-                                }
+                                }*/
                             }
 
                         }else{
@@ -320,10 +320,10 @@ class ProductController extends Controller
                                         'image_status'=>config('app.active')
                                     ]);
                                 }
-                                $productImages = ProductImage::insert($imageArray);
-                                if(!empty($productImages)){
+                                ProductImage::insert($imageArray);
+                                /*if(!empty($productImages)){
                                     throw new Exception('Invalid Product Image Information', Response::HTTP_BAD_REQUEST);
-                                }
+                                }*/
                             }
                         }
                     }else{
@@ -669,7 +669,7 @@ class ProductController extends Controller
                                         'image_status'=>config('app.active')
                                     ]);
                                 }
-                                $productImages = ProductImage::insert($imageArray);
+                                ProductImage::insert($imageArray);
                             }
 
                         }else{
@@ -692,7 +692,7 @@ class ProductController extends Controller
                                         'image_status'=>config('app.active')
                                     ]);
                                 }
-                                $productImages = ProductImage::insert($imageArray);
+                                ProductImage::insert($imageArray);
                             }
                         }
                     }else{
