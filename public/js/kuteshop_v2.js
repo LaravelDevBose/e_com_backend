@@ -2296,22 +2296,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       this.registerSeller(this.formData).then(function (response) {
-        if (typeof response.code === "undefined") {
-          _this.$noty.error('Some Thing Wrong!');
-        } else if (response.status === 'validation') {
-          _this.$noty.error(response.message);
-        } else if (response.code === 200) {
+        console.log(response);
+
+        if (typeof response.code !== "undefined" && response.code === 200) {
           _this.$noty.success(response.message);
 
           setTimeout(function () {
             location.href = response.url;
           }, 800);
+        } else if (response.status === 'validation') {
+          _this.$noty.error(response.message);
         } else {
-          _this.$noty.error('Some Thing Wrong!');
+          _this.$noty.error('Some Thing Wrong!'); // setTimeout(function () {
+          //     location.reload();
+          // },800);
 
-          setTimeout(function () {
-            location.reload();
-          }, 800);
         }
       });
     }
@@ -76263,7 +76262,6 @@ var actions = {
               commit = _ref4.commit;
               _context4.next = 3;
               return axios.post('/seller/register', formData).then(function (response) {
-                commit('sellerRegisterResponse', response);
                 return response.data;
               });
 
