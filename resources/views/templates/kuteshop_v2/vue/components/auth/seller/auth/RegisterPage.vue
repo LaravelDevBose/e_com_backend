@@ -62,20 +62,19 @@
 
                 this.registerSeller(this.formData)
                     .then(response=>{
-                        if(typeof  response.code === "undefined"){
-                            this.$noty.error('Some Thing Wrong!');
-                        }else if(response.status === 'validation'){
-                            this.$noty.error(response.message);
-                        }else if (response.code === 200){
+                        console.log(response);
+                        if(typeof  response.code !== "undefined" && response.code === 200){
                             this.$noty.success(response.message);
                             setTimeout(function () {
                                 location.href = response.url;
                             },800)
+                        }else if(response.status === 'validation'){
+                            this.$noty.error(response.message);
                         }else{
                             this.$noty.error('Some Thing Wrong!');
-                            setTimeout(function () {
-                                location.reload();
-                            },800)
+                            // setTimeout(function () {
+                            //     location.reload();
+                            // },800);
                         }
                     })
 
