@@ -2299,17 +2299,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.log(response);
 
         if (typeof response.code !== "undefined" && response.code === 200) {
-          _this.$noty.success(response.message); // setTimeout(function () {
-          //     location.href = response.url;
-          // },800)
+          _this.$noty.success(response.message);
 
+          setTimeout(function () {
+            location.href = response.url;
+          }, 800);
         } else if (response.status === 'validation') {
           _this.$noty.error(response.message);
         } else {
-          _this.$noty.error('Some Thing Wrong!'); // setTimeout(function () {
-          //     location.reload();
-          // },800);
+          _this.$noty.error('Some Thing Wrong! Try Again.');
 
+          setTimeout(function () {
+            location.reload();
+          }, 800);
         }
       });
     }
