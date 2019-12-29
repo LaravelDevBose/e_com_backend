@@ -48,8 +48,8 @@ class Product extends Resource
             'category'=>new CategoryResource($this->whenLoaded('category')),
             'brand'=>new BrandResource($this->whenLoaded('brand')),
             'details'=>new ProductDetailsResource($this->whenLoaded('productDetails')),
-            'variationsData'=> ProductVariationResource::collection($this->whenLoaded('variations')),
-            'images'=> ProductImageResource::collection($this->productImages),
+            'variations'=> ProductVariationResource::collection($this->whenLoaded('variations')),
+            'productImages'=> ProductImageResource::collection($this->productImages),
             'seller'=> new SellerResource($this->whenLoaded('seller')),
         ];
     }

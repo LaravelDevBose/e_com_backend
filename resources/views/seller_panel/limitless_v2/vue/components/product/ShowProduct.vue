@@ -21,11 +21,11 @@
                             </div>
                             <div class="col-md-6">
                                 <h3 class="text-semibold" style="margin-top: 0px;">
-                                    <a href="#" class="text-default">{{ product.product_name}}</a>
+                                    <a href="#" class="text-default">{{ proData.product_name}}</a>
                                 </h3>
-                                <p v-if="product.product_sku !== '' " style="margin-bottom: 5px;" >
+                                <p v-if="proData.product_sku !== '' " style="margin-bottom: 5px;" >
                                     <i class="icon-barcode2 text-primary" style="margin-right: .5rem;"></i>
-                                    <span class="text text-bold text-teal ">{{ product.product_sku }}</span>
+                                    <span class="text text-bold text-teal ">{{ proData.product_sku }}</span>
                                 </p>
                                 <p class="text text-bold font-weight-bold text-teal" style="margin-bottom: 5px;" v-if="category !== '' " >
                                     <i class="icon-list2 text-primary" style="margin-right: .5rem;"></i>
@@ -33,34 +33,35 @@
                                     <span v-if="sec_category !== '' " >{{ sec_category.name}} <i class="icon-arrow-right15"></i></span>
                                     <span>{{ category.name}}</span>
                                 </p>
-                                <p v-if="product.brand" style="margin-bottom: 5px;">
+                                <p v-if="proData.brand" style="margin-bottom: 5px;">
                                     <i class="icon-hammer-wrench text-primary" style="margin-right: .5rem;"></i>
-                                    <span class="text text-bold text-teal ">{{ product.brand.name }}</span>
+                                    <span class="text text-bold text-teal ">{{ proData.brand.name }}</span>
                                 </p>
-                                <p v-if="product.seller.shop" style="margin-bottom: 5px;">
-                                    <i class="icon-store2 text-primary" style="margin-right: .5rem;"></i>
-                                    <span class="text text-bold text-teal ">{{ product.seller.shop.name }}</span>
-                                </p>
-                                <p v-if="product.seller !== null && product.seller.name  !== '' " style="margin-bottom: 5px;">
-                                    <i class="icon-user text-primary" style="margin-right: .5rem;"></i>
-                                    <span class="text text-bold text-teal ">{{ product.seller.name }}</span>
-                                </p>
-                                <div class="content-group" v-if="product.product_type === 1">
+                                <div class="content-group" v-if="proData.product_type === 1">
                                     <p style="margin-bottom: 5px;">
-                                        Price:
-                                        <span class="text text-bold text-teal ">{{ product.product_price }}</span>
+                                        <span class="text text-bold text-primary ">
+                                            Product Price:
+                                        </span>
+                                        <span class="text text-bold text-teal ">{{ proData.product_price }}</span>
                                     </p>
                                     <p style="margin-bottom: 5px;">
-                                        Qty:
-                                        <span class="text text-bold text-teal ">{{ product.product_qty }}</span>
+                                        <span class="text text-bold text-primary ">
+                                            Qty:
+                                       </span>
+                                        <span class="text text-bold text-teal ">{{ proData.product_qty }}</span>
                                     </p>
                                 </div>
-                                <p v-if="product.discount_price !== 0 && product.discount_price  !== '' " style="margin-bottom: 5px;">
-                                    Discount:
-                                    <span class="text text-bold text-teal ">{{ product.discount_price }}</span>
+                                <p v-if="proData.discount_price !== 0 && proData.discount_price  !== '' " style="margin-bottom: 5px;">
+                                    <span class="text text-bold text-primary ">
+                                         Discount:
+                                   </span>
+                                    <span class="text text-bold text-teal ">{{ proData.discount }}</span>
                                 </p>
                                 <div class="content-group">
-                                    <p v-html="product.highlight"></p>
+                                    <span class="text text-bold text-primary ">
+                                        Product Highlight:
+                                   </span>
+                                    <p v-html="proData.highlight"></p>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +79,7 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="content-group" v-html="product.description">
+                        <div class="content-group" v-html="proData.description">
 
                         </div>
                     </div>
@@ -96,21 +97,21 @@
 
                     <div class="panel-body">
                         <div class="content-group">
-                            <p class="text text-bold">Product Name (EN) : {{product.lang_product_name }}</p>
+                            <p class="text text-bold">Product Name (EN) : {{proData.lang_product_name }}</p>
                         </div>
                         <div class="content-group">
                             <p class="text text-bold" style="margin-bottom: .5rem;">Product Highlight (EN): </p>
-                            <p v-html="product.lang_highlight"></p>
+                            <p v-html="proData.lang_highlight"></p>
                         </div>
                         <div class="content-group" >
                             <p class="text text-bold" style="margin-bottom: .5rem;">Product Description (EN): </p>
-                            <p v-html="product.lang_description" ></p>
+                            <p v-html="proData.lang_description" ></p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Available hours -->
-                <div class="panel" v-if="typeof product.details !== 'undefined' && product.details !== '' ">
+                <div class="panel" v-if="typeof proDetails !== 'undefined' && proDetails !== '' ">
                     <div class="panel-heading bg-teal-300">
                         <h6 class="panel-title">Product Extra Details</h6>
                         <div class="heading-elements">
@@ -126,70 +127,70 @@
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">Main Material: </span>
-                                <span v-if="product.details.materials" v-html="product.details.materials"></span>
+                                <span v-if="proDetails.materials" v-html="proDetails.materials"></span>
                                 <span v-else class="text-size-small text-slate-400">No Data</span>
                             </p>
                         </div>
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">Product Model: </span>
-                                <span v-if="product.details.model" v-html="product.details.model"></span>
+                                <span v-if="proDetails.model" v-html="proDetails.model"></span>
                                 <span v-else class="text-size-small text-slate-400">No Data</span>
                             </p>
                         </div>
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">No. Of Pieces : </span>
-                                <span v-if="product.details.pieces" v-html="product.details.pieces"></span>
+                                <span v-if="proDetails.pieces" v-html="proDetails.pieces"></span>
                                 <span v-else class="text-size-small text-slate-400">No Data</span>
                             </p>
                         </div>
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">Product Occasion: </span>
-                                <span v-if="product.details.occasion" v-html="product.details.occasion"></span>
+                                <span v-if="proDetails.occasion" v-html="proDetails.occasion"></span>
                                 <span v-else class="text-size-small text-slate-400">No Data</span>
                             </p>
                         </div>
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">Color Shade : </span>
-                                <span v-if="product.details.color_shade" v-html="product.details.color_shade"></span>
+                                <span v-if="proDetails.color_shade" v-html="proDetails.color_shade"></span>
                                 <span v-else class="text-size-small text-slate-400">No Data</span>
                             </p>
                         </div>
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">Skin Type: </span>
-                                <span v-if="product.details.skin_type" v-html="product.details.skin_type"></span>
+                                <span v-if="proDetails.skin_type" v-html="proDetails.skin_type"></span>
                                 <span v-else class="text-size-small text-slate-400">No Data</span>
                             </p>
                         </div>
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">Extra Details : </span>
-                                <span v-if="product.details.extra_details" v-html="product.details.extra_details"></span>
+                                <span v-if="proDetails.extra_details" v-html="proDetails.extra_details"></span>
                                 <span v-else class="text-size-small text-slate-400">No Data</span>
                             </p>
                         </div>
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">Warranty Policy: </span>
-                                <span v-if="product.details.warranty_policy" v-html="product.details.warranty_policy"></span>
+                                <span v-if="proDetails.warranty_policy" v-html="proDetails.warranty_policy"></span>
                                 <span v-else class="text-size-small text-slate-400">No Data</span>
                             </p>
                         </div>
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">Warranty Policy (EN): </span>
-                                <span v-if="product.details.warranty_policy_eng" v-html="product.details.warranty_policy_eng"></span>
+                                <span v-if="proDetails.warranty_policy_eng" v-html="proDetails.warranty_policy_eng"></span>
                                 <span v-else class="text-size-small text-slate-400">No Data</span>
                             </p>
                         </div>
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">Warranty Period : </span>
-                                <span v-if="product.details.warranty_period" >{{ product.details.warranty_period }} days</span>
+                                <span v-if="proDetails.warranty_period" >{{ proDetails.warranty_period }} days</span>
                                 <span v-else class="text-size-small text-slate-400">0 Day</span>
                             </p>
                         </div>
@@ -198,7 +199,7 @@
                 <!-- /available hours -->
 
                 <!-- Calendar -->
-                <div class="panel" v-if="product.variationsData.length !== 0 && typeof product.variationsData !== 'undefined'">
+                <div class="panel" v-if="proVariations.length !== 0 && typeof proVariations !== 'undefined'">
                     <div class="panel-heading bg-teal">
                         <h6 class="panel-title">Product Variations</h6>
                     </div>
@@ -216,7 +217,7 @@
                             </thead>
 
                             <tbody>
-                            <tr v-for="variaction in product.variationsData">
+                            <tr v-for="variaction in proVariations">
                                 <td>{{ variaction.primary_model.color_name }}</td>
                                 <td>{{ variaction.secondary_model.size_name }}</td>
                                 <td>{{ variaction.seller_sku}}</td>
@@ -263,13 +264,16 @@
         },
         computed:{
             ...mapGetters([
-                'product'
+                'proData',
+                'proDetails',
+                'proVariations',
+                'proImages'
             ])
         },
         watch:{
-            product:{
+            proData:{
                 handler(newVal, oldVal){
-                    newVal.images.forEach(image=>{
+                    this.proImages.forEach(image=>{
                         let img = '<img src="'+image.image.image_path+'" class="img-thumbnail">';
                         this.slider.push(img);
                     });

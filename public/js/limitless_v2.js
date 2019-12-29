@@ -10872,6 +10872,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ShowProduct",
@@ -10892,13 +10893,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     });
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['singleProduct'])),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['product'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['proData', 'proDetails', 'proVariations', 'proImages'])),
   watch: {
-    product: {
+    proData: {
       handler: function handler(newVal, oldVal) {
         var _this = this;
 
-        newVal.images.forEach(function (image) {
+        this.proImages.forEach(function (image) {
           var img = '<img src="' + image.image.image_path + '" class="img-thumbnail">';
 
           _this.slider.push(img);
@@ -80271,12 +80272,12 @@ var render = function() {
                     _c(
                       "a",
                       { staticClass: "text-default", attrs: { href: "#" } },
-                      [_vm._v(_vm._s(_vm.product.product_name))]
+                      [_vm._v(_vm._s(_vm.proData.product_name))]
                     )
                   ]
                 ),
                 _vm._v(" "),
-                _vm.product.product_sku !== ""
+                _vm.proData.product_sku !== ""
                   ? _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
                       _c("i", {
                         staticClass: "icon-barcode2 text-primary",
@@ -80284,7 +80285,7 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("span", { staticClass: "text text-bold text-teal " }, [
-                        _vm._v(_vm._s(_vm.product.product_sku))
+                        _vm._v(_vm._s(_vm.proData.product_sku))
                       ])
                     ])
                   : _vm._e(),
@@ -80322,7 +80323,7 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.product.brand
+                _vm.proData.brand
                   ? _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
                       _c("i", {
                         staticClass: "icon-hammer-wrench text-primary",
@@ -80330,78 +80331,79 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("span", { staticClass: "text text-bold text-teal " }, [
-                        _vm._v(_vm._s(_vm.product.brand.name))
+                        _vm._v(_vm._s(_vm.proData.brand.name))
                       ])
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.product.seller.shop
-                  ? _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
-                      _c("i", {
-                        staticClass: "icon-store2 text-primary",
-                        staticStyle: { "margin-right": ".5rem" }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "text text-bold text-teal " }, [
-                        _vm._v(_vm._s(_vm.product.seller.shop.name))
-                      ])
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.product.seller !== null && _vm.product.seller.name !== ""
-                  ? _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
-                      _c("i", {
-                        staticClass: "icon-user text-primary",
-                        staticStyle: { "margin-right": ".5rem" }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "text text-bold text-teal " }, [
-                        _vm._v(_vm._s(_vm.product.seller.name))
-                      ])
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.product.product_type === 1
+                _vm.proData.product_type === 1
                   ? _c("div", { staticClass: "content-group" }, [
                       _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
-                        _vm._v(
-                          "\n                                    Price:\n                                    "
+                        _c(
+                          "span",
+                          { staticClass: "text text-bold text-primary " },
+                          [
+                            _vm._v(
+                              "\n                                        Product Price:\n                                    "
+                            )
+                          ]
                         ),
+                        _vm._v(" "),
                         _c(
                           "span",
                           { staticClass: "text text-bold text-teal " },
-                          [_vm._v(_vm._s(_vm.product.product_price))]
+                          [_vm._v(_vm._s(_vm.proData.product_price))]
                         )
                       ]),
                       _vm._v(" "),
                       _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
-                        _vm._v(
-                          "\n                                    Qty:\n                                    "
+                        _c(
+                          "span",
+                          { staticClass: "text text-bold text-primary " },
+                          [
+                            _vm._v(
+                              "\n                                        Qty:\n                                   "
+                            )
+                          ]
                         ),
+                        _vm._v(" "),
                         _c(
                           "span",
                           { staticClass: "text text-bold text-teal " },
-                          [_vm._v(_vm._s(_vm.product.product_qty))]
+                          [_vm._v(_vm._s(_vm.proData.product_qty))]
                         )
                       ])
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.product.discount_price !== 0 &&
-                _vm.product.discount_price !== ""
+                _vm.proData.discount_price !== 0 &&
+                _vm.proData.discount_price !== ""
                   ? _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
-                      _vm._v(
-                        "\n                                Discount:\n                                "
+                      _c(
+                        "span",
+                        { staticClass: "text text-bold text-primary " },
+                        [
+                          _vm._v(
+                            "\n                                     Discount:\n                               "
+                          )
+                        ]
                       ),
+                      _vm._v(" "),
                       _c("span", { staticClass: "text text-bold text-teal " }, [
-                        _vm._v(_vm._s(_vm.product.discount_price))
+                        _vm._v(_vm._s(_vm.proData.discount))
                       ])
                     ])
                   : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "content-group" }, [
+                  _c("span", { staticClass: "text text-bold text-primary " }, [
+                    _vm._v(
+                      "\n                                    Product Highlight:\n                               "
+                    )
+                  ]),
+                  _vm._v(" "),
                   _c("p", {
-                    domProps: { innerHTML: _vm._s(_vm.product.highlight) }
+                    domProps: { innerHTML: _vm._s(_vm.proData.highlight) }
                   })
                 ])
               ])
@@ -80415,7 +80417,7 @@ var render = function() {
           _c("div", { staticClass: "panel-body" }, [
             _c("div", {
               staticClass: "content-group",
-              domProps: { innerHTML: _vm._s(_vm.product.description) }
+              domProps: { innerHTML: _vm._s(_vm.proData.description) }
             })
           ])
         ]),
@@ -80427,7 +80429,7 @@ var render = function() {
             _c("div", { staticClass: "content-group" }, [
               _c("p", { staticClass: "text text-bold" }, [
                 _vm._v(
-                  "Product Name (EN) : " + _vm._s(_vm.product.lang_product_name)
+                  "Product Name (EN) : " + _vm._s(_vm.proData.lang_product_name)
                 )
               ])
             ]),
@@ -80443,7 +80445,7 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("p", {
-                domProps: { innerHTML: _vm._s(_vm.product.lang_highlight) }
+                domProps: { innerHTML: _vm._s(_vm.proData.lang_highlight) }
               })
             ]),
             _vm._v(" "),
@@ -80458,13 +80460,13 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("p", {
-                domProps: { innerHTML: _vm._s(_vm.product.lang_description) }
+                domProps: { innerHTML: _vm._s(_vm.proData.lang_description) }
               })
             ])
           ])
         ]),
         _vm._v(" "),
-        typeof _vm.product.details !== "undefined" && _vm.product.details !== ""
+        typeof _vm.proDetails !== "undefined" && _vm.proDetails !== ""
           ? _c("div", { staticClass: "panel" }, [
               _vm._m(3),
               _vm._v(" "),
@@ -80475,10 +80477,10 @@ var render = function() {
                       _vm._v("Main Material: ")
                     ]),
                     _vm._v(" "),
-                    _vm.product.details.materials
+                    _vm.proDetails.materials
                       ? _c("span", {
                           domProps: {
-                            innerHTML: _vm._s(_vm.product.details.materials)
+                            innerHTML: _vm._s(_vm.proDetails.materials)
                           }
                         })
                       : _c(
@@ -80495,11 +80497,9 @@ var render = function() {
                       _vm._v("Product Model: ")
                     ]),
                     _vm._v(" "),
-                    _vm.product.details.model
+                    _vm.proDetails.model
                       ? _c("span", {
-                          domProps: {
-                            innerHTML: _vm._s(_vm.product.details.model)
-                          }
+                          domProps: { innerHTML: _vm._s(_vm.proDetails.model) }
                         })
                       : _c(
                           "span",
@@ -80515,11 +80515,9 @@ var render = function() {
                       _vm._v("No. Of Pieces : ")
                     ]),
                     _vm._v(" "),
-                    _vm.product.details.pieces
+                    _vm.proDetails.pieces
                       ? _c("span", {
-                          domProps: {
-                            innerHTML: _vm._s(_vm.product.details.pieces)
-                          }
+                          domProps: { innerHTML: _vm._s(_vm.proDetails.pieces) }
                         })
                       : _c(
                           "span",
@@ -80535,10 +80533,10 @@ var render = function() {
                       _vm._v("Product Occasion: ")
                     ]),
                     _vm._v(" "),
-                    _vm.product.details.occasion
+                    _vm.proDetails.occasion
                       ? _c("span", {
                           domProps: {
-                            innerHTML: _vm._s(_vm.product.details.occasion)
+                            innerHTML: _vm._s(_vm.proDetails.occasion)
                           }
                         })
                       : _c(
@@ -80555,10 +80553,10 @@ var render = function() {
                       _vm._v("Color Shade : ")
                     ]),
                     _vm._v(" "),
-                    _vm.product.details.color_shade
+                    _vm.proDetails.color_shade
                       ? _c("span", {
                           domProps: {
-                            innerHTML: _vm._s(_vm.product.details.color_shade)
+                            innerHTML: _vm._s(_vm.proDetails.color_shade)
                           }
                         })
                       : _c(
@@ -80575,10 +80573,10 @@ var render = function() {
                       _vm._v("Skin Type: ")
                     ]),
                     _vm._v(" "),
-                    _vm.product.details.skin_type
+                    _vm.proDetails.skin_type
                       ? _c("span", {
                           domProps: {
-                            innerHTML: _vm._s(_vm.product.details.skin_type)
+                            innerHTML: _vm._s(_vm.proDetails.skin_type)
                           }
                         })
                       : _c(
@@ -80595,10 +80593,10 @@ var render = function() {
                       _vm._v("Extra Details : ")
                     ]),
                     _vm._v(" "),
-                    _vm.product.details.extra_details
+                    _vm.proDetails.extra_details
                       ? _c("span", {
                           domProps: {
-                            innerHTML: _vm._s(_vm.product.details.extra_details)
+                            innerHTML: _vm._s(_vm.proDetails.extra_details)
                           }
                         })
                       : _c(
@@ -80615,12 +80613,10 @@ var render = function() {
                       _vm._v("Warranty Policy: ")
                     ]),
                     _vm._v(" "),
-                    _vm.product.details.warranty_policy
+                    _vm.proDetails.warranty_policy
                       ? _c("span", {
                           domProps: {
-                            innerHTML: _vm._s(
-                              _vm.product.details.warranty_policy
-                            )
+                            innerHTML: _vm._s(_vm.proDetails.warranty_policy)
                           }
                         })
                       : _c(
@@ -80637,11 +80633,11 @@ var render = function() {
                       _vm._v("Warranty Policy (EN): ")
                     ]),
                     _vm._v(" "),
-                    _vm.product.details.warranty_policy_eng
+                    _vm.proDetails.warranty_policy_eng
                       ? _c("span", {
                           domProps: {
                             innerHTML: _vm._s(
-                              _vm.product.details.warranty_policy_eng
+                              _vm.proDetails.warranty_policy_eng
                             )
                           }
                         })
@@ -80659,11 +80655,10 @@ var render = function() {
                       _vm._v("Warranty Period : ")
                     ]),
                     _vm._v(" "),
-                    _vm.product.details.warranty_period
+                    _vm.proDetails.warranty_period
                       ? _c("span", [
                           _vm._v(
-                            _vm._s(_vm.product.details.warranty_period) +
-                              " days"
+                            _vm._s(_vm.proDetails.warranty_period) + " days"
                           )
                         ])
                       : _c(
@@ -80677,8 +80672,8 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.product.variationsData.length !== 0 &&
-        typeof _vm.product.variationsData !== "undefined"
+        _vm.proVariations.length !== 0 &&
+        typeof _vm.proVariations !== "undefined"
           ? _c("div", { staticClass: "panel" }, [
               _vm._m(4),
               _vm._v(" "),
@@ -80694,7 +80689,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.product.variationsData, function(variaction) {
+                      _vm._l(_vm.proVariations, function(variaction) {
                         return _c("tr", [
                           _c("td", [
                             _vm._v(_vm._s(variaction.primary_model.color_name))
