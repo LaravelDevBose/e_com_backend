@@ -15,7 +15,7 @@ class UsernameNullableUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 //            $table->dropColumn('user_name');
-            $table->string('user_name')->nullable()->change();
+            $table->string('user_name')->nullable();
         });
     }
 
@@ -28,7 +28,7 @@ class UsernameNullableUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('user_name');
-            $table->string('user_name')->unique()->nullable()->change();
+            $table->string('user_name')->unique()->nullable();
         });
     }
 }
