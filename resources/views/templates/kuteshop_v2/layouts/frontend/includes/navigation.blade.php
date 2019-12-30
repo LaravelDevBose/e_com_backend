@@ -41,9 +41,9 @@
             @endforeach
         </ul>
 
-        <div class="view-all-categori">
+        {{--<div class="view-all-categori">
             <a  class="open-cate btn-view-all">@lang('header.all') {{ trans_choice('header.category',2) }}</a>
-        </div>
+        </div>--}}
     </div>
     @endif
 </div>

@@ -1,5 +1,5 @@
 <template>
-    <div  v-if="hotproducts"  class="block-deals-of block-deals-of-opt1">
+    <div  v-if="hotproducts.length !== 0"  class="block-deals-of block-deals-of-opt1">
         <div class="block-title ">
             <span class="icon"></span>
             <div class="heading-title">{{ $t('products.hot_deals') }}</div>
