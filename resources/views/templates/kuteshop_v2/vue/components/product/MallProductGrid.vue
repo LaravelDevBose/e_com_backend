@@ -19,11 +19,11 @@
                 <span v-if="product.seller_id === 1" class="product-item-label label-sale-off">saliim Mall</span>
             </div>
             <div class="product-item-detail">
-                <div v-if="product.brand" class="brand-container">
+                <div v-if="product.mall_comp_name !== '' && product.mall_comp_name !== null" class="brand-container">
                     <div class="mall-brand">
-                        <img :src="product.brand.attachment.image_path" :alt="product.brand.brand_name">
+                        <img :src="product.mall_logo.image_path" :alt="product.mall_comp_name">
                     </div>
-                    <span class="brand-name">{{ product.brand.brand_name }}</span>
+                    <span class="brand-name">{{ product.mall_comp_name }}</span>
                 </div>
                 <strong class="product-item-name">
                     <a :title="product.product_name" @click.prevent="productDetails(product.product_slug)" href="#">{{ product.product_name }}</a>

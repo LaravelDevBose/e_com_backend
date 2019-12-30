@@ -155,6 +155,27 @@
 
                                         </div>
                                     </div>
+                                    @if(!empty($product->mall_comp_name))
+                                    <div class="text-widget widget widget__sidebar shop-info">
+                                        <div class="go-to-store" style="border-bottom: 1px solid #eee;">
+                                            <a href="#"> Company Information</a>
+                                        </div>
+                                        <div class="widget-content">
+                                            <div class="cominfo">
+                                                <div class="item">
+                                                    @if(!empty($product->mallLogo))
+                                                        <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ $product->mallLogo->image_path }}">
+                                                    @else
+                                                        <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ asset('crocus_v2/images/blog-img.jpg') }}">
+                                                    @endif
+                                                </div>
+                                                <h3 class="shop-name float-right" >
+                                                    <span style="text-transform: capitalize">{{ $product->mall_comp_name }}</span>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
                                     <div class="text-widget widget widget__sidebar shop-info">
                                         <div class="widget-content site-footer">
                                             <div class="cominfo">

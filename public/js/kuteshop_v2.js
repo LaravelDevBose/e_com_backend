@@ -55941,19 +55941,20 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "product-item-detail" }, [
-          _vm.product.brand
+          _vm.product.mall_comp_name !== "" &&
+          _vm.product.mall_comp_name !== null
             ? _c("div", { staticClass: "brand-container" }, [
                 _c("div", { staticClass: "mall-brand" }, [
                   _c("img", {
                     attrs: {
-                      src: _vm.product.brand.attachment.image_path,
-                      alt: _vm.product.brand.brand_name
+                      src: _vm.product.mall_logo.image_path,
+                      alt: _vm.product.mall_comp_name
                     }
                   })
                 ]),
                 _vm._v(" "),
                 _c("span", { staticClass: "brand-name" }, [
-                  _vm._v(_vm._s(_vm.product.brand.brand_name))
+                  _vm._v(_vm._s(_vm.product.mall_comp_name))
                 ])
               ])
             : _vm._e(),

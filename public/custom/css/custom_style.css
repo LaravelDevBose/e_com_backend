@@ -163,6 +163,7 @@
 .brand-name{
     font-size: 15px;
     font-weight: 700;
+    text-transform: capitalize;
 }
 .mall-product:hover .brand-container{
     display: none;
