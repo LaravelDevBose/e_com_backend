@@ -53,15 +53,15 @@
                     <table class="address">
                         <tr>
                             <td><b>Address:  </b></td>
-                            <td>Example Street 68, Mahattan,New York, USA</td>
+                            <td>Bakaaro,  Mogadishu, Somalia</td>
                         </tr>
                         <tr>
                             <td><b>Phone: </b></td>
-                            <td>+ 65 123 456 789</td>
+                            <td>00252617500005</td>
                         </tr>
                         <tr>
-                            <td><b>Email:</b></td>
-                            <td>Support@ovicsoft.com</td>
+                            <td><b>Hours:</b></td>
+                            <td>Open 24 hours</td>
                         </tr>
                     </table>
                 </div>

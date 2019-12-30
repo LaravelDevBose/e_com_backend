@@ -38,12 +38,12 @@
                                                         <span class="old-price" v-if="oldPrice !== 0 && oldPrice !== '' ">$ {{ oldPrice}}</span>
                                                     </div>
 
-                                                    <div class="product-item-code">
+                                                    <!--<div class="product-item-code">
                                                         <span class="title">Item Code:</span> {{ modal_product.product_sku }}
                                                     </div>
                                                     <div class="product-item-stock">
                                                         <span class="title">Availability:</span> In stock
-                                                    </div>
+                                                    </div>-->
                                                     <div class="product-add-form">
                                                         <p>Available Options:</p>
                                                         <div class="product-options-wrapper">

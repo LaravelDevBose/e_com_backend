@@ -55488,25 +55488,6 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "div",
-                                        { staticClass: "product-item-code" },
-                                        [
-                                          _c("span", { staticClass: "title" }, [
-                                            _vm._v("Item Code:")
-                                          ]),
-                                          _vm._v(
-                                            " " +
-                                              _vm._s(
-                                                _vm.modal_product.product_sku
-                                              ) +
-                                              "\n                                                "
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _vm._m(0),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
                                         { staticClass: "product-add-form" },
                                         [
                                           _c("p", [
@@ -55784,17 +55765,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "product-item-stock" }, [
-      _c("span", { staticClass: "title" }, [_vm._v("Availability:")]),
-      _vm._v(" In stock\n                                                ")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
