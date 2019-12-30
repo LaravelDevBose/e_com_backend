@@ -149,7 +149,7 @@
         @endif
         <div class="copyright">
 
-            Copyright © 2016 KoolShop. All Rights Reserved. Designed by KoolShop
+            Copyright © 2020 Saliim. All Rights Reserved. Designed by Saliim
 
         </div>
 
