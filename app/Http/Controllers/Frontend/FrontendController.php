@@ -332,7 +332,7 @@ class FrontendController extends Controller
     {
         $shop = Shop::where('shop_slug', $shopSlug)->with(['seller'=>function($query){
             return $query->with(['products'=>function($qu){
-                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage')->isActive();
+                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage','reviews')->isActive();
             }]);
         }, 'shopLogo','banner'])->first();
         return view('templates.' . $this->template_name . '.frontend.shop_profile',[
@@ -343,7 +343,7 @@ class FrontendController extends Controller
     public function mall_products(){
         $shop = Shop::where('shop_id', 1)->with(['seller'=>function($query){
             return $query->with(['products'=>function($qu){
-                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage')->isActive();
+                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage','reviews')->isActive();
             }]);
         }, 'shopLogo','banner'])->first();
         return view('templates.' . $this->template_name . '.frontend.shop_profile',[

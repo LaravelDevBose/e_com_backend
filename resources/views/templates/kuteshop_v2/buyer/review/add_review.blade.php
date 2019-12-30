@@ -21,7 +21,7 @@
                 <div class="col-md-9 col-md-push-3">
                     <div class="col-main">
                         <h2 class="page-heading">
-                            <span class="page-heading-title2">{{ __('buyer.add_new_address') }}</span>
+                            <span class="page-heading-title2">Add Your Reviews</span>
                         </h2>
                         <add-review-page :orderid="{{ $orderId }}"></add-review-page>
                     </div>
