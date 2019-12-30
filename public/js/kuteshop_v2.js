@@ -54067,7 +54067,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-md-6 content-group" }, [
       _c("img", {
         staticStyle: { "max-width": "100px", "max-height": "80px" },
-        attrs: { src: "/assets/saliim.png", alt: "logo" }
+        attrs: { src: "/saliim.png", alt: "logo" }
       }),
       _vm._v(" "),
       _c("ul", { staticClass: "list-condensed list-unstyled" }, [
