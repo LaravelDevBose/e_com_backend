@@ -786,6 +786,7 @@ class ProductController extends Controller
                         'status_label'=>$status[$request->product_status]
                     ];
                     DB::commit();
+                    return redirect()->back();
                     return ResponserTrait::allResponse('success', Response::HTTP_OK,'Product Status Update Successfully',$data);
                 }
 
