@@ -2307,11 +2307,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         } else if (response.status === 'validation') {
           _this.$noty.error(response.message);
         } else {
-          _this.$noty.error('Some Thing Wrong! Try Again.');
+          _this.$noty.error(response.message); // setTimeout(function () {
+          //     location.reload();
+          // },800);
 
-          setTimeout(function () {
-            location.reload();
-          }, 800);
         }
       });
     }

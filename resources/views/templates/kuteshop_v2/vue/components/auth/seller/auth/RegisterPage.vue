@@ -71,10 +71,10 @@
                         }else if(response.status === 'validation'){
                             this.$noty.error(response.message);
                         }else{
-                            this.$noty.error('Some Thing Wrong! Try Again.');
-                            setTimeout(function () {
-                                location.reload();
-                            },800);
+                            this.$noty.error(response.message);
+                            // setTimeout(function () {
+                            //     location.reload();
+                            // },800);
                         }
                     })
 
