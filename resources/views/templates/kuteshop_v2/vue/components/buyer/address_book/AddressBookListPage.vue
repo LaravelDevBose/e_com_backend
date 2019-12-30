@@ -21,7 +21,7 @@
                     <span class="price">{{addressBook.full_address  }}</span>
                 </td>
                 <td class="a-center last text-center">
-                    <a href="#" @click.prevent="editAddressBook(addressBook.address_id)"> <i class="fa fa-pencil"></i></a>
+                    <a href="#" @click.prevent="editAddressBook(addressBook.address_id)"> <i class="fas fa-edit"></i></a>
                 </td>
             </tr>
             <tr v-else class="last even">
