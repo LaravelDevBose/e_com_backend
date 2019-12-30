@@ -270,6 +270,10 @@
                                                 @endforeach
                                             </ul>
                                         </div>
+                                        @else
+                                            <div class="text-center">
+                                                <p class="text-bold h4">No Review yet</p>
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
