@@ -84,7 +84,7 @@
                 <div class="col-md-4 col-lg-4 col-xs-4 col">
                     <div class="links">
                         <h3 class="title">Support</h3>
-                        @elseif(auth()->guard('seller')->check())
+                        @if(auth()->guard('seller')->check())
                             <ul>
                                 <li><a href="{{ route('seller.home') }}">@lang('header.dashboard')</a></li>
                                 <li><a href="{{ route('seller.order.index') }}">{{ trans_choice('header.order',2) }}</a></li>
