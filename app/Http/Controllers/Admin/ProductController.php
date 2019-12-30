@@ -276,7 +276,7 @@ class ProductController extends Controller
 
                                 }
                                 $variationProduct = ProductVariation::insert($variationArray);
-                                if(!empty($variationProduct)){
+                                if(empty($variationProduct)){
                                     throw new Exception('Invalid Product Variation Information', Response::HTTP_BAD_REQUEST);
                                 }
                             }
@@ -393,7 +393,7 @@ class ProductController extends Controller
             return $query->with(['parent'=>function($q){
                 return $q->with('parent');
             }]);
-        }, 'brand','seller.shop','thumbImage','productDetails','productImages'=>function($query){
+        }, 'brand','seller.shop','thumbImage','productDetails','mallLogo','productImages'=>function($query){
             return $query->with('attachment')->isActive();
         },'variations'=>function($q){
             return $q->with('primaryModel', 'secondaryModel');

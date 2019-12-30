@@ -64,6 +64,10 @@
                                    </span>
                                     <span class="text text-bold text-teal ">{{ proData.discount }}</span>
                                 </p>
+                                <p v-if="proData.mall_comp_name !== '' " style="margin-bottom: 5px;">
+                                    <i class="icon-store text-primary" style="margin-right: .5rem;"></i>
+                                    <span class="text text-bold text-teal h3 text-uppercase">{{ proData.mall_comp_name }}</span>
+                                </p>
                                 <div class="content-group">
                                    <span class="text text-bold text-primary ">
                                         Product Highlight:

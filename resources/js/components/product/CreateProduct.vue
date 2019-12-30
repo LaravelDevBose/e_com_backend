@@ -130,7 +130,7 @@
                                 <div class="row">
                                     <label class="col-lg-4 control-label">Mall Company Name:</label>
                                     <div class="col-lg-8">
-                                        <input type="number" v-model="formData.discount_price" class="form-control" placeholder="Discount Price">
+                                        <input type="text" v-model="formData.mall_comp_name" class="form-control" placeholder="Mall Company Name">
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
                                 <div class="row">
                                     <label class="col-lg-3 control-label">Mall Company Logo: <span class="text text-danger text-bold h4">*</span></label>
                                     <div class="col-lg-9">
-                                        <attachment :multi_file="mall_multi_file" :folder="mall_folder"></attachment>
+                                        <single-attachment :folder="mall_folder"></single-attachment>
                                     </div>
                                 </div>
                             </div>
@@ -502,10 +502,12 @@
     import VueSelect2 from '../helper/Select2';
     import MultiSelect2 from '../helper/MultipleSelect2';
     import ImageCropper from "../cropper/ImageCropper";
+    import SingleAttachment from "../attachment/SingleAttachment";
 
     export default {
         name: "CreateProduct",
         components:{
+            SingleAttachment,
             ImageCropper,
             Treeselect,
             'vue-select2':VueSelect2,
@@ -587,8 +589,6 @@
                 removeImage:false,
                 vari_id:'variaction_',
                 mall_folder:'mall',
-                mall_multi_file:true,
-                mall_logo_id:'',
             }
         },
         created() {
@@ -810,8 +810,8 @@
                 this.formData.thumb_id = this.cropImageIds[0];
                 this.formData.variations = this.variations;
                 this.formData.imageIds = this.imageIds;
-                if(this.mall_logo_id !== ''){
-                    this.formData.mall_comp_logo = this.mall_logo_id;
+                if(this.attachmentId !== ''){
+                    this.formData.mall_comp_logo = this.attachmentId;
                 }
                 //send Vuex request
                 this.storeProductData(this.formData)
@@ -896,7 +896,7 @@
                 'skinTypes',
                 'cropImageIds',
                 'productType',
-                'attachment_ids',
+                'attachmentId',
             ]),
             clonedPrimaryIds(){
                 return JSON.parse(JSON.stringify(this.pri_id));
@@ -981,24 +981,7 @@
                     }
 
                 }
-            },
-            attachment_idsDataCheck:{
-                handler(newVal, oldVal){
-                    if(newVal !== oldVal){
-                        if(this.mall_multi_file === true || this.mall_multi_file === 'true' || this.mall_multi_file === 1){
-                            if(this.attachment_ids.length > 1){
-                                this.mall_logo_id = this.attachment_ids[0];
-                            }else{
-                                this.mall_logo_id = this.attachment_ids;
-                            }
-                        }else{
-                            this.mall_logo_id = this.attachment_ids;
-                        }
-                    }
-
-                }
-            },
-
+            }
         },
 
     }

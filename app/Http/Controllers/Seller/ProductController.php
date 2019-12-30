@@ -378,7 +378,6 @@ class ProductController extends Controller
         },'variations'=>function($q){
             return $q->with('primaryModel', 'secondaryModel');
         }])->first();
-
         if(!empty($product)){
             $data = new ProductResource($product);
             return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK);

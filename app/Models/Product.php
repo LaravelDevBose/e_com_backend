@@ -282,6 +282,6 @@ class Product extends Model
     }
 
     public function mallLogo(){
-        return $this->belongsTo(Attachment::class, 'mall_comp_logo', 'attachment_id');
+        return $this->hasOne(Attachment::class,  'attachment_id','mall_comp_logo');
     }
 }

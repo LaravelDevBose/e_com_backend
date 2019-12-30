@@ -74,7 +74,8 @@
                     if(newVal !== oldVal){
                         if(this.multi_file === true || this.multi_file === 'true' || this.multi_file === 1){
                             if(this.attachments.length > 1){
-                                this.attachmentData.push(this.attachments[0]);
+                                delete this.attachmentData[0];
+                                this.attachmentData[0]=this.attachments[0];
                             }else{
                                 this.attachmentData = this.attachments;
                             }
