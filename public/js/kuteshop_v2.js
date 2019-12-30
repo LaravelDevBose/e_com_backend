@@ -53332,8 +53332,8 @@ var render = function() {
                             "btn-danger": _vm.orderInfo.order_status == 2,
                             "btn-warning": _vm.orderInfo.order_status == 3,
                             "btn-primary": _vm.orderInfo.order_status == 4,
-                            "btn-indigo-400": _vm.orderInfo.order_status == 5,
-                            "btn-teal": _vm.orderInfo.order_status == 6
+                            "btn-info": _vm.orderInfo.order_status == 5,
+                            "btn-success": _vm.orderInfo.order_status == 6
                           },
                           attrs: {
                             "data-toggle": "dropdown",
@@ -53465,7 +53465,7 @@ var render = function() {
                                     "btn-danger": item.item_status === 2,
                                     "btn-warning": item.item_status === 3,
                                     "btn-primary": item.item_status === 4,
-                                    "btn-teal": item.item_status === 5,
+                                    "btn-info": item.item_status === 5,
                                     "btn-success": item.item_status === 6
                                   },
                                   attrs: {

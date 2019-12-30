@@ -45,8 +45,8 @@
                                         'btn-danger':orderInfo.order_status == 2,
                                         'btn-warning':orderInfo.order_status == 3,
                                         'btn-primary':orderInfo.order_status == 4,
-                                        'btn-indigo-400':orderInfo.order_status == 5,
-                                        'btn-teal':orderInfo.order_status == 6 }"
+                                        'btn-info':orderInfo.order_status == 5,
+                                        'btn-success':orderInfo.order_status == 6 }"
                                     data-toggle="dropdown"
                                     aria-expanded="false">
                                     {{ orderInfo.status_label }}
@@ -101,7 +101,7 @@
                                         'btn-danger':item.item_status === 2,
                                         'btn-warning':item.item_status === 3,
                                         'btn-primary':item.item_status === 4,
-                                        'btn-teal':item.item_status === 5,
+                                        'btn-info':item.item_status === 5,
                                         'btn-success':item.item_status === 6
                                         }"
                                        data-toggle="dropdown"
