@@ -4806,6 +4806,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -54566,113 +54571,129 @@ var render = function() {
             }
           },
           [
-            _c("ul", [
-              _c("li", { staticClass: "row" }, [
-                _c(
-                  "div",
-                  { staticClass: "col-sm-12 col-md-4" },
-                  [
-                    _c("label", { staticClass: "required" }, [
-                      _vm._v("Rating")
-                    ]),
+            _vm.order_item.status === 6
+              ? _c("ul", [
+                  _c("li", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-sm-12 col-md-4" },
+                      [
+                        _c("label", { staticClass: "required" }, [
+                          _vm._v("Rating")
+                        ]),
+                        _vm._v(" "),
+                        _c("star-rating", {
+                          attrs: {
+                            "star-size": 25,
+                            rating: _vm.formData.rating,
+                            "read-only": _vm.haveReview
+                          },
+                          model: {
+                            value: _vm.formData.rating,
+                            callback: function($$v) {
+                              _vm.$set(_vm.formData, "rating", $$v)
+                            },
+                            expression: "formData.rating"
+                          }
+                        })
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
-                    _c("star-rating", {
-                      attrs: {
-                        "star-size": 25,
-                        rating: _vm.formData.rating,
-                        "read-only": _vm.haveReview
-                      },
-                      model: {
-                        value: _vm.formData.rating,
-                        callback: function($$v) {
-                          _vm.$set(_vm.formData, "rating", $$v)
-                        },
-                        expression: "formData.rating"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-12 col-md-8" }, [
-                  _c(
-                    "label",
-                    { staticClass: "required", attrs: { for: "review" } },
-                    [_vm._v("Review")]
-                  ),
+                    _c("div", { staticClass: "col-sm-12 col-md-8" }, [
+                      _c(
+                        "label",
+                        { staticClass: "required", attrs: { for: "review" } },
+                        [_vm._v("Review")]
+                      ),
+                      _vm._v(" "),
+                      !_vm.haveReview
+                        ? _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.formData.review,
+                                expression: "formData.review"
+                              }
+                            ],
+                            staticClass: "input form-control",
+                            attrs: {
+                              id: "review",
+                              rows: "3",
+                              placeholder: "Your Review.."
+                            },
+                            domProps: { value: _vm.formData.review },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.formData,
+                                  "review",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.haveReview
+                        ? _c("p", {
+                            staticStyle: {
+                              "margin-bottom": "0px",
+                              "padding-bottom": "5px"
+                            },
+                            domProps: { innerHTML: _vm._s(_vm.formData.review) }
+                          })
+                        : _vm._e()
+                    ])
+                  ]),
                   _vm._v(" "),
                   !_vm.haveReview
-                    ? _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.review,
-                            expression: "formData.review"
+                    ? _c(
+                        "li",
+                        {
+                          staticStyle: {
+                            "text-align": "right",
+                            "margin-top": "10px"
                           }
-                        ],
-                        staticClass: "input form-control",
-                        attrs: {
-                          id: "review",
-                          rows: "3",
-                          placeholder: "Your Review.."
                         },
-                        domProps: { value: _vm.formData.review },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "review",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.haveReview
-                    ? _c("p", {
-                        staticStyle: {
-                          "margin-bottom": "0px",
-                          "padding-bottom": "5px"
-                        },
-                        domProps: { innerHTML: _vm._s(_vm.formData.review) }
-                      })
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "button",
+                              attrs: {
+                                type: "submit",
+                                disabled: _vm.btnDisabled
+                              }
+                            },
+                            [_c("span", [_vm._v("Save")])]
+                          )
+                        ]
+                      )
                     : _vm._e()
                 ])
-              ]),
-              _vm._v(" "),
-              !_vm.haveReview
-                ? _c(
-                    "li",
-                    {
-                      staticStyle: {
-                        "text-align": "right",
-                        "margin-top": "10px"
-                      }
-                    },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "button",
-                          attrs: { type: "submit", disabled: _vm.btnDisabled }
-                        },
-                        [_c("span", [_vm._v("Save")])]
-                      )
-                    ]
-                  )
-                : _vm._e()
-            ])
+              : _c("ul", [_vm._m(0)])
           ]
         )
       ])
     : _vm._e()
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("p", { staticClass: "text-title text-bold" }, [
+        _vm._v("After Delivery You Can review This Product")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

@@ -23,7 +23,7 @@
             </div>
         </div>
         <form action="" @submit.prevent="addBuyerReview">
-            <ul>
+            <ul v-if="order_item.status === 6">
                 <li class="row">
                     <div class="col-sm-12 col-md-4">
                         <label  class="required">Rating</label>
@@ -44,6 +44,11 @@
                     <button type="submit"  :disabled="btnDisabled" class="button">
                         <span>Save</span>
                     </button>
+                </li>
+            </ul>
+            <ul v-else>
+                <li>
+                    <p class="text-title text-bold">After Delivery You Can review This Product</p>
                 </li>
             </ul>
         </form>
