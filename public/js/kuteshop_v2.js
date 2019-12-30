@@ -4424,6 +4424,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InvoiceModalOne",
@@ -54065,23 +54066,22 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-6 content-group" }, [
       _c("img", {
-        staticClass: "content-group mt-10",
-        staticStyle: { width: "120px" },
-        attrs: { src: "/assets/images/logo_demo.png", alt: "" }
+        staticStyle: { "max-width": "100px", "max-height": "80px" },
+        attrs: { src: "/assets/saliim.png", alt: "logo" }
       }),
       _vm._v(" "),
       _c("ul", { staticClass: "list-condensed list-unstyled" }, [
         _c("li", [
           _c("h5", { staticClass: "text-uppercase text-semibold" }, [
-            _vm._v("Company Name")
+            _vm._v("Saliim")
           ])
         ]),
         _vm._v(" "),
-        _c("li", [_vm._v("Address: ")]),
+        _c("li", [_vm._v("Address: Bakaaro,  Mogadishu, Somalia")]),
         _vm._v(" "),
-        _c("li", [_vm._v("Phone: ")]),
+        _c("li", [_vm._v("Phone: 00252617500005")]),
         _vm._v(" "),
-        _c("li", [_vm._v("Email: ")])
+        _c("li", [_vm._v("Email: info@saliim.com")])
       ])
     ])
   },

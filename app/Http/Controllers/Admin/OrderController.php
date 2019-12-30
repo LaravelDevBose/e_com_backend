@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\OrderHelper;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -69,7 +70,7 @@ class OrderController extends Controller
             try{
                 DB::beginTransaction();
                 $order = Order::where('order_no', $request->order_no)->first();
-
+                $orderId = $order->order_id;
                 if(empty($order)){
                     throw new \Exception('Invalid Order Information', Response::HTTP_BAD_REQUEST);
                 }
@@ -78,6 +79,13 @@ class OrderController extends Controller
                 ]);
 
                 if(!empty($order)){
+                    if($request->status == Order::OrderStatus['Cancel']){
+                        OrderItem::where('order_id', $orderId)->where('item_status', OrderItem::ItemStatus['Active'])
+                            ->update([
+                                'item_status'=>OrderItem::ItemStatus['Cancel'],
+                                'cancel_by'=>OrderItem::CancelBy['Admin'],
+                            ]);
+                    }
                     DB::commit();
                     $order = Order::where('order_no', $request->order_no)->first();
                     $data = [
