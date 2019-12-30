@@ -6618,10 +6618,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {};
   },
   created: function created() {},
-  mounted: function mounted() {
-    this.getCartDetails();
-  },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getCartDetails', 'removeFromCart']), {
+  mounted: function mounted() {},
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['removeFromCart']), {
     productRemoveFromCart: function productRemoveFromCart(rowId) {
       var _this = this;
 
@@ -7264,9 +7262,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   mounted: function mounted() {
+    this.getCartDetails();
     this.getCategoryList();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getSearchDetails', 'getCategoryList']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getSearchDetails', 'getCategoryList', 'getCartDetails']), {
     searchingData: function searchingData() {
       this.searching();
     },

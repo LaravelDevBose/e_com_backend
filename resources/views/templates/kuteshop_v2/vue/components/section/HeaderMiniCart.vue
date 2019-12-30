@@ -69,11 +69,10 @@
 
         },
         mounted() {
-            this.getCartDetails();
+
         },
         methods:{
             ...mapActions([
-                'getCartDetails',
                 'removeFromCart'
             ]),
             productRemoveFromCart(rowId){

@@ -37,12 +37,14 @@
             }
         },
         mounted(){
+            this.getCartDetails();
             this.getCategoryList();
         },
         methods:{
             ...mapActions([
                 'getSearchDetails',
                 'getCategoryList',
+                'getCartDetails'
             ]),
             searchingData(){
                 this.searching();
