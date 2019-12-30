@@ -54770,13 +54770,15 @@ var render = function() {
                             ])
                           : _vm._e(),
                         _vm._v(" "),
-                        wishList.seller
+                        wishList.seller.shop
                           ? _c("span", [
                               _c("i", {
                                 staticClass: "icon-store text-primary"
                               }),
                               _vm._v(
-                                " " + _vm._s(wishList.seller.shop_name) + " "
+                                " " +
+                                  _vm._s(wishList.seller.shop.shop_name) +
+                                  " "
                               )
                             ])
                           : _vm._e()

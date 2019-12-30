@@ -27,6 +27,7 @@ class ProductCollection extends Resource
             'singleVariation' => new ProductVariationResource($this->singleVariation),
             'thumbImage'=>new AttachmentResource($this->thumbImage),
             'seller'=>$this->seller,
+            'shop'=>$this->seller->shop,
             'product_type'=>$this->product_type,
             'qty'=>$this->product_qty,
             'price'=>$this->product_price,

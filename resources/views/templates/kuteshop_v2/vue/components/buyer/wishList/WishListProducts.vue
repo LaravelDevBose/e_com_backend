@@ -23,7 +23,7 @@
                         <div class="description std">
                             <div class="inner">
                                 <span v-if="wishList.brand">Brand: {{ wishList.brand.brand_name }} </span>
-                                <span v-if="wishList.seller"><i class="icon-store text-primary"></i> {{ wishList.seller.shop_name}} </span>
+                                <span v-if="wishList.seller.shop"><i class="icon-store text-primary"></i> {{ wishList.seller.shop.shop_name}} </span>
                             </div>
                         </div>
                     </td>
