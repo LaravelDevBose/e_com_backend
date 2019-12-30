@@ -89,14 +89,14 @@
                                 <li><a href="{{ route('seller.home') }}">@lang('header.dashboard')</a></li>
                                 <li><a href="{{ route('seller.order.index') }}">{{ trans_choice('header.order',2) }}</a></li>
                                 <li><a href="{{ route('seller.product.index') }}">{{ trans_choice('header.product', 2) }}</a></li>
-                                <li><a href="{{ route('seller.logout') }}">@lang('logout')</a></li>
+{{--                                <li><a href="{{ route('seller.logout') }}">@lang('logout')</a></li>--}}
                             </ul>
                         @else
                             <ul>
                                 <li><a href="{{ route('buyer.home') }}">@lang('header.dashboard')</a></li>
                                 <li><a href="{{ route('buyer.wish_list') }}">@lang('wishlist')</a></li>
                                 <li><a href="{{ route('buyer.order.index') }}">{{ trans_choice('header.order',2) }}</a></li>
-                                <li><a href="{{ route('buyer.logout') }}">@lang('logout')</a></li>
+{{--                                <li><a href="{{ route('buyer.logout') }}">@lang('logout')</a></li>--}}
                             </ul>
                         @endif
                     </div>
