@@ -45,9 +45,11 @@
         <div class="footer-column">
 
             <div class="row">
-                <div class="col-md-3 col-lg-3 col-xs-6 col">
+                <div class="col-md-4 col-lg-4 col-xs-4 col">
                     <strong class="logo-footer">
-                        <a href=""><img src="{{ asset('kuteshop_v2/images/media/index2/logo-footer.png')}}" alt="logo"></a>
+                        <a href="{{ route('front.index') }}">
+                            <img src="{{ asset('saliim.png') }}" alt="logo" style="height: 80px;">
+                        </a>
                     </strong>
 
                     <table class="address">
@@ -65,7 +67,7 @@
                         </tr>
                     </table>
                 </div>
-                <div class="col-md-2 col-lg-2 col-xs-6 col">
+                <div class="col-md-4 col-lg-4 col-xs-4 col">
                     @if(!empty($headerPageMenus))
                     <div class="links">
                         <h3 class="title">Company</h3>
@@ -79,41 +81,27 @@
                     </div>
                     @endif
                 </div>
-                <div class="col-md-2 col-lg-2 col-xs-6 col">
-                    <div class="links">
-                        <h3 class="title">My Account</h3>
-                        <ul>
-                            <li><a href="">My Order</a></li>
-                            <li><a href="">My Wishlist</a></li>
-                            <li><a href="">My Credit Slip</a></li>
-                            <li><a href="">My Addresses</a></li>
-                            <li><a href="">My Account</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-2 col-lg-2 col-xs-6 col">
+                <div class="col-md-4 col-lg-4 col-xs-4 col">
                     <div class="links">
                         <h3 class="title">Support</h3>
-                        <ul>
-                            <li><a href="">New User Guide</a></li>
-                            <li><a href="">Help Center</a></li>
-                            <li><a href="">Refund Policy</a></li>
-                            <li><a href="">Report Spam</a></li>
-                            <li><a href="">FAQ</a></li>
-                        </ul>
+                        @elseif(auth()->guard('seller')->check())
+                            <ul>
+                                <li><a href="{{ route('seller.home') }}">@lang('header.dashboard')</a></li>
+                                <li><a href="{{ route('seller.order.index') }}">{{ trans_choice('header.order',2) }}</a></li>
+                                <li><a href="{{ route('seller.product.index') }}">{{ trans_choice('header.product', 2) }}</a></li>
+                                <li><a href="{{ route('seller.logout') }}">@lang('logout')</a></li>
+                            </ul>
+                        @else
+                            <ul>
+                                <li><a href="{{ route('buyer.home') }}">@lang('header.dashboard')</a></li>
+                                <li><a href="{{ route('buyer.wish_list') }}">@lang('wishlist')</a></li>
+                                <li><a href="{{ route('buyer.order.index') }}">{{ trans_choice('header.order',2) }}</a></li>
+                                <li><a href="{{ route('buyer.logout') }}">@lang('logout')</a></li>
+                            </ul>
+                        @endif
                     </div>
                 </div>
-                <div class="col-md-3 col-lg-3 col-xs-6 col">
-                    <div class="block-social">
-                        <div class="block-title">Let’s Socialize </div>
-                        <div class="block-content">
-                            <a href="" class="sh-facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
-                            <a href="" class="sh-pinterest"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
-                            <a href="" class="sh-twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-                            <a href="" class="sh-google"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
 
