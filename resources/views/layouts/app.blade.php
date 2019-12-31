@@ -147,7 +147,7 @@
     <!-- /page container -->
 
 </div>
-<script>
+{{--<script>
     var $loading = $('#loading').hide();
     //Attach the event handler to any element
     $(document)
@@ -159,7 +159,7 @@
             //got response so hide the loading image
             $loading.hide();
         });
-</script>
+</script>--}}
 @yield('PageJs')
 
 </body>
