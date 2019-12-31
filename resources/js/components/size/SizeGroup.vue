@@ -3,10 +3,10 @@
         <div class="panel panel-info" v-if="!is_edit">
             <div class="panel-heading">
                 <h5 class="panel-title">Product Size Group</h5>
-                <div class="heading-elements">
+                <!--<div class="heading-elements">
                     <button type="button" class="btn bg-orange-800 btn-sm" @click="bulkSizeGroupModel">Bulk Size Group <i class="icon-play3 position-right"></i></button>
                     <button type="button" class="btn bg-orange-800 btn-sm" @click="bulkSizeModel">Bulk Size <i class="icon-play3 position-right"></i></button>
-                </div>
+                </div>-->
             </div>
 
             <div class="panel-body">

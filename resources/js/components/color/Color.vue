@@ -3,9 +3,9 @@
         <div class="panel">
             <div class="panel-heading bg-teal">
                 <h5 class="panel-title">Create Color</h5>
-                <div class="heading-elements">
+                <!--<div class="heading-elements">
                     <button type="button" class="btn bg-orange-800 btn-sm" data-toggle="modal" data-target="#modal_import_file">Bulk Import <i class="icon-play3 position-right"></i></button>
-                </div>
+                </div>-->
 
             </div>
 
