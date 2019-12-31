@@ -10,7 +10,7 @@
             <div class="panel-body">
                 <form action="" @submit.prevent="manipulateAdminData">
                     <div class="row">
-                        <div class="col-md-4 col-md-offset-1">
+                        <div class="col-md-5 col-md-offset-1">
                             <div class="form-group">
                                 <label>Admin Name:</label>
                                 <input type="text" v-model="formData.full_name" class="form-control" placeholder="Full Name" required>
@@ -23,9 +23,8 @@
                                 <label>Email:</label>
                                 <input type="email" v-model="formData.email" class="form-control" placeholder="Email" required>
                             </div>
-
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <!--<div class="form-group">
                                 <label>Role:</label>
                                 <select name="admin_role" v-model="formData.admin_role"  class="form-control" required>
@@ -57,8 +56,8 @@
                             </div>
                             <div class="text-right form-group">
                                 <button type="submit" :disabled="btnDisabled" class="btn btn-success">
-                                    <span v-if="is_edit">Update Brand</span>
-                                    <span v-else>Save Brand</span>
+                                    <span v-if="is_edit">Update Admin</span>
+                                    <span v-else>Save Admin</span>
                                     <i class="icon-arrow-right14 position-right"></i>
                                 </button>
                             </div>
