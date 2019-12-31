@@ -4,11 +4,6 @@
             <div class="panel-heading">
                 <h5 class="panel-title">Admin Account</h5>
                 <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
                 </div>
             </div>
 
@@ -75,14 +70,8 @@
         <!-- Basic table -->
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title">Brand List</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
+                <h5 class="panel-title">Admin List</h5>
+
             </div>
 
             <div class="table-responsive">
@@ -180,7 +169,7 @@
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 Notify.success(response.message);
-                                this.isedit = false;
+                                this.is_edit = false;
                                 this.formReset();
                             }else if(response.status === "validation"){
                                 Notify.validation(response.message);
