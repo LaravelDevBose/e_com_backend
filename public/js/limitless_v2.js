@@ -10609,6 +10609,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.deleteProductData(ID).then(function (response) {
         if (typeof response.code !== "undefined" && response.code === 200) {
           Notify.success(response.message);
+          location.reload();
         } else {
           Notify.error(response.message);
         }
