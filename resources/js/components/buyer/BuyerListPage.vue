@@ -102,6 +102,10 @@
                     })
             },
             deleteBuyer(Id){
+                let conf = confirm('Are You Sure. Want to Delete.?');
+                if(!conf){
+                    return false;
+                }
                 this.buyerDelete(Id)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
@@ -126,7 +130,7 @@
                 rows:'',
                 columns: [
                     { label: 'Full Name', field: 'user.full_name', sortable: true},
-                    { label: 'User Name', field: 'user.user_name',},
+                    // { label: 'User Name', field: 'user.user_name',},
                     { label: 'Email', field: 'user.email'},
                     { label: 'Contact No', field: 'user.phone_no', sortable: false },
                     { label: 'Is Seller', component: 'account-status', align: 'center', sortable: true },
