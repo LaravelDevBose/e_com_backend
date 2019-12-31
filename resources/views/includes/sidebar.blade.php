@@ -13,12 +13,12 @@
                     <span class="text-size-small">{{ auth()->guard('admin')->user()->role }}</span>
                 </div>
 
-                <div class="sidebar-user-material-menu">
+               {{-- <div class="sidebar-user-material-menu">
                     <a href="#user-nav" data-toggle="collapse"><span>My account</span> <i class="caret"></i></a>
-                </div>
+                </div>--}}
             </div>
 
-            <div class="navigation-wrapper collapse" id="user-nav">
+            {{--<div class="navigation-wrapper collapse" id="user-nav">
                 <ul class="navigation">
                     <li><a href="#"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
                     <li><a href="#"><i class="icon-coins"></i> <span>My balance</span></a></li>
@@ -27,7 +27,7 @@
                     <li><a href="#"><i class="icon-cog5"></i> <span>Account settings</span></a></li>
                     <li><a href="#"><i class="icon-switch2"></i> <span>Logout</span></a></li>
                 </ul>
-            </div>
+            </div>--}}
         </div>
         <!-- /user menu -->
 
@@ -86,11 +86,11 @@
                     <li>
                         <a href="#"><i class="icon-cart"></i> <span>CMS</span></a>
                         <ul>
-                            <li><a href="{{ route('admin.section.index') }}"><i class="icon-stack2"></i>Homepage Section</a></li>
+{{--                            <li><a href="{{ route('admin.section.index') }}"><i class="icon-stack2"></i>Homepage Section</a></li>--}}
                             <li><a href="{{ route('admin.group.index') }}"><i class="icon-stack2"></i>Product Grouping</a></li>
                             <li><a href="{{ route('admin.cms.sliders.index') }}"><i class="icon-list-numbered"></i>Slider</a></li>
                             <li><a href="{{ route('admin.cms.pages.index') }}"><i class="icon-list-numbered"></i> General Pages</a></li>
-                            <li><a href="{{ route('admin.setting.page') }}"><i class="icon-cogs"></i> Setting</a></li>
+{{--                            <li><a href="{{ route('admin.setting.page') }}"><i class="icon-cogs"></i> Setting</a></li>--}}
                         </ul>
                     </li>
                 </ul>
