@@ -10,13 +10,13 @@
                 <div class="panel-body no-padding-bottom">
                     <div class="row">
                         <div class="col-md-6 content-group">
-                            <img src="/assets/images/logo_demo.png" class="content-group mt-10" alt="" style="width: 120px;">
+                            <img src="/saliim.png" alt="logo" style="max-width:100px; max-height: 80px;">
                             <ul class="list-condensed list-unstyled">
-<!--                                TODO add Company Address Dynamic-->
-                                <li><h5 class="text-uppercase text-semibold">Company Name</h5></li>
-                                <li>Address: </li>
-                                <li>Phone: </li>
-                                <li>Email: </li>
+                                <!--                                TODO add Company Address Dynamic-->
+                                <li><h5 class="text-uppercase text-semibold">Saliim</h5></li>
+                                <li>Address: Bakaaro,  Mogadishu, Somalia</li>
+                                <li>Phone: 00252617500005</li>
+                                <li>Email: info@saliim.com</li>
                             </ul>
                         </div>
 
