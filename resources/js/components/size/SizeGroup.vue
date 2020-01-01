@@ -139,7 +139,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-if="sizeGroups" v-for="(sizeGroup , index) in sizeGroups" :key="sizeGroup.id">
+                    <tr v-if="sizeGroups.lenght !== 0" v-for="(sizeGroup , index) in sizeGroups" :key="sizeGroup.id">
                         <td>{{ index }}</td>
 
                         <td>
