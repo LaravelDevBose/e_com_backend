@@ -278,7 +278,7 @@ class ProductController extends Controller
 
                                 }
                                 $variationProduct = ProductVariation::insert($variationArray);
-                                if(!empty($variationProduct)){
+                                if(empty($variationProduct)){
                                     throw new Exception('Invalid Product Variation Information', Response::HTTP_BAD_REQUEST);
                                 }
                             }
@@ -592,9 +592,9 @@ class ProductController extends Controller
                                 $variations = $request->variations;
                                 $variationArray = array();
                                 foreach ($variations as $variation){
-                                    if(!empty($request->discount_price) && $request->discount_price >= $variation->price){
+                                    /*if(!empty($request->discount_price) && $request->discount_price >= $variation->price){
                                         throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
-                                    }
+                                    }*/
                                     $variation = (object) $variation;
                                     $gift ='';
                                     if(!empty($variation->gift_product)){
