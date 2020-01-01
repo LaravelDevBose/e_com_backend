@@ -68,7 +68,7 @@ class FrontendController extends Controller
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product'=>function($query){
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews');
-            }])->orderBy('position', 'asc')->latest()->get();
+            }])->islive()->orderBy('position', 'asc')->latest()->get();
 
 
         $adminBestSellProIds = OrderItem::where('seller_id', 1) //seller id 1 is Booked for admin
@@ -147,7 +147,7 @@ class FrontendController extends Controller
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product'=>function($query){
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews');
-            }])->orderBy('position', 'asc')->latest()->get();
+            }])->orderBy('position', 'asc')->islive()->latest()->get();
         return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $hotProducts);
     }
 
@@ -201,7 +201,7 @@ class FrontendController extends Controller
             $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
                 ->with(['product'=>function($query){
                     return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews');
-                }])->orderBy('position', 'asc')->latest()->get();
+                }])->islive()->orderBy('position', 'asc')->latest()->get();
             return view('templates.' . $this->template_name . '.frontend.products', [
                 'category' => $category,
                 'categories' => CommonData::category_tree(),
@@ -260,7 +260,7 @@ class FrontendController extends Controller
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product'=>function($query){
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
-            }])->orderBy('position', 'asc')->latest()->take(5)->get();
+            }])->islive()->orderBy('position', 'asc')->latest()->take(5)->get();
 
         $reqData = [
             'product_id'=>$product->product_id,
@@ -320,7 +320,8 @@ class FrontendController extends Controller
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product'=>function($query){
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews');
-            }])->orderBy('position', 'asc')->latest()->get();
+            }])->islive()
+            ->orderBy('position', 'asc')->latest()->get();
         return view('templates.' . $this->template_name . '.frontend.pages', [
             'page' => $page,
             'pagesMenuList' => CommonData::pages_menu_list(),
