@@ -317,9 +317,14 @@ class FrontendController extends Controller
         if (empty($page)) {
             return abort(Response::HTTP_NOT_FOUND);
         }
+        $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
+            ->with(['product'=>function($query){
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews');
+            }])->orderBy('position', 'asc')->latest()->get();
         return view('templates.' . $this->template_name . '.frontend.pages', [
             'page' => $page,
             'pagesMenuList' => CommonData::pages_menu_list(),
+            'hotProducts'=>$hotProducts,
         ]);
     }
 

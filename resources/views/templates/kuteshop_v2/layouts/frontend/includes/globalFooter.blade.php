@@ -70,7 +70,7 @@
                 <div class="col-md-4 col-lg-4 col-xs-4 col">
                     @if(!empty($pageMenus))
                     <div class="links">
-                        <h3 class="title">Company</h3>
+                        <h3 class="title">Company Condition & Policy</h3>
                         <ul>
                             @foreach($pageMenus as $pageMenu)
                             <li>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-md-4 col-lg-4 col-xs-4 col">
                     <div class="links">
-                        <h3 class="title">Support</h3>
+                        <h3 class="title">Account</h3>
                         @if(auth()->guard('seller')->check())
                             <ul>
                                 <li><a href="{{ route('seller.home') }}">@lang('header.dashboard')</a></li>
