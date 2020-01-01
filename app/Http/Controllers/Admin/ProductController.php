@@ -739,9 +739,9 @@ class ProductController extends Controller
                 throw new Exception('Invalid Product Information', Response::HTTP_NOT_FOUND);
             }
 
-            if($product->seller_id !== 1){
+            /*if($product->seller_id !== 1){
                 throw new Exception("You Are Not Owner Of This Product. You Can't Delete This.", Response::HTTP_UNAUTHORIZED);
-            }
+            }*/
 
             $product = $product->update([
                 'product_status'=>config('app.delete')

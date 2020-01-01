@@ -517,7 +517,7 @@ class ProductController extends Controller
                 if(empty($product)){
                     throw new Exception('Product Not Found', Response::HTTP_NOT_FOUND);
                 }
-
+                $status = $product->product_status;
                 $product =$product->update([
                     'product_sku'=>Product::product_sku_generate(),
                     'category_id'=>$request->category_id,
@@ -537,7 +537,7 @@ class ProductController extends Controller
                     'package_height'=>$request->package_height,
                     'delivery_cost1'=>$request->delivery_cost1,
                     'delivery_cost2'=>$request->delivery_cost2,
-                    'product_status'=>(!empty($request->product_status) && $request->product_status == 1) ? $request->product_status : 2,
+                    'product_status'=>($status == Product::ProductStatus['Active']) ? Product::ProductStatus['Review'] : $status,
                     'warranty_type'=>$request->warranty_type,
                     'video_url'=>$request->video_url,
                     'product_type'=>$request->product_type,
