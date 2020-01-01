@@ -38,7 +38,7 @@
                     @if(!empty($pagesMenuList))
                     <div class="block-sidebar block-sidebar-categorie">
                         <div class="block-title">
-                            <strong>Company Condition & Policy</strong>
+                            <strong>All Condition & Policies</strong>
                         </div>
                         <div class="block-content">
                             <ul class="items">
