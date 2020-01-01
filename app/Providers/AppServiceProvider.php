@@ -31,7 +31,6 @@ class AppServiceProvider extends ServiceProvider
             $categoryTree = CommonData::category_tree_list();
             $headerPageMenus = CommonData::pages_menu_list(Page::MENU_SHOW_IN['Footer']);
             $pageMenus = CommonData::pages_menu_list(Page::MENU_SHOW_IN['Header']);
-            dd($pageMenus);
             $brands = CommonData::brand_list();
             $contactUs = CommonData::setting_data();
             $catList = CommonData::category_list();

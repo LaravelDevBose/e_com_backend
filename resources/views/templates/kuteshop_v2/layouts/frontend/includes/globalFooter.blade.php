@@ -68,11 +68,11 @@
                     </table>
                 </div>
                 <div class="col-md-4 col-lg-4 col-xs-4 col">
-                    @if(!empty($headerPageMenus))
+                    @if(!empty($pageMenus))
                     <div class="links">
                         <h3 class="title">Company</h3>
                         <ul>
-                            @foreach($headerPageMenus as $pageMenu)
+                            @foreach($pageMenus as $pageMenu)
                             <li>
                                 <a href="{{ route('front.pages', $pageMenu->page_slug) }}" title="{{ $pageMenu->menu_title }}">{{ $pageMenu->menu_title }}</a>
                             </li>
