@@ -51,8 +51,8 @@ class GeneralPagesController extends Controller
 
     public function store(Request $request){
         $validator = Validator::make($request->all(),[
-            'page_title'=>'required|string|min:5|max:20',
-            'menu_title'=>'required|string|min:5|max:20',
+            'page_title'=>'required|string|min:5|max:100',
+            'menu_title'=>'required|string|min:5|max:100',
             'show_in'=>'required|numeric',
             'attachmentIds'=>'array'
         ]);
