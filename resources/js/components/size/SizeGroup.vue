@@ -139,7 +139,12 @@
                             <span class="text text-bold"> {{ sizeGroup.name }}</span>
                         </td>
                         <td>
-                            <span class="label label-info"  v-for="(SG_cat, index) in sizeGroup.categories" :key="index">{{ SG_cat.category.name }}</span>
+                            <span
+                                class="label label-info"
+                                v-for="(SG_cat, index) in sizeGroup.categories"
+                                :key="index"
+                                v-if="SG_cat.category !== null && SG_cat.category !== '' "
+                            >{{ SG_cat.category.name }}</span>
                         </td>
                         <td>
                             <span class="label bg-teal"  v-for="size in sizeGroup.sizes" :key="size.id">{{ size.size_name }}</span>

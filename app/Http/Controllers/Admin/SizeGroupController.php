@@ -27,7 +27,7 @@ class SizeGroupController extends Controller
      */
     public function index()
     {
-        $sizeGroups= SizeGroup::notDelete()->with(['categories', 'sizes'=>function($query){
+        $sizeGroups= SizeGroup::notDelete()->with(['categories.category', 'sizes'=>function($query){
                 return $query->isActive();
                 },
             ])->latest()->get();
