@@ -82,8 +82,8 @@
                         <div class="col-md-12" >
                             <div style="margin-bottom:1rem;">
                                 <label style="margin-left:.5rem">Size Name:</label>
-                                <span class="btn btn-sm btn-success " @click="addSizeField"> <i class="icon-plus-circle2"></i></span>
-                                <span class="btn btn-sm btn-danger " @click="removeSizeField"> <i class="icon-minus-circle2"></i></span>
+                                <span class="btn btn-sm btn-success " @click="addSizeField()"> <i class="icon-plus-circle2"></i></span>
+                                <span class="btn btn-sm btn-danger " @click="removeSizeField()"> <i class="icon-minus-circle2"></i></span>
                             </div>
 
                             <div class="row">
@@ -117,13 +117,6 @@
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">Product Size Group List</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
             </div>
 
             <div class="table-responsive">
@@ -138,8 +131,8 @@
                         <th class="text-center">Action</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr v-if="sizeGroups.lenght !== 0" v-for="(sizeGroup , index) in sizeGroups" :key="sizeGroup.id">
+                    <tbody v-if="sizeGroups !== ''">
+                    <tr v-for="(sizeGroup , index) in sizeGroups" :key="sizeGroup.id">
                         <td>{{ index }}</td>
 
                         <td>
@@ -167,8 +160,6 @@
                 </table>
             </div>
         </div>
-        <import-data :example_image="format_image" :upload_url="action_url" :example_file="format_file" ></import-data>
-        <!-- /basic table -->
     </div>
 </template>
 
@@ -221,30 +212,10 @@
                 'updateProductSize',
             ]),
             addSizeField(){
-
                 this.sizeInput++;
-                if(this.sizeInput === 1){
-                    this.sizeRemove = false;
-                }else{
-                    this.sizeRemove = true;
-                }
-
             },
             removeSizeField(){
-
                 this.form.sizeNames.splice(this.sizeInput, 1);
-                if(this.sizeInput === 1){
-                    return;
-                }else{
-                    if(this.sizeInput === 1){
-                        this.sizeRemove = false;
-                    }else{
-                        this.sizeRemove = true;
-                        this.sizeInput--;
-                    }
-                    return ;
-                }
-
             },
             sizeGroupStore(){
                 this.btnDisabled=  true;
