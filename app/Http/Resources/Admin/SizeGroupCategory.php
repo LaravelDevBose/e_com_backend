@@ -18,9 +18,9 @@ class SizeGroupCategory extends JsonResource
         return [
             'group_id'=> $this->size_group_id,
             'category'=> [
-                'name'=>$this->category->category_name,
+                'name'=>$this->category->category_name ?? '' ,
             ],
-            'category_name'=>$this->category->category_name
+            'category_name'=>$this->category->category_name ?? ''
         ];
     }
 }
