@@ -77,7 +77,7 @@ class ProductController extends Controller
 
     public function product_create_dependency($catID){
 
-        $sizeGroupIDs = SizeGroupCategory::where('category_id', $catID)->pluck('size_group_id');
+        $sizeGroupIDs = SizeGroupCategory::where('category_id', $catID)->where('sgc_status', config('app.active'))->pluck('size_group_id');
         $sizes = Size::whereIn('size_group_id', $sizeGroupIDs)->select('size_id as id','size_name as text')->isActive()->latest()->get();
         $data = [
             'colors'=>Color::isActive()->select('color_id as id', 'color_name as text')->latest()->get(),
