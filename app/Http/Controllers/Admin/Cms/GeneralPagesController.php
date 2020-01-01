@@ -69,7 +69,7 @@ class GeneralPagesController extends Controller
                     'menu_position'=>$request->menu_position,
                     'body_content'=>$request->body_content,
                     'other_content'=>$request->other_content,
-                    'attachment_id'=>$request->attachmentIds[0],
+                    'attachment_id'=>(!empty($request->attachmentIds[0]))?$request->attachmentIds[0]:'',
                     'page_status'=>(!empty($request->page_status) && $request->page_status == config('app.active')) ? $request->page_status : config('app.inactive'),
                 ]);
                 if($page){
