@@ -46,10 +46,10 @@
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Cover Image:</label>
                                 <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
