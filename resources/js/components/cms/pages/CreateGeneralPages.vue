@@ -24,10 +24,10 @@
                                 <label>Menu Position:</label>
                                 <input type="number" v-model="formData.menu_position" class="form-control" placeholder="Menu Position" required>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Show In:</label>
                                 <vue-select2 v-model="formData.show_in" :options="pageDependency.show_in"> </vue-select2>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -84,7 +84,7 @@
                 formData:{
                     page_title:'',
                     menu_title:'',
-                    show_in:'',
+                    show_in:2,
                     menu_position:'',
                     body_content:'',
                     other_content:'',
