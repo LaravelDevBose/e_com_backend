@@ -37,12 +37,12 @@ class AppServiceProvider extends ServiceProvider
                 ->orderBy('menu_position', 'asc')->get();
 
             $ppPageMenus = Page::isActive()->notShowIn(Page::MENU_SHOW_IN['Header'])
-                ->where('page_cat', Page::PageCategory['Terms & Conditions'])
+                ->where('page_cat', Page::PageCategory['Privacy & Policy'])
                 ->select('page_id','menu_title','page_slug','show_in','page_status')
                 ->orderBy('menu_position', 'asc')->get();
 
             $csPageMenus = Page::isActive()->notShowIn(Page::MENU_SHOW_IN['Header'])
-                ->where('page_cat', Page::PageCategory['Terms & Conditions'])
+                ->where('page_cat', Page::PageCategory['Customer Service'])
                 ->select('page_id','menu_title','page_slug','show_in','page_status')
                 ->orderBy('menu_position', 'asc')->get();
             
