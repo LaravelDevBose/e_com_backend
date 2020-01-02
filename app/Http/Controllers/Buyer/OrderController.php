@@ -305,7 +305,7 @@ class OrderController extends Controller
             DB::beginTransaction();
 
             $orderItem = OrderItem::where('item_id',$item_id)->first();
-
+            $orderId = $orderItem->order_id;
             if(empty($orderItem)){
                 throw new \Exception('Invalid Order Item Information', Response::HTTP_NOT_FOUND);
             }
@@ -322,6 +322,16 @@ class OrderController extends Controller
                 ## TODO Order History Added,
                 ## TODO Check if All Item Are Cancel then update the order status as Cancel
                 event(new OnCancelOrderItem($item_id));
+                $notCancelItem = OrderItem::where('order_id', $orderId)->where('item_status', '!=', OrderItem::ItemStatus['Cancel'])->count();
+                if($notCancelItem == 0){
+                    $order = Order::where('order_id', $orderId)
+                        ->update([
+                            'order_status'=>Order::OrderStatus['Cancel'],
+                        ]);
+                    if(empty($order)){
+                        throw new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
+                    }
+                }
                 DB::commit();
                 return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Order Item Cancel Successfully');
             }else{

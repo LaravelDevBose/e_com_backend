@@ -45,7 +45,7 @@
         <div class="footer-column">
 
             <div class="row">
-                <div class="col-md-4 col-lg-4 col-xs-4 col">
+                <div class="col-md-3 col-lg-3 col-xs-6 col">
                     <strong class="logo-footer">
                         <a href="{{ route('front.index') }}">
                             <img src="{{ asset('saliim.png') }}" alt="logo" style="height: 80px;">
@@ -67,12 +67,12 @@
                         </tr>
                     </table>
                 </div>
-                <div class="col-md-4 col-lg-4 col-xs-4 col">
-                    @if(!empty($pageMenus))
+                <div class="col-md-2 col-lg-2 col-xs-6 col">
+                    @if(!empty($tcPageMenus))
                     <div class="links">
-                        <h3 class="title">Company Condition & Policy</h3>
+                        <h3 class="title">Terms and Conditions</h3>
                         <ul>
-                            @foreach($pageMenus as $pageMenu)
+                            @foreach($tcPageMenus as $pageMenu)
                             <li>
                                 <a href="{{ route('front.pages', $pageMenu->page_slug) }}" title="{{ $pageMenu->menu_title }}">{{ $pageMenu->menu_title }}</a>
                             </li>
@@ -81,27 +81,44 @@
                     </div>
                     @endif
                 </div>
-                <div class="col-md-4 col-lg-4 col-xs-4 col">
-                    <div class="links">
-                        <h3 class="title">Account</h3>
-                        @if(auth()->guard('seller')->check())
+                <div class="col-md-2 col-lg-2 col-xs-6 col">
+                    @if(!empty($ppPageMenus))
+                        <div class="links">
+                            <h3 class="title">Privacy</h3>
                             <ul>
-                                <li><a href="{{ route('seller.home') }}">@lang('header.dashboard')</a></li>
-                                <li><a href="{{ route('seller.order.index') }}">{{ trans_choice('header.order',2) }}</a></li>
-                                <li><a href="{{ route('seller.product.index') }}">{{ trans_choice('header.product', 2) }}</a></li>
-{{--                                <li><a href="{{ route('seller.logout') }}">@lang('logout')</a></li>--}}
+                                @foreach($ppPageMenus as $pageMenu)
+                                    <li>
+                                        <a href="{{ route('front.pages', $pageMenu->page_slug) }}" title="{{ $pageMenu->menu_title }}">{{ $pageMenu->menu_title }}</a>
+                                    </li>
+                                @endforeach
                             </ul>
-                        @else
+                        </div>
+                    @endif
+                </div>
+                <div class="col-md-2 col-lg-2 col-xs-6 col">
+                    @if(!empty($csPageMenus))
+                        <div class="links">
+                            <h3 class="title">Customer Services</h3>
                             <ul>
-                                <li><a href="{{ route('buyer.home') }}">@lang('header.dashboard')</a></li>
-                                <li><a href="{{ route('buyer.wish_list') }}">@lang('wishlist')</a></li>
-                                <li><a href="{{ route('buyer.order.index') }}">{{ trans_choice('header.order',2) }}</a></li>
-{{--                                <li><a href="{{ route('buyer.logout') }}">@lang('logout')</a></li>--}}
+                                @foreach($csPageMenus as $pageMenu)
+                                    <li>
+                                        <a href="{{ route('front.pages', $pageMenu->page_slug) }}" title="{{ $pageMenu->menu_title }}">{{ $pageMenu->menu_title }}</a>
+                                    </li>
+                                @endforeach
                             </ul>
+                        </div>
+                    @endif
+                </div>
+                <div class="col-md-3 col-lg-3 col-xs-6 col">
+                    <div class="block-newletter">
+                        <div class="block-title">About Us</div>
+                        @if(!empty($aboutUs))
+                            <div class="block-content">
+                                {!!  substr(strip_tags($aboutUs->body_content), 0, 200) !!}
+                            </div>
                         @endif
                     </div>
                 </div>
-
             </div>
         </div>
 

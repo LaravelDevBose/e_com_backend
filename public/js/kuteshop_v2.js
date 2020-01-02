@@ -4177,8 +4177,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53281,11 +53279,12 @@ var render = function() {
                         {
                           staticClass: "label  dropdown-toggle",
                           class: {
-                            "btn-info": _vm.orderInfo.order_status == 1,
+                            "btn-info":
+                              _vm.orderInfo.order_status == 1 ||
+                              _vm.orderInfo.order_status == 5,
                             "btn-danger": _vm.orderInfo.order_status == 2,
                             "btn-warning": _vm.orderInfo.order_status == 3,
                             "btn-primary": _vm.orderInfo.order_status == 4,
-                            "btn-info": _vm.orderInfo.order_status == 5,
                             "btn-success": _vm.orderInfo.order_status == 6
                           },
                           attrs: {
@@ -53414,11 +53413,12 @@ var render = function() {
                                 {
                                   staticClass: "label  dropdown-toggle",
                                   class: {
-                                    "btn-info": item.item_status === 1,
+                                    "btn-info":
+                                      item.item_status === 1 ||
+                                      item.item_status === 5,
                                     "btn-danger": item.item_status === 2,
                                     "btn-warning": item.item_status === 3,
                                     "btn-primary": item.item_status === 4,
-                                    "btn-info": item.item_status === 5,
                                     "btn-success": item.item_status === 6
                                   },
                                   attrs: {
@@ -78173,7 +78173,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

@@ -81,7 +81,7 @@ class OrderController extends Controller
                     $itemStatus = $order->orderItems->whereIn('item_status', [OrderItem::ItemStatus['Active'], OrderItem::ItemStatus['Cancel']])->count();
 
                     if ($totalOrderItem !== $itemStatus) {
-                        throw new \Exception('Not Able To Cancel this Order. Contract With Admin.', Response::HTTP_NOT_ACCEPTABLE);
+                        throw new \Exception('Not Able To Cancel this Order. Some Item Are Already Shipped Or Ready To Ship', Response::HTTP_NOT_ACCEPTABLE);
                     }
                 }
 

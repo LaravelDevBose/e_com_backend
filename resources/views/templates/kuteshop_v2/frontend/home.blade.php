@@ -214,7 +214,7 @@
                         We offer competitive prices on our 100 million plus product range.
                     </div>
                 </div>
-                <div class="item">
+                {{--<div class="item">
                     <div class="icon">
                         <img src="{{ asset('kuteshop_v2/images/service/service2.png') }}" alt="service">
                         <span class="title">Worldwide Delivery</span>
@@ -222,7 +222,7 @@
                     <div class="des">
                         With sites in 5 languages, we ship to over 200 countries & regions.
                     </div>
-                </div>
+                </div>--}}
                 <div class="item">
                     <div class="icon">
                         <img src="{{ asset('kuteshop_v2/images/service/service3.png') }}" alt="service">
@@ -242,7 +242,7 @@
                         Our Buyer Protection covers your purchase from click to delivery.
                     </div>
                 </div>
-                <div class="item">
+                {{--<div class="item">
                     <div class="icon">
                         <img src="{{ asset('kuteshop_v2/images/service/service5.png') }}" alt="service">
                         <span class="title">24/7 Help Center</span>
@@ -250,7 +250,7 @@
                     <div class="des">
                         Round-the-clock assistance for a smooth shopping experience.
                     </div>
-                </div>
+                </div>--}}
                 <div class="item">
                     <div class="icon">
                         <img src="{{ asset('kuteshop_v2/images/service/service6.png') }}" alt="service">

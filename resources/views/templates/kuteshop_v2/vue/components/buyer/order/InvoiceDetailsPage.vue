@@ -41,11 +41,10 @@
                                 <span
                                     class="label  dropdown-toggle"
                                     :class="{
-                                        'btn-info':orderInfo.order_status == 1,
+                                        'btn-info':orderInfo.order_status == 1 || orderInfo.order_status == 5,
                                         'btn-danger':orderInfo.order_status == 2,
                                         'btn-warning':orderInfo.order_status == 3,
                                         'btn-primary':orderInfo.order_status == 4,
-                                        'btn-info':orderInfo.order_status == 5,
                                         'btn-success':orderInfo.order_status == 6 }"
                                     data-toggle="dropdown"
                                     aria-expanded="false">
@@ -97,11 +96,10 @@
                                 <span
                                     class="label  dropdown-toggle"
                                    :class="{
-                                        'btn-info':item.item_status === 1,
+                                        'btn-info':item.item_status === 1||item.item_status === 5,
                                         'btn-danger':item.item_status === 2,
                                         'btn-warning':item.item_status === 3,
                                         'btn-primary':item.item_status === 4,
-                                        'btn-info':item.item_status === 5,
                                         'btn-success':item.item_status === 6
                                         }"
                                        data-toggle="dropdown"
