@@ -70,6 +70,21 @@ const actions = {
             return error.data;
         }
     },
+    async orderItemStatusUpdate({commit}, reqData){
+        try {
+            return await axios.post('/admin/order/item/status/update',reqData)
+                .then(response=>{
+                    /*if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('updateOrderItemStatus', response.data.data);
+                    }
+                    delete response.data.data;*/
+                    return response.data;
+                })
+        }catch (error) {
+            console.log(error);
+            return error.data;
+        }
+    },
 };
 
 const mutations = {
@@ -92,8 +107,18 @@ const mutations = {
                 order.status_label = response.status_label;
                 return order;
             }
+        });
+
+    },
+    updateOrderItemStatus:(state, response)=>{
+        state.order_info = state.order_info.order_items.filter(item=>{
+            if(item.item_id === response.item_id){
+                item.item_status = response.item_status;
+                item.item_status_label = response.item_status_label;
+            }
+            return item;
         })
-    }
+    },
 };
 
 export default {

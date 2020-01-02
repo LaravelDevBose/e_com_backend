@@ -52,7 +52,7 @@ class OrderController extends Controller
         ]);
     }
     public function order_details($orderId){
-        $order = Order::where('order_id', $orderId)->with('buyer.user', 'orderItems.product','orderItems.seller.shop', 'billing', 'shipping', 'payment')->first();
+        $order = Order::where('order_id', $orderId)->with('buyer.user', 'orderItems.product.thumbImage','orderItems.seller.shop', 'billing', 'shipping', 'payment')->first();
         if(!empty($order)){
             return ResponserTrait::singleResponse($order, 'success', Response::HTTP_OK);
         }else{
@@ -94,6 +94,55 @@ class OrderController extends Controller
                         'status_label'=>$order->status_label,
                     ];
                     return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK, 'Order Status Successfully Updated.');
+                }else{
+                    throw new \Exception('Order Status Not Updated', Response::HTTP_BAD_REQUEST);
+                }
+
+            }catch (\Exception $ex){
+                DB::rollBack();
+                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+        }
+    }
+
+    public function update_order_item_status(Request $request){
+        $validator = Validator::make($request->all(),[
+            'item_id'=>'required',
+            'status'=>'required|integer'
+        ]);
+
+        if($validator->passes()){
+            try{
+                DB::beginTransaction();
+                $orderItem = OrderItem::where('item_id', $request->item_id)->first();
+                $orderId = $orderItem->order_id;
+                if(empty($orderItem)){
+                    throw new \Exception('Invalid Order Information', Response::HTTP_BAD_REQUEST);
+                }
+                $orderItem = $orderItem->update([
+                    'item_status'=>$request->status,
+                    'cancel_by'=>OrderItem::CancelBy['Admin'],
+                ]);
+
+                if(!empty($orderItem)){
+                    if($request->status == OrderItem::AllItemStatus['Cancel']){
+                        $notCancelItem = OrderItem::where('order_id', $orderId)->where('item_status', '!=', OrderItem::ItemStatus['Cancel'])->count();
+                        if($notCancelItem == 0){
+                            $order = Order::where('order_id', $orderId)
+                                ->update([
+                                    'order_status'=>Order::OrderStatus['Cancel'],
+                                ]);
+                            if(empty($order)){
+                                throw new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
+                            }
+                        }
+
+                    }
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Order Item Status Updated.');
                 }else{
                     throw new \Exception('Order Status Not Updated', Response::HTTP_BAD_REQUEST);
                 }

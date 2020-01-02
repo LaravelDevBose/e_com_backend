@@ -46,6 +46,7 @@
                 'getOrderInfo',
             ]),
             showInvoiceModalView(order_id){
+                location.href = `/admin/order/${order_id}/show`;
                 this.getOrderInfo(order_id)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){

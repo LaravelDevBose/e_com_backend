@@ -53257,53 +53257,6 @@ var render = function() {
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4 col-lg-4 " }, [
-              _vm.orderInfo.billing !== null
-                ? _c("div", { staticClass: "content-group" }, [
-                    _c("span", { staticClass: "text-muted" }, [
-                      _vm._v("Billing To:")
-                    ]),
-                    _vm._v(" "),
-                    _c("ul", { staticClass: "list-condensed list-unstyled" }, [
-                      _c("li", [
-                        _c("h5", [
-                          _vm._v(_vm._s(_vm.orderInfo.billing.full_name))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "text-semibold" }, [
-                          _vm._v(_vm._s(_vm.orderInfo.billing.phone_no))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [_vm._v(_vm._s(_vm.orderInfo.billing.address))]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _vm._v(
-                          _vm._s(_vm.orderInfo.billing.city) +
-                            "," +
-                            _vm._s(_vm.orderInfo.billing.district)
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _vm._v(_vm._s(_vm.orderInfo.billing.region) + " "),
-                        _vm.orderInfo.billing.postal_code
-                          ? _c("span", { staticClass: "text-semibold" }, [
-                              _vm._v(
-                                "- " + _vm._s(_vm.orderInfo.billing.postal_code)
-                              )
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [_vm._v(_vm._s(_vm.orderInfo.billing.country))])
-                    ])
-                  ])
-                : _vm._e()
-            ]),
-            _vm._v(" "),
             _c("div", { staticClass: "col-md-4 content-group" }, [
               _c("div", { staticClass: "invoice-details text-right" }, [
                 _c("h5", { staticClass: "text-uppercase text-semibold" }, [

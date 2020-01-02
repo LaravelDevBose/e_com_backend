@@ -17,7 +17,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-4 ">
+                    <!--<div class="col-md-4 col-lg-4 ">
                         <div v-if="orderInfo.billing !== null" class="content-group">
                             <span class="text-muted">Billing To:</span>
                             <ul class="list-condensed list-unstyled">
@@ -29,7 +29,7 @@
                                 <li>{{ orderInfo.billing.country }}</li>
                             </ul>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="col-md-4 content-group">
                         <div class="invoice-details text-right">
                             <h5 class="text-uppercase text-semibold">Order No #{{ orderInfo.order_no }}</h5>
