@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\OnCancelOrderItem;
 use App\Helpers\OrderHelper;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -69,22 +70,35 @@ class OrderController extends Controller
         if($validator->passes()){
             try{
                 DB::beginTransaction();
-                $order = Order::where('order_no', $request->order_no)->first();
+                $order = Order::where('order_no', $request->order_no)->with('orderItems')->first();
                 $orderId = $order->order_id;
                 if(empty($order)){
                     throw new \Exception('Invalid Order Information', Response::HTTP_BAD_REQUEST);
                 }
+
+                if($request->status == Order::OrderStatus['Cancel']) {
+                    $totalOrderItem = $order->orderItems->count();
+                    $itemStatus = $order->orderItems->whereIn('item_status', [OrderItem::ItemStatus['Active'], OrderItem::ItemStatus['Cancel']])->count();
+
+                    if ($totalOrderItem !== $itemStatus) {
+                        throw new \Exception('Not Able To Cancel this Order. Contract With Admin.', Response::HTTP_NOT_ACCEPTABLE);
+                    }
+                }
+
                 $order = $order->update([
                     'order_status'=>$request->status,
                 ]);
 
                 if(!empty($order)){
                     if($request->status == Order::OrderStatus['Cancel']){
-                        OrderItem::where('order_id', $orderId)->where('item_status', OrderItem::ItemStatus['Active'])
-                            ->update([
+                        $activeItems = OrderItem::where('order_id', $orderId)->where('item_status', OrderItem::ItemStatus['Active'])->get();
+                        foreach ($activeItems as $item){
+                            $item->update([
                                 'item_status'=>OrderItem::ItemStatus['Cancel'],
                                 'cancel_by'=>OrderItem::CancelBy['Admin'],
                             ]);
+                            event(new OnCancelOrderItem($item->item_id)); // Update Product qty if cancel order
+                        }
                     }
                     DB::commit();
                     $order = Order::where('order_no', $request->order_no)->first();
@@ -129,6 +143,9 @@ class OrderController extends Controller
 
                 if(!empty($orderItem)){
                     if($request->status == OrderItem::AllItemStatus['Cancel']){
+
+                        event(new OnCancelOrderItem($request->item_id)); // Product Stock Update when Cancel order
+
                         $notCancelItem = OrderItem::where('order_id', $orderId)->where('item_status', '!=', OrderItem::ItemStatus['Cancel'])->count();
                         if($notCancelItem == 0){
                             $order = Order::where('order_id', $orderId)

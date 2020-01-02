@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Events\NewOrderStoreEvent;
+use App\Events\OnCancelOrderItem;
 use App\Helpers\OrderHelper;
 use App\Helpers\TemplateHelper;
 use App\Models\BillingInfo;
@@ -320,6 +321,7 @@ class OrderController extends Controller
             if(!empty($orderItem)){
                 ## TODO Order History Added,
                 ## TODO Check if All Item Are Cancel then update the order status as Cancel
+                event(new OnCancelOrderItem($item_id));
                 DB::commit();
                 return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Order Item Cancel Successfully');
             }else{
@@ -355,11 +357,14 @@ class OrderController extends Controller
             ]);
 
             if(!empty($order)){
-                $items = OrderItem::where('order_id', $orderId)->where('item_status', OrderItem::ItemStatus['Active'])
-                    ->update([
-                        'item_status'=>OrderItem::ItemStatus['Cancel'],
-                        'cancel_by'=>OrderItem::CancelBy['Buyer'],
-                    ]);
+                $activeItems = OrderItem::where('order_id', $orderId)->where('item_status', OrderItem::ItemStatus['Active'])->get();
+                foreach ($activeItems as $item){
+                    event(new OnCancelOrderItem($item->item_id)); // Update Product qty if cancel order
+                }
+                $items = $activeItems->update([
+                    'item_status'=>OrderItem::ItemStatus['Cancel'],
+                    'cancel_by'=>OrderItem::CancelBy['Buyer'],
+                ]);
                 if(!empty($items)){
                     ## TODO ADd Order History
                     DB::commit();

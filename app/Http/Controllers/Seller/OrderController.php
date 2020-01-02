@@ -85,6 +85,7 @@ class OrderController extends Controller
                 }
                 $orderItem = $orderItem->update([
                     'item_status'=>$request->item_status,
+                    'cancel_by'=>($request->item_status == OrderItem::AllItemStatus['Cancel']) ? OrderItem::CancelBy['Seller']:'',
                 ]);
 
                 if(!empty($orderItem)){
