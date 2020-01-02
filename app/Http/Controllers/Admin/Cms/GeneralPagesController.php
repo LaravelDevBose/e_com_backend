@@ -126,8 +126,8 @@ class GeneralPagesController extends Controller
     public function update(Request $request, Page $page){
 
         $validator = Validator::make($request->all(),[
-            'title'=>'required|string|min:5|max:20',
-            'menuTitle'=>'required|string|min:5|max:20',
+            'title'=>'required|string|min:5|max:200',
+            'menuTitle'=>'required|string|min:5|max:200',
             'show_in'=>'required|numeric',
             'attachmentIds'=>'array'
         ]);
