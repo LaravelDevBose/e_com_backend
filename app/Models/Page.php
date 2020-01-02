@@ -15,6 +15,12 @@ class Page extends Model
         'Both'=>3,
     ];
 
+    const PageCategory = [
+        'Terms & Conditions'=>1,
+        'Privacy & Policy'=>2,
+        'Customer Service'=>3,
+    ];
+
     protected $table = 'pages';
 
     protected $primaryKey = 'page_id';
@@ -29,6 +35,7 @@ class Page extends Model
         'other_content',
         'attachment_id',
         'page_status',
+        'page_cat'
     ];
 
 

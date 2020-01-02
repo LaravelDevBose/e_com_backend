@@ -70,6 +70,7 @@ class GeneralPagesController extends Controller
                     'body_content'=>$request->body_content,
                     'other_content'=>$request->other_content,
                     'attachment_id'=>(!empty($request->attachmentIds[0]))?$request->attachmentIds[0]:'',
+                    'page_cat'=>$request->page_cat,
                     'page_status'=>(!empty($request->page_status) && $request->page_status == config('app.active')) ? $request->page_status : config('app.inactive'),
                 ]);
                 if($page){
@@ -143,6 +144,7 @@ class GeneralPagesController extends Controller
                     'menu_position'=>$request->position,
                     'body_content'=>$request->body_content,
                     'other_content'=>$request->extra_content,
+                    'page_cat'=>$request->page_cat,
                     'page_status'=>(!empty($request->status) && $request->status == config('app.active')) ? $request->status : config('app.inactive'),
                 ]);
                 if(!empty($request->attachmentIds[0]) && count($request->attachmentIds) > 0){

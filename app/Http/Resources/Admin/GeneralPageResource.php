@@ -20,14 +20,15 @@ class GeneralPageResource extends JsonResource
             'id'=>$this->page_id,
             'title'=>$this->page_title,
             'menuTitle'=>$this->menu_title,
-            'showIn'=>$this->_MenuShow($this->show_in),
             'show_in'=>$this->show_in,
+            'showIn'=>$this->_MenuShow($this->show_in),
             'position'=>$this->menu_position,
             'content'=>$this->body_content,
             'extra_content'=>$this->other_content,
             'attachment'=> new AttachmentResource($this->whenLoaded('attachment')),
             'status'=>$this->page_status,
             'created_at'=>Carbon::parse($this->created_at)->format('d M Y'),
+            'page_cat'=>$this->page_cat
         ];
     }
 

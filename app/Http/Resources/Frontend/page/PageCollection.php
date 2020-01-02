@@ -21,6 +21,7 @@ class PageCollection extends Resource
             'slug'=>$this->page_slug,
             'showIn'=>$this->show_in,
             'position'=>$this->menu_position,
+            'category'=>$this->page_cat,
             'links'=>[
 
             ]

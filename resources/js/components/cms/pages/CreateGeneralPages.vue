@@ -5,11 +5,7 @@
                 <div class="panel-heading">
                     <h5 class="panel-title">Page Information</h5>
                     <div class="heading-elements">
-                        <ul class="icons-list">
-                            <li><a data-action="collapse"></a></li>
-                            <li><a data-action="reload"></a></li>
-                            <li><a data-action="close"></a></li>
-                        </ul>
+
                     </div>
                 </div>
 
@@ -26,56 +22,41 @@
                             </div>
                             <div class="form-group">
                                 <label>Menu Position:</label>
-                                <input type="text" v-model="formData.menu_position" class="form-control" placeholder="Menu Position" required>
+                                <input type="number" v-model="formData.menu_position" class="form-control" placeholder="Menu Position" required>
                             </div>
-
                             <div class="form-group">
                                 <label>Show In:</label>
                                 <vue-select2 v-model="formData.show_in" :options="pageDependency.show_in"> </vue-select2>
                             </div>
-                            <div class="content-group-lg">
-                                <label>Page Status:</label>
-                                <div class="checkbox checkbox-switchery">
-                                    <label>
-                                        <input type="checkbox" v-model="formData.page_status" class="switchery-primary" :checked="formData.page_status">
-                                        <span class="text-success" v-if="formData.page_status"> Publish</span>
-                                        <span class="text-danger" v-else> UnPublish</span>
-                                    </label>
-                                </div>
-                            </div>
                         </div>
                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Page Category:</label>
+                                <vue-select2 v-model="formData.page_cat" :options="pageCategories"> </vue-select2>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-style" for="paypal_payment">
+                                    <span class="text-bold text-success" v-if="formData.page_status">Publish</span>
+                                    <span class="text-bold text-warning" v-else>UnPublish</span>
+                                    <input type="checkbox" id="paypal_payment" v-model="formData.page_status"  :checked="formData.page_status">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
                             <div class="form-group">
                                 <label>Cover Image:</label>
                                 <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                             </div>
                         </div>
-                        <div class="col-md-3 col-md-offset-6">
-                            <div class="text-right form-group">
-                                <button type="submit" :disabled="btnDisabled" class="btn btn-primary">Save Brand <i class="icon-arrow-right14 position-right"></i></button>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="body_content">Body Content</label>
+                                <vue-editor id="body_content" v-model="formData.body_content"></vue-editor>
                             </div>
                         </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h5 class="panel-title">Page Body Content</h5>
-                    <div class="heading-elements">
-                        <ul class="icons-list">
-                            <li><a data-action="collapse"></a></li>
-                            <li><a data-action="reload"></a></li>
-                            <li><a data-action="close"></a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="panel-body">
-                    <div class="form-group row">
-                        <label class="col-lg-2 control-label" for="body_content">Body Content</label>
-                        <div class="col-lg-10">
-                            <vue-editor id="body_content" v-model="formData.body_content"></vue-editor>
+                        <div class="col-md-3 col-md-offset-9">
+                            <div class="text-right form-group">
+                                <button type="submit" :disabled="btnDisabled" class="btn btn-primary btn-block">Save Page <i class="icon-arrow-right14 position-right"></i></button>
+                            </div>
                         </div>
                     </div>
 
@@ -109,6 +90,7 @@
                     other_content:'',
                     attachment_id:'',
                     page_status:'',
+                    page_cat:1,
                 },
                 cropperData:{
                     width:600,
@@ -120,6 +102,11 @@
                 },
                 removeImage:false,
                 btnDisabled:false,
+                pageCategories:[
+                    {id:1, text:'Terms & Conditions'},
+                    {id:2, text:'Privacy & Policy'},
+                    {id:3, text:'Customer Service'},
+                ]
             }
         },
         created() {

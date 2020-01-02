@@ -23,6 +23,7 @@ class GeneralPageCollection extends Resource
             'position'=>$this->menu_position,
             'attachment'=> new AttachmentResource($this->whenLoaded('attachment')),
             'status'=>$this->page_status,
+            'category'=>$this->page_cat,
         ];
     }
 
