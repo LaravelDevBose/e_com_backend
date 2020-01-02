@@ -278,9 +278,9 @@ class ProductController extends Controller
 
                                 }
                                 $variationProduct = ProductVariation::insert($variationArray);
-                                if(empty($variationProduct)){
+                                /*if(empty($variationProduct)){
                                     throw new Exception('Invalid Product Variation Information', Response::HTTP_BAD_REQUEST);
-                                }
+                                }*/
                             }
 
 
