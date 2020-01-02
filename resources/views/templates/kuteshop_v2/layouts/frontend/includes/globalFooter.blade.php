@@ -72,9 +72,9 @@
                     <div class="links">
                         <h3 class="title">Terms and Conditions</h3>
                         <ul>
-                            @foreach($tcPageMenus as $pageMenu)
+                            @foreach($tcPageMenus as $tcPageMenu)
                             <li>
-                                <a href="{{ route('front.pages', $pageMenu->page_slug) }}" title="{{ $pageMenu->menu_title }}">{{ $pageMenu->menu_title }}</a>
+                                <a href="{{ route('front.pages', $tcPageMenu->page_slug) }}" title="{{ $tcPageMenu->menu_title }}">{{ $tcPageMenu->menu_title }}</a>
                             </li>
                             @endforeach
                         </ul>
@@ -86,9 +86,9 @@
                         <div class="links">
                             <h3 class="title">Privacy</h3>
                             <ul>
-                                @foreach($ppPageMenus as $pageMenu)
+                                @foreach($ppPageMenus as $ppPageMenu)
                                     <li>
-                                        <a href="{{ route('front.pages', $pageMenu->page_slug) }}" title="{{ $pageMenu->menu_title }}">{{ $pageMenu->menu_title }}</a>
+                                        <a href="{{ route('front.pages', $ppPageMenu->page_slug) }}" title="{{ $ppPageMenu->menu_title }}">{{ $ppPageMenu->menu_title }}</a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -100,9 +100,9 @@
                         <div class="links">
                             <h3 class="title">Customer Services</h3>
                             <ul>
-                                @foreach($csPageMenus as $pageMenu)
+                                @foreach($csPageMenus as $csPageMenu)
                                     <li>
-                                        <a href="{{ route('front.pages', $pageMenu->page_slug) }}" title="{{ $pageMenu->menu_title }}">{{ $pageMenu->menu_title }}</a>
+                                        <a href="{{ route('front.pages', $csPageMenu->page_slug) }}" title="{{ $csPageMenu->menu_title }}">{{ $csPageMenu->menu_title }}</a>
                                     </li>
                                 @endforeach
                             </ul>
