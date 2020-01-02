@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
                 ->orderBy('menu_position', 'asc')->get();
             
             $aboutUs = Page::isActive()->where('page_slug', 'about_us')->select('body_content')->first();
-
+                dd($aboutUs);
             $brands = CommonData::brand_list();
             $contactUs = CommonData::setting_data();
             $catList = CommonData::category_list();

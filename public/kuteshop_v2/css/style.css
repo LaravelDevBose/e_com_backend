@@ -13028,7 +13028,7 @@ select.input-sm {
 .site-footer .footer-column .links h3.title {
     display: block;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 13px;
     color: #333;
     text-transform: uppercase;
     margin-top: 12px;
@@ -13293,7 +13293,7 @@ select.input-sm {
 }
 
 .footer-opt-1 .footer-column .links li a {
-    font-size: 14px;
+    font-size: 13px;
     color: #666
 }
 
