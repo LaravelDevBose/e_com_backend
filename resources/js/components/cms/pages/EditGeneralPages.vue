@@ -112,6 +112,7 @@
                     {id:1, text:'Terms & Conditions'},
                     {id:2, text:'Privacy & Policy'},
                     {id:3, text:'Customer Service'},
+                    {id:4, text:'About Us'},
                 ]
             }
         },

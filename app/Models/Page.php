@@ -19,6 +19,7 @@ class Page extends Model
         'Terms & Conditions'=>1,
         'Privacy & Policy'=>2,
         'Customer Service'=>3,
+        'About us'=>4,
     ];
 
     protected $table = 'pages';

@@ -43,6 +43,7 @@
                             <span class="text text-bold label bg-info" v-if="page.category ===1">Terms & Conditions</span>
                             <span class="text text-bold label bg-primary" v-if="page.category ===2">Privacy & Policy</span>
                             <span class="text text-bold label bg-teal" v-if="page.category ===3">Customer Service</span>
+                            <span class="text text-bold label bg-purple-600" v-if="page.category ===4">About Us</span>
                         </td>
                         <td style="padding:5px; width:200px;">
                             <img v-if="page.attachment" :src="page.attachment.image_path" :alt="page.title" class="img-preview img-responsive" style="width:200px; height:100px;" >
