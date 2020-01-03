@@ -112,11 +112,7 @@
                 <div class="col-md-3 col-lg-3 col-xs-6 col">
                     <div class="block-newletter">
                         <div class="block-title">About Us</div>
-                        @if(!empty($aboutUs))
-                            <div class="block-content">
-                                {!!  substr(strip_tags($aboutUs->body_content), 0, 200) !!}
-                            </div>
-                        @endif
+                        Fast and easy from simplified customer service with beautiful user interface
                     </div>
                 </div>
             </div>
@@ -131,6 +127,7 @@
                 <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-2.png')}}">
                 <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-3.png')}}">
                 <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-4.png')}}">
+                <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-5.png')}}" style="width: 115px; height: 46px;">
             </div>
         </div>
         @if(!empty($categoryTree))
