@@ -89,7 +89,7 @@
                     <div class="container">
                         <div class="block-title ">
                             <span class="title">
-                                <span class="icon"><img alt="img"  src="kuteshop_v2/images/media/index2/floor1.png"></span>
+                                <span class="icon"><img alt="img"  src="kuteshop_v2/images/floor1.png"></span>
                                 <span class="text">{{ $section['category']->category_name }}</span>
                             </span>
                             <div class="links dropdown">
