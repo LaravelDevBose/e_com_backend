@@ -9730,6 +9730,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import the component
 
  // import the styles
@@ -9797,7 +9813,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         product_qty: 1,
         product_price: 1,
         seller_sku: '',
-        discount_price: ''
+        discount_price: '',
+        cod_avail: 1
       },
       variations: [],
       btnDisabled: false,
@@ -10336,6 +10353,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             this.formData.warranty_policy = this.proDetails.warranty_policy;
             this.formData.warranty_policy_eng = this.proDetails.warranty_policy_eng;
             this.formData.warranty_period = this.proDetails.warranty_period;
+            this.formData.cod_avail = this.proDetails.cod_avail;
           }
           /*** Type Wish Simple Product Field  ***/
 
@@ -77727,33 +77745,35 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group row" }, [
-            _vm._m(2),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-lg-10" },
-              [
-                _c("treeselect", {
-                  attrs: {
-                    options: _vm.treeList,
-                    multiple: false,
-                    normalizer: _vm.normalizer
-                  },
-                  model: {
-                    value: _vm.formData.category_id,
-                    callback: function($$v) {
-                      _vm.$set(_vm.formData, "category_id", $$v)
-                    },
-                    expression: "formData.category_id"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
           _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group row" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-lg-10" },
+                  [
+                    _c("treeselect", {
+                      attrs: {
+                        options: _vm.treeList,
+                        multiple: false,
+                        normalizer: _vm.normalizer
+                      },
+                      model: {
+                        value: _vm.formData.category_id,
+                        callback: function($$v) {
+                          _vm.$set(_vm.formData, "category_id", $$v)
+                        },
+                        expression: "formData.category_id"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ]),
+            _vm._v(" "),
             _c("div", { staticClass: "col-md-6" }, [
               _c("div", { staticClass: "form-group row" }, [
                 _c("label", { staticClass: "col-lg-4 control-label" }, [
@@ -77777,6 +77797,87 @@ var render = function() {
                   ],
                   1
                 )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-4" }, [
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-lg-6 control-label" }, [
+                  _vm._v("COD Available:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-6" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "checkbox-style",
+                      attrs: { for: "paypal_payment" }
+                    },
+                    [
+                      _vm.formData.cod_avail
+                        ? _c(
+                            "span",
+                            { staticClass: "text-bold text-success" },
+                            [_vm._v("Yes")]
+                          )
+                        : _c(
+                            "span",
+                            { staticClass: "text-bold text-warning" },
+                            [_vm._v("No")]
+                          ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formData.cod_avail,
+                            expression: "formData.cod_avail"
+                          }
+                        ],
+                        attrs: { type: "checkbox", id: "paypal_payment" },
+                        domProps: {
+                          checked: _vm.formData.cod_avail,
+                          checked: Array.isArray(_vm.formData.cod_avail)
+                            ? _vm._i(_vm.formData.cod_avail, null) > -1
+                            : _vm.formData.cod_avail
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.formData.cod_avail,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.formData,
+                                    "cod_avail",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.formData,
+                                    "cod_avail",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.formData, "cod_avail", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "checkmark" })
+                    ]
+                  )
+                ])
               ])
             ]),
             _vm._v(" "),

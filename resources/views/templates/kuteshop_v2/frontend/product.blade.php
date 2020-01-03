@@ -150,6 +150,9 @@
                                                     <li>
                                                         <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-s-4.png')}}">
                                                     </li>
+                                                    <li>
+                                                        <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-5.png')}}" style="height: 46px;">
+                                                    </li>
                                                 </ul>
                                             </div>
 
