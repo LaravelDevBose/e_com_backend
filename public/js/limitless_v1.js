@@ -10786,7 +10786,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       formData: {
         full_name: '',
-        user_name: '',
+        // user_name:'',
         email: '',
         phone_no: ''
       },
@@ -80491,36 +80491,6 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.formData.user_name,
-                      expression: "formData.user_name"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    placeholder: "user Name",
-                    required: ""
-                  },
-                  domProps: { value: _vm.formData.user_name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.formData, "user_name", $event.target.value)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _vm._m(3),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
                       value: _vm.formData.email,
                       expression: "formData.email"
                     }
@@ -80540,7 +80510,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(4),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -80611,15 +80581,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", [
       _vm._v("Full Name "),
-      _c("span", { staticClass: "text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _vm._v("User Name: "),
       _c("span", { staticClass: "text-danger text-bold" }, [_vm._v("*")])
     ])
   },

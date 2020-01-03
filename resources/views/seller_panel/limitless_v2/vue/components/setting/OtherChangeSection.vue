@@ -14,10 +14,10 @@
                             <input type="text" v-model="formData.full_name" class="form-control" placeholder="Full Name" required>
                         </div>
 
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label>User Name: <span class="text-danger text-bold">*</span></label>
                             <input type="text" v-model="formData.user_name" class="form-control" placeholder="user Name" required>
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
                             <label>Email: <span class="text-danger text-bold">*</span></label>
@@ -48,7 +48,7 @@
             return{
                 formData:{
                     full_name:'',
-                    user_name:'',
+                    // user_name:'',
                     email:'',
                     phone_no:'',
                 },

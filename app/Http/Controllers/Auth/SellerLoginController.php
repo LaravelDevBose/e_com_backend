@@ -48,7 +48,6 @@ class SellerLoginController extends Controller
             if (Auth::guard('seller')->attempt($credentials, $request->remember)) {
                 $data =[
                     'user'=>Auth::guard('seller')->user()->toJson(),
-                    'token'=>base64_encode(\auth()->guard('seller')->user()->user_name),
                     'whoIs'=>'seller',
                 ];
 

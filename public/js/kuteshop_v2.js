@@ -2070,7 +2070,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         full_name: '',
         phone_no: '',
         email: '',
-        user_name: '',
+        // user_name:'',
         password: '',
         password_confirmation: ''
       }
@@ -2285,7 +2285,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         full_name: '',
         phone_no: '',
         email: '',
-        user_name: '',
         password: '',
         password_confirmation: ''
       }
@@ -51072,18 +51071,6 @@ var render = function() {
                   ])
                 ]
               )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-xs-12" }, [
-              _c("label", { staticClass: "required" }, [
-                _vm._v(
-                  _vm._s(_vm.$t("form.username")) +
-                    ": " +
-                    _vm._s(_vm.buyerInfo.user_name)
-                )
-              ])
             ])
           ]),
           _vm._v(" "),

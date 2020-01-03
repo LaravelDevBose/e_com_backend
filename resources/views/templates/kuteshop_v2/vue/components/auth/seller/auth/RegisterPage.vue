@@ -48,7 +48,6 @@
                     full_name:'',
                     phone_no:'',
                     email:'',
-                    user_name:'',
                     password:'',
                     password_confirmation:'',
                 }

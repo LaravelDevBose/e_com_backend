@@ -43,7 +43,7 @@
                     full_name:'',
                     phone_no:'',
                     email:'',
-                    user_name:'',
+                    // user_name:'',
                     password:'',
                     password_confirmation:'',
                 }

@@ -29,7 +29,6 @@ class SocialLoginController extends Controller
                 $user = User::create([
                     'full_name'     => $getUser->name,
                     'email'    => $getUser->email,
-                    'user_name' => Str::lower(Str::slug($getUser->name)),
                     'phone_no' => '',
                     'account_type'=>User::AccountType['buyer'],
                     'status'=>config('app.active'),
@@ -66,7 +65,6 @@ class SocialLoginController extends Controller
                     $user = User::create([
                         'full_name'     => $getUser->name,
                         'email'    => $getUser->email,
-                        'user_name' => Str::lower(Str::slug($getUser->name)),
                         'phone_no' => '',
                         'account_type'=>User::AccountType['buyer'],
                         'status'=>config('app.active'),

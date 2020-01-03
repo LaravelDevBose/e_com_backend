@@ -43,11 +43,11 @@
                             </h5>
                         </div>
                     </li>
-                    <li class="row">
+                    <!--<li class="row">
                         <div class="col-xs-12">
                             <label class="required">{{ $t('form.username')}}: {{ buyerInfo.user_name }}</label>
                         </div>
-                    </li>
+                    </li>-->
                     <li class="row">
                         <div class="col-xs-12">
                             <label class="required">{{ $t('form.email')}}: {{ buyerInfo.email }}</label>

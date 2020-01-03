@@ -17,7 +17,6 @@ class DefaultBuyerSeeder extends Seeder
     {
         $user = User::create([
             'full_name'=>'Brainchild',
-            'user_name'=>'buyer',
             'email'=>'buyer@demo.com',
             'phone_no'=>'01571721910',
             'account_type'=>User::AccountType['buyer'],
