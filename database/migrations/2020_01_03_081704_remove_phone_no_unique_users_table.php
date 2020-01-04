@@ -15,6 +15,9 @@ class RemovePhoneNoUniqueUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('phone_no');
+        });
+
+        Schema::table('users', function (Blueprint $table) {
             $table->string('phone_no')->nullable();
         });
     }
@@ -26,9 +29,14 @@ class RemovePhoneNoUniqueUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('phone_no');
-            $table->string('phone_no')->nullable();
-        });
+        if(Schema::hasColumn('users', 'phone_no')){
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('phone_no');
+            });
+        }else{
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('phone_no')->nullable();
+            });
+        }
     }
 }

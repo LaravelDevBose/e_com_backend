@@ -284,4 +284,8 @@ class Product extends Model
     public function mallLogo(){
         return $this->hasOne(Attachment::class,  'attachment_id','mall_comp_logo');
     }
+
+    public function latest_deal(){
+        return $this->hasOne(LatestDealProduct::class, 'product_id', 'product_id');
+    }
 }

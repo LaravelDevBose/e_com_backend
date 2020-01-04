@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLatestDealsTable extends Migration
+class CreateLatestDealProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateLatestDealsTable extends Migration
      */
     public function up()
     {
-        Schema::create('latest_deals', function (Blueprint $table) {
-            $table->bigIncrements('latest_deal_id');
-            $table->dateTime('start_time')->useCurrent();
-            $table->dateTime('end_time');
+        Schema::create('latest_deal_products', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('latest_deal_id');
+            $table->unsignedBigInteger('product_id');
             $table->boolean('status')->default(config('app.active'));
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreateLatestDealsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('latest_deals');
+        Schema::dropIfExists('latest_deal_products');
     }
 }
