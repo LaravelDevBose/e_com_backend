@@ -3,7 +3,7 @@
         <form action="" @submit.prevent="storeLatestDealProducts">
             <div class="panel">
                 <div class="panel-heading bg-indigo-800">
-                    <h5 class="panel-title">Add Lates Deal Products</h5>
+                    <h5 class="panel-title">Add Latest Deal Products</h5>
                 </div>
 
                 <div class="panel-body">
@@ -49,19 +49,33 @@
             </div>
             <div class="panel">
                 <div class="panel-heading bg-info">
-                    <h5 class="panel-title">Add Products</h5>
+                    <h5 class="panel-title">Added Products</h5>
                 </div>
 
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <div class="form-inline" style="margin:1em;">
-                                    <div class="form-group">
-                                        <input type="text" id="filter" class="form-control" v-model="filter" placeholder="Filter">
-                                    </div>
+                                <div id="table1">
+                                    <datatable class="table-bordered table-striped" :columns="columns" :data="dealProducts"></datatable>
                                 </div>
+                                <div class="form-inline">
+                                    <datatable-pager v-model="addedPage" type="abbreviated" :per-page="per_page"></datatable-pager>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading bg-info">
+                    <h5 class="panel-title">Category Wish Products</h5>
+                </div>
 
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
                                 <div id="table">
                                     <datatable class="table-bordered table-striped" :columns="columns" :data="categoryProducts" :filter-by="filter"></datatable>
                                 </div>
@@ -110,6 +124,7 @@
                     start_time:'',
                     end_time:'',
                     status:1,
+                    productIds:[],
                 },
                 categoryIDs:[],
                 normalizer(node) {
@@ -121,6 +136,7 @@
                 },
                 btnDisabled:false,
                 page: 1,
+                addedPage: 1,
                 per_page: 10,
                 filter: '',
                 rows:'',
@@ -139,11 +155,13 @@
         },
         created(){
             this.allTreeListCategories();
+            this.getLatestDealData();
         },
         methods:{
             ...mapActions([
                 'allTreeListCategories',
                 'categoryWishProducts',
+                'getLatestDealData'
             ]),
             storeLatestDealProducts(){
 
@@ -151,16 +169,16 @@
                     Notify.warning('Products Not Selected');
                     return false;
                 }
-                this.groupProductsStore(this.formData)
+                this.formData.productIds = this.selectedProIds;
+                this.storeUpdateLatestDeal(this.formData)
                     .then(response=>{
                         console.log(response);
                         if(typeof response.code !== "undefined" && response.code === 200){
                             Notify.success(response.message);
-                            if(response.hasOwnProperty('url')){
-                                setTimeout(()=>{
-                                    location.href = response.url;
-                                }, 700);
-                            }
+                            setTimeout(()=>{
+                                location.reload();
+                            }, 700);
+
                         }else if(response.code === 400 || response.status === 'validation'){
                             Notify.validation(response.message);
                         }else{
@@ -174,12 +192,17 @@
                 'treeList',
                 'categoryProducts',
                 'selectedProIds',
+                'latestDeal',
+                'dealProducts'
             ]),
             categoryDataCheck(){
                 return JSON.parse(JSON.stringify(this.categoryIDs));
             },
             selectedProIdCheck(){
                 return JSON.parse(JSON.stringify(this.selectedProIds));
+            },
+            latestDealCheck(){
+                return JSON.parse(JSON.stringify(this.latestDeal));
             },
         },
         watch:{
@@ -195,6 +218,16 @@
                 handler(newVal, oldVal){
                     if(newVal !== oldVal){
                         // this.updateSelectedDateTime();
+                    }
+                },
+                deep:true,
+            },
+            latestDealCheck:{
+                handler(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        this.formData.start_time = this.latestDeal.start_time;
+                        this.formData.end_time = this.latestDeal.end_time;
+                        this.formData.status = this.latestDeal.status;
                     }
                 },
                 deep:true,

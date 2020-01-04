@@ -168,6 +168,12 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::post('/details/update', 'AdminAccountController@details_update')->name('details.update');
         Route::post('/password/update', 'AdminAccountController@change_password')->name('password.change');
     });
+
+    Route::group(['prefix'=>'latest/deal', 'as'=>'latest.deal.'], function (){
+        Route::get('/page', 'LatestDealController@latest_deal_page')->name('page');
+        Route::get('/products', 'LatestDealController@latest_deal_products');
+        Route::post('/store/update', 'LatestDealController@store_update_latest_deal');
+    });
 });
 
 Route::prefix('api/admin')->namespace('Admin')->group(function (){

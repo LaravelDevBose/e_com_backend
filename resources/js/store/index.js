@@ -35,6 +35,9 @@ import group_products from "./modules/group_products";
 import unpublish_product from "./modules/unpublish_product";
 import delivery_method from "./modules/delivery_method";
 import admin from "./modules/admin";
+import latest_deal from "./modules/latest_deal";
+
+
 
 export default new Vuex.Store({
     state:{
@@ -84,6 +87,7 @@ export default new Vuex.Store({
         unpublish_product,
         delivery_method,
         admin,
+        latest_deal
     }
 })
 

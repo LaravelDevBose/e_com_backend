@@ -19,7 +19,7 @@ class LatestDealResource extends JsonResource
             'start_time'=>$this->start_time,
             'end_time'=>$this->end_time,
             'status'=>$this->status,
-            'deal_product'=> LatestDealProductResource::collection($this->deal_products),
+            'deal_products'=> LatestDealProductResource::collection($this->deal_products),
         ];
     }
 }
