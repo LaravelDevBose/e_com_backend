@@ -13,7 +13,7 @@
             <div class="stock available">
                 <span class="label">{{ $t('product.availability')}}: </span>
                 <span v-if="product.product_status ===1">In stock</span>
-                <span v-if="product.product_status ===5">Stock out</span>
+                <span v-if="product.product_status ===5" style="color:red !important;">Stock out</span>
             </div>
         </div>
         <div class="product-overview">
@@ -23,7 +23,7 @@
             <p>{{ $t('product.avail_options')}}:</p>
             <form>
 
-                <div class="product-options-wrapper">
+                <div class="product-options-wrapper" v-if="product.product_status ===1">
 
                     <div v-if="product.product_type === 2" class="swatch-opt">
                         <div v-if="colors" class="swatch-attribute color" >
@@ -55,10 +55,10 @@
 
                 <div class="product-options-bottom clearfix">
                     <div class="actions">
-                        <button type="submit" @click.prevent="addToCart()" title="Add to Cart" class="action btn-cart">
+                        <button v-if="product.product_status ===1" type="submit" @click.prevent="addToCart()" title="Add to Cart" class="action btn-cart">
                             <span>{{ $t('product.add_to_cart')}}</span>
                         </button>
-                        <button type="submit" @click.prevent="buyNow()" title="Buy Now" class="action btn-buy">
+                        <button v-if="product.product_status ===1" type="submit" @click.prevent="buyNow()" title="Buy Now" class="action btn-buy">
                             <i class="fa fa-cart-plus"></i>
                             <span>{{ $t('product.buy_now')}}</span>
                         </button>

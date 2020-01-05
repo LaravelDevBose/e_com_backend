@@ -56420,7 +56420,9 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _vm.product.product_status === 5
-          ? _c("span", [_vm._v("Stock out")])
+          ? _c("span", { staticStyle: { color: "red !important" } }, [
+              _vm._v("Stock out")
+            ])
           : _vm._e()
       ])
     ]),
@@ -56436,248 +56438,266 @@ var render = function() {
       _c("p", [_vm._v(_vm._s(_vm.$t("product.avail_options")) + ":")]),
       _vm._v(" "),
       _c("form", [
-        _c("div", { staticClass: "product-options-wrapper" }, [
-          _vm.product.product_type === 2
-            ? _c("div", { staticClass: "swatch-opt" }, [
-                _vm.colors
-                  ? _c("div", { staticClass: "swatch-attribute color" }, [
-                      _c("span", { staticClass: "swatch-attribute-label" }, [
-                        _vm._v(
-                          _vm._s(_vm.$tc("products.color", _vm.colors.length)) +
-                            ":"
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "swatch-attribute-options clearfix" },
-                        _vm._l(_vm.colors, function(color, index) {
-                          return _c(
-                            "label",
-                            {
-                              key: index,
-                              staticClass: "swatch-option color",
-                              class:
-                                _vm.cartData.colorId == color.color_id
-                                  ? "selected"
-                                  : "",
-                              style: { "background-color": color.color_code },
-                              attrs: { for: "color-" + color.color_id }
-                            },
+        _vm.product.product_status === 1
+          ? _c("div", { staticClass: "product-options-wrapper" }, [
+              _vm.product.product_type === 2
+                ? _c("div", { staticClass: "swatch-opt" }, [
+                    _vm.colors
+                      ? _c("div", { staticClass: "swatch-attribute color" }, [
+                          _c(
+                            "span",
+                            { staticClass: "swatch-attribute-label" },
                             [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.cartData.colorId,
-                                    expression: "cartData.colorId"
-                                  }
-                                ],
-                                staticStyle: { display: "none" },
-                                attrs: {
-                                  type: "radio",
-                                  name: "color",
-                                  id: "color-" + color.color_id
-                                },
-                                domProps: {
-                                  checked:
-                                    _vm.cartData.colorId === color.color_id,
-                                  value: color.color_id,
-                                  checked: _vm._q(
-                                    _vm.cartData.colorId,
-                                    color.color_id
-                                  )
-                                },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.$set(
-                                      _vm.cartData,
-                                      "colorId",
-                                      color.color_id
-                                    )
-                                  }
-                                }
-                              })
-                            ]
-                          )
-                        }),
-                        0
-                      )
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.product.product_type === 2
-            ? _c("div", { staticClass: "form-configurable" }, [
-                _c(
-                  "label",
-                  { staticClass: "label", attrs: { for: "forSize" } },
-                  [
-                    _vm._v(
-                      _vm._s(_vm.$tc("products.size", _vm.sizes.length)) + ": "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _vm.sizes
-                  ? _c("div", { staticClass: "control" }, [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.cartData.sizeId,
-                              expression: "cartData.sizeId"
-                            }
-                          ],
-                          staticClass: "form-control attribute-select",
-                          attrs: { id: "forSize" },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.cartData,
-                                "sizeId",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
+                              _vm._v(
+                                _vm._s(
+                                  _vm.$tc("products.color", _vm.colors.length)
+                                ) + ":"
                               )
-                            }
-                          }
-                        },
-                        _vm._l(_vm.sizes, function(size, index) {
-                          return _c(
-                            "option",
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
                             {
-                              key: index,
-                              domProps: {
-                                value: size.size_id,
-                                selected: _vm.cartData.sizeId == size.size_id
+                              staticClass: "swatch-attribute-options clearfix"
+                            },
+                            _vm._l(_vm.colors, function(color, index) {
+                              return _c(
+                                "label",
+                                {
+                                  key: index,
+                                  staticClass: "swatch-option color",
+                                  class:
+                                    _vm.cartData.colorId == color.color_id
+                                      ? "selected"
+                                      : "",
+                                  style: {
+                                    "background-color": color.color_code
+                                  },
+                                  attrs: { for: "color-" + color.color_id }
+                                },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.cartData.colorId,
+                                        expression: "cartData.colorId"
+                                      }
+                                    ],
+                                    staticStyle: { display: "none" },
+                                    attrs: {
+                                      type: "radio",
+                                      name: "color",
+                                      id: "color-" + color.color_id
+                                    },
+                                    domProps: {
+                                      checked:
+                                        _vm.cartData.colorId === color.color_id,
+                                      value: color.color_id,
+                                      checked: _vm._q(
+                                        _vm.cartData.colorId,
+                                        color.color_id
+                                      )
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.$set(
+                                          _vm.cartData,
+                                          "colorId",
+                                          color.color_id
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.product.product_type === 2
+                ? _c("div", { staticClass: "form-configurable" }, [
+                    _c(
+                      "label",
+                      { staticClass: "label", attrs: { for: "forSize" } },
+                      [
+                        _vm._v(
+                          _vm._s(_vm.$tc("products.size", _vm.sizes.length)) +
+                            ": "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm.sizes
+                      ? _c("div", { staticClass: "control" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.cartData.sizeId,
+                                  expression: "cartData.sizeId"
+                                }
+                              ],
+                              staticClass: "form-control attribute-select",
+                              attrs: { id: "forSize" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.cartData,
+                                    "sizeId",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
                               }
                             },
-                            [_vm._v(_vm._s(size.size_name))]
+                            _vm._l(_vm.sizes, function(size, index) {
+                              return _c(
+                                "option",
+                                {
+                                  key: index,
+                                  domProps: {
+                                    value: size.size_id,
+                                    selected:
+                                      _vm.cartData.sizeId == size.size_id
+                                  }
+                                },
+                                [_vm._v(_vm._s(size.size_name))]
+                              )
+                            }),
+                            0
                           )
-                        }),
-                        0
-                      )
-                    ])
-                  : _vm._e()
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-qty" }, [
+                _c("label", { staticClass: "label" }, [
+                  _vm._v(_vm._s(_vm.$t("product.qty")) + ": ")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.cartData.qty,
+                        expression: "cartData.qty"
+                      }
+                    ],
+                    staticClass: "form-control input-qty",
+                    attrs: {
+                      type: "text",
+                      id: "qty1",
+                      name: "qty1",
+                      maxlength: "12",
+                      minlength: "1"
+                    },
+                    domProps: { value: _vm.cartData.qty },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.cartData, "qty", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn-number qtyminus",
+                      attrs: { "data-type": "minus", "data-field": "qty1" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.reducedQty($event)
+                        }
+                      }
+                    },
+                    [_c("span", [_vm._v("-")])]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn-number qtyplus",
+                      attrs: { "data-type": "plus", "data-field": "qty1" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.increaseQty($event)
+                        }
+                      }
+                    },
+                    [_c("span", [_vm._v("+")])]
+                  )
+                ])
               ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-qty" }, [
-            _c("label", { staticClass: "label" }, [
-              _vm._v(_vm._s(_vm.$t("product.qty")) + ": ")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "control" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.cartData.qty,
-                    expression: "cartData.qty"
-                  }
-                ],
-                staticClass: "form-control input-qty",
-                attrs: {
-                  type: "text",
-                  id: "qty1",
-                  name: "qty1",
-                  maxlength: "12",
-                  minlength: "1"
-                },
-                domProps: { value: _vm.cartData.qty },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.cartData, "qty", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn-number qtyminus",
-                  attrs: { "data-type": "minus", "data-field": "qty1" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.reducedQty($event)
-                    }
-                  }
-                },
-                [_c("span", [_vm._v("-")])]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn-number qtyplus",
-                  attrs: { "data-type": "plus", "data-field": "qty1" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.increaseQty($event)
-                    }
-                  }
-                },
-                [_c("span", [_vm._v("+")])]
-              )
             ])
-          ])
-        ]),
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "product-options-bottom clearfix" }, [
           _c("div", { staticClass: "actions" }, [
-            _c(
-              "button",
-              {
-                staticClass: "action btn-cart",
-                attrs: { type: "submit", title: "Add to Cart" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.addToCart()
-                  }
-                }
-              },
-              [_c("span", [_vm._v(_vm._s(_vm.$t("product.add_to_cart")))])]
-            ),
+            _vm.product.product_status === 1
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "action btn-cart",
+                    attrs: { type: "submit", title: "Add to Cart" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.addToCart()
+                      }
+                    }
+                  },
+                  [_c("span", [_vm._v(_vm._s(_vm.$t("product.add_to_cart")))])]
+                )
+              : _vm._e(),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "action btn-buy",
-                attrs: { type: "submit", title: "Buy Now" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.buyNow()
-                  }
-                }
-              },
-              [
-                _c("i", { staticClass: "fa fa-cart-plus" }),
-                _vm._v(" "),
-                _c("span", [_vm._v(_vm._s(_vm.$t("product.buy_now")))])
-              ]
-            ),
+            _vm.product.product_status === 1
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "action btn-buy",
+                    attrs: { type: "submit", title: "Buy Now" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.buyNow()
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fa fa-cart-plus" }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(_vm.$t("product.buy_now")))])
+                  ]
+                )
+              : _vm._e(),
             _vm._v(" "),
             _c("div", { staticClass: "product-addto-links" }, [
               _c(
