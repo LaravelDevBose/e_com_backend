@@ -1,7 +1,6 @@
 <template>
     <ul class="icons-list">
-<!--        <li><a href="#" class="text text-info" @click.prevent="goToEditPage(row.id)"><i class="icon-pencil7"></i></a></li>-->
-        <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp(row.group_id)"><i class="icon-trash"></i></a></li>
+        <li><a href="#" class="text text-danger" @click.prevent="showDeletePopUp(row.id)"><i class="icon-trash"></i></a></li>
     </ul>
 </template>
 
@@ -13,21 +12,21 @@
         props:['row'],
         methods:{
             ...mapActions([
-                'deleteGroupProduct'
+                'deleteLatestDealProduct'
             ]),
-            showDeletePopUp(groupId){
-                let conf = confirm('Are You Sure.?'+groupId);
-                if(conf){
-                    this.deleteGroupProduct(groupId)
-                        .then(response=>{
-                            if(typeof response.code !== "undefined" && response.code === 200){
-                                Notify.success(response.messages);
-                            }else{
-                                Notify.error(response.messages);
-                            }
-                        });
+            showDeletePopUp(dealId){
+                let conf = confirm('Are You Sure.?');
+                if(!conf){
+                    return false;
                 }
-                return false;
+                this.deleteLatestDealProduct(dealId)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            Notify.success(response.messages);
+                        }else{
+                            Notify.error(response.messages);
+                        }
+                    });
             }
         }
     }

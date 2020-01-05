@@ -15,7 +15,7 @@ const actions = {
         try {
             await axios.get('/admin/latest/deal/data')
                 .then(response=>{
-                    if(typeof  response.code !== "undefined" && response.data.code === 200){
+                    if(typeof  response.data.code !== "undefined" && response.data.code === 200){
                         commit('setLatestDealData', response.data.data);
                     }
             })
@@ -36,6 +36,22 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
+    async deleteLatestDealProduct({commit}, dealId){
+        try {
+            return  await axios.delete(`/admin/latest/deal/delete/product/${dealId}`)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('removeLatestDealProduct', dealId)
+                    }
+                    return response.data;
+                }).catch(error=>{
+                    commit('setResponse', error.data);
+                    return error.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {
@@ -43,6 +59,11 @@ const mutations = {
         state.deal_products = response.deal_products;
         delete response.deal_products;
         state.latest_deal = response
+    },
+    removeLatestDealProduct:(state, proId)=>{
+        state.deal_products = state.deal_products.filter(deal=>{
+            return deal.id !== proId;
+        })
     }
 };
 

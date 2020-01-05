@@ -54,6 +54,7 @@ class Product extends Resource
             'mall_comp_name'=>$this->mall_comp_name,
             'mall_logo'=>new AttachmentResource($this->whenLoaded('mallLogo')),
             'mall_product'=> $this->mall_product,
+            'total_qty'=>($this->product_type === 1)? $this->product_qty : $this->variations->sum('quantity'),
         ];
     }
 }

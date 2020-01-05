@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\DeliveryMethod;
 use App\Models\GroupProduct;
 use App\Models\HomepageSection;
+use App\Models\LatestDeal;
 use App\Models\OrderItem;
 use App\Models\Page;
 use App\Models\Product;
@@ -115,6 +116,7 @@ class FrontendController extends Controller
                 ]
             ]);
         }
+        $latestDeals = LatestDeal::where('status', config('app.active'))->with('deal_products.product')->first();
         return view('templates.' . $this->template_name . '.frontend.home', [
             'sliders' => $sliders,
             'sections'=>$sections,
@@ -123,6 +125,7 @@ class FrontendController extends Controller
             'categorySection'=>$categorySection,
             'adminBestSellProducts'=>$adminBestSellProducts,
             'adminLatestProducts'=>$adminLatestProducts,
+            'latestDeals'=>$latestDeals,
         ]);
     }
     public function set_lang($lang)

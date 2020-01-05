@@ -25,13 +25,13 @@
         </div>
 
         <div class="container">
-            @if(!empty($topProducts))
+            @if(!empty($latestDeals) && !empty($latestDeals->deal_products))
                 <div class="block-deals-of-opt2">
                     <div class="block-title ">
                         <span class="title">Latest Deals</span>
                         <div class="deals-of-countdown">
                             <span class="title">End In</span>
-                            <div class="count-down-time" data-countdown="2020/9/27"></div>
+                            <div class="count-down-time" data-countdown="{{ $latestDeals->end_time }}"></div>
                         </div>
                     </div>
                     <div class="block-content">
@@ -46,14 +46,15 @@
                             "992":{"items":4},
                             "1200":{"items":5}
                             }'>
-                            @foreach($topProducts as $topProduct)
-                                <section-product-grid :product="{{ $topProduct->product }}"></section-product-grid>
+                            @foreach($latestDeals->deal_products as $dealProduct)
+                                <section-product-grid :product="{{ $dealProduct->product }}"></section-product-grid>
                             @endforeach
                         </div>
 
                     </div>
                 </div>
             @endif
+
             @if(!empty($adminLatestProducts))
                 <div class="block-deals-of-opt2">
                     <div class="block-title ">

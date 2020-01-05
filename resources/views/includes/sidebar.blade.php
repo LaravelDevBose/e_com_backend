@@ -87,6 +87,7 @@
                         <ul>
 {{--                            <li><a href="{{ route('admin.section.index') }}"><i class="icon-stack2"></i>Homepage Section</a></li>--}}
                             <li><a href="{{ route('admin.group.index') }}"><i class="icon-stack2"></i>Product Grouping</a></li>
+                            <li><a href="{{ route('admin.latest.deal.page') }}"><i class="icon-stack2"></i>Latest Deal</a></li>
                             <li><a href="{{ route('admin.cms.sliders.index') }}"><i class="icon-list-numbered"></i>Slider</a></li>
                             <li><a href="{{ route('admin.cms.pages.index') }}"><i class="icon-list-numbered"></i> General Pages</a></li>
 {{--                            <li><a href="{{ route('admin.setting.page') }}"><i class="icon-cogs"></i> Setting</a></li>--}}

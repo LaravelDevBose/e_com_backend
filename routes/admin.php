@@ -171,8 +171,9 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
 
     Route::group(['prefix'=>'latest/deal', 'as'=>'latest.deal.'], function (){
         Route::get('/page', 'LatestDealController@latest_deal_page')->name('page');
-        Route::get('/products', 'LatestDealController@latest_deal_products');
+        Route::get('/data', 'LatestDealController@latest_deal_data');
         Route::post('/store/update', 'LatestDealController@store_update_latest_deal');
+        Route::delete('/delete/product/{dealId}', 'LatestDealController@deal_product_remove');
     });
 });
 

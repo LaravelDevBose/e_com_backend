@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="panel">
-                <div class="panel-heading bg-info">
+                <div class="panel-heading bg-success">
                     <h5 class="panel-title">Added Products</h5>
                 </div>
 
@@ -57,7 +57,7 @@
                         <div class="col-md-12">
                             <div class="table-responsive">
                                 <div id="table1">
-                                    <datatable class="table-bordered table-striped" :columns="columns" :data="dealProducts"></datatable>
+                                    <datatable class="table-bordered table-striped" :columns="addedColumns" :data="dealProducts"></datatable>
                                 </div>
                                 <div class="form-inline">
                                     <datatable-pager v-model="addedPage" type="abbreviated" :per-page="per_page"></datatable-pager>
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="panel">
-                <div class="panel-heading bg-info">
+                <div class="panel-heading bg-primary">
                     <h5 class="panel-title">Category Wish Products</h5>
                 </div>
 
@@ -84,20 +84,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 col-md-offset-6">
-                            <div class="content-group-lg"  style="margin-bottom:0!important;">
-                                <div class="checkbox checkbox-switchery">
-                                    <label>
-                                        <input type="checkbox"  class="switchery-primary" :checked="formData.status">
-                                        <span class="text-success text-bold" v-if="formData.status" >Active</span>
-                                        <span class="text-danger text-bold" v-else>Inactive</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="text-right form-group" style="margin-bottom:0px;">
-                                <button type="submit" :disabled="btnDisabled" class="btn btn-success btn-block">Save Section Product <i class="icon-arrow-right14 position-right"></i></button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3" style="float:right; margin-top: 1rem;">
+                            <div class="form-group" style="margin-bottom:0px;">
+                                <button type="submit" :disabled="btnDisabled" class="btn btn-success btn-block">
+                                    <span v-if="!latestDeal"> Update Latest Deal </span>
+                                    <span v-else> Save Latest Deal </span>
+                                    <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -111,12 +105,16 @@
     import '@riophae/vue-treeselect/dist/vue-treeselect.css';
     import Treeselect from '@riophae/vue-treeselect';
     import {mapActions, mapGetters} from 'vuex';
-
+    import ProductThumbImg from "../helper/table/ProductThumbImg";
+    import DealProductThumb from "./DealProductThumb";
+    import LatestDealAction from "./LatestDealAction"
     export default {
         name: "CreateLatestDealPage",
         components:{
-            'vue-select2':VueSelect2,
             Treeselect,
+            'deal-product-thumb': DealProductThumb,
+            'product-thumb-img': ProductThumbImg,
+            'latest-deal-action': LatestDealAction
         },
         data(){
             return{
@@ -140,6 +138,15 @@
                 per_page: 10,
                 filter: '',
                 rows:'',
+                addedColumns: [
+                    { label: 'Image', component: 'deal-product-thumb', align: 'left', headerClass:'pro-img', sortable: false },
+                    { label: 'Product Name', field: 'product.product_name',  },
+                    { label: 'Product SKU', field: 'product.product_sku' , },
+                    { label: 'Category', field: 'product.category.name' },
+                    { label: 'Brand', field: 'product.brand.name', sortable: true },
+                    { label: 'Quantity', field: 'product.total_qty', align: 'center', sortable: true },
+                    { label: 'Remove', component: 'latest-deal-action', align: 'center', sortable: false },
+                ],
                 columns: [
                     { label: '#', align: 'center', component: 'product-checkbox', headerClass:'table-checkbox', filterable: false, sortable:false },
                     { label: 'Image', component: 'product-thumb-img', align: 'left', headerClass:'pro-img', sortable: false },
@@ -148,8 +155,6 @@
                     { label: 'Category', field: 'category.name' },
                     { label: 'Brand', field: 'brand.name', sortable: true },
                     { label: 'Quantity', field: 'total_qty', align: 'center', sortable: true },
-                    // { label: 'Expired', component: 'product-group-expired', align: 'center', sortable: true },
-                    // { label: 'Position', component: 'product-group-position', align: 'center', sortable: true },
                 ],
             }
         },
@@ -161,7 +166,8 @@
             ...mapActions([
                 'allTreeListCategories',
                 'categoryWishProducts',
-                'getLatestDealData'
+                'getLatestDealData',
+                'storeUpdateLatestDeal'
             ]),
             storeLatestDealProducts(){
 
@@ -225,8 +231,11 @@
             latestDealCheck:{
                 handler(newVal, oldVal){
                     if(newVal !== oldVal){
-                        this.formData.start_time = this.latestDeal.start_time;
-                        this.formData.end_time = this.latestDeal.end_time;
+                        let startTime = this.latestDeal.start_time.split(' ');
+                        let endTime = this.latestDeal.end_time.split(' ');
+
+                        this.formData.start_time = startTime[0]+'T'+startTime[1]+'.0000Z';
+                        this.formData.end_time = endTime[0]+'T'+endTime[1]+'.0000Z';
                         this.formData.status = this.latestDeal.status;
                     }
                 },

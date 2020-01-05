@@ -35,7 +35,7 @@
 <script>
     import {mapActions, mapGetters} from 'vuex';
     import ProductThumbImg from "../helper/table/ProductThumbImg";
-    import GroupProductAction from "./LatestDealAction";
+    import LatestDealAction from "./LatestDealAction";
     import LatestDealStatus from './LatestDealStatus'
     export default {
         name: "LatestDealListPage",
