@@ -56435,7 +56435,9 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "product-add-form" }, [
-      _c("p", [_vm._v(_vm._s(_vm.$t("product.avail_options")) + ":")]),
+      _vm.product.product_status === 1
+        ? _c("p", [_vm._v(_vm._s(_vm.$t("product.avail_options")) + ":")])
+        : _vm._e(),
       _vm._v(" "),
       _c("form", [
         _vm.product.product_status === 1

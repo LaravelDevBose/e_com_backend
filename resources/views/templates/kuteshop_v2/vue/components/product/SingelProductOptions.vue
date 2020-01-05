@@ -20,7 +20,7 @@
             <div class="overview-content" v-html="product.highlight"> </div>
         </div>
         <div class="product-add-form">
-            <p>{{ $t('product.avail_options')}}:</p>
+            <p v-if="product.product_status ===1">{{ $t('product.avail_options')}}:</p>
             <form>
 
                 <div class="product-options-wrapper" v-if="product.product_status ===1">
