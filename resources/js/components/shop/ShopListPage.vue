@@ -108,7 +108,7 @@
     });
     Vue.component('seller-action', {
         template: `<ul class="icons-list">
-<!--                        <li><a href="#" class="text text-primary" @click.prevent="goToShopDetails(row.seller.seller_id)"><i class="icon-eye"></i></a></li>-->
+                        <li><a href="#" class="text text-primary" @click.prevent="goToShopDetails(row.seller_id)"><i class="icon-eye"></i></a></li>
                         <li><a href="#" class="text text-danger" @click.prevent="deleteShop(row.seller_id)"><i class="icon-trash"></i></a></li>
                     </ul>`,
         props: ['row'],

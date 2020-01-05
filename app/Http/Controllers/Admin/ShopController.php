@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Frontend\ProductHelper;
+use App\Helpers\OrderHelper;
 use App\Http\Resources\Admin\ProductCollection;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -103,11 +104,21 @@ class ShopController extends Controller
                 'total_order_qty'=>$orders->sum('qty'),
                 'total_product'=> Product::where('seller_id', $sellerId)->notDelete()->count()
             ];
+            $reqData =[
+                'seller_id'=>$sellerId,
+            ];
+
+            $products = ProductHelper::products_list($reqData);
+            $proColl= ProductCollection::collection($products);
+            $orderItems = $orderItems = OrderItem::where('seller_id', $sellerId)
+                    ->with('order','buyer.user','product.thumbImage', 'size', 'color', 'brand')->get();
             $data=[
                 'shop_info'=>$shop,
                 'seller_info'=>$seller,
                 'overview_report'=>$shopOverview,
                 'latest_orders'=> $latest_orders,
+                'shop_products'=>$proColl,
+                'shop_orders'=>$orderItems,
             ];
             if(!empty($shop)){
                 return ResponserTrait::singleResponse($data,'success', Response::HTTP_OK);

@@ -124,6 +124,8 @@ const mutations = {
         state.seller_info = response.seller_info;
         state.overview_report = response.overview_report;
         state.latest_orders = response.latest_orders;
+        state.shop_products = response.shop_products;
+        state.shop_orders = response.shop_orders;
     }
 };
 
