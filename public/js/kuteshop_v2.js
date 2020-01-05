@@ -6361,6 +6361,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SingelProductOptions",
@@ -56412,7 +56414,14 @@ var render = function() {
         _c("span", { staticClass: "label" }, [
           _vm._v(_vm._s(_vm.$t("product.availability")) + ": ")
         ]),
-        _vm._v("In stock\n        ")
+        _vm._v(" "),
+        _vm.product.product_status === 1
+          ? _c("span", [_vm._v("In stock")])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.product.product_status === 5
+          ? _c("span", [_vm._v("Stock out")])
+          : _vm._e()
       ])
     ]),
     _vm._v(" "),
@@ -78160,7 +78169,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

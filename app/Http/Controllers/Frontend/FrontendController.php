@@ -68,7 +68,7 @@ class FrontendController extends Controller
 
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product'=>function($query){
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews');
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews')->isActive();
             }])->islive()->orderBy('position', 'asc')->latest()->get();
 
 
@@ -116,7 +116,12 @@ class FrontendController extends Controller
                 ]
             ]);
         }
-        $latestDeals = LatestDeal::where('status', config('app.active'))->with('deal_products.product')->first();
+        $latestDeals = LatestDeal::where('status', config('app.active'))
+            ->with(['deal_products'=>function($query){
+                return $query->with(['product'=>function($q){
+                    return $q->isActive();
+                }]);
+            }])->first();
         return view('templates.' . $this->template_name . '.frontend.home', [
             'sliders' => $sliders,
             'sections'=>$sections,
@@ -137,7 +142,8 @@ class FrontendController extends Controller
 
     public function section_data_list(Request $request)
     {
-        $sections = HomepageSection::with(['sectionCategories.category','attachment'])->orderBy('section_position', 'asc')->paginate(1);
+        $sections = HomepageSection::with(['sectionCategories.category','attachment'])
+            ->orderBy('section_position', 'asc')->paginate(1);
         if(!empty($sections)){
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $sections);
         }else{
@@ -149,7 +155,7 @@ class FrontendController extends Controller
     {
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product'=>function($query){
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews');
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews')->isActive();
             }])->orderBy('position', 'asc')->islive()->latest()->get();
         return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $hotProducts);
     }
@@ -203,7 +209,7 @@ class FrontendController extends Controller
             $products = ProductHelper::products_list($req);*/
             $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
                 ->with(['product'=>function($query){
-                    return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews');
+                    return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews')->isActive();
                 }])->islive()->orderBy('position', 'asc')->latest()->get();
             return view('templates.' . $this->template_name . '.frontend.products', [
                 'category' => $category,
@@ -262,7 +268,7 @@ class FrontendController extends Controller
         }
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product'=>function($query){
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage');
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage')->isActive();
             }])->islive()->orderBy('position', 'asc')->latest()->take(5)->get();
 
         $reqData = [

@@ -11,7 +11,9 @@
         </div>-->
         <div class="product-info-stock">
             <div class="stock available">
-                <span class="label">{{ $t('product.availability')}}: </span>In stock
+                <span class="label">{{ $t('product.availability')}}: </span>
+                <span v-if="product.product_status ===1">In stock</span>
+                <span v-if="product.product_status ===5">Stock out</span>
             </div>
         </div>
         <div class="product-overview">
