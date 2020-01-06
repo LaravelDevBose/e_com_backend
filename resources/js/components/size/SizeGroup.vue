@@ -221,6 +221,7 @@
             },
             removeSizeField(){
                 this.form.sizeNames.splice(this.sizeInput, 1);
+                this.sizeInput--;
             },
             sizeGroupStore(){
                 this.btnDisabled=  true;
