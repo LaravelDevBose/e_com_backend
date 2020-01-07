@@ -1,0 +1,60 @@
+@extends('templates.kuteshop_v2.layouts.frontend.master')
+
+@section('Title', __('buyer.add_new_address'))
+
+@section('PageCss')
+    <style>
+        .chosen-container, .chosen-container-single{
+            width:100% !important;
+        }
+        .chosen-container .chosen-single{
+            background: none;
+            border-radius: 0px;
+            height: 31px;
+            line-height: 30px;
+            border: 1px solid #ececec;
+        }
+        .box-border{
+            overflow: visible;
+        }
+    </style>
+@endsection
+
+@section('Content')
+    <main class="site-main">
+
+        <div class="columns container">
+            <ol class="breadcrumb no-hide">
+                <li><a href="{{ route('front.index') }}">{{ __('buyer.home') }}</a></li>
+                <li><a href="{{ route('buyer.home') }}">{{ __('buyer.dashboard') }}</a></li>
+                <li><a href="{{ route('buyer.address.book') }}">{{ __('buyer.address_list') }}</a></li>
+                <li class="active">{{ __('buyer.new_address') }}</li>
+            </ol>
+            <div class="row">
+                <!-- Main Content -->
+                <div class="col-md-9 col-md-push-3">
+                    <div class="col-main">
+                        <h2 class="page-heading">
+                            <span class="page-heading-title2">{{ __('buyer.add_new_address') }}</span>
+                        </h2>
+                        <div class="content-text clearfix wow bounceInUp animated">
+                            <address-book-create></address-book-create>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+
+                <!-- Sidebar -->
+                <div class="col-md-3 col-md-pull-9   col-sidebar">
+                    @include('templates.kuteshop_v2.buyer.partials.right_side')
+                </div>
+                <!-- Sidebar -->
+            </div>
+        </div>
+    </main>
+@endsection
+
+@section('PageJs')
+
+@endsection
