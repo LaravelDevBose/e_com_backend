@@ -1,65 +1,63 @@
-@extends('layouts.app')
+@extends('templates.kuteshop_v2.layouts.frontend.master')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+@section('Title','Reset Password')
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
+@section('PageCss')
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+@endsection
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+@section('Content')
+    <main class="site-main">
+        <div class="columns container" style="margin-top: 2rem">
+            <!-- Block  Breadcrumb-->
+            <h2 class="page-heading">
+                <span class="page-heading-title2">Reset Your Password</span>
+            </h2>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <div class="box-authentication">
+                            <h3>{{ $t('auth.buyer.login_title')}}</h3>
+                            <form method="POST" action="{{ route('password.update') }}" autocomplete="off">
+                                @csrf
+                                <input type="hidden" name="token" value="{{ $token }}">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label for="emmail_login">Email<span class="text text-danger text-bold">*</span></label>
+                                        <input type="email" name="email" autocomplete="off" placeholder="email" value="{{ $email ?? old('email') }}" required class="form-control" id="emmail_login">
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label for="password_login">New Password<span class="text text-danger text-bold">*</span></label>
+                                        <input type="password" name="password" autocomplete="off" minlength="8" :placeholder="$t('form.password')" required class="form-control" id="password_login">
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label for="password_con">Confirm Password <span class="text text-danger text-bold">*</span></label>
+                                        <input type="password" name="password_confirmation" minlength="8" required :placeholder="$t('form.confirm_pass')" class="form-control" id="password_con">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <button type="submit" class="button text-right"><i class="fa fa-lock"></i> Reset Password</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </main>
+@endsection
+
+@section('PageJs')
+
 @endsection

@@ -50084,7 +50084,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
             _c("p", { staticClass: "forgot-pass" }, [
-              _c("a", { attrs: { href: "#" } }, [
+              _c("a", { attrs: { href: "/password/reset" } }, [
                 _vm._v(_vm._s(_vm.$t("auth.forgot_pass")))
               ])
             ]),
@@ -50521,7 +50521,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
             _c("p", { staticClass: "forgot-pass" }, [
-              _c("a", { attrs: { href: "#" } }, [
+              _c("a", { attrs: { href: "/password/rest" } }, [
                 _vm._v(_vm._s(_vm.$t("auth.forgot_pass")))
               ])
             ]),
@@ -78131,7 +78131,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })
