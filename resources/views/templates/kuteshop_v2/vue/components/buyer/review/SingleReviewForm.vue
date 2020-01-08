@@ -23,7 +23,7 @@
             </div>
         </div>
         <form action="" @submit.prevent="addBuyerReview">
-            <ul v-if="order_item.status === 6">
+            <ul v-if="order_item.item_status === 6">
                 <li class="row">
                     <div class="col-sm-12 col-md-4">
                         <label  class="required">Rating</label>

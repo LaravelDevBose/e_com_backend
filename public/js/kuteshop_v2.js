@@ -50388,25 +50388,6 @@ var render = function() {
       _c(
         "a",
         {
-          staticClass: "btn btn-info btn-block",
-          attrs: { href: "#" },
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.socialLogin("twitter")
-            }
-          }
-        },
-        [
-          _c("i", { staticClass: "fab fa-twitter" }),
-          _vm._v(" " + _vm._s(_vm.$t("auth.sign_in_with")) + " "),
-          _c("b", [_vm._v("Twitter")])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
           staticClass: "btn btn-danger btn-block",
           attrs: { href: "#" },
           on: {
@@ -54511,7 +54492,7 @@ var render = function() {
             }
           },
           [
-            _vm.order_item.status === 6
+            _vm.order_item.item_status === 6
               ? _c("ul", [
                   _c("li", { staticClass: "row" }, [
                     _c(
@@ -58068,47 +58049,6 @@ var render = function() {
           ])
         ])
       ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "categori-search  " },
-        [
-          _c(
-            "chosen-select",
-            {
-              attrs: {
-                placeholder:
-                  _vm.$t("header.all") + _vm.$tc("header.category", 2),
-                "class-list": "categori-search-option"
-              },
-              model: {
-                value: _vm.searchData.categoryId,
-                callback: function($$v) {
-                  _vm.$set(_vm.searchData, "categoryId", $$v)
-                },
-                expression: "searchData.categoryId"
-              }
-            },
-            [
-              _c("option", { domProps: { value: 0 } }, [
-                _vm._v(_vm._s(_vm.$t("header.select_category")))
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.categories, function(category, index) {
-                return _vm.categories
-                  ? _c(
-                      "option",
-                      { key: index, domProps: { value: category.id } },
-                      [_vm._v(_vm._s(category.name))]
-                    )
-                  : _vm._e()
-              })
-            ],
-            2
-          )
-        ],
-        1
-      ),
       _vm._v(" "),
       _c("search-result-section")
     ],
@@ -78191,7 +78131,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

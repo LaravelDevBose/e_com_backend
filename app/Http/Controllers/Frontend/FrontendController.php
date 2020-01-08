@@ -81,7 +81,9 @@ class FrontendController extends Controller
             ->with('thumbImage', 'singleVariation','reviews')->take(16)->get();
 
         $adminLatestProducts = Product::isActive()->where('seller_id', 1)
-            ->with('thumbImage', 'singleVariation','reviews', 'brand.attachment', 'mallLogo')->latest()->take(2)->get();
+            ->with('thumbImage', 'singleVariation','reviews', 'brand.attachment', 'mallLogo')
+            ->latest()->take(20)->get();
+
         $categories = Category::isParent()->isActive()->select('category_id', 'category_name','category_slug', 'sect_banner_id')
                 ->with(['sectionBanner','children'=>function($query){
                     return $query->isActive();
@@ -102,10 +104,11 @@ class FrontendController extends Controller
                 ->select('review_id','product_id' , DB::raw('count(*) as total'))
                 ->groupBy('product_id')->orderBy('total', 'desc')
                 ->pluck('product_id');
-
-            $bestSellProducts = $products->whereIn('product_id', $bestSellProductId)->take(12)->get();
-            $mostReviewsProducts = $products->whereIn('product_id', $mostReviewProductIds)->take(12)->get();
+            $bestSellProducts = $products;
+            $mostReviewsProducts = $products;
             $latestProducts = $products->latest()->take(18)->get();
+            $bestSellProducts = $bestSellProducts->whereIn('product_id', $bestSellProductId)->take(12)->get();
+            $mostReviewsProducts = $mostReviewsProducts->whereIn('product_id', $mostReviewProductIds)->take(12)->get();
 
             array_push($categorySection,[
                 'category'=>$category,

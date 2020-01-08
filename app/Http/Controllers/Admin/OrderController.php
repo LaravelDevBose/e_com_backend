@@ -99,6 +99,13 @@ class OrderController extends Controller
                             ]);
                             event(new OnCancelOrderItem($item->item_id)); // Update Product qty if cancel order
                         }
+                    }else{
+                        $notCancelItems = OrderItem::where('order_id', $orderId)->where('item_status','!=', OrderItem::ItemStatus['Cancel'])->get();
+                        foreach ($notCancelItems as $item){
+                            $item->update([
+                                'item_status'=>$request->status,
+                            ]);
+                        }
                     }
                     DB::commit();
                     $order = Order::where('order_no', $request->order_no)->first();

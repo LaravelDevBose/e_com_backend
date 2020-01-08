@@ -90,7 +90,7 @@
                 </div>
             </div>
 
-            <div v-if="order.order_items" class="table-responsive">
+            <div v-if="order.order_items">
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>

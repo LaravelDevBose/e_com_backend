@@ -71,7 +71,10 @@
                     </div>`,
         props: ['row']
     });
-
+    Vue.component('shipping-to', {
+        template: `<div v-if="row.shipping != null "><span>{{ row.shipping.full_name }}</span></div>`,
+        props: ['row']
+    });
     export default {
         name: "OrderListTable",
         components: {
@@ -90,7 +93,7 @@
                     { label: 'Order No', field: 'order_no',  },
                     { label: 'Order Date', field: 'order_date', filterable: true, sortable:true },
                     { label: 'Buyer', field: 'buyer.user.full_name' , filterable: true, sortable:true },
-                    { label: 'Shipping To', field: 'shipping.full_name' , filterable: true, sortable:true },
+                    { label: 'Shipping To', component: 'shipping-to' , filterable: true, sortable:true },
                     { label: 'Products - (Qty)', component:'product-list', filterable: true, sortable:false },
                     { label: 'Quantity', field: 'total_qty', align: 'right',  },
                     { label: 'Subtotal', field: 'sub_total', align: 'right', sortable: true },
