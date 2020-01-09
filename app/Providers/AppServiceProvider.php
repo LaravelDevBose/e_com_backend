@@ -45,17 +45,19 @@ class AppServiceProvider extends ServiceProvider
                 ->where('page_cat', Page::PageCategory['Customer Service'])
                 ->select('page_id','menu_title','page_slug','show_in','page_status')
                 ->orderBy('menu_position', 'asc')->get();
-            
+
             $aboutUs = Page::isActive()->where('page_cat', 4)->first();
             $brands = CommonData::brand_list();
             $contactUs = CommonData::setting_data();
             $catList = CommonData::category_list();
+
+            $contactInfos = Setting::where('type', Setting::Setting_Type['contact'])->pluck('value', 'key');
             $v->with('categoryTree', $categoryTree)
 //                ->with('pageMenus', $pageMenus)
                 ->with('brands', $brands)
                 ->with('contactUs', $contactUs)
                 ->with('catList', $catList)
-                ->with('aboutUs', $aboutUs)
+                ->with('contactInfos', $contactInfos)
 //                ->with('headerPageMenus', $headerPageMenus);
                 ->with('tcPageMenus', $tcPageMenus)
                 ->with('ppPageMenus', $ppPageMenus)

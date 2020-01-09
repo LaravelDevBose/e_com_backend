@@ -148,7 +148,10 @@
     padding-right:5px;
 }
 .brand-container{
-    text-align: center;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .mall-brand{
     height: 80px;
@@ -160,8 +163,15 @@
     margin-bottom: 10px;
     background: white;
 }
+.mall-brand img{
+    height: auto!important;
+    width: 100%!important;
+    max-width: 76px!important;
+    max-height: 76px!important;
+}
+
 .brand-name{
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     text-transform: capitalize;
 }

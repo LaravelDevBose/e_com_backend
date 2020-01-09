@@ -51,15 +51,14 @@
                             <img src="{{ asset('saliim.png') }}" alt="logo" style="height: 80px;">
                         </a>
                     </strong>
-
                     <table class="address">
                         <tr>
                             <td><b>Address:  </b></td>
-                            <td>Bakaaro,  Mogadishu, Somalia</td>
+                            <td>{!!  (!empty($contactInfos['contact_address']))? $contactInfos['contact_address'] : ''  !!}</td>
                         </tr>
                         <tr>
                             <td><b>Phone: </b></td>
-                            <td>00252617500005</td>
+                            <td>{{ (!empty($contactInfos['contact_phone']))? $contactInfos['contact_phone'] : '' }}</td>
                         </tr>
                         <tr>
                             <td><b>Hours:</b></td>
@@ -112,7 +111,7 @@
                 <div class="col-md-3 col-lg-3 col-xs-6 col">
                     <div class="block-newletter">
                         <div class="block-title">About Us</div>
-                        Fast and easy from simplified customer service with beautiful user interface
+                        {!! (!empty($contactInfos['about_us']))? $contactInfos['about_us'] : '' !!}
                     </div>
                 </div>
             </div>

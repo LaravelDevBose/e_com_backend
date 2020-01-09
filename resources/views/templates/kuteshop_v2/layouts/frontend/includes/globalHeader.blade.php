@@ -6,7 +6,7 @@
 
             <!-- hotline -->
             <ul class=" nav-left" >
-                <li ><span><i class="fa fa-phone" aria-hidden="true"></i>00252617500005</span></li>
+                <li ><span><i class="fa fa-phone" aria-hidden="true"></i>{{ (!empty($contactInfos['contact_phone'])) ? $contactInfos['contact_phone'] : '' }}</span></li>
                 <li ><span><i class="fa fa-envelope" aria-hidden="true"></i> @lang('header.contact_us_today') !</span></li>
                 <li class="dropdown switcher  switcher-language">
                     <a data-toggle="dropdown" role="button" href="#" class="dropdown-toggle switcher-trigger" aria-expanded="false">

@@ -29,7 +29,11 @@
                             <div class="col-md-5 ">
                                 <div class="form-group">
                                     <label>Contact Address:</label>
-                                    <vue-editor id="contact_address" v-model="contactSetting.contact_address"></vue-editor>
+                                    <textarea class="form-control" rows="2" v-model="contactSetting.contact_address"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Footer About Us:</label>
+                                    <textarea class="form-control" rows="4" v-model="contactSetting.about_us"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-3 col-md-offset-8">
@@ -42,7 +46,7 @@
                 </div>
             </div>
 
-            <div class="panel">
+            <!--<div class="panel">
                 <div class="panel-heading bg-primary">
                     <h6 class="panel-title">
                         <a href="#">Logo Image</a>
@@ -69,7 +73,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div>-->
             <div class="panel">
                 <div class="panel-heading bg-primary">
                     <h6 class="panel-title">
@@ -78,14 +82,14 @@
                 </div>
                 <div class="panel-body">
                     <form action="" @submit.prevent="deliverySettingStore">
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="col-md-3 col-md-offset-2">
                                 <div class="form-group">
                                     <label>Delivery Flat Rate:</label>
                                     <input type="text" v-model="deliverySetting.delivery_rate" class="form-control" placeholder="Flat Rate" required>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="row">
                             <div class="col-md-10 col-md-offset-2">
                                 <div class="form-group">
@@ -126,7 +130,7 @@
                     </form>
                 </div>
             </div>
-            <div class="panel">
+            <!--<div class="panel">
                 <div class="panel-heading bg-teal">
                     <h6 class="panel-title">
                         <a  href="#">Campaign information Setting</a>
@@ -185,7 +189,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </template>
@@ -216,7 +220,8 @@
                     contact_phone:'',
                     contact_mobile:'',
                     contact_email:'',
-                    contact_address:''
+                    contact_address:'',
+                    about_us:''
                 },
                 logo_image:'',
                 campaignSetting:{

@@ -19,6 +19,7 @@ class Setting extends Model
         'contact_mobile' => '1',
         'contact_email' => '1',
         'contact_address' => '1',
+        'about_us' => '1',
         'logo_image' => '1',
         'campaign_email' => '2',
         'sending_time' => '2',
