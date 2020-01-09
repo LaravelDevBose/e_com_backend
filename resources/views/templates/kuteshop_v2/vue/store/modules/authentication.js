@@ -45,6 +45,20 @@ const actions={
                 return response.data;
             });
 
+    },
+    async sendPasswordResetLink({commit}, formData){
+        return  await axios.post('/password/email',formData)
+            .then(response=>{
+                return response.data;
+            });
+
+    },
+    async passwordReset({commit}, formData){
+        return  await axios.post('/password/reset',formData)
+            .then(response=>{
+                return response.data;
+            });
+
     }
 };
 
