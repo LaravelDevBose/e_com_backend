@@ -33,7 +33,7 @@
                 <li class="row">
                     <div class="col-sm-6">
                         <label for="telephone" class="required">{{ $t('form.phone_no')}} <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.phone_no"  name="telephone" id="telephone" type="number">
+                        <input class="input form-control" v-model="formData.phone_no"  name="telephone" id="telephone" type="text">
                     </div>
                 </li>
                 <li class="row">
@@ -64,7 +64,7 @@
                     </div>
                     <div class="col-sm-6">
                         <label for="postal_code" class="required">{{ $t('form.postal_code')}}</label>
-                        <input class="input form-control" v-model="formData.postal_code" name="postal_code" id="postal_code" type="number">
+                        <input class="input form-control" v-model="formData.postal_code" name="postal_code" id="postal_code" type="text">
                     </div>
                 </li>
             </ul>

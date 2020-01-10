@@ -51058,7 +51058,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "col-md-10" }, [
             _c("p", { staticClass: "forgot-pass" }, [
-              _c("a", { attrs: { href: "/password/rest" } }, [
+              _c("a", { attrs: { href: "/password/reset" } }, [
                 _vm._v(_vm._s(_vm.$t("auth.forgot_pass")))
               ])
             ]),
@@ -53206,11 +53206,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "input form-control",
-                    attrs: {
-                      name: "telephone",
-                      id: "telephone",
-                      type: "number"
-                    },
+                    attrs: { name: "telephone", id: "telephone", type: "text" },
                     domProps: { value: _vm.formData.phone_no },
                     on: {
                       input: function($event) {
@@ -53407,7 +53403,7 @@ var render = function() {
                     attrs: {
                       name: "postal_code",
                       id: "postal_code",
-                      type: "number"
+                      type: "text"
                     },
                     domProps: { value: _vm.formData.postal_code },
                     on: {
@@ -78872,7 +78868,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\e_com\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

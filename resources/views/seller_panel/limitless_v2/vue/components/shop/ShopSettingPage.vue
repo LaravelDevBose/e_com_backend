@@ -25,30 +25,20 @@
                                     <label>Shop Email:</label>
                                     <input type="email" v-model="formData.shop_email" class="form-control" placeholder="Shop Email">
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label>Min. Delivery. Days:</label>
-                                        <input type="number" v-model="formData.min_deli_day" class="form-control" placeholder="Min Delivery Days">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Max. Delivery Days:</label>
-                                        <input type="number" v-model="formData.max_deli_day" class="form-control" placeholder="Max. Delivery Days">
-                                    </div>
-                                </div>
                             </div>
-                            <div class="col-md-5 ">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Shop Address:</label>
                                     <textarea v-model="formData.shop_address" class="form-control" id="contact_address" rows="2"></textarea>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-7">
+                                    <div class="col-md-9">
                                         <div class="form-group">
                                             <label>Logo:</label>
                                             <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <img v-if="formData.shop_logo" :src="formData.shop_logo.image_path" alt="Company Logo">
                                             <img v-else :src="no_logo" alt="No Logo">

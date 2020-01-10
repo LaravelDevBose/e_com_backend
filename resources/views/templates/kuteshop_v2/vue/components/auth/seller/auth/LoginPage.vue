@@ -12,7 +12,7 @@
                     <input type="password" v-model="formData.password" autocomplete="off" minlength="8" :placeholder="$t('form.password')" required class="form-control" id="password_login">
                 </div>
                 <div class="col-md-10">
-                    <p class="forgot-pass"><a href="/password/rest">{{ $t('auth.forgot_pass') }}</a></p>
+                    <p class="forgot-pass"><a href="/password/reset">{{ $t('auth.forgot_pass') }}</a></p>
                     <button type="submit" class="button text-right"><i class="fa fa-lock"></i> {{ $t('auth.sign_in') }}</button>
                 </div>
             </div>
