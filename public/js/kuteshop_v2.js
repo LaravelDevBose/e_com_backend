@@ -4610,6 +4610,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InvoiceModalOne",
@@ -53936,7 +53946,7 @@ var render = function() {
                                       ),
                                       _vm._v(
                                         "\n                                    " +
-                                          _vm._s(item.size) +
+                                          _vm._s(item.size.size_name) +
                                           "\n                                "
                                       )
                                     ]
@@ -53958,7 +53968,7 @@ var render = function() {
                                       ),
                                       _vm._v(
                                         "\n                                    " +
-                                          _vm._s(item.color) +
+                                          _vm._s(item.color.color_name) +
                                           "\n                                "
                                       )
                                     ]
@@ -54489,7 +54499,57 @@ var render = function() {
                                         " " + _vm._s(item.product.product_sku)
                                       )
                                     ])
-                                  ])
+                                  ]),
+                                  _vm._v(" "),
+                                  item.product.product_type === 2
+                                    ? _c("div", [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "text-muted text-size-small"
+                                          },
+                                          [
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "text-warning position-left text-bold"
+                                              },
+                                              [_vm._v("Size:")]
+                                            ),
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(item.size.size_name) +
+                                                "\n                                        "
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "text-muted text-size-small"
+                                          },
+                                          [
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "text-warning position-left text-bold"
+                                              },
+                                              [_vm._v("Color:")]
+                                            ),
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(item.color.color_name) +
+                                                "\n                                        "
+                                            )
+                                          ]
+                                        )
+                                      ])
+                                    : _vm._e()
                                 ]),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
@@ -78926,7 +78986,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\e_com\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

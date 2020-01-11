@@ -8009,7 +8009,7 @@ Vue.component('status-badge', {
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['itemStatusList']))
 });
 Vue.component('order-product-info', {
-  template: "<div>\n                <a href=\"#\" @click.prevent=\"showProduct(row.product.product_slug)\" class=\"text-semibold\">{{ row.product_name }}</a>\n                    <div class=\"text-muted text-size-small\">\n                        <span class=\"icon-qrcode bg-grey position-left\"></span>\n                            {{ row.product.product_sku }}\n                    </div>\n                    <div v-if=\"row.product.product_type === 2\">\n                        <div class=\"text-muted text-size-small\">\n                            <span class=\"text-warning position-left text-bold\">Size:</span>\n                            {{ row.size }}\n                        </div>\n                        <div class=\"text-muted text-size-small\">\n                            <span class=\"text-warning position-left text-bold\">Color:</span>\n                            {{ row.color }}\n                        </div>\n                    </div>\n\n               </div>",
+  template: "<div>\n                <a href=\"#\" @click.prevent=\"showProduct(row.product.product_slug)\" class=\"text-semibold\">{{ row.product_name }}</a>\n                    <div class=\"text-muted text-size-small\">\n                        <span class=\"icon-qrcode bg-grey position-left\"></span>\n                            {{ row.product.product_sku }}\n                    </div>\n                    <div v-if=\"row.product.product_type === 2\">\n                        <div class=\"text-muted text-size-small\">\n                            <span class=\"text-warning position-left text-bold\">Size:</span>\n                            {{ row.size.size_name }}\n                        </div>\n                        <div class=\"text-muted text-size-small\">\n                            <span class=\"text-warning position-left text-bold\">Color:</span>\n                            {{ row.color.color_name }}\n                        </div>\n                    </div>\n\n               </div>",
   props: ['row'],
   methods: {
     showProduct: function showProduct(product_slug) {}
@@ -16136,7 +16136,7 @@ function fromByteArray (uint8) {
 /* WEBPACK VAR INJECTION */(function(global) {/*!
  * The buffer module from node.js, for the browser.
  *
- * @author   Feross Aboukhadijeh <http://feross.org>
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
  * @license  MIT
  */
 /* eslint-disable no-proto */
@@ -100670,7 +100670,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\e_com\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })
