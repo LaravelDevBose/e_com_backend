@@ -87,11 +87,11 @@
                         <div v-if="row.product.product_type === 2">
                             <div class="text-muted text-size-small">
                                 <span class="text-warning position-left text-bold">Size:</span>
-                                {{ row.size }}
+                                {{ row.size.size_name }}
                             </div>
                             <div class="text-muted text-size-small">
                                 <span class="text-warning position-left text-bold">Color:</span>
-                                {{ row.color }}
+                                {{ row.color.color_name }}
                             </div>
                         </div>
 
