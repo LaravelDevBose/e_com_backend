@@ -145,17 +145,16 @@ class OrderController extends Controller
                                 'variation_id'=>$variation_id,
                                 'status'=>$product->product_status,
                             ]);
-
                             array_push($orderItemsArray,[
                                 'order_id'=>$order->order_id,
                                 'buyer_id'=>$buyer->buyer_id,
                                 'seller_id'=>$product->seller_id,
                                 'product_id'=>$product->product_id,
                                 'product_name'=>$product->product_name,
-                                'size_id'=>(!empty($cart->options->sizeId))?$cart->options->sizeId:null,
-                                'size'=>(!empty($cart->options->size))?$cart->options->size:null,
-                                'color_id'=>(!empty($cart->options->colorId))?$cart->options->colorId:null,
-                                'color'=>(!empty($cart->options->color))?$cart->options->color:null,
+                                'size_id'=>$cart->options->sizeId??null,
+                                'size'=>$cart->options->size??null,
+                                'color_id'=>$cart->options->colorId??null,
+                                'color'=>$cart->options->color??null,
                                 'brand_id'=>$product->brand_id,
                                 'brand'=>(!empty($product->brand))?$product->brand->brand_name:'',
                                 'price'=>$cart->price,
