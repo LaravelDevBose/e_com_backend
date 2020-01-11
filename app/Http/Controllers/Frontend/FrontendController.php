@@ -119,7 +119,7 @@ class FrontendController extends Controller
                 ]
             ]);
         }
-        $latestDeals = LatestDeal::where('status', config('app.active'))->whereDate('end_time','>=', Carbon::today()->format('Y-m-d H:i:s') )
+        $latestDeals = LatestDeal::where('status', config('app.active'))->whereDate('end_time','>=', Carbon::today()->format('Y-m-d') )
             ->with(['deal_products'=>function($query){
                 return $query->with(['product'=>function($q){
                     return $q->isActive();
