@@ -8009,11 +8009,15 @@ Vue.component('status-badge', {
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['itemStatusList']))
 });
 Vue.component('order-product-info', {
-  template: "<div><a href=\"#\" @click.prevent=\"showProduct(row.product.product_slug)\" class=\"text-semibold\">{{ row.product_name }}</a>\n        <div class=\"text-muted text-size-small\">\n            <span class=\"icon-qrcode bg-grey position-left\"></span>\n                {{ row.product.product_sku }}\n        </div></div>",
+  template: "<div>\n                <a href=\"#\" @click.prevent=\"showProduct(row.product.product_slug)\" class=\"text-semibold\">{{ row.product_name }}</a>\n                    <div class=\"text-muted text-size-small\">\n                        <span class=\"icon-qrcode bg-grey position-left\"></span>\n                            {{ row.product.product_sku }}\n                    </div>\n                    <div v-if=\"row.product.product_type === 2\">\n                        <div class=\"text-muted text-size-small\">\n                            <span class=\"text-warning position-left text-bold\">Size:</span>\n                            {{ row.size }}\n                        </div>\n                        <div class=\"text-muted text-size-small\">\n                            <span class=\"text-warning position-left text-bold\">Color:</span>\n                            {{ row.color }}\n                        </div>\n                    </div>\n\n               </div>",
   props: ['row'],
   methods: {
     showProduct: function showProduct(product_slug) {}
   }
+});
+Vue.component('product-variation', {
+  template: "<div v-if=\"row.product.product_type === 2\">\n                   <ul >\n                        <li v-for=\"(oItem,index) in row.order_items\">{{ oItem.product_name }} - ({{ oItem.qty }})</li>\n                    </ul>\n                </div>",
+  props: ['row']
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OrderListTable",

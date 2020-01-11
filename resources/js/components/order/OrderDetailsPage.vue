@@ -113,6 +113,16 @@
                             <span class="text-muted">
                                 <span class="text-slate"> <i class="icon-barcode2"></i> {{ item.product.product_sku }}</span>
                             </span>
+                            <div v-if="item.product.product_type === 2">
+                                <div class="text-muted text-size-small">
+                                    <span class="text-warning position-left text-bold">Size:</span>
+                                    {{ item.size }}
+                                </div>
+                                <div class="text-muted text-size-small">
+                                    <span class="text-warning position-left text-bold">Color:</span>
+                                    {{ item.color }}
+                                </div>
+                            </div>
                         </td>
                         <td>
                             <span class="text-teal" style="margin-right:.5rem; " v-if="item.seller.shop"> <i class="icon-store2"></i> {{ item.seller.shop.shop_name }}</span>

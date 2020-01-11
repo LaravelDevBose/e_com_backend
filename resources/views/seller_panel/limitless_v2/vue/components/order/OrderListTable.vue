@@ -78,11 +78,24 @@
 
     });
     Vue.component('order-product-info', {
-        template: `<div><a href="#" @click.prevent="showProduct(row.product.product_slug)" class="text-semibold">{{ row.product_name }}</a>
-            <div class="text-muted text-size-small">
-                <span class="icon-qrcode bg-grey position-left"></span>
-                    {{ row.product.product_sku }}
-            </div></div>`,
+        template: `<div>
+                    <a href="#" @click.prevent="showProduct(row.product.product_slug)" class="text-semibold">{{ row.product_name }}</a>
+                        <div class="text-muted text-size-small">
+                            <span class="icon-qrcode bg-grey position-left"></span>
+                                {{ row.product.product_sku }}
+                        </div>
+                        <div v-if="row.product.product_type === 2">
+                            <div class="text-muted text-size-small">
+                                <span class="text-warning position-left text-bold">Size:</span>
+                                {{ row.size }}
+                            </div>
+                            <div class="text-muted text-size-small">
+                                <span class="text-warning position-left text-bold">Color:</span>
+                                {{ row.color }}
+                            </div>
+                        </div>
+
+                   </div>`,
         props: ['row'],
         methods:{
             showProduct(product_slug){
@@ -90,7 +103,14 @@
             }
         }
     });
-
+    Vue.component('product-variation', {
+        template: `<div v-if="row.product.product_type === 2">
+                       <ul >
+                            <li v-for="(oItem,index) in row.order_items">{{ oItem.product_name }} - ({{ oItem.qty }})</li>
+                        </ul>
+                    </div>`,
+        props: ['row']
+    });
 
     export default {
         name: "OrderListTable",

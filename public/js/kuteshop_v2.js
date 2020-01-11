@@ -4355,6 +4355,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53906,7 +53916,55 @@ var render = function() {
                                 _c("i", { staticClass: "icon-qrcode" }),
                                 _vm._v(" " + _vm._s(item.product.product_sku))
                               ])
-                            ])
+                            ]),
+                            _vm._v(" "),
+                            item.product.product_type === 2
+                              ? _c("div", [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "text-muted text-size-small"
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        {
+                                          staticClass:
+                                            "text-warning position-left text-bold"
+                                        },
+                                        [_vm._v("Size:")]
+                                      ),
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(item.size) +
+                                          "\n                                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "text-muted text-size-small"
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        {
+                                          staticClass:
+                                            "text-warning position-left text-bold"
+                                        },
+                                        [_vm._v("Color:")]
+                                      ),
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(item.color) +
+                                          "\n                                "
+                                      )
+                                    ]
+                                  )
+                                ])
+                              : _vm._e()
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
