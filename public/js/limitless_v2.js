@@ -11290,7 +11290,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         file_size: 1,
         init_image: '',
         folder: 'shop',
-        modal_view: 3
+        modal_type: 4,
+        modal_id: 'banner_image',
+        serial: 2
       },
       removeImage: false,
       btnDisabled: false
@@ -11448,7 +11450,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         file_size: 1,
         init_image: '',
         folder: 'shop',
-        modal_view: 1
+        modal_type: 1,
+        modal_id: 'logo_image',
+        serial: 1
       },
       removeImage: false,
       btnDisabled: false
@@ -16128,7 +16132,7 @@ function fromByteArray (uint8) {
 /* WEBPACK VAR INJECTION */(function(global) {/*!
  * The buffer module from node.js, for the browser.
  *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @author   Feross Aboukhadijeh <http://feross.org>
  * @license  MIT
  */
 /* eslint-disable no-proto */
@@ -100662,7 +100666,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\e_com\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })

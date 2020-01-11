@@ -44,7 +44,7 @@ class LatestDealController extends Controller
         $validator = Validator::make($request->all(),[
             'start_time'=>'required',
             'end_time'=>'required',
-            'productIds'=>'required|array',
+            'productIds'=>'array',
         ]);
 
         if($validator->passes()){
@@ -69,25 +69,28 @@ class LatestDealController extends Controller
                 }
 
                 if(!empty($latestDeal)){
-                    $dealProductArray = array();
-                    foreach ($request->productIds as $key=> $productId){
-                        $product = Product::where('product_id', $productId)->first();
-                        if(!empty($product)){
-                            array_push($dealProductArray,[
-                                'latest_deal_id'=>$latest_deal_id,
-                                'product_id'=>$productId,
-                                'status'=>config('app.active'),
-                            ]);
+
+                    if(!empty($request->productIds)){
+                        $dealProductArray = array();
+                        foreach ($request->productIds as $key=> $productId){
+                            $product = Product::where('product_id', $productId)->first();
+                            if(!empty($product)){
+                                array_push($dealProductArray,[
+                                    'latest_deal_id'=>$latest_deal_id,
+                                    'product_id'=>$productId,
+                                    'status'=>config('app.active'),
+                                ]);
+                            }
                         }
-                    }
 
-                    if(empty($dealProductArray)){
-                        throw new Exception('Product is Not Selected', Response::HTTP_BAD_REQUEST);
-                    }
+                        if(empty($dealProductArray)){
+                            throw new Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
+                        }
 
-                    $dealProduct = LatestDealProduct::insert($dealProductArray);
-                    if(empty($dealProduct)){
-                        throw new Exception('Product is Not Selected', Response::HTTP_BAD_REQUEST);
+                        $dealProduct = LatestDealProduct::insert($dealProductArray);
+                        if(empty($dealProduct)){
+                            throw new Exception('Selected Product Not Store Try Again', Response::HTTP_BAD_REQUEST);
+                        }
                     }
 
                     DB::commit();

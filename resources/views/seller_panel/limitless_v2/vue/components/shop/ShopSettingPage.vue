@@ -91,7 +91,9 @@
                     file_size:1,
                     init_image:'',
                     folder:'shop',
-                    modal_view:1,
+                    modal_type:1,
+                    modal_id:'logo_image',
+                    serial:1,
 
                 },
                 removeImage:false,

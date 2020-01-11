@@ -18,7 +18,7 @@
                             <div class="form-group">
                                 <label>Start Date:</label>
                                 <datetime
-                                    type="datetime"
+                                    type="date"
                                     use12-hour
                                     v-model="formData.start_time"
                                     input-id="startDate"
@@ -33,7 +33,7 @@
                             <div class="form-group">
                                 <label>Expired Date:</label>
                                 <datetime
-                                    type="datetime"
+                                    type="date"
                                     use12-hour
                                     v-model="formData.end_time"
                                     input-id="startDate"
@@ -171,11 +171,10 @@
             ]),
             storeLatestDealProducts(){
 
-                if(this.selectedProIds.length <= 0){
-                    Notify.warning('Products Not Selected');
-                    return false;
+                if(this.selectedProIds.length > 0){
+                    this.formData.productIds = this.selectedProIds;
                 }
-                this.formData.productIds = this.selectedProIds;
+
                 this.storeUpdateLatestDeal(this.formData)
                     .then(response=>{
                         console.log(response);

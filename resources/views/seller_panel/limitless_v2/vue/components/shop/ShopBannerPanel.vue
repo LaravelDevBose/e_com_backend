@@ -58,7 +58,9 @@
                     file_size:1,
                     init_image:'',
                     folder:'shop',
-                    modal_view:3
+                    modal_type:4,
+                    modal_id:'banner_image',
+                    serial:2,
                 },
                 removeImage:false,
                 btnDisabled:false,
