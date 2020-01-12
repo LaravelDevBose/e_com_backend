@@ -151,7 +151,7 @@ class Product extends Model
     }
 
     public function scopeInAdminReview($query){
-        return $query->where('product_status', self::ProductStatus['Pending']);
+        return $query->where('product_status', self::ProductStatus['Review']);
     }
 
     public function scopeIsOwner($query){
