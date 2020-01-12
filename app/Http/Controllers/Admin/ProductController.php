@@ -34,7 +34,9 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::with(['thumbImage','category','brand','variations'])->latest()->notDelete()->get();
+        $products = Product::with(['thumbImage','category','brand','variations'])
+        ->where('product_status', '!=', Product::ProductStatus['Review'])
+        ->latest()->notDelete()->get();
         $status = Product::flipProductStatus();
         return view('admin_panel.'.$this->template_name.'.product.index',[
             'products'=>$products,
@@ -47,7 +49,9 @@ class ProductController extends Controller
             return $query->with(['parent'=>function($q){
                 return $q->with(['parent']);
             }]);
-        }, 'brand','variations'])->latest()->notDelete()->get();
+        }, 'brand','variations'])
+        ->where('product_status', '!=', Product::ProductStatus['Review'])
+        ->latest()->notDelete()->get();
         return ProductCollection::collection($products);
     }
 
