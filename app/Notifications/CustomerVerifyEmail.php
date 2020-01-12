@@ -54,7 +54,7 @@ class CustomerVerifyEmail extends Notification implements ShouldQueue
         }
 
         return (new MailMessage)
-            ->from(env('MAIL_FROM', 'admin@info.com'))
+            ->from(env('MAIL_FROM_ADDRESS', 'admin@info.com'), env('MAIL_FROM_NAME', 'Shop'))
             ->subject(Lang::getFromJson('Verify Email Address'))
             ->view('mail.v1.buyer.buyer_account_verify',['url'=>$verificationUrl]);
 
