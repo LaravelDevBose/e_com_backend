@@ -22,6 +22,7 @@ use App\Models\SectionCategory;
 use App\Models\SectionProduct;
 use App\Models\Seller;
 use App\Models\Shop;
+use App\Models\Size;
 use App\Traits\CommonData;
 use App\Traits\ResponserTrait;
 use Carbon\Carbon;
@@ -119,6 +120,7 @@ class FrontendController extends Controller
                 ]
             ]);
         }
+
         $latestDeals = LatestDeal::where('status', config('app.active'))->whereDate('end_time','>', Carbon::today()->format('Y-m-d') )
             ->with(['deal_products'=>function($query){
                 return $query->with(['product'=>function($q){
@@ -234,6 +236,7 @@ class FrontendController extends Controller
         $brandIds = $products->where('brand_id', '!=', 0)->pluck('brand_id')->toArray();
         $productIds = $products->pluck('product_id')->toArray();
         $colorIds = ProductVariation::whereIn('product_id', $productIds)->distinct('pri_id')->pluck('pri_id')->toArray();
+        $sizeIds = ProductVariation::whereIn('product_id', $productIds)->distinct('sec_id')->pluck('sec_id')->toArray();
         $reqData = [
             'categoryIds'=>$categoryIds,
             'brandIds'=>$brandIds,
@@ -244,7 +247,7 @@ class FrontendController extends Controller
             'brands' => CommonData::brand_list($reqData),
             'colors' => CommonData::color_list($reqData),
             'tags' => CommonData::tag_list(),
-            'sizes' => CommonData::size_list($reqData),
+            'sizes' =>Size::isActive()->whereIn('size_id', $sizeIds)->get(),
         ];
 
         return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK);
