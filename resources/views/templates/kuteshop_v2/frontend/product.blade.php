@@ -159,20 +159,20 @@
                                         </div>
                                     </div>
                                     @if(!empty($product->mall_comp_name))
-                                    <div class="text-widget widget widget__sidebar shop-info">
-                                        <div class="go-to-store" style="border-bottom: 1px solid #eee;">
-                                            <a href="#"> Company Information</a>
+                                    <div class="text-widget widget widget__sidebar mall-info">
+                                        <div class="comp-info" style="border-bottom: 1px solid #eee;">
+                                            <h5> Mall Information</h5>
                                         </div>
                                         <div class="widget-content">
                                             <div class="cominfo">
-                                                <div class="item">
+                                                <div class="item text-center">
                                                     @if(!empty($product->mallLogo))
-                                                        <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ $product->mallLogo->image_path }}">
+                                                        <img class="img img-thumbnail"  alt="blog image" src="{{ $product->mallLogo->image_path }}">
                                                     @else
-                                                        <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ asset('crocus_v2/images/blog-img.jpg') }}">
+                                                        <img class="img img-thumbnail"  alt="blog image" src="{{ asset('crocus_v2/images/blog-img.jpg') }}">
                                                     @endif
                                                 </div>
-                                                <h3 class="shop-name float-right" >
+                                                <h3 class="comp-name text-center" >
                                                     <span style="text-transform: capitalize">{{ $product->mall_comp_name }}</span>
                                                 </h3>
                                             </div>
@@ -291,7 +291,7 @@
                             <strong class="title">{{ trans_choice('product.related_product',count($relatedProducts) ) }}</strong>
                         </div>
                         <div class="block-content ">
-                            <ol class="product-items owl-carousel " data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"992":{"items":3},"1200":{"items":4}}'>
+                            <ol class="product-items owl-carousel " data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"992":{"items":4},"1200":{"items":5},"1400":{"items":5}}'>
                                 @foreach($relatedProducts as $relatedProduct)
                                 <li class="product-item product-item-opt-2">
                                     <product-grid :product="{{ $relatedProduct }}"></product-grid>

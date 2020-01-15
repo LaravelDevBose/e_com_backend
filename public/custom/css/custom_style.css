@@ -178,6 +178,25 @@
 .mall-product:hover .brand-container{
     display: none;
 }
+.mall-info{
+    padding: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+}
+.mall-info .comp-info h5{
+    font-size: 18px;
+    font-weight: bold;
+}
+.mall-info .cominfo img {
+    height: 80px;
+    width: 80px;
+}
+
+.mall-info .cominfo .comp-name{
+    font-weight: bold;
+    font-size: 16px;
+}
+
 @media only screen and (min-device-width: 991px) and (max-device-width: 1199px){
     .payment-options ul li{
         width: 93px;

@@ -23,7 +23,7 @@
     import {mapGetters, mapActions} from 'vuex';
 
     Vue.component('thumb-image', {
-        template: `<img :src="row.product.thumb_image.image_path" :alt="row.product_name"  style="width:40px; height:40px">`,
+        template: `<img :src="row.image.image_path" :alt="row.product_name"  style="width:40px; height:40px">`,
         props: ['row'],
     });
 

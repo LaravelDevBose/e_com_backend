@@ -53,7 +53,8 @@ class OrderItem extends Model
         'discount',
         'total_price',
         'item_status',
-        'cancel_by'
+        'cancel_by',
+        'image_id'
     ];
 
     protected $appends = [
@@ -97,8 +98,11 @@ class OrderItem extends Model
         return $this->belongsTo(Brand::class, 'brand_id', 'brand_id');
     }
 
-    public function review()
-    {
+    public function review(){
         return $this->hasOne(Review::class, 'item_id', 'item_id');
+    }
+
+    public function image(){
+        return $this->hasOne(Attachment::class, 'attachment_id', 'image_id');
     }
 }

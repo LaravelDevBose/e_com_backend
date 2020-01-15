@@ -53,7 +53,7 @@ class OrderController extends Controller
         ]);
     }
     public function order_details($orderId){
-        $order = Order::where('order_id', $orderId)->with('buyer.user', 'orderItems.product.thumbImage','orderItems.seller.shop', 'billing', 'shipping', 'payment')->first();
+        $order = Order::where('order_id', $orderId)->with('buyer.user', 'orderItems.product','orderItems.seller.shop', 'billing', 'shipping', 'payment', 'orderItems.image')->first();
         if(!empty($order)){
             return ResponserTrait::singleResponse($order, 'success', Response::HTTP_OK);
         }else{

@@ -7979,7 +7979,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 Vue.component('thumb-image', {
-  template: "<img :src=\"row.product.thumb_image.image_path\" :alt=\"row.product_name\"  style=\"width:40px; height:40px\">",
+  template: "<img :src=\"row.image.image_path\" :alt=\"row.product_name\"  style=\"width:40px; height:40px\">",
   props: ['row']
 });
 Vue.component('status-badge', {
@@ -16136,7 +16136,7 @@ function fromByteArray (uint8) {
 /* WEBPACK VAR INJECTION */(function(global) {/*!
  * The buffer module from node.js, for the browser.
  *
- * @author   Feross Aboukhadijeh <http://feross.org>
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
  * @license  MIT
  */
 /* eslint-disable no-proto */
@@ -100670,7 +100670,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_web\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Buyer;
 use App\Helpers\Frontend\ProductHelper;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Size;
 use App\Models\WishList;
 use App\Traits\ResponserTrait;
@@ -83,6 +84,10 @@ class CartController extends Controller
                 if(empty($product)){
                     throw new Exception('Invalid Product Information', Response::HTTP_NOT_FOUND);
                 }
+
+                $image_id = $product->thumbImage->attachment_id;
+                $image = $product->thumbImage->image_path;
+
                 $colorName = '';
                 $sizeName = '';
                 if($product->product_type == 2){
@@ -92,6 +97,13 @@ class CartController extends Controller
                     if(!empty($request->sizeId)){
                         $sizeName = Size::where('size_id', $request->sizeId)->value('size_name');
                     }
+
+                    $productImage = ProductImage::where('product_id', $product->product_id)->where('pri_id', $request->colorId)->with('attachment')->first();
+                    if (!empty($productImage)) {
+                        $image_id = $productImage->attachment_id;
+                        $image = $productImage->attachment->image_path;
+                    }
+
                 }
                 $cartProduct = [
                     'id'=>$request->id,
@@ -104,7 +116,8 @@ class CartController extends Controller
                         'size' => $sizeName,
                         'colorId' => (!empty($request->colorId))?$request->colorId:'',
                         'color' => $colorName,
-                        'image'=>$product->thumbImage->image_path
+                        'image'=>$image,
+                        'image_id'=>$image_id
                     ]
                 ];
 

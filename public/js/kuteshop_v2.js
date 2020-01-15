@@ -53895,7 +53895,7 @@ var render = function() {
                             _c("img", {
                               staticStyle: { width: "55px", height: "55px" },
                               attrs: {
-                                src: item.product.thumb_image.image_path,
+                                src: item.image.image_path,
                                 alt: item.product_name
                               }
                             })
@@ -78925,7 +78925,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_web\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

@@ -65,7 +65,7 @@ class OrderController extends Controller
     {
         $orderInfo = Order::where('order_id', $orderId)
             ->with(['buyer.user','billing', 'shipping', 'payment', 'orderItems'=>function($query){
-                return $query->with('product.thumbImage', 'seller.shop');
+                return $query->with('product', 'seller.shop', 'image');
             } ])->first();
 
         if(!empty($orderInfo)) {
@@ -122,7 +122,7 @@ class OrderController extends Controller
                         foreach ($carts as $cart){
                             // get product, brand, size, color details
                             $product = Product::where('product_id',$cart->id)->with('brand', 'singleVariation')->first();
-                            if($product->product_type == Product::ProductType['Variation']&& !empty($cart->options->sizeId) && !empty($cart->options->colorId)){
+                            if($product->product_type == Product::ProductType['Variation'] && !empty($cart->options->sizeId) && !empty($cart->options->colorId)){
                                 $variationProduct = ProductVariation::where('product_id', $cart->id)
                                     ->where('pri_id', $cart->options->colorId)
                                     ->where('sec_id', $cart->options->colorId)->first();
@@ -161,7 +161,8 @@ class OrderController extends Controller
                                 'qty'=>$cart->qty,
                                 'subtotal'=>($cart->qty*$cart->price),
                                 'discount'=>0,
-                                'total_price'=>($cart->qty*$cart->price)
+                                'total_price'=>($cart->qty*$cart->price),
+                                'image_id'=> $cart->options->image_id
                             ]);
                             $orderTotal += ($cart->qty*$cart->price);
                         }

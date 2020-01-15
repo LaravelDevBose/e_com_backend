@@ -106,7 +106,7 @@
                     <tbody>
                     <tr v-for="(item,index) in order.order_items" :key="index">
                         <td style="max-width:100px">
-                            <img :src="item.product.thumb_image.image_path" :alt="item.product_name" style="width:55px; height:55px;">
+                            <img :src="item.image.image_path" :alt="item.product_name" style="width:55px; height:55px;">
                         </td>
                         <td>
                             <h6 class="no-margin">{{ item.product.product_name}}</h6>
