@@ -5,7 +5,7 @@
         <div class="close-filter-products"><i class="fa fa-times" aria-hidden="true"></i></div>
         <div class="block-content">
             <!-- filter price -->
-            <div class="filter-options-item filter-options-price">
+            <!--<div class="filter-options-item filter-options-price">
                 <div class="filter-options-title">{{ $t('products.price')}}</div>
                 <div class="filter-options-content">
                     <div class="slider-range">
@@ -40,10 +40,11 @@
 
                     </ol>
                 </div>
-            </div><!-- filter price -->
+            </div>-->
+            <!-- filter price -->
 
             <!-- filter brad-->
-            <div v-if="brands" class="filter-options-item filter-options-brand">
+            <div v-if="brands.length >0" class="filter-options-item filter-options-brand">
                 <div class="filter-options-title">{{ $tc('products.brand',brands.length)}}</div>
                 <div class="filter-options-content">
                     <ol class="items">
@@ -58,7 +59,7 @@
 
 
             <!-- filter color-->
-            <div v-if="colors" class="filter-options-item filter-options-color">
+            <div v-if="colors.length > 0" class="filter-options-item filter-options-color">
                 <div class="filter-options-title">{{ $tc('products.color',colors.length)}}</div>
                 <div class="filter-options-content">
                     <ol class="items">
@@ -77,7 +78,7 @@
             </div><!-- Filter Item -->
 
             <!-- Filter Item  size-->
-            <div v-if="sizes" class="filter-options-item filter-options-size">
+            <div v-if="sizes.length > 0" class="filter-options-item filter-options-size">
                 <div class="filter-options-title">{{ $tc('products.size',sizes.length)}}</div>
                 <div class="filter-options-content">
                     <ol class="items">

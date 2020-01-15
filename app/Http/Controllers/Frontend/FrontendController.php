@@ -9,6 +9,7 @@ use App\Http\Resources\Frontend\category\CategoryCollection;
 use App\Http\Resources\Frontend\product\ProductCollection;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\DeliveryMethod;
 use App\Models\GroupProduct;
 use App\Models\HomepageSection;
@@ -237,15 +238,9 @@ class FrontendController extends Controller
         $productIds = $products->pluck('product_id')->toArray();
         $colorIds = ProductVariation::whereIn('product_id', $productIds)->distinct('pri_id')->pluck('pri_id')->toArray();
         $sizeIds = ProductVariation::whereIn('product_id', $productIds)->distinct('sec_id')->pluck('sec_id')->toArray();
-        $reqData = [
-            'categoryIds'=>$categoryIds,
-            'brandIds'=>$brandIds,
-            'colorIds'=>$colorIds,
-        ];
-
         $data=[
-            'brands' => CommonData::brand_list($reqData),
-            'colors' => CommonData::color_list($reqData),
+            'brands' => Brand::isActive()->whereIn('brand_id', $brandIds)->get(),
+            'colors' => Color::isActive()->whereIn('color_id', $colorIds)->get(),
             'tags' => CommonData::tag_list(),
             'sizes' =>Size::isActive()->whereIn('size_id', $sizeIds)->get(),
         ];

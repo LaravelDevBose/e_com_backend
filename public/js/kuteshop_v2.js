@@ -7042,6 +7042,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -57723,33 +57724,7 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "block-content" }, [
-        _c("div", { staticClass: "filter-options-item filter-options-price" }, [
-          _c("div", { staticClass: "filter-options-title" }, [
-            _vm._v(_vm._s(_vm.$t("products.price")))
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "filter-options-content" }, [
-            _c("div", { staticClass: "slider-range" }, [
-              _c("div", { attrs: { id: "slider-range" } }),
-              _vm._v(" "),
-              _c("div", { staticClass: "action" }, [
-                _c("span", { staticClass: "price" }, [
-                  _c("span", [_vm._v(_vm._s(_vm.$t("products.range")) + ":")]),
-                  _vm._v("\n                        $"),
-                  _c("span", { attrs: { id: "amount-left" } }),
-                  _vm._v(
-                    "\n                        -\n                        $"
-                  ),
-                  _c("span", { attrs: { id: "amount-right" } })
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _vm._m(1)
-          ])
-        ]),
-        _vm._v(" "),
-        _vm.brands
+        _vm.brands.length > 0
           ? _c(
               "div",
               { staticClass: "filter-options-item filter-options-brand" },
@@ -57826,7 +57801,7 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _vm.colors
+        _vm.colors.length > 0
           ? _c(
               "div",
               { staticClass: "filter-options-item filter-options-color" },
@@ -57914,7 +57889,7 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _vm.sizes
+        _vm.sizes.length > 0
           ? _c(
               "div",
               { staticClass: "filter-options-item filter-options-size" },
@@ -57999,42 +57974,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "close-filter-products" }, [
       _c("i", { staticClass: "fa fa-times", attrs: { "aria-hidden": "true" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ol", { staticClass: "items" }, [
-      _c("li", { staticClass: "item " }, [
-        _c("label", [
-          _c("input", { attrs: { type: "checkbox" } }),
-          _c("span", [
-            _vm._v("$20 - $50 "),
-            _c("span", { staticClass: "count" }, [_vm._v("(20)")])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "item " }, [
-        _c("label", [
-          _c("input", { attrs: { type: "checkbox" } }),
-          _c("span", [
-            _vm._v("$50 - $100 "),
-            _c("span", { staticClass: "count" }, [_vm._v("(20)")])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "item " }, [
-        _c("label", [
-          _c("input", { attrs: { type: "checkbox" } }),
-          _c("span", [
-            _vm._v("$100 - $250 "),
-            _c("span", { staticClass: "count" }, [_vm._v("(20)")])
-          ])
-        ])
-      ])
     ])
   }
 ]
