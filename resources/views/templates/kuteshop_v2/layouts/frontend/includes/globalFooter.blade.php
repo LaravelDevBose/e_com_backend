@@ -46,11 +46,10 @@
 
             <div class="row">
                 <div class="col-md-3 col-lg-3 col-xs-6 col">
-                    <strong class="logo-footer">
-                        <a href="{{ route('front.index') }}">
-                            <img src="{{ asset('saliim.png') }}" alt="logo" style="height: 80px;">
-                        </a>
-                    </strong>
+                    <div class="block-newletter">
+                        <div class="block-title">About Us</div>
+                        {!! (!empty($contactInfos['about_us']))? $contactInfos['about_us'] : '' !!}
+                    </div>
                     <table class="address">
                         <tr>
                             <td><b>Address:  </b></td>
@@ -109,10 +108,6 @@
                     @endif
                 </div>
                 <div class="col-md-3 col-lg-3 col-xs-6 col">
-                    <div class="block-newletter">
-                        <div class="block-title">About Us</div>
-                        {!! (!empty($contactInfos['about_us']))? $contactInfos['about_us'] : '' !!}
-                    </div>
                     <news-letter-section></news-letter-section>
                 </div>
             </div>
