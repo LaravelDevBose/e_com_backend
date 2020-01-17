@@ -122,7 +122,7 @@ class FrontendController extends Controller
             ]);
         }
 
-        $latestDeals = LatestDeal::where('status', config('app.active'))->whereDate('end_time','>', Carbon::today()->format('Y-m-d') )
+        $latestDeals = LatestDeal::where('status', config('app.active'))->whereDate('end_time','>', Carbon::now()->format('Y-m-d h:i:s') )
             ->with(['deal_products'=>function($query){
                 return $query->with(['product'=>function($q){
                     return $q->isActive();
@@ -216,7 +216,8 @@ class FrontendController extends Controller
             $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
                 ->with(['product'=>function($query){
                     return $query->with('brand', 'category', 'singleVariation', 'thumbImage','reviews')->isActive();
-                }])->islive()->orderBy('position', 'asc')->latest()->get();
+                }])->islive()->isActive()
+                ->orderBy('position', 'asc')->latest()->get();
             return view('templates.' . $this->template_name . '.frontend.products', [
                 'category' => $category,
                 'categories' => CommonData::category_tree(),
@@ -359,10 +360,10 @@ class FrontendController extends Controller
     public function mall_products(){
         $shop = Shop::where('shop_id', 1)->with(['seller'=>function($query){
             return $query->with(['products'=>function($qu){
-                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage','reviews')->isActive();
+                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage','reviews', 'mallLogo')->isActive();
             }]);
         }, 'shopLogo','banner'])->first();
-        return view('templates.' . $this->template_name . '.frontend.shop_profile',[
+        return view('templates.' . $this->template_name . '.frontend.mall_profile',[
             'shop'=>$shop,
         ]);
     }

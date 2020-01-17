@@ -18,7 +18,7 @@
                             <div class="form-group">
                                 <label>Start Date:</label>
                                 <datetime
-                                    type="date"
+                                    type="datetime"
                                     use12-hour
                                     v-model="formData.start_time"
                                     input-id="startDate"
@@ -33,10 +33,10 @@
                             <div class="form-group">
                                 <label>Expired Date:</label>
                                 <datetime
-                                    type="date"
+                                    type="datetime"
                                     use12-hour
                                     v-model="formData.end_time"
-                                    input-id="startDate"
+                                    input-id="endDate"
                                     input-class="form-control"
                                     :phrases="{ok: 'Continue', cancel: 'Exit'}"
                                     :week-start="6"
@@ -234,8 +234,9 @@
                         let endTime = this.latestDeal.end_time.split(' ');
 
                         this.formData.start_time = startTime[0]+'T'+startTime[1]+'.0000Z';
-                        this.formData.end_time = endTime[0]+'T'+endTime[1]+'.0000Z';
+                        // this.formData.end_time = endTime[0]+'T'+endTime[1]+'.0000Z';
                         this.formData.status = this.latestDeal.status;
+                        this.formData.end_time = this.latestDeal.end_time;
                     }
                 },
                 deep:true,

@@ -113,6 +113,7 @@
                         <div class="block-title">About Us</div>
                         {!! (!empty($contactInfos['about_us']))? $contactInfos['about_us'] : '' !!}
                     </div>
+                    <news-letter-section></news-letter-section>
                 </div>
             </div>
         </div>

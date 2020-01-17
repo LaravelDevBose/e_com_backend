@@ -49,14 +49,14 @@
                                         <span>{!! $shop->shop_address !!}</span>
                                     </p>
                                 @endif
-                                <div class="block-social">
+                                {{--<div class="block-social">
                                     <div class="block-content" style="text-align: center!important;">
                                         <a href="" class="sh-facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
                                         <a href="" class="sh-pinterest"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
                                         <a href="" class="sh-twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
                                         <a href="" class="sh-google"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a>
                                     </div>
-                                </div>
+                                </div>--}}
                             </div>
 
                         </div>

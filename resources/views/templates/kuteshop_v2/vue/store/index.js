@@ -51,6 +51,12 @@ export default new Vuex.Store({
                 .then(response=>{
                     return response.data;
                 });
+        },
+        subscribeNewsletter({commit},formData){
+            return axios.post(`/newsletter/subscribe/`, formData)
+                .then(response=>{
+                    return response.data;
+                });
         }
     },
     mutations:{

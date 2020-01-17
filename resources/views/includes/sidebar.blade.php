@@ -93,6 +93,7 @@
                             <li><a href="{{ route('admin.setting.page') }}"><i class="icon-cogs"></i> Setting</a></li>
                         </ul>
                     </li>
+                    <li ><a href="{{ route('admin.newsletters') }}"><i class="icon-list"></i> <span>Newsletter</span></a></li>
                 </ul>
                 <div style="min-height: 70px; width: 100%;"></div>
             </div>

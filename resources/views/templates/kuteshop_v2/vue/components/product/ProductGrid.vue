@@ -17,7 +17,7 @@
                 <a href="#" title="Buy Now" class="btn" @click.prevent="buyNow()" style="font-size:18px;"><i class="fa fa-cart-plus"></i></a>
             </div>
             <button class="btn btn-cart" type="button" @click.prevent="addToCart()"><span>{{ $t('product.add_to_cart')}}</span></button>
-            <span v-if="product.seller_id === 1" class="product-item-label label-sale-off">saliim Mall</span>
+            <span v-if="product.seller_id === 1" class="product-item-label label-sale-off">Saliim Mall</span>
         </div>
         <div class="product-item-detail">
             <strong class="product-item-name">
