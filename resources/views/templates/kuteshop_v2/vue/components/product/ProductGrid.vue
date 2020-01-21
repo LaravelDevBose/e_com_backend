@@ -1,6 +1,6 @@
 <template>
 
-    <div class="product-item-info">
+    <div class="product-item-info" v-if="product">
         <div class="product-item-photo">
             <a href="#" @click.prevent="productDetails(product.product_slug)" :title="product.product_name" class="product-item-img">
                 <clazy-load :src="product.thumb_image.image_path">
@@ -72,22 +72,7 @@
 
         },
         mounted(){
-            if(this.product.product_type === 1){
-                this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
-            }else{
-                this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
-                this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
-                this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
-            }
-            if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
-                this.oldPrice = this.cartData.price;
-                this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
-            }
-
-            if(this.product.reviews.length >0 && this.product.reviews !== ''){
-                let sum = this.product.reviews.reduce((acc, item) => acc + parseInt(item.rating), 0);
-                this.rating = sum / this.product.reviews.length;
-            }
+            this.calculatingCartPrice();
         },
         methods:{
             ...mapActions([
@@ -159,11 +144,47 @@
                         }
                     })
             },
+            /*calculatingCartPrice(){
+                if(this.product.product_type === 1){
+                    this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
+                }else{
+                    this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
+                    this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
+                    this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+                }
+                if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                    this.oldPrice = this.cartData.price;
+                    this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
+                }
+
+                if(this.product.reviews.length >0 && this.product.reviews !== ''){
+                    let sum = this.product.reviews.reduce((acc, item) => acc + parseInt(item.rating), 0);
+                    this.rating = sum / this.product.reviews.length;
+                }
+            }*/
         },
         computed:{
             ...mapGetters([
                 'cartList'
-            ])
+            ]),
+            calculatingCartPrice(){
+                if(this.product.product_type === 1){
+                    this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
+                }else{
+                    this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
+                    this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
+                    this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+                }
+                if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                    this.oldPrice = this.cartData.price;
+                    this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
+                }
+
+                if(this.product.reviews.length >0 && this.product.reviews !== ''){
+                    let sum = this.product.reviews.reduce((acc, item) => acc + parseInt(item.rating), 0);
+                    this.rating = sum / this.product.reviews.length;
+                }
+            }
         }
     }
 </script>

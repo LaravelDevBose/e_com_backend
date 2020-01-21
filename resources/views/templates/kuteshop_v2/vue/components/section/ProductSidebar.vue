@@ -100,7 +100,7 @@
                     colorIds: [],
                     sizeIds: [],
                     paginate: 20,
-                    range:[1,100],
+                    range:[1,1000],
                 },
 
                 tooltipOptions: [{

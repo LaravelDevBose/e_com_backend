@@ -6107,21 +6107,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   created: function created() {},
   mounted: function mounted() {
-    /*if(this.product.product_type === 1){
-        this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
-    }else{
-        this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
-        this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
-        this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
-    }
-    if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
-        this.oldPrice = this.cartData.price;
-        this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
-    }
-     if(this.product.reviews.length >0 && this.product.reviews !== ''){
-        let sum = this.product.reviews.reduce((acc, item) => acc + parseInt(item.rating), 0);
-        this.rating = sum / this.product.reviews.length;
-    }*/
+    this.calculatingCartPrice();
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['productQuickView', 'insertToWishList', 'deleteFromWishList', 'addToCartProduct']), {
     productDetails: function productDetails(slug) {
@@ -6194,29 +6180,48 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     }
+    /*calculatingCartPrice(){
+        if(this.product.product_type === 1){
+            this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
+        }else{
+            this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
+            this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
+            this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+        }
+        if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+            this.oldPrice = this.cartData.price;
+            this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
+        }
+         if(this.product.reviews.length >0 && this.product.reviews !== ''){
+            let sum = this.product.reviews.reduce((acc, item) => acc + parseInt(item.rating), 0);
+            this.rating = sum / this.product.reviews.length;
+        }
+    }*/
+
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList'])),
-  updated: function updated() {
-    if (this.product.product_type === 1) {
-      this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
-    } else {
-      this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
-      this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
-      this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
-    }
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList']), {
+    calculatingCartPrice: function calculatingCartPrice() {
+      if (this.product.product_type === 1) {
+        this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
+      } else {
+        this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
+        this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
+        this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+      }
 
-    if (typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0) {
-      this.oldPrice = this.cartData.price;
-      this.cartData.price = (this.oldPrice - parseFloat(this.product.discount_price)).toFixed(2);
-    }
+      if (typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0) {
+        this.oldPrice = this.cartData.price;
+        this.cartData.price = (this.oldPrice - parseFloat(this.product.discount_price)).toFixed(2);
+      }
 
-    if (this.product.reviews.length > 0 && this.product.reviews !== '') {
-      var sum = this.product.reviews.reduce(function (acc, item) {
-        return acc + parseInt(item.rating);
-      }, 0);
-      this.rating = sum / this.product.reviews.length;
+      if (this.product.reviews.length > 0 && this.product.reviews !== '') {
+        var sum = this.product.reviews.reduce(function (acc, item) {
+          return acc + parseInt(item.rating);
+        }, 0);
+        this.rating = sum / this.product.reviews.length;
+      }
     }
-  }
+  })
 });
 
 /***/ }),
@@ -7145,7 +7150,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         colorIds: [],
         sizeIds: [],
         paginate: 20,
-        range: [1, 100]
+        range: [1, 1000]
       },
       tooltipOptions: [{
         tooltip: 'always'
@@ -56687,177 +56692,177 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "product-item-info" }, [
-    _c("div", { staticClass: "product-item-photo" }, [
-      _c(
-        "a",
-        {
-          staticClass: "product-item-img",
-          attrs: { href: "#", title: _vm.product.product_name },
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.productDetails(_vm.product.product_slug)
-            }
-          }
-        },
-        [
+  return _vm.product
+    ? _c("div", { staticClass: "product-item-info" }, [
+        _c("div", { staticClass: "product-item-photo" }, [
           _c(
-            "clazy-load",
-            { attrs: { src: _vm.product.thumb_image.image_path } },
-            [
-              _c("img", {
-                staticStyle: { width: "100%", height: "auto" },
-                attrs: {
-                  title: _vm.product.product_name,
-                  src: _vm.product.thumb_image.image_path
+            "a",
+            {
+              staticClass: "product-item-img",
+              attrs: { href: "#", title: _vm.product.product_name },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.productDetails(_vm.product.product_slug)
                 }
-              }),
-              _vm._v(" "),
+              }
+            },
+            [
               _c(
-                "div",
-                {
-                  staticClass: "preloader",
-                  attrs: { slot: "placeholder" },
-                  slot: "placeholder"
-                },
+                "clazy-load",
+                { attrs: { src: _vm.product.thumb_image.image_path } },
                 [
                   _c("img", {
                     staticStyle: { width: "100%", height: "auto" },
                     attrs: {
                       title: _vm.product.product_name,
-                      src: "/images/placeholder.png"
+                      src: _vm.product.thumb_image.image_path
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "preloader",
+                      attrs: { slot: "placeholder" },
+                      slot: "placeholder"
+                    },
+                    [
+                      _c("img", {
+                        staticStyle: { width: "100%", height: "auto" },
+                        attrs: {
+                          title: _vm.product.product_name,
+                          src: "/images/placeholder.png"
+                        }
+                      })
+                    ]
+                  )
                 ]
               )
-            ]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "product-item-actions" }, [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-wishlist",
-            attrs: { href: "#", title: "WishList" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.addWishList(_vm.product.product_slug)
-              }
-            }
-          },
-          [_c("span", [_vm._v(_vm._s(_vm.$t("header.wishlist")))])]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-quickview",
-            attrs: { href: "#", title: "Quick View" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.quickView($event)
-              }
-            }
-          },
-          [_c("span", [_vm._v(_vm._s(_vm.$t("product.quick_view")))])]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "btn",
-            staticStyle: { "font-size": "18px" },
-            attrs: { href: "#", title: "Buy Now" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.buyNow()
-              }
-            }
-          },
-          [_c("i", { staticClass: "fa fa-cart-plus" })]
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-cart",
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.addToCart()
-            }
-          }
-        },
-        [_c("span", [_vm._v(_vm._s(_vm.$t("product.add_to_cart")))])]
-      ),
-      _vm._v(" "),
-      _vm.product.seller_id === 1
-        ? _c("span", { staticClass: "product-item-label label-sale-off" }, [
-            _vm._v("Saliim Mall")
-          ])
-        : _vm._e()
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "product-item-detail" }, [
-      _c("strong", { staticClass: "product-item-name" }, [
-        _c(
-          "a",
-          {
-            attrs: { title: _vm.product.product_name, href: "#" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.productDetails(_vm.product.product_slug)
-              }
-            }
-          },
-          [_vm._v(_vm._s(_vm.product.product_name))]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "clearfix" }, [
-        _c("div", { staticClass: "product-item-price" }, [
-          _c(
-            "span",
-            { staticClass: "price", staticStyle: { display: "block" } },
-            [_vm._v("$ " + _vm._s(_vm.cartData.price))]
+            ],
+            1
           ),
           _vm._v(" "),
-          _vm.oldPrice !== 0 && _vm.oldPrice !== ""
-            ? _c("span", { staticClass: "old-price" }, [
-                _vm._v("$ " + _vm._s(_vm.oldPrice))
+          _c("div", { staticClass: "product-item-actions" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-wishlist",
+                attrs: { href: "#", title: "WishList" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.addWishList(_vm.product.product_slug)
+                  }
+                }
+              },
+              [_c("span", [_vm._v(_vm._s(_vm.$t("header.wishlist")))])]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-quickview",
+                attrs: { href: "#", title: "Quick View" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.quickView($event)
+                  }
+                }
+              },
+              [_c("span", [_vm._v(_vm._s(_vm.$t("product.quick_view")))])]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "btn",
+                staticStyle: { "font-size": "18px" },
+                attrs: { href: "#", title: "Buy Now" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.buyNow()
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fa fa-cart-plus" })]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-cart",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.addToCart()
+                }
+              }
+            },
+            [_c("span", [_vm._v(_vm._s(_vm.$t("product.add_to_cart")))])]
+          ),
+          _vm._v(" "),
+          _vm.product.seller_id === 1
+            ? _c("span", { staticClass: "product-item-label label-sale-off" }, [
+                _vm._v("Saliim Mall")
               ])
             : _vm._e()
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "product-reviews-summary " }, [
-          _c(
-            "div",
-            { staticClass: "rating-summary grid-rating" },
-            [
-              _c("star-rating", {
-                attrs: {
-                  "star-size": 13,
-                  rating: _vm.rating,
-                  "read-only": true
+        _c("div", { staticClass: "product-item-detail" }, [
+          _c("strong", { staticClass: "product-item-name" }, [
+            _c(
+              "a",
+              {
+                attrs: { title: _vm.product.product_name, href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.productDetails(_vm.product.product_slug)
+                  }
                 }
-              })
-            ],
-            1
-          )
+              },
+              [_vm._v(_vm._s(_vm.product.product_name))]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "clearfix" }, [
+            _c("div", { staticClass: "product-item-price" }, [
+              _c("span", { staticClass: "price" }, [
+                _vm._v("$ " + _vm._s(_vm.cartData.price))
+              ]),
+              _vm._v(" "),
+              _vm.oldPrice !== 0 && _vm.oldPrice !== ""
+                ? _c("span", { staticClass: "old-price" }, [
+                    _vm._v("$ " + _vm._s(_vm.oldPrice))
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "product-reviews-summary " }, [
+              _c(
+                "div",
+                { staticClass: "rating-summary grid-rating" },
+                [
+                  _c("star-rating", {
+                    attrs: {
+                      "star-size": 13,
+                      rating: _vm.rating,
+                      "read-only": true
+                    }
+                  })
+                ],
+                1
+              )
+            ])
+          ])
         ])
       ])
-    ])
-  ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -79295,7 +79300,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_web\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })
