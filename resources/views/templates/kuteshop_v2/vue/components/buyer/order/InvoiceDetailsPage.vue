@@ -144,7 +144,7 @@
                             <ul class="list-condensed list-unstyled invoice-payment-details">
                                 <li><h5>Total: <span class="text-right text-semibold">$ {{ orderInfo.total }}</span></h5></li>
                                 <li>Paid By: <span class="text-semibold">{{ orderInfo.payment.paid_by }}</span></li>
-                                <li>Paid At: <span class="text-semibold">{{ orderInfo.payment.paid_at }}</span></li>
+<!--                                <li>Paid At: <span class="text-semibold">{{ orderInfo.payment.paid_at }}</span></li>-->
                             </ul>
                         </div>
                     </div>

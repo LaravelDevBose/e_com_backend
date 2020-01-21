@@ -5924,16 +5924,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {},
   mounted: function mounted() {
     if (this.product.product_type === 1) {
-      this.cartData.price = parseFloat(this.product.product_price);
+      this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
     } else {
-      this.cartData.price = parseFloat(this.product.single_variation.price);
+      this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
       this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
       this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
     }
 
     if (typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0) {
       this.oldPrice = this.cartData.price;
-      this.cartData.price = this.oldPrice - parseFloat(this.product.discount_price);
+      this.cartData.price = (this.oldPrice - parseFloat(this.product.discount_price)).toFixed(2);
     }
 
     if (this.product.reviews !== '' && this.product.reviews.length > 0) {
@@ -6108,16 +6108,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {},
   mounted: function mounted() {
     if (this.product.product_type === 1) {
-      this.cartData.price = parseFloat(this.product.product_price);
+      this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
     } else {
-      this.cartData.price = parseFloat(this.product.single_variation.price);
+      this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
       this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
       this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
     }
 
     if (typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0) {
       this.oldPrice = this.cartData.price;
-      this.cartData.price = this.oldPrice - parseFloat(this.product.discount_price);
+      this.cartData.price = (this.oldPrice - parseFloat(this.product.discount_price)).toFixed(2);
     }
 
     if (this.product.reviews.length > 0 && this.product.reviews !== '') {
@@ -6370,16 +6370,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {},
   mounted: function mounted() {
     if (this.product.product_type === 1) {
-      this.cartData.price = parseFloat(this.product.product_price);
+      this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
     } else {
-      this.cartData.price = parseFloat(this.product.single_variation.price);
+      this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
       this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
       this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
     }
 
     if (typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0) {
       this.oldPrice = this.cartData.price;
-      this.cartData.price = this.oldPrice - parseFloat(this.product.discount_price);
+      this.cartData.price = (this.oldPrice - parseFloat(this.product.discount_price)).toFixed(2);
     }
 
     if (this.product.reviews !== '' && this.product.reviews.length > 0) {
@@ -6581,16 +6581,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   created: function created() {
     if (this.product.product_type === 1) {
-      this.cartData.price = parseFloat(this.product.product_price);
+      this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
     } else {
-      this.cartData.price = parseFloat(this.product.single_variation.price);
+      this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
       this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
       this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
     }
 
     if (typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0) {
       this.oldPrice = this.cartData.price;
-      this.cartData.price = this.oldPrice - parseFloat(this.product.discount_price);
+      this.cartData.price = (this.oldPrice - parseFloat(this.product.discount_price)).toFixed(2);
     }
   },
   mounted: function mounted() {
@@ -6677,8 +6677,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var variations = this.product.variations;
       variations.filter(function (variation) {
         if (parseInt(variation.pri_id) === _this5.cartData.colorId && parseInt(variation.sec_id) === _this5.cartData.sizeId) {
-          console.log(variation);
-          _this5.cartData.price = parseFloat(variation.price);
+          _this5.cartData.price = parseFloat(variation.price).toFixed(2);
+
+          if (typeof _this5.product.discount_price !== "undefined" && _this5.product.discount_price > 0) {
+            _this5.oldPrice = _this5.cartData.price;
+            _this5.cartData.price = (_this5.oldPrice - parseFloat(_this5.product.discount_price)).toFixed(2);
+          }
         }
       });
     }
@@ -54176,13 +54180,6 @@ var render = function() {
                           _c("span", { staticClass: "text-semibold" }, [
                             _vm._v(_vm._s(_vm.orderInfo.payment.paid_by))
                           ])
-                        ]),
-                        _vm._v(" "),
-                        _c("li", [
-                          _vm._v("Paid At: "),
-                          _c("span", { staticClass: "text-semibold" }, [
-                            _vm._v(_vm._s(_vm.orderInfo.payment.paid_at))
-                          ])
                         ])
                       ]
                     )
@@ -54887,21 +54884,6 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "text-center" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "text-primary",
-                        attrs: { href: "#" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.showInvoiceModal(order.order_id)
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fa fa-eye" })]
-                    ),
-                    _vm._v(" "),
                     _c(
                       "a",
                       {
@@ -79197,7 +79179,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_web\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

@@ -98,16 +98,16 @@
         },
         created(){
             if(this.product.product_type === 1){
-                this.cartData.price = parseFloat(this.product.product_price);
+                this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
             }else{
-                this.cartData.price = parseFloat(this.product.single_variation.price);
+                this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
                 this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
                 this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
             }
 
             if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
                 this.oldPrice = this.cartData.price;
-                this.cartData.price = this.oldPrice -  parseFloat(this.product.discount_price);
+                this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
             }
 
         },
@@ -193,8 +193,12 @@
                 let variations = this.product.variations;
                 variations.filter(variation=>{
                     if(parseInt(variation.pri_id) === this.cartData.colorId && parseInt(variation.sec_id) === this.cartData.sizeId){
-                        console.log(variation);
-                        this.cartData.price = parseFloat(variation.price);
+                        this.cartData.price = parseFloat(variation.price).toFixed(2);
+
+                        if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                            this.oldPrice = this.cartData.price;
+                            this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
+                        }
                     }
                 })
             }

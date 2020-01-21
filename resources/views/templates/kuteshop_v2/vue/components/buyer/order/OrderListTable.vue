@@ -26,7 +26,7 @@
                     <em>{{ order.status_label }}</em>
                 </td>
                 <td class="text-center">
-                    <a href="#" @click.prevent="showInvoiceModal(order.order_id)" class="text-primary"> <i class="fa fa-eye"></i></a>
+<!--                    <a href="#" @click.prevent="showInvoiceModal(order.order_id)" class="text-primary"> <i class="fa fa-eye"></i></a>-->
                     <a href="#" @click.prevent="showInvoiceDetails(order.order_id)" class="text-warning"> <i class="fa fa-newspaper"></i></a>
                     <a href="#" @click.prevent="goToAddReviewPage(order.order_id)" class="text-success"> <i class="far fa-comment-dots"></i></a>
                 </td>
