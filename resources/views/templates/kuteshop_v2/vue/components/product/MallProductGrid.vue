@@ -30,7 +30,7 @@
                 </strong>
                 <div class="clearfix">
                     <div class="product-item-price">
-                        <span class="price">$ {{ cartData.price }}</span>
+                        <span class="price" style="display: block">$ {{ cartData.price }}</span>
                         <span class="old-price" v-if="oldPrice !== 0 && oldPrice !== '' ">$ {{ oldPrice}}</span>
                     </div>
                     <div class="product-reviews-summary ">

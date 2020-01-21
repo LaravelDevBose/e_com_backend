@@ -130,6 +130,8 @@ const mutations = {
             delete response.data;
             state.paginate = response;
         }else{
+            console.table(response);
+            state.products.length = 0;
             state.products = response
         }
     },

@@ -5,42 +5,20 @@
         <div class="close-filter-products"><i class="fa fa-times" aria-hidden="true"></i></div>
         <div class="block-content">
             <!-- filter price -->
-            <!--<div class="filter-options-item filter-options-price">
+            <div class="filter-options-item filter-options-price">
                 <div class="filter-options-title">{{ $t('products.price')}}</div>
                 <div class="filter-options-content">
                     <div class="slider-range">
-
-                        <div id="slider-range" ></div>
-
-                        <div class="action">
-                        <span class="price">
-                            <span>{{ $t('products.range')}}:</span>
-                            $<span id="amount-left"></span>
-                            -
-                            $<span id="amount-right"></span>
-                        </span>
-                        </div>
+                        <vue-slider
+                            v-model="sortData.range"
+                            :enable-cross="false"
+                            :min="1"
+                            :max="1000"
+                            :dot-options="tooltipOptions"
+                        ></vue-slider>
                     </div>
-                    <ol class="items">
-                        <li class="item ">
-                            <label>
-                                <input type="checkbox"><span>$20 - $50 <span class="count">(20)</span>  </span>
-                            </label>
-                        </li>
-                        <li class="item ">
-                            <label>
-                                <input type="checkbox"><span>$50 - $100 <span class="count">(20)</span> </span>
-                            </label>
-                        </li>
-                        <li class="item ">
-                            <label>
-                                <input type="checkbox"><span>$100 - $250 <span class="count">(20)</span> </span>
-                            </label>
-                        </li>
-
-                    </ol>
                 </div>
-            </div>-->
+            </div>
             <!-- filter price -->
 
             <!-- filter brad-->
@@ -50,7 +28,7 @@
                     <ol class="items">
                         <li class="item" v-for="(brand, index) in brands" :key="index">
                             <label>
-                                <input v-model="sortData.brandIds" :value="brand.brand_id"  type="checkbox"><span>{{ brand.brand_name }} </span>
+                                <input v-model="sortData.brandIds" :value="brand.brand_id" type="checkbox"><span>{{ brand.brand_name }} </span>
                             </label>
                         </li>
                     </ol>
@@ -67,7 +45,8 @@
                             <label>
                                 <input v-model="sortData.colorIds" :value="color.color_id" type="checkbox">
                                 <span>
-                                    <span class="img" :style="{'background-color':color.color_code}"  style=" border: 1px solid #ccc;"></span>
+                                    <span class="img" :style="{'background-color':color.color_code}"
+                                          style=" border: 1px solid #ccc;"></span>
                                     <span class="count">{{ color.color_name }}</span>
                                 </span>
 
@@ -98,58 +77,70 @@
 <script>
     import {mapActions, mapGetters} from 'vuex';
     import _ from 'lodash';
+    import VueSlider from 'vue-slider-component'
+    import 'vue-slider-component/theme/default.css'
 
     export default {
         name: "ProductSidebar",
-        props:{
-            categoryid:[Number]
+        props: {
+            categoryid: [Number]
         },
-        data(){
-            return{
-                reqData:{
-                    category_id:'',
+        components: {
+            VueSlider
+        },
+        data() {
+            return {
+                reqData: {
+                    category_id: '',
                 },
-                sortData:{
-                    sorting:'yes',
-                    category_id:'',
-                    brandIds:[],
-                    colorIds:[],
-                    sizeIds:[],
-                    paginate:20,
-                }
+                sortData: {
+                    sorting: 'yes',
+                    category_id: '',
+                    brandIds: [],
+                    colorIds: [],
+                    sizeIds: [],
+                    paginate: 20,
+                    range:[1,100],
+                },
+
+                tooltipOptions: [{
+                    tooltip: 'always'
+                }, {
+                    tooltip: 'always'
+                }]
             }
         },
-        created(){
+        created() {
             this.reqData.category_id = this.categoryid;
             this.sortData.category_id = this.categoryid;
         },
-        mounted(){
+        mounted() {
             this.getProductSidebar(this.reqData)
         },
-        methods:{
+        methods: {
             ...mapActions([
                 'getProductSidebar',
                 'getSortingProducts'
             ]),
-            sortingProducts: _.debounce(function() {
+            sortingProducts: _.debounce(function () {
                 this.getSortingProducts(this.sortData);
-            },400)
+            }, 400)
         },
-        computed:{
+        computed: {
             ...mapGetters([
                 'brands',
                 'colors',
                 'tags',
                 'sizes',
             ]),
-            sortDataCheck(){
+            sortDataCheck() {
                 return JSON.parse(JSON.stringify(this.sortData));
             },
         },
-        watch:{
-            sortDataCheck:{
-                handler(newValue, oldValue){
-                    if(newValue !== oldValue){
+        watch: {
+            sortDataCheck: {
+                handler(newValue, oldValue) {
+                    if (newValue !== oldValue) {
                         this.sortingProducts()
                     }
                 }
