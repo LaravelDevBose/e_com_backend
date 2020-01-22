@@ -5,7 +5,7 @@
         <div class="close-filter-products"><i class="fa fa-times" aria-hidden="true"></i></div>
         <div class="block-content">
             <!-- filter price -->
-            <div class="filter-options-item filter-options-price">
+            <!--<div class="filter-options-item filter-options-price">
                 <div class="filter-options-title">{{ $t('products.price')}}</div>
                 <div class="filter-options-content">
                     <div class="slider-range">
@@ -18,7 +18,7 @@
                         ></vue-slider>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <!-- filter price -->
 
             <!-- filter brad-->
@@ -100,7 +100,7 @@
                     colorIds: [],
                     sizeIds: [],
                     paginate: 20,
-                    range:[1,1000],
+                    // range:[1,1000],
                 },
 
                 tooltipOptions: [{

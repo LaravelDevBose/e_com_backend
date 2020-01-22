@@ -285,14 +285,14 @@ class FrontendController extends Controller
         $varProIds = ProductVariation::whereIn('product_id', $productIds)
                         ->whereIn('pri_id',$request->colorIds)
                         ->whereIn('sec_id', $request->sizeIds)
-                        ->where('price', '>=', $request->range[0])
-                        ->where('price', '<=', $request->range[1])
+//                        ->where('price', '>=', $request->range[0])
+//                        ->where('price', '<=', $request->range[1])
                         ->pluck('product_id')->toArray();
 
         // Simple Product Filter
         $simProIds = $simProds->where('product_type', Product::ProductType['Simple'])
-            ->where('product_price', '>=', $request->range[0])
-            ->where('product_price', '<=', $request->range[1])
+//            ->where('product_price', '>=', $request->range[0])
+//            ->where('product_price', '<=', $request->range[1])
             ->pluck('product_id')->toArray();
 
         $sortProIds = array_merge($varProIds, $simProIds);

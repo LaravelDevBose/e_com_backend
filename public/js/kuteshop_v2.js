@@ -7149,8 +7149,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         brandIds: [],
         colorIds: [],
         sizeIds: [],
-        paginate: 20,
-        range: [1, 1000]
+        paginate: 20 // range:[1,1000],
+
       },
       tooltipOptions: [{
         tooltip: 'always'
@@ -57943,37 +57943,6 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "block-content" }, [
-        _c("div", { staticClass: "filter-options-item filter-options-price" }, [
-          _c("div", { staticClass: "filter-options-title" }, [
-            _vm._v(_vm._s(_vm.$t("products.price")))
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "filter-options-content" }, [
-            _c(
-              "div",
-              { staticClass: "slider-range" },
-              [
-                _c("vue-slider", {
-                  attrs: {
-                    "enable-cross": false,
-                    min: 1,
-                    max: 1000,
-                    "dot-options": _vm.tooltipOptions
-                  },
-                  model: {
-                    value: _vm.sortData.range,
-                    callback: function($$v) {
-                      _vm.$set(_vm.sortData, "range", $$v)
-                    },
-                    expression: "sortData.range"
-                  }
-                })
-              ],
-              1
-            )
-          ])
-        ]),
-        _vm._v(" "),
         _vm.brands.length > 0
           ? _c(
               "div",
@@ -79300,7 +79269,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_web\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })
