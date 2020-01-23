@@ -163,7 +163,7 @@ class FrontendController extends Controller
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product' => function ($query) {
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
-            }])->orderBy('position', 'asc')->islive()->latest()->get();
+            }])->orderBy('position', 'asc')->islive()->isActive()->latest()->get();
         return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $hotProducts);
     }
 
