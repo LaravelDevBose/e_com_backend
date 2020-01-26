@@ -62,6 +62,13 @@
                                 <input type="text" v-model="formData.trans_btn_text" class="form-control" placeholder="Button Text" required>
                             </div>
                             <div class="form-group">
+                                <label>Slider Type:</label>
+                                <select v-model="formData.slider_type"  class="form-control" required>
+                                    <option value="1">For Home Page</option>
+                                    <option value="2">For Mall Page</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label>Slider Image:</label>
                                 <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                             </div>
@@ -97,7 +104,8 @@
                     slider_status:0,
                     trans_slider_title:'',
                     trans_sub_title:'',
-                    trans_btn_text:''
+                    trans_btn_text:'',
+                    slider_type:1,
                 },
 
                 cropperData:{

@@ -11,6 +11,7 @@ class Setting extends Model
         'campaign' => 2,
         'template' => 3,
         'delivery'=>4,
+        'general'=>5,
     ];
     const SETTING_KEY = [
         'template_name' => '3',
@@ -31,6 +32,9 @@ class Setting extends Model
         'cash_on_delivery'=>4,
         'paypal_payment'=>4,
         'card_payment'=>4,
+        'show_seller_info'=>5,
+        'search_min_price'=>5,
+        'search_max_price'=>5,
     ];
 
     protected $table = 'settings';

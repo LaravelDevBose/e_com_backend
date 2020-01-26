@@ -23,6 +23,7 @@ class SettingController extends Controller
         $contactSetting = array();
         $campaignSetting = array();
         $deliverySetting = array();
+        $generalSetting = array();
 
         if(!empty($contactSettingData)){
             foreach ($contactSettingData as $setting){
@@ -56,10 +57,18 @@ class SettingController extends Controller
             }
 
         }
+        $generalSettingData= Setting::where('type', Setting::Setting_Type['general'])->get();
+        if(!empty($generalSettingData)){
+            foreach ($generalSettingData as $campaign){
+                $generalSetting[$campaign->key] = $campaign->value;
+            }
+
+        }
         $data = [
             'contactSetting'=>$contactSetting,
             'campaignSetting'=>$campaignSetting,
             'deliverySetting'=>$deliverySetting,
+            'generalSetting'=>$generalSetting,
             'logoImage'=>$logo_image,
         ];
 
@@ -117,7 +126,22 @@ class SettingController extends Controller
             return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
         }
     }
+    public function general_setting_store(Request $request){
+        try{
+            DB::beginTransaction();
+            foreach($request->all() as $key=>$value){
+                Setting::updateOrCreate(
+                    ['key'=>$key, 'type'=>Setting::Setting_Type['general']],
+                    [ 'value'=>$value ]);
+            }
 
+            DB::commit();
+            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'General Setting Update Successfully');
+        }catch (Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+        }
+    }
     public function logo_image_store(Request $request){
         try{
             DB::beginTransaction();

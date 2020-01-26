@@ -22,8 +22,10 @@ use App\Models\Review;
 use App\Models\SectionCategory;
 use App\Models\SectionProduct;
 use App\Models\Seller;
+use App\Models\Setting;
 use App\Models\Shop;
 use App\Models\Size;
+use App\Models\Slider;
 use App\Traits\CommonData;
 use App\Traits\ResponserTrait;
 use Carbon\Carbon;
@@ -52,7 +54,7 @@ class FrontendController extends Controller
 
     public function index()
     {
-        $sliders = CommonData::slider_list();
+        $sliders = CommonData::slider_list([Slider::SliderType['Home Page']]);
 
         $sections = HomepageSection::with(['attachment',
             'sectionCategories' => function ($query) {
@@ -319,7 +321,7 @@ class FrontendController extends Controller
             ->with(['product' => function ($query) {
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage')->isActive();
             }])->islive()->orderBy('position', 'asc')->latest()->take(5)->get();
-
+        $showSellerInfo = Setting::where('key', 'show_seller_info')->first();
         $reqData = [
             'product_id' => $product->product_id,
             'category_id' => $product->cateory_id,
@@ -335,6 +337,7 @@ class FrontendController extends Controller
             'hotProducts' => $hotProducts,
             'relatedProducts' => $relatedProducts,
             'deliveryMethods' => $deliveryMethods,
+            'showSellerInfo'   => $showSellerInfo,
         ]);
     }
 
@@ -407,6 +410,7 @@ class FrontendController extends Controller
 
     public function mall_products()
     {
+        $sliders = CommonData::slider_list([Slider::SliderType['Mall Page']]);
         $shop = Shop::where('shop_id', 1)->with(['seller' => function ($query) {
             return $query->with(['products' => function ($qu) {
                 return $qu->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews', 'mallLogo')->isActive();
@@ -414,6 +418,7 @@ class FrontendController extends Controller
         }, 'shopLogo', 'banner'])->first();
         return view('templates.' . $this->template_name . '.frontend.mall_profile', [
             'shop' => $shop,
+            'sliders'=>$sliders,
         ]);
     }
 

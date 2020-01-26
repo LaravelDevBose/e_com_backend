@@ -95,6 +95,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::post('/campaign/store', 'SettingController@campaign_setting_store');
         Route::post('/delivery/store', 'SettingController@delivery_setting_store');
         Route::post('/logo/store', 'SettingController@logo_image_store');
+        Route::post('/general/store', 'SettingController@general_setting_store');
     });
 
     Route::prefix('order')->as('order.')->group(function () {

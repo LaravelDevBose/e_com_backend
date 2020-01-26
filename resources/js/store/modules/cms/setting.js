@@ -86,7 +86,20 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
-
+    async storeGeneralSetting({commit}, formData){
+        try {
+            return await axios.post('/admin/setting/general/store',Object.assign({}, formData))
+                .then(response=>{
+                    commit('setResponse', response.data);
+                    return response.data;
+                }).catch(error=>{
+                    commit('setResponse', error.data);
+                    return error;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {

@@ -182,6 +182,7 @@
                                     <div class="text-widget widget widget__sidebar shop-info">
                                         <div class="widget-content site-footer">
                                             <div class="cominfo">
+                                                @if($product->seller->seller_id !== 1)
                                                 <div class="item">
                                                     @if(!empty($product->seller->shop->shopLogo->image_path))
                                                         <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ $product->seller->shop->shopLogo->image_path }}">
@@ -189,21 +190,24 @@
                                                         <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ asset('crocus_v2/images/blog-img.jpg') }}">
                                                     @endif
                                                 </div>
+                                                @endif
                                                 <h3 class="shop-name float-right" >
                                                     <span>{{ $product->seller->shop->shop_name }}</span>
                                                 </h3>
                                             </div>
-                                            @if(!empty($product->seller->shop->phone_no))
-                                                <p class="shop-address">
-                                                    <i class="fa fa-phone"></i>
-                                                    <span>{{ $product->seller->shop->phone_no }}</span>
-                                                </p>
-                                            @endif
-                                            @if(!empty($product->seller->shop->shop_address))
-                                                <p class="shop-address">
-                                                    <i class="fa fa-map-marker"></i>
-                                                    <span>{!! $product->seller->shop->shop_address !!}</span>
-                                                </p>
+                                            @if(!empty($showSellerInfo) && $showSellerInfo->value == 1 && $product->seller->seller_id !== 1)
+                                                @if(!empty($product->seller->shop->phone_no))
+                                                    <p class="shop-address">
+                                                        <i class="fa fa-phone"></i>
+                                                        <span>{{ $product->seller->shop->phone_no }}</span>
+                                                    </p>
+                                                @endif
+                                                @if(!empty($product->seller->shop->shop_address))
+                                                    <p class="shop-address">
+                                                        <i class="fa fa-map-marker"></i>
+                                                        <span>{!! $product->seller->shop->shop_address !!}</span>
+                                                    </p>
+                                                @endif
                                             @endif
                                             {{--<div class="block-social">
                                                 <div class="block-content" style="text-align: center!important;">
@@ -215,7 +219,11 @@
                                             </div>--}}
                                         </div>
                                         <div class="go-to-store">
+                                            @if($product->seller->seller_id !== 1)
                                             <a href="{{ route('front.shop.profile', $product->seller->shop->shop_slug) }}"> @lang('product.go_to_store')</a>
+                                            @else
+                                                <a href="{{ route('front.mall') }}"> @lang('product.go_to_store')</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

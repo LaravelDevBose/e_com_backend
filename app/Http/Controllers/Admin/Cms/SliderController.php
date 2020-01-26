@@ -65,6 +65,7 @@ class SliderController extends Controller
                     'slider_position'=>$request->slider_position,
                     'attachment_id'=>$request->attachmentIds[0],
                     'slider_status'=>(!empty($request->slider_status) && $request->slider_status == config('app.active')) ? $request->slider_status : config('app.inactive'),
+                    'slider_type'=> (!empty($request->slider_type))? $request->slider_type : Slider::SliderType['Home Page'],
                 ]);
                 if($slider){
                     DB::commit();

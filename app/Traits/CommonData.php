@@ -153,8 +153,8 @@ trait CommonData
         return $data;
     }
 
-    public static function slider_list($request=null){
-        $sliders = Slider::isActive()->orderBy('slider_position', 'asc')->with('attachment')->get();
+    public static function slider_list($types){
+        $sliders = Slider::isActive()->whereIn('slider_type', $types)->orderBy('slider_position', 'asc')->with('attachment')->get();
         if(!empty($sliders)){
             return $sliders;
         }else{

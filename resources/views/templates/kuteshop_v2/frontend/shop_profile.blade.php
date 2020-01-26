@@ -37,17 +37,19 @@
                                 </h3>
                             </div>
                             <div>
-                                @if(!empty($shop->phone_no))
-                                    <p class="shop-address">
-                                        <i class="fa fa-phone"></i>
-                                        <span>{{ $shop->phone_no }}</span>
-                                    </p>
-                                @endif
-                                @if(!empty($shop->shop_address))
-                                    <p class="shop-address">
-                                        <i class="fa fa-map-marker"></i>
-                                        <span>{!! $shop->shop_address !!}</span>
-                                    </p>
+                                @if(!empty($showSellerInfo) && $showSellerInfo->value == 1)
+                                    @if(!empty($shop->phone_no))
+                                        <p class="shop-address">
+                                            <i class="fa fa-phone"></i>
+                                            <span>{{ $shop->phone_no }}</span>
+                                        </p>
+                                    @endif
+                                    @if(!empty($shop->shop_address))
+                                        <p class="shop-address">
+                                            <i class="fa fa-map-marker"></i>
+                                            <span>{!! $shop->shop_address !!}</span>
+                                        </p>
+                                    @endif
                                 @endif
                                 {{--<div class="block-social">
                                     <div class="block-content" style="text-align: center!important;">
