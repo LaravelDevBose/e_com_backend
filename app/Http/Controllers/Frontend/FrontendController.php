@@ -243,11 +243,15 @@ class FrontendController extends Controller
         $productIds = $products->pluck('product_id')->toArray();
         $colorIds = ProductVariation::whereIn('product_id', $productIds)->distinct('pri_id')->pluck('pri_id')->toArray();
         $sizeIds = ProductVariation::whereIn('product_id', $productIds)->distinct('sec_id')->pluck('sec_id')->toArray();
+        $search_min_price = Setting::where('key', 'search_min_price')->where('type', Setting::Setting_Type['general'])->first();
+        $search_max_price = Setting::where('key', 'search_max_price')->where('type', Setting::Setting_Type['general'])->first();
         $data = [
             'brands' => Brand::isActive()->whereIn('brand_id', $brandIds)->get(),
             'colors' => Color::isActive()->whereIn('color_id', $colorIds)->get(),
             'tags' => CommonData::tag_list(),
             'sizes' => Size::isActive()->whereIn('size_id', $sizeIds)->get(),
+            'search_min_price'=> (!empty($search_min_price)) ? $search_min_price->value : 1,
+            'search_max_price'=> (!empty($search_max_price)) ? $search_max_price->value : 10000,
         ];
 
         return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK);
@@ -287,14 +291,14 @@ class FrontendController extends Controller
         $varProIds = ProductVariation::whereIn('product_id', $productIds)
                         ->whereIn('pri_id',$request->colorIds)
                         ->whereIn('sec_id', $request->sizeIds)
-//                        ->where('price', '>=', $request->range[0])
-//                        ->where('price', '<=', $request->range[1])
+                        ->where('price', '>=', $request->range[0])
+                        ->where('price', '<=', $request->range[1])
                         ->pluck('product_id')->toArray();
 
         // Simple Product Filter
         $simProIds = $simProds->where('product_type', Product::ProductType['Simple'])
-//            ->where('product_price', '>=', $request->range[0])
-//            ->where('product_price', '<=', $request->range[1])
+            ->where('product_price', '>=', $request->range[0])
+            ->where('product_price', '<=', $request->range[1])
             ->pluck('product_id')->toArray();
 
         $sortProIds = array_merge($varProIds, $simProIds);

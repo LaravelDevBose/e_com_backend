@@ -5,20 +5,20 @@
         <div class="close-filter-products"><i class="fa fa-times" aria-hidden="true"></i></div>
         <div class="block-content">
             <!-- filter price -->
-            <!--<div class="filter-options-item filter-options-price">
+            <div class="filter-options-item filter-options-price">
                 <div class="filter-options-title">{{ $t('products.price')}}</div>
                 <div class="filter-options-content">
                     <div class="slider-range">
                         <vue-slider
                             v-model="sortData.range"
                             :enable-cross="false"
-                            :min="1"
-                            :max="1000"
+                            :min="search_min_price"
+                            :max="search_max_price"
                             :dot-options="tooltipOptions"
                         ></vue-slider>
                     </div>
                 </div>
-            </div>-->
+            </div>
             <!-- filter price -->
 
             <!-- filter brad-->
@@ -83,7 +83,15 @@
     export default {
         name: "ProductSidebar",
         props: {
-            categoryid: [Number]
+            categoryid: [Number],
+            /*search_min_price: {
+                type:[String, Number],
+                default: 1,
+            },
+            search_max_price: {
+                type: [String, Number],
+                default: 10000,
+            }*/
         },
         components: {
             VueSlider
@@ -100,7 +108,7 @@
                     colorIds: [],
                     sizeIds: [],
                     paginate: 20,
-                    // range:[1,1000],
+                    range:[],
                 },
 
                 tooltipOptions: [{
@@ -115,7 +123,7 @@
             this.sortData.category_id = this.categoryid;
         },
         mounted() {
-            this.getProductSidebar(this.reqData)
+            this.getProductSidebar(this.reqData);
         },
         methods: {
             ...mapActions([
@@ -124,7 +132,7 @@
             ]),
             sortingProducts: _.debounce(function () {
                 this.getSortingProducts(this.sortData);
-            }, 400)
+            }, 500)
         },
         computed: {
             ...mapGetters([
@@ -132,19 +140,43 @@
                 'colors',
                 'tags',
                 'sizes',
+                'search_min_price',
+                'search_max_price',
             ]),
             sortDataCheck() {
                 return JSON.parse(JSON.stringify(this.sortData));
+            },
+            searchMinPriceDataCheck() {
+                return JSON.parse(JSON.stringify(this.search_min_price));
+            },
+            searchMaxPriceDataCheck() {
+                return JSON.parse(JSON.stringify(this.search_max_price));
             },
         },
         watch: {
             sortDataCheck: {
                 handler(newValue, oldValue) {
                     if (newValue !== oldValue) {
-                        this.sortingProducts()
+                        if(this.sortData.range.length !== 0){
+                            this.sortingProducts();
+                        }
                     }
                 }
-            }
+            },
+            searchMinPriceDataCheck: {
+                handler(newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        this.sortData.range.push(this.search_min_price);
+                    }
+                }
+            },
+            searchMaxPriceDataCheck: {
+                handler(newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        this.sortData.range.push(this.search_max_price-10);
+                    }
+                }
+            },
         }
     }
 </script>

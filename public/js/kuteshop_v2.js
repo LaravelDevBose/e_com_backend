@@ -6082,6 +6082,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductGrid",
@@ -6107,7 +6117,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   created: function created() {},
   mounted: function mounted() {
-    this.calculatingCartPrice();
+    if (this.product.reviews.length > 0 && this.product.reviews !== '') {
+      var sum = this.product.reviews.reduce(function (acc, item) {
+        return acc + parseInt(item.rating);
+      }, 0);
+      this.rating = sum / this.product.reviews.length;
+    }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['productQuickView', 'insertToWishList', 'deleteFromWishList', 'addToCartProduct']), {
     productDetails: function productDetails(slug) {
@@ -6115,8 +6130,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     addWishList: function addWishList(slug) {
       var _this = this;
-
-      console.log(slug);
 
       if (AppStorage.getWhoIs() === 'buyer') {
         this.insertToWishList(slug).then(function (response) {
@@ -6158,49 +6171,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.cartData.id = this.product.product_id;
       this.cartData.name = this.product.product_name;
-      this.addToCartProduct(this.cartData).then(function (response) {
-        if (typeof response.code !== "undefined" && response.code === 200) {
-          _this3.$noty.success(response.message);
-        } else {
-          _this3.$noty.error(response.message);
-        }
-      });
-    },
-    buyNow: function buyNow() {
-      var _this4 = this;
 
-      this.cartData.id = this.product.product_id;
-      this.cartData.name = this.product.product_name;
-      this.addToCartProduct(this.cartData).then(function (response) {
-        if (typeof response.code !== "undefined" && response.code === 200) {
-          /*this.$noty.success(response.message);*/
-          location.href = '/cart';
-        } else {
-          _this4.$noty.error(response.message);
-        }
-      });
-    }
-    /*calculatingCartPrice(){
-        if(this.product.product_type === 1){
-            this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
-        }else{
-            this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
-            this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
-            this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
-        }
-        if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
-            this.oldPrice = this.cartData.price;
-            this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
-        }
-         if(this.product.reviews.length >0 && this.product.reviews !== ''){
-            let sum = this.product.reviews.reduce((acc, item) => acc + parseInt(item.rating), 0);
-            this.rating = sum / this.product.reviews.length;
-        }
-    }*/
-
-  }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList']), {
-    calculatingCartPrice: function calculatingCartPrice() {
       if (this.product.product_type === 1) {
         this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
       } else {
@@ -6214,14 +6185,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.cartData.price = (this.oldPrice - parseFloat(this.product.discount_price)).toFixed(2);
       }
 
-      if (this.product.reviews.length > 0 && this.product.reviews !== '') {
-        var sum = this.product.reviews.reduce(function (acc, item) {
-          return acc + parseInt(item.rating);
-        }, 0);
-        this.rating = sum / this.product.reviews.length;
+      this.addToCartProduct(this.cartData).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          _this3.$noty.success(response.message);
+        } else {
+          _this3.$noty.error(response.message);
+        }
+      });
+    },
+    buyNow: function buyNow() {
+      var _this4 = this;
+
+      this.cartData.id = this.product.product_id;
+      this.cartData.name = this.product.product_name;
+
+      if (this.product.product_type === 1) {
+        this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
+      } else {
+        this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
+        this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
+        this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
       }
+
+      if (typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0) {
+        this.oldPrice = this.cartData.price;
+        this.cartData.price = (this.oldPrice - parseFloat(this.product.discount_price)).toFixed(2);
+      }
+
+      this.addToCartProduct(this.cartData).then(function (response) {
+        if (typeof response.code !== "undefined" && response.code === 200) {
+          /*this.$noty.success(response.message);*/
+          location.href = '/cart';
+        } else {
+          _this4.$noty.error(response.message);
+        }
+      });
     }
-  })
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartList']))
 });
 
 /***/ }),
@@ -7134,6 +7135,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "ProductSidebar",
   props: {
     categoryid: [Number]
+    /*search_min_price: {
+        type:[String, Number],
+        default: 1,
+    },
+    search_max_price: {
+        type: [String, Number],
+        default: 10000,
+    }*/
+
   },
   components: {
     VueSlider: vue_slider_component__WEBPACK_IMPORTED_MODULE_2___default.a
@@ -7149,8 +7159,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         brandIds: [],
         colorIds: [],
         sizeIds: [],
-        paginate: 20 // range:[1,1000],
-
+        paginate: 20,
+        range: []
       },
       tooltipOptions: [{
         tooltip: 'always'
@@ -7169,18 +7179,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getProductSidebar', 'getSortingProducts']), {
     sortingProducts: lodash__WEBPACK_IMPORTED_MODULE_1___default.a.debounce(function () {
       this.getSortingProducts(this.sortData);
-    }, 400)
+    }, 500)
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['brands', 'colors', 'tags', 'sizes']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['brands', 'colors', 'tags', 'sizes', 'search_min_price', 'search_max_price']), {
     sortDataCheck: function sortDataCheck() {
       return JSON.parse(JSON.stringify(this.sortData));
+    },
+    searchMinPriceDataCheck: function searchMinPriceDataCheck() {
+      return JSON.parse(JSON.stringify(this.search_min_price));
+    },
+    searchMaxPriceDataCheck: function searchMaxPriceDataCheck() {
+      return JSON.parse(JSON.stringify(this.search_max_price));
     }
   }),
   watch: {
     sortDataCheck: {
       handler: function handler(newValue, oldValue) {
         if (newValue !== oldValue) {
-          this.sortingProducts();
+          if (this.sortData.range.length !== 0) {
+            this.sortingProducts();
+          }
+        }
+      }
+    },
+    searchMinPriceDataCheck: {
+      handler: function handler(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.sortData.range.push(this.search_min_price);
+        }
+      }
+    },
+    searchMaxPriceDataCheck: {
+      handler: function handler(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.sortData.range.push(this.search_max_price - 10);
         }
       }
     }
@@ -56831,17 +56863,85 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "clearfix" }, [
-            _c("div", { staticClass: "product-item-price" }, [
-              _c("span", { staticClass: "price" }, [
-                _vm._v("$ " + _vm._s(_vm.cartData.price))
-              ]),
-              _vm._v(" "),
-              _vm.oldPrice !== 0 && _vm.oldPrice !== ""
-                ? _c("span", { staticClass: "old-price" }, [
-                    _vm._v("$ " + _vm._s(_vm.oldPrice))
-                  ])
-                : _vm._e()
-            ]),
+            this.product.product_type === 1
+              ? _c("div", { staticClass: "product-item-price" }, [
+                  typeof this.product.discount_price !== "undefined" &&
+                  this.product.discount_price > 0
+                    ? _c("span", [
+                        _c("span", { staticClass: "price" }, [
+                          _vm._v(
+                            "$ " +
+                              _vm._s(
+                                (
+                                  parseFloat(
+                                    this.product.product_price
+                                  ).toFixed(2) -
+                                  parseFloat(this.product.discount_price)
+                                ).toFixed(2)
+                              )
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "old-price" }, [
+                          _vm._v(
+                            "$ " +
+                              _vm._s(
+                                parseFloat(this.product.product_price).toFixed(
+                                  2
+                                )
+                              )
+                          )
+                        ])
+                      ])
+                    : _c("span", { staticClass: "price" }, [
+                        _vm._v(
+                          "$ " +
+                            _vm._s(
+                              parseFloat(this.product.product_price).toFixed(2)
+                            )
+                        )
+                      ])
+                ])
+              : _c("div", { staticClass: "product-item-price" }, [
+                  typeof this.product.discount_price !== "undefined" &&
+                  this.product.discount_price > 0
+                    ? _c("span", [
+                        _c("span", { staticClass: "price" }, [
+                          _vm._v(
+                            "$ " +
+                              _vm._s(
+                                (
+                                  parseFloat(
+                                    this.product.single_variation.price
+                                  ).toFixed(2) -
+                                  parseFloat(this.product.discount_price)
+                                ).toFixed(2)
+                              )
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "old-price" }, [
+                          _vm._v(
+                            "$ " +
+                              _vm._s(
+                                parseFloat(
+                                  this.product.single_variation.price
+                                ).toFixed(2)
+                              )
+                          )
+                        ])
+                      ])
+                    : _c("span", { staticClass: "price" }, [
+                        _vm._v(
+                          "$ " +
+                            _vm._s(
+                              parseFloat(
+                                this.product.single_variation.price
+                              ).toFixed(2)
+                            )
+                        )
+                      ])
+                ]),
             _vm._v(" "),
             _c("div", { staticClass: "product-reviews-summary " }, [
               _c(
@@ -57943,6 +58043,37 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "block-content" }, [
+        _c("div", { staticClass: "filter-options-item filter-options-price" }, [
+          _c("div", { staticClass: "filter-options-title" }, [
+            _vm._v(_vm._s(_vm.$t("products.price")))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "filter-options-content" }, [
+            _c(
+              "div",
+              { staticClass: "slider-range" },
+              [
+                _c("vue-slider", {
+                  attrs: {
+                    "enable-cross": false,
+                    min: _vm.search_min_price,
+                    max: _vm.search_max_price,
+                    "dot-options": _vm.tooltipOptions
+                  },
+                  model: {
+                    value: _vm.sortData.range,
+                    callback: function($$v) {
+                      _vm.$set(_vm.sortData, "range", $$v)
+                    },
+                    expression: "sortData.range"
+                  }
+                })
+              ],
+              1
+            )
+          ])
+        ]),
+        _vm._v(" "),
         _vm.brands.length > 0
           ? _c(
               "div",
@@ -78469,7 +78600,9 @@ var state = {
   tags: [],
   sizes: [],
   products: [],
-  hot_products: []
+  hot_products: [],
+  _min_price: '',
+  _max_price: ''
 }; //declare Getters
 
 var getters = {
@@ -78496,6 +78629,12 @@ var getters = {
   },
   hotProducts: function hotProducts(state) {
     return state.hot_products;
+  },
+  search_min_price: function search_min_price(state) {
+    return state._min_price;
+  },
+  search_max_price: function search_max_price(state) {
+    return state._max_price;
   }
 };
 var actions = {
@@ -78714,6 +78853,8 @@ var mutations = {
     state.colors = response.colors;
     state.tags = response.tags;
     state.sizes = response.sizes;
+    state._min_price = parseInt(response.search_min_price);
+    state._max_price = parseInt(response.search_max_price);
   },
   setProductsData: function setProductsData(state, response) {
     if (response.hasOwnProperty('current_page')) {
@@ -78721,7 +78862,7 @@ var mutations = {
       delete response.data;
       state.paginate = response;
     } else {
-      console.table(response);
+      // console.table(response);
       state.products.length = 0;
       state.products = response;
     }
