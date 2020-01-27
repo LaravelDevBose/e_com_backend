@@ -16,6 +16,12 @@
                 <span v-if="product.product_status ===5" style="color:red !important;">Stock out</span>
             </div>
         </div>
+        <div class="product-info-stock">
+            <div class="stock available">
+                <span class="label">Package Dimension : {{ product.package_height +' X '+ product.package_weight +' X '+ product.package_length}} CM </span>
+                <span class="label">Package Weight : {{product.package_weight}} KG</span>
+            </div>
+        </div>
         <div class="product-overview">
             <div class="overview-content" v-html="product.highlight"> </div>
         </div>

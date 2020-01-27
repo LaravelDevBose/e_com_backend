@@ -161,7 +161,7 @@
                                     @if(!empty($product->mall_comp_name))
                                     <div class="text-widget widget widget__sidebar mall-info">
                                         <div class="comp-info" style="border-bottom: 1px solid #eee;">
-                                            <h5> Mall Information</h5>
+                                            <h5>Sold By</h5>
                                         </div>
                                         <div class="widget-content">
                                             <div class="cominfo">

@@ -6585,6 +6585,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SingelProductOptions",
@@ -57254,6 +57260,30 @@ var render = function() {
               _vm._v("Stock out")
             ])
           : _vm._e()
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "product-info-stock" }, [
+      _c("div", { staticClass: "stock available" }, [
+        _c("span", { staticClass: "label" }, [
+          _vm._v(
+            "Package Dimension : " +
+              _vm._s(
+                _vm.product.package_height +
+                  " X " +
+                  _vm.product.package_weight +
+                  " X " +
+                  _vm.product.package_length
+              ) +
+              " CM "
+          )
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "label" }, [
+          _vm._v(
+            "Package Weight : " + _vm._s(_vm.product.package_weight) + " KG"
+          )
+        ])
       ])
     ]),
     _vm._v(" "),
