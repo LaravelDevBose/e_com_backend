@@ -2152,6 +2152,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         } else if (response.status === 'validation') {
           _this.$noty.warning(response.message);
         } else if (response.code === 200) {
+          AppStorage.storageClear();
+          AppStorage.storeUserInfo(response.data.data);
+
           _this.$noty.success(response.message);
 
           setTimeout(function () {

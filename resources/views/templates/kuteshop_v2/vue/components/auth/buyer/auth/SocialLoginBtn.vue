@@ -37,8 +37,10 @@
                         }else if(response.status === 'validation'){
                             this.$noty.warning(response.message);
                         }else if (response.code === 200){
-                            this.$noty.success(response.message);
+                            AppStorage.storageClear();
+                            AppStorage.storeUserInfo(response.data.data);
 
+                            this.$noty.success(response.message);
                             setTimeout(function () {
                                 if(this.cartTotal > 0){
                                     location.href = '/buyer/checkout';
