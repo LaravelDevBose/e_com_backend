@@ -40,6 +40,21 @@ Vue.component('star-rating', StarRating);
 import VueClazyLoad from 'vue-clazy-load';
 Vue.use(VueClazyLoad);
 
+import VueSocialauth from 'vue-social-auth'
+Vue.use(VueSocialauth, {
+
+    providers: {
+        google: {
+            clientId: '13140998938-okavjflpvpas3aait4f4iaa5macp8dup.apps.googleusercontent.com',
+            redirectUri: 'http://saliim.com/social/login/google/callback',
+        },
+        facebook: {
+            clientId: '650187252177794',
+            redirectUri: 'http://saliim.com/social/login/facebook/callback',
+        }
+    }
+});
+
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 

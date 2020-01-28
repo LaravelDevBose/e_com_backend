@@ -2,20 +2,59 @@
     <div class="box-authentication">
         <h3 class="text-center" style="margin-top: 5px;">{{ $t('auth.sign_in_with')}} </h3>
         <div class="text-center social-btn">
-            <a href="#" @click.prevent="socialLogin('facebook')" class="btn btn-primary btn-block"><i class="fab fa-facebook-f"></i> {{ $t('auth.sign_in_with')}} <b>Facebook</b></a>
+            <a href="#" @click.prevent="authProvider('facebook')" class="btn btn-primary btn-block"><i class="fab fa-facebook-f"></i> {{ $t('auth.sign_in_with')}} <b>Facebook</b></a>
 <!--            <a href="#" @click.prevent="socialLogin('twitter')" class="btn btn-info btn-block"><i class="fab fa-twitter"></i> {{ $t('auth.sign_in_with')}} <b>Twitter</b></a>-->
-            <a href="#" @click.prevent="socialLogin('google')" class="btn btn-danger btn-block"><i class="fab fa-google-plus-g"></i> {{ $t('auth.sign_in_with')}} <b>Google</b></a>
+            <a href="#" @click.prevent="authProvider('google')" class="btn btn-danger btn-block"><i class="fab fa-google-plus-g"></i> {{ $t('auth.sign_in_with')}} <b>Google</b></a>
         </div>
     </div>
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     export default {
         name: "SocialLoginBtn",
         methods:{
-            socialLogin($provider){
-                location.href = `/social/login/${$provider}`;
-            }
+            authProvider(provider) {
+
+                var self = this;
+
+                this.$auth.authenticate(provider).then(response =>{
+                    console.log(response);
+                    self.socialLogin(provider,response)
+
+                }).catch(err => {
+                    console.log({err:err})
+                })
+
+            },
+
+            socialLogin(provider,response){
+
+                this.$http.post(`/vue/social/login/${provider}`,response)
+                    .then(response => {
+                        if(typeof  response.code === "undefined"){
+                            this.$noty.error('Some Thing Wrong!');
+                        }else if(response.status === 'validation'){
+                            this.$noty.warning(response.message);
+                        }else if (response.code === 200){
+                            this.$noty.success(response.message);
+                            if(this.cartTotal > 0){
+                                location.href = '/buyer/checkout';
+                            }
+                            setTimeout(function () {
+                                location.href = response.url;
+                            },800);
+                        }else{
+                            this.$noty.error(response.message);
+                        }
+                    }).catch(err => {
+                        console.log({err:err})
+                        this.$noty.error('Some Thing Wrong!');
+                    })
+            },
+        },
+        computed:{
+            ...mapGetters(['cartTotal']),
         }
     }
 </script>
