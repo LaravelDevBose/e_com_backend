@@ -51,12 +51,12 @@ class SocialLoginController extends Controller
                         if(!empty($sProvider)){
                             auth()->login($user);
                             DB::commit();
-                            if (!empty(\Gloudemans\Shoppingcart\Facades\Cart::content())){
+                            /*if (!empty(\Gloudemans\Shoppingcart\Facades\Cart::content())){
                                 return redirect()->route('buyer.checkout');
                             }else{
                                 return redirect()->route('buyer.home');
-                            }
-                            /*return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', '', route('buyer.home'));*/
+                            }*/
+                            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', '', route('buyer.home'));
                         }else{
                             throw new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
                         }
@@ -109,11 +109,7 @@ class SocialLoginController extends Controller
                 }else{
                     DB::commit();
                     auth()->login($getProvider->user);
-                    if (!empty(\Gloudemans\Shoppingcart\Facades\Cart::content())){
-                        return redirect()->route('buyer.checkout');
-                    }else{
-                        return redirect()->route('buyer.home');
-                    }
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', '', route('buyer.home'));
                 }
 
             }

@@ -38,11 +38,13 @@
                             this.$noty.warning(response.message);
                         }else if (response.code === 200){
                             this.$noty.success(response.message);
-                            if(this.cartTotal > 0){
-                                location.href = '/buyer/checkout';
-                            }
+
                             setTimeout(function () {
-                                location.href = response.url;
+                                if(this.cartTotal > 0){
+                                    location.href = '/buyer/checkout';
+                                }else{
+                                    location.href = response.url;
+                                }
                             },800);
                         }else{
                             this.$noty.error(response.message);
