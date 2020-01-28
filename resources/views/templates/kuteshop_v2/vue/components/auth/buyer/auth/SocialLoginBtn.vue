@@ -11,6 +11,8 @@
 
 <script>
     import {mapGetters} from 'vuex';
+    import axios from 'axios';
+
     export default {
         name: "SocialLoginBtn",
         methods:{
@@ -30,7 +32,7 @@
 
             socialLogin(provider,response){
 
-                this.$http.post(`/vue/social/login/${provider}`,response)
+                 axios.post(`/vue/social/login/${provider}`,response)
                     .then(response => {
                         if(typeof  response.code === "undefined"){
                             this.$noty.error('Some Thing Wrong!');
