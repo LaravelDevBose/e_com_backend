@@ -17,7 +17,6 @@
     import {mapGetters} from 'vuex';
     Vue.use(VueAxios, axios);
     Vue.use(VueSocialauth, {
-
         providers: {
             google: {
                 clientId: '13140998938-okavjflpvpas3aait4f4iaa5macp8dup.apps.googleusercontent.com',
