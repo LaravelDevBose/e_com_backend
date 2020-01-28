@@ -7221,7 +7221,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     searchMaxPriceDataCheck: {
       handler: function handler(newValue, oldValue) {
         if (newValue !== oldValue) {
-          this.sortData.range.push(this.search_max_price - 10);
+          this.sortData.range.push(this.search_max_price);
         }
       }
     }

@@ -48,8 +48,8 @@
                 <div class="col-md-3 col-sidebar">
                     <div class="text-widget widget widget__sidebar bg-section shop-info">
                         <div class="widget-content site-footer">
-                            <div class="cominfo">
-                                <h3 class="shop-name float-right">
+                            <div class="cominfo text-center">
+                                <h3 class="shop-name">
                                     <span>Saliim Mall</span>
                                 </h3>
                             </div>
