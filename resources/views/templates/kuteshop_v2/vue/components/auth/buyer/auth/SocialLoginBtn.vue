@@ -10,8 +10,25 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
+    import Vue from 'vue'
+    import VueAxios from 'vue-axios'
+    import VueSocialauth from 'vue-social-auth'
     import axios from 'axios';
+    import {mapGetters} from 'vuex';
+    Vue.use(VueAxios, axios);
+    Vue.use(VueSocialauth, {
+
+        providers: {
+            google: {
+                clientId: '13140998938-okavjflpvpas3aait4f4iaa5macp8dup.apps.googleusercontent.com',
+                redirectUri: 'http://saliim.com/social/login/google/callback',
+            },
+            facebook: {
+                clientId: '650187252177794',
+                redirectUri: 'http://saliim.com/social/login/facebook/callback',
+            }
+        }
+    });
 
     export default {
         name: "SocialLoginBtn",

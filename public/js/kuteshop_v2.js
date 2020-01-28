@@ -2110,9 +2110,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+!(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-axios'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var vue_social_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-social-auth */ "./node_modules/vue-social-auth/dist/vue-social-auth.es2017.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2132,6 +2136,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(!(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-axios'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), axios__WEBPACK_IMPORTED_MODULE_3___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_social_auth__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  providers: {
+    google: {
+      clientId: '13140998938-okavjflpvpas3aait4f4iaa5macp8dup.apps.googleusercontent.com',
+      redirectUri: 'http://saliim.com/social/login/google/callback'
+    },
+    facebook: {
+      clientId: '650187252177794',
+      redirectUri: 'http://saliim.com/social/login/facebook/callback'
+    }
+  }
+});
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SocialLoginBtn",
   methods: {
@@ -2149,7 +2169,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     socialLogin: function socialLogin(provider, response) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/vue/social/login/".concat(provider), response).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/vue/social/login/".concat(provider), response).then(function (response) {
         if (typeof response.code === "undefined") {
           _this.$noty.error('Some Thing Wrong!');
         } else if (response.status === 'validation') {
@@ -2179,7 +2199,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cartTotal']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(['cartTotal']))
 });
 
 /***/ }),
@@ -77769,7 +77789,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_star_rating__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_star_rating__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var vue_clazy_load__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-clazy-load */ "./node_modules/vue-clazy-load/dist/vue-clazy-load.js");
 /* harmony import */ var vue_clazy_load__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_clazy_load__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var vue_social_auth__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-social-auth */ "./node_modules/vue-social-auth/dist/vue-social-auth.es2017.js");
 
 
 __webpack_require__(/*! ../../../../js/bootstrap */ "./resources/js/bootstrap.js");
@@ -77805,19 +77824,6 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('star-rating', vue_star_rating__WEBPACK_IMPORTED_MODULE_7___default.a);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_clazy_load__WEBPACK_IMPORTED_MODULE_8___default.a);
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_social_auth__WEBPACK_IMPORTED_MODULE_9__["default"], {
-  providers: {
-    google: {
-      clientId: '13140998938-okavjflpvpas3aait4f4iaa5macp8dup.apps.googleusercontent.com',
-      redirectUri: 'http://saliim.com/social/login/google/callback'
-    },
-    facebook: {
-      clientId: '650187252177794',
-      redirectUri: 'http://saliim.com/social/login/facebook/callback'
-    }
-  }
-});
 
 var files = __webpack_require__("./resources/views/templates/kuteshop_v2/vue sync recursive \\.vue$/");
 
