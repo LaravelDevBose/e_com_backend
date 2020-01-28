@@ -32,16 +32,22 @@
         },
         created(){
             if(AppStorage.getWhoIs() !== 'buyer'){
-                location.href = '/login';
+                this.getUserInfo().then( response=>{
+                    if(response.code !== 200){
+                        location.href = '/login'
+                    }
+                });
             }
-            this.buyer_name = AppStorage.getFullName();
+
         },
         mounted(){
+            this.buyer_name = AppStorage.getFullName();
             this.getOrderList(this.reqData);
         },
         methods:{
             ...mapActions([
                 'getOrderList',
+                'getUserInfo'
             ])
         },
         computed:{

@@ -59,7 +59,19 @@ const actions={
                 return response.data;
             });
 
-    }
+    },
+    async getUserInfo({commit}){
+        return  await axios.get('/buyer/user/info')
+            .then(response=>{
+                if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                    AppStorage.storageClear();
+                    AppStorage.storeUserInfo(response.data.data);
+                }
+                return response.data;
+            });
+
+    },
+
 };
 
 const mutations ={

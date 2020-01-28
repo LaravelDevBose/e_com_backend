@@ -6,13 +6,10 @@ use App\Models\Buyer;
 use App\Models\SocialProvider;
 use App\Traits\ResponserTrait;
 use App\User;
-use Gloudemans\Shoppingcart\Cart;
-use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialLoginController extends Controller
@@ -52,16 +49,12 @@ class SocialLoginController extends Controller
                         if(!empty($sProvider)){
                             auth()->login($user);
                             DB::commit();
-                            /*if (!empty(\Gloudemans\Shoppingcart\Facades\Cart::content())){
+                            if(!empty(Cart::content())) {
                                 return redirect()->route('buyer.checkout');
                             }else{
                                 return redirect()->route('buyer.home');
-                            }*/
-                            $data =[
-                                'user'=>Auth::guard('web')->user()->toJson(),
-                                'whoIs'=>'buyer',
-                            ];
-                            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', $data, route('buyer.home'));
+                            }
+                            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', '', route('buyer.home'));
                         }else{
                             throw new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
                         }
@@ -97,10 +90,11 @@ class SocialLoginController extends Controller
                                 auth()->login($user);
                                 DB::commit();
 
-                                $data =[
-                                    'user'=>Auth::guard('web')->user()->toJson(),
-                                    'whoIs'=>'buyer',
-                                ];
+                                if(!empty(Cart::content())) {
+                                    return redirect()->route('buyer.checkout');
+                                }else{
+                                    return redirect()->route('buyer.home');
+                                }
                                 return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', $data, route('buyer.home'));
                             }else{
                                 throw new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
@@ -114,10 +108,11 @@ class SocialLoginController extends Controller
                 }else{
                     DB::commit();
                     auth()->login($getProvider->user);
-                    $data =[
-                        'user'=>Auth::guard('web')->user()->toJson(),
-                        'whoIs'=>'buyer',
-                    ];
+                    if(!empty(Cart::content())) {
+                        return redirect()->route('buyer.checkout');
+                    }else{
+                        return redirect()->route('buyer.home');
+                    }
                     return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', $data, route('buyer.home'));
                 }
 
