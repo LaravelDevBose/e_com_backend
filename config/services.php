@@ -46,12 +46,12 @@ return [
     'twitter' => [
         'client_id' => env('GITHUB_CLIENT_ID'),
         'client_secret' => env('GITHUB_CLIENT_SECRET'),
-        'redirect' => 'https://saliim.com/social/login/facebook/callback',
+        'redirect' => 'https://saliim.com/social/login/twitter/callback',
     ],
     'google' => [
-        'client_id' => env('GITHUB_CLIENT_ID'),
-        'client_secret' => env('GITHUB_CLIENT_SECRET'),
-        'redirect' => 'https://saliim.com/social/login/facebook/callback',
+        'client_id' => '13140998938-okavjflpvpas3aait4f4iaa5macp8dup.apps.googleusercontent.com',
+        'client_secret' => 'PMi1sMJsS9PuDc9ObrZIi5rf',
+        'redirect' => 'http://saliim.com/social/login/google/callback',
     ],
     'facebook' => [
         'client_id' => "650187252177794",

@@ -49,3 +49,4 @@ Route::get('social/login/{provider}/callback', 'SocialLoginController@handleProv
 Route::prefix('error')->as('error.')->group(function (){
     Route::get('/404', 'ErrorController@error_404')->name('404');
 });
+
