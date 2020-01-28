@@ -6,6 +6,7 @@ use App\Models\Buyer;
 use App\Models\SocialProvider;
 use App\Traits\ResponserTrait;
 use App\User;
+use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -50,7 +51,12 @@ class SocialLoginController extends Controller
                         if(!empty($sProvider)){
                             auth()->login($user);
                             DB::commit();
-                            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', '', route('buyer.home'));
+                            if (!empty(\Gloudemans\Shoppingcart\Facades\Cart::content())){
+                                return redirect()->route('buyer.checkout');
+                            }else{
+                                return redirect()->route('buyer.home');
+                            }
+                            /*return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', '', route('buyer.home'));*/
                         }else{
                             throw new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
                         }
@@ -85,6 +91,11 @@ class SocialLoginController extends Controller
                             if(!empty($sProvider)){
                                 auth()->login($user);
                                 DB::commit();
+                                if (!empty(\Gloudemans\Shoppingcart\Facades\Cart::content())){
+                                    return redirect()->route('buyer.checkout');
+                                }else{
+                                    return redirect()->route('buyer.home');
+                                }
                                 return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', '', route('buyer.home'));
                             }else{
                                 throw new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
@@ -98,13 +109,18 @@ class SocialLoginController extends Controller
                 }else{
                     DB::commit();
                     auth()->login($getProvider->user);
+                    if (!empty(\Gloudemans\Shoppingcart\Facades\Cart::content())){
+                        return redirect()->route('buyer.checkout');
+                    }else{
+                        return redirect()->route('buyer.home');
+                    }
                 }
 
             }
 
         }catch(\Exception $ex){
             DB::rollBack();
-            return ResponserTrait::allResponse('error', $ex->getCode(), $ex->getMessage());
+            return redirect()->route('login');
         }
 
     }
