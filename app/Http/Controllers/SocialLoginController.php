@@ -49,7 +49,7 @@ class SocialLoginController extends Controller
                         if(!empty($sProvider)){
                             auth()->login($user);
                             DB::commit();
-                            if(!empty(Cart::content())) {
+                            if(!empty(Cart::content()) && count(Cart::content()) > 0) {
                                 return redirect()->route('buyer.checkout');
                             }else{
                                 return redirect()->route('buyer.home');
@@ -90,7 +90,7 @@ class SocialLoginController extends Controller
                                 auth()->login($user);
                                 DB::commit();
 
-                                if(!empty(Cart::content())) {
+                                if(!empty(Cart::content()) && count(Cart::content()) > 0) {
                                     return redirect()->route('buyer.checkout');
                                 }else{
                                     return redirect()->route('buyer.home');
@@ -108,7 +108,7 @@ class SocialLoginController extends Controller
                 }else{
                     DB::commit();
                     auth()->login($getProvider->user);
-                    if(!empty(Cart::content())) {
+                    if(!empty(Cart::content()) && count(Cart::content()) > 0) {
                         return redirect()->route('buyer.checkout');
                     }else{
                         return redirect()->route('buyer.home');
