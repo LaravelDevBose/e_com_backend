@@ -6,7 +6,7 @@
         <div class="block-content">
             <!-- filter price -->
             <div class="filter-options-item filter-options-price">
-                <div class="filter-options-title">{{ $t('products.price')}}</div>
+                <div class="filter-options-title" style="margin-bottom: 35px">{{ $t('products.price')}}</div>
                 <div class="filter-options-content">
                     <div class="slider-range">
                         <vue-slider

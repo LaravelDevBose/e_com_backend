@@ -58077,9 +58077,14 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "block-content" }, [
         _c("div", { staticClass: "filter-options-item filter-options-price" }, [
-          _c("div", { staticClass: "filter-options-title" }, [
-            _vm._v(_vm._s(_vm.$t("products.price")))
-          ]),
+          _c(
+            "div",
+            {
+              staticClass: "filter-options-title",
+              staticStyle: { "margin-bottom": "35px" }
+            },
+            [_vm._v(_vm._s(_vm.$t("products.price")))]
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "filter-options-content" }, [
             _c(
