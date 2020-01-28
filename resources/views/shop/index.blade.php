@@ -93,7 +93,7 @@
                                     ></shop-status-column>
                                 </td>
                                 <td class="text-center">
-                                    <shop-action></shop-action>
+                                    <shop-action :id="{{ json_encode($seller->seller_id) }}"></shop-action>
                                 </td>
                             </tr>
                         @endforeach

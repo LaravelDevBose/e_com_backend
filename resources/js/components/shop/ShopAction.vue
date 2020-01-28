@@ -1,7 +1,7 @@
 <template>
     <ul class="icons-list">
-        <li><a href="#" class="text text-primary" @click.prevent="goToShopDetails(row.seller_id)"><i class="icon-eye"></i></a></li>
-        <li><a href="#" class="text text-danger" @click.prevent="deleteShop(row.seller_id)"><i class="icon-trash"></i></a></li>
+        <li><a href="#" class="text text-primary" @click.prevent="goToShopDetails(id)"><i class="icon-eye"></i></a></li>
+        <li><a href="#" class="text text-danger" @click.prevent="deleteShop(id)"><i class="icon-trash"></i></a></li>
     </ul>
 </template>
 
@@ -9,6 +9,9 @@
     import {mapActions} from "vuex";
     export default {
         name: "ShopAction",
+        props:{
+            id:[Number]
+        },
         methods: {
             ...mapActions([
                 'shopDelete'
