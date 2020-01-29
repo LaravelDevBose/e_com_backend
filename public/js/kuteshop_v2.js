@@ -7005,8 +7005,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NewsLetterSection",
@@ -58011,7 +58009,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "block-social" }, [
-      _c("div", { staticClass: "block-title" }, [_vm._v("Let’s Socialize ")]),
+      _c("div", { staticClass: "block-title" }, [_vm._v("Follow Us: ")]),
       _vm._v(" "),
       _c("div", { staticClass: "block-content" }, [
         _c("a", { staticClass: "sh-facebook", attrs: { href: "" } }, [
@@ -58023,21 +58021,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("a", { staticClass: "sh-pinterest", attrs: { href: "" } }, [
           _c("i", {
-            staticClass: "fab fa-pinterest-p",
-            attrs: { "aria-hidden": "true" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "sh-twitter", attrs: { href: "" } }, [
-          _c("i", {
-            staticClass: "fab fa-twitter",
-            attrs: { "aria-hidden": "true" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "sh-google", attrs: { href: "" } }, [
-          _c("i", {
-            staticClass: "fab fa-google-plus-g",
+            staticClass: "fab fa-instagram",
             attrs: { "aria-hidden": "true" }
           })
         ])
@@ -79485,7 +79469,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_web\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

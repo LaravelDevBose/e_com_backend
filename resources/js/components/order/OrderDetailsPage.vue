@@ -5,8 +5,11 @@
                 <h5 class="panel-title">Order Details</h5>
             </div>
             <div class="panel-body no-padding-bottom">
+                <div class="text-right">
+                    <button type="button"  class="btn btn-sm btn-primary"><i class="icon-printer"></i></button>
+                </div>
                 <div class="row">
-                    <div class="col-md-6 content-group">
+                    <div class="col-sm-10 col-md-6 content-group">
                         <img src="/saliim.png" alt="logo" style="max-width:100px; max-height: 80px;">
                         <ul class="list-condensed list-unstyled">
                             <!--                                TODO add Company Address Dynamic-->
