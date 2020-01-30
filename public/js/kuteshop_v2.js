@@ -5906,7 +5906,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "MallProductGrid",
   props: {
     product: {
-      type: Object
+      type: Object,
+      "default": {}
     }
   },
   data: function data() {
@@ -6100,7 +6101,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "ProductGrid",
   props: {
     product: {
-      type: Object
+      type: Object,
+      "default": {}
     }
   },
   data: function data() {
@@ -6375,7 +6377,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "SectionProductGrid",
   props: {
     product: {
-      type: Object
+      type: Object,
+      "default": {}
     }
   },
   data: function data() {
@@ -79469,7 +79472,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_web\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })
