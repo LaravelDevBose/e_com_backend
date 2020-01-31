@@ -6,9 +6,16 @@
         <div class="block-content">
             <!-- filter price -->
             <div class="filter-options-item filter-options-price">
-                <div class="filter-options-title" style="margin-bottom: 35px">{{ $t('products.price')}}</div>
-                <div class="filter-options-content">
-                    <div class="slider-range">
+                <div class="filter-options-title">{{ $t('products.price')}}</div>
+                <div class="filter-options-content row">
+                    <div class="col-md-6">
+                        <input type="number" v-model="sortData.range[0]" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" v-model="sortData.range[1]" class="form-control">
+                    </div>
+
+                    <!--<div class="slider-range">
                         <vue-slider
                             v-model="sortData.range"
                             :enable-cross="false"
@@ -16,7 +23,7 @@
                             :max="search_max_price"
                             :dot-options="tooltipOptions"
                         ></vue-slider>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <!-- filter price -->

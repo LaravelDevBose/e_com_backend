@@ -7008,6 +7008,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NewsLetterSection",
@@ -7061,6 +7062,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -58015,19 +58023,53 @@ var staticRenderFns = [
       _c("div", { staticClass: "block-title" }, [_vm._v("Follow Us: ")]),
       _vm._v(" "),
       _c("div", { staticClass: "block-content" }, [
-        _c("a", { staticClass: "sh-facebook", attrs: { href: "" } }, [
-          _c("i", {
-            staticClass: "fab fa-facebook-f",
-            attrs: { "aria-hidden": "true" }
-          })
-        ]),
+        _c(
+          "a",
+          {
+            staticClass: "sh-facebook",
+            attrs: {
+              href: "https://www.facebook.com/SaliimOnline",
+              target: "_blank"
+            }
+          },
+          [
+            _c("i", {
+              staticClass: "fab fa-facebook-f",
+              attrs: { "aria-hidden": "true" }
+            })
+          ]
+        ),
         _vm._v(" "),
-        _c("a", { staticClass: "sh-pinterest", attrs: { href: "" } }, [
-          _c("i", {
-            staticClass: "fab fa-instagram",
-            attrs: { "aria-hidden": "true" }
-          })
-        ])
+        _c(
+          "a",
+          {
+            staticClass: "sh-pinterest",
+            attrs: { href: "#", target: "_blank" }
+          },
+          [
+            _c("i", {
+              staticClass: "fab fa-instagram",
+              attrs: { "aria-hidden": "true" }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "sh-twitter",
+            attrs: {
+              href: "https://twitter.com/SaliimOnline",
+              target: "_blank"
+            }
+          },
+          [
+            _c("i", {
+              staticClass: "fab fa-twitter",
+              attrs: { "aria-hidden": "true" }
+            })
+          ]
+        )
       ])
     ])
   }
@@ -58064,38 +58106,58 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "block-content" }, [
         _c("div", { staticClass: "filter-options-item filter-options-price" }, [
-          _c(
-            "div",
-            {
-              staticClass: "filter-options-title",
-              staticStyle: { "margin-bottom": "35px" }
-            },
-            [_vm._v(_vm._s(_vm.$t("products.price")))]
-          ),
+          _c("div", { staticClass: "filter-options-title" }, [
+            _vm._v(_vm._s(_vm.$t("products.price")))
+          ]),
           _vm._v(" "),
-          _c("div", { staticClass: "filter-options-content" }, [
-            _c(
-              "div",
-              { staticClass: "slider-range" },
-              [
-                _c("vue-slider", {
-                  attrs: {
-                    "enable-cross": false,
-                    min: _vm.search_min_price,
-                    max: _vm.search_max_price,
-                    "dot-options": _vm.tooltipOptions
-                  },
-                  model: {
-                    value: _vm.sortData.range,
-                    callback: function($$v) {
-                      _vm.$set(_vm.sortData, "range", $$v)
-                    },
-                    expression: "sortData.range"
+          _c("div", { staticClass: "filter-options-content row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.sortData.range[0],
+                    expression: "sortData.range[0]"
                   }
-                })
-              ],
-              1
-            )
+                ],
+                staticClass: "form-control",
+                attrs: { type: "number" },
+                domProps: { value: _vm.sortData.range[0] },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.sortData.range, 0, $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.sortData.range[1],
+                    expression: "sortData.range[1]"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "number" },
+                domProps: { value: _vm.sortData.range[1] },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.sortData.range, 1, $event.target.value)
+                  }
+                }
+              })
+            ])
           ])
         ]),
         _vm._v(" "),
