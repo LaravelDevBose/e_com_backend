@@ -61,6 +61,13 @@ class OrderController extends Controller
         }
     }
 
+    public function invoice_print($orderId){
+        $order = Order::where('order_id', $orderId)->with('buyer.user', 'orderItems.product','orderItems.seller.shop', 'billing', 'shipping', 'payment', 'orderItems.image')->first();
+        return view('order.invoice_print', [
+            'order'=>$order
+        ]);
+    }
+
     public function update_order_status(Request $request){
         $validator = Validator::make($request->all(),[
             'order_no'=>'required',

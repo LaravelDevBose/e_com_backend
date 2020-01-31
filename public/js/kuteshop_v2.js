@@ -58044,7 +58044,10 @@ var staticRenderFns = [
           "a",
           {
             staticClass: "sh-pinterest",
-            attrs: { href: "#", target: "_blank" }
+            attrs: {
+              href: "https://www.instagram.com/saliimonline",
+              target: "_blank"
+            }
           },
           [
             _c("i", {

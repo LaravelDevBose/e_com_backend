@@ -107,6 +107,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::get('/{order_id}/details', 'OrderController@order_details')->name('details');
         Route::post('/status/update', 'OrderController@update_order_status')->name('status.update');
         Route::post('/item/status/update', 'OrderController@update_order_item_status')->name('item.status.update');
+        Route::get('/{order_id}/print', 'OrderController@invoice_print')->name('order.print');
     });
 
     Route::prefix('buyer')->as('buyer.')->group(function (){
