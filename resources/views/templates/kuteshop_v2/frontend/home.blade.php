@@ -47,7 +47,7 @@
                             "1200":{"items":5}
                             }'>
                             @foreach($latestDeals->deal_products as $dealProduct)
-                                @if(!empty($dealProduct))
+                                @if(!empty($dealProduct->product))
                                 <section-product-grid :product="{{ $dealProduct->product }}"></section-product-grid>
                                 @endif
                             @endforeach
