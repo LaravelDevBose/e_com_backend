@@ -75,9 +75,39 @@
             <div class="row">
                 <div class="col-md-3 nav-left">
                     <!-- logo -->
-                    <strong class="logo">
-                        <a href="{{ route('front.index') }}"><img src="{{ asset('saliim.png') }}" alt="logo" style="height: 80px;"></a>
+                    <strong class="logo" style="display: inline-block;">
+                        <a href="{{ route('front.index') }}">
+                            <img src="{{ asset('saliim.png') }}" alt="logo" style="height: 80px;">
+                        </a>
                     </strong><!-- logo -->
+                    <a href="{{ route('front.index') }}" class="desktop-svg">
+                        <svg viewBox="50 0 600 200" >
+                            <!-- Symbol-->
+                            <symbol id="s-text">
+                                <text text-anchor="middle" x="50%" y="50%" dy=".35em">Saliim</text>
+                            </symbol>
+                            <!-- Duplicate symbols-->
+                            <use class="a-text" xlink:href="#s-text"></use>
+                            <use class="a-text" xlink:href="#s-text"></use>
+                            <use class="a-text" xlink:href="#s-text"></use>
+                            <use class="a-text" xlink:href="#s-text"></use>
+                            <use class="a-text" xlink:href="#s-text"></use>
+                        </svg>
+                    </a>
+                    <a href="{{ route('front.index') }}" class="mobile-svg">
+                        <svg viewBox="50 0 200 80" >
+                            <!-- Symbol-->
+                            <symbol id="s-text">
+                                <text text-anchor="middle" x="50%" y="50%" dy=".35em">Saliim</text>
+                            </symbol>
+                            <!-- Duplicate symbols-->
+                            <use class="a-text" xlink:href="#s-text"></use>
+                            <use class="a-text" xlink:href="#s-text"></use>
+                            <use class="a-text" xlink:href="#s-text"></use>
+                            <use class="a-text" xlink:href="#s-text"></use>
+                            <use class="a-text" xlink:href="#s-text"></use>
+                        </svg>
+                    </a>
                 </div>
                 <div class=" nav-right">
                     <!-- link  wishlish-->

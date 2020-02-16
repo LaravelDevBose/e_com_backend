@@ -92,7 +92,7 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <div class="row">
-                                    <label class="col-lg-4 control-label">Package Weight (kg): <span class="text text-danger text-bold h4">*</span></label>
+                                    <label class="col-lg-4 control-label">Package Weight (kg): </label>
                                     <div class="col-lg-8">
                                         <input type="number" v-model="formData.package_weight" class="form-control"  step="0.01">
                                     </div>
@@ -100,7 +100,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="row">
-                                    <label class="col-lg-3 control-label">Package Dimensions (cm): <span class="text text-danger text-bold h4">*</span></label>
+                                    <label class="col-lg-3 control-label">Package Dimensions (cm): </label>
                                     <div class="col-lg-3">
                                         <input type="number" v-model="formData.package_height" placeholder="height" class="form-control" step="0.01">
                                     </div>
@@ -152,7 +152,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="row">
-                                    <label class="col-lg-3 control-label">Mall Company Logo: <span class="text text-danger text-bold h4">*</span></label>
+                                    <label class="col-lg-3 control-label">Mall Company Logo: </label>
                                     <div class="col-lg-9">
                                         <single-attachment :folder="mall_folder"></single-attachment>
                                     </div>
