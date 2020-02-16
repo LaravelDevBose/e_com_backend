@@ -100670,7 +100670,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_web\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })
