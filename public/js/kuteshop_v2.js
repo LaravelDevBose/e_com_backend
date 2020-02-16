@@ -57963,7 +57963,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "block-newletter" }, [
-      _c("div", { staticClass: "block-title" }, [_vm._v("NEWSLETTER")]),
+      _c("div", { staticClass: "block-title" }, [_vm._v("SUBSCRIBE")]),
       _vm._v(" "),
       _c("div", { staticClass: "block-content" }, [
         _c(

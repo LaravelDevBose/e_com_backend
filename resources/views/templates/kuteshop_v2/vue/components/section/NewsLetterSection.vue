@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="block-newletter">
-            <div class="block-title">NEWSLETTER</div>
+            <div class="block-title">SUBSCRIBE</div>
             <div class="block-content">
                 <form @submit.prevent="newsLetterSubscription()">
                     <div class="input-group">
