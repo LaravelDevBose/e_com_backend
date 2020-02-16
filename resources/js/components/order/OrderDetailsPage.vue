@@ -6,7 +6,7 @@
             </div>
             <div class="panel-body no-padding-bottom">
                 <div class="text-right">
-                    <button type="button"  class="btn btn-sm btn-primary"><i class="icon-printer"></i></button>
+                    <button type="button" @click.prevent="invoicePrint()"  class="btn btn-sm btn-primary"><i class="icon-printer"></i></button>
                 </div>
                 <div class="row">
                     <div class="col-sm-10 col-md-6 content-group">
@@ -27,7 +27,7 @@
                         <div class="content-group">
                             <span class="text-muted">Shipping To:</span>
                             <ul class="list-condensed list-unstyled">
-                                <li><h5>{{ order.shipping.full_name }}</h5></li>
+                                <li><h5 v-if="order.shipping.full_name">{{ order.shipping.full_name }}</h5></li>
                                 <li><span class="text-semibold">{{ order.shipping.phone_no }}</span></li>
                                 <li>{{ order.shipping.address }}</li>
                                 <li>{{ order.shipping.city }}</li>
@@ -282,6 +282,9 @@
                             Notify.error(response.message);
                         }
                     })
+            },
+            invoicePrint(){
+                window.open(`/admin/order/${this.orderid}/print`);
             }
         },
         computed:{

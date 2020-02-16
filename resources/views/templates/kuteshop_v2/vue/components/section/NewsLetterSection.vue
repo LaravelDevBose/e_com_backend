@@ -16,8 +16,9 @@
         <div class="block-social">
             <div class="block-title">Follow Us: </div>
             <div class="block-content">
-                <a href="" class="sh-facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
-                <a href="" class="sh-pinterest"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                <a href="https://www.facebook.com/SaliimOnline" target="_blank" class="sh-facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                <a href="https://www.instagram.com/saliimonline" target="_blank" class="sh-pinterest"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                <a href="https://twitter.com/SaliimOnline" target="_blank" class="sh-twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>

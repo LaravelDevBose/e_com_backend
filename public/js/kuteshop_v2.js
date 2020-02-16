@@ -5906,7 +5906,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "MallProductGrid",
   props: {
     product: {
-      type: Object
+      type: Object,
+      "default": {}
     }
   },
   data: function data() {
@@ -6100,7 +6101,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "ProductGrid",
   props: {
     product: {
-      type: Object
+      type: Object,
+      "default": {}
     }
   },
   data: function data() {
@@ -6375,7 +6377,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "SectionProductGrid",
   props: {
     product: {
-      type: Object
+      type: Object,
+      "default": {}
     }
   },
   data: function data() {
@@ -7005,6 +7008,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NewsLetterSection",
@@ -7058,6 +7062,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -56513,201 +56524,205 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "product-item product-item-opt-2 mall-product" },
-    [
-      _c("div", { staticClass: "product-item-info" }, [
-        _c("div", { staticClass: "product-item-photo" }, [
-          _c(
-            "a",
-            {
-              staticClass: "product-item-img",
-              attrs: { href: "#", title: _vm.product.product_name },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.productDetails(_vm.product.product_slug)
-                }
-              }
-            },
-            [
+  return _vm.product
+    ? _c(
+        "div",
+        { staticClass: "product-item product-item-opt-2 mall-product" },
+        [
+          _c("div", { staticClass: "product-item-info" }, [
+            _c("div", { staticClass: "product-item-photo" }, [
               _c(
-                "clazy-load",
-                { attrs: { src: _vm.product.thumb_image.image_path } },
-                [
-                  _c("img", {
-                    staticStyle: { width: "100%", height: "auto" },
-                    attrs: {
-                      title: _vm.product.product_name,
-                      src: _vm.product.thumb_image.image_path
+                "a",
+                {
+                  staticClass: "product-item-img",
+                  attrs: { href: "#", title: _vm.product.product_name },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.productDetails(_vm.product.product_slug)
                     }
-                  }),
-                  _vm._v(" "),
+                  }
+                },
+                [
                   _c(
-                    "div",
-                    {
-                      staticClass: "preloader",
-                      attrs: { slot: "placeholder" },
-                      slot: "placeholder"
-                    },
+                    "clazy-load",
+                    { attrs: { src: _vm.product.thumb_image.image_path } },
                     [
                       _c("img", {
                         staticStyle: { width: "100%", height: "auto" },
                         attrs: {
                           title: _vm.product.product_name,
-                          src: "/images/placeholder.png"
+                          src: _vm.product.thumb_image.image_path
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "preloader",
+                          attrs: { slot: "placeholder" },
+                          slot: "placeholder"
+                        },
+                        [
+                          _c("img", {
+                            staticStyle: { width: "100%", height: "auto" },
+                            attrs: {
+                              title: _vm.product.product_name,
+                              src: "/images/placeholder.png"
+                            }
+                          })
+                        ]
+                      )
                     ]
                   )
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "product-item-actions" }, [
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-wishlist",
-                attrs: { href: "#", title: "WishList" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.addWishList(_vm.product.product_slug)
-                  }
-                }
-              },
-              [_c("span", [_vm._v(_vm._s(_vm.$t("header.wishlist")))])]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-quickview",
-                attrs: { href: "#", title: "Quick View" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.quickView()
-                  }
-                }
-              },
-              [_c("span", [_vm._v(_vm._s(_vm.$t("product.quick_view")))])]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "btn",
-                staticStyle: { "font-size": "18px" },
-                attrs: { href: "#", title: "Buy Now" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.buyNow()
-                  }
-                }
-              },
-              [_c("i", { staticClass: "fa fa-cart-plus" })]
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-cart",
-              attrs: { type: "button" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.addToCart()
-                }
-              }
-            },
-            [_c("span", [_vm._v(_vm._s(_vm.$t("product.add_to_cart")))])]
-          ),
-          _vm._v(" "),
-          _vm.product.seller_id === 1
-            ? _c("span", { staticClass: "product-item-label label-sale-off" }, [
-                _vm._v("Saliim Mall")
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "product-item-detail" }, [
-          _vm.product.mall_comp_name !== "" &&
-          _vm.product.mall_comp_name !== null
-            ? _c("div", { staticClass: "brand-container" }, [
-                _c("div", { staticClass: "mall-brand" }, [
-                  _c("img", {
-                    attrs: {
-                      src: _vm.product.mall_logo.image_path,
-                      alt: _vm.product.mall_comp_name
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "brand-name" }, [
-                  _vm._v(_vm._s(_vm.product.mall_comp_name))
-                ])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("strong", { staticClass: "product-item-name" }, [
-            _c(
-              "a",
-              {
-                attrs: { title: _vm.product.product_name, href: "#" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.productDetails(_vm.product.product_slug)
-                  }
-                }
-              },
-              [_vm._v(_vm._s(_vm.product.product_name))]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "clearfix" }, [
-            _c("div", { staticClass: "product-item-price" }, [
-              _c(
-                "span",
-                { staticClass: "price", staticStyle: { display: "block" } },
-                [_vm._v("$ " + _vm._s(_vm.cartData.price))]
+                ],
+                1
               ),
               _vm._v(" "),
-              _vm.oldPrice !== 0 && _vm.oldPrice !== ""
-                ? _c("span", { staticClass: "old-price" }, [
-                    _vm._v("$ " + _vm._s(_vm.oldPrice))
-                  ])
+              _c("div", { staticClass: "product-item-actions" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-wishlist",
+                    attrs: { href: "#", title: "WishList" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.addWishList(_vm.product.product_slug)
+                      }
+                    }
+                  },
+                  [_c("span", [_vm._v(_vm._s(_vm.$t("header.wishlist")))])]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-quickview",
+                    attrs: { href: "#", title: "Quick View" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.quickView()
+                      }
+                    }
+                  },
+                  [_c("span", [_vm._v(_vm._s(_vm.$t("product.quick_view")))])]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn",
+                    staticStyle: { "font-size": "18px" },
+                    attrs: { href: "#", title: "Buy Now" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.buyNow()
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fa fa-cart-plus" })]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cart",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.addToCart()
+                    }
+                  }
+                },
+                [_c("span", [_vm._v(_vm._s(_vm.$t("product.add_to_cart")))])]
+              ),
+              _vm._v(" "),
+              _vm.product.seller_id === 1
+                ? _c(
+                    "span",
+                    { staticClass: "product-item-label label-sale-off" },
+                    [_vm._v("Saliim Mall")]
+                  )
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "product-reviews-summary " }, [
-              _c(
-                "div",
-                { staticClass: "rating-summary grid-rating" },
-                [
-                  _c("star-rating", {
-                    attrs: {
-                      "star-size": 13,
-                      rating: _vm.rating,
-                      "read-only": true
+            _c("div", { staticClass: "product-item-detail" }, [
+              _vm.product.mall_comp_name !== "" &&
+              _vm.product.mall_comp_name !== null
+                ? _c("div", { staticClass: "brand-container" }, [
+                    _c("div", { staticClass: "mall-brand" }, [
+                      _c("img", {
+                        attrs: {
+                          src: _vm.product.mall_logo.image_path,
+                          alt: _vm.product.mall_comp_name
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "brand-name" }, [
+                      _vm._v(_vm._s(_vm.product.mall_comp_name))
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("strong", { staticClass: "product-item-name" }, [
+                _c(
+                  "a",
+                  {
+                    attrs: { title: _vm.product.product_name, href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.productDetails(_vm.product.product_slug)
+                      }
                     }
-                  })
-                ],
-                1
-              )
+                  },
+                  [_vm._v(_vm._s(_vm.product.product_name))]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "clearfix" }, [
+                _c("div", { staticClass: "product-item-price" }, [
+                  _c(
+                    "span",
+                    { staticClass: "price", staticStyle: { display: "block" } },
+                    [_vm._v("$ " + _vm._s(_vm.cartData.price))]
+                  ),
+                  _vm._v(" "),
+                  _vm.oldPrice !== 0 && _vm.oldPrice !== ""
+                    ? _c("span", { staticClass: "old-price" }, [
+                        _vm._v("$ " + _vm._s(_vm.oldPrice))
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "product-reviews-summary " }, [
+                  _c(
+                    "div",
+                    { staticClass: "rating-summary grid-rating" },
+                    [
+                      _c("star-rating", {
+                        attrs: {
+                          "star-size": 13,
+                          rating: _vm.rating,
+                          "read-only": true
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ])
             ])
           ])
-        ])
-      ])
-    ]
-  )
+        ]
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57035,179 +57050,183 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "product-item product-item-opt-2" }, [
-    _c("div", { staticClass: "product-item-info" }, [
-      _c("div", { staticClass: "product-item-photo" }, [
-        _c(
-          "a",
-          {
-            staticClass: "product-item-img",
-            attrs: { href: "#", title: _vm.product.product_name },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.productDetails(_vm.product.product_slug)
-              }
-            }
-          },
-          [
+  return _vm.product
+    ? _c("div", { staticClass: "product-item product-item-opt-2" }, [
+        _c("div", { staticClass: "product-item-info" }, [
+          _c("div", { staticClass: "product-item-photo" }, [
             _c(
-              "clazy-load",
-              { attrs: { src: _vm.product.thumb_image.image_path } },
-              [
-                _c("img", {
-                  staticStyle: { width: "100%", height: "auto" },
-                  attrs: {
-                    title: _vm.product.product_name,
-                    src: _vm.product.thumb_image.image_path
+              "a",
+              {
+                staticClass: "product-item-img",
+                attrs: { href: "#", title: _vm.product.product_name },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.productDetails(_vm.product.product_slug)
                   }
-                }),
-                _vm._v(" "),
+                }
+              },
+              [
                 _c(
-                  "div",
-                  {
-                    staticClass: "preloader",
-                    attrs: { slot: "placeholder" },
-                    slot: "placeholder"
-                  },
+                  "clazy-load",
+                  { attrs: { src: _vm.product.thumb_image.image_path } },
                   [
                     _c("img", {
                       staticStyle: { width: "100%", height: "auto" },
                       attrs: {
                         title: _vm.product.product_name,
-                        src: "/images/placeholder.png"
+                        src: _vm.product.thumb_image.image_path
                       }
-                    })
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "preloader",
+                        attrs: { slot: "placeholder" },
+                        slot: "placeholder"
+                      },
+                      [
+                        _c("img", {
+                          staticStyle: { width: "100%", height: "auto" },
+                          attrs: {
+                            title: _vm.product.product_name,
+                            src: "/images/placeholder.png"
+                          }
+                        })
+                      ]
+                    )
                   ]
                 )
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "product-item-actions" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-wishlist",
-              attrs: { href: "#", title: "WishList" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.addWishList(_vm.product.product_slug)
-                }
-              }
-            },
-            [_c("span", [_vm._v(_vm._s(_vm.$t("header.wishlist")))])]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-quickview",
-              attrs: { href: "#", title: "Quick View" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.quickView()
-                }
-              }
-            },
-            [_c("span", [_vm._v(_vm._s(_vm.$t("product.quick_view")))])]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn",
-              staticStyle: { "font-size": "18px" },
-              attrs: { href: "#", title: "Buy Now" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.buyNow()
-                }
-              }
-            },
-            [_c("i", { staticClass: "fa fa-cart-plus" })]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-cart",
-            attrs: { type: "button" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.addToCart()
-              }
-            }
-          },
-          [_c("span", [_vm._v(_vm._s(_vm.$t("product.add_to_cart")))])]
-        ),
-        _vm._v(" "),
-        _vm.product.seller_id === 1
-          ? _c("span", { staticClass: "product-item-label label-sale-off" }, [
-              _vm._v("Saliim Mall")
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "product-item-detail" }, [
-        _c("strong", { staticClass: "product-item-name" }, [
-          _c(
-            "a",
-            {
-              attrs: { title: _vm.product.product_name, href: "#" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.productDetails(_vm.product.product_slug)
-                }
-              }
-            },
-            [_vm._v(_vm._s(_vm.product.product_name))]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix" }, [
-          _c("div", { staticClass: "product-item-price" }, [
-            _c(
-              "span",
-              { staticClass: "price", staticStyle: { display: "block" } },
-              [_vm._v("$ " + _vm._s(_vm.cartData.price))]
+              ],
+              1
             ),
             _vm._v(" "),
-            _vm.oldPrice !== 0 && _vm.oldPrice !== ""
-              ? _c("span", { staticClass: "old-price" }, [
-                  _vm._v("$ " + _vm._s(_vm.oldPrice))
-                ])
+            _c("div", { staticClass: "product-item-actions" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-wishlist",
+                  attrs: { href: "#", title: "WishList" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.addWishList(_vm.product.product_slug)
+                    }
+                  }
+                },
+                [_c("span", [_vm._v(_vm._s(_vm.$t("header.wishlist")))])]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-quickview",
+                  attrs: { href: "#", title: "Quick View" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.quickView()
+                    }
+                  }
+                },
+                [_c("span", [_vm._v(_vm._s(_vm.$t("product.quick_view")))])]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn",
+                  staticStyle: { "font-size": "18px" },
+                  attrs: { href: "#", title: "Buy Now" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.buyNow()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fa fa-cart-plus" })]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-cart",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.addToCart()
+                  }
+                }
+              },
+              [_c("span", [_vm._v(_vm._s(_vm.$t("product.add_to_cart")))])]
+            ),
+            _vm._v(" "),
+            _vm.product.seller_id === 1
+              ? _c(
+                  "span",
+                  { staticClass: "product-item-label label-sale-off" },
+                  [_vm._v("Saliim Mall")]
+                )
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "product-reviews-summary " }, [
-            _c(
-              "div",
-              { staticClass: "rating-summary grid-rating" },
-              [
-                _c("star-rating", {
-                  attrs: {
-                    "star-size": 13,
-                    rating: _vm.rating,
-                    "read-only": true
+          _c("div", { staticClass: "product-item-detail" }, [
+            _c("strong", { staticClass: "product-item-name" }, [
+              _c(
+                "a",
+                {
+                  attrs: { title: _vm.product.product_name, href: "#" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.productDetails(_vm.product.product_slug)
+                    }
                   }
-                })
-              ],
-              1
-            )
+                },
+                [_vm._v(_vm._s(_vm.product.product_name))]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "clearfix" }, [
+              _c("div", { staticClass: "product-item-price" }, [
+                _c(
+                  "span",
+                  { staticClass: "price", staticStyle: { display: "block" } },
+                  [_vm._v("$ " + _vm._s(_vm.cartData.price))]
+                ),
+                _vm._v(" "),
+                _vm.oldPrice !== 0 && _vm.oldPrice !== ""
+                  ? _c("span", { staticClass: "old-price" }, [
+                      _vm._v("$ " + _vm._s(_vm.oldPrice))
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "product-reviews-summary " }, [
+                _c(
+                  "div",
+                  { staticClass: "rating-summary grid-rating" },
+                  [
+                    _c("star-rating", {
+                      attrs: {
+                        "star-size": 13,
+                        rating: _vm.rating,
+                        "read-only": true
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ])
           ])
         ])
       ])
-    ])
-  ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -58012,19 +58031,56 @@ var staticRenderFns = [
       _c("div", { staticClass: "block-title" }, [_vm._v("Follow Us: ")]),
       _vm._v(" "),
       _c("div", { staticClass: "block-content" }, [
-        _c("a", { staticClass: "sh-facebook", attrs: { href: "" } }, [
-          _c("i", {
-            staticClass: "fab fa-facebook-f",
-            attrs: { "aria-hidden": "true" }
-          })
-        ]),
+        _c(
+          "a",
+          {
+            staticClass: "sh-facebook",
+            attrs: {
+              href: "https://www.facebook.com/SaliimOnline",
+              target: "_blank"
+            }
+          },
+          [
+            _c("i", {
+              staticClass: "fab fa-facebook-f",
+              attrs: { "aria-hidden": "true" }
+            })
+          ]
+        ),
         _vm._v(" "),
-        _c("a", { staticClass: "sh-pinterest", attrs: { href: "" } }, [
-          _c("i", {
-            staticClass: "fab fa-instagram",
-            attrs: { "aria-hidden": "true" }
-          })
-        ])
+        _c(
+          "a",
+          {
+            staticClass: "sh-pinterest",
+            attrs: {
+              href: "https://www.instagram.com/saliimonline",
+              target: "_blank"
+            }
+          },
+          [
+            _c("i", {
+              staticClass: "fab fa-instagram",
+              attrs: { "aria-hidden": "true" }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "sh-twitter",
+            attrs: {
+              href: "https://twitter.com/SaliimOnline",
+              target: "_blank"
+            }
+          },
+          [
+            _c("i", {
+              staticClass: "fab fa-twitter",
+              attrs: { "aria-hidden": "true" }
+            })
+          ]
+        )
       ])
     ])
   }
@@ -58061,38 +58117,58 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "block-content" }, [
         _c("div", { staticClass: "filter-options-item filter-options-price" }, [
-          _c(
-            "div",
-            {
-              staticClass: "filter-options-title",
-              staticStyle: { "margin-bottom": "35px" }
-            },
-            [_vm._v(_vm._s(_vm.$t("products.price")))]
-          ),
+          _c("div", { staticClass: "filter-options-title" }, [
+            _vm._v(_vm._s(_vm.$t("products.price")))
+          ]),
           _vm._v(" "),
-          _c("div", { staticClass: "filter-options-content" }, [
-            _c(
-              "div",
-              { staticClass: "slider-range" },
-              [
-                _c("vue-slider", {
-                  attrs: {
-                    "enable-cross": false,
-                    min: _vm.search_min_price,
-                    max: _vm.search_max_price,
-                    "dot-options": _vm.tooltipOptions
-                  },
-                  model: {
-                    value: _vm.sortData.range,
-                    callback: function($$v) {
-                      _vm.$set(_vm.sortData, "range", $$v)
-                    },
-                    expression: "sortData.range"
+          _c("div", { staticClass: "filter-options-content row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.sortData.range[0],
+                    expression: "sortData.range[0]"
                   }
-                })
-              ],
-              1
-            )
+                ],
+                staticClass: "form-control",
+                attrs: { type: "number" },
+                domProps: { value: _vm.sortData.range[0] },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.sortData.range, 0, $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.sortData.range[1],
+                    expression: "sortData.range[1]"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "number" },
+                domProps: { value: _vm.sortData.range[1] },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.sortData.range, 1, $event.target.value)
+                  }
+                }
+              })
+            ])
           ])
         ]),
         _vm._v(" "),
@@ -79469,7 +79545,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
+module.exports = __webpack_require__(/*! F:\xampp\htdocs\e_com_web\resources\views\templates\kuteshop_v2\vue\kuteshop_v2.js */"./resources/views/templates/kuteshop_v2/vue/kuteshop_v2.js");
 
 
 /***/ })

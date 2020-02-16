@@ -1,5 +1,5 @@
 <template>
-    <div class="product-item product-item-opt-2">
+    <div v-if="product" class="product-item product-item-opt-2">
         <div class="product-item-info">
             <div class="product-item-photo">
                 <a href="#" @click.prevent="productDetails(product.product_slug)" :title="product.product_name" class="product-item-img">
@@ -49,6 +49,7 @@
         props:{
             product:{
                 type:Object,
+                default:{},
             }
         },
         data(){

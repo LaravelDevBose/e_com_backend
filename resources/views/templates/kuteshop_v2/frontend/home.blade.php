@@ -47,7 +47,9 @@
                             "1200":{"items":5}
                             }'>
                             @foreach($latestDeals->deal_products as $dealProduct)
+                                @if(!empty($dealProduct->product))
                                 <section-product-grid :product="{{ $dealProduct->product }}"></section-product-grid>
+                                @endif
                             @endforeach
                         </div>
 
@@ -73,7 +75,9 @@
                                 "1200":{"items":5}
                                 }'>
                             @foreach($adminLatestProducts as $product)
+                                @if(!empty($product))
                                 <mall-product-grid :product="{{ $product }}"></mall-product-grid>
+                                @endif
                             @endforeach
                         </div>
                         <a href="{{ route('front.mall') }}" style="float: right; color: #f78031;">See All</a>
@@ -178,13 +182,15 @@
                                                 }'>
                                                     <?php $i=0; $total = count($productType); ?>
                                                     @foreach($productType as $product)
-                                                        @if($i %2 == 0)
-                                                        <div class="item">
-                                                        @endif
-                                                            <section-product-grid :product="{{ $product }}"></section-product-grid>
-                                                        <?php $i++; ?>
-                                                        @if($i % 2 == 0 || $i == $total)
-                                                        </div>
+                                                        @if(!empty($product))
+                                                            @if($i %2 == 0)
+                                                            <div class="item">
+                                                            @endif
+                                                                <section-product-grid :product="{{ $product }}"></section-product-grid>
+                                                            <?php $i++; ?>
+                                                            @if($i % 2 == 0 || $i == $total)
+                                                            </div>
+                                                            @endif
                                                         @endif
                                                     @endforeach
                                                 </div>
