@@ -117,8 +117,8 @@ class FrontendController extends Controller
             array_push($categorySection, [
                 'category' => $category,
                 'productList' => [
-                    'bestSeller' => $bestSellProducts,
                     'newArrivals' => $latestProducts,
+                    'bestSeller' => $bestSellProducts,
                     'mostReviews' => $mostReviewsProducts,
                 ]
             ]);
