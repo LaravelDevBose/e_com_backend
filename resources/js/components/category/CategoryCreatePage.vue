@@ -41,6 +41,13 @@
                             </div>
                         </div>
 
+                        <div class="col-md-5" v-if="!formValue.parent_id">
+                            <div class="form-group">
+                                <label>Icon:</label>
+                                <image-cropper :cropperData="iconCropperData" :removeImage="removeImage"></image-cropper>
+                            </div>
+                        </div>
+
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label class="checkbox-style checkbox-inline" for="is_show">
@@ -137,6 +144,18 @@
                     modal_type:2,
                     modal_id:'section_image',
                     serial:2,
+                },
+
+                iconCropperData:{
+                    width:100,
+                    height:100,
+                    placeholder:'100X100',
+                    file_size:.5,
+                    init_image:'',
+                    folder:'category',
+                    modal_type:2,
+                    modal_id:'icon_image',
+                    serial:3,
                 },
                 removeImage:false,
                 btnDisabled:false,
