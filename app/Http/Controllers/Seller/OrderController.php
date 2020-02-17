@@ -69,6 +69,15 @@ class OrderController extends Controller
         }
     }
 
+    public function order_all_item_status(){
+        $status = array_flip(OrderItem::AllItemStatus);
+        if(!empty($status)){
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $status);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_OK, 'No Order Found');
+        }
+    }
+
     public function update_order_item_status(Request $request){
         $validator = Validator::make($request->all(),[
             'item_id'=>'required',

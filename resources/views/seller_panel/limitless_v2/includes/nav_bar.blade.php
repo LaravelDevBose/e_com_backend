@@ -20,10 +20,12 @@
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-right">
+                        @if(auth()->id() !== 1)
                         <li><a href="{{ route('seller.account.setting.page') }}"><i class="icon-user-plus"></i> Profile Setting</a></li>
                         <li class="divider"></li>
                         <li><a href="{{ route('seller.shop.setting') }}"><i class="icon-store"></i> Shop settings</a></li>
                         <li class="divider"></li>
+                        @endif
                         <li><a href="{{ route('seller.logout') }}"><i class="icon-switch2"></i> Logout</a></li>
                     </ul>
                 </li>

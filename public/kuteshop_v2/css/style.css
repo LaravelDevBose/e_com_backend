@@ -25841,7 +25841,8 @@ img.alignright {
 
 .block-section-top2 .box-section-top {
     position: relative;
-    padding-left: 270px
+    padding-left: 270px;
+    min-height: 420px;
 }
 
 @media (max-width:1199px) {

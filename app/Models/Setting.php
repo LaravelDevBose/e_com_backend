@@ -35,6 +35,7 @@ class Setting extends Model
         'show_seller_info'=>5,
         'search_min_price'=>5,
         'search_max_price'=>5,
+        'site_title'=>5,
     ];
 
     protected $table = 'settings';

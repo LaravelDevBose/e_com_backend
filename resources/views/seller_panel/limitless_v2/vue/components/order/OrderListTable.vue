@@ -138,7 +138,11 @@
             }
         },
         created(){
-            this.getOrderItemStatus();
+            if(AppStorage.getUserId() === '1'){
+                this.getOrderAllItemStatus();
+            }else {
+                this.getOrderItemStatus();
+            }
         },
         mounted(){
             this.getOrderItemList(this.reqData).then(response=>{
@@ -153,7 +157,8 @@
         methods:{
             ...mapActions([
                 'getOrderItemList',
-                'getOrderItemStatus'
+                'getOrderItemStatus',
+                'getOrderAllItemStatus'
             ]),
 
             sortBy(key) {

@@ -80,34 +80,36 @@
                             <img src="{{ asset('saliim.png') }}" alt="logo" style="height: 80px;">
                         </a>
                     </strong><!-- logo -->
-                    <a href="{{ route('front.index') }}" class="desktop-svg">
-                        <svg viewBox="50 0 600 200" >
-                            <!-- Symbol-->
-                            <symbol id="s-text">
-                                <text text-anchor="middle" x="50%" y="50%" dy=".35em">Saliim</text>
-                            </symbol>
-                            <!-- Duplicate symbols-->
-                            <use class="a-text" xlink:href="#s-text"></use>
-                            <use class="a-text" xlink:href="#s-text"></use>
-                            <use class="a-text" xlink:href="#s-text"></use>
-                            <use class="a-text" xlink:href="#s-text"></use>
-                            <use class="a-text" xlink:href="#s-text"></use>
-                        </svg>
-                    </a>
-                    <a href="{{ route('front.index') }}" class="mobile-svg">
-                        <svg viewBox="50 0 200 80" >
-                            <!-- Symbol-->
-                            <symbol id="s-text">
-                                <text text-anchor="middle" x="50%" y="50%" dy=".35em">Saliim</text>
-                            </symbol>
-                            <!-- Duplicate symbols-->
-                            <use class="a-text" xlink:href="#s-text"></use>
-                            <use class="a-text" xlink:href="#s-text"></use>
-                            <use class="a-text" xlink:href="#s-text"></use>
-                            <use class="a-text" xlink:href="#s-text"></use>
-                            <use class="a-text" xlink:href="#s-text"></use>
-                        </svg>
-                    </a>
+                    @if(!empty($siteTitle))
+                        <a href="{{ route('front.index') }}" class="desktop-svg">
+                            <svg viewBox="50 0 600 200" >
+                                <!-- Symbol-->
+                                <symbol id="s-text">
+                                    <text text-anchor="middle" x="50%" y="50%" dy=".35em">{{ $siteTitle }}</text>
+                                </symbol>
+                                <!-- Duplicate symbols-->
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                            </svg>
+                        </a>
+                        <a href="{{ route('front.index') }}" class="mobile-svg">
+                            <svg viewBox="50 0 200 80" >
+                                <!-- Symbol-->
+                                <symbol id="s-text">
+                                    <text text-anchor="middle" x="50%" y="50%" dy=".35em">{{ $siteTitle }}</text>
+                                </symbol>
+                                <!-- Duplicate symbols-->
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                            </svg>
+                        </a>
+                    @endif
                 </div>
                 <div class=" nav-right">
                     <!-- link  wishlish-->

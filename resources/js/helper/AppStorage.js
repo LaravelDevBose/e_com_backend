@@ -15,12 +15,17 @@ class AppStorage {
         localStorage.setItem('whoIs', whoIs);
     }
 
+    storeUserId(userId){
+        localStorage.setItem('userId', userId);
+    }
+
     storeUserInfo(userInfo){
         let jsonData = JSON.parse(userInfo.user);
         this.storeToken(userInfo.token);
         this.storeUser(userInfo.user);
         this.storeFullName(jsonData.full_name);
         this.storeWhoIs(userInfo.whoIs);
+        this.storeUserId(jsonData.user_id);
     }
 
     storageClear(){
@@ -28,6 +33,7 @@ class AppStorage {
         localStorage.removeItem('user');
         localStorage.removeItem('whoIs');
         localStorage.removeItem('full_name');
+        localStorage.removeItem('userId');
     }
 
     storageFullClear(){
@@ -47,6 +53,9 @@ class AppStorage {
     }
     getWhoIs(){
         return localStorage.getItem('whoIs');
+    }
+    getUserId(){
+        return localStorage.getItem('userId');
     }
 
     getUserInfo(){

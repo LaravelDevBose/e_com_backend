@@ -28,27 +28,27 @@
                                 <input type="text" v-model="formValue.trans_category_name" class="form-control" placeholder="Trans. Category Name " required>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Category Banner:</label>
                                 <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                             </div>
                         </div>
-                        <div class="col-md-5" v-if="!formValue.parent_id">
+                        <div class="col-md-4" v-if="!formValue.parent_id">
                             <div class="form-group">
                                 <label>Homepage Section:</label>
                                 <image-cropper :cropperData="SectionCropperData" :removeImage="removeImage"></image-cropper>
                             </div>
                         </div>
 
-                        <div class="col-md-5" v-if="!formValue.parent_id">
+                        <div class="col-md-4" v-if="!formValue.parent_id">
                             <div class="form-group">
                                 <label>Icon:</label>
                                 <image-cropper :cropperData="iconCropperData" :removeImage="removeImage"></image-cropper>
                             </div>
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-md-offset-5" >
                             <div class="form-group">
                                 <label class="checkbox-style checkbox-inline" for="is_show">
                                     <span class="text-bold text-success" v-if="formValue.is_show">Show In Header</span>
@@ -115,6 +115,7 @@
                     is_show:false,
                     trans_category_name:'',
                     sect_banner_id:'',
+                    icon_id:'',
                 },
                 normalizer(node) {
                     return {
@@ -149,7 +150,7 @@
                 iconCropperData:{
                     width:100,
                     height:100,
-                    placeholder:'100X100',
+                    placeholder:'Image (100X100)',
                     file_size:.5,
                     init_image:'',
                     folder:'category',
@@ -177,6 +178,7 @@
             manipulateCategoryData(){
                 let banner_id = $(`.${this.cropperData.modal_id}`).val();
                 let section_id = $(`.${this.SectionCropperData.modal_id}`).val();
+                let icon_id = $(`.${this.iconCropperData.modal_id}`).val();
                 if(typeof banner_id !== "undefined" && banner_id !== ''){
                     console.log(banner_id);
                     this.formValue.banner_id = banner_id;
@@ -185,6 +187,11 @@
                 if(typeof section_id !== "undefined" && section_id !== ''){
                     console.log(section_id);
                     this.formValue.sect_banner_id = section_id;
+                }
+
+                if(typeof icon_id !== "undefined" && icon_id !== ''){
+                    console.log(icon_id);
+                    this.formValue.icon_id = icon_id;
                 }
 
                 if(this.isedit){
@@ -224,6 +231,7 @@
                 this.formValue.category_status = false;
                 this.formValue.banner_id = '';
                 this.formValue.sect_banner_id = '';
+                this.formValue.icon_id = '';
                 this.removeImage = true;
             }
         },
@@ -255,9 +263,16 @@
                             this.cropperData.init_image = this.category.attachment.image_path;
                         }
 
-                        if(this.category.parent_id === null && this.category.sectionBanner){
-                            this.formValue.sect_banner_id = this.category.sect_banner_id;
-                            this.SectionCropperData.init_image = this.category.sectionBanner.image_path;
+                        if(this.category.parent_id === null){
+                            if(this.category.sectionBanner){
+                                this.formValue.sect_banner_id = this.category.sect_banner_id;
+                                this.SectionCropperData.init_image = this.category.sectionBanner.image_path;
+                            }
+
+                            if(this.category.iconImage){
+                                this.formValue.icon_id = this.category.iconImage.attachment_id;
+                                this.iconCropperData.init_image = this.category.iconImage.image_path;
+                            }
                         }
                     }
                 },deep:true,

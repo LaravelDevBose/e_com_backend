@@ -33,6 +33,7 @@ const actions={
             if(typeof response.data.code !== "undefined" && response.data.code === 200){
                 AppStorage.storageClear();
                 AppStorage.storeUserInfo(response.data.data);
+                // AppStorage.storeUserId(response.data.data)
             }
             commit('loginResponse', response);
             return response.data;
