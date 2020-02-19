@@ -111,6 +111,17 @@
                     </div>`,
         props: ['row']
     });
+    Vue.component('item-action', {
+        template: `<button type="button" @click.prevent="invoicePrint()" class="btn btn-sm btn-info">
+                        <i class="icon-printer"></i>
+                  </button>`,
+        props: ['row'],
+        methods:{
+            invoicePrint(){
+                window.open(`/seller/order/item/${this.row.item_id}/print`);
+            }
+        }
+    });
 
     export default {
         name: "OrderListTable",
@@ -132,7 +143,8 @@
                     { label: 'Price', field: 'price', align: 'right',},
                     { label: 'Quantity', field: 'qty', align: 'right',  },
                     { label: 'Total', field: 'total_price', align: 'right', sortable: true },
-                    { label: 'Status', field: 'item_status', component: 'status-badge', align: 'center', sortable: true }
+                    { label: 'Status', field: 'item_status', component: 'status-badge', align: 'center', sortable: true },
+                    { label: 'Action', component: 'item-action', align: 'center', sortable: false },
                 ],
 
             }

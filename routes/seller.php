@@ -44,6 +44,7 @@ Route::prefix('seller')->middleware('auth:seller')->namespace('Seller')->as('sel
         Route::get('/item/status', 'OrderController@order_item_status');
         Route::get('/all/item/status', 'OrderController@order_all_item_status');
         Route::post('/item/status/update', 'OrderController@update_order_item_status')->name('item.status.update');
+        Route::get('/item/{itemId}/print', 'OrderController@order_item_print')->name('item.print');
     });
 
     Route::prefix('shop')->as('shop.')->group(function () {

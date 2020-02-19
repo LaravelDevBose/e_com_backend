@@ -8136,6 +8136,15 @@ Vue.component('product-variation', {
   template: "<div v-if=\"row.product.product_type === 2\">\n                   <ul >\n                        <li v-for=\"(oItem,index) in row.order_items\">{{ oItem.product_name }} - ({{ oItem.qty }})</li>\n                    </ul>\n                </div>",
   props: ['row']
 });
+Vue.component('item-action', {
+  template: "<button type=\"button\" @click.prevent=\"invoicePrint()\" class=\"btn btn-sm btn-info\">\n                    <i class=\"icon-printer\"></i>\n              </button>",
+  props: ['row'],
+  methods: {
+    invoicePrint: function invoicePrint() {
+      window.open("/seller/order/item/".concat(this.row.item_id, "/print"));
+    }
+  }
+});
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OrderListTable",
   props: ['reqData'],
@@ -8191,6 +8200,11 @@ Vue.component('product-variation', {
         component: 'status-badge',
         align: 'center',
         sortable: true
+      }, {
+        label: 'Action',
+        component: 'item-action',
+        align: 'center',
+        sortable: false
       }]
     };
   },

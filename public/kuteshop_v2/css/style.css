@@ -17016,6 +17016,9 @@ select.input-sm {
     .product-item-opt-2 .product-item-detail {
         min-height: 75px
     }
+    .mall-brand{
+        display: none;
+    }
 }
 
 .product-item-opt-2 .product-item-name {

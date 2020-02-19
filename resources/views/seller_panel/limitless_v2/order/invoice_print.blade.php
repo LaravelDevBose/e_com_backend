@@ -67,7 +67,7 @@
                     <div class=" content-group">
                         <span class="text-muted">Payment Details:</span>
                         <ul class="list-condensed list-unstyled">
-                            <li style="margin: 0;"><h5 style="margin: 0; font-size: 14px;">Total: <span class="text-semibold">$  {{ $order->total}} </span></h5></li>
+                            <li style="margin: 0;"><h5 style="margin: 0; font-size: 14px;">Total: <span class="text-semibold">$  {{ number_format($orderItem->total_price, 2)}} </span></h5></li>
                             <li style="margin: 0;">Paid By: <span class="text-semibold"> {{ $order->payment->paid_by }} </span></li>
                         </ul>
                     </div>
@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        @if(!empty($order->orderItems))
+        @if(!empty($orderItem))
         <div>
             <table class="table table-bordered table-striped">
                 <thead>
@@ -96,29 +96,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($order->orderItems as $item)
                     <tr>
                         <td style="width: 70px">
-                            <img src="{{ $item->image->image_path }}" alt="{{ $item->product_name }}" style="width:55px; height:55px;">
+                            <img src="{{ $orderItem->image->image_path }}" alt="{{ $orderItem->product_name }}" style="width:55px; height:55px;">
                         </td>
                         <td>
-                            <h6 style="margin: 0;">{{ $item->product_name }}</h6>
-                            <span class="text-muted"> SKU: {{ $item->product->product_sku }} </span>
-                            @if($item->product->product_type == 2)
-                            <div class="text-muted text-size-small"> Size: {{ $item->size }} </div>
-                            <div class="text-muted text-size-small"> Color: {{ $item->color }} </div>
+                            <h6 style="margin: 0;">{{ $orderItem->product_name }}</h6>
+                            <span class="text-muted"> SKU: {{ $orderItem->product->product_sku }} </span>
+                            @if($orderItem->product->product_type == 2)
+                            <div class="text-muted text-size-small"> Size: {{ $orderItem->size }} </div>
+                            <div class="text-muted text-size-small"> Color: {{ $orderItem->color }} </div>
                             @endif
                         </td>
                         <td style="text-align: center;">
-                            @if(!empty($item->seller->shop))
-                                {{ $item->seller->shop->shop_name }}
+                            @if(!empty($orderItem->seller->shop))
+                                {{ $orderItem->seller->shop->shop_name }}
                             @endif
                         </td>
-                        <td class="text-right">$ {{ number_format($item->price, 2) }} </td>
-                        <td class="text-center"> X {{  $item->qty }} </td>
-                        <td class="text-right"><span class="text-semibold">$  {{ $item->total_price }} </span></td>
+                        <td class="text-right">$ {{ number_format($orderItem->price, 2) }} </td>
+                        <td class="text-center"> X {{  $orderItem->qty }} </td>
+                        <td class="text-right"><span class="text-semibold">$  {{ number_format($orderItem->total_price, 2) }} </span></td>
                     </tr>
-                @endforeach
                 </tbody>
             </table>
         </div>
@@ -132,17 +130,9 @@
                             <table class="table table-striped table-bordered">
                                 <tbody>
                                 <tr>
-                                    <th>Subtotal:</th>
-                                    <td class="text-right">$ {{ $order->sub_total }} </td>
-                                </tr>
-                                <tr>
-                                    <th>Delivery:</th>
-                                    <td class="text-right">$ {{ $order->delivery_charge }}</td>
-                                </tr>
-                                <tr>
                                     <th>Total:</th>
                                     <td class="text-right text-primary">
-                                        <h5 class="text-semibold" style="margin: 0px;">$ {{ $order->total }} </h5></td>
+                                        <h5 class="text-semibold" style="margin: 0px;">$ {{ number_format($orderItem->total_price, 2) }} </h5></td>
                                 </tr>
                                 </tbody>
                             </table>

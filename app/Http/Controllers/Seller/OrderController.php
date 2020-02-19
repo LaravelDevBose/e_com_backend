@@ -125,4 +125,23 @@ class OrderController extends Controller
             return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
         }
     }
+
+    public function order_item_print($itemId)
+    {
+
+        $orderItem = OrderItem::where('item_id', $itemId)->with('product','seller.shop', 'image')->first();
+
+        if(empty($orderItem)){
+            abort(Response::HTTP_NOT_FOUND);
+        }
+        $order = Order::where('order_id', $orderItem->order_id)->with('buyer.user', 'shipping', 'payment')->first();
+
+        if (empty($order)) {
+            abort(Response::HTTP_NOT_FOUND);
+        }
+        return view('seller_panel.'.$this->seller_template.'.order.invoice_print', [
+            'order'=>$order,
+            'orderItem'=>$orderItem,
+        ]);
+    }
 }
