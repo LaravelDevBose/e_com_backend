@@ -96,7 +96,7 @@
                             </svg>
                         </a>
                         <a href="{{ route('front.index') }}" class="mobile-svg">
-                            <svg viewBox="50 0 200 80" >
+                            <svg viewBox="0 0 200 60" >
                                 <!-- Symbol-->
                                 <symbol id="s-text">
                                     <text text-anchor="middle" x="50%" y="50%" dy=".35em">{{ $siteTitle }}</text>
