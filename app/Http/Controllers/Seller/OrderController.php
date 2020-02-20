@@ -69,6 +69,15 @@ class OrderController extends Controller
         }
     }
 
+    public function order_all_item_status(){
+        $status = array_flip(OrderItem::AllItemStatus);
+        if(!empty($status)){
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $status);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_OK, 'No Order Found');
+        }
+    }
+
     public function update_order_item_status(Request $request){
         $validator = Validator::make($request->all(),[
             'item_id'=>'required',
@@ -115,5 +124,24 @@ class OrderController extends Controller
             $errors = array_values($validator->errors()->getMessages());
             return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
         }
+    }
+
+    public function order_item_print($itemId)
+    {
+
+        $orderItem = OrderItem::where('item_id', $itemId)->with('product','seller.shop', 'image')->first();
+
+        if(empty($orderItem)){
+            abort(Response::HTTP_NOT_FOUND);
+        }
+        $order = Order::where('order_id', $orderItem->order_id)->with('buyer.user', 'shipping', 'payment')->first();
+
+        if (empty($order)) {
+            abort(Response::HTTP_NOT_FOUND);
+        }
+        return view('seller_panel.'.$this->seller_template.'.order.invoice_print', [
+            'order'=>$order,
+            'orderItem'=>$orderItem,
+        ]);
     }
 }

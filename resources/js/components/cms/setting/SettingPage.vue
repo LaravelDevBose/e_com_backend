@@ -115,7 +115,17 @@
                     <div class="panel-body">
                         <form action="" @submit.prevent="generalSettingStore">
                             <div class="row">
+
+                            </div>
+                            <div class="row">
                                 <div class="col-md-3 col-md-offset-2">
+                                    <div class="form-group">
+                                        <label>Site Title:</label>
+                                        <input type="text" maxlength="8" v-model="generalSetting.site_title" class="form-control" placeholder="Site Title" required>
+                                        <span class="text-danger">Max 8 Characters</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Search Min. Price:</label>
                                         <input type="number" v-model="generalSetting.search_min_price" class="form-control" placeholder="Min. Value" required>
@@ -204,7 +214,8 @@
                 generalSetting:{
                     show_seller_info:false,
                     search_min_price:'',
-                    search_max_price:''
+                    search_max_price:'',
+                    site_title: '',
                 }
 
             }

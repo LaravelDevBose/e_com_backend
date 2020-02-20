@@ -8019,6 +8019,15 @@ Vue.component('product-variation', {
   template: "<div v-if=\"row.product.product_type === 2\">\n                   <ul >\n                        <li v-for=\"(oItem,index) in row.order_items\">{{ oItem.product_name }} - ({{ oItem.qty }})</li>\n                    </ul>\n                </div>",
   props: ['row']
 });
+Vue.component('item-action', {
+  template: "<button type=\"button\" @click.prevent=\"invoicePrint()\" class=\"btn btn-sm btn-info\">\n                    <i class=\"icon-printer\"></i>\n              </button>",
+  props: ['row'],
+  methods: {
+    invoicePrint: function invoicePrint() {
+      window.open("/seller/order/item/".concat(this.row.item_id, "/print"));
+    }
+  }
+});
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OrderListTable",
   props: ['reqData'],
@@ -8074,11 +8083,20 @@ Vue.component('product-variation', {
         component: 'status-badge',
         align: 'center',
         sortable: true
+      }, {
+        label: 'Action',
+        component: 'item-action',
+        align: 'center',
+        sortable: false
       }]
     };
   },
   created: function created() {
-    this.getOrderItemStatus();
+    if (AppStorage.getUserId() === '1') {
+      this.getOrderAllItemStatus();
+    } else {
+      this.getOrderItemStatus();
+    }
   },
   mounted: function mounted() {
     var _this = this;
@@ -8092,7 +8110,7 @@ Vue.component('product-variation', {
       }
     });
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getOrderItemList', 'getOrderItemStatus']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getOrderItemList', 'getOrderItemStatus', 'getOrderAllItemStatus']), {
     sortBy: function sortBy(key) {
       this.sortKey = key;
       this.sortOrders[key] = this.sortOrders[key] * -1;
@@ -96690,6 +96708,11 @@ function () {
       localStorage.setItem('whoIs', whoIs);
     }
   }, {
+    key: "storeUserId",
+    value: function storeUserId(userId) {
+      localStorage.setItem('userId', userId);
+    }
+  }, {
     key: "storeUserInfo",
     value: function storeUserInfo(userInfo) {
       var jsonData = JSON.parse(userInfo.user);
@@ -96697,6 +96720,7 @@ function () {
       this.storeUser(userInfo.user);
       this.storeFullName(jsonData.full_name);
       this.storeWhoIs(userInfo.whoIs);
+      this.storeUserId(jsonData.user_id);
     }
   }, {
     key: "storageClear",
@@ -96705,6 +96729,7 @@ function () {
       localStorage.removeItem('user');
       localStorage.removeItem('whoIs');
       localStorage.removeItem('full_name');
+      localStorage.removeItem('userId');
     }
   }, {
     key: "storageFullClear",
@@ -96730,6 +96755,11 @@ function () {
     key: "getWhoIs",
     value: function getWhoIs() {
       return localStorage.getItem('whoIs');
+    }
+  }, {
+    key: "getUserId",
+    value: function getUserId() {
+      return localStorage.getItem('userId');
     }
   }, {
     key: "getUserInfo",
@@ -99767,10 +99797,10 @@ var actions = {
 
     return getOrderItemStatus;
   }(),
-  orderItemStatusChange: function () {
-    var _orderItemStatusChange = _asyncToGenerator(
+  getOrderAllItemStatus: function () {
+    var _getOrderAllItemStatus = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, reqData) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
@@ -99779,12 +99809,11 @@ var actions = {
               commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
-              return axios.post('/seller/order/item/status/update', reqData).then(function (response) {
+              return axios.get("/seller/order/all/item/status").then(function (response) {
                 if (typeof response.data.code !== "undefined" && response.data.code === 200) {
-                  commit('updateOrderItemStatus', response.data.data);
+                  commit('setOrderItemStatus', response.data.data);
                 }
 
-                delete response.data.data;
                 return response.data;
               });
 
@@ -99805,7 +99834,51 @@ var actions = {
       }, _callee3, null, [[1, 7]]);
     }));
 
-    function orderItemStatusChange(_x4, _x5) {
+    function getOrderAllItemStatus(_x4) {
+      return _getOrderAllItemStatus.apply(this, arguments);
+    }
+
+    return getOrderAllItemStatus;
+  }(),
+  orderItemStatusChange: function () {
+    var _orderItemStatusChange = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, reqData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              _context4.prev = 1;
+              _context4.next = 4;
+              return axios.post('/seller/order/item/status/update', reqData).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('updateOrderItemStatus', response.data.data);
+                }
+
+                delete response.data.data;
+                return response.data;
+              });
+
+            case 4:
+              return _context4.abrupt("return", _context4.sent);
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](1);
+              console.log(_context4.t0);
+              return _context4.abrupt("return", _context4.t0.data);
+
+            case 11:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 7]]);
+    }));
+
+    function orderItemStatusChange(_x5, _x6) {
       return _orderItemStatusChange.apply(this, arguments);
     }
 

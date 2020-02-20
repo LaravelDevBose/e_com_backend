@@ -28,9 +28,9 @@ const actions = {
     },
     subscribeNewsletter({commit},formData){
         return axios.post('/newsletter/subscribe/', formData)
-            .then(response=>{
-                return response.data;
-            });
+        .then(response=>{
+            return response.data;
+        });
     }
 };
 

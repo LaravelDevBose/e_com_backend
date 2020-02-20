@@ -52,12 +52,14 @@ class AppServiceProvider extends ServiceProvider
             $catList = CommonData::category_list();
 
             $contactInfos = Setting::where('type', Setting::Setting_Type['contact'])->pluck('value', 'key');
+            $siteTitle = Setting::where('type', Setting::Setting_Type['general'])->where('key', 'site_title')->value('value');
             $v->with('categoryTree', $categoryTree)
 //                ->with('pageMenus', $pageMenus)
                 ->with('brands', $brands)
                 ->with('contactUs', $contactUs)
                 ->with('catList', $catList)
                 ->with('contactInfos', $contactInfos)
+                ->with('siteTitle', $siteTitle)
 //                ->with('headerPageMenus', $headerPageMenus);
                 ->with('tcPageMenus', $tcPageMenus)
                 ->with('ppPageMenus', $ppPageMenus)

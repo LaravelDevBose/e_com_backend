@@ -14,7 +14,7 @@
     <main class="site-main">
         <div class="block-section-top block-section-top2">
             <div class="container">
-                <div class="box-section-top">
+                <div class="box-section-top" style=" min-height: 40rem;">
                 @include('templates.kuteshop_v2.layouts.frontend.includes.navigation')
 
                 <!-- block slide top -->

@@ -16,6 +16,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use phpDocumentor\Reflection\Types\Void_;
 
 
 class CategoryController extends Controller
@@ -30,7 +31,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse| \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -69,7 +70,7 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -80,7 +81,7 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -100,6 +101,7 @@ class CategoryController extends Controller
                     'parent_id'=>(!empty($request->parent_id))?$request->parent_id : null,
                     'banner_id'=>(!empty($request->banner_id))? $request->banner_id:null,
                     'sect_banner_id'=>(!empty($request->sect_banner_id))? $request->sect_banner_id:null,
+                    'icon_id'=>(!empty($request->icon_id))? $request->icon_id:null,
                     'category_status'=>(!empty($request->category_status) && $request->category_status == 1) ? $request->category_status : 2,
                     'is_show'=>(!empty($request->is_show) && $request->is_show == 1) ? $request->is_show : 2,
                 ]);
@@ -122,10 +124,10 @@ class CategoryController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
-    {   $category = Category::where('category_id',$id)->with('attachment','sectionBanner')->first();
+    {   $category = Category::where('category_id',$id)->with('attachment','sectionBanner', 'iconImage')->first();
         if(!empty($category)){
             return ResponserTrait::singleResponse(new CategoryResource($category), 'success', Response::HTTP_OK);
         }else{
@@ -138,7 +140,7 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|Void
      */
     public function edit($id)
     {   $category = Category::where('category_id',$id)->with('attachment')->first();
@@ -155,7 +157,7 @@ class CategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
@@ -173,6 +175,7 @@ class CategoryController extends Controller
                 }
                 $banner_id = $category->banner_id;
                 $sect_banner_id = $category->sect_banner_id;
+                $icon_id = $category->icon_id;
                 $categoryUp = $category->update([
                     'category_name'=>$request->category_name,
                     'trans_category_name'=>$request->trans_category_name,
@@ -180,6 +183,7 @@ class CategoryController extends Controller
                     'parent_id'=>(!empty($request->parent_id))?$request->parent_id : null,
                     'banner_id'=>(!empty($request->banner_id))? $request->banner_id:$banner_id,
                     'sect_banner_id'=>(!empty($request->sect_banner_id))? $request->sect_banner_id:$sect_banner_id,
+                    'icon_id'=>(!empty($request->icon_id))? $request->icon_id:$icon_id,
                     'category_status'=>(!empty($request->category_status) && $request->category_status == 1) ? $request->category_status : 2,
                     'is_show'=>(!empty($request->is_show) && $request->is_show == 1) ? $request->is_show : 2,
                 ]);

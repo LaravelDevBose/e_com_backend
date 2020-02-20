@@ -72435,6 +72435,11 @@ function () {
       localStorage.setItem('whoIs', whoIs);
     }
   }, {
+    key: "storeUserId",
+    value: function storeUserId(userId) {
+      localStorage.setItem('userId', userId);
+    }
+  }, {
     key: "storeUserInfo",
     value: function storeUserInfo(userInfo) {
       var jsonData = JSON.parse(userInfo.user);
@@ -72442,6 +72447,7 @@ function () {
       this.storeUser(userInfo.user);
       this.storeFullName(jsonData.full_name);
       this.storeWhoIs(userInfo.whoIs);
+      this.storeUserId(jsonData.user_id);
     }
   }, {
     key: "storageClear",
@@ -72450,6 +72456,7 @@ function () {
       localStorage.removeItem('user');
       localStorage.removeItem('whoIs');
       localStorage.removeItem('full_name');
+      localStorage.removeItem('userId');
     }
   }, {
     key: "storageFullClear",
@@ -72475,6 +72482,11 @@ function () {
     key: "getWhoIs",
     value: function getWhoIs() {
       return localStorage.getItem('whoIs');
+    }
+  }, {
+    key: "getUserId",
+    value: function getUserId() {
+      return localStorage.getItem('userId');
     }
   }, {
     key: "getUserInfo",
@@ -77423,7 +77435,7 @@ var actions = {
               return axios.post('/seller/login', formData).then(function (response) {
                 if (typeof response.data.code !== "undefined" && response.data.code === 200) {
                   AppStorage.storageClear();
-                  AppStorage.storeUserInfo(response.data.data);
+                  AppStorage.storeUserInfo(response.data.data); // AppStorage.storeUserId(response.data.data)
                 }
 
                 commit('loginResponse', response);

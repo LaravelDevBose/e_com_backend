@@ -67,7 +67,7 @@
                     <div class=" content-group">
                         <span class="text-muted">Payment Details:</span>
                         <ul class="list-condensed list-unstyled">
-                            <li style="margin: 0;"><h5 style="margin: 0; font-size: 14px;">Total: <span class="text-semibold">$  {{ number_format($order->total, 2)}} </span></h5></li>
+                            <li style="margin: 0;"><h5 style="margin: 0; font-size: 14px;">Total: <span class="text-semibold">$  {{ $order->total}} </span></h5></li>
                             <li style="margin: 0;">Paid By: <span class="text-semibold"> {{ $order->payment->paid_by }} </span></li>
                         </ul>
                     </div>
@@ -116,7 +116,7 @@
                         </td>
                         <td class="text-right">$ {{ number_format($item->price, 2) }} </td>
                         <td class="text-center"> X {{  $item->qty }} </td>
-                        <td class="text-right"><span class="text-semibold">$  {{ number_format($item->total_price, 2) }} </span></td>
+                        <td class="text-right"><span class="text-semibold">$  {{ $item->total_price }} </span></td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -133,16 +133,16 @@
                                 <tbody>
                                 <tr>
                                     <th>Subtotal:</th>
-                                    <td class="text-right">$ {{ number_format($order->sub_total, 2) }} </td>
+                                    <td class="text-right">$ {{ $order->sub_total }} </td>
                                 </tr>
                                 <tr>
                                     <th>Delivery:</th>
-                                    <td class="text-right">$ {{ number_format($order->delivery_charge, 2) }}</td>
+                                    <td class="text-right">$ {{ $order->delivery_charge }}</td>
                                 </tr>
                                 <tr>
                                     <th>Total:</th>
                                     <td class="text-right text-primary">
-                                        <h5 class="text-semibold" style="margin: 0px;">$ {{ number_format($order->total, 2) }} </h5></td>
+                                        <h5 class="text-semibold" style="margin: 0px;">$ {{ $order->total }} </h5></td>
                                 </tr>
                                 </tbody>
                             </table>

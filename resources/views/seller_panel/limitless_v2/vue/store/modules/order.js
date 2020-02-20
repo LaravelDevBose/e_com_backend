@@ -42,6 +42,20 @@ const actions = {
             return error.data;
         }
     },
+    async getOrderAllItemStatus({commit}){
+        try {
+            return await axios.get(`/seller/order/all/item/status`)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setOrderItemStatus', response.data.data);
+                    }
+                    return response.data;
+                })
+        }catch (error) {
+            console.log(error);
+            return error.data;
+        }
+    },
     async orderItemStatusChange({commit}, reqData){
         try {
             return await axios.post('/seller/order/item/status/update',reqData)
