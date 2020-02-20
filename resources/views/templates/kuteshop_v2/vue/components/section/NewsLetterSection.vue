@@ -3,7 +3,7 @@
         <div class="block-newletter">
             <div class="block-title">SUBSCRIBE</div>
             <div class="block-content">
-                <form @submit.prevent="newsLetterSubscription()">
+                <form action="#" method="post" @submit.prevent="newsLetterSubscription()">
                     <div class="input-group">
                         <input type="text" v-model="formData.email_address" class="form-control" placeholder="Your Email Address">
                         <span class="input-group-btn">
