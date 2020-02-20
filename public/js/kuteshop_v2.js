@@ -76946,12 +76946,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       return axios.get("/set/language/".concat(lang)).then(function (response) {
         return response.data;
       });
-    },
-    subscribeNewsletter: function subscribeNewsletter(_ref2, formData) {
-      var commit = _ref2.commit;
-      return axios.post("/newsletter/subscribe/", formData).then(function (response) {
-        return response.data;
-      });
     }
   },
   mutations: {
@@ -77071,7 +77065,13 @@ var actions = {
     }
 
     return buyerInfoUpdate;
-  }()
+  }(),
+  subscribeNewsletter: function subscribeNewsletter(_ref3, formData) {
+    var commit = _ref3.commit;
+    return axios.post('/newsletter/subscribe/', formData).then(function (response) {
+      return response.data;
+    });
+  }
 };
 var mutations = {
   setBuyerDetails: function setBuyerDetails(state, response) {
