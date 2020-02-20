@@ -77081,7 +77081,7 @@ var actions = {
   }(),
   subscribeNewsletter: function subscribeNewsletter(_ref3, formData) {
     var commit = _ref3.commit;
-    return axios.post('/newsletter/subscribe/', formData).then(function (response) {
+    return axios.post('/subscribe', formData).then(function (response) {
       return response.data;
     });
   }

@@ -33,7 +33,7 @@ Route::namespace('Frontend')->as('front.')->group(function () {
     Route::get('/mall', 'FrontendController@mall_products')->name('mall');
 });
 
-Route::post('newsletter/subscribe', 'NewsletterController@store');
+Route::post('/subscribe', 'NewsletterController@store');
 
 Route::post('/attachment/store', 'AttachmentController@store')->name('attachment.store');
 Route::post('/crop_image/store', 'AttachmentController@crop_image_store')->name('crop_image.store');

@@ -27,7 +27,7 @@ const actions = {
             });
     },
     subscribeNewsletter({commit},formData){
-        return axios.post('/newsletter/subscribe/', formData)
+        return axios.post('/subscribe', formData)
         .then(response=>{
             return response.data;
         });
