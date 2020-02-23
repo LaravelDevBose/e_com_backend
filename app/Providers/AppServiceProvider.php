@@ -53,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
 
             $contactInfos = Setting::where('type', Setting::Setting_Type['contact'])->pluck('value', 'key');
             $siteTitle = Setting::where('type', Setting::Setting_Type['general'])->where('key', 'site_title')->value('value');
+            $mallTitle = Setting::where('type', Setting::Setting_Type['general'])->where('key', 'mall_title')->value('value');
             $v->with('categoryTree', $categoryTree)
 //                ->with('pageMenus', $pageMenus)
                 ->with('brands', $brands)
@@ -60,6 +61,7 @@ class AppServiceProvider extends ServiceProvider
                 ->with('catList', $catList)
                 ->with('contactInfos', $contactInfos)
                 ->with('siteTitle', $siteTitle)
+                ->with('mallTitle', $mallTitle)
 //                ->with('headerPageMenus', $headerPageMenus);
                 ->with('tcPageMenus', $tcPageMenus)
                 ->with('ppPageMenus', $ppPageMenus)

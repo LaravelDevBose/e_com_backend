@@ -22,7 +22,7 @@
                     <div class="deals-of-countdown">
                         <div class="count-down-time" :data-countdown="hotProduct.expired_at"></div>
                     </div>
-                    <product-grid :product="hotProduct.product"></product-grid>
+                    <product-grid :product="hotProduct.product" :mallname="mallname"></product-grid>
                 </div>
             </div>
         </div>
@@ -38,6 +38,10 @@
         props:{
             hotproducts:{
                 type:[Object, Array]
+            },
+            mallname:{
+                type: String,
+                default: 'Saliim Mall'
             }
         },
         data(){

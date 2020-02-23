@@ -192,7 +192,11 @@
                                                 </div>
                                                 @endif
                                                 <h3 class="shop-name float-right" >
+                                                    @if($product->seller->seller_id !== 1)
                                                     <span>{{ $product->seller->shop->shop_name }}</span>
+                                                    @else
+                                                        <span> {{ $mallTitle }}</span>
+                                                    @endif
                                                 </h3>
                                             </div>
                                             @if(!empty($showSellerInfo) && $showSellerInfo->value == 1 && $product->seller->seller_id !== 1)
@@ -302,7 +306,7 @@
                             <ol class="product-items owl-carousel " data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"992":{"items":4},"1200":{"items":5},"1400":{"items":5}}'>
                                 @foreach($relatedProducts as $relatedProduct)
                                 <li class="product-item product-item-opt-2">
-                                    <product-grid :product="{{ $relatedProduct }}"></product-grid>
+                                    <product-grid :product="{{ $relatedProduct }}" :mallname="{{ json_encode($mallTitle) }}"></product-grid>
                                 </li>
                                 @endforeach
                             </ol>

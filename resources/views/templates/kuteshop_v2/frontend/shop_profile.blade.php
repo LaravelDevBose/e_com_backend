@@ -77,7 +77,7 @@
                                 @foreach($shop->seller->products as $product)
                                     <li class="col-sm-3">
                                         <div class="product-item  product-item-opt-2">
-                                            <product-grid  :product="{{ $product }}"></product-grid>
+                                            <product-grid  :product="{{ $product }}" ></product-grid>
                                         </div>
                                     </li>
                                 @endforeach

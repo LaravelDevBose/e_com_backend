@@ -48,7 +48,7 @@
                             }'>
                             @foreach($latestDeals->deal_products as $dealProduct)
                                 @if(!empty($dealProduct->product))
-                                <section-product-grid :product="{{ $dealProduct->product }}"></section-product-grid>
+                                <section-product-grid :product="{{ $dealProduct->product }}" :mallname="{{ json_encode($mallTitle) }}"></section-product-grid>
                                 @endif
                             @endforeach
                         </div>
@@ -76,7 +76,7 @@
                                 }'>
                             @foreach($adminLatestProducts as $product)
                                 @if(!empty($product))
-                                <mall-product-grid :product="{{ $product }}"></mall-product-grid>
+                                <mall-product-grid :product="{{ $product }}" :mallname="{{ json_encode($mallTitle) }}"></mall-product-grid>
                                 @endif
                             @endforeach
                         </div>
@@ -186,7 +186,7 @@
                                                             @if($i %2 == 0)
                                                             <div class="item">
                                                             @endif
-                                                                <section-product-grid :product="{{ $product }}"></section-product-grid>
+                                                                <section-product-grid :product="{{ $product }}" :mallname="{{ json_encode($mallTitle) }}"></section-product-grid>
                                                             <?php $i++; ?>
                                                             @if($i % 2 == 0 || $i == $total)
                                                             </div>

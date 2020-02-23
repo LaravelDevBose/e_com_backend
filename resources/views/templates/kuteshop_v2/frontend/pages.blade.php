@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     @endif
-                    <hot-deal-products-block :hotproducts="{{ $hotProducts }}"></hot-deal-products-block>
+                    <hot-deal-products-block :hotproducts="{{ $hotProducts }}" :mallname="{{ json_encode($mallTitle) }}"></hot-deal-products-block>
                 </div><!-- Sidebar -->
             </div>
         </div>

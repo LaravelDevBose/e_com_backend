@@ -5908,6 +5908,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     product: {
       type: Object,
       "default": {}
+    },
+    mallname: {
+      type: String,
+      "default": 'Saliim Mall'
     }
   },
   data: function data() {
@@ -6095,7 +6099,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductGrid",
@@ -6103,6 +6106,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     product: {
       type: Object,
       "default": {}
+    },
+    mallname: {
+      type: String,
+      "default": 'Saliim Mall'
     }
   },
   data: function data() {
@@ -6266,7 +6273,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: {
     products: [Object, Array],
     categoryid: [Number, String],
-    slug: [String]
+    slug: [String],
+    mallname: {
+      type: String,
+      "default": 'Saliim Mall'
+    }
   },
   data: function data() {
     return {
@@ -6379,6 +6390,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     product: {
       type: Object,
       "default": {}
+    },
+    mallname: {
+      type: String,
+      "default": 'Saliim Mall'
     }
   },
   data: function data() {
@@ -6956,6 +6971,10 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     hotproducts: {
       type: [Object, Array]
+    },
+    mallname: {
+      type: String,
+      "default": 'Saliim Mall'
     }
   },
   data: function data() {
@@ -56646,7 +56665,7 @@ var render = function() {
                 ? _c(
                     "span",
                     { staticClass: "product-item-label label-sale-off" },
-                    [_vm._v("Saliim Mall")]
+                    [_vm._v(_vm._s(_vm.mallname))]
                   )
                 : _vm._e()
             ]),
@@ -56862,7 +56881,7 @@ var render = function() {
           _vm._v(" "),
           _vm.product.seller_id === 1
             ? _c("span", { staticClass: "product-item-label label-sale-off" }, [
-                _vm._v("Saliim Mall")
+                _vm._v(_vm._s(_vm.mallname))
               ])
             : _vm._e()
         ]),
@@ -57018,7 +57037,11 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "product-item  product-item-opt-2" },
-                [_c("product-grid", { attrs: { product: product } })],
+                [
+                  _c("product-grid", {
+                    attrs: { product: product, mallname: _vm.mallname }
+                  })
+                ],
                 1
               )
             ])
@@ -57169,7 +57192,7 @@ var render = function() {
               ? _c(
                   "span",
                   { staticClass: "product-item-label label-sale-off" },
-                  [_vm._v("Saliim Mall")]
+                  [_vm._v(_vm._s(_vm.mallname))]
                 )
               : _vm._e()
           ]),
@@ -57928,7 +57951,12 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("product-grid", { attrs: { product: hotProduct.product } })
+                  _c("product-grid", {
+                    attrs: {
+                      product: hotProduct.product,
+                      mallname: _vm.mallname
+                    }
+                  })
                 ],
                 1
               )

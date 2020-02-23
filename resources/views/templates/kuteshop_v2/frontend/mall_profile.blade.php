@@ -50,7 +50,7 @@
                         <div class="widget-content site-footer">
                             <div class="cominfo text-center">
                                 <h3 class="shop-name">
-                                    <span>Saliim Mall</span>
+                                    <span>{{ $mallTitle  }}</span>
                                 </h3>
                             </div>
 
@@ -70,7 +70,7 @@
                                 @foreach($shop->seller->products as $product)
                                     <li class="col-sm-3">
                                         <div class="product-item  product-item-opt-2">
-                                            <mall-product-grid :product="{{ $product }}"></mall-product-grid>
+                                            <mall-product-grid :product="{{ $product }}" :mallname="{{ json_encode($mallTitle) }}"></mall-product-grid>
                                         </div>
                                     </li>
                                 @endforeach

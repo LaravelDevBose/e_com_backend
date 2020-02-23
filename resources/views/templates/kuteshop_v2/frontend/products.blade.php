@@ -25,7 +25,7 @@
                     </ul><!-- link categori -->
 
                     <!-- List Products -->
-                    <products-page></products-page>
+                    <products-page :mallname="{{ json_encode($mallTitle) }}"></products-page>
                     <!-- List Products -->
 
                 </div><!-- Main Content -->
