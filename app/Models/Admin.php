@@ -104,4 +104,8 @@ class Admin extends Authenticatable
         return $query->where('admin_role', 1);
     }
 
+    public function adminRole()
+    {
+        return $this->hasOne(AdminRole::class, 'admin_id', 'admin_id');
+    }
 }

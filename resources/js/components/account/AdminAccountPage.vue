@@ -104,8 +104,8 @@
                             <span class="text text-bold"> {{ admin.phoneNo }}</span>
                         </td>
                         <td class="text text-center">
-                            <span class="badge badge-success" v-if="admin.role === 1">{{ admin.role_label }}</span>
-                            <span class="badge badge-info" v-if="admin.role === 2">{{ admin.role_label }}</span>
+                            <span class="badge badge-success" v-if="admin.role == 1">{{ admin.role_label }}</span>
+                            <span class="badge badge-info" v-else-if="admin.role == 2">{{ admin.role_label }}</span>
                             <span class="badge badge-primary" v-else>{{ admin.role_label }}</span>
                         </td>
                         <td class="text text-center">

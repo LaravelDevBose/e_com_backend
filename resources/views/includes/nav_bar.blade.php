@@ -22,10 +22,14 @@
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-right">
+                    @if(auth()->user()->adminRole->account_setting || auth()->user()->admin_role == 1)
                     <li><a href="{{ route('admin.account.setting.page') }}"><i class="icon-cog5"></i> Account settings</a></li>
                     <li class="divider"></li>
+                    @endif
+                    @if(auth()->user()->adminRole->admin_account || auth()->user()->admin_role == 1)
                     <li><a href="{{ route('admin.account.index') }}"><i class="icon-cog5"></i> Admin Account </a></li>
                     <li class="divider"></li>
+                    @endif
                     <li><a href="{{ route('admin.logout') }}"><i class="icon-switch2"></i> Logout</a></li>
                 </ul>
             </li>
