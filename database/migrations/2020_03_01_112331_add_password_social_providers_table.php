@@ -13,7 +13,7 @@ class AddPasswordSocialProvidersTable extends Migration
      */
     public function up()
     {
-        Schema::table('social-providers', function (Blueprint $table) {
+        Schema::table('social_providers', function (Blueprint $table) {
             $table->string('password')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AddPasswordSocialProvidersTable extends Migration
      */
     public function down()
     {
-        Schema::table('social-providers', function (Blueprint $table) {
+        Schema::table('social_providers', function (Blueprint $table) {
             $table->dropColumn('password');
         });
     }
