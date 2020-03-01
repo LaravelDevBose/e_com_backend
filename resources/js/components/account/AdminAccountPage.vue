@@ -23,18 +23,19 @@
                                 <label>Email:</label>
                                 <input type="email" v-model="formData.email" class="form-control" placeholder="Email" required>
                             </div>
-                        </div>
-                        <div class="col-md-5">
-                            <!--<div class="form-group">
-                                <label>Role:</label>
-                                <select name="admin_role" v-model="formData.admin_role"  class="form-control" required>
-                                    <option value="">Select A Role</option>
-                                    <option value=""></option>
-                                </select>
-                            </div>-->
                             <div class="form-group">
                                 <label>Phone No.:</label>
                                 <input type="text" v-model="formData.phone_no" class="form-control" placeholder="Phone No" required>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>Role:</label>
+                                <select name="admin_role" v-model="formData.admin_role"  class="form-control" required>
+                                    <option value="1">Super Admin</option>
+                                    <option value="2">Admin</option>
+                                    <option value="3">Sub Admin</option>
+                                </select>
                             </div>
                             <div v-if="!is_edit">
                                 <div class="form-group">
@@ -104,6 +105,7 @@
                         </td>
                         <td class="text text-center">
                             <span class="badge badge-success" v-if="admin.role === 1">{{ admin.role_label }}</span>
+                            <span class="badge badge-info" v-if="admin.role === 2">{{ admin.role_label }}</span>
                             <span class="badge badge-primary" v-else>{{ admin.role_label }}</span>
                         </td>
                         <td class="text text-center">
@@ -138,7 +140,7 @@
                     user_name:'',
                     email:'',
                     phone_no:'',
-                    admin_role:2,
+                    admin_role:3,
                     admin_status:false,
                     password:'',
                     password_confirmation:'',

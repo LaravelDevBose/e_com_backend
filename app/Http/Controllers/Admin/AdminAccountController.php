@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\AdminRole;
 use Exception;
 use App\Http\Resources\Admin\AdminResource;
 use App\Models\Admin;
@@ -64,7 +65,6 @@ class AdminAccountController extends Controller
         if($validator->passes()){
             try{
                 DB::beginTransaction();
-
                 $admin = Admin::create([
                     'full_name'=>$request->full_name,
                     'user_name'=>$request->user_name,
@@ -75,9 +75,29 @@ class AdminAccountController extends Controller
                     'admin_status'=>(!empty($request->admin_status) && $request->admin_status == 1) ? $request->admin_status : 2,
                 ]);
                 if(!empty($admin)){
-                    DB::commit();
-                    $data = new AdminResource(Admin::find($admin->admin_id));
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'New Admin Created Successfully',$data);
+                    if ($request->admin_role == 1) {
+                        $roleArray = AdminRole::superAdminRoles;
+                    } else if ($request->admin_role == 2) {
+                        $roleArray = AdminRole::adminRoles;
+                    } else {
+                        $roleArray = AdminRole::subAdminRoles;
+                    }
+                    $roleDataArray = [
+                        'admin_id'=>$admin->admin_id,
+                        'role_id'=> $request->admin_role,
+                    ];
+                    foreach ($roleArray as $key => $value){
+                        $roleDataArray[ $value] = 1;
+                    }
+                    $insertRole = AdminRole::insert($roleDataArray);
+                    if(!empty($insertRole)){
+                        DB::commit();
+                        $data = new AdminResource(Admin::find($admin->admin_id));
+                        return ResponserTrait::allResponse('success', Response::HTTP_OK,'New Admin Created Successfully',$data);
+                    }else {
+                        throw new Exception('Admin Role Not Store. Try Again.', Response::HTTP_BAD_REQUEST);
+                    }
+
                 }else{
                     throw new Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
                 }
@@ -142,9 +162,39 @@ class AdminAccountController extends Controller
                     'admin_status'=>(!empty($request->admin_status) && $request->admin_status == 1) ? $request->admin_status : 2,
                 ]);
                 if(!empty($admin)){
-                    DB::commit();
-                    $data = new AdminResource(Admin::find($id));
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK,'Admin Information Updated Successfully',$data);
+                    if ($request->admin_role == 1) {
+                        $roleArray = AdminRole::superAdminRoles;
+                    } else if ($request->admin_role == 2) {
+                        $roleArray = AdminRole::adminRoles;
+                    } else {
+                        $roleArray = AdminRole::subAdminRoles;
+                    }
+                    $roleDataArray = [
+                        'role_id'=> $request->admin_role,
+                    ];
+                    foreach (AdminRole::superAdminRoles as $key => $value){
+                        if(in_array($value, $roleArray)){
+                            $roleDataArray[$value] = 1;
+                        }else {
+                            $roleDataArray[$value] = 0;
+                        }
+
+                    }
+                    $adminRole = AdminRole::where('admin_id', $id)->first();
+                    if(!empty($adminRole)){
+                        $role = $adminRole->update($roleDataArray);
+                    }else {
+                        $roleDataArray['admin_id'] = $id;
+                        $role = AdminRole::insert($roleDataArray);
+                    }
+
+                    if (!empty($role)) {
+                        DB::commit();
+                        $data = new AdminResource(Admin::find($id));
+                        return ResponserTrait::allResponse('success', Response::HTTP_OK,'Admin Information Updated Successfully',$data);
+                    }else {
+                        throw new Exception('Admin Role Not Updated. Try Again.', Response::HTTP_BAD_REQUEST);
+                    }
                 }else{
                     throw new Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
                 }

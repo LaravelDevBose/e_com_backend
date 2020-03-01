@@ -15,7 +15,7 @@ class Admin extends Authenticatable
     const AdminRole = [
         1=>'Super Admin',
         2=>'Admin',
-        3=>'Editor'
+        3=>'Sub-Admin'
     ];
 
     const AdminStatus = [
