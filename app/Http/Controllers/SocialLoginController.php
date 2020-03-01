@@ -25,7 +25,6 @@ class SocialLoginController extends Controller
             DB::beginTransaction();
             $getUser = Socialite::driver($provider)->user();
             $getProvider = SocialProvider::where('provider', $provider)->where('provider_id', $getUser->id)->with('user')->latest()->first();
-            $pass = random_int(11111111, 99999999);
             if(empty($getProvider)){
                 $user = User::create([
                     'full_name'     => $getUser->name,
@@ -34,7 +33,6 @@ class SocialLoginController extends Controller
                     'account_type'=>User::AccountType['buyer'],
                     'status'=>config('app.active'),
                     'is_buyer'=>config('app.one'),
-                    'password'=> Hash::make($pass),
                 ]);
 
                 if(!empty($user)){
@@ -47,7 +45,6 @@ class SocialLoginController extends Controller
                             'user_id'=>$user->user_id,
                             'provider_id'=>$getUser->id,
                             'provider'=>$provider,
-                            'password'=>$pass,
                         ]);
 
                         if(!empty($sProvider)){
@@ -77,7 +74,6 @@ class SocialLoginController extends Controller
                         'account_type'=>User::AccountType['buyer'],
                         'status'=>config('app.active'),
                         'is_buyer'=>config('app.one'),
-                        'password'=> Hash::make($pass),
                     ]);
                     if(!empty($user)){
                         $buyer = Buyer::create([
@@ -89,7 +85,6 @@ class SocialLoginController extends Controller
                                 'user_id'=>$user->user_id,
                                 'provider_id'=>$getUser->id,
                                 'provider'=>$provider,
-                                'password'=>$pass,
                             ]);
 
                             if(!empty($sProvider)){

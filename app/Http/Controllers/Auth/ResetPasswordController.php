@@ -71,16 +71,11 @@ class ResetPasswordController extends Controller
         if($validator->passes()){
             try {
                 DB::beginTransaction();
-                $userInfo = User::where('email', $request->email)->where('remember_token', $request->token)->first();
                 $response = $this->broker()->reset(
                     $this->credentials($request), function ($user, $password) {
                     $this->resetPassword($user, $password);
                 });
                 if($response == Password::PASSWORD_RESET){
-                    SocialProvider::where('user_id', $userInfo->user_id)
-                        ->update([
-                            'password'=>$request->password,
-                        ]);
                     DB::commit();
                     return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Account Password Reset Successfully');
                 }else{

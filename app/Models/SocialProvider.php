@@ -15,7 +15,6 @@ class SocialProvider extends Model
         'user_id',
         'provider_id',
         'provider',
-        'password'
     ];
 
     public function user()
