@@ -3,58 +3,17 @@
 @section('Title','Home')
 
 @section('PageCss')
-    <style>
-
-    </style>
 @endsection
 
 @section('Content')
-{{--
-<div class="subscribe-area hidden-xs">
-    <div class="container">
-        <div class="subscribe-container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="subscribe">
-                        <div class="subscribe-title">
-                            <label>Sign Up for Our Newsletter:</label>
-                        </div>
-                        <form id="subscribe-form" method="post" action="#">
-                            <div class="subscribe-content">
-                                <input type="text" id="subscribe-input" name="email">
-                                <button class="button" type="submit"><span>Subscribe</span></button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="subscribe-text-link">
-                        <div class="subscribe-link">
-                            <ul class="social-link">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            </ul>
-                            <p class="discount-text"><strong>WINTER SALE!</strong> 20% off on selected items</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<news-letter-section></news-letter-section>
 <!-- Newsletter and social widget end-->
---}}
 
 <!-- Slider -->
 <div id="thmsoft-slideshow" class="thmsoft-slideshow">
     <div class="container">
         <div class="row">
             <div class=" col-lg-3 col-md-3 col-sm-5 col-xs-12 col-mid">
-                <!--<div class="col-inner ">
-                      <div class="img-block"> <a href="#" class="ves-btnlink img-animation" title="Image"> <img src="{{ asset('crocus_v2/images/mid-banner1.png')}}"  alt="Image"></a> </div>
-                      <div class="img-block1"> <a href="#" title="Image"> <img src="{{ asset('crocus_v2/images/mid-banner2.png')}}"  alt="Image"></a> </div>
-                    </div>-->
                 @if(!empty($topProducts))
                 <div class="top-products">
                     <div class="title">Top Products</div>
@@ -161,6 +120,9 @@
 
             <!-- featured category fashion -->
             <div class="col-md-9" >
+                @if(!empty($latestDeals))
+                    <latest-deal-section :latest_deal="{{ $latestDeals }}"></latest-deal-section>
+                @endif
                 @if(!empty($sections))
                     @foreach($sections as $section)
                         @if($section->section_type == 1)
@@ -315,6 +277,7 @@
 
 @section('PageJs')
 <script type='text/javascript'>
+
     jQuery(document).ready(function() {
         jQuery('#rev_slider_4').show().revolution({
             dottedOverlay: 'none',
@@ -371,19 +334,4 @@
             fullScreenOffsetContainer: ''
         });
     });
-</script>
-<!-- Hot Deals Timer 1-->
-{{--<script type="text/javascript">
-    var dthen1 = new Date("12/25/17 11:59:00 PM");
-    start = "05/09/15 03:02:11 AM";
-    start_date = Date.parse(start);
-    var dnow1 = new Date(start_date);
-    if (CountStepper > 0)
-        ddiff = new Date((dnow1) - (dthen1));
-    else
-        ddiff = new Date((dthen1) - (dnow1));
-    gsecs1 = Math.floor(ddiff.valueOf() / 1000);
-    var iid1 = "countbox_1";
-    CountBack_slider(gsecs1, "countbox_1", 1);
-</script>--}}
 @endsection

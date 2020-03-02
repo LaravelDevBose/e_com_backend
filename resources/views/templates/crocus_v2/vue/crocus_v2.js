@@ -18,6 +18,16 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
 Vue.component('dashboard', require('./components/auth/buyer/auth/BuyerAuthPage').default);
 
+Vue.filter('two_digits', (value) => {
+    if (value < 0) {
+        return '00';
+    }
+    if (value.toString().length <= 1) {
+        return `0${value}`;
+    }
+    return value;
+});
+
 const crocus_v2 = new Vue({
     el: '#crocus_v2',
     store:store,
