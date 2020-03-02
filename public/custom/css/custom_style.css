@@ -147,6 +147,55 @@
     font-size: 18px;
     padding-right:5px;
 }
+.brand-container{
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mall-brand{
+    height: 80px;
+    border: 2px solid rgb(214, 214, 214);
+    width: 80px;
+    position: absolute;
+    bottom: 62px;
+    left: 38%;
+    margin-bottom: 25px;
+    background: white;
+}
+.mall-brand img{
+    height: auto!important;
+    width: 100%!important;
+    max-width: 76px!important;
+    max-height: 76px!important;
+}
+
+.brand-name{
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+.mall-product:hover .brand-container{
+    display: none;
+}
+.mall-info{
+    padding: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+}
+.mall-info .comp-info h5{
+    font-size: 18px;
+    font-weight: bold;
+}
+.mall-info .cominfo img {
+    height: 80px;
+    width: 80px;
+}
+
+.mall-info .cominfo .comp-name{
+    font-weight: bold;
+    font-size: 16px;
+}
 
 @media only screen and (min-device-width: 991px) and (max-device-width: 1199px){
     .payment-options ul li{
@@ -158,5 +207,10 @@
     }
     .shop-info .shop-name {
         font-size: 1em;
+    }
+}
+@media only screen and (min-device-width: 768px){
+    .mall-brand{
+        left: 32%;
     }
 }

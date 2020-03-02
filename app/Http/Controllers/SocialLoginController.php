@@ -6,11 +6,11 @@ use App\Models\Buyer;
 use App\Models\SocialProvider;
 use App\Traits\ResponserTrait;
 use App\User;
-use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialLoginController extends Controller
@@ -29,7 +29,6 @@ class SocialLoginController extends Controller
                 $user = User::create([
                     'full_name'     => $getUser->name,
                     'email'    => $getUser->email,
-                    'user_name' => Str::lower(Str::slug($getUser->name)),
                     'phone_no' => '',
                     'account_type'=>User::AccountType['buyer'],
                     'status'=>config('app.active'),
@@ -51,6 +50,11 @@ class SocialLoginController extends Controller
                         if(!empty($sProvider)){
                             auth()->login($user);
                             DB::commit();
+                            if(!empty(Cart::content()) && count(Cart::content()) > 0) {
+                                return redirect()->route('buyer.checkout');
+                            }else{
+                                return redirect()->route('buyer.home');
+                            }
                             return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', '', route('buyer.home'));
                         }else{
                             throw new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
@@ -66,7 +70,6 @@ class SocialLoginController extends Controller
                     $user = User::create([
                         'full_name'     => $getUser->name,
                         'email'    => $getUser->email,
-                        'user_name' => Str::lower(Str::slug($getUser->name)),
                         'phone_no' => '',
                         'account_type'=>User::AccountType['buyer'],
                         'status'=>config('app.active'),
@@ -87,7 +90,13 @@ class SocialLoginController extends Controller
                             if(!empty($sProvider)){
                                 auth()->login($user);
                                 DB::commit();
-                                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', '', route('buyer.home'));
+
+                                if(!empty(Cart::content()) && count(Cart::content()) > 0) {
+                                    return redirect()->route('buyer.checkout');
+                                }else{
+                                    return redirect()->route('buyer.home');
+                                }
+                                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', $data, route('buyer.home'));
                             }else{
                                 throw new \Exception('Invalid Information', Response::HTTP_BAD_REQUEST);
                             }
@@ -100,13 +109,19 @@ class SocialLoginController extends Controller
                 }else{
                     DB::commit();
                     auth()->login($getProvider->user);
+                    if(!empty(Cart::content()) && count(Cart::content()) > 0) {
+                        return redirect()->route('buyer.checkout');
+                    }else{
+                        return redirect()->route('buyer.home');
+                    }
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successfully', $data, route('buyer.home'));
                 }
 
             }
 
         }catch(\Exception $ex){
             DB::rollBack();
-            return ResponserTrait::allResponse('error', $ex->getCode(), $ex->getMessage());
+            return redirect()->route('login');
         }
 
     }

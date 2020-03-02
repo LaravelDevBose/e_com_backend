@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Events\NewOrderStoreEvent;
+use App\Events\OnCancelOrderItem;
 use App\Events\VerifiedAccount;
 use App\Listeners\InvoiceSendToBuyerEmail;
 use App\Listeners\NotifyAdminForNewOrder;
 use App\Listeners\NotifySellerForNewOrder;
+use App\Listeners\UpdateProductQtyListener;
 use App\Listeners\VerifyEmailListener;
 use App\Listeners\VerifiedAccountListener;
 use Illuminate\Support\Facades\Event;
@@ -32,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
             InvoiceSendToBuyerEmail::class,
             NotifyAdminForNewOrder::class,
             NotifySellerForNewOrder::class,
+        ],
+        OnCancelOrderItem::class=>[
+            UpdateProductQtyListener::class,
         ]
     ];
 

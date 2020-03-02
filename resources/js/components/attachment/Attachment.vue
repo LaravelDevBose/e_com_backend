@@ -8,16 +8,11 @@
                 </div>
             </div>
         </div>
-        <div class="row" v-if="attachments">
-            <div class="col-lg-4 col-sm-4" v-for="(attachment, index) in attachments" :key="attachment.id">
+        <div class="row" v-if="attachmentData">
+            <div class="col-lg-4 col-sm-4" v-for="(attachment, index) in attachmentData" :key="attachment.id">
                 <div class="thumbnail">
                     <div class="thumb">
                         <img :src="attachment.img" alt="">
-                        <div class="caption-overflow">
-                            <span>
-                                <a :href="attachment.img" data-fancybox="images"  class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-eye"></i></a>
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -33,7 +28,7 @@
         name: "Attachment",
         data(){
             return{
-
+                attachmentData:[],
             }
         },
         created() {
@@ -68,8 +63,29 @@
         computed:{
             ...mapGetters([
                 'attachments'
-            ])
+            ]),
+            checkAttachmentsData(){
+                return JSON.parse(JSON.stringify(this.attachments));
+            }
+        },
+        watch:{
+            checkAttachmentsData:{
+                handler(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        if(this.multi_file === true || this.multi_file === 'true' || this.multi_file === 1){
+                            if(this.attachments.length > 1){
+                                delete this.attachmentData[0];
+                                this.attachmentData[0]=this.attachments[0];
+                            }else{
+                                this.attachmentData = this.attachments;
+                            }
+                        }else{
+                            this.attachmentData = this.attachments;
+                        }
+                    }
 
+                }
+            },
         }
 
     }

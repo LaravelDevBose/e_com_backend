@@ -1,13 +1,23 @@
 <template>
     <div class="box-border">
         <ul class="shipping_method">
-            <li v-if="shippingMethods" v-for="(shipping, index) in shippingMethods" :key="index">
-                <label for="radio_button_3" >
-                    <input checked="" v-model="formData.shipping_method_id" :value="index" name="radio_3" id="radio_button_3" @click="setDeliveryCharge(deliveryCharge)" type="radio">$ {{ deliveryCharge }} {{ shipping }}
+            <li v-if="deliveryMethods" v-for="(method, index) in deliveryMethods" :key="index">
+                <label :for="'radio_button_'+index" >
+                    <input checked="" v-model="formData.shipping_method_id" :value="method.delivery_id" name="radio_3" :id="'radio_button_'+index" type="radio">
+                    {{ method.delivery_title }}-  $ {{ method.cost_price}}
+                    <br>
+                    ({{ method.min_time }}-{{ method.max_time }}) working days
                 </label>
             </li>
+            <li class="row">
+                <div class="col-sm-6">
+                    <button type="button" @click.prevent="backTab()" class="button">Back</button>
+                </div>
+                <div class="col-sm-6" style="text-align:right;">
+                    <button type="button" @click.prevent="shippingMethodStore" class="button">{{ $t('checkout.continue')}}</button>
+                </div>
+            </li>
         </ul>
-        <button type="button" @click.prevent="shippingMethodStore" class="button">{{ $t('checkout.continue')}}</button>
     </div>
 </template>
 
@@ -20,6 +30,7 @@
             return{
                 formData:{
                     shipping_method_id:'',
+                    cost_price:0,
                 }
             }
         },
@@ -33,6 +44,11 @@
                 'deliveryChargeUpdate'
             ]),
             shippingMethodStore(){
+                this.deliveryMethods.filter(method=>{
+                    if(method.delivery_id === this.formData.shipping_method_id){
+                        this.formData.cost_price = method.cost_price
+                    }
+                });
                 this.storeShippingMethod(this.formData)
                     .then(response=>{
                         this.$noty.success('Shipping Information Added.');
@@ -58,13 +74,34 @@
                 this.tabChange(data);
 
             },
+            backTab(){
+                let data={
+                    billing:{
+                        'tabAction':false,
+                    },
+                    shopping:{
+                        'tabAction':true,
+                    },
+                    method:{
+                        'tabAction':false,
+                    },
+                    payment:{
+                        'tabAction':false,
+                    },
+                    cart_tab:{
+                        'tabAction':false,
+                    },
+                };
+                this.tabChange(data);
+
+            },
             setDeliveryCharge(charge){
                 this.deliveryChargeUpdate(charge);
             }
         },
         computed:{
             ...mapGetters([
-                'shippingMethods',
+                'deliveryMethods',
                 'deliveryCharge'
             ])
         }

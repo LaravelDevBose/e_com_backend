@@ -46,33 +46,33 @@
 
             <div class="row">
                 <div class="col-md-3 col-lg-3 col-xs-6 col">
-                    <strong class="logo-footer">
-                        <a href=""><img src="{{ asset('kuteshop_v2/images/media/index2/logo-footer.png')}}" alt="logo"></a>
-                    </strong>
-
+                    <div class="block-newletter">
+                        <div class="block-title">About Us</div>
+                        {!! (!empty($contactInfos['about_us']))? $contactInfos['about_us'] : '' !!}
+                    </div>
                     <table class="address">
                         <tr>
                             <td><b>Address:  </b></td>
-                            <td>Example Street 68, Mahattan,New York, USA</td>
+                            <td>{!!  (!empty($contactInfos['contact_address']))? $contactInfos['contact_address'] : ''  !!}</td>
                         </tr>
                         <tr>
                             <td><b>Phone: </b></td>
-                            <td>+ 65 123 456 789</td>
+                            <td>{{ (!empty($contactInfos['contact_phone']))? $contactInfos['contact_phone'] : '' }}</td>
                         </tr>
                         <tr>
-                            <td><b>Email:</b></td>
-                            <td>Support@ovicsoft.com</td>
+                            <td><b>Hours:</b></td>
+                            <td>Open 24 hours</td>
                         </tr>
                     </table>
                 </div>
                 <div class="col-md-2 col-lg-2 col-xs-6 col">
-                    @if(!empty($headerPageMenus))
+                    @if(!empty($tcPageMenus))
                     <div class="links">
-                        <h3 class="title">Company</h3>
+                        <h3 class="title">Terms and Conditions</h3>
                         <ul>
-                            @foreach($headerPageMenus as $pageMenu)
+                            @foreach($tcPageMenus as $tcPageMenu)
                             <li>
-                                <a href="{{ route('front.pages', $pageMenu->page_slug) }}" title="{{ $pageMenu->menu_title }}">{{ $pageMenu->menu_title }}</a>
+                                <a href="{{ route('front.pages', $tcPageMenu->page_slug) }}" title="{{ $tcPageMenu->menu_title }}">{{ $tcPageMenu->menu_title }}</a>
                             </li>
                             @endforeach
                         </ul>
@@ -80,39 +80,35 @@
                     @endif
                 </div>
                 <div class="col-md-2 col-lg-2 col-xs-6 col">
-                    <div class="links">
-                        <h3 class="title">My Account</h3>
-                        <ul>
-                            <li><a href="">My Order</a></li>
-                            <li><a href="">My Wishlist</a></li>
-                            <li><a href="">My Credit Slip</a></li>
-                            <li><a href="">My Addresses</a></li>
-                            <li><a href="">My Account</a></li>
-                        </ul>
-                    </div>
+                    @if(!empty($ppPageMenus))
+                        <div class="links">
+                            <h3 class="title">Privacy</h3>
+                            <ul>
+                                @foreach($ppPageMenus as $ppPageMenu)
+                                    <li>
+                                        <a href="{{ route('front.pages', $ppPageMenu->page_slug) }}" title="{{ $ppPageMenu->menu_title }}">{{ $ppPageMenu->menu_title }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
                 <div class="col-md-2 col-lg-2 col-xs-6 col">
-                    <div class="links">
-                        <h3 class="title">Support</h3>
-                        <ul>
-                            <li><a href="">New User Guide</a></li>
-                            <li><a href="">Help Center</a></li>
-                            <li><a href="">Refund Policy</a></li>
-                            <li><a href="">Report Spam</a></li>
-                            <li><a href="">FAQ</a></li>
-                        </ul>
-                    </div>
+                    @if(!empty($csPageMenus))
+                        <div class="links">
+                            <h3 class="title">Customer Services</h3>
+                            <ul>
+                                @foreach($csPageMenus as $csPageMenu)
+                                    <li>
+                                        <a href="{{ route('front.pages', $csPageMenu->page_slug) }}" title="{{ $csPageMenu->menu_title }}">{{ $csPageMenu->menu_title }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
                 <div class="col-md-3 col-lg-3 col-xs-6 col">
-                    <div class="block-social">
-                        <div class="block-title">Let’s Socialize </div>
-                        <div class="block-content">
-                            <a href="" class="sh-facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
-                            <a href="" class="sh-pinterest"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
-                            <a href="" class="sh-twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-                            <a href="" class="sh-google"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
+                    <news-letter-section></news-letter-section>
                 </div>
             </div>
         </div>
@@ -126,6 +122,7 @@
                 <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-2.png')}}">
                 <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-3.png')}}">
                 <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-4.png')}}">
+                <img alt="payment" src="{{ asset('kuteshop_v2/images/payment/payment-5.png')}}" style="width: 115px; height: 46px;">
             </div>
         </div>
         @if(!empty($categoryTree))
@@ -149,7 +146,7 @@
         @endif
         <div class="copyright">
 
-            Copyright © 2016 KoolShop. All Rights Reserved. Designed by KoolShop
+            Copyright © 2020 Saliim. All Rights Reserved. Designed by Saliim
 
         </div>
 

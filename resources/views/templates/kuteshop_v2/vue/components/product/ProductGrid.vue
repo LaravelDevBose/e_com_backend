@@ -1,6 +1,6 @@
 <template>
 
-    <div class="product-item-info">
+    <div class="product-item-info" v-if="product">
         <div class="product-item-photo">
             <a href="#" @click.prevent="productDetails(product.product_slug)" :title="product.product_name" class="product-item-img">
                 <clazy-load :src="product.thumb_image.image_path">
@@ -9,7 +9,6 @@
                         <img :title="product.product_name" src="/images/placeholder.png" style="width:100%; height:auto;">
                     </div>
                 </clazy-load>
-
             </a>
             <div class="product-item-actions">
                 <a href="#" title="WishList" class="btn btn-wishlist" @click.prevent="addWishList(product.product_slug)"><span>{{ $t('header.wishlist')}}</span></a>
@@ -17,15 +16,26 @@
                 <a href="#" title="Buy Now" class="btn" @click.prevent="buyNow()" style="font-size:18px;"><i class="fa fa-cart-plus"></i></a>
             </div>
             <button class="btn btn-cart" type="button" @click.prevent="addToCart()"><span>{{ $t('product.add_to_cart')}}</span></button>
-<!--                    <span class="product-item-label label-price">30% <span>off</span></span>-->
+            <span v-if="product.seller_id === 1" class="product-item-label label-sale-off">{{ mallname }}</span>
         </div>
         <div class="product-item-detail">
             <strong class="product-item-name">
                 <a :title="product.product_name" @click.prevent="productDetails(product.product_slug)" href="#">{{ product.product_name }}</a>
             </strong>
             <div class="clearfix">
-                <div class="product-item-price">
-                    <span class="price" >$ {{ cartData.price }}</span>
+                <div v-if="this.product.product_type === 1" class="product-item-price">
+                    <span v-if="typeof this.product.discount_price !== 'undefined' && this.product.discount_price > 0">
+                        <span class="price" >$ {{ (parseFloat(this.product.product_price).toFixed(2) -  parseFloat(this.product.discount_price)).toFixed(2) }}</span>
+                        <span class="old-price">$ {{ parseFloat(this.product.product_price).toFixed(2) }}</span>
+                    </span>
+                    <span class="price" v-else>$ {{ parseFloat(this.product.product_price).toFixed(2) }}</span>
+                </div>
+                <div v-else class="product-item-price">
+                    <span v-if="typeof this.product.discount_price !== 'undefined' && this.product.discount_price > 0">
+                        <span class="price" >$ {{ (parseFloat(this.product.single_variation.price).toFixed(2) -  parseFloat(this.product.discount_price)).toFixed(2) }}</span>
+                        <span class="old-price">$ {{ parseFloat(this.product.single_variation.price).toFixed(2) }}</span>
+                    </span>
+                    <span class="price" v-else>$ {{ parseFloat(this.product.single_variation.price).toFixed(2) }}</span>
                 </div>
                 <div class="product-reviews-summary ">
                     <div class="rating-summary grid-rating">
@@ -50,6 +60,11 @@
         props:{
             product:{
                 type:Object,
+                default:{},
+            },
+            mallname:{
+                type: String,
+                default: 'Saliim Mall'
             }
         },
         data(){
@@ -64,20 +79,13 @@
                     sizeId:'',
                 },
                 rating:0,
+                oldPrice:0,
             }
         },
         created(){
 
         },
         mounted(){
-            if(this.product.product_type === 1){
-                this.cartData.price = parseFloat(this.product.product_price);
-            }else{
-                this.cartData.price = parseFloat(this.product.single_variation.price);
-                this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
-                this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
-            }
-
             if(this.product.reviews.length >0 && this.product.reviews !== ''){
                 let sum = this.product.reviews.reduce((acc, item) => acc + parseInt(item.rating), 0);
                 this.rating = sum / this.product.reviews.length;
@@ -94,7 +102,6 @@
                 location.href = '/product/'+slug;
             },
             addWishList(slug){
-                console.log(slug);
                 if(AppStorage.getWhoIs() === 'buyer'){
                     this.insertToWishList(slug)
                         .then(response=>{
@@ -131,6 +138,17 @@
             addToCart(){
                 this.cartData.id = this.product.product_id;
                 this.cartData.name = this.product.product_name;
+                if(this.product.product_type === 1){
+                    this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
+                }else{
+                    this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
+                    this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
+                    this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+                }
+                if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                    this.oldPrice = this.cartData.price;
+                    this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
+                }
                 this.addToCartProduct(this.cartData)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
@@ -143,6 +161,17 @@
             buyNow(){
                 this.cartData.id = this.product.product_id;
                 this.cartData.name = this.product.product_name;
+                if(this.product.product_type === 1){
+                    this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
+                }else{
+                    this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
+                    this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
+                    this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+                }
+                if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                    this.oldPrice = this.cartData.price;
+                    this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
+                }
                 this.addToCartProduct(this.cartData)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
@@ -153,11 +182,12 @@
                         }
                     })
             },
+
         },
         computed:{
             ...mapGetters([
                 'cartList'
-            ])
+            ]),
         }
     }
 </script>

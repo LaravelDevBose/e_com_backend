@@ -51,7 +51,7 @@ export default new Vuex.Store({
                 .then(response=>{
                     return response.data;
                 });
-        }
+        },
     },
     mutations:{
         setResponse:(state, res)=>{

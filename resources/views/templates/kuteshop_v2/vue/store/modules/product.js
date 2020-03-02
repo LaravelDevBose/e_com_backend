@@ -8,6 +8,8 @@ const state = {
     sizes:[],
     products:[],
     hot_products:[],
+    _min_price:'',
+    _max_price:'',
 };
 
 //declare Getters
@@ -20,6 +22,8 @@ const getters = {
     sizes:(state)=>state.sizes,
     productsData:(state)=>state.products,
     hotProducts:(state)=>state.hot_products,
+    search_min_price:(state) => state._min_price,
+    search_max_price:(state) => state._max_price,
 };
 
 const actions = {
@@ -123,6 +127,8 @@ const mutations = {
         state.colors = response.colors;
         state.tags = response.tags;
         state.sizes = response.sizes;
+        state._min_price = parseInt(response.search_min_price);
+        state._max_price = parseInt(response.search_max_price);
     },
     setProductsData:(state,response)=>{
         if(response.hasOwnProperty('current_page')){
@@ -130,6 +136,8 @@ const mutations = {
             delete response.data;
             state.paginate = response;
         }else{
+            // console.table(response);
+            state.products.length = 0;
             state.products = response
         }
     },

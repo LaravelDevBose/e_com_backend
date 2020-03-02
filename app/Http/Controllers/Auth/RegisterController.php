@@ -73,7 +73,6 @@ class RegisterController extends Controller
     {
         return User::create([
             'full_name' => $data['full_name'],
-            'user_name' => (!empty($data['user_name'])) ? $data['user_name'] : Str::lower(Str::slug($data['full_name'])),
             'email' => $data['email'],
             'phone_no' => $data['phone_no'],
             'password' => Hash::make($data['password']),
@@ -86,7 +85,6 @@ class RegisterController extends Controller
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
             'full_name'=>'required|string',
-            'user_name'=>'max:255|unique:users',
             'phone_no'=>'required',
             'email'=>'required|string|email|max:255|unique:users',
             'password'=>'required|string|min:8|confirmed',

@@ -89,7 +89,8 @@
                         </td>
                         <td class="text text-center">
                             <span class="badge badge-success" v-if="brand.status === 1">Active</span>
-                            <span class="badge badge-warning" v-else>De-active</span>
+                            <span class="badge badge-primary" v-else-if="brand.status === 3">Requested</span>
+                            <span class="badge badge-warning" v-else>Inactive</span>
                         </td>
                         <td class="text text-center">
                             <ul class="icons-list">

@@ -11,7 +11,13 @@
             @foreach($categoryTree as $category)
             <li class="{{ (!empty($category->children) && count($category->children) > 0)?'parent':'' }}">
                 <a href="{{ route('front.category.product', $category->category_slug) }}">
-                    <span class="icon"><img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat1.png')}}" alt="nav-cat"></span>
+                    <span class="icon">
+                        @if(!empty($category->iconImage))
+                            <img src="{{ $category->iconImage->image_path  }}" alt="nav-cat">
+                        @else
+                            <img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat1.png')}}" alt="nav-cat">
+                        @endif
+                    </span>
                     {{ $category->category_name }}
                 </a>
                 @if(!empty($category->children) && count($category->children) > 0)
@@ -41,9 +47,9 @@
             @endforeach
         </ul>
 
-        <div class="view-all-categori">
+        {{--<div class="view-all-categori">
             <a  class="open-cate btn-view-all">@lang('header.all') {{ trans_choice('header.category',2) }}</a>
-        </div>
+        </div>--}}
     </div>
     @endif
 </div>

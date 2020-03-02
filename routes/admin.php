@@ -69,6 +69,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
 
     Route::get('/status/list/product', 'ProductController@get_product_status');
     Route::post('/product/status/update', 'ProductController@product_status_update')->name('product.status.update');
+    Route::get('/product/status/update', 'ProductController@product_status_update')->name('product.status.update');
 
     Route::post('product/image/store', 'ProductImageController@store')->name('product_image.store');
     Route::delete('product/image/delete/{id}', 'ProductImageController@delete')->name('product_image.delete');
@@ -94,6 +95,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::post('/campaign/store', 'SettingController@campaign_setting_store');
         Route::post('/delivery/store', 'SettingController@delivery_setting_store');
         Route::post('/logo/store', 'SettingController@logo_image_store');
+        Route::post('/general/store', 'SettingController@general_setting_store');
     });
 
     Route::prefix('order')->as('order.')->group(function () {
@@ -101,8 +103,11 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::get('/latest', 'OrderController@latest_order')->name('latest');
         Route::post('/list', 'OrderController@order_list')->name('list');
         Route::get('/status', 'OrderController@order_status');
-        Route::get('/{order_no}/show', 'OrderController@show')->name('show');
+        Route::get('/{order_id}/show', 'OrderController@show')->name('show');
+        Route::get('/{order_id}/details', 'OrderController@order_details')->name('details');
         Route::post('/status/update', 'OrderController@update_order_status')->name('status.update');
+        Route::post('/item/status/update', 'OrderController@update_order_item_status')->name('item.status.update');
+        Route::get('/{order_id}/print', 'OrderController@invoice_print')->name('order.print');
     });
 
     Route::prefix('buyer')->as('buyer.')->group(function (){
@@ -144,8 +149,37 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::delete('/{groupId}', 'GroupProductController@destroy')->name('destroy');
     });
 
+    Route::prefix('delivery')->as('delivery.')->group(function (){
+        Route::get('method', 'DeliveryMethodController@index')->name('method.index');
+        Route::get('method/list', 'DeliveryMethodController@delivery_method_list')->name('method.list');
+        Route::post('method/store', 'DeliveryMethodController@store')->name('method.store');
+        Route::get('method/{delivery_id}/edit', 'DeliveryMethodController@edit')->name('method.edit');
+        Route::put('method/{delivery_id}/update', 'DeliveryMethodController@update')->name('method.update');
+        Route::delete('method/{delivery_id}', 'DeliveryMethodController@destroy')->name('method.delete');
+    });
+
+    Route::group(['prefix'=>'account', 'as'=>'account.'], function(){
+        Route::get('/','AdminAccountController@index')->name('index');
+        Route::get('/list','AdminAccountController@admin_list')->name('list');
+        Route::post('/store','AdminAccountController@store')->name('store');
+        Route::get('/{admin_id}','AdminAccountController@show')->name('show');
+        Route::put('/{admin_id}/update','AdminAccountController@update')->name('update');
+        Route::delete('/{admin_id}', 'AdminAccountController@destroy')->name('destroy');
+
+        Route::get('/setting/page', 'AdminAccountController@setting_page')->name('setting.page');
+        Route::post('/details/update', 'AdminAccountController@details_update')->name('details.update');
+        Route::post('/password/update', 'AdminAccountController@change_password')->name('password.change');
+    });
+
+    Route::group(['prefix'=>'latest/deal', 'as'=>'latest.deal.'], function (){
+        Route::get('/page', 'LatestDealController@latest_deal_page')->name('page');
+        Route::get('/data', 'LatestDealController@latest_deal_data');
+        Route::post('/store/update', 'LatestDealController@store_update_latest_deal');
+        Route::delete('/delete/product/{dealId}', 'LatestDealController@deal_product_remove');
+    });
 });
 
+Route::get('/admin/newsletters', 'NewsLetterController@index')->middleware('auth:admin')->name('admin.newsletters');
 Route::prefix('api/admin')->namespace('Admin')->group(function (){
 
 });

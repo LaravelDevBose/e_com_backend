@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -10786,7 +10786,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       formData: {
         full_name: '',
-        user_name: '',
+        // user_name:'',
         email: '',
         phone_no: ''
       },
@@ -17746,7 +17746,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\n    border: 1px solid #ddd!important;\n}\n", ""]);
+exports.push([module.i, "\n.selectMulti span[data-v-09f2d390]{\r\n    border: 1px solid #ddd!important;\n}\r\n", ""]);
 
 // exports
 
@@ -74256,9 +74256,7 @@ var staticRenderFns = [
                 { staticClass: "text text-blue  text-center text-bold" },
                 [
                   _c("span", [
-                    _vm._v(
-                      " Well come to Seller Panel\n                        "
-                    )
+                    _vm._v(" Welcome to Seller Panel\n                        ")
                   ])
                 ]
               )
@@ -80493,36 +80491,6 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.formData.user_name,
-                      expression: "formData.user_name"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    placeholder: "user Name",
-                    required: ""
-                  },
-                  domProps: { value: _vm.formData.user_name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.formData, "user_name", $event.target.value)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _vm._m(3),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
                       value: _vm.formData.email,
                       expression: "formData.email"
                     }
@@ -80542,7 +80510,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(4),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -80613,15 +80581,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", [
       _vm._v("Full Name "),
-      _c("span", { staticClass: "text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _vm._v("User Name: "),
       _c("span", { staticClass: "text-danger text-bold" }, [_vm._v("*")])
     ])
   },
@@ -95851,12 +95810,19 @@ var regionDayMap = {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 window.BASE_URL = document.querySelector('meta[name="base-url"][content]').content;
-window.LANG = document.querySelector('meta[name="lang"][content]').content;
+var lang = document.querySelector('meta[name="lang"][content]');
+
+if (lang) {
+  window.LANG = lang.content;
+} else {
+  console.log('multi language not supported');
+}
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
  * code may be modified to fit the specific needs of your application.
  */
+
 
 try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"]; // window.$ = window.jQuery = jQuery = require('jquery');
@@ -96187,6 +96153,11 @@ function () {
       localStorage.setItem('whoIs', whoIs);
     }
   }, {
+    key: "storeUserId",
+    value: function storeUserId(userId) {
+      localStorage.setItem('userId', userId);
+    }
+  }, {
     key: "storeUserInfo",
     value: function storeUserInfo(userInfo) {
       var jsonData = JSON.parse(userInfo.user);
@@ -96194,6 +96165,7 @@ function () {
       this.storeUser(userInfo.user);
       this.storeFullName(jsonData.full_name);
       this.storeWhoIs(userInfo.whoIs);
+      this.storeUserId(jsonData.user_id);
     }
   }, {
     key: "storageClear",
@@ -96202,6 +96174,7 @@ function () {
       localStorage.removeItem('user');
       localStorage.removeItem('whoIs');
       localStorage.removeItem('full_name');
+      localStorage.removeItem('userId');
     }
   }, {
     key: "storageFullClear",
@@ -96227,6 +96200,11 @@ function () {
     key: "getWhoIs",
     value: function getWhoIs() {
       return localStorage.getItem('whoIs');
+    }
+  }, {
+    key: "getUserId",
+    value: function getUserId() {
+      return localStorage.getItem('userId');
     }
   }, {
     key: "getUserInfo",
@@ -98849,17 +98827,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  cropImages: [],
+  crop_images: [],
   errors: null,
-  cropImageIds: []
+  crop_imageIds: []
 }; //declare Getters
 
 var getters = {
   cropImages: function cropImages(state) {
-    return state.cropImages;
+    return state.crop_images;
   },
   cropImageIds: function cropImageIds(state) {
-    return state.cropImageIds;
+    return state.crop_imageIds;
   }
 };
 var actions = {
@@ -98915,13 +98893,25 @@ var actions = {
 var mutations = {
   setCropImage: function setCropImage(state, response) {
     response.attachments.forEach(function (file) {
-      state.cropImages.unshift(file);
-      state.cropImageIds.push(file.id);
+      if (state.crop_images.length === 0) {
+        state.crop_images.unshift(file);
+        state.crop_imageIds.push(file.id);
+      } else {
+        $.each(state.crop_images, function (key, prvImg) {
+          if (prvImg.serial === file.serial) {
+            state.crop_images.splice(key, 1);
+            state.crop_imageIds.splice(key, 1);
+          }
+        });
+        state.crop_images.unshift(file);
+        state.crop_imageIds.push(file.id);
+      }
     });
   },
-  emptyAttachmentFile: function emptyAttachmentFile(state) {
-    state.attachmentsFile = [];
-    state.attachment_ids = [];
+  emptyImageArray: function emptyImageArray(state, length) {
+    console.log(length);
+    state.crop_images.length = 0;
+    state.crop_imageIds.length = 0;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -99904,14 +99894,14 @@ var mutations = {
 
 /***/ }),
 
-/***/ 4:
+/***/ 5:
 /*!*****************************************************************************!*\
   !*** multi ./resources/views/seller_panel/limitless_v1/vue/limitless_v1.js ***!
   \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/e_com_backend/resources/views/seller_panel/limitless_v1/vue/limitless_v1.js */"./resources/views/seller_panel/limitless_v1/vue/limitless_v1.js");
+module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v1\vue\limitless_v1.js */"./resources/views/seller_panel/limitless_v1/vue/limitless_v1.js");
 
 
 /***/ })

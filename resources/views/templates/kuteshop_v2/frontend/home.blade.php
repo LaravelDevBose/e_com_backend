@@ -14,7 +14,7 @@
     <main class="site-main">
         <div class="block-section-top block-section-top2">
             <div class="container">
-                <div class="box-section-top">
+                <div class="box-section-top" style=" min-height: 40rem;">
                 @include('templates.kuteshop_v2.layouts.frontend.includes.navigation')
 
                 <!-- block slide top -->
@@ -24,7 +24,67 @@
             </div>
         </div>
 
-        <!-- Block deals of -->
+        <div class="container">
+            @if(!empty($latestDeals) && !empty($latestDeals->deal_products))
+                <div class="block-deals-of-opt2">
+                    <div class="block-title ">
+                        <span class="title">Latest Deals</span>
+                        <div class="deals-of-countdown">
+                            <span class="title">End In</span>
+                            <div class="count-down-time" data-countdown="{{ $latestDeals->end_time }}"></div>
+                        </div>
+                    </div>
+                    <div class="block-content">
+                        <div class="owl-carousel"
+                             data-nav="true"
+                             data-dots="false"
+                             data-margin="8"
+                             data-responsive='{
+                            "0":{"items":1},
+                            "480":{"items":2},
+                            "640":{"items":3},
+                            "992":{"items":4},
+                            "1200":{"items":5}
+                            }'>
+                            @foreach($latestDeals->deal_products as $dealProduct)
+                                @if(!empty($dealProduct->product))
+                                <section-product-grid :product="{{ $dealProduct->product }}" :mallname="{{ json_encode($mallTitle) }}"></section-product-grid>
+                                @endif
+                            @endforeach
+                        </div>
+
+                    </div>
+                </div>
+            @endif
+
+            @if(!empty($adminLatestProducts))
+                <div class="block-deals-of-opt2">
+                    <div class="block-title ">
+                        <span class="title">Saliim Mall Products</span>
+                    </div>
+                    <div class="block-content">
+                        <div class="owl-carousel"
+                             data-nav="true"
+                             data-dots="false"
+                             data-margin="8"
+                             data-responsive='{
+                                "0":{"items":1},
+                                "480":{"items":2},
+                                "640":{"items":3},
+                                "992":{"items":4},
+                                "1200":{"items":5}
+                                }'>
+                            @foreach($adminLatestProducts as $product)
+                                @if(!empty($product))
+                                <mall-product-grid :product="{{ $product }}" :mallname="{{ json_encode($mallTitle) }}"></mall-product-grid>
+                                @endif
+                            @endforeach
+                        </div>
+                        <a href="{{ route('front.mall') }}" style="float: right; color: #f78031;">See All</a>
+                    </div>
+                </div>
+            @endif
+        </div>
 
         @if(!empty($categorySection))
             <div class="clearfix" style="background-color: #eeeeee;margin-bottom: 30px; padding-top:30px;">
@@ -34,7 +94,7 @@
                     <div class="container">
                         <div class="block-title ">
                             <span class="title">
-                                <span class="icon"><img alt="img"  src="kuteshop_v2/images/media/index2/floor1.png"></span>
+                                <span class="icon"><img alt="img"  src="kuteshop_v2/images/floor1.png"></span>
                                 <span class="text">{{ $section['category']->category_name }}</span>
                             </span>
                             <div class="links dropdown">
@@ -122,13 +182,15 @@
                                                 }'>
                                                     <?php $i=0; $total = count($productType); ?>
                                                     @foreach($productType as $product)
-                                                        @if($i %2 == 0)
-                                                        <div class="item">
-                                                        @endif
-                                                            <section-product-grid :product="{{ $product }}"></section-product-grid>
-                                                        <?php $i++; ?>
-                                                        @if($i % 2 == 0 || $i == $total)
-                                                        </div>
+                                                        @if(!empty($product))
+                                                            @if($i %2 == 0)
+                                                            <div class="item">
+                                                            @endif
+                                                                <section-product-grid :product="{{ $product }}" :mallname="{{ json_encode($mallTitle) }}"></section-product-grid>
+                                                            <?php $i++; ?>
+                                                            @if($i % 2 == 0 || $i == $total)
+                                                            </div>
+                                                            @endif
                                                         @endif
                                                     @endforeach
                                                 </div>
@@ -146,6 +208,69 @@
             </div>
         @endif
     </main>
+    <!--  block-service-->
+    <div class="block-service-opt2">
+        <div class="container">
+            <div class="items">
+                <div class="item">
+                    <div class="icon">
+                        <img src="{{ asset('kuteshop_v2/images/service/service1.png') }}" alt="service">
+                        <span class="title">Great Value</span>
+                    </div>
+                    <div class="des">
+                        We offer competitive prices on our 100 million plus product range.
+                    </div>
+                </div>
+                {{--<div class="item">
+                    <div class="icon">
+                        <img src="{{ asset('kuteshop_v2/images/service/service2.png') }}" alt="service">
+                        <span class="title">Worldwide Delivery</span>
+                    </div>
+                    <div class="des">
+                        With sites in 5 languages, we ship to over 200 countries & regions.
+                    </div>
+                </div>--}}
+                <div class="item">
+                    <div class="icon">
+                        <img src="{{ asset('kuteshop_v2/images/service/service3.png') }}" alt="service">
+                        <span class="title">Safe Payment</span>
+                    </div>
+                    <div class="des">
+                        Pay with the world's most popular and secure payment methods.
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="icon">
+                        <img src="{{ asset('kuteshop_v2/images/service/service4.png') }}" alt="service">
+                        <span class="title">Shop with Confidence</span>
+                    </div>
+                    <div class="des">
+                        Our Buyer Protection covers your purchase from click to delivery.
+                    </div>
+                </div>
+                {{--<div class="item">
+                    <div class="icon">
+                        <img src="{{ asset('kuteshop_v2/images/service/service5.png') }}" alt="service">
+                        <span class="title">24/7 Help Center</span>
+                    </div>
+                    <div class="des">
+                        Round-the-clock assistance for a smooth shopping experience.
+                    </div>
+                </div>--}}
+                <div class="item">
+                    <div class="icon">
+                        <img src="{{ asset('kuteshop_v2/images/service/service6.png') }}" alt="service">
+                        <span class="title">Shop On-The-Go</span>
+                    </div>
+                    <div class="des">
+                        Download the app and get the world of AliExpress at your fingertips.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  block-service-->
 @endsection
 
 @section('PageJs')

@@ -7,49 +7,35 @@
             <!-- filter price -->
             <div class="filter-options-item filter-options-price">
                 <div class="filter-options-title">{{ $t('products.price')}}</div>
-                <div class="filter-options-content">
-                    <div class="slider-range">
-
-                        <div id="slider-range" ></div>
-
-                        <div class="action">
-                        <span class="price">
-                            <span>{{ $t('products.range')}}:</span>
-                            $<span id="amount-left"></span>
-                            -
-                            $<span id="amount-right"></span>
-                        </span>
-                        </div>
+                <div class="filter-options-content row">
+                    <div class="col-md-6">
+                        <input type="number" v-model="sortData.range[0]" class="form-control">
                     </div>
-                    <ol class="items">
-                        <li class="item ">
-                            <label>
-                                <input type="checkbox"><span>$20 - $50 <span class="count">(20)</span>  </span>
-                            </label>
-                        </li>
-                        <li class="item ">
-                            <label>
-                                <input type="checkbox"><span>$50 - $100 <span class="count">(20)</span> </span>
-                            </label>
-                        </li>
-                        <li class="item ">
-                            <label>
-                                <input type="checkbox"><span>$100 - $250 <span class="count">(20)</span> </span>
-                            </label>
-                        </li>
+                    <div class="col-md-6">
+                        <input type="number" v-model="sortData.range[1]" class="form-control">
+                    </div>
 
-                    </ol>
+                    <!--<div class="slider-range">
+                        <vue-slider
+                            v-model="sortData.range"
+                            :enable-cross="false"
+                            :min="search_min_price"
+                            :max="search_max_price"
+                            :dot-options="tooltipOptions"
+                        ></vue-slider>
+                    </div>-->
                 </div>
-            </div><!-- filter price -->
+            </div>
+            <!-- filter price -->
 
             <!-- filter brad-->
-            <div v-if="brands" class="filter-options-item filter-options-brand">
+            <div v-if="brands.length >0" class="filter-options-item filter-options-brand">
                 <div class="filter-options-title">{{ $tc('products.brand',brands.length)}}</div>
                 <div class="filter-options-content">
                     <ol class="items">
                         <li class="item" v-for="(brand, index) in brands" :key="index">
                             <label>
-                                <input v-model="sortData.brandIds" :value="brand.brand_id"  type="checkbox"><span>{{ brand.brand_name }} </span>
+                                <input v-model="sortData.brandIds" :value="brand.brand_id" type="checkbox"><span>{{ brand.brand_name }} </span>
                             </label>
                         </li>
                     </ol>
@@ -58,7 +44,7 @@
 
 
             <!-- filter color-->
-            <div v-if="colors" class="filter-options-item filter-options-color">
+            <div v-if="colors.length > 0" class="filter-options-item filter-options-color">
                 <div class="filter-options-title">{{ $tc('products.color',colors.length)}}</div>
                 <div class="filter-options-content">
                     <ol class="items">
@@ -66,7 +52,8 @@
                             <label>
                                 <input v-model="sortData.colorIds" :value="color.color_id" type="checkbox">
                                 <span>
-                                    <span class="img" :style="{'background-color':color.color_code}"  style=" border: 1px solid #ccc;"></span>
+                                    <span class="img" :style="{'background-color':color.color_code}"
+                                          style=" border: 1px solid #ccc;"></span>
                                     <span class="count">{{ color.color_name }}</span>
                                 </span>
 
@@ -77,7 +64,7 @@
             </div><!-- Filter Item -->
 
             <!-- Filter Item  size-->
-            <div v-if="sizes" class="filter-options-item filter-options-size">
+            <div v-if="sizes.length > 0" class="filter-options-item filter-options-size">
                 <div class="filter-options-title">{{ $tc('products.size',sizes.length)}}</div>
                 <div class="filter-options-content">
                     <ol class="items">
@@ -97,62 +84,106 @@
 <script>
     import {mapActions, mapGetters} from 'vuex';
     import _ from 'lodash';
+    import VueSlider from 'vue-slider-component'
+    import 'vue-slider-component/theme/default.css'
 
     export default {
         name: "ProductSidebar",
-        props:{
-            categoryid:[Number]
+        props: {
+            categoryid: [Number],
+            /*search_min_price: {
+                type:[String, Number],
+                default: 1,
+            },
+            search_max_price: {
+                type: [String, Number],
+                default: 10000,
+            }*/
         },
-        data(){
-            return{
-                reqData:{
-                    category_id:'',
+        components: {
+            VueSlider
+        },
+        data() {
+            return {
+                reqData: {
+                    category_id: '',
                 },
-                sortData:{
-                    sorting:'yes',
-                    category_id:'',
-                    brandIds:[],
-                    colorIds:[],
-                    sizeIds:[],
-                    paginate:20,
-                }
+                sortData: {
+                    sorting: 'yes',
+                    category_id: '',
+                    brandIds: [],
+                    colorIds: [],
+                    sizeIds: [],
+                    paginate: 20,
+                    range:[],
+                },
+
+                tooltipOptions: [{
+                    tooltip: 'always'
+                }, {
+                    tooltip: 'always'
+                }]
             }
         },
-        created(){
+        created() {
             this.reqData.category_id = this.categoryid;
             this.sortData.category_id = this.categoryid;
         },
-        mounted(){
-            this.getProductSidebar(this.reqData)
+        mounted() {
+            this.getProductSidebar(this.reqData);
         },
-        methods:{
+        methods: {
             ...mapActions([
                 'getProductSidebar',
                 'getSortingProducts'
             ]),
-            sortingProducts: _.debounce(function() {
+            sortingProducts: _.debounce(function () {
                 this.getSortingProducts(this.sortData);
-            },400)
+            }, 500)
         },
-        computed:{
+        computed: {
             ...mapGetters([
                 'brands',
                 'colors',
                 'tags',
                 'sizes',
+                'search_min_price',
+                'search_max_price',
             ]),
-            sortDataCheck(){
+            sortDataCheck() {
                 return JSON.parse(JSON.stringify(this.sortData));
             },
+            searchMinPriceDataCheck() {
+                return JSON.parse(JSON.stringify(this.search_min_price));
+            },
+            searchMaxPriceDataCheck() {
+                return JSON.parse(JSON.stringify(this.search_max_price));
+            },
         },
-        watch:{
-            sortDataCheck:{
-                handler(newValue, oldValue){
-                    if(newValue !== oldValue){
-                        this.sortingProducts()
+        watch: {
+            sortDataCheck: {
+                handler(newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        if(this.sortData.range.length !== 0){
+                            this.sortingProducts();
+                        }
                     }
                 }
-            }
+            },
+            searchMinPriceDataCheck: {
+                handler(newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        this.sortData.range.push(this.search_min_price);
+                    }
+                }
+            },
+            searchMaxPriceDataCheck: {
+                handler(newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        this.sortData.range.push(this.search_max_price);
+                    }
+                }
+            },
         }
     }
 </script>

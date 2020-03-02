@@ -7,6 +7,7 @@
 @import url(../js/fancybox/source/jquery.fancybox.css);
 @import url(../js/fancybox/source/helpers/jquery.fancybox-thumbs.css);
 @import url(../js/arcticmodal/jquery.arcticmodal.css);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:800);
 @font-face {
     font-family: 'Arial Narrow';
     src: url(../fonts//arial-narrow/arial-narrow.eot);
@@ -3686,9 +3687,26 @@ select.input-sm {
 
 .header-opt-2 .header-content {
     background-color: #fff;
-    padding: 20px 0 30px
+    padding: 5px 0 5px
 }
 
+.a-text {
+    fill: none;
+    stroke-width: 7;
+    stroke-linejoin: round;
+    stroke-dasharray: 70 330;
+    stroke-dashoffset: 0;
+    -webkit-animation: stroke 6s infinite linear;
+    animation: stroke 6s infinite linear;
+    font-size: 15em;
+}
+
+.mobile-svg{
+    display: none;
+}
+.desktop-svg{
+    display: inline-block;
+}
 .header-opt-2 .header-content .logo {
     display: block
 }
@@ -4063,14 +4081,38 @@ select.input-sm {
 
 @media (max-width:991px) {
     .header-opt-2 .header-content {
-        padding-top: 30px;
-        padding-bottom: 30px
+        padding-top: 5px;
+        padding-bottom: 5px
     }
     .header-opt-2 .header-content .nav-left {
         float: none;
         clear: both;
-        text-align: center;
-        margin-bottom: 15px
+        text-align: left;
+        margin-bottom: 0px
+    }
+    .a-text {
+        fill: none;
+        stroke-width: 2.5;
+        stroke-linejoin: round;
+        stroke-dasharray: 70 330;
+        stroke-dashoffset: 0;
+        -webkit-animation: stroke 6s infinite linear;
+        animation: stroke 6s infinite linear;
+        font-size: 4em;
+    }
+    .mobile-svg{
+        display: inline-block;
+        width: 100%;
+    }
+    .desktop-svg{
+        display: none;
+    }
+    .mobile-svg svg {
+        position: absolute;
+        top: 0;
+        width: 75%!important;
+        height: 100%;
+        left: 90px;
     }
     .header-opt-2 .header-content .nav-mind {
         float: left;
@@ -13028,7 +13070,7 @@ select.input-sm {
 .site-footer .footer-column .links h3.title {
     display: block;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 13px;
     color: #333;
     text-transform: uppercase;
     margin-top: 12px;
@@ -13293,7 +13335,7 @@ select.input-sm {
 }
 
 .footer-opt-1 .footer-column .links li a {
-    font-size: 14px;
+    font-size: 13px;
     color: #666
 }
 
@@ -16675,7 +16717,7 @@ select.input-sm {
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 19px 11px 19px 0;
+    border-width:  0;
     border-color: transparent #b30000 transparent transparent;
     position: absolute;
     bottom: auto;
@@ -16976,6 +17018,9 @@ select.input-sm {
     .product-item-opt-2 .product-item-detail {
         min-height: 75px
     }
+    .mall-brand{
+        display: none;
+    }
 }
 
 .product-item-opt-2 .product-item-name {
@@ -17171,15 +17216,16 @@ select.input-sm {
 }
 
 .product-item-opt-2 .product-item-label.label-sale-off {
-    background-color: #b30000;
-    right: 5px;
+    background-color: #f60;
+    right: 0px;
     top: 9px;
-    height: 38px;
+    height: 25px;
     line-height: 1;
-    padding-top: 3px;
+    padding-top: 4px;
     font-family: 'Arial Narrow';
     font-size: 16px;
-    color: #fff
+    color: #fff;
+    font-width: 600;
 }
 
 .product-item-opt-2 .product-item-label.label-sale-off span {
@@ -17192,7 +17238,7 @@ select.input-sm {
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 19px 11px 19px 0;
+    border-width: 0;
     border-color: transparent #b30000 transparent transparent;
     position: absolute;
     bottom: auto;
@@ -17206,7 +17252,7 @@ select.input-sm {
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 7px 7px 0 0;
+    border-width: 0;
     border-color: #510000 transparent transparent;
     position: absolute;
     left: auto;
@@ -25800,7 +25846,8 @@ img.alignright {
 
 .block-section-top2 .box-section-top {
     position: relative;
-    padding-left: 270px
+    padding-left: 270px;
+    min-height: 420px;
 }
 
 @media (max-width:1199px) {
@@ -41290,4 +41337,52 @@ img.alignright {
 	.block-categori-product-opt9 .col-product:not(.hide-img) .product-detail .product-name:before {
 		background-color: #fff;
 	}
+}
+
+.a-text:nth-child(5n + 1) {
+    stroke: #f2385a;
+    -webkit-animation-delay: -1.2s;
+    animation-delay: -1.2s;
+}
+.a-text:nth-child(5n + 2) {
+    stroke: #f5a503;
+    -webkit-animation-delay: -2.4s;
+    animation-delay: -2.4s;
+}
+.a-text:nth-child(5n + 3) {
+    stroke: #e9f1df;
+    -webkit-animation-delay: -3.6s;
+    animation-delay: -3.6s;
+}
+.a-text:nth-child(5n + 4) {
+    stroke: #56d9cd;
+    -webkit-animation-delay: -4.8s;
+    animation-delay: -4.8s;
+}
+.a-text:nth-child(5n + 5) {
+    stroke: #3aa1bf;
+    -webkit-animation-delay: -6s;
+    animation-delay: -6s;
+}
+
+@-webkit-keyframes stroke {
+    100% {
+        stroke-dashoffset: -400;
+    }
+}
+@keyframes stroke {
+    100% {
+        stroke-dashoffset: -400;
+    }
+}
+/*body {
+    background: #111;
+    background-size: 0.2em 100%;
+}*/
+
+.desktop-svg svg , .mobile-svg svg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
 }

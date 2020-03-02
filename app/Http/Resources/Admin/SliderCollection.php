@@ -26,7 +26,8 @@ class SliderCollection extends Resource
             'btnUrl'=>$this->btn_url,
             'position'=>$this->slider_position,
             'attachment'=> new AttachmentResource($this->whenLoaded('attachment')),
-            'status'=>$this->slider_status
+            'status'=>$this->slider_status,
+            'type'=>$this->slider_type,
         ];
     }
 }

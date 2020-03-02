@@ -29,8 +29,13 @@
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-lg-2 control-label">Brand:</label>
-                                <div class="col-lg-10">
+                                <div class="col-lg-9">
                                     <vue-select2 v-model="formData.brand_id" :options="brandList"> </vue-select2>
+                                </div>
+                                <div class="col-md-1">
+                                    <a href="#" @click.prevent="showBrandReqModal()" class="btn btn-sm btn-success" title="Request A Brand Name">
+                                        <i class="icon-add"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -116,22 +121,31 @@
 
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="row">
-                                    <label class="col-lg-4 control-label">Thumb Image: <span class="text text-danger text-bold h4">*</span></label>
-                                    <div class="col-lg-8">
+                                    <label class="col-lg-2 control-label">Discount:</label>
+                                    <div class="col-lg-10">
+                                        <input type="number" step="0.01" v-model="formData.discount_price" class="form-control" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <label class="col-lg-2 control-label">Thumb Image: <span class="text text-danger text-bold h4">*</span></label>
+                                    <div class="col-lg-10">
                                         <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+
+                            <!--<div class="col-md-6">
                                 <div class="row">
                                     <label class="col-lg-2 control-label">Video Url:</label>
                                     <div class="col-lg-10">
                                         <input type="text" v-model="formData.video_url" class="form-control" maxlength="255">
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
                         </div>
                     </div>
@@ -314,7 +328,13 @@
                                                     <img :src="image.img" alt="">
                                                     <div class="caption-overflow">
                                                         <span>
-                                                            <a :href="image.img" data-fancybox="images"  class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-eye"></i></a>
+                                                            <a
+                                                                href="#"
+                                                                @click.prevent="removeAttachment(image.id)"
+                                                                class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
+                                                            >
+                                                                <i class="icon-trash"></i>
+                                                            </a>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -361,9 +381,15 @@
                                                     <div class="thumb">
                                                         <img :src="image.img" alt="">
                                                         <div class="caption-overflow">
-                                                        <span>
-                                                            <a :href="image.img" data-fancybox="images"  class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-eye"></i></a>
-                                                        </span>
+                                                            <span>
+                                                                <a
+                                                                    href="#"
+                                                                    @click.prevent="removeAttachment(image.id)"
+                                                                    class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
+                                                                >
+                                                                    <i class="icon-trash"></i>
+                                                                </a>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -465,6 +491,7 @@
                 </div>
             </div>
         </div>
+        <brand-request-modal></brand-request-modal>
     </div>
 </template>
 
@@ -478,10 +505,12 @@
     import VueSelect2 from '../../../../../../js/components/helper/Select2';
     import MultiSelect2 from '../../../../../../js/components/helper/MultipleSelect2';
     import ImageCropper from "../../../../../../js/components/cropper/ImageCropper";
+    import BrandRequestModal from "../brand/BrandRequestModal";
 
     export default {
         name: "CreateProduct",
         components:{
+            BrandRequestModal,
             ImageCropper,
             Treeselect,
             'vue-select2':VueSelect2,
@@ -530,6 +559,7 @@
                     product_price:'',
                     seller_sku:'',
                     cod_avail:1,
+                    discount_price:'',
                 },
                 variations:[],
                 btnDisabled:false,
@@ -577,7 +607,8 @@
                 'getProductCreateDependency',
                 'uploadProductImage',
                 'sellerStoreProductData',
-                'getProductCreateNeedData'
+                'getProductCreateNeedData',
+                'attachmentImageRemove'
             ]),
             addPriId(PriID){
                 this.priId = PriID;
@@ -830,6 +861,29 @@
                 }
 
 
+            },
+            removeAttachment(attachmentId){
+                let conf = confirm('Are You Sure.?');
+                if(!conf){
+                    return false;
+                }
+
+                this.attachmentImageRemove(attachmentId)
+                    .then(response=>{
+                        if(response.code === 200){
+                            Notify.success(response.message);
+                        }else if(response.status === "validation"){
+                            Notify.validation(response.message);
+                        }else if(response.status === "error"){
+                            Notify.error(response.message);
+                        }else {
+                            Notify.info(response.message);
+                        }
+                    })
+            },
+
+            showBrandReqModal(){
+                $('#brand_req').modal('show');
             }
         },
         computed:{

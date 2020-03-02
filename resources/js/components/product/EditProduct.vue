@@ -16,19 +16,35 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-2 control-label">Parent Category: <span class="text text-danger text-bold h4">*</span></label>
-                        <div class="col-lg-10">
-                            <treeselect v-model="formData.category_id"  :options="treeList" :multiple="false" :normalizer="normalizer" />
-                        </div>
-                    </div>
-
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
+                            <div class="form-group row">
+                                <label class="col-lg-3 control-label">Parent Category: <span class="text text-danger text-bold h4">*</span></label>
+                                <div class="col-lg-9">
+                                    <treeselect v-model="formData.category_id"  :options="treeList" :multiple="false" :normalizer="normalizer" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group row">
                                 <label class="col-lg-4 control-label">Brand:</label>
                                 <div class="col-lg-8">
                                     <vue-select2 v-model="formData.brand_id" :options="brandList"> </vue-select2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-lg-6 control-label">COD Available:</label>
+                                <div class="col-lg-6">
+                                    <label class="checkbox-style" for="cod_avail">
+                                        <span class="text-bold text-success" v-if="formData.cod_avail">Yes</span>
+                                        <span class="text-bold text-warning" v-else>No</span>
+                                        <input type="checkbox" id="cod_avail" v-model="formData.cod_avail"  :checked="formData.cod_avail">
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -99,23 +115,53 @@
 
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="row">
-                                    <label class="col-lg-4 control-label">Product Thumb Image: <span class="text text-danger text-bold h4">*</span></label>
+                                    <label class="col-lg-4 control-label">Discount:</label>
                                     <div class="col-lg-8">
+                                        <input type="number" v-model="formData.discount_price" class="form-control" placeholder="Discount Price">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <label class="col-lg-2 control-label">Product Thumb Image: <span class="text text-danger text-bold h4">*</span></label>
+                                    <div class="col-lg-10">
                                         <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+
+                            <!--<div class="col-md-6">
                                 <div class="row">
                                     <label class="col-lg-2 control-label">Video Url:</label>
                                     <div class="col-lg-10">
                                         <input type="text" v-model="formData.video_url" class="form-control" maxlength="255">
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <label class="col-lg-4 control-label">Mall Company Name:</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" v-model="formData.mall_comp_name" class="form-control" placeholder="Mall Company Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <label class="col-lg-3 control-label">Mall Company Logo: <span class="text text-danger text-bold h4">*</span></label>
+                                    <div class="col-lg-6">
+                                        <single-attachment :folder="mall_folder"></single-attachment>
+                                    </div>
+                                    <div class="col-lg-3" v-if="proData.mall_logo !== '' && attachmentId === '' ">
+                                        <img :src="proData.mall_logo.image_path" class=" img-responsive img-thumbnail">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -531,6 +577,7 @@
     import VueSelect2 from '../helper/Select2';
     import MultiSelect2 from '../helper/MultipleSelect2';
     import ImageCropper from "../cropper/ImageCropper";
+    import SingleAttachment from "../attachment/SingleAttachment";
 
     export default {
         name: "EditProduct",
@@ -547,6 +594,7 @@
             'vue-select2':VueSelect2,
             'multi-select2':MultiSelect2,
             VueEditor,
+            SingleAttachment,
         },
         data(){
             return {
@@ -590,6 +638,10 @@
                     product_qty:1,
                     product_price:1,
                     seller_sku:'',
+                    discount_price:'',
+                    mall_comp_name:'',
+                    mall_comp_logo:'',
+                    cod_avail:1,
                 },
                 variations:[],
                 btnDisabled:false,
@@ -623,6 +675,7 @@
                 vari_id:'variaction_',
                 editImages:[],
                 loading:1,
+                mall_folder:'mall',
             }
         },
         created() {
@@ -866,7 +919,9 @@
                 if(this.imageIds.lenght !== 0){
                     this.formData.imageIds = this.imageIds;
                 }
-
+                if(this.attachmentId !== ''){
+                    this.formData.mall_comp_logo = this.attachmentId;
+                }
                 //send Vuex request
                 this.updateProductData(this.formData)
                     .then(response=>{
@@ -1001,7 +1056,8 @@
                 'proData',
                 'proDetails',
                 'proVariations',
-                'proImages'
+                'proImages',
+                'attachmentId',
             ]),
             clonedPrimaryIds(){
                 return JSON.parse(JSON.stringify(this.pri_id));
@@ -1106,6 +1162,8 @@
                         this.formData.product_status=this.proData.product_status;
                         this.formData.warranty_type=this.proData.warranty_type;
                         this.formData.video_url=this.proData.video_url;
+                        this.formData.discount_price=this.proData.discount;
+                        this.formData.mall_comp_name = this.proData.mall_comp_name;
 
                         /*** Product Details Information Field ***/
                         if(this.proDetails !== '' && this.proDetails !== null){
@@ -1119,6 +1177,7 @@
                             this.formData.warranty_policy=this.proDetails.warranty_policy;
                             this.formData.warranty_policy_eng=this.proDetails.warranty_policy_eng;
                             this.formData.warranty_period=this.proDetails.warranty_period;
+                            this.formData.cod_avail=this.proDetails.cod_avail;
                         }
 
                         /*** Type Wish Simple Product Field  ***/

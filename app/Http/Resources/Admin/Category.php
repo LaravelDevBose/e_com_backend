@@ -28,6 +28,8 @@ class Category extends JsonResource
             'children'=>CategoryResource::collection($this->whenLoaded('children')),
             'parent'=>new CategoryResource($this->whenLoaded('parent')),
             'attachment'=> new AttachmentResource($this->whenLoaded('attachment')),
+            'sectionBanner'=> new AttachmentResource($this->whenLoaded('sectionBanner')),
+            'iconImage'=> new AttachmentResource($this->whenLoaded('iconImage')),
         ];
     }
 }

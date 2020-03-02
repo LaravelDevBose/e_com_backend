@@ -4,15 +4,15 @@
         <form action="" @submit.prevent="buyerLogin" autocomplete="off">
             <div class="row">
                 <div class="col-md-10">
-                    <label for="emmail_login">{{ $t('form.email')}}/{{ $t('form.username')}} <span class="text text-danger text-bold">*</span></label>
-                    <input type="text" v-model="formData.identity" autocomplete="off" :placeholder="$t('form.email')/$t('form.username')" required class="form-control" id="emmail_login">
+                    <label for="emmail_login">{{ $t('form.email')}} <span class="text text-danger text-bold">*</span></label>
+                    <input type="email" v-model="formData.identity" autocomplete="off" placeholder="email" required class="form-control" id="emmail_login">
                 </div>
                 <div class="col-md-10">
                     <label for="password_login">{{ $t('form.password') }} <span class="text text-danger text-bold">*</span></label>
                     <input type="password" v-model="formData.password" autocomplete="off" minlength="8" :placeholder="$t('form.password')" required class="form-control" id="password_login">
                 </div>
                 <div class="col-md-10">
-                    <p class="forgot-pass"><a href="#">{{ $t('auth.forgot_pass') }}</a></p>
+                    <p class="forgot-pass"><a href="/password/reset">{{ $t('auth.forgot_pass') }}</a></p>
                     <button type="submit" class="button text-right"><i class="fa fa-lock"></i> {{ $t('auth.sign_in') }}</button>
                 </div>
             </div>

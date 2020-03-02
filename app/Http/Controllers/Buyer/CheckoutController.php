@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Buyer;
 
 use App\Helpers\TemplateHelper;
 use App\Models\AddressBook;
+use App\Models\DeliveryMethod;
 use App\Models\PaymentInfo;
 use App\Models\Setting;
 use App\Models\ShippingInfo;
@@ -64,11 +65,13 @@ class CheckoutController extends Controller
                     }
                 }
             }
+            $deliveryMethods = DeliveryMethod::isActive()->latest()->get();
             $dataCollection = [
                 'address_list'=>$address,
                 'payment_methods'=>$payment_methods,
                 'shipping_methods'=>array_flip(ShippingInfo::METHOD),
                 'shipping_price'=>$shippingPrice,
+                'delivery_methods'=>$deliveryMethods
             ];
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $dataCollection);
         }

@@ -22,44 +22,72 @@
                                 <treeselect v-model="categoryIDs" :multiple="true" :options="treeList" :normalizer="normalizer" />
                             </div>
                         </div>
+                        <div class="col-md-3 col-md-offset-1">
+                            <div class="form-group">
+                                <label>Status:</label>
+                                <label class="checkbox-style" for="paypal_payment">
+                                    <span class="text-bold text-success" v-if="formData.status">Active</span>
+                                    <span class="text-bold text-warning" v-else>Inactive</span>
+                                    <input type="checkbox" id="paypal_payment" v-model="formData.status"  :checked="formData.status">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="panel">
+            <div class="panel" v-if="categoryProducts.length > 0">
                 <div class="panel-heading bg-info">
-                    <h5 class="panel-title">Add Section Products</h5>
+                    <h5 class="panel-title">Sorted Product List</h5>
                 </div>
 
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th style="width: 25%">Product Name</th>
+                            <th class="d-sm-none">Product Sku</th>
+                            <th class="text-center d-sm-none">Category</th>
+                            <th class="text-center d-sm-none">Brand</th>
+                            <th class="text-center d-sm-none">Quantity</th>
+                            <th class="text-center">Expired</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(product, index) in categoryProducts" :key="index">
+                            <td>
+                                <product-checkbox :row="product"></product-checkbox>
+                            </td>
+                            <td>
+                                <img :src="product.thumbnail.image_path" :alt="product.product_title" style="max-height: 50px;">
+                            </td>
+                            <td>
+                                <span>{{ product.product_title}}</span>
+                            </td>
+                            <td class="d-sm-none">
+                                <span>{{ product.sku}}</span>
+                            </td>
+                            <td class="text-center d-sm-none">
+                                <span>{{ product.category.name}}</span>
+                            </td>
+                            <td class="text-center d-sm-none">
+                                <span v-if="product.brand">{{ product.brand.name}}</span>
+                            </td>
+                            <td class="text-center d-sm-none">
+                                <span>{{ product.total_qty}}</span>
+                            </td>
+                            <td class="text-center">
+                                <product-group-expired :row="product"></product-group-expired>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <div class="form-inline" style="margin:1em;">
-                                    <div class="form-group">
-                                        <input type="text" id="filter" class="form-control" v-model="filter" placeholder="Filter">
-                                    </div>
-                                </div>
-
-                                <div id="table">
-                                    <datatable class="table-bordered table-striped" :columns="columns" :data="categoryProducts" :filter-by="filter"></datatable>
-                                </div>
-                                <div class="form-inline">
-                                    <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-md-offset-6">
-                            <div class="content-group-lg"  style="margin-bottom:0!important;">
-                                <div class="checkbox checkbox-switchery">
-                                    <label>
-                                        <input type="checkbox"  class="switchery-primary" :checked="formData.status">
-                                        <span class="text-success text-bold" v-if="formData.status" >Active</span>
-                                        <span class="text-danger text-bold" v-else>Inactive</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 col-md-offset-9">
                             <div class="text-right form-group" style="margin-bottom:0px;">
                                 <button type="submit" :disabled="btnDisabled" class="btn btn-success btn-block">Save Section Product <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
@@ -85,7 +113,6 @@
             'vue-select2':VueSelect2,
             Treeselect,
             'product-group-expired':ProductGroupExpired,
-            'product-group-position':ProductGroupPosition
         },
         data(){
             return{
@@ -105,21 +132,6 @@
                     }
                 },
                 btnDisabled:false,
-                page: 1,
-                per_page: 10,
-                filter: '',
-                rows:'',
-                columns: [
-                    { label: '#', align: 'center', component: 'product-checkbox', headerClass:'table-checkbox', filterable: false, sortable:false },
-                    { label: 'Image', component: 'product-thumb-img', align: 'left', headerClass:'pro-img', sortable: false },
-                    { label: 'Product Name', field: 'product_title',  },
-                    { label: 'Product SKU', field: 'sku' , },
-                    { label: 'Category', field: 'category.name' },
-                    { label: 'Brand', field: 'brand.name', sortable: true },
-                    { label: 'Quantity', field: 'total_qty', align: 'center', sortable: true },
-                    { label: 'Expired', component: 'product-group-expired', align: 'center', sortable: true },
-                    // { label: 'Position', component: 'product-group-position', align: 'center', sortable: true },
-                ],
             }
         },
         created(){

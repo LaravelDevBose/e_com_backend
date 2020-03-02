@@ -3,13 +3,6 @@
         <div class="panel">
             <div class="panel-heading bg-primary">
                 <h5 class="panel-title">Publish Seller Products</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -102,8 +95,6 @@
         components:{
             'vue-select2':VueSelect2,
             'product-thumb-img':ProductThumbImg,
-            'product-action':ProductAction,
-            'product-status':ProductStatus,
             'product-checkbox':ProductCheckbox,
         },
         data(){
@@ -114,13 +105,13 @@
                 columns: [
                     { label: '#', align: 'center', component: 'product-checkbox', headerClass:'table-checkbox', filterable: false, sortable:false },
                     { label: 'Image', component: 'product-thumb-img', align: 'center', sortable: false },
-                    { label: 'Product Name', field: 'product_title',  },
+                    { label: 'Product Name', field: 'product_title',},
                     { label: 'Product SKU', field: 'sku' , },
                     { label: 'Category', field: 'category.name' },
                     { label: 'Brand', field: 'brand.name', sortable: true },
+                    { label: 'Shop', field: 'seller.shop.name', sortable: true },
+                    { label: 'Seller', field: 'seller.name', sortable: true },
                     { label: 'Quantity', field: 'total_qty', align: 'center', sortable: true },
-                    { label: 'Status', component: 'product-status', align: 'center', sortable: false },
-                    { label: 'Action', component: 'product-action', align: 'center', sortable: false },
 
                 ],
                 perPages: [

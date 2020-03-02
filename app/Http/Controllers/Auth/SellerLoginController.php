@@ -48,7 +48,6 @@ class SellerLoginController extends Controller
             if (Auth::guard('seller')->attempt($credentials, $request->remember)) {
                 $data =[
                     'user'=>Auth::guard('seller')->user()->toJson(),
-                    'token'=>base64_encode(\auth()->guard('seller')->user()->user_name),
                     'whoIs'=>'seller',
                 ];
 
@@ -85,6 +84,7 @@ class SellerLoginController extends Controller
         $identity  = request()->get('identity');
         $fieldName = filter_var($identity, FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
         request()->merge([$fieldName => $identity]);
-        return $fieldName;
+//        return $fieldName;
+        return 'email';
     }
 }

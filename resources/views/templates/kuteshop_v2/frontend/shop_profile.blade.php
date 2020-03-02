@@ -37,26 +37,28 @@
                                 </h3>
                             </div>
                             <div>
-                                @if(!empty($shop->phone_no))
-                                    <p class="shop-address">
-                                        <i class="fa fa-phone"></i>
-                                        <span>{{ $shop->phone_no }}</span>
-                                    </p>
+                                @if(!empty($showSellerInfo) && $showSellerInfo->value == 1)
+                                    @if(!empty($shop->phone_no))
+                                        <p class="shop-address">
+                                            <i class="fa fa-phone"></i>
+                                            <span>{{ $shop->phone_no }}</span>
+                                        </p>
+                                    @endif
+                                    @if(!empty($shop->shop_address))
+                                        <p class="shop-address">
+                                            <i class="fa fa-map-marker"></i>
+                                            <span>{!! $shop->shop_address !!}</span>
+                                        </p>
+                                    @endif
                                 @endif
-                                @if(!empty($shop->shop_address))
-                                    <p class="shop-address">
-                                        <i class="fa fa-map-marker"></i>
-                                        <span>{!! $shop->shop_address !!}</span>
-                                    </p>
-                                @endif
-                                <div class="block-social">
+                                {{--<div class="block-social">
                                     <div class="block-content" style="text-align: center!important;">
-                                        <a href="" class="sh-facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="" class="sh-pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
-                                        <a href="" class="sh-twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                        <a href="" class="sh-google"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                        <a href="" class="sh-facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                                        <a href="" class="sh-pinterest"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
+                                        <a href="" class="sh-twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                                        <a href="" class="sh-google"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a>
                                     </div>
-                                </div>
+                                </div>--}}
                             </div>
 
                         </div>
@@ -74,8 +76,8 @@
                             <ol class="product-items row">
                                 @foreach($shop->seller->products as $product)
                                     <li class="col-sm-3">
-                                        <div class="product-item  product-item-opt-1">
-                                            <product-grid  :product="{{ $product }}"></product-grid>
+                                        <div class="product-item  product-item-opt-2">
+                                            <product-grid  :product="{{ $product }}" ></product-grid>
                                         </div>
                                     </li>
                                 @endforeach

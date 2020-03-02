@@ -16,19 +16,35 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-2 control-label">Parent Category: <span class="text text-danger text-bold h4">*</span></label>
-                        <div class="col-lg-10">
-                            <treeselect v-model="formData.category_id"  :options="treeList" :multiple="false" :normalizer="normalizer" />
-                        </div>
-                    </div>
-
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-lg-2 control-label">Parent Category: <span class="text text-danger text-bold h4">*</span></label>
+                                <div class="col-lg-10">
+                                    <treeselect v-model="formData.category_id"  :options="treeList" :multiple="false" :normalizer="normalizer" />
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-lg-4 control-label">Brand:</label>
                                 <div class="col-lg-8">
                                     <vue-select2 v-model="formData.brand_id" :options="brandList"> </vue-select2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-lg-6 control-label">COD Available:</label>
+                                <div class="col-lg-6">
+                                    <label class="checkbox-style" for="paypal_payment">
+                                        <span class="text-bold text-success" v-if="formData.cod_avail">Yes</span>
+                                        <span class="text-bold text-warning" v-else>No</span>
+                                        <input type="checkbox" id="paypal_payment" v-model="formData.cod_avail"  :checked="formData.cod_avail">
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -99,22 +115,31 @@
 
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="row">
-                                    <label class="col-lg-4 control-label">Product Thumb Image: <span class="text text-danger text-bold h4">*</span></label>
-                                    <div class="col-lg-8">
+                                    <label class="col-lg-2 control-label">Discount:</label>
+                                    <div class="col-lg-10">
+                                        <input type="number" step="0.01" v-model="formData.discount_price" class="form-control" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <label class="col-lg-2 control-label">Product Thumb Image: <span class="text text-danger text-bold h4">*</span></label>
+                                    <div class="col-lg-10">
                                         <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+
+                            <!--<div class="col-md-6">
                                 <div class="row">
                                     <label class="col-lg-2 control-label">Video Url:</label>
                                     <div class="col-lg-10">
                                         <input type="text" v-model="formData.video_url" class="form-control" maxlength="255">
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
                         </div>
                     </div>
@@ -586,6 +611,8 @@
                     product_qty:1,
                     product_price:1,
                     seller_sku:'',
+                    discount_price:'',
+                    cod_avail:1,
                 },
                 variations:[],
                 btnDisabled:false,
@@ -1102,6 +1129,7 @@
                         this.formData.product_status=this.proData.product_status;
                         this.formData.warranty_type=this.proData.warranty_type;
                         this.formData.video_url=this.proData.video_url;
+                        this.formData.discount_price=this.proData.discount;
 
                         /*** Product Details Information Field ***/
                         if(this.proDetails !== '' && this.proDetails !== null){
@@ -1115,6 +1143,7 @@
                             this.formData.warranty_policy=this.proDetails.warranty_policy;
                             this.formData.warranty_policy_eng=this.proDetails.warranty_policy_eng;
                             this.formData.warranty_period=this.proDetails.warranty_period;
+                            this.formData.cod_avail=this.proDetails.cod_avail;
                         }
 
                         /*** Type Wish Simple Product Field  ***/

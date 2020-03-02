@@ -18,8 +18,10 @@ use Illuminate\Support\Facades\DB;
 trait CommonData
 {
     public static function category_tree_list($request=null){
-        $categories = Category::isActive()->isParent()->with(['attachment','children'=>function($query){
-            return $query->isActive()->with('children');
+        $categories = Category::isActive()->isParent()->with(['iconImage','children'=>function($query){
+            return $query->isActive()->with(['children'=>function($q){
+                return $q->isActive();
+            }]);
         }])->get();
 
         if(!empty($categories)){
@@ -31,7 +33,9 @@ trait CommonData
 
     public static function category_tree($request=null){
         $categories = Category::isActive()->isParent()->with(['children'=>function($query){
-            return $query->isActive()->with('children');
+            return $query->isActive()->with(['children'=>function($q){
+                return $q->isActive();
+            }]);
         }])->get();
 
         if(!empty($categories)){
@@ -149,8 +153,8 @@ trait CommonData
         return $data;
     }
 
-    public static function slider_list($request=null){
-        $sliders = Slider::isActive()->orderBy('slider_position', 'asc')->with('attachment')->get();
+    public static function slider_list($types){
+        $sliders = Slider::isActive()->whereIn('slider_type', $types)->orderBy('slider_position', 'asc')->with('attachment')->get();
         if(!empty($sliders)){
             return $sliders;
         }else{

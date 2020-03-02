@@ -106,6 +106,21 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
+    async setBrandRequest({commit}, reqData){
+        try {
+            return await axios.post('/seller/brand/request/store', reqData)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('addRequestBand', response.data.data);
+                        delete response.data.data;
+                    }
+                    return response.data;
+                })
+        }catch (e) {
+            console.log(e);
+            return e.data;
+        }
+    }
 };
 
 const mutations = {
@@ -123,7 +138,9 @@ const mutations = {
         state.allColor = response;
     },
     setTags:(state, response)=>state.allTags = response,
-
+    addRequestBand:(state,response)=>{
+        state.brandList.push({id:response.brand_id,text:response.brand_name});
+    }
 };
 
 export default {

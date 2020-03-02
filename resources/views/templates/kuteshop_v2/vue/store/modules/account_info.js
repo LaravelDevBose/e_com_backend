@@ -26,6 +26,12 @@ const actions = {
                 return response.data;
             });
     },
+    subscribeNewsletter({commit},formData){
+        return axios.post('/subscribe', formData)
+        .then(response=>{
+            return response.data;
+        });
+    }
 };
 
 const mutations = {

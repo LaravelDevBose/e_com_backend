@@ -17,7 +17,10 @@ class SizeGroupCategory extends JsonResource
     {
         return [
             'group_id'=> $this->size_group_id,
-            'category'=> new CategoryResource($this->whenLoaded('category'))
+            'category'=> [
+                'name'=>$this->category->category_name ?? '' ,
+            ],
+            'category_name'=>$this->category->category_name ?? ''
         ];
     }
 }

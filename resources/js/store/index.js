@@ -33,13 +33,16 @@ import shop from "./modules/shop";
 import homepage_section from "./modules/homepage_section";
 import group_products from "./modules/group_products";
 import unpublish_product from "./modules/unpublish_product";
+import delivery_method from "./modules/delivery_method";
+import admin from "./modules/admin";
+import latest_deal from "./modules/latest_deal";
+
+
 
 export default new Vuex.Store({
     state:{
         resData:'',
-        attachmentsFile:[],
         errors:null,
-        attachment_ids:[],
         paginate_data:[]
 
     },
@@ -82,6 +85,9 @@ export default new Vuex.Store({
         homepage_section,
         group_products,
         unpublish_product,
+        delivery_method,
+        admin,
+        latest_deal
     }
 })
 

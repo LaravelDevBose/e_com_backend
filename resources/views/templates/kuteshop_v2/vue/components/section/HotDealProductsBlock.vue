@@ -1,5 +1,5 @@
 <template>
-    <div  v-if="hotproducts"  class="block-deals-of block-deals-of-opt1">
+    <div  v-if="hotproducts.length !== 0"  class="block-deals-of block-deals-of-opt1">
         <div class="block-title ">
             <span class="icon"></span>
             <div class="heading-title">{{ $t('products.hot_deals') }}</div>
@@ -18,11 +18,11 @@
                         "1200":{"items":1}
                         }'>
 
-                <div v-for="(hotProduct,index) in hotproducts" :key="index" class="product-item  product-item-opt-1 ">
+                <div v-for="(hotProduct,index) in hotproducts" :key="index" class="product-item  product-item-opt-2 ">
                     <div class="deals-of-countdown">
                         <div class="count-down-time" :data-countdown="hotProduct.expired_at"></div>
                     </div>
-                    <product-grid :product="hotProduct.product"></product-grid>
+                    <product-grid :product="hotProduct.product" :mallname="mallname"></product-grid>
                 </div>
             </div>
         </div>
@@ -38,6 +38,10 @@
         props:{
             hotproducts:{
                 type:[Object, Array]
+            },
+            mallname:{
+                type: String,
+                default: 'Saliim Mall'
             }
         },
         data(){

@@ -20,22 +20,22 @@
                                 <label>Slider Title:</label>
                                 <input type="text" v-model="formData.slider_title" class="form-control" placeholder="Slider Title" required>
                             </div>
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label>Sub Title:</label>
                                 <input type="text" v-model="formData.sub_title" class="form-control" placeholder="Sub Title" required>
                             </div>
                             <div class="form-group">
                                 <label>Button Text:</label>
                                 <input type="text" v-model="formData.btn_text" class="form-control" placeholder="Button Text" required>
-                            </div>
+                            </div>-->
                             <div class="form-group">
                                 <label>Slider Position:</label>
                                 <input type="number" v-model="formData.slider_position" class="form-control" placeholder="Slider Position" required>
                             </div>
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label>Button Url:</label>
                                 <input type="text" v-model="formData.btn_url" class="form-control" placeholder="Button Url" required>
-                            </div>
+                            </div>-->
                             <div class="content-group-lg">
                                 <label>Slider Status:</label>
                                 <div class="form-group">
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label>Trans. Slider Title:</label>
                                 <input type="text" v-model="formData.trans_slider_title" class="form-control" placeholder="Slider Title" required>
                             </div>
@@ -60,6 +60,13 @@
                             <div class="form-group">
                                 <label>Trans. Button Text:</label>
                                 <input type="text" v-model="formData.trans_btn_text" class="form-control" placeholder="Button Text" required>
+                            </div>-->
+                            <div class="form-group">
+                                <label>Slider Type:</label>
+                                <select v-model="formData.slider_type"  class="form-control" required>
+                                    <option value="1">For Home Page</option>
+                                    <option value="2">For Mall Page</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Slider Image:</label>
@@ -97,7 +104,8 @@
                     slider_status:0,
                     trans_slider_title:'',
                     trans_sub_title:'',
-                    trans_btn_text:''
+                    trans_btn_text:'',
+                    slider_type:1,
                 },
 
                 cropperData:{

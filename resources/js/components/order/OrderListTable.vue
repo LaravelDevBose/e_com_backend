@@ -27,7 +27,7 @@
 
     Vue.component('action-btn', {
         template: `<ul class="icons-list">
-                        <li><a href="#" class="text text-primary-700" @click.prevent="showInvoiceModalView(row.order_no)"><i class="icon-file-eye"></i></a :href=""></li>
+                        <li><a href="#" class="text text-primary-700" @click.prevent="showInvoiceModalView(row.order_id)"><i class="icon-file-eye"></i></a></li>
                         <!--<li class="dropdown">
                             <a href="#" class="dropdown-toggle text text-teal-600" data-toggle="dropdown" aria-expanded="false">
                                 <i class="icon-cog7"></i>
@@ -45,8 +45,9 @@
             ...mapActions([
                 'getOrderInfo',
             ]),
-            showInvoiceModalView(order_no){
-                this.getOrderInfo(order_no)
+            showInvoiceModalView(order_id){
+                location.href = `/admin/order/${order_id}/show`;
+                this.getOrderInfo(order_id)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
                             $('#invoice').modal('show');
@@ -56,8 +57,8 @@
 
                     })
             },
-            goToShowPage: function(orderNo){
-                window.location = `/admin/order/${orderNo}/show`;
+            goToShowPage: function(orderId){
+                window.location = `/admin/order/${orderId}/show`;
             }
         },
     });
@@ -70,7 +71,10 @@
                     </div>`,
         props: ['row']
     });
-
+    Vue.component('shipping-to', {
+        template: `<div v-if="row.shipping != null "><span>{{ row.shipping.full_name }}</span></div>`,
+        props: ['row']
+    });
     export default {
         name: "OrderListTable",
         components: {
@@ -89,6 +93,7 @@
                     { label: 'Order No', field: 'order_no',  },
                     { label: 'Order Date', field: 'order_date', filterable: true, sortable:true },
                     { label: 'Buyer', field: 'buyer.user.full_name' , filterable: true, sortable:true },
+                    { label: 'Shipping To', component: 'shipping-to' , filterable: true, sortable:true },
                     { label: 'Products - (Qty)', component:'product-list', filterable: true, sortable:false },
                     { label: 'Quantity', field: 'total_qty', align: 'right',  },
                     { label: 'Subtotal', field: 'sub_total', align: 'right', sortable: true },

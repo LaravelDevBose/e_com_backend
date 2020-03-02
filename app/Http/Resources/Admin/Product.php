@@ -43,12 +43,18 @@ class Product extends Resource
             'product_price'=>$this->product_price,
             'seller_sku'=>$this->seller_sku,
             'condition'=>$this->product_condition,
+            'discount'=>$this->discount_price,
             'thumbImage'=> new AttachmentResource($this->whenLoaded('thumbImage')),
             'category'=>new CategoryResource($this->whenLoaded('category')),
             'brand'=>new BrandResource($this->whenLoaded('brand')),
             'details'=>new ProductDetailsResource($this->whenLoaded('productDetails')),
             'variations'=> ProductVariationResource::collection($this->whenLoaded('variations')),
-            'productImages'=> ProductImageResource::collection($this->whenLoaded('productImages'))
+            'productImages'=> ProductImageResource::collection($this->productImages),
+            'seller'=> new SellerResource($this->whenLoaded('seller')),
+            'mall_comp_name'=>$this->mall_comp_name,
+            'mall_logo'=>new AttachmentResource($this->whenLoaded('mallLogo')),
+            'mall_product'=> $this->mall_product,
+            'total_qty'=>($this->product_type === 1)? $this->product_qty : $this->variations->sum('quantity'),
         ];
     }
 }

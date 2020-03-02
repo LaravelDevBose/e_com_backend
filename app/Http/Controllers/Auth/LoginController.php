@@ -74,7 +74,6 @@ class LoginController extends Controller
             if (Auth::guard('web')->attempt($credentials, $request->remember)) {
                 $data =[
                     'user'=>Auth::guard('web')->user()->toJson(),
-                    'token'=>base64_encode(\auth()->user()->user_name),
                     'whoIs'=>'buyer',
                 ];
                 return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successful', $data, route('buyer.home'));
@@ -110,6 +109,7 @@ class LoginController extends Controller
         $identity  = request()->get('identity');
         $fieldName = filter_var($identity, FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
         request()->merge([$fieldName => $identity]);
-        return $fieldName;
+//        return $fieldName;
+        return 'email';
     }
 }

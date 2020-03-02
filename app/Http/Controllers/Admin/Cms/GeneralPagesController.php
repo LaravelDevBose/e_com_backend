@@ -51,8 +51,8 @@ class GeneralPagesController extends Controller
 
     public function store(Request $request){
         $validator = Validator::make($request->all(),[
-            'page_title'=>'required|string|min:5|max:20',
-            'menu_title'=>'required|string|min:5|max:20',
+            'page_title'=>'required|string|min:5|max:100',
+            'menu_title'=>'required|string|min:5|max:100',
             'show_in'=>'required|numeric',
             'attachmentIds'=>'array'
         ]);
@@ -69,7 +69,8 @@ class GeneralPagesController extends Controller
                     'menu_position'=>$request->menu_position,
                     'body_content'=>$request->body_content,
                     'other_content'=>$request->other_content,
-                    'attachment_id'=>$request->attachmentIds[0],
+                    'attachment_id'=>(!empty($request->attachmentIds[0]))?$request->attachmentIds[0]:'',
+                    'page_cat'=>$request->page_cat,
                     'page_status'=>(!empty($request->page_status) && $request->page_status == config('app.active')) ? $request->page_status : config('app.inactive'),
                 ]);
                 if($page){
@@ -125,8 +126,8 @@ class GeneralPagesController extends Controller
     public function update(Request $request, Page $page){
 
         $validator = Validator::make($request->all(),[
-            'title'=>'required|string|min:5|max:20',
-            'menuTitle'=>'required|string|min:5|max:20',
+            'title'=>'required|string|min:5|max:200',
+            'menuTitle'=>'required|string|min:5|max:200',
             'show_in'=>'required|numeric',
             'attachmentIds'=>'array'
         ]);
@@ -143,6 +144,7 @@ class GeneralPagesController extends Controller
                     'menu_position'=>$request->position,
                     'body_content'=>$request->body_content,
                     'other_content'=>$request->extra_content,
+                    'page_cat'=>$request->page_cat,
                     'page_status'=>(!empty($request->status) && $request->status == config('app.active')) ? $request->status : config('app.inactive'),
                 ]);
                 if(!empty($request->attachmentIds[0]) && count($request->attachmentIds) > 0){

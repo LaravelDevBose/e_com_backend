@@ -23,7 +23,7 @@
     import {mapGetters, mapActions} from 'vuex';
 
     Vue.component('thumb-image', {
-        template: `<img :src="row.product.thumb_image.image_path" :alt="row.product_name"  style="width:40px; height:40px">`,
+        template: `<img :src="row.image.image_path" :alt="row.product_name"  style="width:40px; height:40px">`,
         props: ['row'],
     });
 
@@ -78,11 +78,24 @@
 
     });
     Vue.component('order-product-info', {
-        template: `<div><a href="#" @click.prevent="showProduct(row.product.product_slug)" class="text-semibold">{{ row.product_name }}</a>
-            <div class="text-muted text-size-small">
-                <span class="icon-qrcode bg-grey position-left"></span>
-                    {{ row.product.product_sku }}
-            </div></div>`,
+        template: `<div>
+                    <a href="#" @click.prevent="showProduct(row.product.product_slug)" class="text-semibold">{{ row.product_name }}</a>
+                        <div class="text-muted text-size-small">
+                            <span class="icon-qrcode bg-grey position-left"></span>
+                                {{ row.product.product_sku }}
+                        </div>
+                        <div v-if="row.product.product_type === 2">
+                            <div class="text-muted text-size-small">
+                                <span class="text-warning position-left text-bold">Size:</span>
+                                {{ row.size.size_name }}
+                            </div>
+                            <div class="text-muted text-size-small">
+                                <span class="text-warning position-left text-bold">Color:</span>
+                                {{ row.color.color_name }}
+                            </div>
+                        </div>
+
+                   </div>`,
         props: ['row'],
         methods:{
             showProduct(product_slug){
@@ -90,7 +103,25 @@
             }
         }
     });
-
+    Vue.component('product-variation', {
+        template: `<div v-if="row.product.product_type === 2">
+                       <ul >
+                            <li v-for="(oItem,index) in row.order_items">{{ oItem.product_name }} - ({{ oItem.qty }})</li>
+                        </ul>
+                    </div>`,
+        props: ['row']
+    });
+    Vue.component('item-action', {
+        template: `<button type="button" @click.prevent="invoicePrint()" class="btn btn-sm btn-info">
+                        <i class="icon-printer"></i>
+                  </button>`,
+        props: ['row'],
+        methods:{
+            invoicePrint(){
+                window.open(`/seller/order/item/${this.row.item_id}/print`);
+            }
+        }
+    });
 
     export default {
         name: "OrderListTable",
@@ -108,17 +139,22 @@
                     { label: 'Order No', field: 'order.order_no'},
                     { label: 'Order Date', field: 'order.order_date', filterable: true, sortable:true },
                     { label: 'Buyer', field: 'buyer.user.full_name' , filterable: true, sortable:true },
-                    { label: 'Brand', field: 'brand', filterable: true, sortable:true },
+                    { label: 'Brand', field: 'brand.brand_name', filterable: true, sortable:true },
                     { label: 'Price', field: 'price', align: 'right',},
                     { label: 'Quantity', field: 'qty', align: 'right',  },
                     { label: 'Total', field: 'total_price', align: 'right', sortable: true },
-                    { label: 'Status', field: 'item_status', component: 'status-badge', align: 'center', sortable: true }
+                    { label: 'Status', field: 'item_status', component: 'status-badge', align: 'center', sortable: true },
+                    { label: 'Action', component: 'item-action', align: 'center', sortable: false },
                 ],
 
             }
         },
         created(){
-            this.getOrderItemStatus();
+            if(AppStorage.getUserId() === '1'){
+                this.getOrderAllItemStatus();
+            }else {
+                this.getOrderItemStatus();
+            }
         },
         mounted(){
             this.getOrderItemList(this.reqData).then(response=>{
@@ -133,7 +169,8 @@
         methods:{
             ...mapActions([
                 'getOrderItemList',
-                'getOrderItemStatus'
+                'getOrderItemStatus',
+                'getOrderAllItemStatus'
             ]),
 
             sortBy(key) {

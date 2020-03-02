@@ -33,7 +33,7 @@
                 <li class="row">
                     <div class="col-sm-6">
                         <label for="telephone" class="required">{{ $t('form.phone_no')}} <span class="text text-bold text-danger">*</span></label>
-                        <input class="input form-control" v-model="formData.phone_no"  name="telephone" id="telephone" type="number">
+                        <input class="input form-control" v-model="formData.phone_no"  name="telephone" id="telephone" type="text">
                     </div>
                 </li>
                 <li class="row">
@@ -64,16 +64,23 @@
                     </div>
                     <div class="col-sm-6">
                         <label for="postal_code" class="required">{{ $t('form.postal_code')}}</label>
-                        <input class="input form-control" v-model="formData.postal_code" name="postal_code" id="postal_code" type="number">
+                        <input class="input form-control" v-model="formData.postal_code" name="postal_code" id="postal_code" type="text">
                     </div>
                 </li>
             </ul>
             <ul>
                 <li class="row">
-                    <div class="col-sm-6">
-                        <button type="button" @click.prevent="backTab()" class="button">Back</button>
+                    <div class="col-sm-3" v-if="new_address">
+                        <label for="save_address" style="padding:10px;">
+                            <input  id="save_address" v-model="save_address" :value="1" type="checkbox">{{ $t('checkout.save_address_book')}}
+                        </label>
                     </div>
-                    <div class="col-sm-6" style="text-align:right;">
+                </li>
+                <li class="row">
+                    <!--<div class="col-sm-6">
+                        <button type="button" @click.prevent="backTab()" class="button">Back</button>
+                    </div>-->
+                    <div class="col-sm-6 col-md-offset-6" style="text-align:right;">
                         <button type="submit" class="button">{{ $t('checkout.continue')}}</button>
                     </div>
                 </li>
@@ -130,7 +137,7 @@
                     }
                     this.storeAddressInfo(this.formData)
                         .then(response=>{
-                            if(typeof response.code !== "undefined" && response.code === 201){
+                            if(typeof response.code !== "undefined" && response.code === 200){
                                 this.btnDisabled = false;
                                 this.continueTab();
                                 this.$noty.success(response.message);
@@ -183,10 +190,10 @@
                         'tabAction':false,
                     },
                     method:{
-                        'tabAction':false,
+                        'tabAction':true,
                     },
                     payment:{
-                        'tabAction':true,
+                        'tabAction':false,
                     },
 
                 };

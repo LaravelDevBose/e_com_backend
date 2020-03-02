@@ -87,4 +87,9 @@ class Order extends Model
     public function payment(){
         return $this->hasOne(PaymentInfo::class, 'order_id', 'order_id');
     }
+
+    public function deliveryMethod()
+    {
+        return $this->hasOne(DeliveryMethod::class, 'delivery_id', 'shipping_method');
+    }
 }

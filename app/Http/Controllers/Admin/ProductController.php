@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -33,7 +34,14 @@ class ProductController extends Controller
 
     public function index()
     {
-        return view('admin_panel.'.$this->template_name.'.product.index');
+        $products = Product::with(['thumbImage','category','brand','variations'])
+        ->where('product_status', '!=', Product::ProductStatus['Review'])
+        ->latest()->notDelete()->get();
+        $status = Product::flipProductStatus();
+        return view('admin_panel.'.$this->template_name.'.product.index',[
+            'products'=>$products,
+            'status'=>$status,
+        ]);
     }
 
     public function product_collection(Request $request){
@@ -41,7 +49,9 @@ class ProductController extends Controller
             return $query->with(['parent'=>function($q){
                 return $q->with(['parent']);
             }]);
-        }, 'brand','variations'])->latest()->notDelete()->get();
+        }, 'brand','variations'])
+        ->where('product_status', '!=', Product::ProductStatus['Review'])
+        ->latest()->notDelete()->get();
         return ProductCollection::collection($products);
     }
 
@@ -71,7 +81,7 @@ class ProductController extends Controller
 
     public function product_create_dependency($catID){
 
-        $sizeGroupIDs = SizeGroupCategory::where('category_id', $catID)->pluck('size_group_id');
+        $sizeGroupIDs = SizeGroupCategory::where('category_id', $catID)->where('sgc_status', config('app.active'))->pluck('size_group_id');
         $sizes = Size::whereIn('size_group_id', $sizeGroupIDs)->select('size_id as id','size_name as text')->isActive()->latest()->get();
         $data = [
             'colors'=>Color::isActive()->select('color_id as id', 'color_name as text')->latest()->get(),
@@ -99,11 +109,11 @@ class ProductController extends Controller
             'product_name'=>'required|string|max:255',
             'highlight'=>'required|string|max:1500',
             'description'=>'required',
-            'package_weight'=>'required',
+//            'package_weight'=>'required',
             'product_type'=>'required',
-            'package_length'=>'required',
-            'package_width'=>'required',
-            'package_height'=>'required',
+//            'package_length'=>'required',
+//            'package_width'=>'required',
+//            'package_height'=>'required',
             'product_status'=>'required',
             'imageIds'=>'required|array',
             'thumb_id'=>'required',
@@ -132,7 +142,7 @@ class ProductController extends Controller
             $rules = array_merge($rules,[
                 'seller_sku'=>'required|string|max:20',
                 'product_qty'=>'required|integer|min:0|not_in:0',
-                'product_price'=>'required|integer|min:0|not_in:0',
+                'product_price'=>'required|min:0|not_in:0',
             ]);
 
             $messages = array_merge($messages,[
@@ -157,7 +167,7 @@ class ProductController extends Controller
                 'variations.*.size_id'=>'required',
                 'variations.*.seller_sku'=>'required',
                 'variations.*.qty'=>'required|integer|min:0|not_in:0',
-                'variations.*.price'=>'required|integer|min:0|not_in:0',
+                'variations.*.price'=>'required|min:0|not_in:0',
                 'variations.*.status'=>'required',
             ]);
 
@@ -187,6 +197,9 @@ class ProductController extends Controller
         if($validator->passes()){
             try{
                 DB::beginTransaction();
+                /*if(!empty($request->discount_price) && $request->discount_price >= $request->product_price){
+                    throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
+                }*/
                 #Store Data in Product Table
                 $product = Product::create([
                     'product_sku'=>Product::product_sku_generate(),
@@ -213,6 +226,9 @@ class ProductController extends Controller
                     'video_url'=>$request->video_url,
                     'seller_id'=>1, // Seller id 1 = Admin Default
                     'product_type'=>$request->product_type,
+                    'discount_price'=>$request->discount_price,
+                    'mall_comp_name'=>$request->mall_comp_name,
+                    'mall_comp_logo'=>$request->mall_comp_logo,
                 ]);
                 if(!empty($product)){
                     #Store Data in Product Details Table
@@ -239,7 +255,9 @@ class ProductController extends Controller
                                 $variations = $request->variations;
                                 $variationArray = array();
                                 foreach ($variations as $variation){
-
+                                    /*if(!empty($request->discount_price) && $request->discount_price >= $variation->price){
+                                        throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
+                                    }*/
                                     $variation = (object) $variation;
                                     $gift ='';
                                     if(!empty($variation->gift_product)){
@@ -262,6 +280,9 @@ class ProductController extends Controller
 
                                 }
                                 $variationProduct = ProductVariation::insert($variationArray);
+                                if(empty($variationProduct)){
+                                    throw new Exception('Invalid Product Variation Information', Response::HTTP_BAD_REQUEST);
+                                }
                             }
 
 
@@ -280,7 +301,10 @@ class ProductController extends Controller
                                         'image_status'=>config('app.active')
                                     ]);
                                 }
-                                $productImages = ProductImage::insert($imageArray);
+                                ProductImage::insert($imageArray);
+                                /*if(!empty($productImages)){
+                                    throw new Exception('Invalid Product Image Information', Response::HTTP_BAD_REQUEST);
+                                }*/
                             }
 
                         }else{
@@ -302,18 +326,28 @@ class ProductController extends Controller
                                         'image_status'=>config('app.active')
                                     ]);
                                 }
-                                $productImages = ProductImage::insert($imageArray);
+                                ProductImage::insert($imageArray);
+                                /*if(!empty($productImages)){
+                                    throw new Exception('Invalid Product Image Information', Response::HTTP_BAD_REQUEST);
+                                }*/
                             }
                         }
                     }else{
                         throw new Exception('Invalid Product Details Information', Response::HTTP_BAD_REQUEST);
                     }
-                    DB::commit();
-                    return response()->json([
-                        'status'=>'success',
-                        'message'=>'Product Store Successfully',
-                        'url'=>route('admin.product.index')
+                    $product = $product->update([
+                        'product_slug'=>Str::slug($request->product_name).'-'.$product->product_id,
                     ]);
+                    if(!empty($product)){
+                        DB::commit();
+                        return response()->json([
+                            'status'=>'success',
+                            'message'=>'Product Store Successfully',
+                            'url'=>route('admin.product.index')
+                        ]);
+                    }else{
+                        throw new Exception('Invalid Product Information', Response::HTTP_BAD_REQUEST);
+                    }
                 }else{
                     throw new Exception('Invalid Product Information', Response::HTTP_BAD_REQUEST);
 
@@ -363,7 +397,7 @@ class ProductController extends Controller
             return $query->with(['parent'=>function($q){
                 return $q->with('parent');
             }]);
-        }, 'brand','thumbImage','productDetails','productImages'=>function($query){
+        }, 'brand','seller.shop','thumbImage','productDetails','mallLogo','productImages'=>function($query){
             return $query->with('attachment')->isActive();
         },'variations'=>function($q){
             return $q->with('primaryModel', 'secondaryModel');
@@ -411,11 +445,11 @@ class ProductController extends Controller
             'product_name'=>'required|string|max:255',
             'highlight'=>'required|string|max:1500',
             'description'=>'required',
-            'package_weight'=>'required',
+//            'package_weight'=>'required',
             'product_type'=>'required',
-            'package_length'=>'required',
-            'package_width'=>'required',
-            'package_height'=>'required',
+//            'package_length'=>'required',
+//            'package_width'=>'required',
+//            'package_height'=>'required',
             'product_status'=>'required',
            /* 'imageIds'=>'required|array',
             'thumb_id'=>'required',*/
@@ -444,7 +478,7 @@ class ProductController extends Controller
             $rules = array_merge($rules,[
                 'seller_sku'=>'required|string|max:20',
                 'product_qty'=>'required|integer|min:0|not_in:0',
-                'product_price'=>'required|integer|min:0|not_in:0',
+                'product_price'=>'required|min:0|not_in:0',
             ]);
 
             $messages = array_merge($messages,[
@@ -499,6 +533,10 @@ class ProductController extends Controller
         if($validator->passes()){
             try{
                 DB::beginTransaction();
+                /*if(!empty($request->discount_price) && $request->discount_price >= $request->product_price){
+                    throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
+                }*/
+
                 #Store Data in Product Table
                 $product = Product::where('product_id', $id)->first();
 
@@ -528,12 +566,19 @@ class ProductController extends Controller
                     'product_status'=>(!empty($request->product_status) && $request->product_status == 1) ? $request->product_status : 2,
                     'warranty_type'=>$request->warranty_type,
                     'video_url'=>$request->video_url,
-                    'seller_id'=>1, // Seller id 1 = Admin Default
                     'product_type'=>$request->product_type,
+                    'discount_price'=>$request->discount_price,
+                    'mall_comp_name'=>$request->mall_comp_name,
                 ]);
                 if(!empty($request->thumb_id)){
                     Product::where('product_id', $id)->update([
                         'thumb_id'=>$request->thumb_id,
+                    ]);
+                }
+
+                if(!empty($request->mall_comp_logo)){
+                    Product::where('product_id', $id)->update([
+                        'mall_comp_logo'=>$request->mall_comp_logo,
                     ]);
                 }
 
@@ -580,6 +625,9 @@ class ProductController extends Controller
                                 $variations = $request->variations;
                                 $variationArray = array();
                                 foreach ($variations as $variation){
+                                    /*if(!empty($request->discount_price) && $request->discount_price >= $variation->price){
+                                        throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
+                                    }*/
 
                                     $variation = (object) $variation;
                                     $gift ='';
@@ -634,7 +682,7 @@ class ProductController extends Controller
                                         'image_status'=>config('app.active')
                                     ]);
                                 }
-                                $productImages = ProductImage::insert($imageArray);
+                                ProductImage::insert($imageArray);
                             }
 
                         }else{
@@ -657,7 +705,7 @@ class ProductController extends Controller
                                         'image_status'=>config('app.active')
                                     ]);
                                 }
-                                $productImages = ProductImage::insert($imageArray);
+                                ProductImage::insert($imageArray);
                             }
                         }
                     }else{
@@ -683,11 +731,37 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $product = Product::where('product_id', $id)->first();
+            if(empty($product)){
+                throw new Exception('Invalid Product Information', Response::HTTP_NOT_FOUND);
+            }
+
+            /*if($product->seller_id !== 1){
+                throw new Exception("You Are Not Owner Of This Product. You Can't Delete This.", Response::HTTP_UNAUTHORIZED);
+            }*/
+
+            $product = $product->update([
+                'product_status'=>config('app.delete')
+            ]);
+
+            if(!empty($product)){
+                DB::commit();
+                return ResponserTrait::allResponse('success', Response::HTTP_OK,'Product Deleted Successfully');
+            }else{
+                throw new Exception('Product Not Deleted Successfully', Response::HTTP_BAD_REQUEST);
+            }
+
+        }catch (Exception $ex){
+            DB::rollBack();
+            return ResponserTrait::allResponse('error', $ex->getCode(), $ex->getMessage());
+        }
     }
 
 
@@ -716,6 +790,7 @@ class ProductController extends Controller
                         'status_label'=>$status[$request->product_status]
                     ];
                     DB::commit();
+                    return redirect()->back();
                     return ResponserTrait::allResponse('success', Response::HTTP_OK,'Product Status Update Successfully',$data);
                 }
 

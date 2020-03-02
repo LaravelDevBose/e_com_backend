@@ -6,8 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slider extends Model
 {
-    protected $table = 'sliders';
+    const SliderType = [
+        'Home Page'=>1,
+        'Mall Page'=>2
+    ];
 
+    protected $table = 'sliders';
     protected $primaryKey = 'slider_id';
 
     protected $fillable = [
@@ -21,6 +25,7 @@ class Slider extends Model
         'trans_slider_title',
         'trans_sub_title',
         'trans_btn_text',
+        'slider_type',
     ];
 
     public function getSliderTitleAttribute()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Frontend\ProductHelper;
+use App\Helpers\OrderHelper;
 use App\Http\Resources\Admin\ProductCollection;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -27,20 +28,21 @@ class ShopController extends Controller
 
     public function index(Request $request)
     {
+        $sellers = Seller::with(['user','products'=>function($query){
+            return $query->notDelete();
+        }, 'shop.shopLogo', 'orderItems'=>function($q){
+            return $q->where('item_status', OrderItem::AllItemStatus['Delivered']);
+        }])->where('seller_id', '!=', 1)->notDelete()->latest()->get();
         if($request->ajax()){
-            $shops = Shop::with(['shopLogo','seller'=>function($query){
-                $query->with(['user','orderItems','products'=>function($query){
-                    return $query->notDelete();
-                }])->notDelete();
-            }])->latest()->get();
-
-            if(!empty($shops)){
-                return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $shops);
+            if(!empty($sellers)){
+                return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $sellers);
             }else{
                 return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'No Shop Found');
             }
         }else{
-            return view('shop.index');
+            return view('shop.index',[
+                'sellers'=>$sellers
+            ]);
         }
     }
 
@@ -64,7 +66,7 @@ class ShopController extends Controller
             }
 
             $seller = $seller->update([
-                'shop_status'=>$request->status
+                'seller_status'=>$request->status
             ]);
             if(!empty($seller)){
                 $status = array_flip(Seller::ShopStatus);
@@ -103,11 +105,21 @@ class ShopController extends Controller
                 'total_order_qty'=>$orders->sum('qty'),
                 'total_product'=> Product::where('seller_id', $sellerId)->notDelete()->count()
             ];
+            $reqData =[
+                'seller_id'=>$sellerId,
+            ];
+
+            $products = ProductHelper::products_list($reqData);
+            $proColl= ProductCollection::collection($products);
+            $orderItems = $orderItems = OrderItem::where('seller_id', $sellerId)
+                    ->with('order','buyer.user','product.thumbImage', 'size', 'color', 'brand')->get();
             $data=[
                 'shop_info'=>$shop,
                 'seller_info'=>$seller,
                 'overview_report'=>$shopOverview,
                 'latest_orders'=> $latest_orders,
+                'shop_products'=>$proColl,
+                'shop_orders'=>$orderItems,
             ];
             if(!empty($shop)){
                 return ResponserTrait::singleResponse($data,'success', Response::HTTP_OK);
@@ -135,7 +147,7 @@ class ShopController extends Controller
 
             //TODO check active product and active order then delete
             $seller = $seller->update([
-                'shop_status'=> config('app.delete')
+                'seller_status'=> config('app.delete')
             ]);
             if(!empty($seller)){
                 DB::commit();

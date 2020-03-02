@@ -42,7 +42,9 @@ Route::prefix('seller')->middleware('auth:seller')->namespace('Seller')->as('sel
 
         Route::post('/item/list', 'OrderController@order_item_list')->name('item.list');
         Route::get('/item/status', 'OrderController@order_item_status');
+        Route::get('/all/item/status', 'OrderController@order_all_item_status');
         Route::post('/item/status/update', 'OrderController@update_order_item_status')->name('item.status.update');
+        Route::get('/item/{itemId}/print', 'OrderController@order_item_print')->name('item.print');
     });
 
     Route::prefix('shop')->as('shop.')->group(function () {
@@ -55,4 +57,6 @@ Route::prefix('seller')->middleware('auth:seller')->namespace('Seller')->as('sel
     Route::get('account/info', 'SettingController@account_info')->name('account.info');
     Route::post('update/account/info', 'SettingController@update_account_info')->name('update.account.info');
     Route::post('update/password', 'SettingController@update_password')->name('update.password');
+
+    Route::post('brand/request/store', 'GeneralDataListController@brand_req_store')->name('brand.req.store');
 });

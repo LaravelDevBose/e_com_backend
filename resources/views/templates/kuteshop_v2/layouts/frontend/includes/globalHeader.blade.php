@@ -6,7 +6,7 @@
 
             <!-- hotline -->
             <ul class=" nav-left" >
-                <li ><span><i class="fa fa-phone" aria-hidden="true"></i>+ 00 123 456 789</span></li>
+                <li ><span><i class="fa fa-phone" aria-hidden="true"></i>{{ (!empty($contactInfos['contact_phone'])) ? $contactInfos['contact_phone'] : '' }}</span></li>
                 <li ><span><i class="fa fa-envelope" aria-hidden="true"></i> @lang('header.contact_us_today') !</span></li>
                 <li class="dropdown switcher  switcher-language">
                     <a data-toggle="dropdown" role="button" href="#" class="dropdown-toggle switcher-trigger" aria-expanded="false">
@@ -75,9 +75,41 @@
             <div class="row">
                 <div class="col-md-3 nav-left">
                     <!-- logo -->
-                    <strong class="logo">
-                        <a href="{{ route('front.index') }}"><img src="{{ asset('saliim.png') }}" alt="logo" style="height: 80px;"></a>
+                    <strong class="logo" style="display: inline-block;">
+                        <a href="{{ route('front.index') }}">
+                            <img src="{{ asset('saliim.png') }}" alt="logo" style="height: 80px;">
+                        </a>
                     </strong><!-- logo -->
+                    @if(!empty($siteTitle))
+                        <a href="{{ route('front.index') }}" class="desktop-svg">
+                            <svg viewBox="50 0 600 200" >
+                                <!-- Symbol-->
+                                <symbol id="s-text">
+                                    <text text-anchor="middle" x="50%" y="50%" dy=".35em">{{ $siteTitle }}</text>
+                                </symbol>
+                                <!-- Duplicate symbols-->
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                            </svg>
+                        </a>
+                        <a href="{{ route('front.index') }}" class="mobile-svg">
+                            <svg viewBox="0 0 200 60" >
+                                <!-- Symbol-->
+                                <symbol id="s-text">
+                                    <text text-anchor="middle" x="50%" y="50%" dy=".35em">{{ $siteTitle }}</text>
+                                </symbol>
+                                <!-- Duplicate symbols-->
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                            </svg>
+                        </a>
+                    @endif
                 </div>
                 <div class=" nav-right">
                     <!-- link  wishlish-->

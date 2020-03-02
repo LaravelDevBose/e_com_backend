@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use JD\Cloudder\Facades\Cloudder;
 
 class ProductImageController extends Controller
 {
@@ -64,11 +65,9 @@ class ProductImageController extends Controller
                 if(empty($attachmentModels[$folder])){
                     throw new Exception('Invalid Model!', 400);
                 }
-
+                $model = $attachmentModels[$folder];
                 $attachmentData= [];
                 foreach ($attachments as $key => $attachment){
-
-                    $model = $attachmentModels[$folder];
 
                     $ext = $attachment->guessExtension();
                     $type = $attachment->getMimeType();
@@ -76,21 +75,24 @@ class ProductImageController extends Controller
                     $original_name = $attachment->getClientOriginalName();
                     $file_size = AttachmentHelper::byteToHuman( $attachment->getClientSize() );
 
-                    $name =  md5(rand(1111, 9999). time()) .'.'.$ext;
+                    $publicId = md5(rand(1111, 9999). time());
 
-                    $name_full = $this->attachmentFolder . $folder . '/' . $name;
-                    Storage::disk('local')->put( $name_full, File::get($attachment) );
-
+                    $name =  $publicId .'.'.$ext;
+                    $folderPath = $folder.'/'.$max_number;
+                    $name_full = $this->attachmentFolder . $folderPath . '/' . $name;
+                    Storage::disk('local')->put( $name_full, File::get($attachment));
 
                     $attachmentSave = Attachment::create([
-                        'attachment_no'    => $max_number,
-                        'reference'          => $model,
-                        'file_name'          => $name,
-                        'folder'        => $folder,
-                        'file_type'          => $type,
+                        'attachment_no' => $max_number,
+                        'reference'     => $model,
+                        'file_name'     => $name,
+                        'folder'        => $folderPath,
+                        'file_type'     => $type,
                         'original_name' => $original_name,
-                        'file_size'     => $file_size
+                        'file_size'     => $file_size,
+                        'cloud_public_id' =>$publicId,
                     ]);
+
 
                     array_push($attachmentData, [
                         'pri_id'=>$request->pri_id,
@@ -130,6 +132,7 @@ class ProductImageController extends Controller
             ]);
         }
     }
+
 
     public function download(Attachment $attachment) {
         $user = Auth::user();

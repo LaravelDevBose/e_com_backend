@@ -33,7 +33,7 @@ class SettingController extends Controller
     }
 
     public function account_info(){
-        $user = User::select('full_name', 'user_name', 'email', 'phone_no')->where('user_id', \auth()->guard('seller')->id())->first();
+        $user = User::select('full_name', 'email', 'phone_no')->where('user_id', \auth()->guard('seller')->id())->first();
         if(!empty($user)){
             return ResponserTrait::singleResponse($user, 'success', Response::HTTP_OK);
         }else{
@@ -45,7 +45,6 @@ class SettingController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'full_name'=>'required|string',
-            'user_name'=>'required|string',
             'email'=>'required|email',
             'phone_no'=>'required|string',
         ]);
@@ -55,7 +54,6 @@ class SettingController extends Controller
                 $user = User::where('user_id', \auth()->guard('seller')->id())
                         ->update([
                             'full_name'=>$request->full_name,
-                            'user_name'=>$request->user_name,
                             'email'=>$request->email,
                             'phone_no'=>$request->phone_no,
                         ]);
@@ -95,7 +93,7 @@ class SettingController extends Controller
                 DB::beginTransaction();
 
                 $credentials = [
-                    'user_name'=>auth()->guard('seller')->user()->user_name,
+                    'email'=>auth()->guard('seller')->user()->email,
                     'password'=>$request->current_password,
                 ];
                 if(Auth::guard('seller')->once($credentials)){

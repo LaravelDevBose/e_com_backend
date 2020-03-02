@@ -22,6 +22,7 @@ class Attachment extends Model
         'shop'=>11,
         'section'=>12,
         'Review'=>13,
+        'mall'=>14,
     ];
 
     protected $table = 'attachments';
@@ -35,7 +36,8 @@ class Attachment extends Model
         'folder',
         'file_type',
         'file_size',
-        'original_name'
+        'original_name',
+        'cloud_public_id',
     ];
     protected $appends = array('image_path');
 

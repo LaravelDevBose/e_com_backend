@@ -79,7 +79,6 @@ const actions = {
                     return  response.data;
                 });
         }catch (error) {
-            console.log(error);
             commit('setResponse', error.data);
         }
     },
@@ -111,12 +110,12 @@ const mutations = {
         }
     },
     setShopStatusUpdate:(state, response)=>{
-        state.shop_list = state.shop_list.filter(shop=>{
-            if(shop.seller_id == response.seller_id){
-                shop.shop_status = response.status;
-                shop.status_label = response.status_label;
+        state.shop_list = state.shop_list.filter(seller=>{
+            if(seller.seller_id == response.seller_id){
+                seller.seller_status = response.status;
+                seller.status_label = response.status_label;
             }
-            return shop;
+            return seller;
         })
     },
     removeShop:(state, sellerId)=>state.shop_list = state.shop_list.filter(shop=>shop.seller_id !== sellerId),
@@ -125,6 +124,8 @@ const mutations = {
         state.seller_info = response.seller_info;
         state.overview_report = response.overview_report;
         state.latest_orders = response.latest_orders;
+        state.shop_products = response.shop_products;
+        state.shop_orders = response.shop_orders;
     }
 };
 

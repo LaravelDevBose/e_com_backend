@@ -51,7 +51,7 @@ class OrderHelper
     public static function order_item_list($request=null){
         $request = (Object) $request;
 
-        $orderItems = OrderItem::with('order','buyer.user','product.thumbImage', 'size', 'color', 'brand');
+        $orderItems = OrderItem::with('order','buyer.user','product', 'size', 'color', 'brand', 'image');
 
         if(!empty($request->seller_id)){
             $orderItems = $orderItems->where('seller_id', auth()->user()->seller->seller_id);

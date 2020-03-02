@@ -25,7 +25,7 @@
                     </ul><!-- link categori -->
 
                     <!-- List Products -->
-                    <products-page></products-page>
+                    <products-page :mallname="{{ json_encode($mallTitle) }}"></products-page>
                     <!-- List Products -->
 
                 </div><!-- Main Content -->
@@ -42,43 +42,5 @@
 @endsection
 
 @section('PageJs')
-    <script>
 
-        (function($) {
-
-            "use strict";
-
-            $(document).ready(function() {
-
-                /*  [ Filter by price ]
-
-                - - - - - - - - - - - - - - - - - - - - */
-
-                $('#slider-range').slider({
-
-                    range: true,
-
-                    min: 0,
-
-                    max: 500,
-
-                    values: [0, 300],
-
-                    slide: function (event, ui) {
-
-                        $('#amount-left').text(ui.values[0] );
-                        $('#amount-right').text(ui.values[1] );
-
-                    }
-
-                });
-
-                $('#amount-left').text($('#slider-range').slider('values', 0));
-
-                $('#amount-right').text($('#slider-range').slider('values', 1));
-            });
-
-        })(jQuery);
-
-    </script>
 @endsection

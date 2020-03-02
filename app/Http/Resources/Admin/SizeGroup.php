@@ -19,7 +19,7 @@ class SizeGroup extends JsonResource
             'id'=>$this->size_group_id,
             'name'=>$this->size_group_title,
             'status'=>$this->size_group_status,
-            'categories'=>SizeGroupCategoryResource::collection($this->whenLoaded('categories')),
+            'categories'=> SizeGroupCategoryResource::collection($this->whenLoaded('categories')),
             'sizes'=>SizeResource::collection($this->whenLoaded('sizes')),
         ];
     }

@@ -2,8 +2,8 @@
     <div class="products  products-grid">
         <ol v-if="productList" class="product-items row">
             <li class="col-sm-3" v-for="(product,index) in productList" :key="index">
-                <div class="product-item  product-item-opt-1">
-                    <product-grid  :product="product"></product-grid>
+                <div class="product-item  product-item-opt-2">
+                    <product-grid  :product="product" :mallname="mallname"></product-grid>
                 </div>
             </li>
         </ol><!-- list product -->
@@ -18,6 +18,10 @@
             products:[Object,Array],
             categoryid:[Number, String],
             slug:[String],
+            mallname:{
+                type: String,
+                default: 'Saliim Mall'
+            }
         },
         data(){
             return{

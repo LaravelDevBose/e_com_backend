@@ -3,25 +3,33 @@
         <div class="product-info-price">
             <div class="price-box">
                 <span class="price">$ {{ cartData.price }}</span>
-
+                <span class="old-price" v-if="oldPrice !== 0 && oldPrice !== '' ">$ {{ oldPrice}}</span>
             </div>
         </div>
-        <div class="product-code">
+        <!--<div class="product-code">
             SKU: #{{ product.product_sku }}
+        </div>-->
+        <div class="product-info-stock">
+            <div class="stock available">
+                <span class="label">{{ $t('product.availability')}}: </span>
+                <span v-if="product.product_status ===1">In stock</span>
+                <span v-if="product.product_status ===5" style="color:red !important;">Stock out</span>
+            </div>
         </div>
         <div class="product-info-stock">
             <div class="stock available">
-                <span class="label">{{ $t('product.availability')}}: </span>In stock
+                <span class="label">Package Dimension : {{ product.package_height +' X '+ product.package_weight +' X '+ product.package_length}} CM </span>
+                <span class="label">Package Weight : {{product.package_weight}} KG</span>
             </div>
         </div>
         <div class="product-overview">
             <div class="overview-content" v-html="product.highlight"> </div>
         </div>
         <div class="product-add-form">
-            <p>{{ $t('product.avail_options')}}:</p>
+            <p v-if="product.product_status ===1">{{ $t('product.avail_options')}}:</p>
             <form>
 
-                <div class="product-options-wrapper">
+                <div class="product-options-wrapper" v-if="product.product_status ===1">
 
                     <div v-if="product.product_type === 2" class="swatch-opt">
                         <div v-if="colors" class="swatch-attribute color" >
@@ -53,10 +61,10 @@
 
                 <div class="product-options-bottom clearfix">
                     <div class="actions">
-                        <button type="submit" @click.prevent="addToCart()" title="Add to Cart" class="action btn-cart">
+                        <button v-if="product.product_status ===1" type="submit" @click.prevent="addToCart()" title="Add to Cart" class="action btn-cart">
                             <span>{{ $t('product.add_to_cart')}}</span>
                         </button>
-                        <button type="submit" @click.prevent="buyNow()" title="Buy Now" class="action btn-buy">
+                        <button v-if="product.product_status ===1" type="submit" @click.prevent="buyNow()" title="Buy Now" class="action btn-buy">
                             <i class="fa fa-cart-plus"></i>
                             <span>{{ $t('product.buy_now')}}</span>
                         </button>
@@ -90,17 +98,24 @@
                     price:0,
                     colorId:'',
                     sizeId:'',
-                }
+                },
+                oldPrice:0,
             }
         },
         created(){
             if(this.product.product_type === 1){
-                this.cartData.price = parseFloat(this.product.product_price);
+                this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
             }else{
-                this.cartData.price = parseFloat(this.product.single_variation.price);
+                this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
                 this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
                 this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
             }
+
+            if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                this.oldPrice = this.cartData.price;
+                this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
+            }
+
         },
         mounted(){
             if(this.product.product_type === 2) {
@@ -184,8 +199,12 @@
                 let variations = this.product.variations;
                 variations.filter(variation=>{
                     if(parseInt(variation.pri_id) === this.cartData.colorId && parseInt(variation.sec_id) === this.cartData.sizeId){
-                        console.log(variation);
-                        this.cartData.price = parseFloat(variation.price);
+                        this.cartData.price = parseFloat(variation.price).toFixed(2);
+
+                        if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                            this.oldPrice = this.cartData.price;
+                            this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
+                        }
                     }
                 })
             }

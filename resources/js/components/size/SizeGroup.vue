@@ -3,10 +3,10 @@
         <div class="panel panel-info" v-if="!is_edit">
             <div class="panel-heading">
                 <h5 class="panel-title">Product Size Group</h5>
-                <div class="heading-elements">
+                <!--<div class="heading-elements">
                     <button type="button" class="btn bg-orange-800 btn-sm" @click="bulkSizeGroupModel">Bulk Size Group <i class="icon-play3 position-right"></i></button>
                     <button type="button" class="btn bg-orange-800 btn-sm" @click="bulkSizeModel">Bulk Size <i class="icon-play3 position-right"></i></button>
-                </div>
+                </div>-->
             </div>
 
             <div class="panel-body">
@@ -82,8 +82,8 @@
                         <div class="col-md-12" >
                             <div style="margin-bottom:1rem;">
                                 <label style="margin-left:.5rem">Size Name:</label>
-                                <span class="btn btn-sm btn-success " @click="addSizeField"> <i class="icon-plus-circle2"></i></span>
-                                <span class="btn btn-sm btn-danger " @click="removeSizeField"> <i class="icon-minus-circle2"></i></span>
+                                <span class="btn btn-sm btn-success " @click="addSizeField()"> <i class="icon-plus-circle2"></i></span>
+                                <span class="btn btn-sm btn-danger " @click="removeSizeField()"> <i class="icon-minus-circle2"></i></span>
                             </div>
 
                             <div class="row">
@@ -117,13 +117,6 @@
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">Product Size Group List</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
             </div>
 
             <div class="table-responsive">
@@ -138,15 +131,20 @@
                         <th class="text-center">Action</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr v-if="sizeGroups" v-for="(sizeGroup , index) in sizeGroups" :key="sizeGroup.id">
+                    <tbody v-if="sizeGroups !== ''">
+                    <tr v-for="(sizeGroup , index) in sizeGroups" :key="sizeGroup.id">
                         <td>{{ index }}</td>
 
                         <td>
                             <span class="text text-bold"> {{ sizeGroup.name }}</span>
                         </td>
                         <td>
-                            <span class="label label-info"  v-for="(SG_cat, index) in sizeGroup.categories" :key="index">{{ SG_cat.category.name }}</span>
+                            <span
+                                class="label label-info"
+                                v-for="(SG_cat, index) in sizeGroup.categories"
+                                :key="index"
+                                v-if="SG_cat.category !== null && SG_cat.category !== '' "
+                            >{{ SG_cat.category.name }}</span>
                         </td>
                         <td>
                             <span class="label bg-teal"  v-for="size in sizeGroup.sizes" :key="size.id">{{ size.size_name }}</span>
@@ -167,8 +165,6 @@
                 </table>
             </div>
         </div>
-        <import-data :example_image="format_image" :upload_url="action_url" :example_file="format_file" ></import-data>
-        <!-- /basic table -->
     </div>
 </template>
 
@@ -221,30 +217,11 @@
                 'updateProductSize',
             ]),
             addSizeField(){
-
                 this.sizeInput++;
-                if(this.sizeInput === 1){
-                    this.sizeRemove = false;
-                }else{
-                    this.sizeRemove = true;
-                }
-
             },
             removeSizeField(){
-
                 this.form.sizeNames.splice(this.sizeInput, 1);
-                if(this.sizeInput === 1){
-                    return;
-                }else{
-                    if(this.sizeInput === 1){
-                        this.sizeRemove = false;
-                    }else{
-                        this.sizeRemove = true;
-                        this.sizeInput--;
-                    }
-                    return ;
-                }
-
+                this.sizeInput--;
             },
             sizeGroupStore(){
                 this.btnDisabled=  true;

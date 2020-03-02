@@ -12,6 +12,7 @@ use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,6 +27,19 @@ class HomeController extends Controller
             $this->template_name = config('app.default_template');
         }
         $this->middleware('auth');
+    }
+
+    public function userInfo(){
+        if(Auth::user()){
+            $data =[
+                'user'=>Auth::guard('web')->user()->toJson(),
+                'whoIs'=>'buyer',
+            ];
+            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Login Successful', $data);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_OK, 'UnAuthnticate');
+        }
+
     }
 
     public function index(){

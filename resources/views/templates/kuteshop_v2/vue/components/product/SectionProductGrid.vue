@@ -1,5 +1,5 @@
 <template>
-    <div class="product-item product-item-opt-2">
+    <div v-if="product" class="product-item product-item-opt-2">
         <div class="product-item-info">
             <div class="product-item-photo">
                 <a href="#" @click.prevent="productDetails(product.product_slug)" :title="product.product_name" class="product-item-img">
@@ -16,7 +16,7 @@
                     <a href="#" title="Buy Now" class="btn" @click.prevent="buyNow()" style="font-size:18px;"><i class="fa fa-cart-plus"></i></a>
                 </div>
                 <button class="btn btn-cart" type="button" @click.prevent="addToCart()"><span>{{ $t('product.add_to_cart')}}</span></button>
-                <!--                    <span class="product-item-label label-price">30% <span>off</span></span>-->
+                <span v-if="product.seller_id === 1" class="product-item-label label-sale-off">{{ mallname }}</span>
             </div>
             <div class="product-item-detail">
                 <strong class="product-item-name">
@@ -24,16 +24,16 @@
                 </strong>
                 <div class="clearfix">
                     <div class="product-item-price">
-                        <span class="price" v-if="product.product_type === 1 && product.single_variation === null">$ {{ product.product_price }}</span>
-                        <span class="price" v-else>$ {{ product.single_variation.price }}</span>
+                        <span class="price" style="display: block">$ {{ cartData.price }}</span>
+                        <span class="old-price" v-if="oldPrice !== 0 && oldPrice !== '' ">$ {{ oldPrice}}</span>
                     </div>
-                    <div class="product-reviews-summary">
-                        <div class="rating-summary">
-                            <div class="rating-result" title="80%">
-                                    <span style="width:80%">
-                                        <span><span>80</span>% of <span>100</span></span>
-                                    </span>
-                            </div>
+                    <div class="product-reviews-summary ">
+                        <div class="rating-summary grid-rating">
+                            <star-rating
+                                :star-size="13"
+                                :rating="rating"
+                                :read-only="true"
+                            ></star-rating>
                         </div>
                     </div>
                 </div>
@@ -49,6 +49,11 @@
         props:{
             product:{
                 type:Object,
+                default:{},
+            },
+            mallname:{
+                type: String,
+                default: 'Saliim Mall'
             }
         },
         data(){
@@ -62,6 +67,8 @@
                     colorId:'',
                     sizeId:'',
                 },
+                rating:0,
+                oldPrice:0,
             }
         },
         created(){
@@ -69,11 +76,19 @@
         },
         mounted(){
             if(this.product.product_type === 1){
-                this.cartData.price = parseFloat(this.product.product_price);
+                this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
             }else{
-                this.cartData.price = parseFloat(this.product.single_variation.price);
+                this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
                 this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
                 this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+            }
+            if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                this.oldPrice = this.cartData.price;
+                this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
+            }
+            if(this.product.reviews !== '' && this.product.reviews.length >0){
+                let sum = this.product.reviews.reduce((acc, item) => acc + parseInt(item.rating), 0);
+                this.rating = sum / this.product.reviews.length;
             }
         },
         methods:{

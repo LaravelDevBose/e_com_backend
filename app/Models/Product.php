@@ -86,6 +86,10 @@ class Product extends Model
         'product_price',
         'seller_sku',
         'product_condition',
+        'discount_price',
+        'mall_comp_name',
+        'mall_comp_logo',
+        'mall_product',
     ];
 
     protected static function boot()
@@ -147,7 +151,7 @@ class Product extends Model
     }
 
     public function scopeInAdminReview($query){
-        return $query->whereIn('product_status', [Product::ProductStatus['Pending'], Self::ProductStatus['Pending']]);
+        return $query->where('product_status', self::ProductStatus['Review']);
     }
 
     public function scopeIsOwner($query){
@@ -197,7 +201,9 @@ class Product extends Model
     }
 
     public function scopeDateRangeWish($query,$request){
+
         if($request->date_range == 'today'){
+
             $today = Carbon::today()->format('Y-m-d');
             $query->whereDate('created_at', $today);
         }
@@ -273,5 +279,13 @@ class Product extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class, 'product_id', 'product_id');
+    }
+
+    public function mallLogo(){
+        return $this->hasOne(Attachment::class,  'attachment_id','mall_comp_logo');
+    }
+
+    public function latest_deal(){
+        return $this->hasOne(LatestDealProduct::class, 'product_id', 'product_id');
     }
 }

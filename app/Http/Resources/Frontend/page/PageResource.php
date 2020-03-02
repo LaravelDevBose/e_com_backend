@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Frontend\page;
 
 use App\Http\Resources\attachment\AttachmentResource;
+
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,6 +27,7 @@ class PageResource extends JsonResource
             'extra_content'=>$this->other_content,
             'attachment'=> new AttachmentResource($this->whenLoaded('attachment')),
             'status'=>$this->page_status,
+            'category'=>$this->page_cat,
             'created_at'=>Carbon::parse($this->created_at)->format('d M Y'),
         ];
     }

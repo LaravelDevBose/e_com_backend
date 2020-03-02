@@ -8,12 +8,12 @@
                 </div>
             </form>
         </div>
-        <div class="categori-search  ">
+        <!--<div class="categori-search  ">
             <chosen-select v-model="searchData.categoryId"  :placeholder="$t('header.all') + $tc('header.category',2)" :class-list="'categori-search-option'">
                 <option :value="0">{{$t('header.select_category')}}</option>
                 <option v-if="categories" v-for="(category, index) in categories"  :value="category.id"  :key="index">{{ category.name }}</option>
             </chosen-select>
-        </div>
+        </div>-->
         <search-result-section></search-result-section>
     </div>
 </template>
@@ -37,12 +37,14 @@
             }
         },
         mounted(){
+            this.getCartDetails();
             this.getCategoryList();
         },
         methods:{
             ...mapActions([
                 'getSearchDetails',
                 'getCategoryList',
+                'getCartDetails'
             ]),
             searchingData(){
                 this.searching();

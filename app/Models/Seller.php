@@ -39,6 +39,9 @@ class Seller extends User
     public function getStatusLabelAttribute()
     {
         $shopStatus = array_flip(Self::ShopStatus);
+        if(empty($shopStatus[$this->attributes['seller_status']])){
+            return 'Undefiend';
+        }
         return $shopStatus[$this->attributes['seller_status']];
     }
 

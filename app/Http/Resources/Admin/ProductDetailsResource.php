@@ -25,6 +25,7 @@ class ProductDetailsResource extends JsonResource
             'warranty_policy'=>$this->warranty_policy,
             'warranty_policy_eng'=>$this->warranty_policy_eng,
             'warranty_period'=>$this->warranty_period,
+            'cod_avail'=> $this->cod_avail,
         ];
     }
 }
