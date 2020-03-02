@@ -9,8 +9,8 @@ class PaymentInfo extends Model
 {
     const Payment_Method =[
         'Cash On Delivery'  =>1,
-        'Credit Card'       =>2,
-        'Paypal'            =>3,
+        'Salaam'            =>2,
+        'eDahab'            =>3,
     ];
 
     const setting_key = [

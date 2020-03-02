@@ -14,6 +14,18 @@
                         <button type="button" @click.prevent="paymentMethodStore" class="button">{{ $t('checkout.continue')}}</button>
                     </div>
                 </li>
+                <li class="row">
+                    <div class="col-md-6 col-md-offset-3" v-if="formData.payment_method_id == 2">
+                        <div class="text-center">
+                            <button type="button" style="background:#f36" class="button btn-block">Pay here by Salaam (123456789)</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-md-offset-3" v-if="formData.payment_method_id == 3">
+                        <div class="text-center">
+                            <button type="button" style="background:#f78031" class="button btn-block">Pay here by eDahab (123456789)</button>
+                        </div>
+                    </div>
+                </li>
             </ul>
 
         </div>

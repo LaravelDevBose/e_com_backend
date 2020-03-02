@@ -2,8 +2,8 @@
     <div class="box-border">
         <ul class="shipping_method">
             <li v-if="deliveryMethods" v-for="(method, index) in deliveryMethods" :key="index">
-                <label for="radio_button_3" >
-                    <input checked="" v-model="formData.shipping_method_id" :value="method.delivery_id" name="radio_3" id="radio_button_3" type="radio">
+                <label :for="'radio_button_'+index" >
+                    <input checked="" v-model="formData.shipping_method_id" :value="method.delivery_id" name="radio_3" :id="'radio_button_'+index" type="radio">
                     {{ method.delivery_title }}-  $ {{ method.cost_price}}
                     <br>
                     ({{ method.min_time }}-{{ method.max_time }}) working days
