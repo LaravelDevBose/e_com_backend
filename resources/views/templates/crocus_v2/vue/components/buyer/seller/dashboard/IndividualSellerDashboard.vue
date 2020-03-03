@@ -21,7 +21,7 @@
     import IndividualSellerOrderList from "../order/IndividualSellerOrderList";
     export default {
         name: "IndividualSellerDashboard",
-        components:[WelcomeMessage,IndividualSellerOrderList]
+        components:{WelcomeMessage,IndividualSellerOrderList}
     }
 </script>
 
