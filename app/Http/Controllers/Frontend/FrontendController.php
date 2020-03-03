@@ -55,21 +55,11 @@ class FrontendController extends Controller
     public function index()
     {
         $sliders = CommonData::slider_list([Slider::SliderType['Home Page']]);
-
-        $sections = HomepageSection::with(['attachment',
-            'sectionCategories' => function ($query) {
-                return $query->with(['category', 'secCatProducts' => function ($q) {
-                    return $q->with(['product.thumbImage', 'product.singleVariation']);
-                }]);
-            }, 'sectionProducts' => function ($q) {
-                return $q->isActive()->count();
-            }])->orderBy('section_position', 'asc')->isActive()->get();
-
         $topProducts = GroupProduct::where('group_type', GroupProduct::Groups['Top Product'])
             ->whereDate('expired_at', '>=', Carbon::now())
             ->with(['product' => function ($query) {
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews');
-            }])->orderBy('position', 'asc')->latest()->take(5)->get();
+            }])->orderBy('position', 'asc')->latest()->get();
 
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->whereDate('expired_at', '>=', Carbon::now())
@@ -77,8 +67,13 @@ class FrontendController extends Controller
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
             }])->islive()->orderBy('position', 'asc')->latest()->get();
 
-
-        $adminBestSellProIds = OrderItem::where('seller_id', 1) //seller id 1 is Booked for admin
+        $latestDeals = LatestDeal::where('status', config('app.active'))->whereDate('end_time', '>', Carbon::now()->format('Y-m-d h:i:s'))
+            ->with(['deal_products' => function ($query) {
+                return $query->with(['product' => function ($q) {
+                    return $q->isActive();
+                }]);
+            }])->first();
+        /*$adminBestSellProIds = OrderItem::where('seller_id', 1) //seller id 1 is Booked for admin
         ->select('order_id', 'product_id', DB::raw('count(*) as total'))
             ->groupBy('product_id')->orderBy('total', 'desc')
             ->take(20)
@@ -88,7 +83,7 @@ class FrontendController extends Controller
 
         $adminLatestProducts = Product::isActive()->where('seller_id', 1)
             ->with('thumbImage', 'singleVariation', 'reviews', 'brand.attachment', 'mallLogo')
-            ->latest()->take(20)->get();
+            ->latest()->take(20)->get();*/
 
         $categories = Category::isParent()->isActive()->select('category_id', 'category_name', 'category_slug', 'sect_banner_id')
             ->with(['sectionBanner', 'children' => function ($query) {
@@ -112,7 +107,7 @@ class FrontendController extends Controller
                 ->pluck('product_id');
             $bestSellProducts = $products;
             $mostReviewsProducts = $products;
-            $latestProducts = $products->latest()->take(18)->get();
+            $latestProducts = $products->latest()->take(12)->get();
             $bestSellProducts = $bestSellProducts->whereIn('product_id', $bestSellProductId)->take(12)->get();
             $mostReviewsProducts = $mostReviewsProducts->whereIn('product_id', $mostReviewProductIds)->take(12)->get();
 
@@ -126,20 +121,12 @@ class FrontendController extends Controller
             ]);
         }
 
-        $latestDeals = LatestDeal::where('status', config('app.active'))->whereDate('end_time', '>', Carbon::now()->format('Y-m-d h:i:s'))
-            ->with(['deal_products' => function ($query) {
-                return $query->with(['product' => function ($q) {
-                    return $q->isActive();
-                }]);
-            }])->first();
+
         return view('templates.' . $this->template_name . '.frontend.home', [
             'sliders' => $sliders,
-            'sections' => $sections,
             'topProducts' => $topProducts,
             'hotProducts' => $hotProducts,
             'categorySection' => $categorySection,
-            'adminBestSellProducts' => $adminBestSellProducts,
-            'adminLatestProducts' => $adminLatestProducts,
             'latestDeals' => $latestDeals,
         ]);
     }

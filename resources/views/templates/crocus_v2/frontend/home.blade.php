@@ -14,37 +14,17 @@
     <div class="container">
         <div class="row">
             <div class=" col-lg-3 col-md-3 col-sm-5 col-xs-12 col-mid">
-                @if(!empty($topProducts))
-                <div class="top-products">
-                    <div class="title">Top Products</div>
-                    <ul>
-                        @foreach($topProducts as $topProduct)
-                        <li>
-                            <div class="row">
-                                <div class="col-xs-4 col-sm-4 no-margin">
-                                    <img alt="{{ $topProduct->product->product_name }}" src="{{ $topProduct->product->thumbImage->image_path }}">
-                                </div>
-                                <div class="col-xs-8 col-sm-8 no-margin">
-                                    <a href="{{ route('front.product', $topProduct->product->product_slug) }}"> {{ substr($topProduct->product->product_name,0, 20) }} {{ (strlen($topProduct->product->product_name) > 40)?'...':'' }}</a>
-                                    <div class="rating">
-                                        <div class="ratings">
-                                            <div class="rating-box">
-                                                <div style="width:80%" class="rating"></div>
-                                            </div>
-                                            <p class="rating-links"> <a href="#">1 Review(s)</a></p>
-                                        </div>
-                                    </div>
-                                    @if($topProduct->product->product_type == 1)
-                                    <div class="price">$ {{ $topProduct->product->product_price }}</div>
-                                    @else
-                                    <div class="price">$ {{ $topProduct->product->singleVariation->price }}</div>
-                                    @endif
-                                </div>
+                @if(!empty($hotProducts))
+                    <div class="hot-deal">
+                        <div class="title">Hot Deal</div>
+                        <div id="testimonials" class="product-flexslider hidden-buttons" style="margin-top: 0px;">
+                            <div class="products-grid slider-items slider-width-col1 owl-carousel owl-theme">
+                                @foreach($hotProducts as $hotProduct)
+                                    <hot-deal-product :hotProduct="{{ $hotProduct }}"></hot-deal-product>
+                                @endforeach
                             </div>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
+                        </div>
+                    </div>
                 @endif
             </div>
             <div class="col-md-6 col-sm-7 col-xs-12">
@@ -69,31 +49,20 @@
                 </div>
             </div>
             <div class=" col-lg-3 col-md-3 col-sm-7 col-xs-12">
-                @if(!empty($hotProducts))
-                    <div class="hot-deal">
-                        <div class="title">Hot Deal</div>
-                        <div id="testimonials" class="product-flexslider hidden-buttons" style="margin-top: 0px;">
-                            <div class="products-grid slider-items slider-width-col1 owl-carousel owl-theme">
-                                @foreach($hotProducts as $hotProduct)
-                                    <hot-deal-product :hotProduct="{{ $hotProduct }}"></hot-deal-product>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                @endif
+
             </div>
         </div>
     </div>
 </div>
 <!-- end Slider -->
 
-<slider-buttom-section></slider-buttom-section>
+<slider-bottom-section></slider-bottom-section>
 <div class="content-page">
     <div class="container">
         <div class="row">
 
             <!-- featured category fashion -->
-            <div class="col-md-12" >
+            <div class="col-md-9" >
                 @if(!empty($latestDeals))
                     <latest-deal-section :latest_deal="{{ $latestDeals }}"></latest-deal-section>
                 @endif
@@ -145,7 +114,7 @@
                                                                 <ul class="products-grid">
                                                                     @foreach($productType as $product)
                                                                         @if(!empty($product))
-                                                                            <li class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+                                                                            <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
                                                                                 <product-grid :product="{{ $product }}"></product-grid>
                                                                             </li>
                                                                         @endif
@@ -166,7 +135,38 @@
                 @endif
             </div>
             <div class="col-md-3">
-
+                @if(!empty($topProducts))
+                    <div class="top-products">
+                        <div class="title">Top Products</div>
+                        <ul>
+                            @foreach($topProducts as $topProduct)
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 no-margin">
+                                            <img alt="{{ $topProduct->product->product_name }}" src="{{ $topProduct->product->thumbImage->image_path }}">
+                                        </div>
+                                        <div class="col-xs-8 col-sm-8 no-margin">
+                                            <a href="{{ route('front.product', $topProduct->product->product_slug) }}"> {{ substr($topProduct->product->product_name,0, 25) }} {{ (strlen($topProduct->product->product_name) > 25)?'...':'' }}</a>
+                                            <div class="rating">
+                                                <div class="ratings">
+                                                    <div class="rating-box">
+                                                        <div style="width:80%" class="rating"></div>
+                                                    </div>
+                                                    <p class="rating-links"> <a href="#">1 Review(s)</a></p>
+                                                </div>
+                                            </div>
+                                            @if($topProduct->product->product_type == 1)
+                                                <div class="price">$ {{ $topProduct->product->product_price }}</div>
+                                            @else
+                                                <div class="price">$ {{ $topProduct->product->singleVariation->price }}</div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+            @endif
                 <!-- home side banner -->
                 <div class="home-side-banner"> <img alt="banner" src="{{ asset('crocus_v2/images/home-banner.png')}}"> </div>
                 <div class="side-banner-img"> <a href="#" title="Image"> <img src="{{ asset('crocus_v2/images/mid-banner2.png')}}" alt="Image"></a> </div>
@@ -178,9 +178,6 @@
 
 @section('PageJs')
 <script type='text/javascript'>
-
-    import ProductGrid from "../../kuteshop_v2/vue/components/product/ProductGrid";
-
     jQuery(document).ready(function() {
         jQuery('#rev_slider_4').show().revolution({
             dottedOverlay: 'none',
@@ -237,7 +234,4 @@
             fullScreenOffsetContainer: ''
         });
     });
-    export default {
-        components: {ProductGrid}
-    }
 @endsection
