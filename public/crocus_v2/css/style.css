@@ -1738,7 +1738,7 @@ header {
 .top-products .no-margin {padding:0px 10px}
 .top-products ul {padding:11px 0px; margin:0px; text-align:left; overflow:hidden; border:1px #e5e5e5 solid; }
 .top-products ul li {display:block; margin:0px;  padding:5px 14px; }
-.top-products a {font-size: 14px; font-weight: normal; letter-spacing: normal; color: #444; display:block; margin-top:9px; margin-bottom:5px}
+.top-products a {font-size: 12px; font-weight: normal; letter-spacing: normal; color: #444; display:block; margin-top:9px; margin-bottom:5px}
 .top-products .price {font-weight: bold; font-size: 13px; color: #000;	}
 .top-products .title {background: #167bcb; color: #fff; font-weight: bold; text-align: left; padding: 9px 15px; text-transform: uppercase; font-size:14px; letter-spacing:0.5px}
 .top-products .col-sm-4 {padding-right:2px}
@@ -2556,7 +2556,7 @@ header {
 }
 .category-product {
 	margin-top: 25px;
-	background-color: #fff;
+	background-color: #f5f5f50d;
 	margin-bottom: 10px;
 	overflow: hidden;
 	position: relative;
@@ -2994,7 +2994,11 @@ margin:
 .products-grid .item {
 	background: #FFF;
 	margin-top: 20px;
-	margin-bottom: 5px!important
+	margin-bottom: 5px!important;
+    padding: 3px;
+}
+.products-grid .item:hover {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important
 }
 .col-main .category-products .products-grid {
 	margin-left: -12px;
@@ -3071,9 +3075,6 @@ margin:
 }
 .products-grid .item .item-inner .item-img {
 	margin: 0px auto 0;
-	border:1px #e5e5e5 solid;
-
-
 }
 .products-grid .item .item-inner .item-info .info-inner {
 	border-top: none;
@@ -8325,10 +8326,10 @@ address {
 }
 .hot-deal {
 	overflow: hidden;
-	margin-top: 24px;
+	margin-top: 0px;
 }
 
-.hot-deal .title {background:#e25b60;color:#fff;font-weight:bold;text-align:center;padding: 9px 15px;text-transform:uppercase;}
+.hot-deal .title {background:#e25b60;color:#fff;font-weight:bold;text-align:center;padding: 9px 15px;text-transform:uppercase; font-size: 14px;}
 
 
 .hot-deal .products-grid .item {

@@ -66,11 +66,13 @@ class FrontendController extends Controller
             }])->orderBy('section_position', 'asc')->isActive()->get();
 
         $topProducts = GroupProduct::where('group_type', GroupProduct::Groups['Top Product'])
+            ->whereDate('expired_at', '>=', Carbon::now())
             ->with(['product' => function ($query) {
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews');
-            }])->orderBy('position', 'asc')->latest()->get();
+            }])->orderBy('position', 'asc')->latest()->take(5)->get();
 
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
+            ->whereDate('expired_at', '>=', Carbon::now())
             ->with(['product' => function ($query) {
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
             }])->islive()->orderBy('position', 'asc')->latest()->get();
