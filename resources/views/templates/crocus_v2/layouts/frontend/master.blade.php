@@ -56,13 +56,6 @@
             color: #000;
             text-decoration: none;
         }
-        .grid-rating .vue-star-rating-rating-text{
-            display: none!important;
-        }
-
-        .grid-rating .vue-star-rating{
-            margin: auto !important;
-        }
     </style>
 </head>
 
@@ -101,7 +94,6 @@
 <script type="text/javascript" src="{{ asset('crocus_v2/js/common.js') }}"  ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/owl.carousel.min.js') }}" ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/jquery.mobile-menu.min.js') }}" ></script>
-<script type="text/javascript" src="{{ asset('crocus_v2/js/countdown.js') }}" ></script>
 <!-- Scripts -->
 
 

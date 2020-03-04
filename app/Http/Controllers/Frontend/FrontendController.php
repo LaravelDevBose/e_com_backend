@@ -290,7 +290,7 @@ class FrontendController extends Controller
         }
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product' => function ($query) {
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage')->isActive();
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
             }])->islive()->orderBy('position', 'asc')->latest()->take(5)->get();
         $showSellerInfo = Setting::where('key', 'show_seller_info')->first();
         $reqData = [

@@ -5,34 +5,12 @@
 @section('PageCss')
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/flexslider.css') }}">
     <style>
-        .shop-info .sold-by{
-            font-size: 12px;
-            color: #6d6d6d;
+        .products-grid .product-image img {
+            border: none !important;
         }
-        .shop-info .shop-name{
-            font-size: 15px;
-            font-weight: 800;
-            margin: 0;
-            padding-bottom: 5px;
-            color: #333;
-        }
-        .shop-info .shop-address{
-            font-size: 13px;
-            margin: 0;
-            color: #6d6d6d;
-
-        }
-        .shop-info .go-to-store{
-            padding: 7px;
-            border-top: 1px solid #eee;
-            text-align: center;
-            text-transform: uppercase;
-        }
-        .go-to-store a{
-
-            font-weight: bold;
-            font-size: 13px;
-            color: #0db1b9;
+        .vue-star-rating {
+            display: inline-block!important;
+            margin-right: 5px;
         }
     </style>
 @endsection
@@ -86,41 +64,19 @@
                                         <h1>{{ $product->product_name}}</h1>
                                     </div>
                                     <div class="ratings">
-                                        <div class="rating-box">
-                                            <div style="width:60%" class="rating"></div>
-                                        </div>
-                                        <p class="rating-links"> <a href="#">1 Review(s)</a></p>
+                                        <star-rating
+                                            :star-size="18"
+                                            :rating="{{ ($product->reviews->count() > 0)? $product->reviews->sum('rating')/$product->reviews->count(): 0 }}"
+                                            :read-only="true"
+                                        ></star-rating>
+                                        <p class="rating-links">
+                                            <a href="#reviews_tabs">{{ $product->reviews->count() }} Review(s)</a>
+                                        </p>
                                     </div>
                                     <single-product-options :product="{{ $product }}"></single-product-options>
                                 </div>
 
                                 <div class="col-lg-3 col-sm-3 col-xs-12 pro-banner">
-                                    @if($product->seller->shop)
-                                    <div class="text-widget widget widget__sidebar shop-info">
-                                        <div class="widget-content">
-                                            <span class="sold-by">Sold By</span>
-                                            <h3 class="shop-name">
-                                                <span>{{ $product->seller->shop->shop_name }}</span>
-                                            </h3>
-                                            @if(!empty($product->seller->shop->phone_no))
-                                                <p class="shop-address">
-                                                    <i class="fa fa-phone"></i>
-                                                    <span>{{ $product->seller->shop->phone_no }}</span>
-                                                </p>
-                                            @endif
-                                            @if(!empty($product->seller->shop->shop_address))
-                                                <p class="shop-address">
-                                                    <i class="fa fa-map-marker"></i>
-                                                    <span>{!! $product->seller->shop->shop_address !!}</span>
-                                                </p>
-                                            @endif
-                                        </div>
-                                        <div class="go-to-store">
-                                            <a href="{{ route('front.shop.profile', $product->seller->shop->shop_slug) }}"> Go To Store</a>
-                                        </div>
-                                    </div>
-                                    @endif
-
                                     @if(!empty($hotProducts))
                                         <div class="hot-deal">
                                             <div class="title">Hot Deal</div>
@@ -133,11 +89,56 @@
                                             </div>
                                         </div>
                                     @endif
-                                    {{--<div class="download-app">
+                                    @if($product->seller->shop)
+                                        <div class="text-widget widget widget__sidebar shop-info">
+                                            <div class="widget-content site-footer">
+                                                <div class="cominfo">
+                                                    @if($product->seller->seller_id !== 1)
+                                                        <div class="item">
+                                                            @if(!empty($product->seller->shop->shopLogo->image_path))
+                                                                <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ $product->seller->shop->shopLogo->image_path }}">
+                                                            @else
+                                                                <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ asset('crocus_v2/images/blog-img.jpg') }}">
+                                                            @endif
+                                                        </div>
+                                                    @endif
+                                                    <h3 class="shop-name float-right" >
+                                                        @if($product->seller->seller_id !== 1)
+                                                            <span>{{ $product->seller->shop->shop_name }}</span>
+                                                        @else
+                                                            <span> {{ $mallTitle }}</span>
+                                                        @endif
+                                                    </h3>
+                                                </div>
+                                                @if(!empty($showSellerInfo) && $showSellerInfo->value == 1 && $product->seller->seller_id !== 1)
+                                                    @if(!empty($product->seller->shop->phone_no))
+                                                        <p class="shop-address">
+                                                            <i class="fa fa-phone"></i>
+                                                            <span>{{ $product->seller->shop->phone_no }}</span>
+                                                        </p>
+                                                    @endif
+                                                    @if(!empty($product->seller->shop->shop_address))
+                                                        <p class="shop-address">
+                                                            <i class="fa fa-map-marker"></i>
+                                                            <span>{!! $product->seller->shop->shop_address !!}</span>
+                                                        </p>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                            <div class="go-to-store">
+                                                @if($product->seller->seller_id !== 1)
+                                                    <a href="{{ route('front.shop.profile', $product->seller->shop->shop_slug) }}"> @lang('product.go_to_store')</a>
+                                                @else
+                                                    <a href="{{ route('front.mall') }}"> @lang('product.go_to_store')</a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
+                                    <div class="download-app">
                                         <h2>DOWNLOAD THE APP</h2>
                                         <img alt="banner" src="{{ asset('crocus_v2/images/google-play-btn.jpg') }}" class="app-btn">
                                         <img alt="banner" src="{{ asset('crocus_v2/images/apple-btn.jpg') }}" class="app-btn">
-                                    </div>--}}
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -157,130 +158,29 @@
                             </div>
                             <div class="tab-pane fade" id="reviews_tabs">
                                 <div class="box-collateral box-reviews" id="customer-reviews">
-                                    <div class="box-reviews1">
-                                        <div class="form-add">
-                                            <form id="review-form" method="post" action="http://www.themesmart.net/review/product/post/id/176/">
-                                                <h3>Write Your Own Review</h3>
-                                                <fieldset>
-                                                    <h4>How do you rate this product? <em class="required">*</em></h4>
-                                                    <span id="input-message-box"></span>
-                                                    <table id="product-review-table" class="data-table">
-                                                        <colgroup>
-                                                            <col>
-                                                            <col width="1">
-                                                            <col width="1">
-                                                            <col width="1">
-                                                            <col width="1">
-                                                            <col width="1">
-                                                        </colgroup>
-                                                        <thead>
-                                                        <tr class="first last">
-                                                            <th>&nbsp;</th>
-                                                            <th><span class="nobr">1 *</span></th>
-                                                            <th><span class="nobr">2 *</span></th>
-                                                            <th><span class="nobr">3 *</span></th>
-                                                            <th><span class="nobr">4 *</span></th>
-                                                            <th><span class="nobr">5 *</span></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr class="first odd">
-                                                            <th>Price</th>
-                                                            <td class="value"><input type="radio" class="radio" value="11" id="Price_1" name="ratings[3]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="12" id="Price_2" name="ratings[3]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="13" id="Price_3" name="ratings[3]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="14" id="Price_4" name="ratings[3]"></td>
-                                                            <td class="value last"><input type="radio" class="radio" value="15" id="Price_5" name="ratings[3]"></td>
-                                                        </tr>
-                                                        <tr class="even">
-                                                            <th>Value</th>
-                                                            <td class="value"><input type="radio" class="radio" value="6" id="Value_1" name="ratings[2]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="7" id="Value_2" name="ratings[2]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="8" id="Value_3" name="ratings[2]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="9" id="Value_4" name="ratings[2]"></td>
-                                                            <td class="value last"><input type="radio" class="radio" value="10" id="Value_5" name="ratings[2]"></td>
-                                                        </tr>
-                                                        <tr class="last odd">
-                                                            <th>Quality</th>
-                                                            <td class="value"><input type="radio" class="radio" value="1" id="Quality_1" name="ratings[1]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="2" id="Quality_2" name="ratings[1]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="3" id="Quality_3" name="ratings[1]"></td>
-                                                            <td class="value"><input type="radio" class="radio" value="4" id="Quality_4" name="ratings[1]"></td>
-                                                            <td class="value last"><input type="radio" class="radio" value="5" id="Quality_5" name="ratings[1]"></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <input type="hidden" value="" class="validate-rating" name="validate_rating">
-                                                    <div class="review1">
-                                                        <ul class="form-list">
-                                                            <li>
-                                                                <label class="required" for="nickname_field">Nickname<em>*</em></label>
-                                                                <div class="input-box">
-                                                                    <input type="text" class="input-text" id="nickname_field" name="nickname">
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <label class="required" for="summary_field">Summary<em>*</em></label>
-                                                                <div class="input-box">
-                                                                    <input type="text" class="input-text" id="summary_field" name="title">
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="review2">
-                                                        <ul>
-                                                            <li>
-                                                                <label class="required " for="review_field">Review<em>*</em></label>
-                                                                <div class="input-box">
-                                                                    <textarea rows="3" cols="5" id="review_field" name="detail"></textarea>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="buttons-set">
-                                                            <button class="button submit" title="Submit Review" type="submit"><span>Submit Review</span></button>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
-                                        </div>
-                                    </div>
                                     <div class="box-reviews2">
                                         <h3>Customer Reviews</h3>
                                         <div class="box visible">
                                             <ul>
-                                                <li>
-
-                                                    <div class="review">
-                                                        <h6><a href="#">Good Product</a></h6>
-                                                        <small>Review by <span>John Doe </span>on 25/8/2016 </small>
-                                                        <div class="rating-box">
-                                                            <div class="rating" style="width:100%;"></div>
-                                                        </div>
-                                                        <div class="review-txt"> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div>
-                                                    </div>
-                                                </li>
-                                                <li class="even">
-
-                                                    <div class="review">
-                                                        <h6><a href="#/catalog/product/view/id/60/">Superb!</a></h6>
-                                                        <small>Review by <span>John Doe</span>on 12/3/2015 </small>
-                                                        <div class="rating-box">
-                                                            <div class="rating" style="width:100%;"></div>
-                                                        </div>
-                                                        <div class="review-txt"> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-
-                                                    <div class="review">
-                                                        <h6><a href="#/catalog/product/view/id/59/">Awesome Product</a></h6>
-                                                        <small>Review by <span>John Doe</span>on 28/2/2015 </small>
-                                                        <div class="rating-box">
-                                                            <div class="rating" style="width:100%;"></div>
-                                                        </div>
-                                                        <div class="review-txt last"> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book </div>
-                                                    </div>
-                                                </li>
+                                                @if(!empty($product->reviews))
+                                                    @foreach($product->reviews as $review)
+                                                        <li>
+                                                            <div class="review">
+                                                                <small>Review by <span>{{ $review->buyer->user->full_name }} </span>on {{ \Carbon\Carbon::parse($review->created_at)->format('d M Y') }}</small>
+                                                                <div class="rating-box">
+                                                                    <star-rating
+                                                                        :star-size="20"
+                                                                        :rating="{{ $review->rating }}"
+                                                                        :read-only="true"
+                                                                    ></star-rating>
+                                                                </div>
+                                                                <div class="review-txt">
+                                                                    {{ $review->review }}
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    @endforeach
+                                                @endif
                                             </ul>
                                         </div>
 
@@ -329,7 +229,6 @@
 
 @section('PageJs')
     <script type="text/javascript" src="{{ asset('crocus_v2/js/jquery.flexslider.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('crocus_v2/js/owl.carousel.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('crocus_v2/js/cloud-zoom.js') }}" ></script>
 
 @endsection

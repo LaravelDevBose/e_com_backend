@@ -2,8 +2,10 @@
     <div>
         <div class="price-block">
             <div class="price-box">
-                <p class="special-price"><span class="price-label">Price</span>
-                    <span class="price">$ {{ cartData.price }}</span>
+                <p class="special-price">
+                    <span class="price">Price: $ {{ cartData.price }}</span>
+                    <br>
+                    <del class="old-price" v-if="oldPrice !== 0 && oldPrice !== '' ">Old Price: $ {{ oldPrice}}</del>
                 </p>
             </div>
         </div>
@@ -46,16 +48,27 @@
                     price:0,
                     colorId:'',
                     sizeId:'',
-                }
+                },
+                oldPrice: 0,
             }
         },
         created(){
             if(this.product.product_type === 1){
-                this.cartData.price = parseFloat(this.product.product_price);
+                this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
             }else{
-                this.cartData.price = parseFloat(this.product.single_variation.price);
+                this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
                 this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
                 this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+            }
+
+            if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                this.oldPrice = this.cartData.price;
+                this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
+            }
+        },
+        mounted(){
+            if(this.product.product_type === 2) {
+                this.getProductVariationInfo(this.product.product_id);
             }
         },
         methods:{
@@ -77,6 +90,9 @@
                             this.$noty.error(response.message);
                         }
                     })
+                .catch(error => {
+                    this.$noty.error('Something Wrong. Try Again.');
+                })
             },
             buyNow(){
                 this.cartData.id = this.product.product_id;
@@ -89,6 +105,9 @@
                         }else{
                             this.$noty.error(response.message);
                         }
+                    })
+                    .catch(error => {
+                        this.$noty.error('Something Wrong. Try Again.');
                     })
             },
             increaseQty(){
@@ -103,7 +122,6 @@
                 }
             },
             addWishList(slug){
-                console.log(slug);
                 if(AppStorage.getWhoIs() === 'buyer'){
                     this.insertToWishList(slug)
                         .then(response=>{
@@ -113,6 +131,9 @@
                                 this.$noty.error('Try Again Later.');
                                 console.log(response);
                             }
+                        })
+                        .catch(error => {
+                            this.$noty.error('Something Wrong. Try Again.');
                         })
                 }else{
                     location.href = '/login';
@@ -129,10 +150,26 @@
                                 console.log(response);
                             }
                         })
+                        .catch(error => {
+                            this.$noty.error('Something Wrong. Try Again.');
+                        })
                 }else{
                     location.href = '/login';
                 }
             },
+            setProductPrice(){
+                let variations = this.product.variations;
+                variations.filter(variation=>{
+                    if(parseInt(variation.pri_id) === this.cartData.colorId && parseInt(variation.sec_id) === this.cartData.sizeId){
+                        this.cartData.price = parseFloat(variation.price).toFixed(2);
+
+                        if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                            this.oldPrice = this.cartData.price;
+                            this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
+                        }
+                    }
+                })
+            }
         },
         computed:{
             ...mapGetters([

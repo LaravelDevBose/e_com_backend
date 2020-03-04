@@ -60,7 +60,7 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex';
+    import {mapActions} from 'vuex';
 
     export default {
         name: "ProductGrid",
@@ -71,8 +71,7 @@
         },
         data(){
             return{
-                productData:{},
-                cartInfo:{
+                cartData:{
                     id:'',
                     name:'',
                     qty:1,
@@ -81,6 +80,7 @@
                     sizeId:'',
                 },
                 rating:0,
+                oldPrice: 0,
             }
         },
         created(){
@@ -103,7 +103,6 @@
                 location.href = '/product/'+slug;
             },
             addWishList(slug){
-                console.log(slug);
                 if(AppStorage.getWhoIs() === 'buyer'){
                     this.insertToWishList(slug)
                         .then(response=>{
@@ -114,6 +113,10 @@
                                 console.log(response);
                             }
                         })
+                        .catch(error => {
+                            this.$noty.error('Something Wrong. Try Again.');
+                            console.log(error);
+                        });
                 }else{
                     location.href = '/login';
                 }
@@ -129,6 +132,10 @@
                                 console.log(response);
                             }
                         })
+                        .catch(error => {
+                            this.$noty.error('Something Wrong. Try Again.');
+                            console.log(error);
+                        });
                 }else{
                     location.href = '/login';
                 }
@@ -137,6 +144,7 @@
                 this.productQuickView(this.product);
             },
             addToCart(){
+
                 this.cartData.id = this.product.product_id;
                 this.cartData.name = this.product.product_name;
                 if(this.product.product_type === 1){
@@ -158,12 +166,11 @@
                             this.$noty.error(response.message);
                         }
                     })
+                    .catch(error => {
+                        this.$noty.error('Something Wrong. Try Again.');
+                        console.log(error);
+                    });
             }
-        },
-        computed:{
-            /*...mapGetters([
-                'cartList'
-            ])*/
         }
     }
 </script>
