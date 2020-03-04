@@ -3,24 +3,11 @@
 @section('Title', 'Products')
 
 @section('PageCss')
-    <style>
-        #narrow-by-list>li>a:hover,.tags-list>li>a:hover{
-
-        }
-        .tags-list>li{
-            padding: 5px !important;
-        }
-        .tags-list>li>a:hover{
-            text-decoration: underline!important;
-            color: #167bcb;
-            font-weight: 700;
-        }
-    </style>
 @endsection
 
 @section('Content')
 <!-- Main Container -->
-<section class="main-container col2-left-layout bounceInUp animated">
+<section class="main-container col2-left-layout bounceInUp animated" style="background: #FAFAFA">
     <div class="container">
         <div class="row">
             <div class="col-sm-9 col-sm-push-3">
@@ -35,8 +22,8 @@
                     </div>
                 </div>
                 @endif
-                <article class="col-main row" style="display: block">
-                    <h2 class="page-heading"> <span class="page-heading-title">{{ $category->category_name }}</span> </h2>
+                <article class="col-main" style="display: block">
+                    <h2 class="page-heading" style="margin-bottom: 0px"> <span class="page-heading-title">{{ $category->category_name }}</span> </h2>
                     <products-page-list></products-page-list>
                 </article>
                 <!--	///*///======    End article  ========= //*/// -->
@@ -78,6 +65,18 @@
                         <!--box-content box-category-->
                     </div>
                     @endif
+                        @if(!empty($hotProducts))
+                            <div class="hot-deal">
+                                <div class="title">Hot Deal</div>
+                                <div id="testimonials" class="product-flexslider hidden-buttons" style="margin-top: 0px;">
+                                    <div class="products-grid slider-items slider-width-col1 owl-carousel owl-theme">
+                                        @foreach($hotProducts as $hotProduct)
+                                            <hot-deal-product :hotProduct="{{ $hotProduct }}"></hot-deal-product>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     <product-sidebar :categoryId="{{ $category->category_id }}"></product-sidebar>
                 </aside>
             </div>

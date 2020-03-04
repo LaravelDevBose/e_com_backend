@@ -89,11 +89,11 @@ jQuery(document).ready(function() {
 	/* Brand logo slider */
 	jQuery("#brand-logo-slider .slider-items").owlCarousel({
 		autoPlay: true,
-		items: 7, //10 items above 1000px browser width
-		itemsDesktop: [1024, 4], //5 items between 1024px and 901px
-		itemsDesktopSmall: [900, 3], // 3 items betweem 900px and 601px
-		itemsTablet: [600, 2], //2 items between 600 and 0;
-		itemsMobile: [320, 1],
+		items: 10, //10 items above 1000px browser width
+		itemsDesktop: [1024, 8], //5 items between 1024px and 901px
+		itemsDesktopSmall: [900, 6], // 3 items betweem 900px and 601px
+		itemsTablet: [600, 3], //2 items between 600 and 0;
+		itemsMobile: [320, 2],
 		navigation: true,
 		navigationText: ["<a class=\"flex-prev\"></a>", "<a class=\"flex-next\"></a>"],
 		slideSpeed: 500,

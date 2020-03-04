@@ -73,18 +73,6 @@ class FrontendController extends Controller
                     return $q->isActive();
                 }]);
             }])->first();
-        /*$adminBestSellProIds = OrderItem::where('seller_id', 1) //seller id 1 is Booked for admin
-        ->select('order_id', 'product_id', DB::raw('count(*) as total'))
-            ->groupBy('product_id')->orderBy('total', 'desc')
-            ->take(20)
-            ->pluck('product_id');
-        $adminBestSellProducts = Product::isActive()->whereIn('product_id', $adminBestSellProIds)
-            ->with('thumbImage', 'singleVariation', 'reviews')->take(16)->get();
-
-        $adminLatestProducts = Product::isActive()->where('seller_id', 1)
-            ->with('thumbImage', 'singleVariation', 'reviews', 'brand.attachment', 'mallLogo')
-            ->latest()->take(20)->get();*/
-
         $categories = Category::isParent()->isActive()->select('category_id', 'category_name', 'category_slug', 'sect_banner_id')
             ->with(['sectionBanner', 'children' => function ($query) {
                 return $query->isActive();
@@ -201,10 +189,6 @@ class FrontendController extends Controller
             if (empty($category)) {
                 return abort(Response::HTTP_NOT_FOUND);
             }
-
-            /*$req['category_id'] = $category->category_id;
-
-            $products = ProductHelper::products_list($req);*/
             $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
                 ->with(['product' => function ($query) {
                     return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
@@ -214,11 +198,6 @@ class FrontendController extends Controller
                 'category' => $category,
                 'categories' => CommonData::category_tree(),
                 'hotProducts' => $hotProducts,
-                /*'brands' => CommonData::brand_list(),
-                'colors' => CommonData::color_list(),
-                'tags' => CommonData::tag_list(),
-                'sizes' => CommonData::size_list($req),
-                'products' => $products*/
             ]);
         }
     }
@@ -274,20 +253,19 @@ class FrontendController extends Controller
         $varProds = $products->get();
         $simProds = $products->get();
 
-
         // Variation Product Filter
-         $productIds = $varProds->where('product_type', Product::ProductType['Variation'])->pluck('product_id');
+        $productIds = $varProds->where('product_type', Product::ProductType['Variation'])->pluck('product_id');
         $varProIds = ProductVariation::whereIn('product_id', $productIds)
                         ->whereIn('pri_id',$request->colorIds)
                         ->whereIn('sec_id', $request->sizeIds)
-                        ->where('price', '>=', $request->range[0])
-                        ->where('price', '<=', $request->range[1])
+                        ->where('price', '>=', $request->range['min'])
+                        ->where('price', '<=', $request->range['max'])
                         ->pluck('product_id')->toArray();
 
         // Simple Product Filter
         $simProIds = $simProds->where('product_type', Product::ProductType['Simple'])
-            ->where('product_price', '>=', $request->range[0])
-            ->where('product_price', '<=', $request->range[1])
+            ->where('product_price', '>=', $request->range['min'])
+            ->where('product_price', '<=', $request->range['max'])
             ->pluck('product_id')->toArray();
 
         $sortProIds = array_merge($varProIds, $simProIds);

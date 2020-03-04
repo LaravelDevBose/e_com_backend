@@ -84,21 +84,11 @@
 <script>
     import {mapActions, mapGetters} from 'vuex';
     import _ from 'lodash';
-    import VueSlider from 'vue-slider-component'
-    import 'vue-slider-component/theme/default.css'
 
     export default {
         name: "ProductSidebar",
         props: {
             categoryid: [Number],
-            /*search_min_price: {
-                type:[String, Number],
-                default: 1,
-            },
-            search_max_price: {
-                type: [String, Number],
-                default: 10000,
-            }*/
         },
         components: {
             VueSlider
@@ -117,12 +107,6 @@
                     paginate: 20,
                     range:[],
                 },
-
-                tooltipOptions: [{
-                    tooltip: 'always'
-                }, {
-                    tooltip: 'always'
-                }]
             }
         },
         created() {

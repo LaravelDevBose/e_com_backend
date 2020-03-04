@@ -21,18 +21,29 @@
                     </div>
                     <div class="item-content">
                         <div class="rating">
-                            <div class="ratings">
-                                <div class="rating-box">
-                                    <div style="width:80%" class="rating"></div>
-                                </div>
-                                <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                            </div>
+                            <star-rating
+                                :star-size="13"
+                                :rating="rating"
+                                :read-only="true"
+                            ></star-rating>
                         </div>
                         <div class="item-price">
-                            <div class="price-box">
-                                <p class="special-price" >
+                            <div class="price-box" >
+                                <p class="special-price" v-if="this.product.product_type === 1">
                                     <span class="price-label">Price</span>
-                                    <span class="price">$ {{ cartInfo.price }} </span>
+                                    <span v-if="typeof this.product.discount_price !== 'undefined' && this.product.discount_price > 0">
+                                        <span class="price" >$ {{ (parseFloat(this.product.product_price).toFixed(2) -  parseFloat(this.product.discount_price)).toFixed(2) }}</span>
+                                        <del class="old-price">$ {{ parseFloat(this.product.product_price).toFixed(2) }}</del>
+                                    </span>
+                                    <span class="price" v-else>$ {{ parseFloat(this.product.product_price).toFixed(2) }}</span>
+                                </p>
+                                <p class="special-price" v-else>
+                                    <span class="price-label">Price</span>
+                                    <span v-if="typeof this.product.discount_price !== 'undefined' && this.product.discount_price > 0">
+                                        <span class="price" >$ {{ (parseFloat(this.product.single_variation.price).toFixed(2) -  parseFloat(this.product.discount_price)).toFixed(2) }}</span>
+                                        <del class="old-price">$ {{ parseFloat(this.product.single_variation.price).toFixed(2) }}</del>
+                                    </span>
+                                    <span class="price" v-else>$ {{ parseFloat(this.product.single_variation.price).toFixed(2) }}</span>
                                 </p>
                             </div>
                         </div>
@@ -69,15 +80,16 @@
                     colorId:'',
                     sizeId:'',
                 },
+                rating:0,
             }
         },
         created(){
-            if(this.product.product_type === 1){
-                this.cartInfo.price = parseFloat(this.product.product_price);
-            }else{
-                this.cartInfo.price = parseFloat(this.product.single_variation.price);
-                this.cartInfo.colorId = parseInt(this.product.single_variation.pri_id);
-                this.cartInfo.sizeId = parseInt(this.product.single_variation.sec_id);
+
+        },
+        mounted(){
+            if(this.product.reviews.length >0 && this.product.reviews !== ''){
+                let sum = this.product.reviews.reduce((acc, item) => acc + parseInt(item.rating), 0);
+                this.rating = sum / this.product.reviews.length;
             }
         },
         methods:{
@@ -97,12 +109,6 @@
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 this.$noty.success(response.message)
-                            }else if(response.code === 401){
-                                this.$noty.error(response.message);
-                                setTimeout(()=>{
-                                    location.href = response.url;
-                                },1000)
-
                             }else{
                                 this.$noty.error('Try Again Later.');
                                 console.log(response);
@@ -118,12 +124,6 @@
                         .then(response=>{
                             if(typeof response.code !== "undefined" && response.code === 200){
                                 this.$noty.success(response.message)
-                            }else if(response.code === 401){
-                                this.$noty.error(response.message);
-                                setTimeout(()=>{
-                                    location.href = response.url;
-                                },1000)
-
                             }else{
                                 this.$noty.error(response.message);
                                 console.log(response);
@@ -137,9 +137,20 @@
                 this.productQuickView(this.product);
             },
             addToCart(){
-                this.cartInfo.id = this.product.product_id;
-                this.cartInfo.name = this.product.product_name;
-                this.addToCartProduct(this.cartInfo)
+                this.cartData.id = this.product.product_id;
+                this.cartData.name = this.product.product_name;
+                if(this.product.product_type === 1){
+                    this.cartData.price = parseFloat(this.product.product_price).toFixed(2);
+                }else{
+                    this.cartData.price = parseFloat(this.product.single_variation.price).toFixed(2);
+                    this.cartData.colorId = parseInt(this.product.single_variation.pri_id);
+                    this.cartData.sizeId = parseInt(this.product.single_variation.sec_id);
+                }
+                if(typeof this.product.discount_price !== "undefined" && this.product.discount_price > 0){
+                    this.oldPrice = this.cartData.price;
+                    this.cartData.price = (this.oldPrice -  parseFloat(this.product.discount_price)).toFixed(2);
+                }
+                this.addToCartProduct(this.cartData)
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
                             this.$noty.success(response.message);
@@ -150,9 +161,9 @@
             }
         },
         computed:{
-            ...mapGetters([
+            /*...mapGetters([
                 'cartList'
-            ])
+            ])*/
         }
     }
 </script>

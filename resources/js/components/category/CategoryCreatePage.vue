@@ -10,56 +10,21 @@
             <div class="panel-body">
                 <form action="" @submit.prevent="manipulateCategoryData">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Parent Category:</label>
                                 <treeselect v-model="formValue.parent_id" :options="treeList" :normalizer="normalizer" />
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Category Name:</label>
                                 <input type="text" v-model="formValue.category_name" class="form-control" placeholder="Category Name " required>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Trans. Category Name:</label>
-                                <input type="text" v-model="formValue.trans_category_name" class="form-control" placeholder="Trans. Category Name " required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Category Banner:</label>
-                                <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
-                            </div>
-                        </div>
-                        <div class="col-md-4" v-if="!formValue.parent_id">
-                            <div class="form-group">
-                                <label>Homepage Section:</label>
-                                <image-cropper :cropperData="SectionCropperData" :removeImage="removeImage"></image-cropper>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4" v-if="!formValue.parent_id">
-                            <div class="form-group">
-                                <label>Icon:</label>
-                                <image-cropper :cropperData="iconCropperData" :removeImage="removeImage"></image-cropper>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2 col-md-offset-5" >
-                            <div class="form-group">
-                                <label class="checkbox-style checkbox-inline" for="is_show">
-                                    <span class="text-bold text-success" v-if="formValue.is_show">Show In Header</span>
-                                    <span class="text-bold text-warning" v-else>Not Show In Header</span>
-                                    <input type="checkbox" id="is_show" v-model="formValue.is_show" :checked="formValue.is_show">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
                         <div class="col-md-2">
                             <div class="form-group">
+                                <label>Category Status:</label>
                                 <label class="checkbox-style" for="status">
                                     <span class="text-bold text-success" v-if="formValue.category_status">Active</span>
                                     <span class="text-bold text-warning" v-else>Inactive</span>
@@ -68,7 +33,44 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <!--<div class="col-md-4">
+                            <div class="form-group">
+                                <label>Trans. Category Name:</label>
+                                <input type="text" v-model="formValue.trans_category_name" class="form-control" placeholder="Trans. Category Name " required>
+                            </div>
+                        </div>-->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Category Banner:</label>
+                                <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-4" v-if="!formValue.parent_id">
+                            <div class="form-group">
+                                <label>Homepage Section:</label>
+                                <image-cropper :cropperData="SectionCropperData" :removeImage="removeImage"></image-cropper>
+                            </div>
+                        </div>-->
+
+                        <!--<div class="col-md-4" v-if="!formValue.parent_id">
+                            <div class="form-group">
+                                <label>Icon:</label>
+                                <image-cropper :cropperData="iconCropperData" :removeImage="removeImage"></image-cropper>
+                            </div>
+                        </div>-->
+
+                        <!--<div class="col-md-2 col-md-offset-5" >
+                            <div class="form-group">
+                                <label class="checkbox-style checkbox-inline" for="is_show">
+                                    <span class="text-bold text-success" v-if="formValue.is_show">Show In Header</span>
+                                    <span class="text-bold text-warning" v-else>Not Show In Header</span>
+                                    <input type="checkbox" id="is_show" v-model="formValue.is_show" :checked="formValue.is_show">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>-->
+
+                        <div class="col-md-12">
                             <div class="text-right form-group">
                                 <button type="submit" class="btn btn-primary" :disabled="btnDisabled">
                                     <span v-if="isedit === 1">Update Category </span>

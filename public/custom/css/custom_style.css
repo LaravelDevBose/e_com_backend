@@ -1,7 +1,14 @@
-.grid-rating .vue-star-rating-rating-text{
-    display: none;
+.rating .vue-star-rating-rating-text{
+    display: none!important;
+}
+.rating .vue-star-rating{
+    margin: auto !important;
 }
 
+.old-price {
+    color: red;
+    margin-left: 3px;
+}
 .text-widget.widget.widget__sidebar.shop-info {
     border: 1px solid #eee;
     margin-bottom: 1em;

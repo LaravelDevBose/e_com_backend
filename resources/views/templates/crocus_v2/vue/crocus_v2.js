@@ -13,6 +13,13 @@ Vue.use(CroppaImg);
 import AppStorage from "../../../../js/helper/AppStorage";
 window.AppStorage = AppStorage;
 
+import StarRating from 'vue-star-rating';
+Vue.component('star-rating', StarRating);
+
+
+import VueClazyLoad from 'vue-clazy-load';
+Vue.use(VueClazyLoad);
+
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 

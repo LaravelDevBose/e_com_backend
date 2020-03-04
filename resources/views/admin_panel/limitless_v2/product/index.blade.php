@@ -37,9 +37,9 @@
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">Product List</h5>
-                <div class="heading-elements">
+                {{--<div class="heading-elements">
                     <a href="{{ route('admin.product.create') }}" class="btn btn-sm btn-primary">Add Product</a>
-                </div>
+                </div>--}}
             </div>
 
             <table class="table datatable-basic">

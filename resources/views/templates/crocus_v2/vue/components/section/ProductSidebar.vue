@@ -1,13 +1,18 @@
 <template>
     <div>
-        <div class="hot-banner">
-            <img alt="banner" src="/crocus_v2/images/hot-trends-banner.jpg">
-        </div>
         <div class="block block-layered-nav">
             <div class="block-title">Shop By</div>
             <div class="block-content">
-                <p class="block-subtitle">Shopping Options</p>
+                <p class="block-subtitle">Price</p>
                 <dl id="narrow-by-list">
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-md-6">
+                            <input type="number" style="display:block" v-model="sortData.range.min" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" style="display:block" v-model="sortData.range.max" class="form-control">
+                        </div>
+                    </div>
                     <dt class="even">Manufacturer</dt>
                     <dd class="even" v-if="brands">
                         <ol>
@@ -40,17 +45,6 @@
                 </dl>
             </div>
         </div>
-        <div v-if="tags" class="block block-tags">
-            <div class="block-title"> Popular Tags</div>
-            <div class="block-content">
-                <ul class="tags-list">
-                    <li v-for="(tag,index) in tags" :key="index">
-                        <input type="checkbox" :id="'tag-'+tag.tag_id" v-model="sortData.tagIds" :value="tag.tag_id">
-                        <label :for="'tag-'+tag.tag_id">{{ tag.tag_title }}</label>
-                    </li>
-                </ul>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -76,7 +70,11 @@
                     sizeIds:[],
                     tagIds:[],
                     paginate:20,
-                }
+                    range:{
+                        min: 1,
+                        max: 10000,
+                    },
+                },
             }
         },
         created(){
@@ -93,7 +91,7 @@
             ]),
             sortingProducts: _.debounce(function() {
                 this.getSortingProducts(this.sortData);
-            },400)
+            },500)
         },
         computed:{
             ...mapGetters([
@@ -101,9 +99,17 @@
                 'colors',
                 'tags',
                 'sizes',
+                'search_min_price',
+                'search_max_price',
             ]),
             sortDataCheck(){
                 return JSON.parse(JSON.stringify(this.sortData));
+            },
+            searchMinPriceDataCheck() {
+                return JSON.parse(JSON.stringify(this.search_min_price));
+            },
+            searchMaxPriceDataCheck() {
+                return JSON.parse(JSON.stringify(this.search_max_price));
             },
         },
         watch:{
@@ -113,7 +119,21 @@
                         this.sortingProducts()
                     }
                 }
-            }
+            },
+            searchMinPriceDataCheck: {
+                handler(newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        this.sortData.range.min = this.search_min_price;
+                    }
+                }
+            },
+            searchMaxPriceDataCheck: {
+                handler(newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        this.sortData.range.max = this.search_max_price;
+                    }
+                }
+            },
         }
     }
 </script>

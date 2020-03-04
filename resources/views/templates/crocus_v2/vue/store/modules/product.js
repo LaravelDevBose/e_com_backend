@@ -7,6 +7,9 @@ const state = {
     tags:[],
     sizes:[],
     products:[],
+    hot_products:[],
+    _min_price:'',
+    _max_price:'',
 };
 
 //declare Getters
@@ -18,6 +21,9 @@ const getters = {
     tags:(state)=>state.tags,
     sizes:(state)=>state.sizes,
     productsData:(state)=>state.products,
+    hotProducts:(state)=>state.hot_products,
+    search_min_price:(state) => state._min_price,
+    search_max_price:(state) => state._max_price,
 };
 
 const actions = {
@@ -47,7 +53,7 @@ const actions = {
             return await axios.get(`/category/${reqData.slug}/products`, reqData)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('setProductsData', response.data.data.data)
+                        commit('setProductsData', response.data.data)
                     }
                     delete response.data.data;
                     return response.data;
@@ -63,10 +69,45 @@ const actions = {
             return await axios.post(`/shorting/products`, sortData)
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('setProductsData', response.data.data.data);
+                        commit('setProductsData', response.data.data);
                         delete response.data.data;
                     }
 
+                    return response.data;
+                })
+        }catch (error) {
+            console.log(error.data);
+            return  error.data;
+        }
+    },
+    async getProductVariationInfo({commit},productId){
+        try {
+            return await axios.get(`/product/variations/data`,{
+                params:{
+                    product_id:productId,
+                }
+            })
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setProductsVariationInfo', response.data.data);
+                        delete response.data.data;
+                    }
+
+                    return response.data;
+                })
+        }catch (error) {
+            console.log(error.data);
+            return  error.data;
+        }
+    },
+    getHotProducts({commit}){
+        try {
+            axios.get('/get/hot/products')
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setHotProducts', response.data.data);
+                        delete response.data.data;
+                    }
                     return response.data;
                 })
         }catch (error) {
@@ -86,6 +127,8 @@ const mutations = {
         state.colors = response.colors;
         state.tags = response.tags;
         state.sizes = response.sizes;
+        state._min_price = parseInt(response.search_min_price);
+        state._max_price = parseInt(response.search_max_price);
     },
     setProductsData:(state,response)=>{
         if(response.hasOwnProperty('current_page')){
@@ -93,8 +136,17 @@ const mutations = {
             delete response.data;
             state.paginate = response;
         }else{
+            // console.table(response);
+            state.products.length = 0;
             state.products = response
         }
+    },
+    setProductsVariationInfo:(state, response)=>{
+        state.colors = response.colorInfos;
+        state.sizes = response.sizeInfos;
+    },
+    setHotProducts:(state,response)=>{
+        state.hot_products = response;
     }
 };
 

@@ -25,7 +25,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Styles -->
-
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400|Raleway:400,300,600,500,700,800' rel='stylesheet' type='text/css'>
     <!-- CSS Style -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/bootstrap.min.css') }}">
@@ -41,8 +41,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('crocus_v2/css/blog.css') }}" media="all">
     <link href="{{ asset('/assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
     <!-- Google Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400|Raleway:400,300,600,500,700,800' rel='stylesheet' type='text/css'>
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('custom/css/custom_style.css') }}">
     @yield('PageCss')
     <style>
         a{
@@ -56,6 +55,13 @@
             cursor: pointer;
             color: #000;
             text-decoration: none;
+        }
+        .grid-rating .vue-star-rating-rating-text{
+            display: none!important;
+        }
+
+        .grid-rating .vue-star-rating{
+            margin: auto !important;
         }
     </style>
 </head>
