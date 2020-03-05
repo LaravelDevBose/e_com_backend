@@ -12,6 +12,9 @@
             display: inline-block!important;
             margin-right: 5px;
         }
+        .vue-star-rating-rating-text{
+            display: none!important;
+        }
     </style>
 @endsection
 
@@ -159,21 +162,19 @@
                             <div class="tab-pane fade" id="reviews_tabs">
                                 <div class="box-collateral box-reviews" id="customer-reviews">
                                     <div class="box-reviews2">
-                                        <h3>Customer Reviews</h3>
                                         <div class="box visible">
                                             <ul>
                                                 @if(!empty($product->reviews))
                                                     @foreach($product->reviews as $review)
                                                         <li>
                                                             <div class="review">
-                                                                <small>Review by <span>{{ $review->buyer->user->full_name }} </span>on {{ \Carbon\Carbon::parse($review->created_at)->format('d M Y') }}</small>
-                                                                <div class="rating-box">
-                                                                    <star-rating
-                                                                        :star-size="20"
-                                                                        :rating="{{ $review->rating }}"
-                                                                        :read-only="true"
-                                                                    ></star-rating>
-                                                                </div>
+                                                                <h3 style="margin: 0;">{{ $review->buyer->user->full_name }} </h3>
+                                                                <p style="margin: 0;"> <small>Review on {{ \Carbon\Carbon::parse($review->created_at)->format('d M Y') }}</small></p>
+                                                                <star-rating
+                                                                    :star-size="20"
+                                                                    :rating="{{ $review->rating }}"
+                                                                    :read-only="true"
+                                                                ></star-rating>
                                                                 <div class="review-txt">
                                                                     {{ $review->review }}
                                                                 </div>

@@ -62,7 +62,7 @@
                     </li>
                 </ul>
                 <div class="buttons-set">
-                    <button class="button create-account" type="submit">
+                    <button :disabled="disable" class="button create-account" type="submit">
                         <span>Create an Account</span>
                     </button>
                 </div>
@@ -86,7 +86,8 @@
                     user_name:'',
                     password:'',
                     password_confirmation:'',
-                }
+                },
+                disable: false,
             }
         },
         methods:{
@@ -94,22 +95,49 @@
                 'registerSeller'
             ]),
             sellerRegister(){
-
+                this.disable = true;
                 this.registerSeller(this.formData)
                     .then(response=>{
                         if(typeof  response.code === "undefined"){
-                            this.$noty.error('Some Thing Wrong!');
+                            this.$noty.error('Something Wrong! Try Again.');
                         }else if(response.status === 'validation'){
                             this.$noty.error(response.message);
                         }else if (response.code === 200){
+                            this.formData.shop_name='';
+                            this.formData.full_name='';
+                            this.formData.phone_no='';
+                            this.formData.email='';
+                            this.formData.user_name='';
+                            this.formData.password='';
+                            this.formData.password_confirmation='';
                             this.$noty.success(response.message);
                         }else{
                             this.$noty.error('Some Thing Wrong!');
                         }
                     })
+                .catch(error => {
+                    this.$noty.error('Something Wrong! Try Again');
+                    console.log(error);
+                })
 
             }
+        },
+        computed: {
+            checkFormData(){
+                return JSON.parse(JSON.stringify(this.formData))
+            }
+        },
+        watch: {
+            checkFormData:{
+                handler(newValue, oldValue){
+                    if(oldValue !== newValue){
+                        this.disable = false;
+                    }
+                },
+                deep:true,
+            },
         }
+
     }
 </script>
 

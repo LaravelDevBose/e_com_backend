@@ -1,6 +1,6 @@
 @extends('templates.crocus_v2.layouts.frontend.master')
 
-@section('Title','Seller Authcation')
+@section('Title','Seller Login & Registration')
 
 @section('PageCss')
 
@@ -11,6 +11,5 @@
 @endsection
 
 @section('PageJs')
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/pnotify.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/pages/components_notifications_pnotify.js') }}"></script>
+
 @endsection

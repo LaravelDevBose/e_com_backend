@@ -4,7 +4,7 @@
             <div class="row">
                 <!-- Header Language -->
                 <div class="col-xs-12 col-sm-6">
-                    <div class="dropdown block-language-wrapper"> <a role="button" data-toggle="dropdown" data-target="#" class="block-language dropdown-toggle" href="#"> <img src="{{ asset('crocus_v2/images/english.png') }}" alt="language"> English <span class="caret"></span> </a>
+                    {{--<div class="dropdown block-language-wrapper"> <a role="button" data-toggle="dropdown" data-target="#" class="block-language dropdown-toggle" href="#"> <img src="{{ asset('crocus_v2/images/english.png') }}" alt="language"> English <span class="caret"></span> </a>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"> <a href="#"><img src="{{ asset('crocus_v2/images/english.png') }}" alt="language"> English </a> </li>
                             <li role="presentation"> <a href="#"><img src="{{ asset('crocus_v2/images/francais.png') }}" alt="language"> French </a> </li>
@@ -14,15 +14,15 @@
                     <!-- End Header Language -->
 
                     <!-- Header Currency -->
-                    {{--<div class="dropdown block-currency-wrapper"> <a role="button" data-toggle="dropdown" data-target="#" class="block-currency dropdown-toggle" href="#"> USD <span class="caret"></span></a>
+                    <div class="dropdown block-currency-wrapper"> <a role="button" data-toggle="dropdown" data-target="#" class="block-currency dropdown-toggle" href="#"> USD <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a href="#"> $ - Dollar </a> </li>
                             <li role="presentation"><a href="#"> £ - Pound </a> </li>
                             <li role="presentation"><a href="#"> € - Euro </a> </li>
                         </ul>
-                    </div>--}}
+                    </div>
                     <!-- End Header Currency -->
-                    <div class="welcome-msg"> Welcome Crocus! </div>
+                    <div class="welcome-msg"> Welcome Crocus! </div>--}}
                 </div>
                 <div class="col-xs-6 hidden-xs">
                     <!-- Header Top Links -->

@@ -13,41 +13,49 @@
 <div id="thmsoft-slideshow" class="thmsoft-slideshow">
     <div class="container">
         <div class="row">
+            @if(!empty($hotProducts) && count($hotProducts) > 0)
             <div class=" col-lg-3 col-md-3 col-sm-5 col-xs-12 col-mid">
-                @if(!empty($hotProducts))
-                    <div class="hot-deal">
-                        <div class="title">Hot Deal</div>
-                        <div id="testimonials" class="product-flexslider hidden-buttons" style="margin-top: 0px;">
-                            <div class="products-grid slider-items slider-width-col1 owl-carousel owl-theme">
-                                @foreach($hotProducts as $hotProduct)
-                                    <hot-deal-product :hotProduct="{{ $hotProduct }}"></hot-deal-product>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                @endif
-            </div>
-            <div class="col-md-6 col-sm-7 col-xs-12">
-                <div class="small-strip"><img alt="banner" src="{{ asset('crocus_v2/images/small-strip-banner.jpg')}}"></div>
-                <div id='rev_slider_4_wrapper' class='rev_slider_wrapper fullwidthbanner-container'>
-                    <div id='rev_slider_4' class='rev_slider fullwidthabanner'>
-                        @if(!empty($sliders))
-                        <ul>
-                            @foreach($sliders as $slider)
-                            <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='{{ $slider->attachment->image_path }}'>
-                                <img src='{{ $slider->attachment->image_path }}' alt="{{ $slider->slider_title }}" data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat' />
-                                <div class="info">
-                                    <div class='tp-caption LargeTitle sfl  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='900' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:3;max-width:auto;max-height:auto;white-space:nowrap;'><span>{{ $slider->slider_title }}</span> </div>
-                                    <div class='tp-caption Title sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1200' data-easing='Power2.easeInOut' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'>{{ $slider->sub_title }}</div>
-                                    <div class='tp-caption sfb  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1400' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'><a href='{{ $slider->btn_url }}' class="buy-btn">{{ $slider->btn_text }}</a> </div>
-                                </div>
-                            </li>
+                <div class="hot-deal">
+                    <div class="title">Hot Deal</div>
+                    <div id="testimonials" class="product-flexslider hidden-buttons" style="margin-top: 0px;">
+                        <div class="products-grid slider-items slider-width-col1 owl-carousel owl-theme">
+                            @foreach($hotProducts as $hotProduct)
+                                <hot-deal-product :hotProduct="{{ $hotProduct }}"></hot-deal-product>
                             @endforeach
-                        </ul>
-                        @endif
+                        </div>
                     </div>
                 </div>
             </div>
+            @endif
+            @if(!empty($sliders))
+                <?php
+                    $sliderClass = 'col-md-6 col-sm-7 col-xs-12';
+                    if(empty($hotProducts) && count($hotProducts) <= 0){
+                        $sliderClass = 'col-md-9 col-sm-12 col-xs-12';
+                    }
+                    ?>
+                <div class="{{$sliderClass}}">
+    {{--                <div class="small-strip"><img alt="banner" src="{{ asset('crocus_v2/images/small-strip-banner.jpg')}}"></div>--}}
+                    <div id='rev_slider_4_wrapper' class='rev_slider_wrapper fullwidthbanner-container'>
+                        <div id='rev_slider_4' class='rev_slider fullwidthabanner'>
+
+                            <ul>
+                                @foreach($sliders as $slider)
+                                <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='{{ $slider->attachment->image_path }}'>
+                                    <img src='{{ $slider->attachment->image_path }}' alt="{{ $slider->slider_title }}" data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat' />
+                                    <div class="info">
+                                        <div class='tp-caption LargeTitle sfl  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='900' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:3;max-width:auto;max-height:auto;white-space:nowrap;'><span>{{ $slider->slider_title }}</span> </div>
+                                        <div class='tp-caption Title sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1200' data-easing='Power2.easeInOut' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'>{{ $slider->sub_title }}</div>
+                                        <div class='tp-caption sfb  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1400' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'><a href='{{ $slider->btn_url }}' class="buy-btn">{{ $slider->btn_text }}</a> </div>
+                                    </div>
+                                </li>
+                                @endforeach
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            @endif
             <div class=" col-lg-3 col-md-3 col-sm-7 col-xs-12">
 
             </div>
@@ -135,7 +143,7 @@
                 @endif
             </div>
             <div class="col-md-3">
-                @if(!empty($topProducts))
+                @if(!empty($topProducts) && count($topProducts) > 0)
                     <div class="top-products">
                         <div class="title">Top Products</div>
                         <ul>

@@ -11,6 +11,7 @@
 .old-price {
     color: red;
     margin-left: 3px;
+    font-weight: 600;
 }
 .text-widget.widget.widget__sidebar.shop-info {
     border: 1px solid #eee;

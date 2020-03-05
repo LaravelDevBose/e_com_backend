@@ -30,34 +30,40 @@
                                 @endif
                             </div>
                             <h3 class="text text-capitalize text-center" style="margin-top: 3px;"><span>{{ $shop->shop_name }}</span></h3>
-                            @if(!empty($shop->phone_no))
-                                <p class="shop-address">
-                                    <i class="fa fa-phone"></i>
-                                    <span>{{ $shop->phone_no }}</span>
-                                </p>
-                            @endif
-                            @if(!empty($shop->shop_address))
-                                <p class="shop-address">
-                                    <i class="fa fa-map-marker"></i>
-                                    <span>{!! $shop->shop_address !!}</span>
-                                </p>
+                            @if(!empty($showSellerInfo) && $showSellerInfo->value == 1)
+                                @if(!empty($shop->phone_no))
+                                    <p class="shop-address">
+                                        <i class="fa fa-phone"></i>
+                                        <span>{{ $shop->phone_no }}</span>
+                                    </p>
+                                @endif
+                                @if(!empty($shop->shop_address))
+                                    <p class="shop-address">
+                                        <i class="fa fa-map-marker"></i>
+                                        <span>{!! $shop->shop_address !!}</span>
+                                    </p>
+                                @endif
                             @endif
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <article class="col-main row">
-                        @if(!empty($shop->seller->products))
                         <h2 class="page-heading"> <span class="page-heading-title">All Products</span> </h2>
-                        <div class="category-products">
-                            <ul class="products-grid">
-                                @foreach($shop->seller->products as $product)
-                                <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                    <product-grid :product="{{ $product }}"></product-grid>
-                                </li>
-                                @endforeach
-                            </ul>
-                        </div>
+                        @if(!empty($shop->seller->products))
+                            <div class="category-products">
+                                <ul class="products-grid">
+                                    @foreach($shop->seller->products as $product)
+                                    <li class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+                                        <product-grid :product="{{ $product }}"></product-grid>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @else
+                            <div class="col-md-12">
+                                <h2>No Product Found.</h2>
+                            </div>
                         @endif
                     </article>
                 </div>
