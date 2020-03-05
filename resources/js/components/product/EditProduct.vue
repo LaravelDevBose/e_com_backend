@@ -17,24 +17,24 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-5">
                             <div class="form-group row">
-                                <label class="col-lg-3 control-label">Parent Category: <span class="text text-danger text-bold h4">*</span></label>
-                                <div class="col-lg-9">
+                                <label class="col-lg-5 control-label">Parent Category: <span class="text text-danger text-bold h4">*</span></label>
+                                <div class="col-lg-7">
                                     <treeselect v-model="formData.category_id"  :options="treeList" :multiple="false" :normalizer="normalizer" />
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group row">
-                                <label class="col-lg-4 control-label">Brand:</label>
+                                <label class="col-lg-1 control-label">Brand:</label>
                                 <div class="col-lg-8">
                                     <vue-select2 v-model="formData.brand_id" :options="brandList"> </vue-select2>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <label class="col-lg-6 control-label">COD Available:</label>
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <div v-if="cat_Selected && loading === 0">
@@ -90,15 +90,23 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="row">
-                                    <label class="col-lg-4 control-label">Package Weight (kg): <span class="text text-danger text-bold h4">*</span></label>
-                                    <div class="col-lg-8">
+                                    <label class="col-lg-5 control-label">Discount:</label>
+                                    <div class="col-lg-7">
+                                        <input type="number" v-model="formData.discount_price" class="form-control" placeholder="Discount Price">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <label class="col-lg-5 control-label">Package Weight (kg): <span class="text text-danger text-bold h4">*</span></label>
+                                    <div class="col-lg-7">
                                         <input type="number" v-model="formData.package_weight" class="form-control"  step="0.01">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="row">
                                     <label class="col-lg-3 control-label">Package Dimensions (cm): <span class="text text-danger text-bold h4">*</span></label>
                                     <div class="col-lg-3">
@@ -115,15 +123,8 @@
 
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <label class="col-lg-4 control-label">Discount:</label>
-                                    <div class="col-lg-8">
-                                        <input type="number" v-model="formData.discount_price" class="form-control" placeholder="Discount Price">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
+
+                            <div class="col-md-7">
                                 <div class="row">
                                     <label class="col-lg-2 control-label">Product Thumb Image: <span class="text text-danger text-bold h4">*</span></label>
                                     <div class="col-lg-10">
@@ -142,7 +143,7 @@
                             </div>-->
 
                         </div>
-                        <div class="form-group row">
+                        <!--<div class="form-group row">
                             <div class="col-md-6">
                                 <div class="row">
                                     <label class="col-lg-4 control-label">Mall Company Name:</label>
@@ -162,7 +163,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <div class="panel panel-collapsed" >
