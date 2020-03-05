@@ -29,7 +29,7 @@
                             <div class="col-md-5 ">
                                 <div class="form-group">
                                     <label>Shop Address:</label>
-                                    <vue-editor id="contact_address" v-model="formData.shop_address"></vue-editor>
+                                    <textarea v-model="formData.shop_address" class="form-control" id="contact_address" rows="2"></textarea>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-7">
@@ -62,13 +62,11 @@
 
 <script>
     import {mapActions, mapGetters} from 'vuex';
-    import { VueEditor } from "vue2-editor";
-    import VueSelect2 from '../../../../../../js/components/helper/Select2';
     import ImageCropper from "../../../../../../js/components/cropper/ImageCropper";
     import ShopBannerPanel from "./ShopBannerPanel";
     export default {
         name: "ShopSettingPage",
-        components:{ShopBannerPanel, ImageCropper,VueSelect2,VueEditor},
+        components:{ShopBannerPanel, ImageCropper},
         data(){
             return{
                 no_logo:'',
@@ -85,10 +83,13 @@
                 cropperData:{
                     width:150,
                     height:150,
-                    placeholder:'Choose a image in 118X29',
+                    placeholder:'Choose a image in 150X150',
                     file_size:1,
                     init_image:'',
                     folder:'shop',
+                    modal_type:1,
+                    modal_id:'logo_image',
+                    serial:1,
                 },
                 removeImage:false,
                 btnDisabled:false,
@@ -121,6 +122,9 @@
                         }else {
                             Notify.info(response.message);
                         }
+                    })
+                    .catch( error => {
+                        Notify.error('Something Wrong. Try Again');
                     })
             }
         },

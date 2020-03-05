@@ -71,10 +71,6 @@
                 @yield('content')
 
             </div>
-            <!-- /main content -->
-                <div id="loading" style="top: 20%; left: 40%; position: absolute; z-index: 1000000;">
-                    <img src="{{ asset('assets/loader.gif') }}" />
-                </div>
         </div>
         <!-- /page content -->
         <!-- Footer -->
@@ -84,19 +80,6 @@
     <!-- /page container -->
 
 </div>
-<script>
-    var $loading = $('#loading').hide();
-    //Attach the event handler to any element
-    $(document)
-        .ajaxStart(function () {
-            //ajax request went so show the loading image
-            $loading.show();
-        })
-        .ajaxStop(function () {
-            //got response so hide the loading image
-            $loading.hide();
-        });
-</script>
 @yield('PageJs')
 
 </body>

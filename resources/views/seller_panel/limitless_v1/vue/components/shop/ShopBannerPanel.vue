@@ -58,6 +58,9 @@
                     file_size:1,
                     init_image:'',
                     folder:'shop',
+                    modal_type:4,
+                    modal_id:'banner_image',
+                    serial:2,
                 },
                 removeImage:false,
                 btnDisabled:false,
@@ -84,6 +87,10 @@
                             Notify.info(response.message);
                         }
                     })
+                .catch(error=>{
+                    console.log(error);
+                    Notify.error('Something Wrong. Try Again.');
+                })
             }
         },
         computed:{

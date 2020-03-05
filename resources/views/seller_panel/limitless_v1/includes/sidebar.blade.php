@@ -20,10 +20,11 @@
 
             <div class="navigation-wrapper collapse" id="user-nav">
                 <ul class="navigation">
+                    @if(auth()->id() !== 1)
                     <li><a href="{{ route('seller.account.setting.page') }}"><i class="icon-user-plus"></i> <span>Profile Setting</span></a></li>
-{{--                    <li><a href="#"><i class="icon-coins"></i> <span>My balance</span></a></li>--}}
                     <li class="divider"></li>
                     <li><a href="{{ route('seller.shop.setting') }}"><i class="icon-cog5"></i> <span>Shop settings</span></a></li>
+                    @endif
                     <li class="divider"></li>
                     <li><a href="{{ route('seller.logout') }}"><i class="icon-switch2"></i> <span>Logout</span></a></li>
                 </ul>

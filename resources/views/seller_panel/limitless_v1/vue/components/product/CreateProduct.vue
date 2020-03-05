@@ -27,7 +27,7 @@
                                 <vue-select2 v-model="formData.brand_id" :options="brandList"> </vue-select2>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <!--<div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Product Type: <span class="text text-danger text-bold">*</span></label>
                                 <div class="form-group">
@@ -41,7 +41,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -67,15 +67,6 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group row">
-                                    <div class="col-md-3">
-                                        <label class="control-label">COD Available: <span class="text text-danger text-bold">*</span></label>
-                                        <label class="checkbox-style" for="paypal_payment">
-                                            <span class="text-bold text-success" v-if="formData.cod_avail">Yes</span>
-                                            <span class="text-bold text-warning" v-else>No</span>
-                                            <input type="checkbox" id="paypal_payment" v-model="formData.cod_avail"  :checked="formData.cod_avail">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
                                     <div class="col-md-3">
                                         <label class="control-label">Package Weight (kg): <span class="text text-danger text-bold">*</span></label>
                                         <input type="number" v-model="formData.package_weight" class="form-control"  step="0.01">
@@ -153,7 +144,7 @@
 
                     <div class="panel-body" style="display: none;">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Warranty Type:</label>
                                     <label class="radio-inline" v-if="warrantyTypes" v-for="(warranty, index) in warrantyTypes" :key="index">
@@ -162,7 +153,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Dangers Goods:</label>
                                     <label class="radio-inline"  v-if="dangersGoods" v-for="(dangersGood ,index) in dangersGoods" :key="index">
@@ -412,9 +403,6 @@
                         <div class="panel-body" >
                             <div class="row">
                                 <div class="col-md-2">
-                                    <!--<div class="text-right form-group" style="margin-bottom:0px;">
-                                        <button type="submit" class="btn btn-info btn-block">Draft<i class="icon-arrow-right14 position-right"></i></button>
-                                    </div>-->
                                 </div>
 
                                 <div class="col-md-6 col-md-offset-1">
@@ -520,9 +508,9 @@
                 pri_id_index:'',
                 cat_Selected:false,
                 cropperData:{
-                    width:400,
-                    height:400,
-                    placeholder:'Choose a image in 400X400',
+                    width:200,
+                    height:200,
+                    placeholder:'Choose a image in 200X200',
                     file_size:1,
                     init_image:'',
                     folder:'thumbnail',

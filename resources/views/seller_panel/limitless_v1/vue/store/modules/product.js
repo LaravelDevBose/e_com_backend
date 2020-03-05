@@ -3,7 +3,7 @@ const state = {
     warrantyType:[],
     dangersGoods:[],
     product_colors:[],
-    product_sizes:[],
+    productSizes:[],
     productSkinTypes:[],
     allProducts:[],
     singleProduct:{},
@@ -21,7 +21,7 @@ const getters = {
     warrantyTypes:(state)=> state.warrantyType,
     dangersGoods:(state)=> state.dangersGoods,
     productColors:(state)=>state.product_colors,
-    sizes:(state)=>state.product_sizes,
+    sizes:(state)=>state.productSizes,
     skinTypes:(state)=>state.productSkinTypes,
     products:(state)=>state.allProducts,
     product:(state)=>state.singleProduct,
@@ -39,7 +39,7 @@ const actions = {
         try {
             await axios.get(`/seller/product/dependency/${catID}`)
                 .then(response=>{
-                    commit('productCreateDependency', response.data);
+                    commit('productCreateDependency', response.data.data);
                 })
         }catch (error) {
             commit('setResponse', error.data);
@@ -60,7 +60,8 @@ const actions = {
         try {
             return await axios.get('/seller/collection/product')
                 .then(response=>{
-                    commit('getProductData', response.data);
+                    console.log(response);
+                    commit('getProductData', response.data.data);
                     return response;
                 })
         }catch (error) {
@@ -80,7 +81,7 @@ const actions = {
     },
     async singleProduct({commit}, productID){
         try {
-            return await axios.get(`/seller/product/${productID}`)
+            return await axios.get(`/seller/single/product/${productID}`)
                 .then(response=>{
                     console.log(response);
                     if(response.data.status === 'error'){
@@ -132,12 +133,25 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
+    async deleteProductData({commit}, productId){
+        try {
+            return await axios.delete(`/seller/product/${productId}`)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('removeProductData', productId);
+                    }
+                    return response.data;
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {
     productCreateDependency:(state,response)=>{
         state.product_colors = response.colors;
-        state.product_sizes = response.sizes;
+        state.productSizes = response.sizes;
     },
     productCreateNeedData:(state,response)=>{
         state.warrantyType = response.warrantyType;
@@ -146,7 +160,7 @@ const mutations = {
         state.product_type = response.product_type;
     },
     getProductData:(state, response)=>{
-        state.allProducts = response.data;
+        state.allProducts = response;
     },
     singleProductData:(state, response)=>{
         state.singleProduct = response;
@@ -163,7 +177,14 @@ const mutations = {
         state.product_images = state.product_images.filter(image=>{
             return image.id !== imageId;
         })
-    }
+    },
+    removeProductData:(state, productId)=> {
+        state.allProducts = state.allProducts.filter(product => {
+            if(product.id !== productId){
+                return product;
+            }
+        })
+    },
 };
 
 export default {
