@@ -53387,7 +53387,7 @@ var staticRenderFns = [
           staticStyle: { background: "#f36" },
           attrs: { type: "button" }
         },
-        [_vm._v("Pay here by Salaam (123456789)")]
+        [_vm._v("Pay here by Salaam (33430074)")]
       )
     ])
   },
@@ -53403,7 +53403,7 @@ var staticRenderFns = [
           staticStyle: { background: "#f78031" },
           attrs: { type: "button" }
         },
-        [_vm._v("Pay here by eDahab (123456789)")]
+        [_vm._v("Pay here by eDahab (56016)")]
       )
     ])
   }
