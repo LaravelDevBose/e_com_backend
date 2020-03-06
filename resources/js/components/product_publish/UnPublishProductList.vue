@@ -12,15 +12,15 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
+                                        <input type="text" id="filter" class="form-control" v-model="filter" placeholder="Filter">
+                                    </div>
+                                    <div class="form-group">
                                         <button type="button" @click.prevent="updateProductStatus" class="btn btn-sm btn-success">
                                             <span>Publish</span>
                                         </button>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="text" id="filter" class="form-control" v-model="filter" placeholder="Filter">
-                                    </div>
                                 </div>
-                                <div class="col-md-9 text-right">
+                                <!--<div class="col-md-9 text-right">
                                     <div class="form-group">
                                         <button type="button" @click.prevent="selectDateRange('today')" class="btn btn-sm btn-flat border-teal">
                                             <span>Today</span>
@@ -64,7 +64,7 @@
                                             <span>Search</span>
                                         </button>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
 

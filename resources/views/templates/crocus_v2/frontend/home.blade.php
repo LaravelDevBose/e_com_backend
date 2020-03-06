@@ -29,9 +29,9 @@
             @endif
             @if(!empty($sliders))
                 <?php
-                    $sliderClass = 'col-md-6 col-sm-7 col-xs-12';
-                    if(empty($hotProducts) && count($hotProducts) <= 0){
-                        $sliderClass = 'col-md-9 col-sm-12 col-xs-12';
+                    $sliderClass = 'col-lg-9 col-md-9 col-sm-12 col-xs-12';
+                    if(!empty($hotProducts) && count($hotProducts) > 0){
+                        $sliderClass = 'col-md-6 col-sm-7 col-xs-12';
                     }
                     ?>
                 <div class="{{$sliderClass}}">
@@ -242,4 +242,5 @@
             fullScreenOffsetContainer: ''
         });
     });
+    </script>
 @endsection

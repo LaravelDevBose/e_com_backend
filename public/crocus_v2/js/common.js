@@ -53,8 +53,8 @@ jQuery(document).ready(function() {
 	/* Bestsell slider */
 	jQuery("#bestsell-slider .slider-items").owlCarousel({
         navigation : true,
-		items: 4, //10 items above 1000px browser width
-		itemsDesktop: [1024, 4], //4 items between 1024px and 901px
+		items: 6, //10 items above 1000px browser width
+		itemsDesktop: [1024, 6], //4 items between 1024px and 901px
 		itemsDesktopSmall: [900, 4], // 4 items betweem 900px and 601px
 		itemsTablet: [768, 2], //3 items between 600 and 0;
 		itemsMobile: [360, 1],

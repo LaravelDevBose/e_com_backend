@@ -33,22 +33,22 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse| \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
-        if($request->ajax()){
-            $categories = Category::notDelete()->with(['attachment','parent'=>function($query){
-                $query->notDelete()->with('parent');
-            }])->latest()->get();
-            if(!empty($categories)){
-                $coll = new CategoryCollection($categories);
-                return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $coll);
-            }else{
-                return ResponserTrait::allResponse('error', Response::HTTP_OK, 'No Category List Found');
-            }
-        }else{
-            return view('admin_panel.'.$this->template_name.'.category.index');
-        }
+        return view('admin_panel.'.$this->template_name.'.category.index');
+    }
 
+    public function list()
+    {
+        $categories = Category::notDelete()->with(['attachment','parent'=>function($query){
+            $query->notDelete()->with('parent');
+        }])->latest()->get();
+        if(!empty($categories)){
+            $coll = new CategoryCollection($categories);
+            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $coll);
+        }else{
+            return ResponserTrait::allResponse('error', Response::HTTP_OK, 'No Category List Found');
+        }
     }
 
     public function category_tree(){

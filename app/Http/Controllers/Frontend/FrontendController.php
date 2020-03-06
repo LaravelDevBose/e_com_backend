@@ -65,7 +65,7 @@ class FrontendController extends Controller
             ->whereDate('expired_at', '>=', Carbon::now())
             ->with(['product' => function ($query) {
                 return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
-            }])->islive()->orderBy('position', 'asc')->latest()->get();
+            }])->islive()->isActive()->orderBy('position', 'asc')->latest()->get();
 
         $latestDeals = LatestDeal::where('status', config('app.active'))->whereDate('end_time', '>', Carbon::now()->format('Y-m-d h:i:s'))
             ->with(['deal_products' => function ($query) {
