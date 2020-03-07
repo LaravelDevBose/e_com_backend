@@ -1,6 +1,11 @@
 <template>
     <div class="mini-cart">
-        <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"> <a href="#"> <span class="cart_count">{{ cartTotal }}</span><span class="price">Shopping Cart</span> </a> </div>
+        <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle">
+            <a href="#">
+                <span class="cart_count">{{ cartTotal }}</span>
+                <span class="price">{{ $t('cart.shopping_bag')}}</span>
+            </a>
+        </div>
         <div>
             <div class="top-cart-content">
                 <!--block-subtitle-->
@@ -26,7 +31,7 @@
                         <div class="item-inner">
                             <div class="product-details">
                                 <div class="access">
-                                    <p>Cart is Empty</p>
+                                    <p>{{ $t('cart.shopping_bag')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -35,8 +40,8 @@
 
                 <!--actions-->
                 <div v-if="cartTotal > 0" class="actions">
-                    <a href="#" @click.prevent="goToCheckoutPage()" class="btn-checkout" title="Checkout" type="button"><span>Checkout</span> </a>
-                    <a href="/cart" class="view-cart"><span>View Cart</span></a>
+                    <a href="#" @click.prevent="goToCheckoutPage()" class="btn-checkout" title="Checkout" type="button"><span>{{ $t('cart.checkout')}}</span> </a>
+                    <a href="/cart" class="view-cart"><span>{{ $t('cart.view_cart')}}</span></a>
                 </div>
             </div>
         </div>

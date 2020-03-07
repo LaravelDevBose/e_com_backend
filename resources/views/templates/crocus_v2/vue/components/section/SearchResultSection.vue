@@ -2,7 +2,7 @@
     <div v-if="checkSearchResult" class="search-content">
         <div role="complementary" class="widget_wrapper13" id="secondary">
             <div class="popular-posts widget widget__sidebar wow bounceInUp animated" id="recent-posts-4">
-                <h3 class="widget-title"><span>Most Popular Post</span></h3>
+                <h3 class="widget-title"><span>{{ $t('header.match_products')}}</span></h3>
                 <div class="widget-content">
                     <ul v-if="searchResult.products && Object.entries(searchResult.products).length !== 0" class="posts-list unstyled clearfix">
                         <li v-for="(product,index) in searchResult.products" :key="index">
@@ -27,7 +27,7 @@
 
                     <ul class="other-list" v-if="searchResult.categories && Object.entries(searchResult.categories).length !== 0">
                         <li>
-                            <h3 class="widget-title"><span>Categories</span></h3>
+                            <h3 class="widget-title"><span>{{ $t('header.category', searchResult.categories)}}</span></h3>
                         </li>
                         <li class="cat-item" v-for="(category,index) in searchResult.categories" :key="index">
                             <a class="author" :href="`/category/${category.slug}/products`">{{ category.name }}</a>
@@ -35,10 +35,10 @@
                     </ul>
                     <ul class="other-list" v-if="searchResult.brands && Object.entries(searchResult.brands).length !== 0">
                         <li>
-                            <h3 class="widget-title"><span>Brands</span></h3>
+                            <h3 class="widget-title"><span>{{ $t('header.brand', searchResult.categories)}}</span></h3>
                         </li>
                         <li class="cat-item" v-for="(brand,index) in searchResult.brands" :key="index">
-                            <a class="author" :href="`/category/${brand.brand_slug}/products`">{{ brand.brand_name }}</a>
+                            <a class="author" :href="`/brand/${brand.brand_slug}/products`">{{ brand.brand_name }}</a>
                         </li>
                     </ul>
                 </div>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from 'vuex';
+    import {mapGetters} from 'vuex';
     export default {
         name: "SearchResultSection",
         methods:{

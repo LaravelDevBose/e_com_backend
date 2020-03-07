@@ -3,7 +3,7 @@
         <div class="slider-items-products">
             <div class="bestsell-block">
                 <div class="block-title">
-                    <h2>Latest Deals</h2>
+                    <h2>{{ $t('products.latest_deals')}}</h2>
                     <div class="countdown">
                         <div class="block">
                             <p class="digit">{{ days | two_digits }}</p>

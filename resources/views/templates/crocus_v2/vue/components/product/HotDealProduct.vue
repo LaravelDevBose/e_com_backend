@@ -52,7 +52,7 @@
                         <div class="item-price">
                             <div class="price-box" >
                                 <p class="special-price" v-if="this.product.product_type === 1">
-                                    <span class="price-label">Price</span>
+                                    <span class="price-label">{{ $t('products.price')}}</span>
                                     <span v-if="typeof this.product.discount_price !== 'undefined' && this.product.discount_price > 0">
                                         <span class="price" >$ {{ (parseFloat(this.product.product_price).toFixed(2) -  parseFloat(this.product.discount_price)).toFixed(2) }}</span>
                                         <del class="old-price">$ {{ parseFloat(this.product.product_price).toFixed(2) }}</del>
@@ -60,7 +60,7 @@
                                     <span class="price" v-else>$ {{ parseFloat(this.product.product_price).toFixed(2) }}</span>
                                 </p>
                                 <p class="special-price" v-else>
-                                    <span class="price-label">Price</span>
+                                    <span class="price-label">{{ $t('products.price')}}</span>
                                     <span v-if="typeof this.product.discount_price !== 'undefined' && this.product.discount_price > 0">
                                         <span class="price" >$ {{ (parseFloat(this.product.single_variation.price).toFixed(2) -  parseFloat(this.product.discount_price)).toFixed(2) }}</span>
                                         <del class="old-price">$ {{ parseFloat(this.product.single_variation.price).toFixed(2) }}</del>
@@ -71,7 +71,7 @@
                         </div>
                         <div class="action">
                             <button @click.prevent="addToCart()" class="button btn-cart" type="button" title="" data-original-title="Add to Cart">
-                                <span>Add to Cart</span>
+                                <span>{{ $t('product.add_to_cart')}}</span>
                             </button>
                         </div>
                     </div>

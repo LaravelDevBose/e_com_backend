@@ -6,12 +6,12 @@
                     <div class="col-md-12">
                         <div class="subscribe">
                             <div class="subscribe-title">
-                                <label>Sign Up for Our Newsletter:</label>
+                                <label>{{ $t('header.newsLetter')}}</label>
                             </div>
                             <form id="subscribe-form" method="post" action="#" @submit.prevent="newsLetterSubscription()">
                                 <div class="subscribe-content">
                                     <input type="text" id="subscribe-input" name="email" v-model="formData.email_address">
-                                    <button class="button" type="submit"><span>Subscribe</span></button>
+                                    <button class="button" type="submit"><span>{{ $t('header.subscriber')}}</span></button>
                                 </div>
                             </form>
                         </div>

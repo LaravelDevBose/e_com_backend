@@ -32,7 +32,7 @@
                                     <div class="price-block">
                                         <div class="price-box">
                                             <p class="special-price">
-                                                <span class="price-label">Price</span>
+                                                <span class="price-label">{{ $t('products.overview')}}</span>
                                                 <span class="price">$ {{ cartData.price }} </span>
                                             </p>
 <!--                                            <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"> $315.99 </span> </p>-->

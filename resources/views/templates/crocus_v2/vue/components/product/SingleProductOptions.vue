@@ -3,14 +3,14 @@
         <div class="price-block">
             <div class="price-box">
                 <p class="special-price">
-                    <span class="price">Price: $ {{ cartData.price }}</span>
+                    <span class="price">{{ $t('products.price')}}: $ {{ cartData.price }}</span>
                     <br>
                     <del class="old-price" v-if="oldPrice !== 0 && oldPrice !== '' ">Old Price: $ {{ oldPrice}}</del>
                 </p>
             </div>
         </div>
         <div class="short-description">
-            <h2>Quick Overview</h2>
+            <h2>{{ $t('products.overview')}}</h2>
             <span v-html="product.highlight"></span>
         </div>
         <div class="add-to-box">
@@ -22,12 +22,12 @@
                         <button @click.prevent="increaseQty" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
                     </div>
                 </div>
-                <button @click.prevent="addToCart" class="button btn-cart" title="Add to Cart" type="button">Add to Cart</button>
-                <button @click.prevent="buyNow()" class="button btn-cart btn-buy" title="Add to Cart" type="button">Buy Now</button>
+                <button @click.prevent="addToCart" class="button btn-cart" title="Add to Cart" type="button">{{ $t('products.add_to_cart')}}</button>
+                <button @click.prevent="buyNow()" class="button btn-cart btn-buy" title="Buy New" type="button">{{ $t('products.buy_now')}}</button>
             </div>
             <div class="email-addto-box">
                 <ul class="add-to-links">
-                    <li> <a class="link-wishlist" href="#" @click.prevent="addWishList(product.product_slug)"><span>Add to Wishlist</span></a></li>
+                    <li> <a class="link-wishlist" href="#" @click.prevent="addWishList(product.product_slug)"><span>{{ $t('header.wishlist')}}</span></a></li>
                 </ul>
             </div>
         </div>

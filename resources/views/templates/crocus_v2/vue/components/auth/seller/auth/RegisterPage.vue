@@ -1,12 +1,12 @@
 <template>
     <div class="col-1 new-users">
-        <strong>New Seller</strong>
+        <strong>{{ $t('auth.buyer.reg_title') }}</strong>
         <div class="content">
             <form action="#" @submit.prevent="sellerRegister">
                 <ul class="form-list">
                     <li>
                         <label for="shop">
-                            Shop Name
+                            {{ $t('form.shop_name') }}
                             <span class="required">*</span>
                         </label>
                         <br />
@@ -14,7 +14,7 @@
                     </li>
                     <li>
                         <label for="fullname">
-                            Full Name
+                            {{ $t('form.full_name') }}
                             <span class="required">*</span>
                         </label>
                         <br />
@@ -22,7 +22,7 @@
                     </li>
                     <li>
                         <label for="phone">
-                            Mobile
+                            {{ $t('form.phone_no') }}
                             <span class="required">*</span>
                         </label>
                         <br />
@@ -30,23 +30,23 @@
                     </li>
                     <li>
                         <label for="email">
-                            Email Address
+                            {{ $t('form.email') }}
                             <span class="required">*</span>
                         </label>
                         <br />
                         <input type="email" v-model="formData.email" required title="Email Address" class="input-text required-entry" id="email" placeholder="Email Address" />
                     </li>
-                    <li>
+                    <!--<li>
                         <label for="username">
                             User Name
                             <span class="required">*</span>
                         </label>
                         <br />
                         <input type="text" title="User Name" v-model="formData.user_name" required class="input-text required-entry" id="username"  placeholder="User Name" />
-                    </li>
+                    </li>-->
                     <li>
                         <label for="reg_pass">
-                            Password
+                            {{ $t('form.password') }}
                             <span class="required">*</span>
                         </label>
                         <br />
@@ -54,7 +54,7 @@
                     </li>
                     <li>
                         <label for="conf_pass">
-                            Confirm Password
+                            {{ $t('form.confirm_pass') }}
                             <span class="required">*</span>
                         </label>
                         <br />
@@ -63,7 +63,7 @@
                 </ul>
                 <div class="buttons-set">
                     <button :disabled="disable" class="button create-account" type="submit">
-                        <span>Create an Account</span>
+                        <span>{{ $t('auth.seller.create_shop') }}</span>
                     </button>
                 </div>
             </form>
@@ -83,7 +83,7 @@
                     full_name:'',
                     phone_no:'',
                     email:'',
-                    user_name:'',
+                    // user_name:'',
                     password:'',
                     password_confirmation:'',
                 },

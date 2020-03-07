@@ -1,13 +1,13 @@
 <template>
     <div class="col-2 registered-users">
-        <strong>Registered Seller</strong>
+        <strong>{{ $t('auth.seller.login_title')}}</strong>
         <div class="content">
-            <p>If you have an account with us, please log in.</p>
+            <p>{{ $t('auth.seller.login_sub_title')}}</p>
             <form action="#" @submit.prevent="sellerLogin">
                 <ul class="form-list">
                     <li>
                         <label for="identity">
-                            Email/Username
+                            {{ $t('form.email')}}
                             <span class="required">*</span>
                         </label>
                         <br />
@@ -15,17 +15,17 @@
                     </li>
                     <li>
                         <label for="pass">
-                            Password
+                            {{ $t('form.password') }}
                             <span class="required">*</span>
                         </label>
                         <br />
                         <input type="password" title="Password" id="pass" class="input-text required-entry validate-password" v-model="formData.password" placeholder="Password" />
                     </li>
                 </ul>
-                <p class="required">* Required Fields</p>
+                <p class="required">* {{ $t('auth.required') }} </p>
                 <div class="buttons-set">
-                    <button type="submit" class="button login" ><span>Login</span></button>
-                    <a class="forgot-word" href="http://demo.themessoft.com/computerstore/customer/account/forgotpassword/">Forgot Your Password?</a>
+                    <button type="submit" class="button login" ><span>{{ $t('auth.sign_in') }}</span></button>
+                    <a class="forgot-word" href="/password/reset">{{ $t('auth.forgot_pass') }}</a>
                 </div>
             </form>
 
