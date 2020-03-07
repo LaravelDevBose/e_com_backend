@@ -51,7 +51,12 @@ export default new Vuex.Store({
         pagination:(state)=>state.paginate,
     },
     actions:{
-
+        changeLanguage({commit},lang){
+            return axios.get(`/set/language/${lang}`)
+                .then(response=>{
+                    return response.data;
+                });
+        },
     },
     mutations:{
         setResponse:(state, res)=>{

@@ -33,31 +33,31 @@
                                 </label>
                             </div>
                         </div>
-                        <!--<div class="col-md-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Trans. Category Name:</label>
                                 <input type="text" v-model="formValue.trans_category_name" class="form-control" placeholder="Trans. Category Name " required>
                             </div>
-                        </div>-->
+                        </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Category Banner:</label>
                                 <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                             </div>
                         </div>
-                        <!--<div class="col-md-4" v-if="!formValue.parent_id">
+                        <div class="col-md-4" v-if="!formValue.parent_id">
                             <div class="form-group">
                                 <label>Homepage Section:</label>
                                 <image-cropper :cropperData="SectionCropperData" :removeImage="removeImage"></image-cropper>
                             </div>
-                        </div>-->
+                        </div>
 
-                        <!--<div class="col-md-4" v-if="!formValue.parent_id">
+                        <div class="col-md-4" v-if="!formValue.parent_id">
                             <div class="form-group">
                                 <label>Icon:</label>
                                 <image-cropper :cropperData="iconCropperData" :removeImage="removeImage"></image-cropper>
                             </div>
-                        </div>-->
+                        </div>
 
                         <!--<div class="col-md-2 col-md-offset-5" >
                             <div class="form-group">

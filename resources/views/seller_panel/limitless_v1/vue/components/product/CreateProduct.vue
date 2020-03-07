@@ -27,7 +27,7 @@
                                 <vue-select2 v-model="formData.brand_id" :options="brandList"> </vue-select2>
                             </div>
                         </div>
-                        <!--<div class="col-md-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Product Type: <span class="text text-danger text-bold">*</span></label>
                                 <div class="form-group">
@@ -41,7 +41,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,8 +65,12 @@
                                     <vue-editor id="description" v-model="formData.description"></vue-editor>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-7">
                                 <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label class="control-label">Discount:</label>
+                                        <input type="number" step="0.01" v-model="formData.discount_price" class="form-control" >
+                                    </div>
                                     <div class="col-md-3">
                                         <label class="control-label">Package Weight (kg): <span class="text text-danger text-bold">*</span></label>
                                         <input type="number" v-model="formData.package_weight" class="form-control"  step="0.01">
@@ -87,14 +91,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-5">
+                                <label class="control-label">Video Url:</label>
+                                <input type="text" v-model="formData.video_url" class="form-control" maxlength="255">
+                            </div>
                             <div class="col-md-6">
                                 <label class="control-label">Thumb Image: <span class="text text-danger text-bold h4">*</span></label>
                                 <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                             </div>
-                            <div class="col-md-6">
-                                <label class="control-label">Video Url:</label>
-                                <input type="text" v-model="formData.video_url" class="form-control" maxlength="255">
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -487,6 +492,7 @@
                     product_price:'',
                     seller_sku:'',
                     cod_avail:1,
+                    discount_price:'',
                 },
                 variations:[],
                 btnDisabled:false,
@@ -534,7 +540,8 @@
                 'getProductCreateDependency',
                 'uploadProductImage',
                 'sellerStoreProductData',
-                'getProductCreateNeedData'
+                'getProductCreateNeedData',
+                'attachmentImageRemove'
             ]),
             addPriId(PriID){
                 this.priId = PriID;
@@ -684,8 +691,8 @@
                 });
                 if(!jQuery.isEmptyObject(this.variations)){
                     vm.variations.filter(variation=> variation.size_id == oldSize[0]).forEach(variation=>{
-                            let index = vm.variations.indexOf(variation);
-                            vm.$delete(vm.variations,index);
+                        let index = vm.variations.indexOf(variation);
+                        vm.$delete(vm.variations,index);
                     });
 
                 }
@@ -787,7 +794,26 @@
                 }
 
 
-            }
+            },
+            removeAttachment(attachmentId){
+                let conf = confirm('Are You Sure.?');
+                if(!conf){
+                    return false;
+                }
+
+                this.attachmentImageRemove(attachmentId)
+                    .then(response=>{
+                        if(response.code === 200){
+                            Notify.success(response.message);
+                        }else if(response.status === "validation"){
+                            Notify.validation(response.message);
+                        }else if(response.status === "error"){
+                            Notify.error(response.message);
+                        }else {
+                            Notify.info(response.message);
+                        }
+                    })
+            },
         },
         computed:{
             ...mapGetters([
@@ -840,19 +866,20 @@
             },
             clonedSecondaryIds:{
                 handler(newVal, oldVal){
-                    if(jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length){
+                    if(!jQuery.isEmptyObject(newVal) && jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length){
                         this.addNewVariationSizeWish(newVal, oldVal);
-                    }else if(jQuery.isEmptyObject(newVal) && !jQuery.isEmptyObject(newVal) ||  newVal.length < oldVal.length ){
+                    }else if(jQuery.isEmptyObject(newVal) && !jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length ){
                         this.removeVariationSizeWish(newVal, oldVal);
                     }
                 }
             },
             'formData.category_id':{
                 handler(newValue, oldValue){
+                    let that = this;
                     if(newValue !== oldValue){
                         this.emptyPrvData();
                         if(this.formData.product_type === 2){
-                            this.getProductCreateDependency(this.formData.category_id);
+                            that.getProductCreateDependency(this.formData.category_id);
                         }
                     }
 
@@ -864,10 +891,11 @@
             },
             'formData.product_type':{
                 handler(newValue, oldValue){
+                    let that = this;
                     if(newValue !== oldValue){
                         this.emptyPrvData();
                         if(this.formData.product_type === 2){
-                            this.getProductCreateDependency(this.formData.category_id);
+                            that.getProductCreateDependency(this.formData.category_id);
                         }
                     }
                 },

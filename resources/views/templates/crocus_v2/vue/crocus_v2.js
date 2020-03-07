@@ -13,6 +13,28 @@ Vue.use(CroppaImg);
 import AppStorage from "../../../../js/helper/AppStorage";
 window.AppStorage = AppStorage;
 
+
+/*
+* Start Using Translation
+*/
+import VueI18n from 'vue-i18n';
+Vue.use(VueI18n);
+
+import { ENGLISH_TRANSLATIONS } from './lang/en';
+import { SOMALIA_TRANSLATIONS } from './lang/so';
+
+const TRANSLATIONS = {
+    en: ENGLISH_TRANSLATIONS,
+    so: SOMALIA_TRANSLATIONS
+};
+const i18n = new VueI18n({
+    locale: LANG,
+    messages: TRANSLATIONS,
+});
+/*
+* End Using Translation
+*/
+
 import StarRating from 'vue-star-rating';
 Vue.component('star-rating', StarRating);
 
@@ -37,5 +59,9 @@ Vue.filter('two_digits', (value) => {
 
 const crocus_v2 = new Vue({
     el: '#crocus_v2',
+    i18n,
+    create(){
+        AppStorage.storeLangInfo('en');
+    },
     store:store,
 });

@@ -28,7 +28,7 @@
                                 <vue-select2 v-model="formData.brand_id" :options="brandList"> </vue-select2>
                             </div>
                         </div>
-                        <!--<div class="col-md-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Product Type: <span class="text text-danger text-bold">*</span></label>
                                 <div class="form-group">
@@ -42,7 +42,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -590,9 +590,9 @@
                 pri_id_index:'',
                 cat_Selected:false,
                 cropperData:{
-                    width:400,
-                    height:400,
-                    placeholder:'Choose a image in 400X400',
+                    width:200,
+                    height:200,
+                    placeholder:'Choose a image in 200X200',
                     file_size:1,
                     init_image:'',
                     folder:'thumbnail',

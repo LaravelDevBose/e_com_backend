@@ -67,24 +67,56 @@
                     </div>
                 </div>
             </div>
-            <div class="panel">
-                <div class="panel-heading bg-primary">
-                    <h5 class="panel-title">Category Wish Products</h5>
+            <div class="panel" v-if="categoryProducts.length > 0">
+                <div class="panel-heading bg-info">
+                    <h5 class="panel-title">Sorted Product List</h5>
                 </div>
 
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th style="width: 25%">Product Name</th>
+                            <th class="d-sm-none">Product Sku</th>
+                            <th class="text-center d-sm-none">Category</th>
+                            <th class="text-center d-sm-none">Brand</th>
+                            <th class="text-center d-sm-none">Quantity</th>
+                            <th class="text-center">Expired</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(product, index) in categoryProducts" :key="index">
+                            <td>
+                                <product-checkbox :row="product"></product-checkbox>
+                            </td>
+                            <td>
+                                <img :src="product.thumbnail.image_path" :alt="product.product_title" style="max-height: 50px;">
+                            </td>
+                            <td>
+                                <span>{{ product.product_title}}</span>
+                            </td>
+                            <td class="d-sm-none">
+                                <span>{{ product.sku}}</span>
+                            </td>
+                            <td class="text-center d-sm-none">
+                                <span>{{ product.category.name}}</span>
+                            </td>
+                            <td class="text-center d-sm-none">
+                                <span v-if="product.brand">{{ product.brand.name}}</span>
+                            </td>
+                            <td class="text-center d-sm-none">
+                                <span>{{ product.total_qty}}</span>
+                            </td>
+                            <td class="text-center">
+                                <product-group-expired :row="product"></product-group-expired>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <div id="table">
-                                    <datatable class="table-bordered table-striped" :columns="columns" :data="categoryProducts" :filter-by="filter"></datatable>
-                                </div>
-                                <div class="form-inline">
-                                    <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-3" style="float:right; margin-top: 1rem;">
                             <div class="form-group" style="margin-bottom:0px;">

@@ -20,10 +20,10 @@
                                 <label>Brand Name:</label>
                                 <input type="text" v-model="formData.brand_name" class="form-control" placeholder="Brand Name " required>
                             </div>
-                           <!-- <div class="form-group">
+                            <div class="form-group">
                                 <label>Trans. Brand Name:</label>
                                 <input type="text" v-model="formData.trans_brand_name" class="form-control" placeholder="Somalia Brand Name " required>
-                            </div>-->
+                            </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
@@ -76,7 +76,7 @@
                         <th>#</th>
                         <th >Banner Logo</th>
                         <th>Brand Name</th>
-<!--                        <th>Somalia Brand Name</th>-->
+                        <th>Somalia Brand Name</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -90,9 +90,9 @@
                         <td>
                             <span class="text text-bold"> {{ brand.name }}</span>
                         </td>
-                       <!-- <td>
+                        <td>
                             <span class="text text-bold" v-if="brand.trans_name"> {{ brand.trans_name }}</span>
-                        </td>-->
+                        </td>
                         <td class="text text-center">
                             <span class="badge badge-success" v-if="brand.status === 1">Active</span>
                             <span class="badge badge-primary" v-else-if="brand.status === 3">Requested</span>

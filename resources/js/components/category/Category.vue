@@ -104,7 +104,7 @@
                 columns: [
                     { label: 'Image', component: 'category-banner', align: 'center', sortable: false },
                     { label: 'Category Name', field: 'name',  },
-                    // { label: 'Trans. Category Name', field: 'trans_name' , },
+                    { label: 'Trans. Category Name', field: 'trans_name' , },
                     { label: '2nd Parent', component:'second-parent' },
                     { label: '1st Parent', component:'first-parent' },
                     // { label: 'Show in Header', component: 'is-show', align: 'center', sortable: true },
