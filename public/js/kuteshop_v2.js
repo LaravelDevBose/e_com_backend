@@ -76516,7 +76516,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ../../../../js/bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = true;
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_js_helper_Noty__WEBPACK_IMPORTED_MODULE_2__["default"]);

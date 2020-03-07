@@ -51,7 +51,7 @@
                 <div class="panel">
                     <div class="panel-heading bg-primary">
                         <h6 class="panel-title">
-                            <a href="#">Delivery Information </a>
+                            <a href="#">Payment Information </a>
                         </h6>
                     </div>
                     <div class="panel-body">
@@ -78,8 +78,8 @@
                                 <div class="col-md-10 col-md-offset-2">
                                     <div class="form-group">
                                         <label class="checkbox-style" for="paypal_payment">
-                                            <span class="text-bold text-success" v-if="deliverySetting.paypal_payment">Accept Paypal Payment</span>
-                                            <span class="text-bold text-warning" v-else>Not Accept Paypal Payment</span>
+                                            <span class="text-bold text-success" v-if="deliverySetting.paypal_payment">Accept Salaam Payment</span>
+                                            <span class="text-bold text-warning" v-else>Not Accept Salaam Payment</span>
                                             <input type="checkbox" id="paypal_payment" v-model="deliverySetting.paypal_payment" :checked="deliverySetting.paypal_payment">
                                             <span class="checkmark"></span>
                                         </label>
@@ -88,8 +88,8 @@
                                 <div class="col-md-10 col-md-offset-2">
                                     <div class="form-group">
                                         <label class="checkbox-style" for="card_payment">
-                                            <span class="text-bold text-success" v-if="deliverySetting.card_payment">Accept Card</span>
-                                            <span class="text-bold text-warning" v-else>Not Accept Card</span>
+                                            <span class="text-bold text-success" v-if="deliverySetting.card_payment">Accept eDahab Payment</span>
+                                            <span class="text-bold text-warning" v-else>Not Accept eDahab Payment</span>
                                             <input type="checkbox" id="card_payment" v-model="deliverySetting.card_payment" :checked="deliverySetting.card_payment">
                                             <span class="checkmark"></span>
                                         </label>
@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="col-md-3 col-md-offset-2">
                                     <div class="text-right form-group">
-                                        <button type="submit" :disabled="btnDisabled" class="btn btn-success">Update Setting<i class="icon-arrow-right14 position-right"></i></button>
+                                        <button type="submit" :disabled="btnDisabled" class="btn btn-success">Update Payment Setting<i class="icon-arrow-right14 position-right"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
 
                                 <div class="col-md-3 col-md-offset-2">
                                     <div class="text-right form-group">
-                                        <button type="submit" :disabled="btnDisabled" class="btn btn-success">Update Setting<i class="icon-arrow-right14 position-right"></i></button>
+                                        <button type="submit" :disabled="btnDisabled" class="btn btn-success">Update General Setting<i class="icon-arrow-right14 position-right"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -171,12 +171,11 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
-    import { VueEditor } from "vue2-editor";
     import ImageCropper from "../../cropper/ImageCropper";
 
     export default {
         name: "SettingPage",
-        components: {ImageCropper, VueEditor},
+        components: {ImageCropper},
         data(){
             return{
                 no_logo:'',

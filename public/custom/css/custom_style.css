@@ -214,3 +214,19 @@
         left: 32%;
     }
 }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 991px){
+    .product-item-actions{
+        display: none;
+    }
+    .product-item-opt-2 .product-item-price{
+        display: block;
+        width: 100%;
+        font-size: 15px;
+    }
+    .product-item-opt-2 .product-reviews-summary{
+        display: block;
+        margin: auto;
+        float: left!important;
+    }
+}
