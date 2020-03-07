@@ -6,9 +6,9 @@
                 <div class="col-md-3">
                     <a href="#" @click.prevent="socialLogin('facebook')" class="btn btn-primary btn-block"><i class="fa fa-facebook"></i> <b>Facebook</b></a>
                 </div>
-                <div class="col-md-3">
+               <!-- <div class="col-md-3">
                     <a href="#" @click.prevent="socialLogin('twitter')" class="btn btn-info btn-block"><i class="fa fa-twitter"></i> <b>Twitter</b></a>
-                </div>
+                </div>-->
                 <div class="col-md-3">
                     <a href="#" @click.prevent="socialLogin('google')" class="btn btn-danger btn-block"><i class="fa fa-google"></i> <b>Google</b></a>
                 </div>

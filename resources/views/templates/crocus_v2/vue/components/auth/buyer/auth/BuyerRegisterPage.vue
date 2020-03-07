@@ -1,61 +1,61 @@
 <template>
     <div class="col-1 new-users">
-        <strong>New Customers</strong>
+        <strong>{{ $t('auth.buyer.reg_title') }}</strong>
         <div class="content">
             <form action="#" @submit.prevent="buyerRegister" autocomplete="off">
                 <ul class="form-list">
                     <li>
                         <label for="fullname">
-                            Full Name
+                            {{ $t('form.full_name') }}
                             <span class="required">*</span>
                         </label>
                         <br />
-                        <input type="text" v-model="formData.full_name" required title="Full Name" class="input-text required-entry" id="fullname"  placeholder="Full Name" />
+                        <input type="text" v-model="formData.full_name" required :title="$t('form.full_name')" class="input-text required-entry" id="fullname"  :placeholder="$t('form.full_name')" />
                     </li>
                     <li>
                         <label for="phone">
-                            Mobile
+                            {{ $t('form.phone_no') }}
                             <span class="required">*</span>
                         </label>
                         <br />
-                        <input type="number" v-model="formData.phone_no" required title="Mobile Number" class="input-text required-entry" id="phone"  placeholder="Mobile" />
+                        <input type="number" v-model="formData.phone_no" required :title="$t('form.phone_no')" class="input-text required-entry" id="phone"  :placeholder="$t('form.phone_no')" />
                     </li>
                     <li>
                         <label for="email">
-                            Email Address
+                            {{ $t('form.email') }}
                             <span class="required">*</span>
                         </label>
                         <br />
-                        <input type="email" v-model="formData.email" required title="Email Address" class="input-text required-entry" id="email" placeholder="Email Address" />
+                        <input type="email" v-model="formData.email" required :title="$t('form.email')" class="input-text required-entry" id="email" :placeholder="$t('form.email')" />
                     </li>
-                    <li>
+                    <!--<li>
                         <label for="username">
                             User Name
                             <span class="required">*</span>
                         </label>
                         <br />
                         <input type="text" title="User Name" v-model="formData.user_name" required class="input-text required-entry" id="username"  placeholder="User Name" />
-                    </li>
+                    </li>-->
                     <li>
                         <label for="reg_pass">
-                            Password
+                            {{ $t('form.password') }}
                             <span class="required">*</span>
                         </label>
                         <br />
-                        <input type="password" minlength="8" v-model="formData.password" required title="Password" id="reg_pass" class="input-text required-entry validate-password"  placeholder="Password" />
+                        <input type="password" minlength="8" v-model="formData.password" required :title="$t('form.password')" id="reg_pass" class="input-text required-entry validate-password"  :placeholder="$t('form.password')" />
                     </li>
                     <li>
                         <label for="conf_pass">
-                            Confirm Password
+                            {{ $t('form.confirm_pass') }}
                             <span class="required">*</span>
                         </label>
                         <br />
-                        <input type="password" minlength="8" v-model="formData.password_confirmation" title="Password" id="conf_pass" class="input-text required-entry validate-password" placeholder="Confirm Password" />
+                        <input type="password" minlength="8" v-model="formData.password_confirmation" :title="$t('form.confirm_pass')" id="conf_pass" class="input-text required-entry validate-password" :placeholder="$t('form.confirm_pass')" />
                     </li>
                 </ul>
                 <div class="buttons-set">
                     <button class="button create-account" type="submit">
-                        <span>Create an Account</span>
+                        <span>{{ $t('auth.buyer.reg_title') }}</span>
                     </button>
                 </div>
             </form>
@@ -74,7 +74,7 @@
                     full_name:'',
                     phone_no:'',
                     email:'',
-                    user_name:'',
+                    // user_name:'',
                     password:'',
                     password_confirmation:'',
                 }

@@ -3,7 +3,7 @@
         <div class="main container">
             <div class="account-login">
                 <div class="page-title">
-                    <h2>Customer Login or Create an Account</h2>
+                    <h2>{{ $t('auth.buyer.page_header')}}</h2>
                 </div>
                 <fieldset class="col2-set">
                     <buyer-register-page></buyer-register-page>

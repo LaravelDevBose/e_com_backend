@@ -1,31 +1,31 @@
 <template>
     <div class="col-2 registered-users">
-        <strong>Registered Customer</strong>
+        <strong>{{ $t('auth.buyer.login_title')}}</strong>
         <div class="content">
-            <p>If you have an account with us, please log in.</p>
+            <p>{{ $t('auth.buyer.login_sub_title')}}</p>
             <form action="#" @submit.prevent="buyerLogin">
                 <ul class="form-list">
                     <li>
                         <label for="identity">
-                            Email/Username
+                            {{ $t('form.email')}}
                             <span class="required">*</span>
                         </label>
                         <br />
-                        <input type="text" title="Email Address" class="input-text required-entry" id="identity" v-model="formData.identity" required placeholder="Email Or Username" />
+                        <input type="text" title="Email Address" class="input-text required-entry" id="identity" v-model="formData.identity" required :placeholder=" $t('form.email')" />
                     </li>
                     <li>
                         <label for="pass">
-                            Password
+                            {{ $t('form.password') }}
                             <span class="required">*</span>
                         </label>
                         <br />
-                        <input type="password" title="Password" id="pass" class="input-text required-entry validate-password" v-model="formData.password" placeholder="Password" />
+                        <input type="password" title="Password" id="pass" class="input-text required-entry validate-password" v-model="formData.password" :placeholder="$t('form.password')" />
                     </li>
                 </ul>
-                <p class="required">* Required Fields</p>
+                <p class="required">* {{ $t('auth.required') }}</p>
                 <div class="buttons-set">
-                    <button type="submit" class="button login" ><span>Login</span></button>
-                    <a class="forgot-word" href="#">Forgot Your Password?</a>
+                    <button type="submit" class="button login" ><span>{{ $t('auth.login') }}</span></button>
+                    <a class="forgot-word" href="/password/reset">{{ $t('auth.forgot_pass') }}</a>
                 </div>
             </form>
         </div>

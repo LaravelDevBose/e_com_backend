@@ -65,9 +65,11 @@ export const ENGLISH_TRANSLATIONS  ={
         login:'Login',
         forgot_pass:'Forgot Your Password.?',
         sign_in_with:'Sign in With',
+        required:'Required Fields',
         buyer:{
             page_header:'Authentication',
-            login_title:'Already registered ?',
+            login_title:'Registered Customer',
+            login_sub_title: 'If you have an account with us, please log in.',
             reg_title:'Create an account',
             reg_sub_title:'Please enter your Details to create an account.',
         },
