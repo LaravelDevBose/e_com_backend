@@ -22,7 +22,7 @@
                     <div class="description std">
                         <div class="inner">
                             <span v-if="wishList.brand">Brand: {{ wishList.brand.brand_name }} </span>
-                            <span v-if="wishList.seller"><i class="icon-store text-primary"></i> {{ wishList.seller.shop_name}} </span>
+                            <span v-if="wishList.seller.shop"><i class="icon-store text-primary"></i> {{ wishList.seller.shop.shop_name}} </span>
                         </div>
                     </div>
                 </td>
@@ -55,7 +55,8 @@
                     </div>
                 </td>
                 <td class="wishlist-cell5 customer-wishlist-item-remove last">
-                    <a class="remove-item" title="Remove WishList" @click.prevent="removeWishList(wishList.product_slug)" href="#"><span><span></span></span></a></td>
+                    <a class="remove-item" title="Remove WishList" @click.prevent="removeWishList(wishList.product_slug)" href="#"><span><span></span></span></a>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -127,6 +128,7 @@
                         }
                     });
             },
+
             emptyCartDataVar(){
                 this.cartData.id = '';
                 this.cartData.qty = '';

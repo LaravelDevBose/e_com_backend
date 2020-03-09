@@ -4,7 +4,7 @@
             <h2>My Dashboard</h2>
         </div>
         <div class="dashboard">
-            <welcome-message></welcome-message>
+<!--            <welcome-message></welcome-message>-->
             <div class="recent-orders">
                 <div class="title-buttons">
                     <strong>Recent Orders</strong>

@@ -60,8 +60,8 @@ Vue.filter('two_digits', (value) => {
 const crocus_v2 = new Vue({
     el: '#crocus_v2',
     i18n,
+    store:store,
     create(){
         AppStorage.storeLangInfo('en');
     },
-    store:store,
 });

@@ -28,7 +28,7 @@
                     {
                         name:'so',
                         label:'Somalia',
-                        flag:'./crocus_v2/images/flags/somalia.png'
+                        flag:'/crocus_v2/images/flags/somalia.png'
                     }
                 ],
                 selectedLang: {},

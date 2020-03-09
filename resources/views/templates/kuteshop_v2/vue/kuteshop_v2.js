@@ -15,10 +15,10 @@ window.AppStorage = AppStorage;
 /*
 * Start Using Translation
 */
-import VueI18n from 'vue-i18n';
-Vue.use(VueI18n);
+/*import VueI18n from 'vue-i18n';
+Vue.use(VueI18n);*/
 
-import { ENGLISH_TRANSLATIONS } from './lang/en';
+/*import { ENGLISH_TRANSLATIONS } from './lang/en';
 import { SOMALIA_TRANSLATIONS } from './lang/so';
 
 const TRANSLATIONS = {
@@ -28,7 +28,7 @@ const TRANSLATIONS = {
 const i18n = new VueI18n({
     locale: LANG,
     messages: TRANSLATIONS,
-});
+});*/
 /*
 * End Using Translation
 */
@@ -49,7 +49,6 @@ Vue.component('index', require('./components/IndexPage').default);
 const crocus_v2 = new Vue({
     el: '#kuteshop_v2',
     store:store,
-    i18n,
     create(){
       AppStorage.storeLangInfo('en');
     },

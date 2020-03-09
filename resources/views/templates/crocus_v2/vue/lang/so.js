@@ -66,15 +66,18 @@ export const SOMALIA_TRANSLATIONS  ={
         login:'Gal',
         forgot_pass:'Furaha Sirta Ma Hilmaantay.?',
         sign_in_with:'Ku Gal',
+        required:'Required Fields',
         buyer:{
             page_header:'Aqoonsiga',
             login_title:'Xubin Hore ?',
+            login_sub_title: 'If you have an account with us, please log in.',
             reg_title:'Akoon Sameeso',
             reg_sub_title:'Fadlan gali macluumaad kaaga si aad akoon u sameesatid.',
         },
         seller:{
             page_header:'Aqoonsiga Iibiyaha',
             login_title:'Iibiye Xubin Hore Ah ?',
+            login_sub_title: 'If you have an account with us, please log in.',
             reg_title:'Ku Iibi Saliim. Furo Dukaan.',
             reg_sub_title:'Fadlan Gali Macluumaad Kaaga Si Aad Akoon U Sameesatid.',
             create_shop:'Fur Dukaan',

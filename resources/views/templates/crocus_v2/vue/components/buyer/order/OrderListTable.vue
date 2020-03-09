@@ -27,47 +27,33 @@
                         <em>{{ order.status_label }}</em>
                     </td>
                     <td class="a-center last text-center">
-<!--                        <a href="#" @click.prevent="viewOrderInfo(order.order_no)"> <i class="fa fa-eye"></i></a>-->
-                        <a href="#" @click.prevent="showInvoiceModal(order.order_no)"> <i class="fa fa-eye"></i></a>
+                        <a href="#" @click.prevent="showInvoiceDetails(order.order_id)" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i></a>
+                        <a href="#" @click.prevent="goToAddReviewPage(order.order_id)" class="btn btn-sm btn-success"> <i class="fa fa-comment"></i></a>
                     </td>
                 </tr>
                 <tr v-else class="last even">
-                    <td colspan="6">On Purchase yet</td>
+                    <td colspan="6">{{ $t('buyer.order.no_order')}}</td>
                 </tr>
             </tbody>
         </table>
-<!--        TODO Table Pagination-->
-<!--        <invoice-modal></invoice-modal>-->
-        <invoice-modal-one></invoice-modal-one>
     </div>
 </template>
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
-    import InvoiceModal from "../section/InvoiceModal";
-    import InvoiceModalOne from "../section/InvoiceModalOne";
 
     export default {
         name: "OrderListTable",
-        components: {InvoiceModalOne, InvoiceModal},
         methods:{
             ...mapActions([
                 'getOrderInfo'
             ]),
-            viewOrderInfo(order_no){
-                location.href = `/buyer/order/${order_no}/show`;
+            showInvoiceDetails(order_id){
+                location.href = `/buyer/order/${order_id}/show`;
             },
-            showInvoiceModal(orderNo){
-                this.getOrderInfo(orderNo)
-                    .then(response=>{
-                        if(typeof response.code !== "undefined" && response.code === 200){
-                            $('#invoice').modal('show');
-                        }else{
-                            alert(response.message);
-                        }
-
-                    })
-            }
+            goToAddReviewPage(order_id){
+                location.href = `/buyer/reviews/add/${order_id}`;
+            },
         },
         computed:{
             ...mapGetters([
