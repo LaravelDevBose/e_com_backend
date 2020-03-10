@@ -1,7 +1,7 @@
 <?php
 
 return[
-    'contact_us_today'=>'Maanta Nala Soo Xariir   !',
+    'contact_us'=>'Nala Soo Xariir!',
     'login'=>'Gal Macamiil',
     'seller_login'=>'Gal Iibiye',
     'my_account'=>'Akoonkeyga',

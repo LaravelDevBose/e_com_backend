@@ -1,7 +1,7 @@
 <?php
 
 return[
-    'contact_us_today'=>'Contact Us Today!',
+    'contact_us'=>'Contact Us.',
     'login'=>'Customer Login',
     'seller_login'=>'Seller Login',
     'my_account'=>'My Account',

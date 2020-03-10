@@ -236,7 +236,7 @@
                         <span class="title">Safe Payment</span>
                     </div>
                     <div class="des">
-                        Pay with the world's most popular and secure payment methods.
+                        Pay with the region's most popular and secure payment methods.
                     </div>
                 </div>
 
@@ -264,7 +264,7 @@
                         <span class="title">Shop On-The-Go</span>
                     </div>
                     <div class="des">
-                        Download the app and get the world of AliExpress at your fingertips.
+                        Download the app and get the world of <strong><b>Saliim</b></strong> at your fingertips.
                     </div>
                 </div>
             </div>
