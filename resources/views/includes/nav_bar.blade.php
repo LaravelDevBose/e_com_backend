@@ -13,10 +13,10 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown dropdown-user">
+            <li class="dropdown">
 
                 <a class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="/saliim.png" style="width: 40px; max-height: 40px!important;" alt="{{ auth()->guard('admin')->user()->user_name }}">{{ ucwords(auth()->guard('admin')->user()->full_name)  }}
+                    <img src="/saliim.png" style="width: 40px; max-height: 40px!important; margin-right: 1em;" alt="{{ auth()->guard('admin')->user()->user_name }}">{{ ucwords(auth()->guard('admin')->user()->full_name)  }}
 {{--                    <img src="" style="width: 40px; max-height: 40px!important;" alt="{{ auth()->guard('admin')->user()->user_name }}">{{ ucwords(auth()->guard('admin')->user()->full_name)  }}--}}
                     <i class="caret"></i>
                 </a>

@@ -6,7 +6,7 @@
             <div class="category-content">
                 <div class="sidebar-user-material-content">
                     <a href="#">
-                        <img src="/saliim.png" class="img-circle img-responsive" alt="">
+                        <img src="/saliim.png" class="img-responsive" alt="">
                     </a>
                     <h6>{{ ucwords(auth()->guard('admin')->user()->full_name)  }}</h6>
                     <span class="text-size-small">{{ auth()->guard('admin')->user()->role }}</span>

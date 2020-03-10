@@ -14,7 +14,6 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ asset('assets/images/placeholder.jpg') }}" alt="">
                         <span>{{ ucwords(auth()->guard('seller')->user()->full_name)  }}</span>
                         <i class="caret"></i>
                     </a>

@@ -15,7 +15,7 @@
                         @if(!empty($category->iconImage))
                             <img src="{{ $category->iconImage->image_path  }}" alt="nav-cat">
                         @else
-                            <img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat1.png')}}" alt="nav-cat">
+                            <img src="{{ asset('kuteshop_v2/images/icon/arrow-right.png')}}" alt="nav-cat">
                         @endif
                     </span>
                     {{ $category->category_name }}

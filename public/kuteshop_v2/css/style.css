@@ -1091,7 +1091,7 @@ select.input-sm {
     padding: 0 44px 0 25px;
     background-repeat: no-repeat;
     background-position: center right 25px;
-    background-image: url(../images/icon/index1/menu-cat.png);
+    background-image: url(../images/icon/menu-cat.png);
     letter-spacing: 1px
 }
 
@@ -3753,7 +3753,7 @@ select.input-sm {
 
 .header-opt-2 .header-content .block-search .btn-search {
     background-color: #f78031;
-    background-image: url(../images/icon/index5/search.png);
+    background-image: url(../images/icon/search.png);
     width: 45px
 }
 
@@ -3788,7 +3788,7 @@ select.input-sm {
     background-repeat: no-repeat;
     display: block;
     float: right;
-    background-image: url(../images/icon/index2/head-cart.png)
+    background-image: url(../images/icon/head-cart.png)
 }
 
 .header-opt-2 .header-content .block-minicart>.dropdown-toggle .cart-text,
@@ -3854,11 +3854,11 @@ select.input-sm {
 }
 
 .header-opt-2 .header-content .link-wishlist {
-    background-image: url(../images/icon/index2/head-wishlist.png)
+    background-image: url(../images/icon/head-wishlist.png)
 }
 
 .header-opt-2 .header-content .link-compare {
-    background-image: url(../images/icon/index2/head-compare.png)
+    background-image: url(../images/icon/head-compare.png)
 }
 
 .header-opt-2 .header-content .nav-mind {
@@ -17134,15 +17134,15 @@ select.input-sm {
 }
 
 .product-item-opt-2 .product-item-actions .btn-wishlist {
-    background-image: url(../images/icon/index2/btn-wishlist.png)
+    background-image: url(../images/icon/btn-wishlist.png)
 }
 
 .product-item-opt-2 .product-item-actions .btn-compare {
-    background-image: url(../images/icon/index2/btn-compare.png)
+    background-image: url(../images/icon/btn-compare.png)
 }
 
 .product-item-opt-2 .product-item-actions .btn-quickview {
-    background-image: url(../images/icon/index2/btn-quickview.png)
+    background-image: url(../images/icon/btn-quickview.png)
 }
 
 .product-item-opt-2 .product-item-label {
@@ -40682,19 +40682,19 @@ img.alignright {
 }
 
 .block-top-brand-opt14 .nav-brand .owl-prev {
-    background-image: url(../images/icon/index14/prev.png)
+    background-image: url(../images/icon/prev.png)
 }
 
 .block-top-brand-opt14 .nav-brand .owl-prev:hover {
-    background-image: url(../images/icon/index14/prev-hover.png)
+    background-image: url(../images/icon/prev-hover.png)
 }
 
 .block-top-brand-opt14 .nav-brand .owl-next {
-    background-image: url(../images/icon/index14/next.png)
+    background-image: url(../images/icon/next.png)
 }
 
 .block-top-brand-opt14 .nav-brand .owl-next:hover {
-    background-image: url(../images/icon/index14/next-hover.png)
+    background-image: url(../images/icon/next-hover.png)
 }
 
 .block-top-brand-opt14 .tab-content .owl-item {
