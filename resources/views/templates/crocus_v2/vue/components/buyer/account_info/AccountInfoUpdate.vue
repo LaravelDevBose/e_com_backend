@@ -7,18 +7,18 @@
                         <ul>
                             <li>
                                 <div class="customer-name">
-                                    <label for="full_name"> Full Name <span class="required">*</span> </label>
+                                    <label for="full_name">{{ $t('form.full_name')}} <span class="required">*</span> </label>
                                     <br>
                                     <input type="text" id="full_name" v-model="formData.full_name" title="Full Name" class="input-text required-entry">
                                 </div>
                             </li>
                             <li>
-                                <label for="phone_no">Telephone <span class="required">*</span></label>
+                                <label for="phone_no">{{ $t('form.phone_no')}}  <span class="required">*</span></label>
                                 <br>
                                 <input type="text" v-model="formData.phone_no" title="Telephone" class="input-text required-entry" id="phone_no">
                             </li>
                             <li>
-                                <label for="address">Address <span class="required">*</span></label>
+                                <label for="address">{{ $t('form.address')}} <span class="required">*</span></label>
                                 <br>
                                 <input type="text" v-model="formData.buyer_address" title="Street Address" id="address" class="input-text required-entry">
                             </li>
@@ -27,7 +27,7 @@
                                     <em class="required">*</em>Required Fields
                                 </p>
                                 <button :disabled="btnDisabled" type="submit" class="button continue">
-                                    <span>Update</span>
+                                    <span>{{ $t('form.update')}}</span>
                                 </button>
                             </li>
                         </ul>
@@ -36,19 +36,19 @@
             </div>
             <div class="col-md-4">
                 <div class="block block-account">
-                    <div class="block-title">My Account</div>
+                    <div class="block-title">{{ $t('buyer.account.identity')}}</div>
                     <div class="block-content">
                         <ul style="list-style: none; padding:0;">
-                            <li>
+                           <!-- <li>
                                 <a href="#" >Username: {{ buyerInfo.user_name }}</a>
+                            </li>-->
+                            <li>
+                                <a href="#" >{{ $t('form.email')}}: {{ buyerInfo.email }}</a>
                             </li>
                             <li>
-                                <a href="#" >Email: {{ buyerInfo.email }}</a>
-                            </li>
-                            <li>
-                                <a href="#" >Account Type:
-                                    <span v-if="buyerInfo.is_seller === 1">Buyer & Seller</span>
-                                    <span v-else>Buyer</span>
+                                <a href="#" >{{ $t('buyer.account.account_type')}}:
+                                    <span v-if="buyerInfo.is_seller === 1">{{ $t('buyer.account.both')}}</span>
+                                    <span v-else>{{ $t('buyer.account.buyer')}}</span>
                                 </a>
                             </li>
                         </ul>

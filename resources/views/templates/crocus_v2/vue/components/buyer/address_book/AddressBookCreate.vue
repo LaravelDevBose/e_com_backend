@@ -3,74 +3,68 @@
         <form  @submit.prevent="manipulateAddressBook">
             <fieldset class="group-select">
                 <fieldset>
-                    <legend>Address Book</legend>
+                    <legend> {{ $t('buyer.address.menu')}}</legend>
                     <ul>
                         <li>
                             <div class="customer-name">
                                 <div class="input-box name-firstname">
-                                    <label for="billing_firstname"> First Name <span class="required">*</span> </label>
+                                    <label for="firstname"> {{ $t('form.first_name')}} <span class="required">*</span> </label>
                                     <br>
-                                    <input type="text" id="billing_firstname" v-model="formData.first_name" title="First Name" class="input-text required-entry">
+                                    <input type="text" id="firstname" v-model="formData.first_name" title="First Name" class="input-text required-entry">
                                 </div>
                                 <div class="input-box name-lastname">
-                                    <label for="billing_lastname"> Last Name <span class="required">*</span> </label>
+                                    <label for="lastname"> {{ $t('form.last_name')}} <span class="required">*</span> </label>
                                     <br>
-                                    <input type="text" id="billing_lastname" v-model="formData.last_name" title="Last Name" class="input-text required-entry">
+                                    <input type="text" id="lastname" v-model="formData.last_name" title="Last Name" class="input-text required-entry">
                                 </div>
                             </div>
                         </li>
                         <li>
                             <div class="input-box">
-                                <label for="billing_telephone">Telephone <span class="required">*</span></label>
+                                <label for="telephone">{{ $t('form.phone_no')}} <span class="required">*</span></label>
                                 <br>
-                                <input type="text" v-model="formData.phone_no" title="Telephone" class="input-text required-entry" id="billing_telephone">
+                                <input type="text" v-model="formData.phone_no" title="Telephone" class="input-text required-entry" id="telephone">
                             </div>
                             <div class="input-box">
-                                <label for="billing_street">Address <span class="required">*</span></label>
+                                <label for="address">{{ $t('form.address')}} <span class="required">*</span></label>
                                 <br>
-                                <input type="text" v-model="formData.address" title="Street Address" id="billing_street" class="input-text required-entry">
+                                <input type="text" v-model="formData.address" title="Street Address" id="address" class="input-text required-entry">
                             </div>
                         </li>
                         <li>
                             <div class="input-box">
-                                <label for="billing_city">City <span class="required">*</span></label>
+                                <label for="city">{{ $t('form.city')}} <span class="required">*</span></label>
                                 <br>
-                                <input type="text" title="City" v-model="formData.city" class="input-text required-entry" id="billing_city">
+                                <input type="text" title="City" v-model="formData.city" class="input-text required-entry" id="city">
                             </div>
-                            <div id="" class="input-box">
-                                <label for="billing_region">State/Province <span class="required">*</span></label>
+                            <div class="input-box">
+                                <label for="district">{{ $t('form.district')}}  <span class="required">*</span></label>
                                 <br>
-                                <select  id="billing_region" v-model="formData.state"  title="State/Province" class="validate-select" style="">
-                                    <option value="">Please select region, state or province</option>
-                                    <option value="1">Alabama</option>
-                                    <option value="2">Alaska</option>
-                                </select>
+                                <input type="text" title="District" v-model="formData.district" class="input-text required-entry" id="district">
                             </div>
                         </li>
                         <li>
                             <div class="input-box">
-                                <label for="billing_postcode">Zip/Postal Code <span class="required">*</span></label>
+                                <label>{{ $t('form.region')}} <span class="required">*</span></label>
                                 <br>
-                                <input type="text" v-model="formData.postal_code" title="Zip/Postal Code" id="billing_postcode" class="input-text validate-zip-international required-entry">
+                                <select v-model='formData.region'  >
+                                    <option value="">{{ $t('form.select_region')}}</option>
+                                    <option v-for="(region,index) in regions" :key="index" :value="region.key">{{ $t("state."+region.name) }}</option>
+                                </select>
                             </div>
                             <div class="input-box">
-                                <label for="billing_country_id">Country <span class="required">*</span></label>
+                                <label for="postcode">{{ $t('form.postal_code')}}</label>
                                 <br>
-                                <select id="billing_country_id" v-model="formData.country" class="validate-select" title="Country">
-                                    <option value=""> </option>
-                                    <option value="AF">Afghanistan</option>
-                                    <option value="AL">Albania</option>
-
-                                </select>
+                                <input type="text" v-model="formData.postal_code" title="Zip/Postal Code" id="postcode" class="input-text validate-zip-international">
                             </div>
                         </li>
                         <li>
                             <p class="require">
-                                <em class="required">*</em>Required Fields
+                                <em class="required">*</em>{{ $t('form.required')}}
                             </p>
                             <button :disabled="btnDisabled" type="submit" class="button continue">
-                                <span v-if="isedit">Update Address</span>
-                                <span v-else>Save Address</span>
+                                <span v-if="isedit">{{ $t('buyer.address.update_address')}}</span>
+                                <span v-else>{{ $t('buyer.address.save_address')}}</span>
                             </button>
                         </li>
                     </ul>
@@ -82,6 +76,7 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
+    import ChosenSelect from '../../helper/ChosenSelect';
     export default {
         name: "AddressBookCreate",
         props:{
@@ -94,6 +89,7 @@
                 default:false,
             }
         },
+        components:{ChosenSelect},
         data(){
             return{
                 formData:{
@@ -105,15 +101,17 @@
                     city:'',
                     state:'',
                     postal_code:'',
-                    country:'',
+                    country:'Somalia',
                     address_type:1,
+                    region:'',
+                    district:'',
                 },
                 btnDisabled:false,
             }
         },
         mounted(){
           if(this.isedit){
-                this.getAddressBookInfo(this.addressid);
+              this.getAddressBookInfo(this.addressid);
           }
         },
         methods:{
@@ -160,7 +158,8 @@
         },
         computed:{
             ...mapGetters([
-                'addressInfo'
+                'addressInfo',
+                'regions',
             ]),
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
@@ -191,6 +190,8 @@
                         this.formData.postal_code = this.addressInfo.postal_code;
                         this.formData.country = this.addressInfo.country;
                         this.formData.address_type = this.addressInfo.address_type;
+                        this.formData.region = this.addressInfo.region;
+                        this.formData.district = this.addressInfo.district;
                     }
 
                 },deep:true,

@@ -160,6 +160,7 @@ export const ENGLISH_TRANSLATIONS  ={
         select_region:'Select A Region',
         postal_code:'Postal Code',
         update:'Update',
+        required:'Required Fields',
     },
     state:{
         Awdal:'Awdal',

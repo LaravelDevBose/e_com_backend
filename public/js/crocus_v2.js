@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2953,6 +2953,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _helper_ChosenSelect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../helper/ChosenSelect */ "./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3035,12 +3036,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddressBookCreate",
@@ -3054,6 +3050,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": false
     }
   },
+  components: {
+    ChosenSelect: _helper_ChosenSelect__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
       formData: {
@@ -3065,8 +3064,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         city: '',
         state: '',
         postal_code: '',
-        country: '',
-        address_type: 1
+        country: 'Somalia',
+        address_type: 1,
+        region: '',
+        district: ''
       },
       btnDisabled: false
     };
@@ -3113,7 +3114,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['addressInfo']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['addressInfo', 'regions']), {
     formDataCheck: function formDataCheck() {
       return JSON.parse(JSON.stringify(this.formData));
     },
@@ -3143,6 +3144,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           this.formData.postal_code = this.addressInfo.postal_code;
           this.formData.country = this.addressInfo.country;
           this.formData.address_type = this.addressInfo.address_type;
+          this.formData.region = this.addressInfo.region;
+          this.formData.district = this.addressInfo.district;
         }
       },
       deep: true
@@ -3168,7 +3171,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -6515,6 +6517,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ShippingForm"
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ChosenSelect",
+  props: {
+    value: [Number, String, Array, Object],
+    multiple: Boolean,
+    placeholder: String,
+    classList: String
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    $(this.$el).val(this.value).chosen().on("change", function (e) {
+      return _this.$emit('input', $(_this.$el).val());
+    });
+  },
+  updated: function updated() {
+    $(this.$el).trigger('chosen:updated');
+  },
+  watch: {
+    value: function value(val) {
+      $(this.$el).val(val).trigger('chosen:updated');
+    }
+  }
 });
 
 /***/ }),
@@ -67867,7 +67909,10 @@ var render = function() {
               _c("ul", [
                 _c("li", [
                   _c("div", { staticClass: "customer-name" }, [
-                    _vm._m(0),
+                    _c("label", { attrs: { for: "full_name" } }, [
+                      _vm._v(_vm._s(_vm.$t("form.full_name")) + " "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -67904,7 +67949,10 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("li", [
-                  _vm._m(1),
+                  _c("label", { attrs: { for: "phone_no" } }, [
+                    _vm._v(_vm._s(_vm.$t("form.phone_no")) + "  "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
                   _vm._v(" "),
                   _c("br"),
                   _vm._v(" "),
@@ -67932,7 +67980,10 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("li", [
-                  _vm._m(2),
+                  _c("label", { attrs: { for: "address" } }, [
+                    _vm._v(_vm._s(_vm.$t("form.address")) + " "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
                   _vm._v(" "),
                   _c("br"),
                   _vm._v(" "),
@@ -67968,7 +68019,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("li", [
-                  _vm._m(3),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c(
                     "button",
@@ -67976,7 +68027,7 @@ var render = function() {
                       staticClass: "button continue",
                       attrs: { disabled: _vm.btnDisabled, type: "submit" }
                     },
-                    [_c("span", [_vm._v("Update")])]
+                    [_c("span", [_vm._v(_vm._s(_vm.$t("form.update")))])]
                   )
                 ])
               ])
@@ -67987,28 +68038,33 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "block block-account" }, [
-          _c("div", { staticClass: "block-title" }, [_vm._v("My Account")]),
+          _c("div", { staticClass: "block-title" }, [
+            _vm._v(_vm._s(_vm.$t("buyer.account.identity")))
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "block-content" }, [
             _c("ul", { staticStyle: { "list-style": "none", padding: "0" } }, [
               _c("li", [
                 _c("a", { attrs: { href: "#" } }, [
-                  _vm._v("Username: " + _vm._s(_vm.buyerInfo.user_name))
+                  _vm._v(
+                    _vm._s(_vm.$t("form.email")) +
+                      ": " +
+                      _vm._s(_vm.buyerInfo.email)
+                  )
                 ])
               ]),
               _vm._v(" "),
               _c("li", [
                 _c("a", { attrs: { href: "#" } }, [
-                  _vm._v("Email: " + _vm._s(_vm.buyerInfo.email))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "#" } }, [
-                  _vm._v("Account Type:\n                                "),
+                  _vm._v(
+                    _vm._s(_vm.$t("buyer.account.account_type")) +
+                      ":\n                                "
+                  ),
                   _vm.buyerInfo.is_seller === 1
-                    ? _c("span", [_vm._v("Buyer & Seller")])
-                    : _c("span", [_vm._v("Buyer")])
+                    ? _c("span", [_vm._v(_vm._s(_vm.$t("buyer.account.both")))])
+                    : _c("span", [
+                        _vm._v(_vm._s(_vm.$t("buyer.account.buyer")))
+                      ])
                 ])
               ])
             ])
@@ -68019,33 +68075,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "full_name" } }, [
-      _vm._v(" Full Name "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "phone_no" } }, [
-      _vm._v("Telephone "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "address" } }, [
-      _vm._v("Address "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -68091,13 +68120,16 @@ var render = function() {
       [
         _c("fieldset", { staticClass: "group-select" }, [
           _c("fieldset", [
-            _c("legend", [_vm._v("Address Book")]),
+            _c("legend", [_vm._v(" " + _vm._s(_vm.$t("buyer.address.menu")))]),
             _vm._v(" "),
             _c("ul", [
               _c("li", [
                 _c("div", { staticClass: "customer-name" }, [
                   _c("div", { staticClass: "input-box name-firstname" }, [
-                    _vm._m(0),
+                    _c("label", { attrs: { for: "firstname" } }, [
+                      _vm._v(" " + _vm._s(_vm.$t("form.first_name")) + " "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -68113,7 +68145,7 @@ var render = function() {
                       staticClass: "input-text required-entry",
                       attrs: {
                         type: "text",
-                        id: "billing_firstname",
+                        id: "firstname",
                         title: "First Name"
                       },
                       domProps: { value: _vm.formData.first_name },
@@ -68133,7 +68165,10 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-box name-lastname" }, [
-                    _vm._m(1),
+                    _c("label", { attrs: { for: "lastname" } }, [
+                      _vm._v(" " + _vm._s(_vm.$t("form.last_name")) + " "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -68149,7 +68184,7 @@ var render = function() {
                       staticClass: "input-text required-entry",
                       attrs: {
                         type: "text",
-                        id: "billing_lastname",
+                        id: "lastname",
                         title: "Last Name"
                       },
                       domProps: { value: _vm.formData.last_name },
@@ -68172,7 +68207,10 @@ var render = function() {
               _vm._v(" "),
               _c("li", [
                 _c("div", { staticClass: "input-box" }, [
-                  _vm._m(2),
+                  _c("label", { attrs: { for: "telephone" } }, [
+                    _vm._v(_vm._s(_vm.$t("form.phone_no")) + " "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
                   _vm._v(" "),
                   _c("br"),
                   _vm._v(" "),
@@ -68189,7 +68227,7 @@ var render = function() {
                     attrs: {
                       type: "text",
                       title: "Telephone",
-                      id: "billing_telephone"
+                      id: "telephone"
                     },
                     domProps: { value: _vm.formData.phone_no },
                     on: {
@@ -68204,7 +68242,10 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "input-box" }, [
-                  _vm._m(3),
+                  _c("label", { attrs: { for: "address" } }, [
+                    _vm._v(_vm._s(_vm.$t("form.address")) + " "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
                   _vm._v(" "),
                   _c("br"),
                   _vm._v(" "),
@@ -68221,7 +68262,7 @@ var render = function() {
                     attrs: {
                       type: "text",
                       title: "Street Address",
-                      id: "billing_street"
+                      id: "address"
                     },
                     domProps: { value: _vm.formData.address },
                     on: {
@@ -68238,7 +68279,10 @@ var render = function() {
               _vm._v(" "),
               _c("li", [
                 _c("div", { staticClass: "input-box" }, [
-                  _vm._m(4),
+                  _c("label", { attrs: { for: "city" } }, [
+                    _vm._v(_vm._s(_vm.$t("form.city")) + " "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
                   _vm._v(" "),
                   _c("br"),
                   _vm._v(" "),
@@ -68252,7 +68296,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "input-text required-entry",
-                    attrs: { type: "text", title: "City", id: "billing_city" },
+                    attrs: { type: "text", title: "City", id: "city" },
                     domProps: { value: _vm.formData.city },
                     on: {
                       input: function($event) {
@@ -68265,8 +68309,44 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "input-box", attrs: { id: "" } }, [
-                  _vm._m(5),
+                _c("div", { staticClass: "input-box" }, [
+                  _c("label", { attrs: { for: "district" } }, [
+                    _vm._v(_vm._s(_vm.$t("form.district")) + "  "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.district,
+                        expression: "formData.district"
+                      }
+                    ],
+                    staticClass: "input-text required-entry",
+                    attrs: { type: "text", title: "District", id: "district" },
+                    domProps: { value: _vm.formData.district },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "district", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("div", { staticClass: "input-box" }, [
+                  _c("label", [
+                    _vm._v(_vm._s(_vm.$t("form.region")) + " "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
                   _vm._v(" "),
                   _c("br"),
                   _vm._v(" "),
@@ -68277,12 +68357,10 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.formData.state,
-                          expression: "formData.state"
+                          value: _vm.formData.region,
+                          expression: "formData.region"
                         }
                       ],
-                      staticClass: "validate-select",
-                      attrs: { id: "billing_region", title: "State/Province" },
                       on: {
                         change: function($event) {
                           var $$selectedVal = Array.prototype.filter
@@ -68295,7 +68373,7 @@ var render = function() {
                             })
                           _vm.$set(
                             _vm.formData,
-                            "state",
+                            "region",
                             $event.target.multiple
                               ? $$selectedVal
                               : $$selectedVal[0]
@@ -68305,24 +68383,25 @@ var render = function() {
                     },
                     [
                       _c("option", { attrs: { value: "" } }, [
-                        _vm._v("Please select region, state or province")
+                        _vm._v(_vm._s(_vm.$t("form.select_region")))
                       ]),
                       _vm._v(" "),
-                      _c("option", { attrs: { value: "1" } }, [
-                        _vm._v("Alabama")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "2" } }, [
-                        _vm._v("Alaska")
-                      ])
-                    ]
+                      _vm._l(_vm.regions, function(region, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: region.key } },
+                          [_vm._v(_vm._s(_vm.$t("state." + region.name)))]
+                        )
+                      })
+                    ],
+                    2
                   )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
+                ]),
+                _vm._v(" "),
                 _c("div", { staticClass: "input-box" }, [
-                  _vm._m(6),
+                  _c("label", { attrs: { for: "postcode" } }, [
+                    _vm._v(_vm._s(_vm.$t("form.postal_code")))
+                  ]),
                   _vm._v(" "),
                   _c("br"),
                   _vm._v(" "),
@@ -68335,12 +68414,11 @@ var render = function() {
                         expression: "formData.postal_code"
                       }
                     ],
-                    staticClass:
-                      "input-text validate-zip-international required-entry",
+                    staticClass: "input-text validate-zip-international",
                     attrs: {
                       type: "text",
                       title: "Zip/Postal Code",
-                      id: "billing_postcode"
+                      id: "postcode"
                     },
                     domProps: { value: _vm.formData.postal_code },
                     on: {
@@ -68356,63 +68434,17 @@ var render = function() {
                       }
                     }
                   })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-box" }, [
-                  _vm._m(7),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.country,
-                          expression: "formData.country"
-                        }
-                      ],
-                      staticClass: "validate-select",
-                      attrs: { id: "billing_country_id", title: "Country" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.formData,
-                            "country",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "" } }),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "AF" } }, [
-                        _vm._v("Afghanistan")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "AL" } }, [
-                        _vm._v("Albania")
-                      ])
-                    ]
-                  )
                 ])
               ]),
               _vm._v(" "),
               _c("li", [
-                _vm._m(8),
+                _c("p", { staticClass: "require" }, [
+                  _c("em", { staticClass: "required" }, [_vm._v("*")]),
+                  _vm._v(
+                    _vm._s(_vm.$t("form.required")) +
+                      "\n                        "
+                  )
+                ]),
                 _vm._v(" "),
                 _c(
                   "button",
@@ -68422,8 +68454,12 @@ var render = function() {
                   },
                   [
                     _vm.isedit
-                      ? _c("span", [_vm._v("Update Address")])
-                      : _c("span", [_vm._v("Save Address")])
+                      ? _c("span", [
+                          _vm._v(_vm._s(_vm.$t("buyer.address.update_address")))
+                        ])
+                      : _c("span", [
+                          _vm._v(_vm._s(_vm.$t("buyer.address.save_address")))
+                        ])
                   ]
                 )
               ])
@@ -68434,89 +68470,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_firstname" } }, [
-      _vm._v(" First Name "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_lastname" } }, [
-      _vm._v(" Last Name "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_telephone" } }, [
-      _vm._v("Telephone "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_street" } }, [
-      _vm._v("Address "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_city" } }, [
-      _vm._v("City "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_region" } }, [
-      _vm._v("State/Province "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_postcode" } }, [
-      _vm._v("Zip/Postal Code "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_country_id" } }, [
-      _vm._v("Country "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "require" }, [
-      _c("em", { staticClass: "required" }, [_vm._v("*")]),
-      _vm._v("Required Fields\n                        ")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -68543,7 +68497,25 @@ var render = function() {
       "table",
       { staticClass: "data-table", attrs: { id: "my-orders-table" } },
       [
-        _vm._m(0),
+        _c("thead", [
+          _c("tr", { staticClass: "first last" }, [
+            _c("th", [_vm._v("#")]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm.$t("form.full_name")) + "  ")]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm.$t("form.phone_no")))]),
+            _vm._v(" "),
+            _c("th", [
+              _c("span", { staticClass: "nobr" }, [
+                _vm._v(_vm._s(_vm.$t("buyer.address.full_address")))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "text-center" }, [
+              _vm._v(_vm._s(_vm.$t("buyer.address.action")) + " ")
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "tbody",
@@ -68560,7 +68532,7 @@ var render = function() {
                     }
                   },
                   [
-                    _c("td", [_vm._v("1")]),
+                    _c("td", [_vm._v(_vm._s(index + 1))]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
@@ -68597,7 +68569,7 @@ var render = function() {
                 )
               : _c("tr", { staticClass: "last even" }, [
                   _c("td", { attrs: { colspan: "6" } }, [
-                    _vm._v("No Address Found ")
+                    _vm._v(_vm._s(_vm.$t("buyer.address.no_address")) + " ")
                   ])
                 ])
           }),
@@ -68607,28 +68579,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "first last" }, [
-        _c("th", [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Name ")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Phone No")]),
-        _vm._v(" "),
-        _c("th", [
-          _c("span", { staticClass: "nobr" }, [_vm._v("Full Address")])
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("View|Edit ")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -74535,6 +74486,38 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue?vue&type=template&id=4451b043&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue?vue&type=template&id=4451b043&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "select",
+    {
+      class: _vm.classList,
+      attrs: { multiple: _vm.multiple, "data-placeholder": _vm.placeholder }
+    },
+    [_vm._t("default")],
+    2
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -91503,6 +91486,7 @@ var map = {
 	"./components/cart/CartPage.vue": "./resources/views/templates/crocus_v2/vue/components/cart/CartPage.vue",
 	"./components/cart/CartSuggestedProducts.vue": "./resources/views/templates/crocus_v2/vue/components/cart/CartSuggestedProducts.vue",
 	"./components/cart/ShippingForm.vue": "./resources/views/templates/crocus_v2/vue/components/cart/ShippingForm.vue",
+	"./components/helper/ChosenSelect.vue": "./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue",
 	"./components/home/Dashboard.vue": "./resources/views/templates/crocus_v2/vue/components/home/Dashboard.vue",
 	"./components/modal/QuickViewProduct.vue": "./resources/views/templates/crocus_v2/vue/components/modal/QuickViewProduct.vue",
 	"./components/product/HotDealProduct.vue": "./resources/views/templates/crocus_v2/vue/components/product/HotDealProduct.vue",
@@ -94049,6 +94033,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue":
+/*!************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ChosenSelect_vue_vue_type_template_id_4451b043_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ChosenSelect.vue?vue&type=template&id=4451b043&scoped=true& */ "./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue?vue&type=template&id=4451b043&scoped=true&");
+/* harmony import */ var _ChosenSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ChosenSelect.vue?vue&type=script&lang=js& */ "./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ChosenSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ChosenSelect_vue_vue_type_template_id_4451b043_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ChosenSelect_vue_vue_type_template_id_4451b043_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "4451b043",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChosenSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./ChosenSelect.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChosenSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue?vue&type=template&id=4451b043&scoped=true&":
+/*!*******************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue?vue&type=template&id=4451b043&scoped=true& ***!
+  \*******************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChosenSelect_vue_vue_type_template_id_4451b043_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./ChosenSelect.vue?vue&type=template&id=4451b043&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/helper/ChosenSelect.vue?vue&type=template&id=4451b043&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChosenSelect_vue_vue_type_template_id_4451b043_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChosenSelect_vue_vue_type_template_id_4451b043_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/views/templates/crocus_v2/vue/components/home/Dashboard.vue":
 /*!*******************************************************************************!*\
   !*** ./resources/views/templates/crocus_v2/vue/components/home/Dashboard.vue ***!
@@ -95359,7 +95412,8 @@ var ENGLISH_TRANSLATIONS = {
     region: 'Region',
     select_region: 'Select A Region',
     postal_code: 'Postal Code',
-    update: 'Update'
+    update: 'Update',
+    required: 'Required Fields'
   },
   state: {
     Awdal: 'Awdal',
@@ -98369,7 +98423,7 @@ var mutations = {
 
 /***/ }),
 
-/***/ 2:
+/***/ 1:
 /*!********************************************************************!*\
   !*** multi ./resources/views/templates/crocus_v2/vue/crocus_v2.js ***!
   \********************************************************************/
