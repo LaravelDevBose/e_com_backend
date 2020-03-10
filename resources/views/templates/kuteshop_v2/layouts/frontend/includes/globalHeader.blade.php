@@ -75,9 +75,9 @@
             <div class="row">
                 <div class="col-md-3 nav-left">
                     <!-- logo -->
-                    <strong class="logo" style="display: inline-block;">
+                    <strong class="logo" style="display: inline-block; width: 80px; height: 60px">
                         <a href="{{ route('front.index') }}">
-                            <img src="{{ asset('saliim.png') }}" alt="logo" style="height: 80px;">
+                            <img src="{{ asset('saliim.png') }}" alt="logo" style="height: auto; width: 100%;">
                         </a>
                     </strong><!-- logo -->
                     @if(!empty($siteTitle))
