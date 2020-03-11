@@ -36,7 +36,7 @@ const actions = {
     },
     async storeIndividualSellerProduct({commit}, formData){
         try {
-            return await axios.post('/buyer/seller/product', formData)
+            return await axios.post('/buyer/seller/product/store', formData)
                 .then(response=>{
                     return response.data;
                 })

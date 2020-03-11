@@ -3,15 +3,15 @@
         <table class="data-table" id="my-orders-table">
             <thead>
             <tr class="first last">
-                <th>Order No#</th>
-                <th style="max-width:70px;">Image</th>
-                <th>Product Info</th>
-                <th>Order Date</th>
-                <th>Brand</th>
-                <th class="text-right">Price</th>
-                <th class="text-center">Qty</th>
-                <th class="text-right">T. Price</th>
-                <th class="text-center">Status</th>
+                <th>{{ $t('buyer.order.order')}}#</th>
+                <th style="max-width:70px;">{{ $t('buyer.order.image')}}</th>
+                <th>{{ $t('product.details')}}</th>
+                <th>{{ $t('buyer.order.date')}}</th>
+                <th>{{ $tc('products.brand', 1)}}</th>
+                <th class="text-right">{{ $t('buyer.order.price')}}</th>
+                <th class="text-center">{{ $t('buyer.order.qty')}}</th>
+                <th class="text-right">{{ $t('buyer.order.t_price')}}</th>
+                <th class="text-center">{{ $t('buyer.order.view')}}</th>
             </tr>
             </thead>
             <tbody>
@@ -53,7 +53,7 @@
                 </td>
             </tr>
             <tr v-else class="last even">
-                <td colspan="9">No Product Found</td>
+                <td colspan="9">{{ $t('buyer.order.no_order')}}</td>
             </tr>
             </tbody>
         </table>

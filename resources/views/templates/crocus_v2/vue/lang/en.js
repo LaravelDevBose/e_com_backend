@@ -102,6 +102,7 @@ export const ENGLISH_TRANSLATIONS  ={
     buyer:{
         dashboard:{
             menu:'Menu',
+            seller_dashboard: 'Seller Dashboard',
         },
         order:{
             menu:'My Order| My Orders',
@@ -113,7 +114,11 @@ export const ENGLISH_TRANSLATIONS  ={
             total_order:'Total Order',
             status:'Status',
             view:'View',
-            no_order:'No Purchase yet'
+            no_order:'No Purchase yet',
+            price: 'Price',
+            t_price: 'T. Price',
+            qty:'Qty',
+            image: 'Image'
         },
         invoice:{
 
@@ -142,6 +147,29 @@ export const ENGLISH_TRANSLATIONS  ={
             buyer:'Buyer',
             both:'Buyer & Seller'
         },
+        product: {
+            new_product: 'Add New Product',
+            pro_name: 'Product Name',
+            category: 'Category',
+            select_category:'Select a Category',
+            sec_cat: '2nd Category',
+            select_sec_cat: 'Select A Second Category',
+            trd_cat: '3rd Category',
+            select_trd_cat: 'Select A Third Category',
+            brand: 'Brand',
+            select_brand: 'Select A Brand',
+            condition: 'Product Condition',
+            select_condition: 'Select A Product Condition',
+            highlight:'Highlight',
+            des:'Description',
+            pro_qty: 'Product Qty',
+            pro_price: 'Product Price',
+            thumb_img: 'Thumb Image',
+            pro_img: 'Product Image',
+            pro_update: 'Update Product',
+            pro_save: 'Save Product',
+        }
+
     },
     form:{
         email:'Email',
@@ -161,6 +189,7 @@ export const ENGLISH_TRANSLATIONS  ={
         postal_code:'Postal Code',
         update:'Update',
         required:'Required Fields',
+        seller_name: 'Seller Name'
     },
     state:{
         Awdal:'Awdal',

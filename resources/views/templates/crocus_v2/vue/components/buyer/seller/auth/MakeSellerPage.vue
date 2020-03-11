@@ -8,12 +8,12 @@
                         <li>
                             <div class="customer-name">
                                 <div class="input-box name-firstname">
-                                    <label for="seller_name"> Seller Name <span class="required">*</span> </label>
+                                    <label for="seller_name"> {{ $t('form.seller_name')}}<span class="required">*</span> </label>
                                     <br>
                                     <input type="text" id="seller_name" v-model="formData.seller_name" title="Seller Name" class="input-text required-entry">
                                 </div>
                                 <div class="input-box name-lastname">
-                                    <label for="seller_email"> Seller Email <span class="required">*</span> </label>
+                                    <label for="seller_email"> {{ $t('form.email')}} <span class="required">*</span> </label>
                                     <br>
                                     <input type="text" id="seller_email" v-model="formData.seller_email" title="Seller Email" class="input-text required-entry">
                                 </div>
@@ -21,22 +21,22 @@
                         </li>
                         <li>
                             <div class="input-box">
-                                <label for="seller_phone">Telephone <span class="required">*</span></label>
+                                <label for="seller_phone">{{ $t('form.phone_no')}} <span class="required">*</span></label>
                                 <br>
                                 <input type="text" v-model="formData.seller_phone" title="Telephone" class="input-text required-entry" id="seller_phone">
                             </div>
                             <div class="input-box">
-                                <label for="billing_street">Address <span class="required">*</span></label>
+                                <label for="billing_street">{{ $t('form.address')}} <span class="required">*</span></label>
                                 <br>
                                 <textarea rows="2" v-model="formData.seller_address" title="Seller Address" placeholder="Seller Address" id="billing_street" class="input-text required-entry"></textarea>
                             </div>
                         </li>
                         <li>
                             <p class="require">
-                                <em class="required">*</em>Required Fields
+                                <em class="required">*</em>{{ $t('form.required')}}
                             </p>
                             <button :disabled="btnDisabled" type="submit" class="button continue">
-                                <span >Register</span>
+                                <span >{{ $t('auth.register')}}</span>
                             </button>
                         </li>
                     </ul>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from 'vuex';
+    import {mapActions} from 'vuex';
     export default {
         name: "MakeSellerPage",
         props:{

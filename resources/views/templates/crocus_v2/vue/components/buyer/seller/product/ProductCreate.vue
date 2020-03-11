@@ -3,36 +3,36 @@
         <form  @submit.prevent="manipulateProduct">
             <fieldset class="group-select">
                 <fieldset>
-                    <legend>Address Book</legend>
+                    <legend>{{ $t('buyer.product.new_product') }}</legend>
                     <ul>
                         <li>
-                            <label for="billing_firstname"> Product Name <span class="required">*</span> </label>
+                            <label for="pro_name"> {{ $t('buyer.product.pro_name') }} <span class="required">*</span> </label>
                             <br>
-                            <input type="text" id="billing_firstname" v-model="formData.product_name" title="First Name" class="input-text required-entry" style="width:100%;">
+                            <input type="text" id="pro_name" v-model="formData.product_name" title="First Name" class="input-text required-entry" style="width:100%;">
                         </li>
                         <li>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <label for="mainCategory"> Category <span class="required">*</span> </label>
+                                    <label for="mainCategory"> {{ $t('buyer.product.category') }}  <span class="required">*</span> </label>
                                     <br>
                                     <select class="address-select" v-model="formData.main_cat_id" @click.prevent="checkMainCat()" id="mainCategory" style="width:100%;">
-                                        <option value="">Select A Category</option>
+                                        <option value="">{{ $t('buyer.product.select_category') }} </option>
                                         <option v-if="mainCategories" v-for="(mainCat, index) in mainCategories" :key="index" :value="mainCat.id">{{ mainCat.label }}</option>
                                     </select>
                                 </div>
                                 <div v-if="secCategories.length !== 0" class="col-md-4">
-                                    <label for="subCategory">2nd Category <span class="required">*</span> </label>
+                                    <label for="subCategory">{{ $t('buyer.product.sec_cat') }} <span class="required">*</span> </label>
                                     <br>
                                     <select class="address-select" v-model="formData.sec_cat_id" @click.prevent="checkSecCat()" id="subCategory" style="width:100%;">
-                                        <option value="">Select A Second Category</option>
+                                        <option value="">{{ $t('buyer.product.select_sec_cat') }}</option>
                                         <option v-for="(secCat, index) in secCategories" :key="index" :value="secCat.id">{{ secCat.label }}</option>
                                     </select>
                                 </div>
                                 <div v-if="trdCategories.length !== 0" class="col-md-4">
-                                    <label for="thrdCategory">3rd Category <span class="required">*</span> </label>
+                                    <label for="thrdCategory">{{ $t('buyer.product.trd_cat') }} <span class="required">*</span> </label>
                                     <br>
                                     <select class="address-select" v-model="formData.trd_cat_id" id="thrdCategory" style="width:100%;">
-                                        <option value="">Select A Third Category</option>
+                                        <option value="">{{ $t('buyer.product.select_trd_cat') }}</option>
                                         <option v-for="(trdCat, index) in trdCategories" :key="index" :value="trdCat.id">{{ trdCat.label }}</option>
                                     </select>
                                 </div>
@@ -41,42 +41,42 @@
                         <li>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="brand">Brand <span class="required">*</span></label>
+                                    <label for="brand">{{ $t('buyer.product.brand')}} <span class="required">*</span></label>
                                     <br>
                                     <select class="address-select" v-model="formData.brand_id" id="brand" style="width:100%;">
-                                        <option value="">Select A Brand</option>
+                                        <option value="">{{ $t('buyer.product.select_brand')}}</option>
                                         <option v-if="brandList" v-for="(brand, index) in brandList" :key="index" :value="brand.id">{{ brand.text}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="condition">Product Condition <span class="required">*</span></label>
+                                    <label for="condition">{{ $t('buyer.product.condition')}} <span class="required">*</span></label>
                                     <br>
                                     <select class="address-select" v-model="formData.product_condition" id="condition" style="width:100%;">
-                                        <option value="">Select A Product Condition</option>
+                                        <option value="">{{ $t('buyer.product.select_condition')}}</option>
                                         <option v-if="conditionList" v-for="(condition, index) in conditionList" :key="index" :value="condition.id">{{ condition.text }}</option>
                                     </select>
                                 </div>
                             </div>
                         </li>
                         <li>
-                            <label for="highlight">Highlight <span class="required">*</span></label>
+                            <label for="highlight">{{ $t('buyer.product.highlight')}} <span class="required">*</span></label>
                             <br>
                             <vue-editor id="highlight" v-model="formData.highlight"></vue-editor>
                         </li>
                         <li>
-                            <label for="description">Description <span class="required">*</span></label>
+                            <label for="description">{{ $t('buyer.product.des')}} <span class="required">*</span></label>
                             <br>
                             <vue-editor id="description" v-model="formData.description"></vue-editor>
                         </li>
                         <li>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="qty">Product Qty<span class="required">*</span></label>
+                                    <label for="qty">{{ $t('buyer.product.pro_qty')}}<span class="required">*</span></label>
                                     <br>
                                     <input type="number" v-model="formData.product_qty" title="qty" id="qty" class="input-text required-entry">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="price">Product Price<span class="required">*</span></label>
+                                    <label for="price">{{ $t('buyer.product.pro_price')}}<span class="required">*</span></label>
                                     <br>
                                     <input type="number" v-model="formData.product_price" title="Price" id="price" class="input-text required-entry">
                                 </div>
@@ -110,12 +110,12 @@
                         <li>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="qty">Product Thumb Image<span class="required">*</span></label>
+                                    <label for="qty">{{ $t('buyer.product.thumb_img')}}<span class="required">*</span></label>
                                     <br>
                                     <image-cropper :cropperData="cropperData" :removeImage="removeImage" ></image-cropper>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="qty">Product Thumb Image<span class="required">*</span></label>
+                                    <label for="qty">{{ $t('buyer.product.pro_img')}}<span class="required">*</span></label>
                                     <br>
                                     <div id="simProductImg">
                                         <div class="row">
@@ -143,11 +143,11 @@
                         </li>
                         <li>
                             <p class="require">
-                                <em class="required">*</em>Required Fields
+                                <em class="required">*</em>{{ $t('form.required')}}
                             </p>
                             <button :disabled="btnDisabled" type="submit" class="button continue">
-                                <span v-if="isedit">Update Product</span>
-                                <span v-else>Save Product</span>
+                                <span v-if="isedit">{{ $t('buyer.product.pro_update')}}</span>
+                                <span v-else>{{ $t('buyer.product.pro_save')}}</span>
                             </button>
                         </li>
                     </ul>
@@ -200,12 +200,15 @@
                 },
                 btnDisabled:false,
                 cropperData:{
-                    width:400,
-                    height:400,
+                    width:200,
+                    height:200,
                     placeholder:'Choose a image in 400X400',
                     file_size:1,
                     init_image:'',
                     folder:'thumbnail',
+                    modal_type:2,
+                    modal_id:'thumbnail',
+                    serial:1,
                 },
                 removeImage:false,
                 mainCategories:[],

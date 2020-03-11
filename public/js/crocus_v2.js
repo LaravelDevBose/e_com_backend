@@ -5253,8 +5253,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _section_WelcomeMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../section/WelcomeMessage */ "./resources/views/templates/crocus_v2/vue/components/buyer/section/WelcomeMessage.vue");
-/* harmony import */ var _order_IndividualSellerOrderList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../order/IndividualSellerOrderList */ "./resources/views/templates/crocus_v2/vue/components/buyer/seller/order/IndividualSellerOrderList.vue");
+/* harmony import */ var _order_IndividualSellerOrderList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../order/IndividualSellerOrderList */ "./resources/views/templates/crocus_v2/vue/components/buyer/seller/order/IndividualSellerOrderList.vue");
 //
 //
 //
@@ -5268,18 +5267,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "IndividualSellerDashboard",
   components: {
-    WelcomeMessage: _section_WelcomeMessage__WEBPACK_IMPORTED_MODULE_0__["default"],
-    IndividualSellerOrderList: _order_IndividualSellerOrderList__WEBPACK_IMPORTED_MODULE_1__["default"]
+    IndividualSellerOrderList: _order_IndividualSellerOrderList__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -5623,12 +5615,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       btnDisabled: false,
       cropperData: {
-        width: 400,
-        height: 400,
+        width: 200,
+        height: 200,
         placeholder: 'Choose a image in 400X400',
         file_size: 1,
         init_image: '',
-        folder: 'thumbnail'
+        folder: 'thumbnail',
+        modal_type: 2,
+        modal_id: 'thumbnail',
+        serial: 1
       },
       removeImage: false,
       mainCategories: [],
@@ -68019,7 +68014,13 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("li", [
-                  _vm._m(0),
+                  _c("p", { staticClass: "require" }, [
+                    _c("em", { staticClass: "required" }, [_vm._v("*")]),
+                    _vm._v(
+                      _vm._s(_vm.$t("form.required")) +
+                        "\n                            "
+                    )
+                  ]),
                   _vm._v(" "),
                   _c(
                     "button",
@@ -68074,17 +68075,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "require" }, [
-      _c("em", { staticClass: "required" }, [_vm._v("*")]),
-      _vm._v("Required Fields\n                            ")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -71019,7 +71010,27 @@ var render = function() {
       "table",
       { staticClass: "data-table", attrs: { id: "my-orders-table" } },
       [
-        _vm._m(0),
+        _c("thead", [
+          _c("tr", { staticClass: "first last" }, [
+            _c("th", [_vm._v(_vm._s(_vm.$t("buyer.order.order")) + " #")]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm.$t("buyer.order.date")))]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm.$t("buyer.order.ship_to")))]),
+            _vm._v(" "),
+            _c("th", [
+              _c("span", { staticClass: "nobr" }, [
+                _vm._v(_vm._s(_vm.$t("buyer.order.total_order")))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm.$t("buyer.order.status")))]),
+            _vm._v(" "),
+            _c("th", { staticClass: "text-center" }, [
+              _vm._v(_vm._s(_vm.$t("buyer.order.view")) + " ")
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "tbody",
@@ -71099,30 +71110,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "first last" }, [
-        _c("th", [_vm._v("Order #")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Date")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Ship to")]),
-        _vm._v(" "),
-        _c("th", [
-          _c("span", { staticClass: "nobr" }, [_vm._v("Order Total")])
-        ]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Status")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("View ")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -72026,7 +72014,10 @@ var render = function() {
               _c("li", [
                 _c("div", { staticClass: "customer-name" }, [
                   _c("div", { staticClass: "input-box name-firstname" }, [
-                    _vm._m(0),
+                    _c("label", { attrs: { for: "seller_name" } }, [
+                      _vm._v(" " + _vm._s(_vm.$t("form.seller_name"))),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -72062,7 +72053,10 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-box name-lastname" }, [
-                    _vm._m(1),
+                    _c("label", { attrs: { for: "seller_email" } }, [
+                      _vm._v(" " + _vm._s(_vm.$t("form.email")) + " "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -72101,7 +72095,10 @@ var render = function() {
               _vm._v(" "),
               _c("li", [
                 _c("div", { staticClass: "input-box" }, [
-                  _vm._m(2),
+                  _c("label", { attrs: { for: "seller_phone" } }, [
+                    _vm._v(_vm._s(_vm.$t("form.phone_no")) + " "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
                   _vm._v(" "),
                   _c("br"),
                   _vm._v(" "),
@@ -72137,7 +72134,10 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "input-box" }, [
-                  _vm._m(3),
+                  _c("label", { attrs: { for: "billing_street" } }, [
+                    _vm._v(_vm._s(_vm.$t("form.address")) + " "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
                   _vm._v(" "),
                   _c("br"),
                   _vm._v(" "),
@@ -72175,7 +72175,13 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("li", [
-                _vm._m(4),
+                _c("p", { staticClass: "require" }, [
+                  _c("em", { staticClass: "required" }, [_vm._v("*")]),
+                  _vm._v(
+                    _vm._s(_vm.$t("form.required")) +
+                      "\n                        "
+                  )
+                ]),
                 _vm._v(" "),
                 _c(
                   "button",
@@ -72183,7 +72189,7 @@ var render = function() {
                     staticClass: "button continue",
                     attrs: { disabled: _vm.btnDisabled, type: "submit" }
                   },
-                  [_c("span", [_vm._v("Register")])]
+                  [_c("span", [_vm._v(_vm._s(_vm.$t("auth.register")))])]
                 )
               ])
             ])
@@ -72193,53 +72199,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "seller_name" } }, [
-      _vm._v(" Seller Name "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "seller_email" } }, [
-      _vm._v(" Seller Email "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "seller_phone" } }, [
-      _vm._v("Telephone "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_street" } }, [
-      _vm._v("Address "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "require" }, [
-      _c("em", { staticClass: "required" }, [_vm._v("*")]),
-      _vm._v("Required Fields\n                        ")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -72262,45 +72222,21 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "my-account" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "page-title" }, [
+      _c("h2", [_vm._v(_vm._s(_vm.$t("buyer.dashboard.seller_dashboard")))])
+    ]),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "dashboard" },
-      [
-        _c("welcome-message"),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "recent-orders" },
-          [_vm._m(1), _vm._v(" "), _c("individual-seller-order-list")],
-          1
-        )
-      ],
-      1
-    )
+    _c("div", { staticClass: "dashboard" }, [
+      _c(
+        "div",
+        { staticClass: "recent-orders" },
+        [_c("individual-seller-order-list")],
+        1
+      )
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-title" }, [
-      _c("h2", [_vm._v("My Dashboard")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "title-buttons" }, [
-      _c("strong", [_vm._v("Recent Orders")]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "/buyer/my-orders" } }, [_vm._v("View All")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -72327,7 +72263,37 @@ var render = function() {
       "table",
       { staticClass: "data-table", attrs: { id: "my-orders-table" } },
       [
-        _vm._m(0),
+        _c("thead", [
+          _c("tr", { staticClass: "first last" }, [
+            _c("th", [_vm._v(_vm._s(_vm.$t("buyer.order.order")) + "#")]),
+            _vm._v(" "),
+            _c("th", { staticStyle: { "max-width": "70px" } }, [
+              _vm._v(_vm._s(_vm.$t("buyer.order.image")))
+            ]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm.$t("product.details")))]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm.$t("buyer.order.date")))]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm.$tc("products.brand", 1)))]),
+            _vm._v(" "),
+            _c("th", { staticClass: "text-right" }, [
+              _vm._v(_vm._s(_vm.$t("buyer.order.price")))
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "text-center" }, [
+              _vm._v(_vm._s(_vm.$t("buyer.order.qty")))
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "text-right" }, [
+              _vm._v(_vm._s(_vm.$t("buyer.order.t_price")))
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "text-center" }, [
+              _vm._v(_vm._s(_vm.$t("buyer.order.view")))
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "tbody",
@@ -72475,7 +72441,7 @@ var render = function() {
                 )
               : _c("tr", { staticClass: "last even" }, [
                   _c("td", { attrs: { colspan: "9" } }, [
-                    _vm._v("No Product Found")
+                    _vm._v(_vm._s(_vm.$t("buyer.order.no_order")))
                   ])
                 ])
           }),
@@ -72485,34 +72451,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "first last" }, [
-        _c("th", [_vm._v("Order No#")]),
-        _vm._v(" "),
-        _c("th", { staticStyle: { "max-width": "70px" } }, [_vm._v("Image")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Product Info")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Order Date")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Brand")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-right" }, [_vm._v("Price")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-right" }, [_vm._v("T. Price")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Status")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -72548,11 +72487,14 @@ var render = function() {
       [
         _c("fieldset", { staticClass: "group-select" }, [
           _c("fieldset", [
-            _c("legend", [_vm._v("Address Book")]),
+            _c("legend", [_vm._v(_vm._s(_vm.$t("buyer.product.new_product")))]),
             _vm._v(" "),
             _c("ul", [
               _c("li", [
-                _vm._m(0),
+                _c("label", { attrs: { for: "pro_name" } }, [
+                  _vm._v(" " + _vm._s(_vm.$t("buyer.product.pro_name")) + " "),
+                  _c("span", { staticClass: "required" }, [_vm._v("*")])
+                ]),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
@@ -72567,11 +72509,7 @@ var render = function() {
                   ],
                   staticClass: "input-text required-entry",
                   staticStyle: { width: "100%" },
-                  attrs: {
-                    type: "text",
-                    id: "billing_firstname",
-                    title: "First Name"
-                  },
+                  attrs: { type: "text", id: "pro_name", title: "First Name" },
                   domProps: { value: _vm.formData.product_name },
                   on: {
                     input: function($event) {
@@ -72591,7 +72529,12 @@ var render = function() {
               _c("li", [
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-4" }, [
-                    _vm._m(1),
+                    _c("label", { attrs: { for: "mainCategory" } }, [
+                      _vm._v(
+                        " " + _vm._s(_vm.$t("buyer.product.category")) + "  "
+                      ),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -72635,7 +72578,10 @@ var render = function() {
                       },
                       [
                         _c("option", { attrs: { value: "" } }, [
-                          _vm._v("Select A Category")
+                          _vm._v(
+                            _vm._s(_vm.$t("buyer.product.select_category")) +
+                              " "
+                          )
                         ]),
                         _vm._v(" "),
                         _vm._l(_vm.mainCategories, function(mainCat, index) {
@@ -72654,7 +72600,10 @@ var render = function() {
                   _vm._v(" "),
                   _vm.secCategories.length !== 0
                     ? _c("div", { staticClass: "col-md-4" }, [
-                        _vm._m(2),
+                        _c("label", { attrs: { for: "subCategory" } }, [
+                          _vm._v(_vm._s(_vm.$t("buyer.product.sec_cat")) + " "),
+                          _c("span", { staticClass: "required" }, [_vm._v("*")])
+                        ]),
                         _vm._v(" "),
                         _c("br"),
                         _vm._v(" "),
@@ -72698,7 +72647,9 @@ var render = function() {
                           },
                           [
                             _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Select A Second Category")
+                              _vm._v(
+                                _vm._s(_vm.$t("buyer.product.select_sec_cat"))
+                              )
                             ]),
                             _vm._v(" "),
                             _vm._l(_vm.secCategories, function(secCat, index) {
@@ -72716,7 +72667,10 @@ var render = function() {
                   _vm._v(" "),
                   _vm.trdCategories.length !== 0
                     ? _c("div", { staticClass: "col-md-4" }, [
-                        _vm._m(3),
+                        _c("label", { attrs: { for: "thrdCategory" } }, [
+                          _vm._v(_vm._s(_vm.$t("buyer.product.trd_cat")) + " "),
+                          _c("span", { staticClass: "required" }, [_vm._v("*")])
+                        ]),
                         _vm._v(" "),
                         _c("br"),
                         _vm._v(" "),
@@ -72756,7 +72710,9 @@ var render = function() {
                           },
                           [
                             _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Select A Third Category")
+                              _vm._v(
+                                _vm._s(_vm.$t("buyer.product.select_trd_cat"))
+                              )
                             ]),
                             _vm._v(" "),
                             _vm._l(_vm.trdCategories, function(trdCat, index) {
@@ -72777,7 +72733,10 @@ var render = function() {
               _c("li", [
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-6" }, [
-                    _vm._m(4),
+                    _c("label", { attrs: { for: "brand" } }, [
+                      _vm._v(_vm._s(_vm.$t("buyer.product.brand")) + " "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -72817,7 +72776,7 @@ var render = function() {
                       },
                       [
                         _c("option", { attrs: { value: "" } }, [
-                          _vm._v("Select A Brand")
+                          _vm._v(_vm._s(_vm.$t("buyer.product.select_brand")))
                         ]),
                         _vm._v(" "),
                         _vm._l(_vm.brandList, function(brand, index) {
@@ -72835,7 +72794,10 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
-                    _vm._m(5),
+                    _c("label", { attrs: { for: "condition" } }, [
+                      _vm._v(_vm._s(_vm.$t("buyer.product.condition")) + " "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -72875,7 +72837,9 @@ var render = function() {
                       },
                       [
                         _c("option", { attrs: { value: "" } }, [
-                          _vm._v("Select A Product Condition")
+                          _vm._v(
+                            _vm._s(_vm.$t("buyer.product.select_condition"))
+                          )
                         ]),
                         _vm._v(" "),
                         _vm._l(_vm.conditionList, function(condition, index) {
@@ -72900,7 +72864,10 @@ var render = function() {
               _c(
                 "li",
                 [
-                  _vm._m(6),
+                  _c("label", { attrs: { for: "highlight" } }, [
+                    _vm._v(_vm._s(_vm.$t("buyer.product.highlight")) + " "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
                   _vm._v(" "),
                   _c("br"),
                   _vm._v(" "),
@@ -72921,7 +72888,10 @@ var render = function() {
               _c(
                 "li",
                 [
-                  _vm._m(7),
+                  _c("label", { attrs: { for: "description" } }, [
+                    _vm._v(_vm._s(_vm.$t("buyer.product.des")) + " "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
                   _vm._v(" "),
                   _c("br"),
                   _vm._v(" "),
@@ -72942,7 +72912,10 @@ var render = function() {
               _c("li", [
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-6" }, [
-                    _vm._m(8),
+                    _c("label", { attrs: { for: "qty" } }, [
+                      _vm._v(_vm._s(_vm.$t("buyer.product.pro_qty"))),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -72974,7 +72947,10 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
-                    _vm._m(9),
+                    _c("label", { attrs: { for: "price" } }, [
+                      _vm._v(_vm._s(_vm.$t("buyer.product.pro_price"))),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -73095,7 +73071,10 @@ var render = function() {
                     "div",
                     { staticClass: "col-md-6" },
                     [
-                      _vm._m(10),
+                      _c("label", { attrs: { for: "qty" } }, [
+                        _vm._v(_vm._s(_vm.$t("buyer.product.thumb_img"))),
+                        _c("span", { staticClass: "required" }, [_vm._v("*")])
+                      ]),
                       _vm._v(" "),
                       _c("br"),
                       _vm._v(" "),
@@ -73110,7 +73089,10 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
-                    _vm._m(11),
+                    _c("label", { attrs: { for: "qty" } }, [
+                      _vm._v(_vm._s(_vm.$t("buyer.product.pro_img"))),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -73130,7 +73112,7 @@ var render = function() {
                               on: { change: _vm.uploadImage }
                             }),
                             _vm._v(" "),
-                            _vm._m(12)
+                            _vm._m(0)
                           ])
                         ])
                       ]),
@@ -73194,7 +73176,13 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("li", [
-                _vm._m(13),
+                _c("p", { staticClass: "require" }, [
+                  _c("em", { staticClass: "required" }, [_vm._v("*")]),
+                  _vm._v(
+                    _vm._s(_vm.$t("form.required")) +
+                      "\n                        "
+                  )
+                ]),
                 _vm._v(" "),
                 _c(
                   "button",
@@ -73204,8 +73192,12 @@ var render = function() {
                   },
                   [
                     _vm.isedit
-                      ? _c("span", [_vm._v("Update Product")])
-                      : _c("span", [_vm._v("Save Product")])
+                      ? _c("span", [
+                          _vm._v(_vm._s(_vm.$t("buyer.product.pro_update")))
+                        ])
+                      : _c("span", [
+                          _vm._v(_vm._s(_vm.$t("buyer.product.pro_save")))
+                        ])
                   ]
                 )
               ])
@@ -73221,114 +73213,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "billing_firstname" } }, [
-      _vm._v(" Product Name "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "mainCategory" } }, [
-      _vm._v(" Category "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "subCategory" } }, [
-      _vm._v("2nd Category "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "thrdCategory" } }, [
-      _vm._v("3rd Category "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "brand" } }, [
-      _vm._v("Brand "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "condition" } }, [
-      _vm._v("Product Condition "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "highlight" } }, [
-      _vm._v("Highlight "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "description" } }, [
-      _vm._v("Description "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "qty" } }, [
-      _vm._v("Product Qty"),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "price" } }, [
-      _vm._v("Product Price"),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "qty" } }, [
-      _vm._v("Product Thumb Image"),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "qty" } }, [
-      _vm._v("Product Thumb Image"),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "label",
       {
@@ -73340,15 +73224,6 @@ var staticRenderFns = [
         _vm._v(" Select File")
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "require" }, [
-      _c("em", { staticClass: "required" }, [_vm._v("*")]),
-      _vm._v("Required Fields\n                        ")
-    ])
   }
 ]
 render._withStripped = true
@@ -95356,7 +95231,8 @@ var ENGLISH_TRANSLATIONS = {
   },
   buyer: {
     dashboard: {
-      menu: 'Menu'
+      menu: 'Menu',
+      seller_dashboard: 'Seller Dashboard'
     },
     order: {
       menu: 'My Order| My Orders',
@@ -95368,7 +95244,11 @@ var ENGLISH_TRANSLATIONS = {
       total_order: 'Total Order',
       status: 'Status',
       view: 'View',
-      no_order: 'No Purchase yet'
+      no_order: 'No Purchase yet',
+      price: 'Price',
+      t_price: 'T. Price',
+      qty: 'Qty',
+      image: 'Image'
     },
     invoice: {},
     wish_list: {
@@ -95394,6 +95274,28 @@ var ENGLISH_TRANSLATIONS = {
       account_type: 'Account Type',
       buyer: 'Buyer',
       both: 'Buyer & Seller'
+    },
+    product: {
+      new_product: 'Add New Product',
+      pro_name: 'Product Name',
+      category: 'Category',
+      select_category: 'Select a Category',
+      sec_cat: '2nd Category',
+      select_sec_cat: 'Select A Second Category',
+      trd_cat: '3rd Category',
+      select_trd_cat: 'Select A Third Category',
+      brand: 'Brand',
+      select_brand: 'Select A Brand',
+      condition: 'Product Condition',
+      select_condition: 'Select A Product Condition',
+      highlight: 'Highlight',
+      des: 'Description',
+      pro_qty: 'Product Qty',
+      pro_price: 'Product Price',
+      thumb_img: 'Thumb Image',
+      pro_img: 'Product Image',
+      pro_update: 'Update Product',
+      pro_save: 'Save Product'
     }
   },
   form: {
@@ -95413,7 +95315,8 @@ var ENGLISH_TRANSLATIONS = {
     select_region: 'Select A Region',
     postal_code: 'Postal Code',
     update: 'Update',
-    required: 'Required Fields'
+    required: 'Required Fields',
+    seller_name: 'Seller Name'
   },
   state: {
     Awdal: 'Awdal',
@@ -98061,7 +97964,7 @@ var actions = {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios.post('/buyer/seller/product', formData).then(function (response) {
+              return axios.post('/buyer/seller/product/store', formData).then(function (response) {
                 return response.data;
               });
 

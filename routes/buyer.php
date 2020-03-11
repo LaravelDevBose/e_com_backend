@@ -60,7 +60,7 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
             Route::get('/list', 'ProductController@product_ist')->name('product.list');
             Route::get('/create', 'ProductController@create')->name('product.create');
             Route::get('/create/dependency', 'ProductController@product_create_dependency');
-            Route::post('/', 'ProductController@store')->name('product.store');
+            Route::post('/store', 'ProductController@store')->name('product.store');
             Route::get('/{product}', 'ProductController@show')->name('product.show');
             Route::get('/{slug}/edit', 'ProductController@edit')->name('product.edit');
             Route::put('/{productId}/update', 'ProductController@update')->name('product.update');

@@ -3,14 +3,14 @@
         <table class="data-table" id="my-orders-table">
             <thead>
                 <tr class="first last">
-                    <th>Order #</th>
-                    <th>Date</th>
-                    <th>Ship to</th>
+                    <th>{{ $t('buyer.order.order')}} #</th>
+                    <th>{{ $t('buyer.order.date')}}</th>
+                    <th>{{ $t('buyer.order.ship_to')}}</th>
                     <th>
-                        <span class="nobr">Order Total</span>
+                        <span class="nobr">{{ $t('buyer.order.total_order')}}</span>
                     </th>
-                    <th>Status</th>
-                    <th class="text-center">View </th>
+                    <th>{{ $t('buyer.order.status')}}</th>
+                    <th class="text-center">{{ $t('buyer.order.view')}} </th>
                 </tr>
             </thead>
             <tbody>

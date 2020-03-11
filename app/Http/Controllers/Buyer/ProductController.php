@@ -111,7 +111,7 @@ class ProductController extends Controller
                     'category_id'=>$catId,
                     'brand_id'=>$request->brand_id,
                     'product_name'=>$request->product_name,
-                    'product_slug'=>str_slug($request->product_name),
+                    'product_slug'=>Str::slug($request->product_name),
                     'highlight'=>$request->highlight,
                     'description'=>$request->description,
                     'product_status'=>(!empty($request->product_status)) ? $request->product_status :3,
@@ -137,6 +137,9 @@ class ProductController extends Controller
                             ]);
                         }
                         $productImages = ProductImage::insert($imageArray);
+                        if(empty($productImages)){
+                            throw new Exception('Product Image Invalid', Response::HTTP_BAD_REQUEST);
+                        }
                     }
                     $product = $product->update([
                         'product_slug'=>Str::slug($request->product_name).'-'.$product->product_id,
@@ -155,7 +158,7 @@ class ProductController extends Controller
 
             }catch (Exception $ex){
                 DB::rollBack();
-                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+                return ResponserTrait::allResponse('error', $ex->getCode(), $ex->getMessage());
             }
         }else{
             $errors = array_values($validator->errors()->getMessages());

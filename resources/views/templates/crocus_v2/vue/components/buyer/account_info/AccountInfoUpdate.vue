@@ -24,7 +24,7 @@
                             </li>
                             <li>
                                 <p class="require">
-                                    <em class="required">*</em>Required Fields
+                                    <em class="required">*</em>{{ $t('form.required')}}
                                 </p>
                                 <button :disabled="btnDisabled" type="submit" class="button continue">
                                     <span>{{ $t('form.update')}}</span>
