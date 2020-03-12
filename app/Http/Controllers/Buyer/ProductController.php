@@ -206,6 +206,9 @@ class ProductController extends Controller
     public function edit($slug)
     {
         $product = Product::where('product_slug', $slug)->first();
+        if($product->seller_id !== auth()->guard('web')->user()->seller->seller_id){
+            abort(Response::HTTP_UNAUTHORIZED,'Unauthorized for Delete This Product ');
+        }
         return view('templates.'.$this->template_name.'.buyer.seller.product.edit_product',[
             'productId'=>$product->product_id
         ]);
@@ -310,7 +313,7 @@ class ProductController extends Controller
             }
 
             if($product->seller_id !== auth()->guard('web')->user()->seller->seller_id){
-                throw new Exception('Unauthorized for Update This Product ', Response::HTTP_UNAUTHORIZED);
+                throw new Exception('Unauthorized for Delete This Product ', Response::HTTP_UNAUTHORIZED);
             }
 
             $product = $product->update([
