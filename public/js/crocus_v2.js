@@ -5641,7 +5641,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.getProductCreateDependency();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getProductCreateDependency', 'uploadProductImage', 'imageRemove', 'storeIndividualSellerProduct', 'getEditProductInfo', 'updateIndividualSellerProduct']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['getProductCreateDependency', 'uploadProductImage', 'imageRemove', 'storeIndividualSellerProduct', 'getEditProductInfo', 'updateIndividualSellerProduct', 'deleteProductImage']), {
     checkMainCat: function checkMainCat() {
       var _this = this;
 
@@ -5754,9 +5754,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this4.$noty.success('Image Removed');
       });
     },
-    deleteProductImage: function deleteProductImage() {}
+    removeProductImage: function removeProductImage(imageId) {
+      var _this5 = this;
+
+      var conf = confirm('Are You Sure.?');
+
+      if (!conf) {
+        return false;
+      }
+
+      this.deleteProductImage(imageId).then(function (response) {
+        if (response.code === 200) {
+          _this5.$noty.success(response.message);
+        } else if (response.status === "validation") {
+          _this5.$noty.validation(response.message);
+        } else if (response.status === "error") {
+          _this5.$noty.error(response.message);
+        } else {
+          _this5.$noty.info(response.message);
+        }
+      });
+    }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['brandList', 'treeList', 'conditionList', 'productImages', 'imageIds', 'cropImageIds', 'editProduct', 'categoryInfo']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['brandList', 'treeList', 'conditionList', 'productImages', 'imageIds', 'cropImageIds', 'editProduct', 'categoryInfo', 'proImages']), {
     checkTreeListIds: function checkTreeListIds() {
       return JSON.parse(JSON.stringify(this.treeList));
     },
@@ -5770,23 +5790,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   watch: {
     checkTreeListIds: {
       handler: function handler(newVal, oldVal) {
-        var _this5 = this;
+        var _this6 = this;
 
         if (newVal !== oldVal) {
           this.mainCategories = this.treeList;
 
           if (this.isedit === true || this.isedit === 1) {
             this.mainCategories.filter(function (cat) {
-              if (cat.id === _this5.categoryInfo.main_cat_id) {
-                _this5.secCategories = cat.children;
+              if (cat.id === _this6.categoryInfo.main_cat_id) {
+                _this6.secCategories = cat.children;
               }
             });
 
             if (this.categoryInfo.sec_cat_id !== '') {
               this.formData.sec_cat_id = this.categoryInfo.sec_cat_id;
               this.secCategories.filter(function (cat) {
-                if (cat.id === _this5.categoryInfo.sec_cat_id) {
-                  _this5.trdCategories = cat.children;
+                if (cat.id === _this6.categoryInfo.sec_cat_id) {
+                  _this6.trdCategories = cat.children;
                 }
               });
             }
@@ -73003,17 +73023,15 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-6" }, [
-                        _vm.editProduct.product_images
+                        _vm.proImages
                           ? _c(
                               "div",
                               { staticClass: "row" },
-                              _vm._l(_vm.editProduct.product_images, function(
-                                image
-                              ) {
+                              _vm._l(_vm.proImages, function(image) {
                                 return _c(
                                   "div",
                                   {
-                                    key: image.id,
+                                    key: image.image_id,
                                     staticClass: "col-xs-4 col-sm-4 col-lg-3"
                                   },
                                   [
@@ -73042,7 +73060,9 @@ var render = function() {
                                             on: {
                                               click: function($event) {
                                                 $event.preventDefault()
-                                                return _vm.deleteProductImage()
+                                                return _vm.removeProductImage(
+                                                  image.image_id
+                                                )
                                               }
                                             }
                                           },
@@ -97892,7 +97912,8 @@ var state = {
   products: [],
   conditions: [],
   edit_product: '',
-  category_info: ''
+  category_info: '',
+  product_images: []
 }; //declare Getters
 
 var getters = {
@@ -97913,6 +97934,9 @@ var getters = {
   },
   categoryInfo: function categoryInfo(state) {
     return state.category_info;
+  },
+  proImages: function proImages(state) {
+    return state.product_images;
   }
 };
 var actions = {
@@ -98126,6 +98150,42 @@ var actions = {
         }
       }, _callee6, null, [[0, 6]]);
     }))();
+  },
+  deleteProductImage: function deleteProductImage(_ref7, imageId) {
+    var commit = _ref7.commit;
+    return _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.prev = 0;
+              _context7.next = 3;
+              return axios["delete"]("/buyer/seller/product/image/delete/".concat(imageId)).then(function (response) {
+                commit('productImageRemove', imageId);
+                return response.data;
+              })["catch"](function (errors) {
+                console.log(errors);
+                commit('setResponse', errors.data);
+                return errors.data;
+              });
+
+            case 3:
+              return _context7.abrupt("return", _context7.sent);
+
+            case 6:
+              _context7.prev = 6;
+              _context7.t0 = _context7["catch"](0);
+              console.log(_context7.t0);
+
+            case 9:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7, null, [[0, 6]]);
+    }))();
   }
 };
 var mutations = {
@@ -98138,12 +98198,19 @@ var mutations = {
     return state.products = response;
   },
   setEditProductInfo: function setEditProductInfo(state, response) {
+    state.product_images = response.product.product_images;
+    delete response.product.product_images;
     state.edit_product = response.product;
     state.category_info = response.categoryInfo;
   },
   removeIndividualSellerProduct: function removeIndividualSellerProduct(state, slug) {
     state.products = state.products.filter(function (product) {
       return product.product_slug !== slug;
+    });
+  },
+  productImageRemove: function productImageRemove(state, imageId) {
+    state.product_images = state.product_images.filter(function (image) {
+      return image.image_id !== imageId;
     });
   }
 };

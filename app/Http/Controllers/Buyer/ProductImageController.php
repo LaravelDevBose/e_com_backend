@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Buyer;
 
+use App\Models\ProductImage;
+use App\Traits\ResponserTrait;
 use Exception;
 use App\Models\Attachment;
 use Illuminate\Http\Request;
 use App\Helpers\AttachmentHelper;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -135,28 +138,29 @@ class ProductImageController extends Controller
 
     }
 
-    public function delete(Attachment $attachment) {
-        $user = Auth::user();
+    public function delete($imageId) {
         try {
             DB::beginTransaction();
-            if(empty($attachment->attachment_no) &&  $user->company_id != $attachment->company_id){
-                throw new Exception('Invalid Attachment!', 400);
+            $image = ProductImage::where('image_id', $imageId)->first();
+            if(empty($image)){
+                throw new Exception('Product image Not Found', Response::HTTP_NOT_FOUND);
             }
-            $attachment->delete();
-            DB::commit();
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Attachment Successfully Delete.',
-                'url' => 0,
-                'id' => $attachment->attachment_id,
-                'modalForm' => true,
-            ]);
+            $attcId = $image->attachment_id;
+            if($image->delete()){
+                $attachment = Attachment::where('attachment_id', $attcId)->first();
+                if (!empty($attachment) && $attachment->delete()){
+                    DB::commit();
+                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Image Deleted Successfully');
+                }else{
+                    throw new Exception('Image Not Deleted. Try Again.', Response::HTTP_BAD_REQUEST);
+                }
+            }else{
+                throw new Exception('Image Not Deleted. Try Again.', Response::HTTP_BAD_REQUEST);
+            }
+
         }catch (Exception $ex) {
             DB::rollBack();
-            return response()->json([
-                'status' => 'error',
-                'message' => $ex->getMessage()
-            ]);
+            return ResponserTrait::allResponse('error', $ex->getCode(), $ex->getMessage());
         }
 
     }

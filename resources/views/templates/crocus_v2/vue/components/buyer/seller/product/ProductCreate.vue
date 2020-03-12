@@ -93,11 +93,11 @@
                                     />
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="row" v-if="editProduct.product_images">
-                                        <div class="col-xs-4 col-sm-4 col-lg-3" v-for="image in editProduct.product_images" :key="image.id" >
+                                    <div class="row" v-if="proImages">
+                                        <div class="col-xs-4 col-sm-4 col-lg-3" v-for="image in proImages" :key="image.image_id" >
                                             <div class="thumb" style="margin-buttom:5px;">
                                                 <img :src="image.attachment.image_path" alt="" class="img img-responsive img-thumbnail">
-                                                <a href="#" @click.prevent="deleteProductImage()" class="text font-weight-bold close-btn">
+                                                <a href="#" @click.prevent="removeProductImage(image.image_id)" class="text font-weight-bold close-btn">
                                                     <i class="fa fa-close"></i>
                                                 </a>
                                             </div>
@@ -233,7 +233,8 @@
                 'imageRemove',
                 'storeIndividualSellerProduct',
                 'getEditProductInfo',
-                'updateIndividualSellerProduct'
+                'updateIndividualSellerProduct',
+                'deleteProductImage'
             ]),
             checkMainCat(){
                 this.mainCategories.filter(cat=>{
@@ -340,8 +341,24 @@
                         this.$noty.success('Image Removed');
                     })
             },
-            deleteProductImage(){
+            removeProductImage(imageId){
+                let conf = confirm('Are You Sure.?');
+                if(!conf){
+                    return false;
+                }
 
+                this.deleteProductImage(imageId)
+                    .then(response=>{
+                        if(response.code === 200){
+                            this.$noty.success(response.message);
+                        }else if(response.status === "validation"){
+                            this.$noty.validation(response.message);
+                        }else if(response.status === "error"){
+                            this.$noty.error(response.message);
+                        }else {
+                            this.$noty.info(response.message);
+                        }
+                    })
             }
         },
         computed:{
@@ -354,6 +371,7 @@
                 'cropImageIds',
                 'editProduct',
                 'categoryInfo',
+                'proImages',
             ]),
             checkTreeListIds(){
                 return JSON.parse(JSON.stringify(this.treeList));

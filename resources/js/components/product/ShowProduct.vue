@@ -36,15 +36,17 @@
                                     <i class="icon-hammer-wrench text-primary" style="margin-right: .5rem;"></i>
                                     <span class="text text-bold text-teal ">{{ proData.brand.name }}</span>
                                 </p>
-                                <p v-if="proData.seller.shop" style="margin-bottom: 5px;">
-                                    <i class="icon-store2 text-primary" style="margin-right: .5rem;"></i>
-                                    <span class="text text-bold text-teal ">{{ proData.seller.shop.name }}</span>
-                                </p>
-                                <p v-if="proData.seller !== null && proData.seller.name  !== '' " style="margin-bottom: 5px;">
-                                    <i class="icon-user text-primary" style="margin-right: .5rem;"></i>
-                                    <span class="text text-bold text-teal ">{{ proData.seller.name }}</span>
-                                </p>
-                                <div class="content-group" v-if="proData.product_type === 1">
+                                <div v-if="proData.seller">
+                                    <p v-if="proData.seller.shop" style="margin-bottom: 5px;">
+                                        <i class="icon-store2 text-primary" style="margin-right: .5rem;"></i>
+                                        <span class="text text-bold text-teal ">{{ proData.seller.shop.name }}</span>
+                                    </p>
+                                    <p v-if="proData.seller.name  !== '' " style="margin-bottom: 5px;">
+                                        <i class="icon-user text-primary" style="margin-right: .5rem;"></i>
+                                        <span class="text text-bold text-teal ">{{ proData.seller.name }}</span>
+                                    </p>
+                                </div>
+                                <div class="content-group" v-if="proData.product_type === 1" style="margin-bottom:0!important;">
                                     <p style="margin-bottom: 5px;">
                                         <span class="text text-bold text-primary ">
                                             Product Price:
@@ -64,7 +66,7 @@
                                    </span>
                                     <span class="text text-bold text-teal ">{{ proData.discount }}</span>
                                 </p>
-                                <p v-if="proData.mall_comp_name !== '' " style="margin-bottom: 5px;">
+                                <p v-if="proData.mall_comp_name" style="margin-bottom: 5px;">
                                     <i class="icon-store text-primary" style="margin-right: .5rem;"></i>
                                     <span class="text text-bold text-teal h3 text-uppercase">{{ proData.mall_comp_name }}</span>
                                 </p>
@@ -96,7 +98,7 @@
                     </div>
                 </div>
 
-                <div class="panel panel-info">
+                <div class="panel panel-info" v-if="proData.lang_product_name || proData.lang_highlight || proData.lang_description">
                     <div class="panel-heading">
                         <h6 class="panel-title">Product Details EN</h6>
                         <div class="heading-elements">
@@ -107,14 +109,14 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="content-group">
+                        <div class="content-group" v-if="proData.lang_product_name">
                             <p class="text text-bold">Product Name (EN) : {{proData.lang_product_name }}</p>
                         </div>
-                        <div class="content-group">
+                        <div class="content-group" v-if="proData.lang_highlight">
                             <p class="text text-bold" style="margin-bottom: .5rem;">Product Highlight (EN): </p>
                             <p v-html="proData.lang_highlight"></p>
                         </div>
-                        <div class="content-group" >
+                        <div class="content-group" v-if="proData.lang_description">
                             <p class="text text-bold" style="margin-bottom: .5rem;">Product Description (EN): </p>
                             <p v-html="proData.lang_description" ></p>
                         </div>
@@ -122,7 +124,7 @@
                 </div>
 
                 <!-- Available hours -->
-                <div class="panel" v-if="typeof proDetails !== 'undefined' && proDetails !== '' ">
+                <div class="panel" v-if="proDetails && proDetails !== '' ">
                     <div class="panel-heading bg-teal-300">
                         <h6 class="panel-title">Product Extra Details</h6>
                         <div class="heading-elements">

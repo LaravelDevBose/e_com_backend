@@ -6,6 +6,7 @@ const state = {
     conditions:[],
     edit_product:'',
     category_info:'',
+    product_images: [],
 };
 
 //declare Getters
@@ -16,6 +17,7 @@ const getters = {
     individualSellerProducts:(state)=>state.products,
     editProduct:(state)=>state.edit_product,
     categoryInfo:(state)=>state.category_info,
+    proImages: (state) => state.product_images,
 };
 
 const actions = {
@@ -101,6 +103,21 @@ const actions = {
             return  error.data;
         }
     },
+    async deleteProductImage({commit},imageId){
+        try {
+            return await axios.delete(`/buyer/seller/product/image/delete/${imageId}`,)
+                .then(function (response) {
+                    commit('productImageRemove', imageId);
+                    return response.data;
+                }).catch(function (errors) {
+                    console.log(errors);
+                    commit('setResponse', errors.data);
+                    return errors.data;
+                });
+        }catch (error) {
+            console.log(error);
+        }
+    },
 };
 
 const mutations = {
@@ -111,6 +128,8 @@ const mutations = {
     },
     setIndividualSellerProducts:(state,response)=>state.products= response,
     setEditProductInfo:(state, response)=>{
+        state.product_images = response.product.product_images;
+        delete response.product.product_images;
         state.edit_product = response.product;
         state.category_info = response.categoryInfo;
 
@@ -119,7 +138,12 @@ const mutations = {
         state.products = state.products.filter(product=>{
             return product.product_slug !== slug;
         })
-    }
+    },
+    productImageRemove:(state,imageId)=>{
+        state.product_images = state.product_images.filter(image=>{
+            return image.image_id !== imageId;
+        })
+    },
 };
 
 export default {
