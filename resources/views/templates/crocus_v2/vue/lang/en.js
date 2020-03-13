@@ -83,7 +83,10 @@ export const ENGLISH_TRANSLATIONS  ={
             reg_title:'Sell With Saliim. Create Your Shop.',
             reg_sub_title:'Please enter your Details to create an account.',
             create_shop:' Create an Shop',
-        }
+        },
+        forget_pass_header: 'Reset Your Password',
+        forget_pass_btn: 'Send Password Reset Link',
+        reset_btn: 'Reset Password'
     },
     checkout:{
         billing_section:'Billing Information',

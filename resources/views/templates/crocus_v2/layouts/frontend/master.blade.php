@@ -56,6 +56,11 @@
             color: #000;
             text-decoration: none;
         }
+        button[disabled], html input[disabled] {
+            cursor: default;
+            background: #1d8be2ba!important;
+            border: 1px #167bcb40 solid!important;
+        }
     </style>
 </head>
 

@@ -22,8 +22,8 @@
                         <button @click.prevent="increaseQty" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
                     </div>
                 </div>
-                <button @click.prevent="addToCart" class="button btn-cart" title="Add to Cart" type="button">{{ $t('products.add_to_cart')}}</button>
-                <button @click.prevent="buyNow()" class="button btn-cart btn-buy" title="Buy New" type="button">{{ $t('products.buy_now')}}</button>
+                <button @click.prevent="addToCart" class="button btn-cart" title="Add to Cart" type="button">{{ $t('product.add_to_cart')}}</button>
+                <button @click.prevent="buyNow()" class="button btn-cart btn-buy" title="Buy New" type="button">{{ $t('product.buy_now')}}</button>
             </div>
             <div class="email-addto-box">
                 <ul class="add-to-links">
