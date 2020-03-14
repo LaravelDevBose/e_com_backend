@@ -8,7 +8,7 @@
     <meta name="base-url" content="{{ url('/') }}">
     <meta name="lang" content="en">
 
-    <title>@yield('PageTitle') | {{ env('APP_NAME') }}</title>
+    <title>@yield('PageTitle') | {{ env('APP_NAME', 'Saliim') }}</title>
 
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
