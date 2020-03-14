@@ -21,7 +21,7 @@ class CreateProductDetailsTable extends Migration
             $table->unsignedTinyInteger('num_of_pieces')->nullable();
             $table->boolean('product_occasion')->nullable();
             $table->string('color_shade')->nullable();
-            $table->string('skin_type')->nullable();
+            $table->unsignedBigInteger('skin_type_id')->nullable();
             $table->text('extra_details')->nullable();
             $table->unsignedInteger('gift_product_id')->nullable();
             $table->string('gift_product_sku')->nullable();
