@@ -49,8 +49,8 @@
             return {
                 disabled:false,
                 form:{
-                    identity:'brainchild',
-                    password:'BrainChildS0ft',
+                    identity:'',
+                    password:'',
                 },
                 identError:'',
                 pass_error:'',

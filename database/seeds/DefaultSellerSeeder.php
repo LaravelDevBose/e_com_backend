@@ -17,9 +17,9 @@ class DefaultSellerSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'full_name'=>'Brainchild Shop',
-            'email'=>'seller@demo.com',
-            'phone_no'=>'01714711730',
+            'full_name'=>'Saliim Mall',
+            'email'=>'mall@saliim.com',
+            'phone_no'=>'123456',
             'account_type'=>User::AccountType['seller'],
             'is_buyer'=>0,
             'is_seller'=>1,
@@ -29,17 +29,21 @@ class DefaultSellerSeeder extends Seeder
         if(!empty($user)){
             $seller = Seller::create([
                 'user_id'=>$user->user_id,
-                'shop_name'=>'Brainchild Shop',
-                'shop_address'=>'Samoliy, Dhaka',
-                'shop_phone'=>'01714711730',
-                'shop_email'=>'myshop@demo.com',
-                'shop_status'=>Seller::ShopStatus['Active'],
+                'seller_name'=>'Saliim Mall',
+                'seller_address'=>'Seller Address',
+                'seller_phone'=>'123456789',
+                'seller_email'=>'mall@sallim.com',
+                'seller_status'=>Seller::ShopStatus['Active'],
+                'seller_type'=>Seller::SellerType['Normal'],
             ]);
             if(!empty($seller)){
                 Shop::create([
                     'seller_id'=>$seller->seller_id,
-                    'shop_name'=>'Brainchild Shop',
-                    'shop_slug'=>Str::slug('Brainchild Shop'),
+                    'shop_name'=>'Saliim Mall',
+                    'shop_slug'=>Str::slug('Saliim Mall'),
+                    'shop_address'=>'Shop Address',
+                    'phone_no'=>'123456789',
+                    'shop_email'=>'mall@saliim.com',
                 ]);
             }
         }

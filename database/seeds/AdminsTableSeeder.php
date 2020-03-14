@@ -14,13 +14,13 @@ class AdminsTableSeeder extends Seeder
     public function run()
     {
         Admin::create([
-            'full_name'=>'Brainchild Software',
-            'user_name'=>'brainchild',
-            'email'=>'brainchild',
-            'phone_no'=>'01714711730',
+            'full_name'=>'Sallim Supper Admin',
+            'user_name'=>'saliim',
+            'email'=>'saliim@admin.shop',
+            'phone_no'=>'123456789',
             'admin_role'=>1,
             'admin_status'=>1,
-            'password'=>Hash::make('BrainChildS0ft')
+            'password'=>Hash::make('saliim_shop')
         ]);
     }
 }
