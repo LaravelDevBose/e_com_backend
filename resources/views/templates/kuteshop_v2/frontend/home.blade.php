@@ -130,6 +130,7 @@
                                 @endif
                             </div>
                             <div class="actions">
+
                                 @if($key == 0)
                                     <a href="" class="action action-up"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
                                 @else
@@ -201,6 +202,9 @@
                                 </div>
                             @endif
                         </div>
+                        <p class="text-right" style="margin-top: .7rem; margin-bottom: 0;">
+                            <a href="{{ route('front.category.product', $section['category']->category_slug) }}" >See All</a>
+                        </p>
 
                     </div>
                 </div><!-- block -floor -products / floor :Fashion-->
