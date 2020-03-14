@@ -3,6 +3,15 @@
 @section('Title','Home')
 
 @section('PageCss')
+    <style>
+        .top-products .rating .vue-star-rating{
+            margin: 0!important;
+        }
+        .top-products .rating .vue-star-rating svg{
+            height: 12px!important;
+            width: 12px!important;
+        }
+    </style>
 @endsection
 
 @section('Content')
@@ -156,12 +165,11 @@
                                         <div class="col-xs-8 col-sm-8 no-margin">
                                             <a href="{{ route('front.product', $topProduct->product->product_slug) }}"> {{ substr($topProduct->product->product_name,0, 25) }} {{ (strlen($topProduct->product->product_name) > 25)?'...':'' }}</a>
                                             <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a></p>
-                                                </div>
+                                                <star-rating
+                                                    :star-size="18"
+                                                    :rating="{{ ($topProduct->product->reviews->count() > 0)? $topProduct->product->reviews->sum('rating')/$topProduct->product->reviews->count(): 0 }}"
+                                                    :read-only="true"
+                                                ></star-rating>
                                             </div>
                                             @if($topProduct->product->product_type == 1)
                                                 <div class="price">$ {{ $topProduct->product->product_price }}</div>
