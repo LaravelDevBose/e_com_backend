@@ -60,6 +60,10 @@
                             <td>{{ (!empty($contactInfos['contact_phone']))? $contactInfos['contact_phone'] : '' }}</td>
                         </tr>
                         <tr>
+                            <td><b>Email: </b></td>
+                            <td>{{ (!empty($contactInfos['contact_email']))? $contactInfos['contact_email'] : '' }}</td>
+                        </tr>
+                        <tr>
                             <td><b>Hours:</b></td>
                             <td>Open 24 hours</td>
                         </tr>

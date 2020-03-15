@@ -25,7 +25,7 @@
         </div>
 
         <div class="container">
-            @if(!empty($latestDeals) && !empty($latestDeals->deal_products))
+            @if(!empty($latestDeals) && !empty($latestDeals->deal_products) && count($latestDeals->deal_products) > 0)
                 <div class="block-deals-of-opt2">
                     <div class="block-title ">
                         <span class="title">Latest Deals</span>
