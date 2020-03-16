@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class Attachment extends Model
 {
@@ -64,6 +65,15 @@ class Attachment extends Model
 
     public function getImagePathAttribute(){
         return $path = asset('storage/attachments/'.$this->attributes['folder'] .'/'. $this->attributes['file_name']);
+        $path = storage_path('app/public/attachments/'.$this->attributes['folder'] .'/'. $this->attributes['file_name']);
+        if(file_exists(storage_path('app/public/attachments/'.$this->attributes['folder'] .'/'. $this->attributes['file_name']))){
+            $cacheImage = Image::cache(function ($image) use ($path){
+                return $image->make($path);
+            }, 10, true);
+            dd($cacheImage);
+        }
+
+        return $path;
     }
 
     public function getApiImagePathAttribute(){

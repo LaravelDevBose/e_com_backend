@@ -88,6 +88,15 @@ class AttachmentController extends Controller
                     $name_full = $this->attachmentFolder . $folder . '/' . $name;
                     Storage::disk('local')->put( $name_full, File::get($attachment) );
 
+                    $appAttachments = Attachment::appAttachments;
+                    if(!empty($appAttachments[$folder])){
+                        $appImage = $appAttachments[$folder];
+                        $image = Image::make($attachment);
+                        $image->resize($appImage['width'], $appImage['height']);
+
+                        $name_full = $this->appAttachmentFolder . $folder . '/' . $name;
+                        Storage::disk('local')->put( $name_full, $image->encode());
+                    }
 
                     $attachmentSave = Attachment::create([
                         'attachment_no' => $max_number,

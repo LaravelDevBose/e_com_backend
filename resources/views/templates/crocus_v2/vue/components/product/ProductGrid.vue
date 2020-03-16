@@ -4,7 +4,7 @@
             <div class="item-img">
                 <div class="item-img-info">
                     <a class="product-image" @click.prevent="productDetails(product.product_slug)" :title="product.product_name" href="#">
-                        <img :title="product.product_name" :src="product.thumb_image.image_path">
+                        <img :title="product.product_name" src="/image/path">
                     </a>
                     <div class="box-hover">
                         <ul class="add-to-links">
