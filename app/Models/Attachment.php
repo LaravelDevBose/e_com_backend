@@ -25,6 +25,21 @@ class Attachment extends Model
         'mall'=>14,
     ];
 
+    const appAttachments =[
+        'slider'=> [
+            'width'=>320,
+            'height'=> 168,
+        ],
+        'thumbnail'=> [
+            'width'=>150,
+            'height'=> 150,
+        ],
+        'product'=> [
+            'width'=>320,
+            'height'=>320 ,
+        ],
+    ];
+
     protected $table = 'attachments';
     protected $primaryKey = 'attachment_id';
 

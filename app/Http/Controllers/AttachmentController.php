@@ -18,6 +18,7 @@ use Intervention\Image\Facades\Image;
 class AttachmentController extends Controller
 {
     private $attachmentFolder = 'public/attachments/';
+    private $appAttachmentFolder = 'public/mobile/attachments/';
 
     public function store(Request $request) {
 //         return $request->all();
@@ -179,6 +180,16 @@ class AttachmentController extends Controller
             $name =  md5(rand(1111, 9999). time()).$ext;
             $name_full = $this->attachmentFolder . $folder . '/' . $name;
             Storage::disk('local')->put( $name_full,$ImageData);
+
+            $appAttachments = Attachment::appAttachments;
+            if(!empty($appAttachments[$folder])){
+                $appImage = $appAttachments[$folder];
+                $image = Image::make($ImageData);
+                $image->resize($appImage['width'], $appImage['height']);
+
+                $name_full = $this->appAttachmentFolder . $folder . '/' . $name;
+                Storage::disk('local')->put( $name_full, $image->encode());
+            }
 
 
             $attachmentSave = Attachment::create([

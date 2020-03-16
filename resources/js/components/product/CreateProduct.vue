@@ -596,8 +596,8 @@
                 pri_id_index:'',
                 cat_Selected:false,
                 cropperData:{
-                    width:400,
-                    height:400,
+                    width:200,
+                    height:200,
                     placeholder:'Choose a image in 400X400',
                     file_size:1,
                     init_image:'',
