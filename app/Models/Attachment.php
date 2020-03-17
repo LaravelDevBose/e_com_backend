@@ -24,6 +24,7 @@ class Attachment extends Model
         'section'=>12,
         'Review'=>13,
         'mall'=>14,
+        'ads_banner'=> 15,
     ];
 
     const appAttachments =[
@@ -132,5 +133,10 @@ class Attachment extends Model
     public function homepageSection()
     {
         return $this->hasOne(HomepageSection::class, 'attachment_id', 'attachment_id');
+    }
+
+    public function adsBanner()
+    {
+        return $this->belongsTo(AdsBanner::class, 'attachment_id', 'attachment_id');
     }
 }

@@ -15,14 +15,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 use JD\Cloudder\Facades\Cloudder;
 
 class ProductImageController extends Controller
 {
     private $attachmentFolder = 'public/attachments/';
+    private $appAttachmentFolder = 'public/mobile/attachments/';
 
     public function store(Request $request) {
-        // return $request->all();
         $attachments = $request->except(['folder', 'pri_id']);
         if(empty($attachments)){
             return response()->json([
@@ -35,8 +36,6 @@ class ProductImageController extends Controller
         foreach ($attachments as $key => $attachment){
             array_push($attachmentsArray['attachment_file'],  $attachment);
         }
-
-
 
         $validator = Validator::make(
             $attachmentsArray, [
@@ -51,7 +50,6 @@ class ProductImageController extends Controller
         if ($validator->passes()) {
 
             try {
-
                 $max_number = Attachment::max('attachment_no')+1;
 
                 if(empty($request->folder)){
@@ -60,39 +58,51 @@ class ProductImageController extends Controller
                 $folder = $request->folder;
 
                 $attachmentModels = Attachment::attachmentModels;
-
-
                 if(empty($attachmentModels[$folder])){
                     throw new Exception('Invalid Model!', 400);
                 }
-                $model = $attachmentModels[$folder];
+
                 $attachmentData= [];
                 foreach ($attachments as $key => $attachment){
 
+                    $model = $attachmentModels[$folder];
+                    $flipModels = array_flip($attachmentModels);
+                    $modalName = $flipModels[$model];
+
+                    if($model === $attachmentModels['product'] || $model === $attachmentModels['thumbnail'] ){
+                        $folder = $folder.'/'.$max_number;
+                    }
                     $ext = $attachment->guessExtension();
                     $type = $attachment->getMimeType();
 
                     $original_name = $attachment->getClientOriginalName();
                     $file_size = AttachmentHelper::byteToHuman( $attachment->getClientSize() );
 
-                    $publicId = md5(rand(1111, 9999). time());
+                    $name =  md5(rand(1111, 9999). time()) .'.'.$ext;
 
-                    $name =  $publicId .'.'.$ext;
-                    $folderPath = $folder.'/'.$max_number;
-                    $name_full = $this->attachmentFolder . $folderPath . '/' . $name;
-                    Storage::disk('local')->put( $name_full, File::get($attachment));
+                    $name_full = $this->attachmentFolder . $folder . '/' . $name;
+                    Storage::disk('local')->put( $name_full, File::get($attachment) );
+
+                    $appAttachments = Attachment::appAttachments;
+                    if(!empty($appAttachments[$folder])){
+                        $appImage = $appAttachments[$folder];
+                        $image = Image::make($attachment);
+                        $image->resize($appImage['width'], $appImage['height']);
+
+                        $name_full = $this->appAttachmentFolder . $folder . '/' . $name;
+                        Storage::disk('local')->put( $name_full, $image->encode());
+                    }
 
                     $attachmentSave = Attachment::create([
-                        'attachment_no' => $max_number,
-                        'reference'     => $model,
-                        'file_name'     => $name,
-                        'folder'        => $folderPath,
-                        'file_type'     => $type,
-                        'original_name' => $original_name,
-                        'file_size'     => $file_size,
-                        'cloud_public_id' =>$publicId,
+                        'attachment_no'     => $max_number,
+                        'reference'         => $model,
+                        'file_name'         => $name,
+                        'folder'            => $folder,
+                        'file_type'         => $type,
+                        'original_name'     => $original_name,
+                        'file_size'         => $file_size,
+                        'modal'             => $modalName
                     ]);
-
 
                     array_push($attachmentData, [
                         'pri_id'=>$request->pri_id,

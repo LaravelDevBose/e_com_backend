@@ -178,6 +178,16 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::post('/store/update', 'LatestDealController@store_update_latest_deal');
         Route::delete('/delete/product/{dealId}', 'LatestDealController@deal_product_remove');
     });
+    Route::group(['prefix'=>'ads_banner', 'as'=>'ads_banner.'], function (){
+        Route::get('/', 'AdsBannerController@index')->name('index');
+        Route::get('/list', 'AdsBannerController@list')->name('list');
+        Route::get('/create', 'AdsBannerController@create')->name('create');
+        Route::post('/store', 'AdsBannerController@store');
+        Route::get('/{adsBannerId}', 'AdsBannerController@show');
+        Route::get('/{adsBannerId}/edit', 'AdsBannerController@edit');
+        Route::put('/update/{adsBannerId}', 'AdsBannerController@update');
+        Route::delete('/{adsBannerId}', 'AdsBannerController@destroy');
+    });
 });
 
 Route::get('/admin/newsletters', 'NewsLetterController@index')->middleware('auth:admin')->name('admin.newsletters');

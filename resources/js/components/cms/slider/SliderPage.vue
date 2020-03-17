@@ -15,8 +15,8 @@
                     <tr>
                         <th>#</th>
                         <th style="padding:5px;">Slider Title</th>
-                        <!--<th>Sub Title</th>
-                        <th>Slider Button</th>-->
+                        <th>Sub Title</th>
+                        <th>Slider Button</th>
                         <th>Slider Type</th>
                         <th>Image</th>
                         <th class="text-center">Status</th>
@@ -28,9 +28,9 @@
                         <td>{{ index }}</td>
                         <td>
                             <span class="text text-bold"> {{ slider.title }}</span><br>
-<!--                            <span class="text text-bold" v-if="slider.trans_title"> {{ slider.trans_title }}</span>-->
+                            <span class="text text-bold" v-if="slider.trans_title"> {{ slider.trans_title }}</span>
                         </td>
-                        <!--<td>
+                        <td>
                             <span class="text text-bold"> {{ slider.subTitle }}</span><br>
                             <span class="text text-bold" v-if="slider.trans_subTitle"> {{ slider.trans_subTitle }}</span>
                         </td>
@@ -38,7 +38,7 @@
                             <p class="text text-bold"> Text: {{ slider.btnText }}</p>
                             <p class="text text-bold" v-if="slider.trans_btnText"> Text: {{ slider.trans_btnText }}</p>
                             <a :href="slider.btnUrl" class="text text-small">Url: {{ slider.btnUrl}}</a>
-                        </td>-->
+                        </td>
                         <td class="text text-center">
                             <span class="badge bg-teal" v-if="slider.type === 1">Home Page</span>
                             <span class="badge bg-primary" v-else>Mall Page</span>

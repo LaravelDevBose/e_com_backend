@@ -71,6 +71,9 @@
                         @if(auth()->user()->adminRole->delivery_method)
                             <li ><a href="{{ route('admin.delivery.method.index') }}"><i class="icon-truck"></i> <span>Delivery Method</span></a></li>
                         @endif
+                            @if(auth()->user()->adminRole->delivery_method)
+                                <li ><a href="{{ route('admin.ads_banner.index') }}"><i class="icon-truck"></i> <span>Ads Banners</span></a></li>
+                            @endif
                         {{--<li>
                             <a href="#"><i class="icon-megaphone"></i> <span>Campaign</span></a>
                             <ul>

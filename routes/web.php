@@ -9,12 +9,7 @@ Route::get('/invoice', function (){
     return view('mail.v1.invoice.invoice_mail');
 });
 
-Route::get('image/path', function (){
-    $cacheImage = \Intervention\Image\Facades\Image::cache(function ($image){
-        return $image->make(public_path('saliim.png'));
-    }, 10, false);
-    return Response::make($cacheImage, 200, array('Content Type'=> 'image/png'));
-})->name('image.path');
+Route::get('image/path/{image_name}', 'AttachmentController@image_path')->name('image.path');
 Auth::routes(['verify' => true]);
 
 Route::namespace('Frontend')->as('front.')->group(function () {

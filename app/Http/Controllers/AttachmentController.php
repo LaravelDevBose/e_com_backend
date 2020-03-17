@@ -237,6 +237,19 @@ class AttachmentController extends Controller
 
     }
 
+    public function image_path(Request $request, $imageName)
+    {
+        $attachment = Attachment::where('attachment_id', $imageName)->first();
+        $path = storage_path('app/public/attachments/'.$attachment->folder.'/'. $attachment->file_name);
+        if(file_exists($path)){
+            $cacheImage = Image::cache(function ($image) use ($path){
+                return $image->make($path);
+            });
+            return \Illuminate\Support\Facades\Response::make($cacheImage, 200, array('Content Type'=> 'image/png'));
+        }
+        return $attachment->image_path;
+    }
+
     public function download(Attachment $attachment) {
         $user = Auth::user();
         $path_to_file = 'app/' . $this->attachmentFolder . $attachment->folder .'/'. $attachment->file_name;

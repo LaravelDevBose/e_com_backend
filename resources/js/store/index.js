@@ -36,6 +36,7 @@ import unpublish_product from "./modules/unpublish_product";
 import delivery_method from "./modules/delivery_method";
 import admin from "./modules/admin";
 import latest_deal from "./modules/latest_deal";
+import ads_banner from "./modules/ads_banner";
 
 
 
@@ -87,7 +88,8 @@ export default new Vuex.Store({
         unpublish_product,
         delivery_method,
         admin,
-        latest_deal
+        latest_deal,
+        ads_banner
     }
 })
 
