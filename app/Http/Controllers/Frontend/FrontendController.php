@@ -7,6 +7,7 @@ use App\Helpers\TemplateHelper;
 use App\Http\Resources\Frontend\brand\BrandCollection;
 use App\Http\Resources\Frontend\category\CategoryCollection;
 use App\Http\Resources\Frontend\product\ProductCollection;
+use App\Models\AdsBanner;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Color;
@@ -109,13 +110,17 @@ class FrontendController extends Controller
             ]);
         }
 
-
+        $adsSliderRight = AdsBanner::isLive()->where('ads_position', AdsBanner::ADS_POSITIONS['Home Page Slider Right'])
+            ->with('image')->first();
+        $adsPageBodies = AdsBanner::isLive()->whereIn('ads_position', AdsBanner::Ads_pages['Home Body'])->get();
         return view('templates.' . $this->template_name . '.frontend.home', [
             'sliders' => $sliders,
             'topProducts' => $topProducts,
             'hotProducts' => $hotProducts,
             'categorySection' => $categorySection,
             'latestDeals' => $latestDeals,
+            'adsSliderRight'=>$adsSliderRight,
+            'adsPageBodies'=>$adsPageBodies,
         ]);
     }
 
@@ -194,10 +199,12 @@ class FrontendController extends Controller
                     return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
                 }])->islive()->isActive()
                 ->orderBy('position', 'asc')->latest()->get();
+            $adsPageBodies = AdsBanner::isLive()->whereIn('ads_position', AdsBanner::Ads_pages['Products'])->get();
             return view('templates.' . $this->template_name . '.frontend.products', [
                 'category' => $category,
                 'categories' => CommonData::category_tree(),
                 'hotProducts' => $hotProducts,
+                'adsPageBodies'=>$adsPageBodies
             ]);
         }
     }

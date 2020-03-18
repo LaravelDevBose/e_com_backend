@@ -15,6 +15,11 @@ class AdsBanner extends Model
         'Products Page Right Bar'   => 5
     ];
 
+    const Ads_pages = [
+        'Home Slider'=> [1],
+        'Home Body'=> [2,3,4],
+        'Products'=>[5]
+    ];
     protected $table = 'ads_banners';
     protected $primaryKey = 'ads_banner_id';
 

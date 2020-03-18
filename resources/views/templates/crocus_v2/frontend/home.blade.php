@@ -38,9 +38,15 @@
             @endif
             @if(!empty($sliders))
                 <?php
-                    $sliderClass = 'col-lg-9 col-md-9 col-sm-12 col-xs-12';
-                    if(!empty($hotProducts) && count($hotProducts) > 0){
-                        $sliderClass = 'col-md-6 col-sm-7 col-xs-12';
+                    $sliderClass = 'col-md-6 col-sm-7 col-xs-12';
+
+                    if(count($hotProducts) == 0 && empty($adsSliderRight)){
+
+                        $sliderClass = 'col-lg-12 col-md-12 col-sm-12 col-xs-12';
+                    } else if(!empty($hotProducts) && count($hotProducts) > 0 && !empty($adsSliderRight)){
+                        $sliderClass = 'col-md-6 col-sm-6 col-xs-12';
+                    }else {
+                        $sliderClass = 'col-lg-9 col-md-9 col-sm-9 col-xs-12';
                     }
                     ?>
                 <div class="{{$sliderClass}}">
@@ -65,9 +71,11 @@
                     </div>
                 </div>
             @endif
-            <div class=" col-lg-3 col-md-3 col-sm-7 col-xs-12">
-
-            </div>
+            @if(!empty($adsSliderRight))
+                <div class=" col-lg-3 col-md-3 col-sm-7 col-xs-12">
+                    <img src="{{ $adsSliderRight->image->image_path }}" class="img-responsive">
+                </div>
+            @endif
         </div>
     </div>
 </div>
@@ -183,9 +191,22 @@
                         </ul>
                     </div>
             @endif
+            @if(!empty($adsPageBodies))
+                @foreach($adsPageBodies as $adsPageBody)
                 <!-- home side banner -->
-                <div class="home-side-banner"> <img alt="banner" src="{{ asset('crocus_v2/images/home-banner.png')}}"> </div>
-                <div class="side-banner-img"> <a href="#" title="Image"> <img src="{{ asset('crocus_v2/images/mid-banner2.png')}}" alt="Image"></a> </div>
+                    @if(empty($adsPageBody->ads_url))
+                        <div class="home-side-banner">
+                            <img alt="{{ $adsPageBody->ads_title }}" src="{{ $adsPageBody->image->image_path}}">
+                        </div>
+                    @else
+                        <div class="side-banner-img">
+                            <a href="{{ $adsPageBody->ads_url }}" title="{{ $adsPageBody->ads_title }}">
+                                <img src="{{ $adsPageBody->image->image_path}}" alt="{{ $adsPageBody->ads_title }}">
+                            </a>
+                        </div>
+                    @endif
+                @endforeach
+            @endif
             </div>
         </div>
     </div>

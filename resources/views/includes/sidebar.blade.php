@@ -71,34 +71,19 @@
                         @if(auth()->user()->adminRole->delivery_method)
                             <li ><a href="{{ route('admin.delivery.method.index') }}"><i class="icon-truck"></i> <span>Delivery Method</span></a></li>
                         @endif
-                            @if(auth()->user()->adminRole->delivery_method)
-                                <li ><a href="{{ route('admin.ads_banner.index') }}"><i class="icon-truck"></i> <span>Ads Banners</span></a></li>
-                            @endif
-                        {{--<li>
-                            <a href="#"><i class="icon-megaphone"></i> <span>Campaign</span></a>
-                            <ul>
-                                <li><a href="{{ route('admin.campaign.create') }}"><i class="icon-plus2"></i> Create Campaign</a></li>
-                                <li><a href="{{ route('admin.campaign.index') }}"><i class="icon-list-numbered"></i> Campaign List</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><i class="icon-ticket"></i> <span>Voucher</span></a>
-                            <ul>
-                                <li><a href="{{ route('admin.voucher.create') }}">Create Voucher</a></li>
-                                <li><a href="{{ route('admin.voucher.index') }}">Voucher List</a></li>
-                            </ul>
-                        </li>--}}
+                        @if(auth()->user()->adminRole->ads_banner)
+                            <li ><a href="{{ route('admin.ads_banner.index') }}"><i class="icon-megaphone"></i> <span>Ads Banners</span></a></li>
+                        @endif
+                        @if(auth()->user()->adminRole->product_group)
+                            <li><a href="{{ route('admin.group.index') }}"><i class="icon-stack2"></i><span>Product Grouping</span></a></li>
+                        @endif
+                        @if(auth()->user()->adminRole->latest_deal)
+                            <li><a href="{{ route('admin.latest.deal.page') }}"><i class="icon-stack2"></i><span>Latest Deal</span></a></li>
+                        @endif
                         @if(auth()->user()->adminRole->cms)
                             <li>
                                 <a href="#"><i class="icon-cart"></i> <span>CMS</span></a>
                                 <ul>
-                                    {{--                            <li><a href="{{ route('admin.section.index') }}"><i class="icon-stack2"></i>Homepage Section</a></li>--}}
-                                    @if(auth()->user()->adminRole->product_group)
-                                        <li><a href="{{ route('admin.group.index') }}"><i class="icon-stack2"></i>Product Grouping</a></li>
-                                    @endif
-                                    @if(auth()->user()->adminRole->latest_deal)
-                                        <li><a href="{{ route('admin.latest.deal.page') }}"><i class="icon-stack2"></i>Latest Deal</a></li>
-                                    @endif
                                     @if(auth()->user()->adminRole->slider)
                                         <li><a href="{{ route('admin.cms.sliders.index') }}"><i class="icon-list-numbered"></i>Slider</a></li>
                                     @endif

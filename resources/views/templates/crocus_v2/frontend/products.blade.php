@@ -77,7 +77,23 @@
                                 </div>
                             </div>
                         @endif
-                    <product-sidebar :categoryId="{{ $category->category_id }}"></product-sidebar>
+                        <product-sidebar :categoryId="{{ $category->category_id }}"></product-sidebar>
+                        @if(!empty($adsPageBodies))
+                            @foreach($adsPageBodies as $adsPageBody)
+                            <!-- home side banner -->
+                                @if(empty($adsPageBody->ads_url))
+                                    <div class="home-side-banner">
+                                        <img alt="{{ $adsPageBody->ads_title }}" src="{{ $adsPageBody->image->image_path}}">
+                                    </div>
+                                @else
+                                    <div class="side-banner-img">
+                                        <a href="{{ $adsPageBody->ads_url }}" title="{{ $adsPageBody->ads_title }}">
+                                            <img src="{{ $adsPageBody->image->image_path}}" alt="{{ $adsPageBody->ads_title }}">
+                                        </a>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
                 </aside>
             </div>
         </div>

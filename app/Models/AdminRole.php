@@ -51,7 +51,9 @@ class AdminRole extends Model
         'manage_newsletter',
         'account_setting',
         'admin_account',
-        'manage_admin_account'
+        'manage_admin_account',
+        'ads_banner',
+        'manage_ads',
     ];
 
     const superAdminRoles = [
@@ -94,7 +96,9 @@ class AdminRole extends Model
         'manage_newsletter',
         'account_setting',
         'admin_account',
-        'manage_admin_account'
+        'manage_admin_account',
+        'ads_banner',
+        'manage_ads',
     ];
 
     const adminRoles = [
@@ -125,6 +129,8 @@ class AdminRole extends Model
         'manage_slider',
         'newsletter',
         'manage_newsletter',
+        'ads_banner',
+        'manage_ads',
     ];
 
     const subAdminRoles = [
