@@ -1,19 +1,31 @@
 //declare State
 const state = {
     ads_banner_list:[],
+    ads_banner:{},
 };
 
 //declare Getters
 const getters = {
     adsBannerList:(state)=>state.ads_banner_list,
+    adsBanner: (state) => state.ads_banner,
 };
 
 const actions = {
     async getAdsBanners({commit}){
         try {
-            await axios.get('/admin/ads_banner')
+            await axios.get('/admin/ads_banner/list')
                 .then(response=>{
-                    commit('setAdsBanners', response.data.data.data);
+                    commit('setAdsBanners', response.data.data);
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
+    async getAdsBanner({commit}, adsBannerId){
+        try {
+            await axios.get(`/admin/ads_banner/${adsBannerId}`)
+                .then(response=>{
+                    commit('setAdsBanner', response.data.data);
                 })
         }catch (error) {
             commit('setResponse', error.data);
@@ -37,7 +49,7 @@ const actions = {
     },
     async updateAdsBanner({commit},fromData){
         try {
-            return await axios.put(`/admin/ads_banner/${fromData.id}/update`, fromData)
+            return await axios.put(`/admin/ads_banner/update/${fromData.id}`, fromData)
                 .then(response=>{
                     /*if(typeof response.data.code !== "undefined" && response.data.code === 200){
                         commit('updateAdsBannerData', response.data.data);
@@ -67,6 +79,7 @@ const actions = {
 
 const mutations = {
     setAdsBanners:(state, response)=> state.ads_banner_list = response,
+    setAdsBanner:(state, response)=> state.ads_banner = response,
     removeAdsBanner:(state, adsBannerId)=> state.ads_banner_list = state.ads_banner_list.filter(ads=>ads.id !==adsBannerId),
 };
 
