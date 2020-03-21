@@ -74,9 +74,3 @@
 @section('PageJs')
 
 @endsection
-<script>
-    import PageContentSection from "../vue/components/section/PageContentSection";
-    export default {
-        components: {PageContentSection}
-    }
-</script>
