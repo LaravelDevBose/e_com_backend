@@ -3,7 +3,20 @@
 @section('Title', 'Pages')
 
 @section('PageCss')
-
+    <style>
+        .content-text {
+            padding: 0 0 20px!important;
+            text-align: justify;
+        }
+        .quillWrapper {
+            height: fit-content!important;
+        }
+        .quillWrapper .ql-snow.ql-toolbar {
+            padding-top: 8px;
+            padding-bottom: 4px;
+            display: none!important;
+        }
+    </style>
 @endsection
 
 @section('Content')
@@ -26,7 +39,7 @@
                     </h2>
 
                     <div class="content-text clearfix">
-                        {!! $page->body_content !!}
+                        <page-content-section :body-content="{{ json_encode($page->body_content) }}"></page-content-section>
                     </div>
 
                 </div><!-- Main Content -->
@@ -61,3 +74,9 @@
 @section('PageJs')
 
 @endsection
+<script>
+    import PageContentSection from "../vue/components/section/PageContentSection";
+    export default {
+        components: {PageContentSection}
+    }
+</script>
