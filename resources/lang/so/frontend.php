@@ -13,14 +13,14 @@ return [
     |
     */
 
-    'latest deal' => 'Latest Deals',
-    'End In' => 'End In',
+    'latest deal' => 'Alabahii ugu Dambeeyay',
+    'End In' => 'Dhamaad',
     'Saliim Mall Products'=> 'Saliim Mall Products',
-    'see all'=> 'See All',
-    'Best Seller Products'=> 'Best Seller Products',
-    'Most Reviews Products'=> 'Most Reviews Products',
-    'New Arrivals Products'=> 'New Arrivals Products',
-    'Other Products'=> 'Other Products',
-    'All categories'=> 'All categories'
+    'see all'=> 'Fiiri Dhamaan',
+    'Best Seller Products'=> 'Iibiyaha ugu Fiican',
+    'Most Reviews Products'=> 'Alaabihii ugu  Eegista Badnaa',
+    'New Arrivals Products'=>  'Alaabaha  Cusub',
+    'Other Products'=>  'Alaaba Kale ',
+    'All categories'=>  'Dhammaan qeybaha'
 
 ];
