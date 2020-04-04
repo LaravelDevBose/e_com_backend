@@ -13,9 +13,9 @@
                 <a href="{{ route('front.category.product', $category->category_slug) }}">
                     <span class="icon">
                         @if(!empty($category->iconImage))
-                            <img src="{{ $category->iconImage->image_path  }}" alt="nav-cat">
+                            <img src="{{ $category->iconImage->image_path  }}" alt="icon">
                         @else
-                            <img src="{{ asset('kuteshop_v2/images/icon/arrow-right.png')}}" alt="nav-cat">
+                            <img src="{{ asset('kuteshop_v2/images/icon/arrow-right.png')}}" alt="icon">
                         @endif
                     </span>
                     {{ $category->category_name }}

@@ -28,9 +28,9 @@
             @if(!empty($latestDeals) && !empty($latestDeals->deal_products) && count($latestDeals->deal_products) > 0)
                 <div class="block-deals-of-opt2">
                     <div class="block-title ">
-                        <span class="title">Latest Deals</span>
+                        <span class="title">{{ __('frontend.latest deal') }}</span>
                         <div class="deals-of-countdown">
-                            <span class="title">End In</span>
+                            <span class="title">{{ __('frontend.End In') }}</span>
                             <div class="count-down-time" data-countdown="{{ $latestDeals->end_time }}"></div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
             @if(!empty($adminLatestProducts))
                 <div class="block-deals-of-opt2">
                     <div class="block-title ">
-                        <span class="title">Saliim Mall Products</span>
+                        <span class="title">{{ __('frontend.Saliim Mall Products') }}</span>
                     </div>
                     <div class="block-content">
                         <div class="owl-carousel"
@@ -80,7 +80,7 @@
                                 @endif
                             @endforeach
                         </div>
-                        <a href="{{ route('front.mall') }}" style="float: right; color: #f78031;">See All</a>
+                        <a href="{{ route('front.mall') }}" style="float: right; color: #f78031;">{{ __('frontend.see all') }}</a>
                     </div>
                 </div>
             @endif
@@ -112,13 +112,13 @@
                                                 <li role="presentation" class="{{ ($activeCheckH== 1)?'active':'' }}">
                                                     <a href="#floor-{{$key.'-'.$activeCheckH }}"  role="tab" data-toggle="tab">
                                                         @if($indexName == 'bestSeller')
-                                                            <span>Best Seller Products</span>
+                                                            <span>{{ __('frontend.Best Seller Products') }}</span>
                                                         @elseif($indexName == 'mostReviews')
-                                                            <span>Most Reviews Products</span>
+                                                            <span>{{ __('frontend.Most Reviews Products') }}</span>
                                                         @elseif($indexName == 'newArrivals')
-                                                            <span>New Arrivals Products <span class="label-cat">{{ count($productType) }}</span></span>
+                                                            <span>{{ __('frontend.New Arrivals Products') }} <span class="label-cat">{{ count($productType) }}</span></span>
                                                         @else
-                                                            <span>Other Products</span>
+                                                            <span>{{ __('frontend.Other Products') }}</span>
                                                         @endif
                                                     </a>
                                                 </li>
@@ -153,7 +153,7 @@
                                     <li><a href="{{ route('front.category.product', $secCategory->category_slug) }}">{{ $secCategory->category_name }}</a></li>
                                     @endforeach
                                 </ul>
-                                <a class="btn-show-cat btn-cat">All categories <i aria-hidden="true" class="fa fa-angle-double-right"></i></a>
+                                <a class="btn-show-cat btn-cat">{{ __('frontend.All categories') }} <i aria-hidden="true" class="fa fa-angle-double-right"></i></a>
                             </div>
                             @endif
                             <div class="col-banner">
@@ -203,7 +203,7 @@
                             @endif
                         </div>
                         <p class="text-right" style="margin-top: .7rem; margin-bottom: 0;">
-                            <a href="{{ route('front.category.product', $section['category']->category_slug) }}" >See All</a>
+                            <a href="{{ route('front.category.product', $section['category']->category_slug) }}" >{{ __('frontend.see all') }}</a>
                         </p>
 
                     </div>
