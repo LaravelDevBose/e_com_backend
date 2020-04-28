@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::options(
     '/{any:.*}',
     [
-        /*'middleware' => ['cors'],*/
+        'middleware' => ['cors'],
         function (){
             return response(['status' => 'success']);
         }
