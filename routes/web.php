@@ -5,6 +5,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
+Route::options(
+    '/{any:.*}',
+    [
+        /*'middleware' => ['cors'],*/
+        function (){
+            return response(['status' => 'success']);
+        }
+    ]
+);
+
 Route::get('/invoice', function (){
     return view('mail.v1.invoice.invoice_mail');
 });
