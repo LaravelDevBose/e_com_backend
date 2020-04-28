@@ -38,7 +38,7 @@ Route::namespace('Frontend')->as('front.')->group(function () {
 Route::post('/subscribe', 'NewsLetterController@store');
 
 Route::post('/attachment/store', 'AttachmentController@store')->name('attachment.store');
-Route::post('app/attachment/store', 'AttachmentController@store')->name('attachment.store');
+Route::post('app/attachment/store', 'AttachmentController@mobile_apps_product_image_store');
 Route::post('/crop_image/store', 'AttachmentController@crop_image_store')->name('crop_image.store');
 Route::delete('/attachment/delete/{id}', 'AttachmentController@delete')->name('attachment.delete');
 Route::get('/attachment/image/{id}', 'AttachmentController@attachment_image');
