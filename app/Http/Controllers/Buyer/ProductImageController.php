@@ -134,7 +134,7 @@ class ProductImageController extends Controller
     }
     public function mobile_apps_product_image_store(Request $request) {
 
-        // return $request->all();
+         return $request->all();
         $attachments = $request->except(['folder']);
         if(empty($attachments)){
             return response()->json([
