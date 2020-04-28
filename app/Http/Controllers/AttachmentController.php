@@ -286,7 +286,7 @@ class AttachmentController extends Controller
 
     public function mobile_apps_product_image_store(Request $request) {
 
-        return $request->all();
+        return \response()->json($request->all());
         $attachments = $request->except(['folder']);
         if(empty($attachments)){
             return response()->json([
