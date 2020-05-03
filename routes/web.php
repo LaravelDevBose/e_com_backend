@@ -5,9 +5,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/invoice', function (){
-    return view('mail.v1.invoice.invoice_mail');
-});
+Route::options(
+    '/{any:.*}',
+    [
+        'middleware' => ['cors'],
+        function (){
+            return response(['status' => 'success']);
+        }
+    ]
+);
 
 Route::get('image/path/{image_name}', 'AttachmentController@image_path')->name('image.path');
 Auth::routes(['verify' => true]);
