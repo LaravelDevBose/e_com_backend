@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
@@ -284,9 +285,10 @@ class AttachmentController extends Controller
         return $attachment->api_image_path;
     }
 
-    public function mobile_apps_product_image_store(Request $request) {
 
-        return \response()->json($request->all());
+    public function mobile_apps_image_store(Request $request) {
+
+
         $attachments = $request->except(['folder']);
         if(empty($attachments)){
             return response()->json([
@@ -296,11 +298,9 @@ class AttachmentController extends Controller
         }
 
         $attachmentsArray=['attachment_file' =>[]];
-        foreach ($attachments as $key => $attachment){
+        foreach ($attachments['images'] as $key => $attachment){
             array_push($attachmentsArray['attachment_file'],  $attachment);
         }
-
-
 
         $validator = Validator::make(
             $attachmentsArray, [
@@ -331,7 +331,8 @@ class AttachmentController extends Controller
                 }
 
                 $attachmentData= [];
-                foreach ($attachments as $key => $attachment){
+
+                foreach ($attachments['images'] as $key => $attachment){
                     $image_array_1 = explode(";", $attachment);
                     $image_array_2 = explode(",", $image_array_1[1]);
                     $ImageData = base64_decode($image_array_2[1]);
@@ -348,8 +349,10 @@ class AttachmentController extends Controller
                     $type = $imageInfo['mime'];
                     $ext = image_type_to_extension($imageInfo[2]);
                     $name =  md5(rand(1111, 9999). time()).$ext;
-                    $name_full = $this->attachmentFolder . $folder . '/' . $name;
+                    $dir = $name_full = $this->attachmentFolder . $folder;
+                    $name_full = $dir . '/' . $name;
                     Storage::disk('local')->put( $name_full,$ImageData);
+
 
                     $appAttachments = Attachment::appAttachments;
                     if(!empty($appAttachments[$folder])){
@@ -357,7 +360,8 @@ class AttachmentController extends Controller
                         $image = Image::make($ImageData);
                         $image->resize($appImage['width'], $appImage['height']);
 
-                        $name_full = $this->appAttachmentFolder . $folder . '/' . $name;
+                        $dir = $name_full = $this->appAttachmentFolder . $folder;
+                        $name_full = $dir . '/' . $name;
                         Storage::disk('local')->put( $name_full, $image->encode());
                     }
 
@@ -379,7 +383,7 @@ class AttachmentController extends Controller
                     ]);
                     $max_number++;
                 }
-                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Image Upload Successfully', $attachmentData);
+                return ApiResponser::allResponse('success', Response::HTTP_OK, true,'Image Upload Successfully', $attachmentData);
 
             }catch (Exception $ex) {
                 DB::rollBack();

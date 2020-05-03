@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +13,19 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::options(
+    '/{any:.*}',
+    [
+        'middleware' => ['cors'],
+        function (){
+            return response(['status' => 'success']);
+        }
+    ]
+);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/app/attachment/store', 'AttachmentController@mobile_apps_image_store');
+Route::delete('/app/attachment/delete/{id}', 'AttachmentController@delete');
