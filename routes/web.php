@@ -21,7 +21,6 @@ Auth::routes(['verify' => true]);
 Route::namespace('Frontend')->as('front.')->group(function () {
     Route::get('/set/language/{lang}','FrontendController@set_lang')->name('set.lang');
 
-
     Route::get('/', 'FrontendController@index')->name('index');
     Route::get('category/{category_slug}/products', 'FrontendController@category_wish_products')->name('category.product');
     Route::get('product/{product_slug}', 'FrontendController@product_details')->name('product');
