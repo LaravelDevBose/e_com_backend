@@ -383,31 +383,15 @@ class AttachmentController extends Controller
                     ]);
                     $max_number++;
                 }
-                return ApiResponser::allResponse('success', Response::HTTP_OK, true,'Image Upload Successfully', $attachmentData);
+                return ResponserTrait::allResponse('success', Response::HTTP_OK,'Image Upload Successfully', $attachmentData);
 
             }catch (Exception $ex) {
                 DB::rollBack();
-                return response()->json([
-                    'status' => 'error',
-                    'code'=>$ex->getCode(),
-                    'message' => $ex->getMessage()
-                ]);
+                return ResponserTrait::allResponse('error', $ex->getCode(), $ex->getMessage());
             }
         }else{
             $errors = array_values($validator->errors()->getMessages());
-            $message = null;
-            foreach ($errors as $error){
-                if(!empty($error)){
-                    foreach ($error as $errorItem){
-                        $message .=  $errorItem .' ';
-                    }
-                }
-            }
-            return response()->json([
-                'status' => 'validation',
-                'code'=> Response::HTTP_BAD_REQUEST,
-                'message' => ($message != null) ? $message :'Invalid File!'
-            ]);
+            return ResponserTrait::validationResponse('validation', 400, $errors);
         }
 
     }
