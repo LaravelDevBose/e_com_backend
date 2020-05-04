@@ -322,9 +322,10 @@ class AttachmentController extends Controller
                     throw new Exception('Folder is Require!', 400);
                 }
                 $folder = $request->folder;
-                $reFolder = $folder;
                 $attachmentModels = Attachment::attachmentModels;
-
+                $model = $attachmentModels[$folder];
+                $flipModels = array_flip($attachmentModels);
+                $modalName = $flipModels[$model];
 
                 if(empty($attachmentModels[$folder])){
                     throw new Exception('Invalid Model!', 400);
@@ -336,30 +337,28 @@ class AttachmentController extends Controller
                     $image_array_1 = explode(";", $attachment);
                     $image_array_2 = explode(",", $image_array_1[1]);
                     $ImageData = base64_decode($image_array_2[1]);
+                    $uFolder = $folder;
 
-                    $model = $attachmentModels[$folder];
-                    $flipModels = array_flip($attachmentModels);
-                    $modalName = $flipModels[$model];
 
                     if($model === $attachmentModels['product'] || $model === $attachmentModels['thumbnail'] ){
-                        $folder = $folder.'/'.$max_number;
+                        $uFolder = $folder.'/'.$max_number;
                     }
 
                     $imageInfo = getimagesizefromstring($ImageData);
                     $type = $imageInfo['mime'];
                     $ext = image_type_to_extension($imageInfo[2]);
                     $name =  md5(rand(1111, 9999). time()).$ext;
-                    $name_full = $this->attachmentFolder . $folder . '/' . $name;
+                    $name_full = $this->attachmentFolder . $uFolder . '/' . $name;
                     Storage::disk('local')->put( $name_full,$ImageData);
 
 
                     $appAttachments = Attachment::appAttachments;
-                    if(!empty($appAttachments[$reFolder])){
-                        $appImage = $appAttachments[$reFolder];
+                    if(!empty($appAttachments[$folder])){
+                        $appImage = $appAttachments[$folder];
                         $image = Image::make($ImageData);
                         $image->resize($appImage['width'], $appImage['height']);
 
-                        $name_full = $this->appAttachmentFolder . $folder . '/' . $name;
+                        $name_full = $this->appAttachmentFolder . $uFolder . '/' . $name;
                         Storage::disk('local')->put( $name_full, $image->encode());
                     }
 
