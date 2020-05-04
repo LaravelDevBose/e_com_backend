@@ -367,7 +367,7 @@ class AttachmentController extends Controller
                         'attachment_no' => $max_number,
                         'reference'     => $model,
                         'file_name'     => $name,
-                        'folder'        => $folder,
+                        'folder'        => $uFolder,
                         'file_type'     => $type,
                         'original_name' => null,
                         'file_size'     => null,
