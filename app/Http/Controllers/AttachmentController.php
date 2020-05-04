@@ -340,7 +340,7 @@ class AttachmentController extends Controller
                     $uFolder = $folder;
 
 
-                    if($model === $attachmentModels['product'] || $model === $attachmentModels['thumbnail'] ){
+                    if($folder == 'product' || $folder == 'thumbnail' ){
                         $uFolder = $folder.'/'.$max_number;
                     }
 
