@@ -58,7 +58,7 @@ class AttachmentController extends Controller
                     throw new Exception('Folder is Require!', 400);
                 }
                 $folder = $request->folder;
-
+                $reFolder = $folder;
                 $attachmentModels = Attachment::attachmentModels;
 
 
@@ -90,8 +90,8 @@ class AttachmentController extends Controller
                     Storage::disk('local')->put( $name_full, File::get($attachment) );
 
                     $appAttachments = Attachment::appAttachments;
-                    if(!empty($appAttachments[$folder])){
-                        $appImage = $appAttachments[$folder];
+                    if(!empty($appAttachments[$reFolder])){
+                        $appImage = $appAttachments[$reFolder];
                         $image = Image::make($attachment);
                         $image->resize($appImage['width'], $appImage['height']);
 
@@ -322,7 +322,7 @@ class AttachmentController extends Controller
                     throw new Exception('Folder is Require!', 400);
                 }
                 $folder = $request->folder;
-
+                $reFolder = $folder;
                 $attachmentModels = Attachment::attachmentModels;
 
 
@@ -349,19 +349,17 @@ class AttachmentController extends Controller
                     $type = $imageInfo['mime'];
                     $ext = image_type_to_extension($imageInfo[2]);
                     $name =  md5(rand(1111, 9999). time()).$ext;
-                    $dir = $name_full = $this->attachmentFolder . $folder;
-                    $name_full = $dir . '/' . $name;
+                    $name_full = $this->attachmentFolder . $folder . '/' . $name;
                     Storage::disk('local')->put( $name_full,$ImageData);
 
 
                     $appAttachments = Attachment::appAttachments;
-                    if(!empty($appAttachments[$folder])){
-                        $appImage = $appAttachments[$folder];
+                    if(!empty($appAttachments[$reFolder])){
+                        $appImage = $appAttachments[$reFolder];
                         $image = Image::make($ImageData);
                         $image->resize($appImage['width'], $appImage['height']);
 
-                        $dir = $name_full = $this->appAttachmentFolder . $folder;
-                        $name_full = $dir . '/' . $name;
+                        $name_full = $this->appAttachmentFolder . $folder . '/' . $name;
                         Storage::disk('local')->put( $name_full, $image->encode());
                     }
 
