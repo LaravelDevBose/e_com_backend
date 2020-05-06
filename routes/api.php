@@ -29,3 +29,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/app/attachment/store', 'AttachmentController@mobile_apps_image_store');
 Route::delete('/app/attachment/delete/{id}', 'AttachmentController@delete');
+Route::delete('/app/product/attachment/delete/{id}', 'Buyer\ProductImageController@delete');
