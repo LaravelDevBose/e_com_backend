@@ -13,7 +13,7 @@
                             <input type="number" style="display:block" v-model="sortData.range.max" class="form-control">
                         </div>
                     </div>
-                    <dt class="even">{{ $tc('products.brand',brands.length)}}</dt>
+                    <dt class="even" v-if="brands.length > 0">{{ $tc('products.brand',brands.length)}}</dt>
                     <dd class="even" v-if="brands">
                         <ol>
                             <li v-for="(brand, index) in brands" :key="index">
@@ -22,7 +22,7 @@
                             </li>
                         </ol>
                     </dd>
-                    <dt class="odd">{{ $tc('products.color',colors.length)}}</dt>
+                    <dt class="odd" v-if="colors.length>0">{{ $tc('products.color',colors.length)}}</dt>
                     <dd class="odd colorlist" v-if="colors">
                         <ol>
                             <li v-for="(color,index) in colors" :key="index">
@@ -32,7 +32,7 @@
                         </ol>
                     </dd>
 
-                    <dt class="last even">{{ $tc('products.size',sizes.length)}}</dt>
+                    <dt class="last even" v-if="sizes.length">{{ $tc('products.size',sizes.length)}}</dt>
                     <dd class="last even" v-if="sizes">
                         <ol>
                             <li v-for="(size, index) in sizes" :key="index">

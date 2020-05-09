@@ -81,8 +81,8 @@
             </ul>
             <p class="require"><em class="required">* </em>Required Fields</p>
             <div class="buttons-set1" id="shipping-buttons-container">
-                <button type="submit" :disabled="btnDisabled" class="button"><span>Continue</span></button>
                 <a href="#" @click.prevent="backTab()"  class="back-link">« Back</a>
+                <button type="submit" :disabled="btnDisabled" class="button" style="float: right;"><span>Continue</span></button>
             </div>
         </fieldset>
     </form>

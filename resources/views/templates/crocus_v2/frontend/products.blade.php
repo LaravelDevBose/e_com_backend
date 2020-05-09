@@ -65,7 +65,7 @@
                         <!--box-content box-category-->
                     </div>
                     @endif
-                        @if(!empty($hotProducts))
+                        @if(!empty($hotProducts) && count($hotProducts) > 0)
                             <div class="hot-deal">
                                 <div class="title">Hot Deal</div>
                                 <div id="testimonials" class="product-flexslider hidden-buttons" style="margin-top: 0px;">

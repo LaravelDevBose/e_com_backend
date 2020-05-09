@@ -26,7 +26,7 @@ export const ENGLISH_TRANSLATIONS  ={
         total:'Total',
         shopping_bag:'Shopping Cart',
         checkout:'Checkout',
-        view_cart:'Proceed to checkout',
+        view_cart:'View Cart',
         empty_cart:'Cart is Empty',
         continue_shopping:'Continue shopping',
         desc:'Description',

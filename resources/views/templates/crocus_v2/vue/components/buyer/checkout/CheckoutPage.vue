@@ -4,17 +4,17 @@
             <h1>Checkout</h1>
         </div>
         <ol class="one-page-checkout" id="checkoutSteps">
-            <li id="opc-billing" class="section" :class="billingTab ? 'allow active':' '">
+            <!--<li id="opc-billing" class="section" :class="billingTab ? 'allow active':' '">
                 <div class="step-title"> <span class="number">1</span>
                     <h3>Checkout Method</h3>
-                    <!--<a href="#">Edit</a> -->
+                    &lt;!&ndash;<a href="#">Edit</a> &ndash;&gt;
                 </div>
                 <div id="checkout-step-billing" class="step a-item"  :class="billingTab ? 'show':'hidden'">
                     <billing-form></billing-form>
                 </div>
-            </li>
+            </li>-->
             <li id="opc-shipping" class="section" :class="shoppingTab ? 'allow active':''">
-                <div class="step-title"> <span class="number">2</span>
+                <div class="step-title"> <span class="number">1</span>
                     <h3 class="one_page_heading"> Shipping Information</h3>
                     <!--<a href="#">Edit</a>-->
                 </div>
@@ -23,7 +23,7 @@
                 </div>
             </li>
             <li id="opc-shipping_method" class="section" :class="methodTab ? 'allow active':''">
-                <div class="step-title"> <span class="number">3</span>
+                <div class="step-title"> <span class="number">2</span>
                     <h3 class="one_page_heading">Shipping Method</h3>
                     <!--<a href="#">Edit</a>-->
                 </div>
@@ -34,7 +34,7 @@
                 </div>
             </li>
             <li id="opc-payment" class="section" :class="paymentTab ? 'allow active':''">
-                <div class="step-title"> <span class="number">4</span>
+                <div class="step-title"> <span class="number">3</span>
                     <h3 class="one_page_heading">Payment Information</h3>
                     <!--<a href="#">Edit</a>-->
                 </div>

@@ -69786,34 +69786,11 @@ var render = function() {
           "li",
           {
             staticClass: "section",
-            class: _vm.billingTab ? "allow active" : " ",
-            attrs: { id: "opc-billing" }
-          },
-          [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "step a-item",
-                class: _vm.billingTab ? "show" : "hidden",
-                attrs: { id: "checkout-step-billing" }
-              },
-              [_c("billing-form")],
-              1
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "li",
-          {
-            staticClass: "section",
             class: _vm.shoppingTab ? "allow active" : "",
             attrs: { id: "opc-shipping" }
           },
           [
-            _vm._m(2),
+            _vm._m(1),
             _vm._v(" "),
             _c(
               "div",
@@ -69836,7 +69813,7 @@ var render = function() {
             attrs: { id: "opc-shipping_method" }
           },
           [
-            _vm._m(3),
+            _vm._m(2),
             _vm._v(" "),
             _c(
               "div",
@@ -69865,7 +69842,7 @@ var render = function() {
             attrs: { id: "opc-payment" }
           },
           [
-            _vm._m(4),
+            _vm._m(3),
             _vm._v(" "),
             _c(
               "div",
@@ -69877,9 +69854,9 @@ var render = function() {
               [
                 _c("payment-method"),
                 _vm._v(" "),
-                _vm._m(5),
+                _vm._m(4),
                 _vm._v(" "),
-                _vm._m(6),
+                _vm._m(5),
                 _vm._v(" "),
                 _c("div", { staticStyle: { clear: "both" } })
               ],
@@ -69937,16 +69914,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "step-title" }, [
       _c("span", { staticClass: "number" }, [_vm._v("1")]),
       _vm._v(" "),
-      _c("h3", [_vm._v("Checkout Method")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "step-title" }, [
-      _c("span", { staticClass: "number" }, [_vm._v("2")]),
-      _vm._v(" "),
       _c("h3", { staticClass: "one_page_heading" }, [
         _vm._v(" Shipping Information")
       ])
@@ -69957,7 +69924,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "step-title" }, [
-      _c("span", { staticClass: "number" }, [_vm._v("3")]),
+      _c("span", { staticClass: "number" }, [_vm._v("2")]),
       _vm._v(" "),
       _c("h3", { staticClass: "one_page_heading" }, [_vm._v("Shipping Method")])
     ])
@@ -69967,7 +69934,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "step-title" }, [
-      _c("span", { staticClass: "number" }, [_vm._v("4")]),
+      _c("span", { staticClass: "number" }, [_vm._v("3")]),
       _vm._v(" "),
       _c("h3", { staticClass: "one_page_heading" }, [
         _vm._v("Payment Information")
@@ -70767,15 +70734,6 @@ var render = function() {
           },
           [
             _c(
-              "button",
-              {
-                staticClass: "button",
-                attrs: { type: "submit", disabled: _vm.btnDisabled }
-              },
-              [_c("span", [_vm._v("Continue")])]
-            ),
-            _vm._v(" "),
-            _c(
               "a",
               {
                 staticClass: "back-link",
@@ -70788,6 +70746,16 @@ var render = function() {
                 }
               },
               [_vm._v("« Back")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "button",
+                staticStyle: { float: "right" },
+                attrs: { type: "submit", disabled: _vm.btnDisabled }
+              },
+              [_c("span", [_vm._v("Continue")])]
             )
           ]
         )
@@ -74628,20 +74596,6 @@ var render = function() {
                         _vm._v("$ " + _vm._s(_vm.cartSubTotal))
                       ])
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c(
-                      "td",
-                      { staticClass: "a-left", attrs: { colspan: "1" } },
-                      [_vm._v(" Discount  ")]
-                    ),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "a-right" }, [
-                      _c("span", { staticClass: "price" }, [
-                        _vm._v("$ " + _vm._s(_vm.cartDiscount))
-                      ])
-                    ])
                   ])
                 ]),
                 _vm._v(" "),
@@ -76627,9 +76581,11 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("dt", { staticClass: "even" }, [
-            _vm._v(_vm._s(_vm.$tc("products.brand", _vm.brands.length)))
-          ]),
+          _vm.brands.length > 0
+            ? _c("dt", { staticClass: "even" }, [
+                _vm._v(_vm._s(_vm.$tc("products.brand", _vm.brands.length)))
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _vm.brands
             ? _c("dd", { staticClass: "even" }, [
@@ -76698,9 +76654,11 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _c("dt", { staticClass: "odd" }, [
-            _vm._v(_vm._s(_vm.$tc("products.color", _vm.colors.length)))
-          ]),
+          _vm.colors.length > 0
+            ? _c("dt", { staticClass: "odd" }, [
+                _vm._v(_vm._s(_vm.$tc("products.color", _vm.colors.length)))
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _vm.colors
             ? _c("dd", { staticClass: "odd colorlist" }, [
@@ -76769,9 +76727,11 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _c("dt", { staticClass: "last even" }, [
-            _vm._v(_vm._s(_vm.$tc("products.size", _vm.sizes.length)))
-          ]),
+          _vm.sizes.length
+            ? _c("dt", { staticClass: "last even" }, [
+                _vm._v(_vm._s(_vm.$tc("products.size", _vm.sizes.length)))
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _vm.sizes
             ? _c("dd", { staticClass: "last even" }, [
@@ -95822,7 +95782,7 @@ var ENGLISH_TRANSLATIONS = {
     total: 'Total',
     shopping_bag: 'Shopping Cart',
     checkout: 'Checkout',
-    view_cart: 'Proceed to checkout',
+    view_cart: 'View Cart',
     empty_cart: 'Cart is Empty',
     continue_shopping: 'Continue shopping',
     desc: 'Description',
@@ -97405,8 +97365,8 @@ var state = {
   payment_methods: [],
   shipping_methods: [],
   shipping_price: '',
-  billing: true,
-  shopping: false,
+  billing: false,
+  shopping: true,
   method: false,
   payment: false,
   charge: 0
@@ -99492,7 +99452,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\templates\crocus_v2\vue\crocus_v2.js */"./resources/views/templates/crocus_v2/vue/crocus_v2.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\ecom_web\resources\views\templates\crocus_v2\vue\crocus_v2.js */"./resources/views/templates/crocus_v2/vue/crocus_v2.js");
 
 
 /***/ })

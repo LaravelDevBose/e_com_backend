@@ -278,6 +278,7 @@ class FrontendController extends Controller
         $sortProIds = array_merge($varProIds, $simProIds);
         $products = Product::isActive()->whereIn('product_id', $sortProIds)
                     ->with(['brand', 'category', 'thumbImage', 'singleVariation', 'reviews'])
+                    ->latest()
                     ->get();
         if (!empty($products)) {
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $products);

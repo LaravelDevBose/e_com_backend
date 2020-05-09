@@ -938,13 +938,13 @@ background:#f6f6f6
 	top: 0px;
 }
 .mini-cart .actions .btn-checkout {
+    text-align: center;
 	background: #fff;
 	color: #333;
 	font-size: 11px;
 	text-transform: uppercase;
 	font-weight: 700;
 	padding: 7px 0px;
-	border: none;
 	cursor: pointer;
 	display: inline-block;
 	transition: color 300ms ease-in-out 0s, background-color 300ms ease-in-out 0s, background-position 300ms ease-in-out 0s;
@@ -3051,9 +3051,11 @@ margin:
 	width: 100%;
 	overflow: hidden;
 	display: inline-block;
+    max-height: 200px;
 }
 .products-grid .item .item-inner .item-img .item-img-info a.product-image img {
 	width: 100%;
+    max-height: 200px;
 }
 .products-grid .item .item-inner .item-img .item-img-info a.product-image img {
 
@@ -6039,6 +6041,10 @@ ol#compare-items li.last {
 .product-view .product-img-box .product-image .more-views-items {
 	margin: 0px 10px;
 }
+.more-views-items a img {
+    min-height: 79px;
+    max-height: 80px;
+}
 .product-view .flexslider-thumb-vertical-outer {
 	margin: 0 10px 15px 0;
 	width: 76px;
@@ -8185,9 +8191,13 @@ address {
 	padding-top: 15px;
 }
 .payment-accept img {
-	margin-right: 10px;
-	opacity: 0.7;
-	width: 50px;
+    margin-right: 0px;
+    opacity: 1;
+    width: 111px;
+    height: auto;
+    background: white;
+    margin-bottom: 3px;
+    border-radius: 5px;
 
 }
 .payment-accept img:hover {

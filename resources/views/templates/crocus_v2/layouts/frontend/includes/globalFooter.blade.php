@@ -5,39 +5,58 @@
 
             <div class="row">
                 <div class="col-sm-8 col-xs-12 col-lg-9">
-                    @if(!empty($headerPageMenus))
                     <div class="footer-column pull-left">
-                        <h4>QUICK LINKS</h4>
+                        <h4>About Us</h4>
+                        <ul class="links" style="color: #fff;">
+                            <li class="first">
+                                {!! (!empty($contactInfos['about_us']))? $contactInfos['about_us'] : '' !!}
+                            </li>
+                            <li>
+                                <a>Address: </a>
+                                {!!  (!empty($contactInfos['contact_address']))? $contactInfos['contact_address'] : ''  !!}
+                            </li>
+                            <li>
+                                <a><b>Phone: </b></a>
+                                {{ (!empty($contactInfos['contact_phone']))? $contactInfos['contact_phone'] : '' }}
+                            </li>
+                            <li>
+                                <a href="#"><b>Hours:</b></a>
+                                Open 24 hours
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-column pull-left">
+                        <h4>Terms and Conditions</h4>
+                        @if(!empty($tcPageMenus))
                         <ul class="links">
-                            @foreach($headerPageMenus as $pageMenu)
+                            @foreach($tcPageMenus as $tcPageMenu)
                                 <li class=" @if($loop->first) first @elseif($loop->last) last @endif">
-                                    <a href="{{ route('front.pages', $pageMenu->page_slug) }}" title="{{ $pageMenu->menu_title }}">{{ $pageMenu->menu_title }}</a>
+                                    <a href="{{ route('front.pages', $tcPageMenu->page_slug) }}" title="{{ $tcPageMenu->menu_title }}">{{ $tcPageMenu->menu_title }}</a>
                                 </li>
                             @endforeach
                         </ul>
-                    </div>
-                    @endif
-                    <div class="footer-column pull-left">
-                        <h4>Style Advisor</h4>
-                        <ul class="links">
-                            <li class="first"><a href="#" title="Your Account">Your Account</a></li>
-                            <li><a href="#" title="Information">Information</a></li>
-                            <li><a href="#" title="Addresses">Addresses</a></li>
-                            <li><a href="#" title="Addresses">Discount</a></li>
-                            <li><a href="#" title="Orders History">Orders History</a></li>
-                            <li class="last"><a href="#" title=" Additional Information"> Additional Information</a></li>
-                        </ul>
+                        @endif
                     </div>
                     <div class="footer-column pull-left">
-                        <h4>Information</h4>
+                        <h4>Privacy</h4>
+                        @if(!empty($ppPageMenus))
                         <ul class="links">
-                            <li class="first"><a href="#" title="Site Map">Site Map</a></li>
-                            <li><a href="#" title="Search Terms">Search Terms</a></li>
-                            <li><a href="#" title="Advanced Search">Advanced Search</a></li>
-                            <li><a href="#" title="History">About Us</a></li>
-                            <li><a href="#" title="History">Contact Us</a></li>
-                            <li><a href="#" title="Suppliers">Suppliers</a></li>
+                            @foreach($ppPageMenus as $ppPageMenu)
+                                <li class=" @if($loop->first) first @elseif($loop->last) last @endif">
+                                    <a href="{{ route('front.pages', $ppPageMenu->page_slug) }}" title="{{ $ppPageMenu->menu_title }}">{{ $ppPageMenu->menu_title }}</a>
+                                </li>
+                            @endforeach
                         </ul>
+                        @endif
+                        @if(!empty($csPageMenus))
+                            <ul class="links">
+                                @foreach($csPageMenus as $csPageMenu)
+                                    <li class=" @if($loop->first) first @elseif($loop->last) last @endif">
+                                        <a href="{{ route('front.pages', $csPageMenu->page_slug) }}" title="{{ $csPageMenu->menu_title }}">{{ $csPageMenu->menu_title }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
                     </div>
                 </div>
                 <div class="col-xs-12 col-lg-3 col-sm-4">
@@ -46,10 +65,15 @@
                             <h4>Download the App</h4>
                             <div class="app-img"><img src="{{asset('crocus_v2/images/android-app.png')}}" alt="android"></div>
                             <div class="app-img"><img src="{{asset('crocus_v2/images/ios-app.png')}}" alt="android"></div>
-                            <div class="app-img"><img src="{{asset('crocus_v2/images/windows-btn.png')}}" alt="android"></div>
+{{--                            <div class="app-img"><img src="{{asset('crocus_v2/images/windows-btn.png')}}" alt="android"></div>--}}
                         </div>
                         <div class="payment-accept">
-                            <div><img src="{{asset('crocus_v2/images/payment-1.png')}}" alt="payment1"> <img src="{{asset('crocus_v2/images/payment-2.png')}}" alt="payment2"> <img src="{{asset('crocus_v2/images/payment-3.png')}}" alt="payment3"> <img src="{{asset('crocus_v2/images/payment-4.png')}}" alt="payment4"> </div>
+                            <div>
+                                <img src="{{asset('crocus_v2/images/payment/payment-1.png')}}" alt="payment1">
+                                <img src="{{asset('crocus_v2/images/payment/payment-2.png')}}" alt="payment2">
+                                <img src="{{asset('crocus_v2/images/payment/payment-3.png')}}" alt="payment3">
+                                <img src="{{asset('crocus_v2/images/payment/payment-4.png')}}" alt="payment4">
+                            </div>
                         </div>
                     </div>
                 </div>

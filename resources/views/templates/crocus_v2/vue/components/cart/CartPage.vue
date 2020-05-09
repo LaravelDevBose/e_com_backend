@@ -22,10 +22,10 @@
                                     <td colspan="1" class="a-left" style=""> Subtotal </td>
                                     <td class="a-right" style=""><span class="price">$ {{ cartSubTotal }}</span></td>
                                 </tr>
-                                <tr>
+                                <!--<tr>
                                     <td colspan="1" class="a-left" style=""> Discount  </td>
                                     <td class="a-right" style=""><span class="price">$ {{ cartDiscount }}</span></td>
-                                </tr>
+                                </tr>-->
                             </tbody>
                             <tfoot>
                             <tr>
