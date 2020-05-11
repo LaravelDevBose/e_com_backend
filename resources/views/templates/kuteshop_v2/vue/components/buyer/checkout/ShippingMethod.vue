@@ -95,9 +95,7 @@
                 this.tabChange(data);
 
             },
-            setDeliveryCharge(charge){
-                this.deliveryChargeUpdate(charge);
-            }
+
         },
         computed:{
             ...mapGetters([

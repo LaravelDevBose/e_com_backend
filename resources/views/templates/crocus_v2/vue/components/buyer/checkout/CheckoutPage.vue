@@ -40,10 +40,6 @@
                 </div>
                 <div id="checkout-step-payment" class="step a-item" :class="paymentTab ? 'show':'hidden'">
                     <payment-method></payment-method>
-                    <p class="require"><em class="required">* </em>Required Fields</p>
-                    <div class="buttons-set1" id="payment-buttons-container">
-                        <a href="#"  class="back-link">« Back</a>
-                    </div>
                     <div style="clear: both;"></div>
                 </div>
 
@@ -53,7 +49,7 @@
             <li>
                 <div class="row">
                     <div class="col-lg-6 col-lg-offset-5 col-md-6 col-md-offset-5 col-sm-12 ">
-                        <button class="button btn-proceed-checkout" @click.prevent="proceedToOrder()" title="Proceed to Checkout" type="button"><span>Proceed to Order</span></button>
+                        <button class="button btn-proceed-checkout" @click.prevent="proceedToOrder()" :disabled="btnDisabled" title="Proceed to Checkout" type="button"><span>Proceed to Order</span></button>
                     </div>
                 </div>
             </li>
@@ -82,7 +78,8 @@
                     payment_method:'',
                     payment_method_id:'',
                     delivery_charge:'',
-                }
+                },
+                btnDisabled: false,
             }
         },
         created() {
@@ -129,6 +126,7 @@
                 this.tabChange(data);
             },
             proceedToOrder(){
+                this.btnDisabled =true;
                 this.formData.billing_address = this.billingAddress;
                 this.formData.billing_address_id = this.billingAddressId;
                 this.formData.shipping_address = this.shippingAddress;

@@ -3,19 +3,8 @@
         <div class="block-title ">Your Checkout</div>
         <div class="block-content">
             <dl>
-                <dt class="complete"> Billing Address <span class="separator">|</span> <a  href="#billing" @click.prevent="changeBillingAddress">Change</a> </dt>
-                <dd class="complete" v-if="Object.entries(billingAddress).length !== 0 && billingAddress !== null ">
-                    <address>
-                        {{ billingAddress.first_name}} {{ billingAddress.last_name }}<br>
-                        {{ billingAddress.address }}<br>
-                        {{ billingAddress.city }}<br>
-                        {{ billingAddress.region }},  {{ billingAddress.postal_code }}<br>
-                        {{ billingAddress.country }}<br>
-                        T: {{ billingAddress.phone_no }}<br>
-                    </address>
-                </dd>
                 <dt class="complete"> Shipping Address <span class="separator">|</span> <a  href="#payment" @click.prevent="changeShippingAddress">Change</a> </dt>
-                <dd class="complete" v-if="Object.entries(shippingAddress).length !== 0 && shippingAddress !== null ">
+                <dd class="complete" v-if="Object.entries(shippingAddress).length !== 0 && shippingAddress">
                     <address>
                         {{ shippingAddress.first_name}} {{ shippingAddress.last_name }}<br>
                         {{ shippingAddress.address }}<br>
@@ -26,12 +15,14 @@
                     </address>
                 </dd>
                 <dt class="complete"> Shipping Method <span class="separator">|</span> <a  href="#shipping_method" @click.prevent="changeShippingMethod">Change</a> </dt>
-                <dd class="complete"> Flat Rate - Fixed <br>
-                    <span class="price">$15.00</span> </dd>
+                <dd class="complete" v-if="Object.entries(selectedMethod).length !== 0">
+                    {{ selectedMethod.delivery_title }} <b class="price"> - ${{ selectedMethod.cost_price }}</b> <br>
+                    ({{ selectedMethod.min_time }}-{{ selectedMethod.max_time }}) working days
+                </dd>
                 <dt> Payment Method </dt>
                 <dd class="complete" v-if="Object.entries(paymentInfo).length !== 0 ">
                     <address>
-                        {{ paymentInfo }}
+                        {{ paymentInfo.value }}
                     </address>
                 </dd>
             </dl>
@@ -112,6 +103,7 @@
                 'billingAddress',
                 'shippingAddress',
                 'paymentInfo',
+                'selectedMethod'
             ])
         }
     }

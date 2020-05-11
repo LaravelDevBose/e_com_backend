@@ -17,6 +17,8 @@ const state = {
     method:false,
     payment:false,
     charge:0,
+    delivery_methods:[],
+    selected_method:{},
 };
 
 //declare Getters
@@ -37,6 +39,8 @@ const getters = {
     methodTab:(state)=>state.method,
     paymentTab:(state)=>state.payment,
     deliveryCost:(state)=>state.charge,
+    deliveryMethods:(state)=>state.delivery_methods,
+    selectedMethod:(state)=>state.selected_method,
 };
 
 const actions = {
@@ -64,7 +68,7 @@ const actions = {
                             address:response.data.data,
                             is_shipping:formData.is_shipping
                         };
-                        commit('updateAddressBook',resData);
+                        commit('updateAddressBook', resData);
                     }
                     return response.data;
                 });
@@ -143,6 +147,7 @@ const mutations = {
         state.payment_methods = response.payment_methods;
         state.shipping_methods = response.shipping_methods;
         state.shipping_price = response.shipping_price;
+        state.delivery_methods = response.delivery_methods;
     },
     updateAddressBook:(state,response)=> {
         let address = {
@@ -176,7 +181,7 @@ const mutations = {
         if(response.reqData.address_type === 1){
             state.billing_address = response.address;
             state.billing_address_id  = response.address.address_id;
-            if(response.reqData.is_shipping === 1 || response.reqData.is_shipping === true){
+            if(response.reqData.is_shipping === 1 || response.reqData.is_shipping === true ){
                 state.shipping_address = response.address;
                 state.shipping_address_id  = response.address.address_id;
             }
@@ -187,13 +192,23 @@ const mutations = {
     },
     setPaymentMethodInfo:(state,response)=>{
         //TODO payment Details after using payment gatwaye
-        state.payment_info = state.payment_methods[response.payment_method_id];
-        state.payment_method_id = response.payment_method_id;
+        state.payment_methods.filter( pMathod => {
+            if(pMathod.key === response){
+                state.payment_info = pMathod;
+            }
+        });
+        state.payment_method_id = response;
     },
     setShippingMethodInfo:(state,response)=>{
         // TODO payment Details after using payment gatwaye
         // state.payment_info = state.payment_methods[response.payment_method_id];
         state.shipping_method_id = response.shipping_method_id;
+        state.charge = response.cost_price;
+        state.delivery_methods.filter(method=>{
+            if(method.delivery_id === response.shipping_method_id){
+                state.selected_method = method
+            }
+        });
     },
     setTabChange:(state,data)=>{
         if(data.billing){

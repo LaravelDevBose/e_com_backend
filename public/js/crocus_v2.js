@@ -3731,10 +3731,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -3760,7 +3756,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         payment_method: '',
         payment_method_id: '',
         delivery_charge: ''
-      }
+      },
+      btnDisabled: false
     };
   },
   created: function created() {},
@@ -3798,6 +3795,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     proceedToOrder: function proceedToOrder() {
       var _this = this;
 
+      this.btnDisabled = true;
       this.formData.billing_address = this.billingAddress;
       this.formData.billing_address_id = this.billingAddressId;
       this.formData.shipping_address = this.shippingAddress;
@@ -3844,15 +3842,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3944,7 +3933,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.tabChange(data);
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['billingAddress', 'shippingAddress', 'paymentInfo']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['billingAddress', 'shippingAddress', 'paymentInfo', 'selectedMethod']))
 });
 
 /***/ }),
@@ -3976,6 +3965,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // TODO payment getwaye intregrate
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3988,47 +4002,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storePaymentMethod', 'tabChange']), {
-    paymentMethodStore: function paymentMethodStore() {
+    paymentMethodStore: function paymentMethodStore(value) {
       var _this = this;
 
-      this.storePaymentMethod(this.formData).then(function (response) {
-        _this.$noty.success('Payment Information Added.');
-
-        _this.continueTab();
+      this.storePaymentMethod(value).then(function (response) {
+        _this.$noty.success('Payment Information Selected.');
       });
-    },
-    continueTab: function continueTab() {
-      var data = {
-        billing: {
-          'tabAction': false
-        },
-        shopping: {
-          'tabAction': false
-        },
-        method: {
-          'tabAction': false
-        },
-        payment: {
-          'tabAction': false
-        }
-      };
-      this.tabChange(data);
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['paymentMethods']), {
-    formDataCheck: function formDataCheck() {
-      return JSON.parse(JSON.stringify(this.formData));
-    }
-  }),
-  watch: {
-    formDataCheck: {
-      handler: function handler(newVal, oldVal) {
-        if (newVal !== oldVal) {
-          this.storePaymentMethod(this.formData);
-        }
-      }
-    }
-  }
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['paymentMethods']))
 });
 
 /***/ }),
@@ -4353,13 +4335,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ShippingMethod",
   data: function data() {
     return {
       formData: {
-        shipping_method_id: ''
+        shipping_method_id: '',
+        cost_price: 0
       }
     };
   },
@@ -4368,6 +4363,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     shippingMethodStore: function shippingMethodStore() {
       var _this = this;
 
+      this.deliveryMethods.filter(function (method) {
+        if (method.delivery_id === _this.formData.shipping_method_id) {
+          _this.formData.cost_price = method.cost_price;
+        }
+      });
       this.storeShippingMethod(this.formData).then(function (response) {
         _this.$noty.success('Shipping Information Added.');
 
@@ -4391,11 +4391,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       };
       this.tabChange(data);
     },
-    setDeliveryCharge: function setDeliveryCharge(charge) {
-      this.deliveryChargeUpdate(charge);
+    backTab: function backTab() {
+      var data = {
+        billing: {
+          'tabAction': false
+        },
+        shopping: {
+          'tabAction': true
+        },
+        method: {
+          'tabAction': false
+        },
+        payment: {
+          'tabAction': false
+        }
+      };
+      this.tabChange(data);
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['shippingMethods', 'deliveryCharge']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['deliveryMethods', 'deliveryCharge']))
 });
 
 /***/ }),
@@ -69854,10 +69868,6 @@ var render = function() {
               [
                 _c("payment-method"),
                 _vm._v(" "),
-                _vm._m(4),
-                _vm._v(" "),
-                _vm._m(5),
-                _vm._v(" "),
                 _c("div", { staticStyle: { clear: "both" } })
               ],
               1
@@ -69881,7 +69891,11 @@ var render = function() {
                 "button",
                 {
                   staticClass: "button btn-proceed-checkout",
-                  attrs: { title: "Proceed to Checkout", type: "button" },
+                  attrs: {
+                    disabled: _vm.btnDisabled,
+                    title: "Proceed to Checkout",
+                    type: "button"
+                  },
                   on: {
                     click: function($event) {
                       $event.preventDefault()
@@ -69940,32 +69954,6 @@ var staticRenderFns = [
         _vm._v("Payment Information")
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "require" }, [
-      _c("em", { staticClass: "required" }, [_vm._v("* ")]),
-      _vm._v("Required Fields")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "buttons-set1",
-        attrs: { id: "payment-buttons-container" }
-      },
-      [
-        _c("a", { staticClass: "back-link", attrs: { href: "#" } }, [
-          _vm._v("« Back")
-        ])
-      ]
-    )
   }
 ]
 render._withStripped = true
@@ -69995,64 +69983,6 @@ var render = function() {
     _c("div", { staticClass: "block-content" }, [
       _c("dl", [
         _c("dt", { staticClass: "complete" }, [
-          _vm._v(" Billing Address "),
-          _c("span", { staticClass: "separator" }, [_vm._v("|")]),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              attrs: { href: "#billing" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.changeBillingAddress($event)
-                }
-              }
-            },
-            [_vm._v("Change")]
-          )
-        ]),
-        _vm._v(" "),
-        Object.entries(_vm.billingAddress).length !== 0 &&
-        _vm.billingAddress !== null
-          ? _c("dd", { staticClass: "complete" }, [
-              _c("address", [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.billingAddress.first_name) +
-                    " " +
-                    _vm._s(_vm.billingAddress.last_name)
-                ),
-                _c("br"),
-                _vm._v(
-                  "\n                    " + _vm._s(_vm.billingAddress.address)
-                ),
-                _c("br"),
-                _vm._v(
-                  "\n                    " + _vm._s(_vm.billingAddress.city)
-                ),
-                _c("br"),
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.billingAddress.region) +
-                    ",  " +
-                    _vm._s(_vm.billingAddress.postal_code)
-                ),
-                _c("br"),
-                _vm._v(
-                  "\n                    " + _vm._s(_vm.billingAddress.country)
-                ),
-                _c("br"),
-                _vm._v(
-                  "\n                    T: " +
-                    _vm._s(_vm.billingAddress.phone_no)
-                ),
-                _c("br")
-              ])
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("dt", { staticClass: "complete" }, [
           _vm._v(" Shipping Address "),
           _c("span", { staticClass: "separator" }, [_vm._v("|")]),
           _vm._v(" "),
@@ -70071,8 +70001,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        Object.entries(_vm.shippingAddress).length !== 0 &&
-        _vm.shippingAddress !== null
+        Object.entries(_vm.shippingAddress).length !== 0 && _vm.shippingAddress
           ? _c("dd", { staticClass: "complete" }, [
               _c("address", [
                 _vm._v(
@@ -70129,7 +70058,27 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(0),
+        Object.entries(_vm.selectedMethod).length !== 0
+          ? _c("dd", { staticClass: "complete" }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.selectedMethod.delivery_title) +
+                  " "
+              ),
+              _c("b", { staticClass: "price" }, [
+                _vm._v(" - $" + _vm._s(_vm.selectedMethod.cost_price))
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(
+                "\n                (" +
+                  _vm._s(_vm.selectedMethod.min_time) +
+                  "-" +
+                  _vm._s(_vm.selectedMethod.max_time) +
+                  ") working days\n            "
+              )
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("dt", [_vm._v(" Payment Method ")]),
         _vm._v(" "),
@@ -70138,7 +70087,7 @@ var render = function() {
               _c("address", [
                 _vm._v(
                   "\n                    " +
-                    _vm._s(_vm.paymentInfo) +
+                    _vm._s(_vm.paymentInfo.value) +
                     "\n                "
                 )
               ])
@@ -70148,19 +70097,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("dd", { staticClass: "complete" }, [
-      _vm._v(" Flat Rate - Fixed "),
-      _c("br"),
-      _vm._v(" "),
-      _c("span", { staticClass: "price" }, [_vm._v("$15.00")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -70187,50 +70124,132 @@ var render = function() {
       ? _c(
           "dl",
           { attrs: { id: "checkout-payment-method-load" } },
-          _vm._l(_vm.paymentMethods, function(payment, index) {
-            return _c("dt", [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.formData.payment_method_id,
-                    expression: "formData.payment_method_id"
+          [
+            _vm._l(_vm.paymentMethods, function(payment, index) {
+              return _c("dt", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.formData.payment_method_id,
+                      expression: "formData.payment_method_id"
+                    }
+                  ],
+                  staticClass: "radio",
+                  attrs: {
+                    type: "radio",
+                    id: "p_method_" + index,
+                    name: "payment_method",
+                    title: payment.value
+                  },
+                  domProps: {
+                    value: payment.key,
+                    checked: _vm._q(_vm.formData.payment_method_id, payment.key)
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.paymentMethodStore(payment.key)
+                    },
+                    change: function($event) {
+                      return _vm.$set(
+                        _vm.formData,
+                        "payment_method_id",
+                        payment.key
+                      )
+                    }
                   }
-                ],
-                staticClass: "radio",
-                attrs: {
-                  type: "radio",
-                  id: "p_method_" + index,
-                  name: "payment_method",
-                  title: payment.value
-                },
-                domProps: {
-                  value: payment.key,
-                  checked: _vm._q(_vm.formData.payment_method_id, payment.key)
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(
-                      _vm.formData,
-                      "payment_method_id",
-                      payment.key
-                    )
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "p_method_" + index } }, [
-                _vm._v(_vm._s(payment.value))
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "p_method_" + index } }, [
+                  _vm._v(_vm._s(payment.value))
+                ])
               ])
+            }),
+            _vm._v(" "),
+            _c("dt", { staticClass: "row" }, [
+              _vm.formData.payment_method_id === 2
+                ? _c("div", { staticClass: "col-md-6 col-md-offset-3" }, [
+                    _vm._m(0)
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.formData.payment_method_id === 3
+                ? _c("div", { staticClass: "col-md-6 col-md-offset-3" }, [
+                    _vm._m(1)
+                  ])
+                : _vm._e()
             ])
-          }),
-          0
+          ],
+          2
         )
-      : _vm._e()
+      : _vm._e(),
+    _vm._v(" "),
+    _vm._m(2),
+    _vm._v(" "),
+    _vm._m(3)
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c(
+        "button",
+        {
+          staticClass: "button btn-block",
+          staticStyle: { background: "#f36", color: "#ffffff" },
+          attrs: { type: "button" }
+        },
+        [_vm._v("Pay here by Salaam (123456789)")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c(
+        "button",
+        {
+          staticClass: "button btn-block",
+          staticStyle: { background: "#f78031", color: "#ffffff" },
+          attrs: { type: "button" }
+        },
+        [_vm._v("Pay here by eDahab (123456789)")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "require" }, [
+      _c("em", { staticClass: "required" }, [_vm._v("* ")]),
+      _vm._v("Required Fields")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "buttons-set1",
+        attrs: { id: "payment-buttons-container" }
+      },
+      [
+        _c("a", { staticClass: "back-link", attrs: { href: "#" } }, [
+          _vm._v("« Back")
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -70851,12 +70870,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("fieldset", [
     _c("div", { attrs: { id: "checkout-shipping-method-load" } }, [
-      _vm.shippingMethods
+      _vm.deliveryMethods
         ? _c("dl", { staticClass: "shipping-methods" }, [
             _c("dd", [
               _c(
                 "ul",
-                _vm._l(_vm.shippingMethods, function(shipping, index) {
+                _vm._l(_vm.deliveryMethods, function(method, index) {
                   return _c("li", { key: index }, [
                     _c("input", {
                       directives: [
@@ -70871,36 +70890,40 @@ var render = function() {
                       attrs: {
                         type: "radio",
                         name: "shipping_method",
-                        id: "s_method_flatrate_flatrate"
+                        id: "radio_button_" + index
                       },
                       domProps: {
-                        value: index,
-                        checked: _vm._q(_vm.formData.shipping_method_id, index)
+                        value: method.delivery_id,
+                        checked: _vm._q(
+                          _vm.formData.shipping_method_id,
+                          method.delivery_id
+                        )
                       },
                       on: {
-                        click: function($event) {
-                          return _vm.setDeliveryCharge(_vm.deliveryCharge)
-                        },
                         change: function($event) {
                           return _vm.$set(
                             _vm.formData,
                             "shipping_method_id",
-                            index
+                            method.delivery_id
                           )
                         }
                       }
                     }),
                     _vm._v(" "),
-                    _c(
-                      "label",
-                      { attrs: { for: "s_method_flatrate_flatrate" } },
-                      [
-                        _vm._v(_vm._s(shipping) + " "),
-                        _c("span", { staticClass: "price" }, [
-                          _vm._v("$ " + _vm._s(_vm.deliveryCharge))
-                        ])
-                      ]
-                    )
+                    _c("label", { attrs: { for: "radio_button_" + index } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(method.delivery_title) +
+                          "\n                            (" +
+                          _vm._s(method.min_time) +
+                          "-" +
+                          _vm._s(method.max_time) +
+                          ") working days\n                            "
+                      ),
+                      _c("b", { staticClass: "price" }, [
+                        _vm._v(" - $" + _vm._s(method.cost_price))
+                      ])
+                    ])
                   ])
                 }),
                 0
@@ -70918,9 +70941,25 @@ var render = function() {
       },
       [
         _c(
+          "a",
+          {
+            staticClass: "back-link",
+            attrs: { href: "#" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.backTab()
+              }
+            }
+          },
+          [_vm._v("« Back")]
+        ),
+        _vm._v(" "),
+        _c(
           "button",
           {
             staticClass: "button",
+            staticStyle: { float: "right" },
             attrs: { type: "button" },
             on: {
               click: function($event) {
@@ -97369,7 +97408,9 @@ var state = {
   shopping: true,
   method: false,
   payment: false,
-  charge: 0
+  charge: 0,
+  delivery_methods: [],
+  selected_method: {}
 }; //declare Getters
 
 var getters = {
@@ -97420,6 +97461,12 @@ var getters = {
   },
   deliveryCost: function deliveryCost(state) {
     return state.charge;
+  },
+  deliveryMethods: function deliveryMethods(state) {
+    return state.delivery_methods;
+  },
+  selectedMethod: function selectedMethod(state) {
+    return state.selected_method;
   }
 };
 var actions = {
@@ -97723,6 +97770,7 @@ var mutations = {
     state.payment_methods = response.payment_methods;
     state.shipping_methods = response.shipping_methods;
     state.shipping_price = response.shipping_price;
+    state.delivery_methods = response.delivery_methods;
   },
   updateAddressBook: function updateAddressBook(state, response) {
     var address = {
@@ -97771,13 +97819,23 @@ var mutations = {
   },
   setPaymentMethodInfo: function setPaymentMethodInfo(state, response) {
     //TODO payment Details after using payment gatwaye
-    state.payment_info = state.payment_methods[response.payment_method_id];
-    state.payment_method_id = response.payment_method_id;
+    state.payment_methods.filter(function (pMathod) {
+      if (pMathod.key === response) {
+        state.payment_info = pMathod;
+      }
+    });
+    state.payment_method_id = response;
   },
   setShippingMethodInfo: function setShippingMethodInfo(state, response) {
     // TODO payment Details after using payment gatwaye
     // state.payment_info = state.payment_methods[response.payment_method_id];
     state.shipping_method_id = response.shipping_method_id;
+    state.charge = response.cost_price;
+    state.delivery_methods.filter(function (method) {
+      if (method.delivery_id === response.shipping_method_id) {
+        state.selected_method = method;
+      }
+    });
   },
   setTabChange: function setTabChange(state, data) {
     if (data.billing) {
