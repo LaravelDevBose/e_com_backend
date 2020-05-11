@@ -4859,18 +4859,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OrderListTable",
+  data: function data() {
+    return {
+      pageNumber: 0,
+      size: 10
+    };
+  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getOrderInfo']), {
     showInvoiceDetails: function showInvoiceDetails(order_id) {
       location.href = "/buyer/order/".concat(order_id, "/show");
     },
     goToAddReviewPage: function goToAddReviewPage(order_id) {
       location.href = "/buyer/reviews/add/".concat(order_id);
+    },
+    nextPage: function nextPage() {
+      this.pageNumber++;
+    },
+    prevPage: function prevPage() {
+      this.pageNumber--;
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['orderList', 'pagination']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['orderList', 'pagination']), {
+    pageCount: function pageCount() {
+      var l = this.orderList.length,
+          s = this.size;
+      return Math.ceil(l / s);
+    },
+    paginatedData: function paginatedData() {
+      var start = this.pageNumber * this.size,
+          end = start + this.size;
+      return this.orderList.slice(start, end);
+    }
+  })
 });
 
 /***/ }),
@@ -71589,14 +71626,14 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.orderList, function(order, index) {
-            return _vm.orderList
+          _vm._l(_vm.paginatedData, function(order, index) {
+            return _vm.paginatedData
               ? _c(
                   "tr",
                   {
                     class: {
                       first: index === 0,
-                      last: index + 1 === _vm.orderList.length,
+                      last: index + 1 === _vm.paginatedData.length,
                       even: index % 2 === 0,
                       odd: index % 2 !== 0
                     }
@@ -71662,7 +71699,35 @@ var render = function() {
           0
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _vm.orderList.length > _vm.size
+      ? _c(
+          "div",
+          { staticClass: "text-right", staticStyle: { "margin-top": "1rem" } },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-primary",
+                attrs: { disabled: _vm.pageNumber === 0 },
+                on: { click: _vm.prevPage }
+              },
+              [_vm._v("\n            Previous\n        ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-primary",
+                attrs: { disabled: _vm.pageNumber >= _vm.pageCount - 1 },
+                on: { click: _vm.nextPage }
+              },
+              [_vm._v("\n            Next\n        ")]
+            )
+          ]
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

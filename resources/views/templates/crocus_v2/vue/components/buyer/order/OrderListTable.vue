@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-if="orderList" v-for="(order,index) in orderList" :class="{'first':index === 0, 'last':(index+1) === orderList.length ,'even': index % 2 === 0, 'odd': index % 2 !== 0 }">
+                <tr v-if="paginatedData" v-for="(order,index) in paginatedData" :class="{'first':index === 0, 'last':(index+1) === paginatedData.length ,'even': index % 2 === 0, 'odd': index % 2 !== 0 }">
                     <td>{{ order.order_no }}</td>
                     <td>{{ order.order_date }}</td>
                     <td>
@@ -36,6 +36,20 @@
                 </tr>
             </tbody>
         </table>
+        <div class="text-right" style="margin-top: 1rem;" v-if="orderList.length > size">
+            <button
+                class="btn btn-sm btn-primary"
+                :disabled="pageNumber === 0"
+                @click="prevPage">
+                Previous
+            </button>
+            <button
+                class="btn btn-sm btn-primary"
+                :disabled="pageNumber >= pageCount -1"
+                @click="nextPage">
+                Next
+            </button>
+        </div>
     </div>
 </template>
 
@@ -44,6 +58,12 @@
 
     export default {
         name: "OrderListTable",
+        data () {
+            return {
+                pageNumber: 0,
+                size: 10,
+            }
+        },
         methods:{
             ...mapActions([
                 'getOrderInfo'
@@ -54,12 +74,29 @@
             goToAddReviewPage(order_id){
                 location.href = `/buyer/reviews/add/${order_id}`;
             },
+            nextPage(){
+                this.pageNumber++;
+            },
+            prevPage(){
+                this.pageNumber--;
+            }
         },
         computed:{
             ...mapGetters([
                 'orderList',
                 'pagination'
-            ])
+            ]),
+            pageCount(){
+                let l = this.orderList.length,
+                    s = this.size;
+                return Math.ceil(l/s);
+            },
+            paginatedData(){
+                const start = this.pageNumber * this.size,
+                    end = start + this.size;
+                return this.orderList
+                    .slice(start, end);
+            }
         }
     }
 </script>
