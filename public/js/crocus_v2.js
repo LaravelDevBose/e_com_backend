@@ -5546,6 +5546,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "IndividualSellerOrderList",
@@ -5553,7 +5568,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       reqData: {
         seller_id: 'seller'
-      }
+      },
+      pageNumber: 0,
+      size: 15
     };
   },
   mounted: function mounted() {
@@ -5582,9 +5599,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.$noty.error(response.message);
         }
       });
+    },
+    nextPage: function nextPage() {
+      this.pageNumber++;
+    },
+    prevPage: function prevPage() {
+      this.pageNumber--;
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['individualSellerOrders']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['individualSellerOrders']), {
+    pageCount: function pageCount() {
+      var l = this.individualSellerOrders.length,
+          s = this.size;
+      return Math.ceil(l / s);
+    },
+    paginatedData: function paginatedData() {
+      var start = this.pageNumber * this.size,
+          end = start + this.size;
+      return this.individualSellerOrders.slice(start, end);
+    }
+  })
 });
 
 /***/ }),
@@ -72917,14 +72951,14 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.individualSellerOrders, function(orderItem, index) {
-            return _vm.individualSellerOrders.length !== 0
+          _vm._l(_vm.paginatedData, function(orderItem, index) {
+            return _vm.paginatedData
               ? _c(
                   "tr",
                   {
                     class: {
                       first: index === 0,
-                      last: index + 1 === _vm.individualSellerOrders.length,
+                      last: index + 1 === _vm.paginatedData.length,
                       even: index % 2 === 0,
                       odd: index % 2 !== 0
                     }
@@ -72933,7 +72967,7 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(orderItem.order.order_no))]),
                     _vm._v(" "),
                     _c("td", [
-                      orderItem.product.thumb_image.image_path
+                      orderItem.image
                         ? _c("img", {
                             staticClass: "img img-responsive",
                             staticStyle: {
@@ -72941,8 +72975,8 @@ var render = function() {
                               "max-height": "50px"
                             },
                             attrs: {
-                              src: orderItem.product.thumb_image.image_path,
-                              alt: orderItem.product.product_name
+                              src: orderItem.image.image_path,
+                              alt: orderItem.product_name
                             }
                           })
                         : _vm._e()
@@ -72951,16 +72985,16 @@ var render = function() {
                     _c("td", [
                       _c("div", [
                         _c("p", { staticClass: "mar-0" }, [
-                          _vm._v(
-                            "Name: " + _vm._s(orderItem.product.product_name)
-                          )
+                          _vm._v("Name: " + _vm._s(orderItem.product_name))
                         ]),
                         _vm._v(" "),
-                        _c("p", { staticClass: "mar-0" }, [
-                          _vm._v(
-                            "SKU: " + _vm._s(orderItem.product.product_sku)
-                          )
-                        ])
+                        orderItem.product
+                          ? _c("p", { staticClass: "mar-0" }, [
+                              _vm._v(
+                                "SKU: " + _vm._s(orderItem.product.product_sku)
+                              )
+                            ])
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -73068,7 +73102,35 @@ var render = function() {
           0
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _vm.individualSellerOrders.length > _vm.size
+      ? _c(
+          "div",
+          { staticClass: "text-right", staticStyle: { "margin-top": "1rem" } },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-primary",
+                attrs: { disabled: _vm.pageNumber === 0 },
+                on: { click: _vm.prevPage }
+              },
+              [_vm._v("\n            Previous\n        ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-primary",
+                attrs: { disabled: _vm.pageNumber >= _vm.pageCount - 1 },
+                on: { click: _vm.nextPage }
+              },
+              [_vm._v("\n            Next\n        ")]
+            )
+          ]
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

@@ -15,15 +15,16 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-if="individualSellerOrders.length !== 0" v-for="(orderItem,index) in individualSellerOrders" :class="{'first':index === 0, 'last':(index+1) === individualSellerOrders.length ,'even': index % 2 === 0, 'odd': index % 2 !== 0 }">
+            <tr v-if="paginatedData" v-for="(orderItem,index) in paginatedData"
+                :class="{'first':index === 0, 'last':(index+1) === paginatedData.length ,'even': index % 2 === 0, 'odd': index % 2 !== 0 }">
                 <td>{{ orderItem.order.order_no }}</td>
                 <td>
-                    <img v-if="orderItem.product.thumb_image.image_path" :src="orderItem.product.thumb_image.image_path" :alt="orderItem.product.product_name" class="img img-responsive" style="max-width: 50px; max-height: 50px">
+                    <img v-if="orderItem.image" :src="orderItem.image.image_path" :alt="orderItem.product_name" class="img img-responsive" style="max-width: 50px; max-height: 50px">
                 </td>
                 <td>
                     <div>
-                        <p class="mar-0">Name: {{ orderItem.product.product_name }}</p>
-                        <p class="mar-0" >SKU: {{ orderItem.product.product_sku }}</p>
+                        <p class="mar-0">Name: {{ orderItem.product_name }}</p>
+                        <p class="mar-0" v-if="orderItem.product" >SKU: {{ orderItem.product.product_sku }}</p>
                     </div>
                 </td>
                 <td>
@@ -57,6 +58,20 @@
             </tr>
             </tbody>
         </table>
+        <div class="text-right" style="margin-top: 1rem;" v-if="individualSellerOrders.length > size">
+            <button
+                class="btn btn-sm btn-primary"
+                :disabled="pageNumber === 0"
+                @click="prevPage">
+                Previous
+            </button>
+            <button
+                class="btn btn-sm btn-primary"
+                :disabled="pageNumber >= pageCount -1"
+                @click="nextPage">
+                Next
+            </button>
+        </div>
     </div>
 </template>
 
@@ -69,7 +84,9 @@
             return{
                 reqData:{
                     seller_id:'seller',
-                }
+                },
+                pageNumber: 0,
+                size: 15,
             }
         },
         mounted() {
@@ -100,12 +117,29 @@
                             this.$noty.error(response.message);
                         }
                     })
+            },
+            nextPage(){
+                this.pageNumber++;
+            },
+            prevPage(){
+                this.pageNumber--;
             }
         },
         computed:{
             ...mapGetters([
                 'individualSellerOrders'
-            ])
+            ]),
+            pageCount(){
+                let l = this.individualSellerOrders.length,
+                    s = this.size;
+                return Math.ceil(l/s);
+            },
+            paginatedData(){
+                const start = this.pageNumber * this.size,
+                    end = start + this.size;
+                return this.individualSellerOrders
+                    .slice(start, end);
+            }
         }
     }
 </script>

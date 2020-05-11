@@ -91,7 +91,9 @@ class SellerController extends Controller
     }
 
     public function order_list(Request $request){
-        $orderItems = OrderHelper::order_item_list($request);
+        $orderItems = OrderItem::with('order','buyer.user','product', 'size', 'color', 'brand', 'image')
+                        ->where('seller_id', auth()->user()->seller->seller_id)
+                        ->get();
         if(!empty($orderItems)){
             // TODO Order Collection added
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $orderItems);
