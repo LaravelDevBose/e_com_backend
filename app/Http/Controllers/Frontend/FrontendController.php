@@ -257,18 +257,21 @@ class FrontendController extends Controller
             $products = $products->whereIn('brand_id', $request->brandIds);
         }
 
-        $varProds = $products->get();
+        $varProIds = [];
+        if(!empty($request->colorIds) || !empty($request->sizeIds)){
+            $varProds = $products->get();
+
+            // Variation Product Filter
+            $productIds = $varProds->where('product_type', Product::ProductType['Variation'])->pluck('product_id');
+            $varProIds = ProductVariation::whereIn('product_id', $productIds)
+                ->whereIn('pri_id',$request->colorIds)
+                ->whereIn('sec_id', $request->sizeIds)
+                ->where('price', '>=', $request->range['min'])
+                ->where('price', '<=', $request->range['max'])
+                ->pluck('product_id')->toArray();
+        }
+
         $simProds = $products->get();
-
-        // Variation Product Filter
-        $productIds = $varProds->where('product_type', Product::ProductType['Variation'])->pluck('product_id');
-        $varProIds = ProductVariation::whereIn('product_id', $productIds)
-                        ->whereIn('pri_id',$request->colorIds)
-                        ->whereIn('sec_id', $request->sizeIds)
-                        ->where('price', '>=', $request->range['min'])
-                        ->where('price', '<=', $request->range['max'])
-                        ->pluck('product_id')->toArray();
-
         // Simple Product Filter
         $simProIds = $simProds->where('product_type', Product::ProductType['Simple'])
             ->where('product_price', '>=', $request->range['min'])

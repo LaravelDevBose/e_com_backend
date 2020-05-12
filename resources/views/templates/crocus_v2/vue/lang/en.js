@@ -171,8 +171,14 @@ export const ENGLISH_TRANSLATIONS  ={
             pro_img: 'Product Image',
             pro_update: 'Update Product',
             pro_save: 'Save Product',
+        },
+        review: {
+            review_list: 'Review List',
+            review: 'Review',
+            my_review: 'My Review',
+            rating: 'Rating',
+            review_war: 'After Delivery You Can review This Product'
         }
-
     },
     form:{
         email:'Email',

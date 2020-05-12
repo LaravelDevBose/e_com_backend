@@ -1,4 +1,4 @@
-@extends('templates.kuteshop_v2.layouts.frontend.master')
+@extends('templates.crocus_v2.layouts.frontend.master')
 
 @section('Title', 'Review History')
 
@@ -7,29 +7,20 @@
 @endsection
 
 @section('Content')
-    <main class="site-main">
-
-        <div class="columns container">
-            <ol class="breadcrumb no-hide">
-                <li><a href="{{ route('front.index') }}">{{ __('buyer.home') }}</a></li>
-                <li><a href="{{ route('buyer.home') }}">{{ __('buyer.dashboard') }}</a></li>
-                <li class="active">Review History</li>
-            </ol>
-
+    <div class="main-container col2-right-layout">
+        <div class="main container">
             <div class="row">
+                <section class="col-sm-9 wow bounceInUp animated">
+                    <div class="col-main">
+                        <review-list-page></review-list-page>
+                    </div>
+                </section>
 
-                <!-- Main Content -->
-                <review-list-page></review-list-page>
-                <!-- Main Content -->
-
-                <!-- Sidebar -->
-                <div class="col-md-3 col-md-pull-9   col-sidebar">
-                    @include('templates.kuteshop_v2.buyer.partials.right_side')
-                </div>
-                <!-- Sidebar -->
+                <!-- right side -->
+                @include('templates.crocus_v2.buyer.partials.right_side')
             </div>
         </div>
-    </main>
+    </div>
 @endsection
 
 @section('PageJs')

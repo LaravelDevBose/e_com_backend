@@ -34,7 +34,7 @@ class ReviewController extends Controller
 
     public function review_list()
     {
-        $reviews = Review::notDelete()->latest()->with('item', 'product')->where('buyer_id', auth()->user()->buyer->buyer_id)->paginate(20);
+        $reviews = Review::notDelete()->latest()->with('item.image')->where('buyer_id', auth()->user()->buyer->buyer_id)->get();
 
         if(!empty($reviews)){
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $reviews);

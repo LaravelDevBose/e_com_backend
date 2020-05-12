@@ -4912,6 +4912,350 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _SingleReviewForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SingleReviewForm */ "./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AddReviewPage",
+  components: {
+    SingleReviewForm: _SingleReviewForm__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  props: {
+    orderid: {
+      type: [Number],
+      "default": ''
+    }
+  },
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {
+    if (this.orderid !== '') {
+      this.getOrderReviewItems(this.orderid);
+    }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getOrderReviewItems'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['reviewItems']))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ReviewListTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ReviewListTable */ "./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ReviewListPage",
+  components: {
+    ReviewListTable: _ReviewListTable__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue_star_rating__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-star-rating */ "./node_modules/vue-star-rating/dist/star-rating.min.js");
+/* harmony import */ var vue_star_rating__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_star_rating__WEBPACK_IMPORTED_MODULE_1__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ReviewListTable",
+  components: {
+    'star-rating': vue_star_rating__WEBPACK_IMPORTED_MODULE_1___default.a
+  },
+  data: function data() {
+    return {
+      pageNumber: 0,
+      size: 10
+    };
+  },
+  mounted: function mounted() {
+    this.getBuyerReviews();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getBuyerReviews']), {
+    nextPage: function nextPage() {
+      this.pageNumber++;
+    },
+    prevPage: function prevPage() {
+      this.pageNumber--;
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['reviewList']), {
+    pageCount: function pageCount() {
+      var l = this.reviewList.length,
+          s = this.size;
+      return Math.ceil(l / s);
+    },
+    paginatedData: function paginatedData() {
+      var start = this.pageNumber * this.size,
+          end = start + this.size;
+      return this.reviewList.slice(start, end);
+    }
+  })
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue_star_rating__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-star-rating */ "./node_modules/vue-star-rating/dist/star-rating.min.js");
+/* harmony import */ var vue_star_rating__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_star_rating__WEBPACK_IMPORTED_MODULE_1__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "SingleReviewForm",
+  components: {
+    'star-rating': vue_star_rating__WEBPACK_IMPORTED_MODULE_1___default.a
+  },
+  props: {
+    order_item: [Object]
+  },
+  data: function data() {
+    return {
+      formData: {
+        item_id: '',
+        product_id: '',
+        rating: 0,
+        review: ''
+      },
+      btnDisabled: false,
+      haveReview: false
+    };
+  },
+  mounted: function mounted() {
+    if (this.order_item.review !== '' && this.order_item.review !== null) {
+      this.haveReview = true;
+      this.formData.review = this.order_item.review.review;
+      this.formData.rating = this.order_item.review.rating;
+    }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeBuyerReview']), {
+    addBuyerReview: function addBuyerReview() {
+      var _this = this;
+
+      if (!this.checkValidation()) {
+        return false;
+      }
+
+      this.btnDisabled = true;
+      this.formData.item_id = this.order_item.item_id;
+      this.formData.product_id = this.order_item.product_id;
+      this.storeBuyerReview(this.formData).then(function (response) {
+        if (typeof response.code !== 'undefined' && response.code === 200) {
+          _this.haveReview = true;
+
+          _this.$noty.success(response.message);
+        } else if (response.status === 'validation') {
+          _this.$noty.warning(response.message);
+        } else {
+          _this.$noty.error(response.message);
+        }
+      });
+    },
+    checkValidation: function checkValidation() {
+      if (this.formData.rating === '' && this.formData.review === '') {
+        this.$noty.success('Review Form is Empty.');
+        return false;
+      }
+
+      return true;
+    }
+  }),
+  computed: {},
+  watch: {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/section/InvoiceModal.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/section/InvoiceModal.vue?vue&type=script&lang=js& ***!
@@ -15070,6 +15414,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_
 
 // module
 exports.push([module.i, "\n.show[data-v-6d577f3d]{\r\n    display: inline-block!important;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=style&index=0&id=4f387593&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=style&index=0&id=4f387593&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.box-border[data-v-4f387593]{\n    padding:7px 15px;\n    margin-bottom:10px;\n    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;\n}\n.product-image[data-v-4f387593]{\n    width: 100%;\n    height: auto;\n}\n.product-item-detail[data-v-4f387593]{\n    display: inline-block;\n    padding:10px;\n}\n.product-item-detail p[data-v-4f387593]{\n    margin-bottom: 0px;\n}\nul[data-v-4f387593]{\n    padding-top: 1rem;\n    list-style: none;\n    padding-left: 0;\n}\n", ""]);
 
 // exports
 
@@ -61889,6 +62252,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=style&index=0&id=4f387593&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=style&index=0&id=4f387593&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../../../../node_modules/css-loader??ref--6-1!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SingleReviewForm.vue?vue&type=style&index=0&id=4f387593&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=style&index=0&id=4f387593&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/section/InvoiceModal.vue?vue&type=style&index=0&id=04b29c42&scoped=true&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/section/InvoiceModal.vue?vue&type=style&index=0&id=04b29c42&scoped=true&lang=css& ***!
@@ -71763,6 +72156,440 @@ var render = function() {
         )
       : _vm._e()
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue?vue&type=template&id=583a75ae&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue?vue&type=template&id=583a75ae&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "col-sm-9 wow bounceInUp animated" }, [
+    _vm.reviewItems.length !== 0
+      ? _c(
+          "div",
+          { staticClass: "row" },
+          _vm._l(_vm.reviewItems, function(item, index) {
+            return _c(
+              "div",
+              { key: index, staticClass: "col-md-12" },
+              [_c("single-review-form", { attrs: { order_item: item } })],
+              1
+            )
+          }),
+          0
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue?vue&type=template&id=442e7ff4&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue?vue&type=template&id=442e7ff4&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "my-account" }, [
+    _c("div", { staticClass: "page-title" }, [
+      _c("h2", [_vm._v(_vm._s(_vm.$t("buyer.review.review_list")))])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "dashboard" }, [
+      _c("div", { staticClass: "recent-orders" }, [_c("review-list-table")], 1)
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue?vue&type=template&id=cde7528e&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue?vue&type=template&id=cde7528e&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "table-responsive wow bounceInUp animated" },
+    [
+      _c("table", { staticClass: "table table-bordered  cart_summary" }, [
+        _c("thead", [
+          _c("tr", [
+            _c("th", [_vm._v(_vm._s(_vm.$t("buyer.product.pro_img")) + " ")]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm.$t("buyer.product.pro_name")) + " ")]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm.$t("buyer.review.review")))]),
+            _vm._v(" "),
+            _c("th", { staticClass: "text-center" }, [
+              _vm._v(_vm._s(_vm.$t("buyer.review.rating")))
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.paginatedData, function(review, index) {
+            return _vm.paginatedData
+              ? _c("tr", { key: index }, [
+                  _c("td", [
+                    _c("img", {
+                      staticClass: "img-responsive",
+                      staticStyle: { "max-height": "100px" },
+                      attrs: {
+                        src: review.item.image.image_path,
+                        alt: review.item.product_name
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("span", [_vm._v(_vm._s(review.item.product_name))])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(" " + _vm._s(review.review))]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    { staticClass: "text-center" },
+                    [
+                      _c("star-rating", {
+                        attrs: {
+                          "star-size": 15,
+                          rating: review.rating,
+                          "read-only": true
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              : _c("tr", [
+                  _c("td", { attrs: { colspan: "6" } }, [
+                    _vm._v("Review No List")
+                  ])
+                ])
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _vm.reviewList.length > _vm.size
+        ? _c(
+            "div",
+            {
+              staticClass: "text-right",
+              staticStyle: { "margin-top": "1rem" }
+            },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-sm btn-primary",
+                  attrs: { disabled: _vm.pageNumber === 0 },
+                  on: { click: _vm.prevPage }
+                },
+                [_vm._v("\n            Previous\n        ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-sm btn-primary",
+                  attrs: { disabled: _vm.pageNumber >= _vm.pageCount - 1 },
+                  on: { click: _vm.nextPage }
+                },
+                [_vm._v("\n            Next\n        ")]
+              )
+            ]
+          )
+        : _vm._e()
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=template&id=4f387593&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=template&id=4f387593&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.order_item
+    ? _c("div", { staticClass: "box-border shadow " }, [
+        _c("div", { staticClass: "item" }, [
+          _c("div", { staticClass: "product-item" }, [
+            _c("div", { staticClass: "product-item-info row" }, [
+              _c(
+                "div",
+                { staticClass: "product-item-photo col-sm-4 col-md-2" },
+                [
+                  _c(
+                    "a",
+                    { staticClass: "product-item-img", attrs: { href: "#" } },
+                    [
+                      _c("img", {
+                        staticClass: "product-image img-thumbnail",
+                        attrs: {
+                          alt: _vm.order_item.product_name,
+                          src: _vm.order_item.product.thumb_image.image_path
+                        }
+                      })
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "product-item-detail col-sm-8 col-md-4" },
+                [
+                  _c(
+                    "h4",
+                    {
+                      staticStyle: {
+                        "margin-top": "0px",
+                        "margin-bottom": "3px"
+                      }
+                    },
+                    [
+                      _c("strong", { staticClass: "product-item-name" }, [
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href:
+                                "/product/" +
+                                _vm.order_item.product.product_slug
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.order_item.product_name))]
+                        )
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("p", [
+                    _c("strong", { staticClass: "product-item-name" }, [
+                      _vm._v("SKU: ")
+                    ]),
+                    _vm._v(
+                      " " +
+                        _vm._s(_vm.order_item.product.product_sku) +
+                        "\n                    "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm.order_item.seller.shop
+                    ? _c("p", [
+                        _c("strong", { staticClass: "product-item-name" }, [
+                          _vm._v("SHOP: ")
+                        ]),
+                        _vm._v(
+                          _vm._s(_vm.order_item.seller.shop.shop_name) +
+                            "\n                    "
+                        )
+                      ])
+                    : _vm._e()
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-12 col-md-6" }, [
+                _c(
+                  "form",
+                  {
+                    staticClass: "review-form",
+                    attrs: { action: "" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.addBuyerReview($event)
+                      }
+                    }
+                  },
+                  [
+                    _vm.order_item.item_status === 6
+                      ? _c("ul", [
+                          _c("li", { staticClass: "row" }, [
+                            _c(
+                              "div",
+                              { staticClass: "col-sm-12 col-md-12" },
+                              [
+                                _c("label", { staticClass: "required" }, [
+                                  _vm._v(_vm._s(_vm.$t("buyer.review.rating")))
+                                ]),
+                                _vm._v(" "),
+                                _c("star-rating", {
+                                  attrs: {
+                                    "star-size": 25,
+                                    rating: _vm.formData.rating,
+                                    "read-only": _vm.haveReview
+                                  },
+                                  model: {
+                                    value: _vm.formData.rating,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.formData, "rating", $$v)
+                                    },
+                                    expression: "formData.rating"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-12 col-md-12" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "required",
+                                  attrs: { for: "review" }
+                                },
+                                [_vm._v(_vm._s(_vm.$t("buyer.review.review")))]
+                              ),
+                              _vm._v(" "),
+                              !_vm.haveReview
+                                ? _c("textarea", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.formData.review,
+                                        expression: "formData.review"
+                                      }
+                                    ],
+                                    staticClass: "input form-control",
+                                    attrs: {
+                                      id: "review",
+                                      rows: "3",
+                                      placeholder: "Your Review.."
+                                    },
+                                    domProps: { value: _vm.formData.review },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "review",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.haveReview
+                                ? _c("p", {
+                                    staticStyle: {
+                                      "margin-bottom": "0px",
+                                      "padding-bottom": "5px"
+                                    },
+                                    domProps: {
+                                      innerHTML: _vm._s(_vm.formData.review)
+                                    }
+                                  })
+                                : _vm._e()
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          !_vm.haveReview
+                            ? _c(
+                                "li",
+                                {
+                                  staticStyle: {
+                                    "text-align": "right",
+                                    "margin-top": "10px"
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "button",
+                                      attrs: {
+                                        type: "submit",
+                                        disabled: _vm.btnDisabled
+                                      }
+                                    },
+                                    [_c("span", [_vm._v("Save")])]
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ])
+                      : _c("ul", [
+                          _c("li", { staticClass: "block" }, [
+                            _c("p", { staticClass: "block-title" }, [
+                              _vm._v(_vm._s(_vm.$t("buyer.review.review_war")))
+                            ])
+                          ])
+                        ])
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -91963,6 +92790,10 @@ var map = {
 	"./components/buyer/order/InvoiceDetailsPage.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/order/InvoiceDetailsPage.vue",
 	"./components/buyer/order/MyOrderPage.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/order/MyOrderPage.vue",
 	"./components/buyer/order/OrderListTable.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/order/OrderListTable.vue",
+	"./components/buyer/review/AddReviewPage.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue",
+	"./components/buyer/review/ReviewListPage.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue",
+	"./components/buyer/review/ReviewListTable.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue",
+	"./components/buyer/review/SingleReviewForm.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue",
 	"./components/buyer/section/InvoiceModal.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/section/InvoiceModal.vue",
 	"./components/buyer/section/InvoiceModalOne.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/section/InvoiceModalOne.vue",
 	"./components/buyer/section/WelcomeMessage.vue": "./resources/views/templates/crocus_v2/vue/components/buyer/section/WelcomeMessage.vue",
@@ -93655,6 +94486,300 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderListTable_vue_vue_type_template_id_5ea8ef4a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderListTable_vue_vue_type_template_id_5ea8ef4a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue":
+/*!*******************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AddReviewPage_vue_vue_type_template_id_583a75ae_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddReviewPage.vue?vue&type=template&id=583a75ae&scoped=true& */ "./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue?vue&type=template&id=583a75ae&scoped=true&");
+/* harmony import */ var _AddReviewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddReviewPage.vue?vue&type=script&lang=js& */ "./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AddReviewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddReviewPage_vue_vue_type_template_id_583a75ae_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddReviewPage_vue_vue_type_template_id_583a75ae_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "583a75ae",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddReviewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AddReviewPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddReviewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue?vue&type=template&id=583a75ae&scoped=true&":
+/*!**************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue?vue&type=template&id=583a75ae&scoped=true& ***!
+  \**************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddReviewPage_vue_vue_type_template_id_583a75ae_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AddReviewPage.vue?vue&type=template&id=583a75ae&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/AddReviewPage.vue?vue&type=template&id=583a75ae&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddReviewPage_vue_vue_type_template_id_583a75ae_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddReviewPage_vue_vue_type_template_id_583a75ae_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue":
+/*!********************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ReviewListPage_vue_vue_type_template_id_442e7ff4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ReviewListPage.vue?vue&type=template&id=442e7ff4&scoped=true& */ "./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue?vue&type=template&id=442e7ff4&scoped=true&");
+/* harmony import */ var _ReviewListPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReviewListPage.vue?vue&type=script&lang=js& */ "./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ReviewListPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ReviewListPage_vue_vue_type_template_id_442e7ff4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ReviewListPage_vue_vue_type_template_id_442e7ff4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "442e7ff4",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReviewListPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./ReviewListPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReviewListPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue?vue&type=template&id=442e7ff4&scoped=true&":
+/*!***************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue?vue&type=template&id=442e7ff4&scoped=true& ***!
+  \***************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReviewListPage_vue_vue_type_template_id_442e7ff4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./ReviewListPage.vue?vue&type=template&id=442e7ff4&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListPage.vue?vue&type=template&id=442e7ff4&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReviewListPage_vue_vue_type_template_id_442e7ff4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReviewListPage_vue_vue_type_template_id_442e7ff4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue":
+/*!*********************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ReviewListTable_vue_vue_type_template_id_cde7528e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ReviewListTable.vue?vue&type=template&id=cde7528e&scoped=true& */ "./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue?vue&type=template&id=cde7528e&scoped=true&");
+/* harmony import */ var _ReviewListTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReviewListTable.vue?vue&type=script&lang=js& */ "./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ReviewListTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ReviewListTable_vue_vue_type_template_id_cde7528e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ReviewListTable_vue_vue_type_template_id_cde7528e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "cde7528e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReviewListTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./ReviewListTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReviewListTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue?vue&type=template&id=cde7528e&scoped=true&":
+/*!****************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue?vue&type=template&id=cde7528e&scoped=true& ***!
+  \****************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReviewListTable_vue_vue_type_template_id_cde7528e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./ReviewListTable.vue?vue&type=template&id=cde7528e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/ReviewListTable.vue?vue&type=template&id=cde7528e&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReviewListTable_vue_vue_type_template_id_cde7528e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReviewListTable_vue_vue_type_template_id_cde7528e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue":
+/*!**********************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SingleReviewForm_vue_vue_type_template_id_4f387593_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SingleReviewForm.vue?vue&type=template&id=4f387593&scoped=true& */ "./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=template&id=4f387593&scoped=true&");
+/* harmony import */ var _SingleReviewForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SingleReviewForm.vue?vue&type=script&lang=js& */ "./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _SingleReviewForm_vue_vue_type_style_index_0_id_4f387593_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SingleReviewForm.vue?vue&type=style&index=0&id=4f387593&scoped=true&lang=css& */ "./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=style&index=0&id=4f387593&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _SingleReviewForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SingleReviewForm_vue_vue_type_template_id_4f387593_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SingleReviewForm_vue_vue_type_template_id_4f387593_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "4f387593",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleReviewForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SingleReviewForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleReviewForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=style&index=0&id=4f387593&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=style&index=0&id=4f387593&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleReviewForm_vue_vue_type_style_index_0_id_4f387593_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/style-loader!../../../../../../../../node_modules/css-loader??ref--6-1!../../../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SingleReviewForm.vue?vue&type=style&index=0&id=4f387593&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=style&index=0&id=4f387593&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleReviewForm_vue_vue_type_style_index_0_id_4f387593_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleReviewForm_vue_vue_type_style_index_0_id_4f387593_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleReviewForm_vue_vue_type_style_index_0_id_4f387593_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleReviewForm_vue_vue_type_style_index_0_id_4f387593_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleReviewForm_vue_vue_type_style_index_0_id_4f387593_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=template&id=4f387593&scoped=true&":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=template&id=4f387593&scoped=true& ***!
+  \*****************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleReviewForm_vue_vue_type_template_id_4f387593_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SingleReviewForm.vue?vue&type=template&id=4f387593&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/views/templates/crocus_v2/vue/components/buyer/review/SingleReviewForm.vue?vue&type=template&id=4f387593&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleReviewForm_vue_vue_type_template_id_4f387593_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SingleReviewForm_vue_vue_type_template_id_4f387593_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -96089,6 +97214,13 @@ var ENGLISH_TRANSLATIONS = {
       pro_img: 'Product Image',
       pro_update: 'Update Product',
       pro_save: 'Save Product'
+    },
+    review: {
+      review_list: 'Review List',
+      review: 'Review',
+      my_review: 'My Review',
+      rating: 'Rating',
+      review_war: 'After Delivery You Can review This Product'
     }
   },
   form: {
@@ -96280,6 +97412,13 @@ var SOMALIA_TRANSLATIONS = {
       account_type: 'Nooca Akoonka',
       buyer: 'Iibsade',
       both: 'Iibsade & Iibiye'
+    },
+    review: {
+      review_list: 'Liiska Dib u eegista',
+      review: 'Dib u eegis',
+      my_review: 'Dib u Eegisteyda',
+      rating: 'Qiimeynta',
+      review_war: 'Kusoo Bixinta Ka Dib Waad Fiirin Kartaa Waxsoosaarkan'
     }
   },
   form: {
@@ -96350,9 +97489,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_helper_productHelper__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./modules/helper/productHelper */ "./resources/views/templates/crocus_v2/vue/store/modules/helper/productHelper.js");
 /* harmony import */ var _modules_helper_imageCropper__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/helper/imageCropper */ "./resources/views/templates/crocus_v2/vue/store/modules/helper/imageCropper.js");
 /* harmony import */ var _modules_seller_seller_order__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./modules/seller/seller_order */ "./resources/views/templates/crocus_v2/vue/store/modules/seller/seller_order.js");
+/* harmony import */ var _modules_review__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./modules/review */ "./resources/views/templates/crocus_v2/vue/store/modules/review.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
 
 
 
@@ -96463,7 +97604,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     seller_product: _modules_seller_seller_product__WEBPACK_IMPORTED_MODULE_12__["default"],
     productHelper: _modules_helper_productHelper__WEBPACK_IMPORTED_MODULE_13__["default"],
     imageCropper: _modules_helper_imageCropper__WEBPACK_IMPORTED_MODULE_14__["default"],
-    seller_order: _modules_seller_seller_order__WEBPACK_IMPORTED_MODULE_15__["default"]
+    seller_order: _modules_seller_seller_order__WEBPACK_IMPORTED_MODULE_15__["default"],
+    review: _modules_review__WEBPACK_IMPORTED_MODULE_16__["default"]
   }
 }));
 
@@ -98820,6 +99962,190 @@ var mutations = {
   },
   setHotProducts: function setHotProducts(state, response) {
     state.hot_products = response;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/views/templates/crocus_v2/vue/store/modules/review.js":
+/*!*************************************************************************!*\
+  !*** ./resources/views/templates/crocus_v2/vue/store/modules/review.js ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//declare State
+var state = {
+  review_list: [],
+  review_items: [],
+  product_reviews: []
+}; //declare Getters
+
+var getters = {
+  reviewList: function reviewList(state) {
+    return state.review_list;
+  },
+  reviewItems: function reviewItems(state) {
+    return state.review_items;
+  },
+  productReviews: function productReviews(state) {
+    return state.product_reviews;
+  }
+};
+var actions = {
+  getBuyerReviews: function () {
+    var _getBuyerReviews = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.prev = 1;
+              _context.next = 4;
+              return axios.get('/buyer/reviews/list').then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setBuyerReviews', response.data.data);
+                  delete response.data.data;
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context.abrupt("return", _context.sent);
+
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](1);
+              console.log(_context.t0);
+
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 7]]);
+    }));
+
+    function getBuyerReviews(_x) {
+      return _getBuyerReviews.apply(this, arguments);
+    }
+
+    return getBuyerReviews;
+  }(),
+  getOrderReviewItems: function () {
+    var _getOrderReviewItems = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, orderId) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios.get("/buyer/reviews/order/".concat(orderId, "/items")).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setOrderReviewItems', response.data.data);
+                  delete response.data.data;
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](1);
+              console.log(_context2.t0);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 7]]);
+    }));
+
+    function getOrderReviewItems(_x2, _x3) {
+      return _getOrderReviewItems.apply(this, arguments);
+    }
+
+    return getOrderReviewItems;
+  }(),
+  storeBuyerReview: function () {
+    var _storeBuyerReview = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, formData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios.post("/buyer/reviews/store", formData).then(function (response) {
+                return response.data;
+              });
+
+            case 4:
+              return _context3.abrupt("return", _context3.sent);
+
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](1);
+              console.log(_context3.t0);
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 7]]);
+    }));
+
+    function storeBuyerReview(_x4, _x5) {
+      return _storeBuyerReview.apply(this, arguments);
+    }
+
+    return storeBuyerReview;
+  }()
+};
+var mutations = {
+  setBuyerReviews: function setBuyerReviews(state, response) {
+    if (response.hasOwnProperty('current_page')) {
+      state.review_list = response.data;
+      delete response.data;
+      state.paginate = response;
+    } else {
+      state.review_list = response;
+    }
+  },
+  setOrderReviewItems: function setOrderReviewItems(state, response) {
+    state.review_items = response;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

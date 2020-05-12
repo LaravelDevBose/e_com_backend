@@ -140,6 +140,13 @@ export const SOMALIA_TRANSLATIONS  ={
             buyer:'Iibsade',
             both:'Iibsade & Iibiye'
         },
+        review: {
+            review_list: 'Liiska Dib u eegista',
+            review: 'Dib u eegis',
+            my_review: 'Dib u Eegisteyda',
+            rating: 'Qiimeynta',
+            review_war: 'Kusoo Bixinta Ka Dib Waad Fiirin Kartaa Waxsoosaarkan'
+        }
     },
     form:{
         email:'Iimeel',

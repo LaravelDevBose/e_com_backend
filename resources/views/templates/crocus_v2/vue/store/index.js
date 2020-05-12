@@ -18,7 +18,7 @@ import seller_product from "./modules/seller/seller_product";
 import productHelper from "./modules/helper/productHelper";
 import imageCropper from "./modules/helper/imageCropper";
 import seller_order from "./modules/seller/seller_order";
-
+import review from "./modules/review";
 
 export default new Vuex.Store({
     state:{
@@ -78,6 +78,7 @@ export default new Vuex.Store({
         productHelper,
         imageCropper,
         seller_order,
+        review,
     }
 })
 
