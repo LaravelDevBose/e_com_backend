@@ -39,8 +39,35 @@ const actions = {
             console.log(error);
             return error.data;
         }
-    }
-
+    },
+    async cancelOrderItem({commit},itemId){
+        try {
+            return await axios.get(`/buyer/order/item/${itemId}/cancel`)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setOrderItemCancel', itemId);
+                    }
+                    return response.data;
+                })
+        }catch (error) {
+            console.log(error);
+            return error.data;
+        }
+    },
+    async orderCancel({commit},orderId){
+        try {
+            return await axios.get(`/buyer/order/${orderId}/cancel`)
+                .then(response=>{
+                    if(typeof response.data.code !== "undefined" && response.data.code === 200){
+                        commit('setOrderCancel', orderId);
+                    }
+                    return response.data;
+                })
+        }catch (error) {
+            console.log(error);
+            return error.data;
+        }
+    },
 };
 
 const mutations = {
@@ -54,6 +81,24 @@ const mutations = {
         }
     },
     setOrderInfo:(state, response)=>state.order_info = response,
+    setOrderCancel:(state, orderId)=>{
+        state.order_info.order_status = 2;
+        state.order_info.status_label = 'Cancel';
+        state.order_info.order_items  = state.order_info.order_items.filter(orderItem=>{
+            orderItem.item_status = 2;
+            orderItem.item_status_label = 'Cancel';
+            return orderItem;
+        });
+    },
+    setOrderItemCancel:(state, itemId)=>{
+        state.order_info.order_items  = state.order_info.order_items.filter(orderItem=>{
+            if(orderItem.item_id === itemId){
+                orderItem.item_status = 2;
+                orderItem.item_status_label = 'Cancel';
+            }
+            return orderItem;
+        })
+    }
 };
 
 export default {

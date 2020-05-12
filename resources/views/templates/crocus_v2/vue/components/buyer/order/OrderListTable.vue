@@ -18,7 +18,7 @@
                     <td>{{ order.order_no }}</td>
                     <td>{{ order.order_date }}</td>
                     <td>
-                        <span v-if="order.shipping !== null">{{ order.shipping.full_name }}</span>
+                        <span v-if="order.shipping">{{ order.shipping.first_name  }} {{ order.shipping.last_name  }}</span>
                     </td>
                     <td>
                         <span class="price">$ {{order.total }}</span>

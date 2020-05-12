@@ -371,7 +371,7 @@ class OrderController extends Controller
                 foreach ($activeItems as $item){
                     event(new OnCancelOrderItem($item->item_id)); // Update Product qty if cancel order
                 }
-                $items = $activeItems->update([
+                $items = OrderItem::whereIn('item_id', $activeItems->pluck('item_id'))->update([
                     'item_status'=>OrderItem::ItemStatus['Cancel'],
                     'cancel_by'=>OrderItem::CancelBy['Buyer'],
                 ]);

@@ -15413,7 +15413,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_
 
 
 // module
-exports.push([module.i, "\n.show[data-v-6d577f3d]{\r\n    display: inline-block!important;\n}\r\n", ""]);
+exports.push([module.i, "\n.show[data-v-6d577f3d]{\n    display: inline-block!important;\n}\n", ""]);
 
 // exports
 
@@ -71524,7 +71524,7 @@ var render = function() {
       _c("div", { staticClass: "panel-body no-padding-bottom" }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-4 col-lg-4" }, [
-            _vm.orderInfo.shipping !== null
+            _vm.orderInfo.shipping
               ? _c("div", { staticClass: "content-group" }, [
                   _c("span", { staticClass: "text-muted" }, [
                     _vm._v("Shipping To:")
@@ -71533,7 +71533,11 @@ var render = function() {
                   _c("ul", { staticClass: "list-condensed list-unstyled" }, [
                     _c("li", [
                       _c("h5", [
-                        _vm._v(_vm._s(_vm.orderInfo.shipping.full_name))
+                        _vm._v(
+                          _vm._s(_vm.orderInfo.shipping.first_name) +
+                            " " +
+                            _vm._s(_vm.orderInfo.shipping.last_name)
+                        )
                       ])
                     ]),
                     _vm._v(" "),
@@ -72071,8 +72075,14 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(order.order_date))]),
                     _vm._v(" "),
                     _c("td", [
-                      order.shipping !== null
-                        ? _c("span", [_vm._v(_vm._s(order.shipping.full_name))])
+                      order.shipping
+                        ? _c("span", [
+                            _vm._v(
+                              _vm._s(order.shipping.first_name) +
+                                " " +
+                                _vm._s(order.shipping.last_name)
+                            )
+                          ])
                         : _vm._e()
                     ]),
                     _vm._v(" "),
@@ -99639,6 +99649,92 @@ var actions = {
     }
 
     return getOrderInfo;
+  }(),
+  cancelOrderItem: function () {
+    var _cancelOrderItem = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, itemId) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios.get("/buyer/order/item/".concat(itemId, "/cancel")).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setOrderItemCancel', itemId);
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context3.abrupt("return", _context3.sent);
+
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](1);
+              console.log(_context3.t0);
+              return _context3.abrupt("return", _context3.t0.data);
+
+            case 11:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 7]]);
+    }));
+
+    function cancelOrderItem(_x5, _x6) {
+      return _cancelOrderItem.apply(this, arguments);
+    }
+
+    return cancelOrderItem;
+  }(),
+  orderCancel: function () {
+    var _orderCancel = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, orderId) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              _context4.prev = 1;
+              _context4.next = 4;
+              return axios.get("/buyer/order/".concat(orderId, "/cancel")).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('setOrderCancel', orderId);
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context4.abrupt("return", _context4.sent);
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](1);
+              console.log(_context4.t0);
+              return _context4.abrupt("return", _context4.t0.data);
+
+            case 11:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 7]]);
+    }));
+
+    function orderCancel(_x7, _x8) {
+      return _orderCancel.apply(this, arguments);
+    }
+
+    return orderCancel;
   }()
 };
 var mutations = {
@@ -99653,6 +99749,25 @@ var mutations = {
   },
   setOrderInfo: function setOrderInfo(state, response) {
     return state.order_info = response;
+  },
+  setOrderCancel: function setOrderCancel(state, orderId) {
+    state.order_info.order_status = 2;
+    state.order_info.status_label = 'Cancel';
+    state.order_info.order_items = state.order_info.order_items.filter(function (orderItem) {
+      orderItem.item_status = 2;
+      orderItem.item_status_label = 'Cancel';
+      return orderItem;
+    });
+  },
+  setOrderItemCancel: function setOrderItemCancel(state, itemId) {
+    state.order_info.order_items = state.order_info.order_items.filter(function (orderItem) {
+      if (orderItem.item_id === itemId) {
+        orderItem.item_status = 2;
+        orderItem.item_status_label = 'Cancel';
+      }
+
+      return orderItem;
+    });
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

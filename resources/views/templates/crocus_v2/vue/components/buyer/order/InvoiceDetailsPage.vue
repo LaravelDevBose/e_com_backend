@@ -4,10 +4,10 @@
 
             <div class="row">
                 <div class="col-md-4 col-lg-4">
-                    <div v-if="orderInfo.shipping !== null" class="content-group">
+                    <div v-if="orderInfo.shipping" class="content-group">
                         <span class="text-muted">Shipping To:</span>
                         <ul class="list-condensed list-unstyled">
-                            <li><h5>{{ orderInfo.shipping.full_name }}</h5></li>
+                            <li><h5>{{ orderInfo.shipping.first_name  }} {{ orderInfo.shipping.last_name  }}</h5></li>
                             <li><span class="text-semibold">{{ orderInfo.shipping.phone_no }}</span></li>
                             <li>{{ orderInfo.shipping.address }}</li>
                             <li>{{ orderInfo.shipping.city }}, {{orderInfo.shipping.district }}</li>
