@@ -192,7 +192,7 @@ class FrontendController extends Controller
 
     public function category_wish_products(Request $request, $category_slug)
     {
-        $category = Category::where('category_slug', $category_slug)->firstOrFail();
+        $category = Category::where('category_slug', $category_slug)->isActive()->firstOrFail();
 
         if ($request->ajax()) {
             if (empty($category)) {
@@ -266,9 +266,9 @@ class FrontendController extends Controller
             $categoriesID = array_merge($categoriesID, [
                 $request->category_id
             ]);
-            $category = Category::isActive()->with('children')->where('category_id', $request->category_id)->first();
-            if (!empty($category->children)) {
-                $childIds = Category::where('parent_id', $category->category_id)->isActive()->pluck('category_id')->toArray();
+            $childIds = Category::where('parent_id', $request->category_id)->isActive()->pluck('category_id')->toArray();
+            if (!empty($childIds) && count($childIds) > 0) {
+
                 $categoriesID = array_merge($categoriesID, $childIds);
                 if (!empty($childIds)) {
                     $childId = Category::whereIn('parent_id', $childIds)->isActive()->pluck('category_id')->toArray();
@@ -291,6 +291,7 @@ class FrontendController extends Controller
             // Variation Product Filter
             $productIds = $varProds->where('product_type', Product::ProductType['Variation'])->pluck('product_id');
             $varProIds = ProductVariation::whereIn('product_id', $productIds)
+                ->where('variation_status', '!=', 0)
                 ->whereIn('pri_id',$request->colorIds)
                 ->whereIn('sec_id', $request->sizeIds)
                 ->where('price', '>=', $request->range['min'])
