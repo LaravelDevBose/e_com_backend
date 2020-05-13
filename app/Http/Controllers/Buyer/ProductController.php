@@ -259,7 +259,7 @@ class ProductController extends Controller
                     'category_id'=>$catId,
                     'brand_id'=>$request->brand_id,
                     'product_name'=>$request->product_name,
-                    'product_slug'=>str_slug($request->product_name),
+                    'product_slug'=>Str::slug($request->product_name).'-'.$productId,
                     'highlight'=>$request->highlight,
                     'description'=>$request->description,
                     'product_status'=>Product::ProductStatus['Review'],
@@ -276,7 +276,7 @@ class ProductController extends Controller
                         foreach ($imageIds as  $imageId){
                             $imageId = (object)$imageId;
                             array_push($imageArray,[
-                                'product_id'=>$product->product_id,
+                                'product_id'=>$productId,
                                 'pri_id'=>'',
                                 'model'=>'',
                                 'attachment_id'=>$imageId->image_id,
