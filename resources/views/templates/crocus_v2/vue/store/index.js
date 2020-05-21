@@ -45,9 +45,23 @@ export default new Vuex.Store({
             {key:'Togdheer',    name:'Togdheer'},
             {key:'Woqooyi Galbeed',name:'Woqooyi Galbeed'},
         ],
+        cityList :[
+            { key: 'all', text: 'All'},
+            { key: 'bosaso', text: 'Bosaso'},
+            { key: 'qardho', text: 'Qardho'},
+            { key: 'hargeisa', text : 'Hargeisa'},
+            { key: 'badhan', text: 'Badhan'},
+            { key: 'ceerigaabo', text : 'Ceerigaabo'},
+            { key: 'garowe', text : 'Garowe'},
+            { key: 'muqdisho', text : 'Muqdisho'},
+            { key: 'carmo', text : 'Carmo'},
+            { key: 'burco', text : 'Burco'},
+            { key: 'boorama', text : 'Boorama'},
+        ]
     },
     getters:{
         regions:(state)=>state.region_list,
+        cities:(state)=>state.cityList,
         pagination:(state)=>state.paginate,
     },
     actions:{

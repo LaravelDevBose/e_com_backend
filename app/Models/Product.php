@@ -90,6 +90,7 @@ class Product extends Model
         'mall_comp_name',
         'mall_comp_logo',
         'mall_product',
+        'product_city',
     ];
 
     protected static function boot()

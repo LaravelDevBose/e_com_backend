@@ -45,6 +45,24 @@
                         <input type="text" title="User Name" v-model="formData.user_name" required class="input-text required-entry" id="username"  placeholder="User Name" />
                     </li>-->
                     <li>
+                        <label for="seller_address">
+                            Address
+                            <span class="required">*</span>
+                        </label>
+                        <br />
+                        <input type="text" title="User Name" v-model="formData.seller_address" required class="input-text required-entry" id="seller_address"  placeholder="Address" />
+                    </li>
+                    <li>
+                        <label for="seller_city">
+                            City
+                            <span class="required">*</span>
+                        </label>
+                        <br />
+                        <select name="" id="seller_city" v-model="formData.seller_city" required class="validate-select">
+                            <option v-for="(city, index) in cities" :key="index" :value="city.key" v-if="index !=0 "> {{ city.text }}</option>
+                        </select>
+                    </li>
+                    <li>
                         <label for="reg_pass">
                             {{ $t('form.password') }}
                             <span class="required">*</span>
@@ -72,7 +90,7 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
 
     export default {
         name: "RegisterPage",
@@ -86,6 +104,8 @@
                     // user_name:'',
                     password:'',
                     password_confirmation:'',
+                    seller_city: '',
+                    seller_address: '',
                 },
                 disable: false,
             }
@@ -123,6 +143,7 @@
             }
         },
         computed: {
+            ...mapGetters(['cities']),
             checkFormData(){
                 return JSON.parse(JSON.stringify(this.formData))
             }

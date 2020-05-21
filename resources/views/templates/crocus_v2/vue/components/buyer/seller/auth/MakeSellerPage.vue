@@ -26,6 +26,14 @@
                                 <input type="text" v-model="formData.seller_phone" title="Telephone" class="input-text required-entry" id="seller_phone">
                             </div>
                             <div class="input-box">
+                                <label for="seller_phone">{{ $t('form.phone_no')}} <span class="required">*</span></label>
+                                <br>
+                                <select name="" id="seller_city" v-model="formData.seller_city" required class="validate-select" style="width: 90%;">
+                                    <option value="" disabled>Please select city</option>
+                                    <option v-for="(city, index) in cities" :key="index" :value="city.key" v-if="index !=0 "> {{ city.text }}</option>
+                                </select>
+                            </div>
+                            <div class="input-box">
                                 <label for="billing_street">{{ $t('form.address')}} <span class="required">*</span></label>
                                 <br>
                                 <textarea rows="2" v-model="formData.seller_address" title="Seller Address" placeholder="Seller Address" id="billing_street" class="input-text required-entry"></textarea>
@@ -47,7 +55,7 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     export default {
         name: "MakeSellerPage",
         props:{
@@ -64,6 +72,7 @@
                     seller_phone:'',
                     seller_address:'',
                     seller_type:'2',
+                    seller_city: '',
                 },
                 btnDisabled:false,
                 is_edit:false,
@@ -97,6 +106,7 @@
             }
         },
         computed:{
+            ...mapGetters(['cities']),
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
             }

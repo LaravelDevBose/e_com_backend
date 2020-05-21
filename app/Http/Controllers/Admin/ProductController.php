@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Resources\Admin\ProductCollection;
 use App\Http\Resources\Admin\Product as ProductResource;
+use App\Models\AddressBook;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductDetails;
@@ -229,6 +230,7 @@ class ProductController extends Controller
                     'discount_price'=>$request->discount_price,
                     'mall_comp_name'=>$request->mall_comp_name,
                     'mall_comp_logo'=>$request->mall_comp_logo,
+                    'product_city'=>(!empty($request->product_city))? AddressBook::cityList[$request->product_city] :  auth()->guard('seller')->user()->seller->seller_city,
                 ]);
                 if(!empty($product)){
                     #Store Data in Product Details Table

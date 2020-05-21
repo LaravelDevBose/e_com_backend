@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Seller;
 use App\Helpers\TemplateHelper;
 use App\Http\Resources\Admin\ProductCollection;
 use App\Http\Resources\Admin\Product as ProductResource;
+use App\Models\AddressBook;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductDetails;
@@ -122,6 +123,7 @@ class ProductController extends Controller
             'product_status'=>'required',
             'imageIds'=>'required|array',
             'thumb_id'=>'required',
+//            'product_city'=>'required',
         ];
 
         $messages = [
@@ -141,6 +143,7 @@ class ProductController extends Controller
             'product_status.required'=>'Product Status is Required.',
             'imageIds.required'=>'Select Your Product Image',
             'thumb_id.required'=>'Select Product Thumbnail Image',
+//            'product_city.required'=>'Select Product City',
         ];
 
         if ($request->product_type == 1){
@@ -218,7 +221,7 @@ class ProductController extends Controller
                     'package_weight'=>$request->package_weight,
                     'package_length'=>$request->package_length,
                     'package_width'=>$request->package_width,
-                    'package_height'=>$request->package_height, 
+                    'package_height'=>$request->package_height,
                     'delivery_cost1'=>$request->delivery_cost1,
                     'delivery_cost2'=>$request->delivery_cost2,
                     'product_status'=>Product::ProductStatus['Review'],
@@ -228,6 +231,7 @@ class ProductController extends Controller
                     'video_url'=>$request->video_url,
                     'discount_price'=>$request->discount_price,
                     'seller_id'=>auth()->guard('seller')->user()->seller->seller_id,
+                    'product_city'=>(!empty($request->product_city))? AddressBook::cityList[$request->product_city] :  auth()->guard('seller')->user()->seller->seller_city,
                 ]);
                 if($product){
 

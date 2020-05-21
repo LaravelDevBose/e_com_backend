@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Resources\Admin\Brand as BrandResource;
+use App\Models\AddressBook;
 use App\Models\Seller;
 use App\Models\Shop;
 use App\Traits\ResponserTrait;
@@ -90,6 +91,7 @@ class SellerRegisterController extends Controller
             'phone_no'=>'required',
             'email'=>'required|string|email|max:255|unique:users',
             'password'=>'required|string|min:8|confirmed',
+            'seller_city'=>'required'
         ]);
 
         if($validator->passes()){
@@ -102,6 +104,8 @@ class SellerRegisterController extends Controller
                         'seller_name'=>$request->full_name,
                         'seller_email'=>$request->email,
                         'seller_phone'=>$request->phone_no,
+                        'seller_address'=>$request->seller_address,
+                        'seller_city'=>AddressBook::cityList[$request->seller_city],
                         'seller_type'=>Seller::SellerType['Normal'],
                     ]);
 

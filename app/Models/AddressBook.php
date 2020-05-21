@@ -31,6 +31,20 @@ class AddressBook extends Model
         18=>'Woqooyi_Galbeed',
     ];
 
+    const cityList = [
+        'all'=>1,
+        'bosaso'=>2,
+        'qardho'=>3,
+        'hargeisa'=>4,
+        'badhan'=>5,
+        'ceerigaabo'=>6,
+        'garowe'=>7,
+        'muqdisho'=>8,
+        'carmo'=>9,
+        'burco'=>10,
+        'boorama'=>11
+    ];
+
     protected $table = 'address_books';
 
     protected $primaryKey = 'address_id';

@@ -2827,6 +2827,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "RegisterPage",
@@ -2839,7 +2857,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         email: '',
         // user_name:'',
         password: '',
-        password_confirmation: ''
+        password_confirmation: '',
+        seller_city: '',
+        seller_address: ''
       },
       disable: false
     };
@@ -2874,11 +2894,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cities']), {
     checkFormData: function checkFormData() {
       return JSON.parse(JSON.stringify(this.formData));
     }
-  },
+  }),
   watch: {
     checkFormData: {
       handler: function handler(newValue, oldValue) {
@@ -5712,6 +5732,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MakeSellerPage",
@@ -5728,7 +5756,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         seller_email: '',
         seller_phone: '',
         seller_address: '',
-        seller_type: '2'
+        seller_type: '2',
+        seller_city: ''
       },
       btnDisabled: false,
       is_edit: false
@@ -5760,11 +5789,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cities']), {
     formDataCheck: function formDataCheck() {
       return JSON.parse(JSON.stringify(this.formData));
     }
-  },
+  }),
   watch: {
     formDataCheck: {
       handler: function handler(newVal, oldVal) {
@@ -15413,7 +15442,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../../../node_
 
 
 // module
-exports.push([module.i, "\n.show[data-v-6d577f3d]{\n    display: inline-block!important;\n}\n", ""]);
+exports.push([module.i, "\n.show[data-v-6d577f3d]{\r\n    display: inline-block!important;\n}\r\n", ""]);
 
 // exports
 
@@ -68740,6 +68769,95 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("li", [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.seller_address,
+                    expression: "formData.seller_address"
+                  }
+                ],
+                staticClass: "input-text required-entry",
+                attrs: {
+                  type: "text",
+                  title: "User Name",
+                  required: "",
+                  id: "seller_address",
+                  placeholder: "Address"
+                },
+                domProps: { value: _vm.formData.seller_address },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.formData,
+                      "seller_address",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.formData.seller_city,
+                      expression: "formData.seller_city"
+                    }
+                  ],
+                  staticClass: "validate-select",
+                  attrs: { name: "", id: "seller_city", required: "" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.formData,
+                        "seller_city",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                _vm._l(_vm.cities, function(city, index) {
+                  return index != 0
+                    ? _c(
+                        "option",
+                        { key: index, domProps: { value: city.key } },
+                        [_vm._v(" " + _vm._s(city.text))]
+                      )
+                    : _vm._e()
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
               _c("label", { attrs: { for: "reg_pass" } }, [
                 _vm._v(
                   "\n                        " +
@@ -68840,7 +68958,26 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "seller_address" } }, [
+      _vm._v("\n                        Address\n                        "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "seller_city" } }, [
+      _vm._v("\n                        City\n                        "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -73622,6 +73759,67 @@ var render = function() {
                       }
                     }
                   })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-box" }, [
+                  _c("label", { attrs: { for: "seller_phone" } }, [
+                    _vm._v(_vm._s(_vm.$t("form.phone_no")) + " "),
+                    _c("span", { staticClass: "required" }, [_vm._v("*")])
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.seller_city,
+                          expression: "formData.seller_city"
+                        }
+                      ],
+                      staticClass: "validate-select",
+                      staticStyle: { width: "90%" },
+                      attrs: { name: "", id: "seller_city", required: "" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.formData,
+                            "seller_city",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "", disabled: "" } }, [
+                        _vm._v("Please select city")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.cities, function(city, index) {
+                        return index != 0
+                          ? _c(
+                              "option",
+                              { key: index, domProps: { value: city.key } },
+                              [_vm._v(" " + _vm._s(city.text))]
+                            )
+                          : _vm._e()
+                      })
+                    ],
+                    2
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "input-box" }, [
@@ -97577,11 +97775,48 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     }, {
       key: 'Woqooyi Galbeed',
       name: 'Woqooyi Galbeed'
+    }],
+    cityList: [{
+      key: 'all',
+      text: 'All'
+    }, {
+      key: 'bosaso',
+      text: 'Bosaso'
+    }, {
+      key: 'qardho',
+      text: 'Qardho'
+    }, {
+      key: 'hargeisa',
+      text: 'Hargeisa'
+    }, {
+      key: 'badhan',
+      text: 'Badhan'
+    }, {
+      key: 'ceerigaabo',
+      text: 'Ceerigaabo'
+    }, {
+      key: 'garowe',
+      text: 'Garowe'
+    }, {
+      key: 'muqdisho',
+      text: 'Muqdisho'
+    }, {
+      key: 'carmo',
+      text: 'Carmo'
+    }, {
+      key: 'burco',
+      text: 'Burco'
+    }, {
+      key: 'boorama',
+      text: 'Boorama'
     }]
   },
   getters: {
     regions: function regions(state) {
       return state.region_list;
+    },
+    cities: function cities(state) {
+      return state.cityList;
     },
     pagination: function pagination(state) {
       return state.paginate;

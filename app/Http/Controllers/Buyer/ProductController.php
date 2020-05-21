@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Http\Resources\Admin\ProductCollection;
+use App\Models\AddressBook;
 use App\Models\Category;
 use Exception;
 use App\Http\Resources\Admin\Category as CategoryResource;
@@ -121,6 +122,7 @@ class ProductController extends Controller
                     'product_price'=>$request->product_price,
                     'seller_sku'=>$request->seller_sku,
                     'product_condition'=>$request->product_condition,
+                    'product_city'=>(!empty($request->product_city))? AddressBook::cityList[$request->product_city] :  auth()->guard('seller')->user()->seller->seller_city,
                 ]);
                 if(!empty($product)){
                     if(!empty($request->imageIds)){
