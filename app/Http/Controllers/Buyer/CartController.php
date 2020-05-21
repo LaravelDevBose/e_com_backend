@@ -87,13 +87,16 @@ class CartController extends Controller
                     throw new Exception('Invalid Product Information', Response::HTTP_NOT_FOUND);
                 }
 
-                if(Auth::user()->account_type == User::AccountType['seller'] || Auth::user()->is_seller == 1){
-                    throw new Exception("Using Seller Account You Con't Buy Product", Response::HTTP_BAD_REQUEST);
+                if(Auth::check()){
+                    if(Auth::user()->account_type == User::AccountType['seller'] || Auth::user()->is_seller == 1){
+                        throw new Exception("Using Seller Account You Con't Buy Product", Response::HTTP_BAD_REQUEST);
+                    }
+
+                    if(Auth::user()->account_type == User::AccountType['both'] && Auth::user()->seller->seller_id == $product->seller_id) {
+                        throw new Exception("You Are the Owner this Product. You Con't Buy Product", Response::HTTP_BAD_REQUEST);
+                    }
                 }
 
-                if(Auth::user()->account_type == User::AccountType['both'] && Auth::user()->seller->seller_id == $product->seller_id) {
-                    throw new Exception("You Are the Owner this Product. You Con't Buy Product", Response::HTTP_BAD_REQUEST);
-                }
 
                 $image_id = $product->thumbImage->attachment_id;
                 $image = $product->thumbImage->image_path;
