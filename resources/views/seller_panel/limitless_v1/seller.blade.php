@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="base-url" content="{{ url('/') }}">
-    <title>@yield('PageTitle') | {{ env('APP_NAME') }}</title>
+    <title>@yield('PageTitle') | {{ env('APP_NAME', 'Dukaanso') }}</title>
 
     <script src="{{ asset('js/limitless_v1.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

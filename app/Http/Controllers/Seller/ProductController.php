@@ -106,7 +106,7 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -210,7 +210,7 @@ class ProductController extends Controller
                     'category_id'=>$request->category_id,
                     'brand_id'=>$request->brand_id,
                     'product_name'=>$request->product_name,
-                    'product_slug'=>str_slug($request->product_name),
+                    'product_slug'=>Str::slug($request->product_name),
                     'highlight'=>$request->highlight,
                     'description'=>$request->description,
                     'lang_product_name'=>$request->lang_product_name,
@@ -231,7 +231,7 @@ class ProductController extends Controller
                     'video_url'=>$request->video_url,
                     'discount_price'=>$request->discount_price,
                     'seller_id'=>auth()->guard('seller')->user()->seller->seller_id,
-                    'product_city'=>(!empty($request->product_city))? AddressBook::cityList[$request->product_city] :  auth()->guard('seller')->user()->seller->seller_city,
+                    'product_city'=>(!empty($request->product_city))? $request->product_city :  auth()->guard('seller')->user()->seller->seller_city,
                 ]);
                 if($product){
 
@@ -527,7 +527,6 @@ class ProductController extends Controller
                     'category_id'=>$request->category_id,
                     'brand_id'=>$request->brand_id,
                     'product_name'=>$request->product_name,
-                    'product_slug'=>str_slug($request->product_name),
                     'highlight'=>$request->highlight,
                     'description'=>$request->description,
                     'lang_product_name'=>$request->lang_product_name,
@@ -546,6 +545,8 @@ class ProductController extends Controller
                     'video_url'=>$request->video_url,
                     'product_type'=>$request->product_type,
                     'discount_price'=>$request->discount_price,
+                    'product_slug'=>Str::slug($request->product_name).'-'.$id,
+                    'product_city'=>(!empty($request->product_city))? $request->product_city :  auth()->guard('seller')->user()->seller->seller_city,
                 ]);
                 if(!empty($request->thumb_id)){
                     Product::where('product_id', $id)->update([

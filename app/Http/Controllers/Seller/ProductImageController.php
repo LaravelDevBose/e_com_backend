@@ -56,22 +56,23 @@ class ProductImageController extends Controller
                     throw new Exception('Folder is Require!', 400);
                 }
                 $folder = $request->folder;
-
                 $attachmentModels = Attachment::attachmentModels;
+                $model = $attachmentModels[$folder];
+                $flipModels = array_flip($attachmentModels);
+                $modalName = $flipModels[$model];
+
                 if(empty($attachmentModels[$folder])){
                     throw new Exception('Invalid Model!', 400);
                 }
 
                 $attachmentData= [];
                 foreach ($attachments as $key => $attachment){
+                    $uFolder = $folder;
 
-                    $model = $attachmentModels[$folder];
-                    $flipModels = array_flip($attachmentModels);
-                    $modalName = $flipModels[$model];
-
-                    if($model === $attachmentModels['product'] || $model === $attachmentModels['thumbnail'] ){
-                        $folder = $folder.'/'.$max_number;
+                    if($folder == 'product' || $folder == 'thumbnail' ){
+                        $uFolder = $folder.'/'.$max_number;
                     }
+
                     $ext = $attachment->guessExtension();
                     $type = $attachment->getMimeType();
 
@@ -80,7 +81,7 @@ class ProductImageController extends Controller
 
                     $name =  md5(rand(1111, 9999). time()) .'.'.$ext;
 
-                    $name_full = $this->attachmentFolder . $folder . '/' . $name;
+                    $name_full = $this->attachmentFolder . $uFolder . '/' . $name;
                     Storage::disk('local')->put( $name_full, File::get($attachment) );
 
                     $appAttachments = Attachment::appAttachments;
@@ -89,16 +90,16 @@ class ProductImageController extends Controller
                         $image = Image::make($attachment);
                         $image->resize($appImage['width'], $appImage['height']);
 
-                        $name_full = $this->appAttachmentFolder . $folder . '/' . $name;
+                        $name_full = $this->appAttachmentFolder . $uFolder . '/' . $name;
                         Storage::disk('local')->put( $name_full, $image->encode());
                     }
 
                     $attachmentSave = Attachment::create([
-                        'attachment_no'    => $max_number,
-                        'reference'          => $model,
-                        'file_name'          => $name,
-                        'folder'        => $folder,
-                        'file_type'          => $type,
+                        'attachment_no' => $max_number,
+                        'reference'     => $model,
+                        'file_name'     => $name,
+                        'folder'        => $uFolder,
+                        'file_type'     => $type,
                         'original_name' => $original_name,
                         'file_size'     => $file_size,
                         'modal'         => $modalName

@@ -8464,6 +8464,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import the component
 
  // import the styles
@@ -8524,7 +8546,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         product_price: '',
         seller_sku: '',
         cod_avail: 1,
-        discount_price: ''
+        discount_price: '',
+        product_city: 'all'
       },
       variations: [],
       btnDisabled: false,
@@ -8869,7 +8892,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds', 'skinTypes', 'cropImageIds', 'productType']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds', 'skinTypes', 'cropImageIds', 'productType', 'cities']), {
     clonedPrimaryIds: function clonedPrimaryIds() {
       return JSON.parse(JSON.stringify(this.pri_id));
     },
@@ -9482,6 +9505,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import the component
 
  // import the styles
@@ -9550,7 +9583,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         product_price: 1,
         seller_sku: '',
         discount_price: '',
-        cod_avail: 1
+        cod_avail: 1,
+        product_city: 0
       },
       variations: [],
       btnDisabled: false,
@@ -9970,7 +10004,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds', 'skinTypes', 'cropImageIds', 'productType', 'product', 'proData', 'proDetails', 'proVariations', 'proImages']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds', 'skinTypes', 'cropImageIds', 'productType', 'product', 'proData', 'proDetails', 'proVariations', 'proImages', 'cities']), {
     clonedPrimaryIds: function clonedPrimaryIds() {
       return JSON.parse(JSON.stringify(this.pri_id));
     },
@@ -10076,6 +10110,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           this.formData.warranty_type = this.proData.warranty_type;
           this.formData.video_url = this.proData.video_url;
           this.formData.discount_price = this.proData.discount;
+          this.formData.product_city = this.proData.product_city;
           /*** Product Details Information Field ***/
 
           if (this.proDetails !== '' && this.proDetails !== null) {
@@ -10395,12 +10430,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -74990,7 +75019,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "panel-body" }, [
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "col-md-9" }, [
               _c("div", { staticClass: "form-group" }, [
                 _vm._m(1),
                 _vm._v(" "),
@@ -75023,6 +75052,70 @@ var render = function() {
                     }
                   }
                 })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v("City:")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.product_city,
+                        expression: "formData.product_city"
+                      }
+                    ],
+                    staticClass: "form-control select",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.formData,
+                          "product_city",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "", disabled: "" } }, [
+                      _vm._v("Select Product City")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.cities, function(city, index) {
+                      return _vm.cities
+                        ? _c(
+                            "option",
+                            { key: index, domProps: { value: city.key } },
+                            [_vm._v(_vm._s(city.text))]
+                          )
+                        : _vm._e()
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { staticClass: "text-help text-size-mini text-info" },
+                  [_vm._v("Default Product City will Use Your City Location")]
+                )
               ])
             ]),
             _vm._v(" "),
@@ -75422,607 +75515,15 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "panel panel-collapsed" }, [
-            _vm._m(10),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "panel-body", staticStyle: { display: "none" } },
-              [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-12" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("Product Name EN:")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.lang_product_name,
-                            expression: "formData.lang_product_name"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "product name" },
-                        domProps: { value: _vm.formData.lang_product_name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "lang_product_name",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-12" }, [
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Highlights EN:")
-                        ]),
-                        _vm._v(" "),
-                        _c("vue-editor", {
-                          attrs: { id: "lang_highlight" },
-                          model: {
-                            value: _vm.formData.lang_highlight,
-                            callback: function($$v) {
-                              _vm.$set(_vm.formData, "lang_highlight", $$v)
-                            },
-                            expression: "formData.lang_highlight"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-12" }, [
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Description EN:")
-                        ]),
-                        _vm._v(" "),
-                        _c("vue-editor", {
-                          attrs: { id: "lang_description" },
-                          model: {
-                            value: _vm.formData.lang_description,
-                            callback: function($$v) {
-                              _vm.$set(_vm.formData, "lang_description", $$v)
-                            },
-                            expression: "formData.lang_description"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ])
-                ])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel panel-collapsed" }, [
-            _vm._m(11),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "panel-body", staticStyle: { display: "none" } },
-              [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Warranty Type:")
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.warrantyTypes, function(warranty, index) {
-                          return _vm.warrantyTypes
-                            ? _c(
-                                "label",
-                                { key: index, staticClass: "radio-inline" },
-                                [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.formData.warranty_type,
-                                        expression: "formData.warranty_type"
-                                      }
-                                    ],
-                                    staticClass: "styled",
-                                    attrs: {
-                                      type: "radio",
-                                      name: "warrantyType"
-                                    },
-                                    domProps: {
-                                      value: index,
-                                      checked: _vm._q(
-                                        _vm.formData.warranty_type,
-                                        index
-                                      )
-                                    },
-                                    on: {
-                                      change: function($event) {
-                                        return _vm.$set(
-                                          _vm.formData,
-                                          "warranty_type",
-                                          index
-                                        )
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(warranty) +
-                                      "\n                                "
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        })
-                      ],
-                      2
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Dangers Goods:")
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.dangersGoods, function(dangersGood, index) {
-                          return _vm.dangersGoods
-                            ? _c(
-                                "label",
-                                { key: index, staticClass: "radio-inline" },
-                                [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.formData.dangers_goods,
-                                        expression: "formData.dangers_goods"
-                                      }
-                                    ],
-                                    staticClass: "styled",
-                                    attrs: {
-                                      type: "checkbox",
-                                      id: "dng" + index
-                                    },
-                                    domProps: {
-                                      value: index,
-                                      checked: Array.isArray(
-                                        _vm.formData.dangers_goods
-                                      )
-                                        ? _vm._i(
-                                            _vm.formData.dangers_goods,
-                                            index
-                                          ) > -1
-                                        : _vm.formData.dangers_goods
-                                    },
-                                    on: {
-                                      change: function($event) {
-                                        var $$a = _vm.formData.dangers_goods,
-                                          $$el = $event.target,
-                                          $$c = $$el.checked ? true : false
-                                        if (Array.isArray($$a)) {
-                                          var $$v = index,
-                                            $$i = _vm._i($$a, $$v)
-                                          if ($$el.checked) {
-                                            $$i < 0 &&
-                                              _vm.$set(
-                                                _vm.formData,
-                                                "dangers_goods",
-                                                $$a.concat([$$v])
-                                              )
-                                          } else {
-                                            $$i > -1 &&
-                                              _vm.$set(
-                                                _vm.formData,
-                                                "dangers_goods",
-                                                $$a
-                                                  .slice(0, $$i)
-                                                  .concat($$a.slice($$i + 1))
-                                              )
-                                          }
-                                        } else {
-                                          _vm.$set(
-                                            _vm.formData,
-                                            "dangers_goods",
-                                            $$c
-                                          )
-                                        }
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(dangersGood) +
-                                      "\n                                "
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        })
-                      ],
-                      2
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("What's in box:")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.what_in_box,
-                            expression: "formData.what_in_box"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", maxlength: "255" },
-                        domProps: { value: _vm.formData.what_in_box },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "what_in_box",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("Warranty Period:")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.warranty_period,
-                            expression: "formData.warranty_period"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          maxlength: "2",
-                          placeholder: "Total Number of Days"
-                        },
-                        domProps: { value: _vm.formData.warranty_period },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "warranty_period",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-12" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("Warranty Policy:")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.warranty_policy,
-                            expression: "formData.warranty_policy"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", maxlength: "255" },
-                        domProps: { value: _vm.formData.warranty_policy },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "warranty_policy",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-12" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("Warranty Policy EN:")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.warranty_policy_eng,
-                            expression: "formData.warranty_policy_eng"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", maxlength: "255" },
-                        domProps: { value: _vm.formData.warranty_policy_eng },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "warranty_policy_eng",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("Product Model:")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.product_model,
-                            expression: "formData.product_model"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "Product Model" },
-                        domProps: { value: _vm.formData.product_model },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "product_model",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("Color Shade/Number:")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.color_shade,
-                            expression: "formData.color_shade"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.formData.color_shade },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "color_shade",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Skin Type:")
-                        ]),
-                        _vm._v(" "),
-                        _c("vue-select2", {
-                          attrs: { options: _vm.skinTypes },
-                          model: {
-                            value: _vm.formData.skin_type,
-                            callback: function($$v) {
-                              _vm.$set(_vm.formData, "skin_type", $$v)
-                            },
-                            expression: "formData.skin_type"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("Number of pieces:")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.num_of_pieces,
-                            expression: "formData.num_of_pieces"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          placeholder: "Number of Pieces"
-                        },
-                        domProps: { value: _vm.formData.num_of_pieces },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "num_of_pieces",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("Main Material:")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.main_materials,
-                            expression: "formData.main_materials"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "Main Material" },
-                        domProps: { value: _vm.formData.main_materials },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "main_materials",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "control-label" }, [
-                        _vm._v("Extra Details:")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.extra_details,
-                            expression: "formData.extra_details"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", maxlength: "255" },
-                        domProps: { value: _vm.formData.extra_details },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "extra_details",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ])
-                ])
-              ]
-            )
-          ]),
-          _vm._v(" "),
           _vm.formData.product_type === 1
             ? _c("div", { staticClass: "panel panel-warning" }, [
-                _vm._m(12),
+                _vm._m(10),
                 _vm._v(" "),
                 _c("div", { staticClass: "panel-body" }, [
                   _c("div", { staticClass: "row" }, [
                     _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(13),
+                        _vm._m(11),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -76054,7 +75555,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(14),
+                        _vm._m(12),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -76086,7 +75587,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(15),
+                        _vm._m(13),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -76121,7 +75622,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-12" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(16),
+                        _vm._m(14),
                         _vm._v(" "),
                         _c("div", { attrs: { id: "simProductImg" } }, [
                           _c("div", { staticClass: "row" }, [
@@ -76139,7 +75640,7 @@ var render = function() {
                                   on: { change: _vm.uploadImage }
                                 }),
                                 _vm._v(" "),
-                                _vm._m(17)
+                                _vm._m(15)
                               ])
                             ])
                           ]),
@@ -76171,15 +75672,20 @@ var render = function() {
                                                   "a",
                                                   {
                                                     staticClass:
-                                                      "btn border-white text-white btn-flat btn-icon btn-rounded",
-                                                    attrs: {
-                                                      href: image.img,
-                                                      "data-fancybox": "images"
+                                                      "btn btn-danger border-danger text-white  btn-icon btn-rounded",
+                                                    attrs: { href: "#" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        $event.preventDefault()
+                                                        return _vm.removeAttachment(
+                                                          image.id
+                                                        )
+                                                      }
                                                     }
                                                   },
                                                   [
                                                     _c("i", {
-                                                      staticClass: "icon-eye"
+                                                      staticClass: "icon-trash"
                                                     })
                                                   ]
                                                 )
@@ -76204,7 +75710,7 @@ var render = function() {
           _vm._v(" "),
           _vm.formData.product_type === 2
             ? _c("div", { staticClass: "panel panel-warning" }, [
-                _vm._m(18),
+                _vm._m(16),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -76373,18 +75879,25 @@ var render = function() {
                                                                 "a",
                                                                 {
                                                                   staticClass:
-                                                                    "btn border-white text-white btn-flat btn-icon btn-rounded",
+                                                                    "btn btn-danger border-danger text-white  btn-icon btn-rounded",
                                                                   attrs: {
-                                                                    href:
-                                                                      image.img,
-                                                                    "data-fancybox":
-                                                                      "images"
+                                                                    href: "#"
+                                                                  },
+                                                                  on: {
+                                                                    click: function(
+                                                                      $event
+                                                                    ) {
+                                                                      $event.preventDefault()
+                                                                      return _vm.removeAttachment(
+                                                                        image.id
+                                                                      )
+                                                                    }
                                                                   }
                                                                 },
                                                                 [
                                                                   _c("i", {
                                                                     staticClass:
-                                                                      "icon-eye"
+                                                                      "icon-trash"
                                                                   })
                                                                 ]
                                                               )
@@ -76461,7 +75974,7 @@ var render = function() {
                               "table",
                               { staticClass: "table table-striped table-sm" },
                               [
-                                _vm._m(19),
+                                _vm._m(17),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -76776,7 +76289,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-2" }),
                   _vm._v(" "),
-                  _vm._m(20),
+                  _vm._m(18),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-2 col-md-offset-1" }, [
                     _c(
@@ -76912,38 +76425,6 @@ var staticRenderFns = [
       _vm._v("Thumb Image: "),
       _c("span", { staticClass: "text text-danger text-bold h4" }, [
         _vm._v("*")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading bg-purple-400" }, [
-      _c("h5", { staticClass: "panel-title" }, [
-        _vm._v("Product Info in English")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "heading-elements" }, [
-        _c("ul", { staticClass: "icons-list" }, [
-          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading bg-indigo-600" }, [
-      _c("h5", { staticClass: "panel-title" }, [
-        _vm._v("More Product Details")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "heading-elements" }, [
-        _c("ul", { staticClass: "icons-list" }, [
-          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })])
-        ])
       ])
     ])
   },
@@ -77097,7 +76578,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "panel-body" }, [
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "col-md-9" }, [
               _c("div", { staticClass: "form-group" }, [
                 _vm._m(1),
                 _vm._v(" "),
@@ -77130,6 +76611,70 @@ var render = function() {
                     }
                   }
                 })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v("City:")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.product_city,
+                        expression: "formData.product_city"
+                      }
+                    ],
+                    staticClass: "form-control select",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.formData,
+                          "product_city",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "", disabled: "" } }, [
+                      _vm._v("Select Product City")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.cities, function(city, index) {
+                      return _vm.cities
+                        ? _c(
+                            "option",
+                            { key: index, domProps: { value: city.key } },
+                            [_vm._v(_vm._s(city.text))]
+                          )
+                        : _vm._e()
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { staticClass: "text-help text-size-mini text-info" },
+                  [_vm._v("Default Product City will Use Your City Location")]
+                )
               ])
             ]),
             _vm._v(" "),
@@ -77524,610 +77069,15 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "panel panel-collapsed" }, [
-              _vm._m(10),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "panel-body", staticStyle: { display: "none" } },
-                [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Product Name EN:")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.lang_product_name,
-                              expression: "formData.lang_product_name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "product name" },
-                          domProps: { value: _vm.formData.lang_product_name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.formData,
-                                "lang_product_name",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { staticClass: "control-label" }, [
-                            _vm._v("Highlights EN:")
-                          ]),
-                          _vm._v(" "),
-                          _c("vue-editor", {
-                            attrs: { id: "lang_highlight" },
-                            model: {
-                              value: _vm.formData.lang_highlight,
-                              callback: function($$v) {
-                                _vm.$set(_vm.formData, "lang_highlight", $$v)
-                              },
-                              expression: "formData.lang_highlight"
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { staticClass: "control-label" }, [
-                            _vm._v("Description EN:")
-                          ]),
-                          _vm._v(" "),
-                          _c("vue-editor", {
-                            attrs: { id: "lang_description" },
-                            model: {
-                              value: _vm.formData.lang_description,
-                              callback: function($$v) {
-                                _vm.$set(_vm.formData, "lang_description", $$v)
-                              },
-                              expression: "formData.lang_description"
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ])
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "panel panel-collapsed" }, [
-              _vm._m(11),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "panel-body", staticStyle: { display: "none" } },
-                [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { staticClass: "control-label" }, [
-                            _vm._v("Warranty Type:")
-                          ]),
-                          _vm._v(" "),
-                          _vm._l(_vm.warrantyTypes, function(warranty, index) {
-                            return _vm.warrantyTypes
-                              ? _c(
-                                  "label",
-                                  { key: index, staticClass: "radio-inline" },
-                                  [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.formData.warranty_type,
-                                          expression: "formData.warranty_type"
-                                        }
-                                      ],
-                                      staticClass: "styled",
-                                      attrs: {
-                                        type: "radio",
-                                        name: "warrantyType"
-                                      },
-                                      domProps: {
-                                        value: index,
-                                        checked: _vm._q(
-                                          _vm.formData.warranty_type,
-                                          index
-                                        )
-                                      },
-                                      on: {
-                                        change: function($event) {
-                                          return _vm.$set(
-                                            _vm.formData,
-                                            "warranty_type",
-                                            index
-                                          )
-                                        }
-                                      }
-                                    }),
-                                    _vm._v(
-                                      "\n                                    " +
-                                        _vm._s(warranty) +
-                                        "\n                                "
-                                    )
-                                  ]
-                                )
-                              : _vm._e()
-                          })
-                        ],
-                        2
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { staticClass: "control-label" }, [
-                            _vm._v("Dangers Goods:")
-                          ]),
-                          _vm._v(" "),
-                          _vm._l(_vm.dangersGoods, function(
-                            dangersGood,
-                            index
-                          ) {
-                            return _vm.dangersGoods
-                              ? _c(
-                                  "label",
-                                  { key: index, staticClass: "radio-inline" },
-                                  [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.formData.dangers_goods,
-                                          expression: "formData.dangers_goods"
-                                        }
-                                      ],
-                                      staticClass: "styled",
-                                      attrs: {
-                                        type: "checkbox",
-                                        id: "dng" + index
-                                      },
-                                      domProps: {
-                                        value: index,
-                                        checked: Array.isArray(
-                                          _vm.formData.dangers_goods
-                                        )
-                                          ? _vm._i(
-                                              _vm.formData.dangers_goods,
-                                              index
-                                            ) > -1
-                                          : _vm.formData.dangers_goods
-                                      },
-                                      on: {
-                                        change: function($event) {
-                                          var $$a = _vm.formData.dangers_goods,
-                                            $$el = $event.target,
-                                            $$c = $$el.checked ? true : false
-                                          if (Array.isArray($$a)) {
-                                            var $$v = index,
-                                              $$i = _vm._i($$a, $$v)
-                                            if ($$el.checked) {
-                                              $$i < 0 &&
-                                                _vm.$set(
-                                                  _vm.formData,
-                                                  "dangers_goods",
-                                                  $$a.concat([$$v])
-                                                )
-                                            } else {
-                                              $$i > -1 &&
-                                                _vm.$set(
-                                                  _vm.formData,
-                                                  "dangers_goods",
-                                                  $$a
-                                                    .slice(0, $$i)
-                                                    .concat($$a.slice($$i + 1))
-                                                )
-                                            }
-                                          } else {
-                                            _vm.$set(
-                                              _vm.formData,
-                                              "dangers_goods",
-                                              $$c
-                                            )
-                                          }
-                                        }
-                                      }
-                                    }),
-                                    _vm._v(
-                                      "\n                                    " +
-                                        _vm._s(dangersGood) +
-                                        "\n                                "
-                                    )
-                                  ]
-                                )
-                              : _vm._e()
-                          })
-                        ],
-                        2
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("What's in box:")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.what_in_box,
-                              expression: "formData.what_in_box"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", maxlength: "255" },
-                          domProps: { value: _vm.formData.what_in_box },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.formData,
-                                "what_in_box",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Warranty Period:")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.warranty_period,
-                              expression: "formData.warranty_period"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "number",
-                            maxlength: "2",
-                            placeholder: "Total Number of Days"
-                          },
-                          domProps: { value: _vm.formData.warranty_period },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.formData,
-                                "warranty_period",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Warranty Policy:")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.warranty_policy,
-                              expression: "formData.warranty_policy"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", maxlength: "255" },
-                          domProps: { value: _vm.formData.warranty_policy },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.formData,
-                                "warranty_policy",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Warranty Policy EN:")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.warranty_policy_eng,
-                              expression: "formData.warranty_policy_eng"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", maxlength: "255" },
-                          domProps: { value: _vm.formData.warranty_policy_eng },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.formData,
-                                "warranty_policy_eng",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-3" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Product Model:")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.product_model,
-                              expression: "formData.product_model"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "Product Model" },
-                          domProps: { value: _vm.formData.product_model },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.formData,
-                                "product_model",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-3" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Color Shade/Number:")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.color_shade,
-                              expression: "formData.color_shade"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.formData.color_shade },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.formData,
-                                "color_shade",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-3" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { staticClass: "control-label" }, [
-                            _vm._v("Skin Type:")
-                          ]),
-                          _vm._v(" "),
-                          _c("vue-select2", {
-                            attrs: { options: _vm.skinTypes },
-                            model: {
-                              value: _vm.formData.skin_type,
-                              callback: function($$v) {
-                                _vm.$set(_vm.formData, "skin_type", $$v)
-                              },
-                              expression: "formData.skin_type"
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-3" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Number of pieces:")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.num_of_pieces,
-                              expression: "formData.num_of_pieces"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Number of Pieces"
-                          },
-                          domProps: { value: _vm.formData.num_of_pieces },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.formData,
-                                "num_of_pieces",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Main Material:")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.main_materials,
-                              expression: "formData.main_materials"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "Main Material" },
-                          domProps: { value: _vm.formData.main_materials },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.formData,
-                                "main_materials",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Extra Details:")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.extra_details,
-                              expression: "formData.extra_details"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", maxlength: "255" },
-                          domProps: { value: _vm.formData.extra_details },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.formData,
-                                "extra_details",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ])
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
             _vm.formData.product_type === 1
               ? _c("div", { staticClass: "panel panel-warning" }, [
-                  _vm._m(12),
+                  _vm._m(10),
                   _vm._v(" "),
                   _c("div", { staticClass: "panel-body" }, [
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "form-group" }, [
-                          _vm._m(13),
+                          _vm._m(11),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -78159,7 +77109,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "form-group" }, [
-                          _vm._m(14),
+                          _vm._m(12),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -78194,7 +77144,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "form-group" }, [
-                          _vm._m(15),
+                          _vm._m(13),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -78229,7 +77179,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(16),
+                      _vm._m(14),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-lg-11" }, [
                         _c("div", { attrs: { id: "simProductImg" } }, [
@@ -78248,7 +77198,7 @@ var render = function() {
                                   on: { change: _vm.uploadImage }
                                 }),
                                 _vm._v(" "),
-                                _vm._m(17)
+                                _vm._m(15)
                               ])
                             ])
                           ]),
@@ -78386,7 +77336,7 @@ var render = function() {
             _vm._v(" "),
             _vm.formData.product_type === 2
               ? _c("div", { staticClass: "panel panel-warning" }, [
-                  _vm._m(18),
+                  _vm._m(16),
                   _vm._v(" "),
                   _c("div", { staticClass: "panel-body" }, [
                     _c("div", { staticClass: "row" }, [
@@ -78400,7 +77350,7 @@ var render = function() {
                           _vm._l(_vm.total, function(i) {
                             return _c("div", { key: i, attrs: { id: i } }, [
                               _c("div", { staticClass: "form-group row" }, [
-                                _vm._m(19, true),
+                                _vm._m(17, true),
                                 _vm._v(" "),
                                 _c(
                                   "div",
@@ -78461,7 +77411,7 @@ var render = function() {
                                   staticClass: "form-group row"
                                 },
                                 [
-                                  _vm._m(20, true),
+                                  _vm._m(18, true),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "col-lg-9" }, [
                                     _c(
@@ -78633,7 +77583,7 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group row" }, [
-                            _vm._m(21),
+                            _vm._m(19),
                             _vm._v(" "),
                             _c(
                               "div",
@@ -78747,7 +77697,7 @@ var render = function() {
                               "table",
                               { staticClass: "table table-striped table-sm" },
                               [
-                                _vm._m(22),
+                                _vm._m(20),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -79091,7 +78041,7 @@ var render = function() {
                   _c("div", { staticClass: "row" }, [
                     _c("div", { staticClass: "col-md-2" }),
                     _vm._v(" "),
-                    _vm._m(23),
+                    _vm._m(21),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-2" }, [
                       _c(
@@ -79227,38 +78177,6 @@ var staticRenderFns = [
       _vm._v("Thumb Image: "),
       _c("span", { staticClass: "text text-danger text-bold h4" }, [
         _vm._v("*")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading bg-purple-400" }, [
-      _c("h5", { staticClass: "panel-title" }, [
-        _vm._v("Product Info in English")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "heading-elements" }, [
-        _c("ul", { staticClass: "icons-list" }, [
-          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading bg-indigo-600" }, [
-      _c("h5", { staticClass: "panel-title" }, [
-        _vm._v("More Product Details")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "heading-elements" }, [
-        _c("ul", { staticClass: "icons-list" }, [
-          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })])
-        ])
       ])
     ])
   },
@@ -79879,299 +78797,7 @@ var render = function() {
               domProps: { innerHTML: _vm._s(_vm.proData.description) }
             })
           ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "panel panel-info" }, [
-          _vm._m(2),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel-body" }, [
-            _c("div", { staticClass: "content-group" }, [
-              _c("p", { staticClass: "text text-bold" }, [
-                _vm._v(
-                  "Product Name (EN) : " + _vm._s(_vm.proData.lang_product_name)
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "content-group" }, [
-              _c(
-                "p",
-                {
-                  staticClass: "text text-bold",
-                  staticStyle: { "margin-bottom": ".5rem" }
-                },
-                [_vm._v("Product Highlight (EN): ")]
-              ),
-              _vm._v(" "),
-              _c("p", {
-                domProps: { innerHTML: _vm._s(_vm.proData.lang_highlight) }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "content-group" }, [
-              _c(
-                "p",
-                {
-                  staticClass: "text text-bold",
-                  staticStyle: { "margin-bottom": ".5rem" }
-                },
-                [_vm._v("Product Description (EN): ")]
-              ),
-              _vm._v(" "),
-              _c("p", {
-                domProps: { innerHTML: _vm._s(_vm.proData.lang_description) }
-              })
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        typeof _vm.proDetails !== "undefined" && _vm.proDetails !== ""
-          ? _c("div", { staticClass: "panel" }, [
-              _vm._m(3),
-              _vm._v(" "),
-              _c("div", { staticClass: "panel-body" }, [
-                _c("div", { staticClass: "content-group" }, [
-                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                    _c("span", { staticClass: "text-bold" }, [
-                      _vm._v("Main Material: ")
-                    ]),
-                    _vm._v(" "),
-                    _vm.proDetails.materials
-                      ? _c("span", {
-                          domProps: {
-                            innerHTML: _vm._s(_vm.proDetails.materials)
-                          }
-                        })
-                      : _c(
-                          "span",
-                          { staticClass: "text-size-small text-slate-400" },
-                          [_vm._v("No Data")]
-                        )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content-group" }, [
-                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                    _c("span", { staticClass: "text-bold" }, [
-                      _vm._v("Product Model: ")
-                    ]),
-                    _vm._v(" "),
-                    _vm.proDetails.model
-                      ? _c("span", {
-                          domProps: { innerHTML: _vm._s(_vm.proDetails.model) }
-                        })
-                      : _c(
-                          "span",
-                          { staticClass: "text-size-small text-slate-400" },
-                          [_vm._v("No Data")]
-                        )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content-group" }, [
-                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                    _c("span", { staticClass: "text-bold" }, [
-                      _vm._v("No. Of Pieces : ")
-                    ]),
-                    _vm._v(" "),
-                    _vm.proDetails.pieces
-                      ? _c("span", {
-                          domProps: { innerHTML: _vm._s(_vm.proDetails.pieces) }
-                        })
-                      : _c(
-                          "span",
-                          { staticClass: "text-size-small text-slate-400" },
-                          [_vm._v("No Data")]
-                        )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content-group" }, [
-                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                    _c("span", { staticClass: "text-bold" }, [
-                      _vm._v("Product Occasion: ")
-                    ]),
-                    _vm._v(" "),
-                    _vm.proDetails.occasion
-                      ? _c("span", {
-                          domProps: {
-                            innerHTML: _vm._s(_vm.proDetails.occasion)
-                          }
-                        })
-                      : _c(
-                          "span",
-                          { staticClass: "text-size-small text-slate-400" },
-                          [_vm._v("No Data")]
-                        )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content-group" }, [
-                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                    _c("span", { staticClass: "text-bold" }, [
-                      _vm._v("Color Shade : ")
-                    ]),
-                    _vm._v(" "),
-                    _vm.proDetails.color_shade
-                      ? _c("span", {
-                          domProps: {
-                            innerHTML: _vm._s(_vm.proDetails.color_shade)
-                          }
-                        })
-                      : _c(
-                          "span",
-                          { staticClass: "text-size-small text-slate-400" },
-                          [_vm._v("No Data")]
-                        )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content-group" }, [
-                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                    _c("span", { staticClass: "text-bold" }, [
-                      _vm._v("Skin Type: ")
-                    ]),
-                    _vm._v(" "),
-                    _vm.proDetails.skin_type
-                      ? _c("span", {
-                          domProps: {
-                            innerHTML: _vm._s(_vm.proDetails.skin_type)
-                          }
-                        })
-                      : _c(
-                          "span",
-                          { staticClass: "text-size-small text-slate-400" },
-                          [_vm._v("No Data")]
-                        )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content-group" }, [
-                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                    _c("span", { staticClass: "text-bold" }, [
-                      _vm._v("Extra Details : ")
-                    ]),
-                    _vm._v(" "),
-                    _vm.proDetails.extra_details
-                      ? _c("span", {
-                          domProps: {
-                            innerHTML: _vm._s(_vm.proDetails.extra_details)
-                          }
-                        })
-                      : _c(
-                          "span",
-                          { staticClass: "text-size-small text-slate-400" },
-                          [_vm._v("No Data")]
-                        )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content-group" }, [
-                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                    _c("span", { staticClass: "text-bold" }, [
-                      _vm._v("Warranty Policy: ")
-                    ]),
-                    _vm._v(" "),
-                    _vm.proDetails.warranty_policy
-                      ? _c("span", {
-                          domProps: {
-                            innerHTML: _vm._s(_vm.proDetails.warranty_policy)
-                          }
-                        })
-                      : _c(
-                          "span",
-                          { staticClass: "text-size-small text-slate-400" },
-                          [_vm._v("No Data")]
-                        )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content-group" }, [
-                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                    _c("span", { staticClass: "text-bold" }, [
-                      _vm._v("Warranty Policy (EN): ")
-                    ]),
-                    _vm._v(" "),
-                    _vm.proDetails.warranty_policy_eng
-                      ? _c("span", {
-                          domProps: {
-                            innerHTML: _vm._s(
-                              _vm.proDetails.warranty_policy_eng
-                            )
-                          }
-                        })
-                      : _c(
-                          "span",
-                          { staticClass: "text-size-small text-slate-400" },
-                          [_vm._v("No Data")]
-                        )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content-group" }, [
-                  _c("p", { staticStyle: { "margin-bottom": ".5rem" } }, [
-                    _c("span", { staticClass: "text-bold" }, [
-                      _vm._v("Warranty Period : ")
-                    ]),
-                    _vm._v(" "),
-                    _vm.proDetails.warranty_period
-                      ? _c("span", [
-                          _vm._v(
-                            _vm._s(_vm.proDetails.warranty_period) + " days"
-                          )
-                        ])
-                      : _c(
-                          "span",
-                          { staticClass: "text-size-small text-slate-400" },
-                          [_vm._v("0 Day")]
-                        )
-                  ])
-                ])
-              ])
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.proVariations.length !== 0 &&
-        typeof _vm.proVariations !== "undefined"
-          ? _c("div", { staticClass: "panel" }, [
-              _vm._m(4),
-              _vm._v(" "),
-              _c("div", { staticClass: "panel-body" }, [
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "table table-sm table-responsive table-bordered"
-                  },
-                  [
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.proVariations, function(variaction) {
-                        return _c("tr", [
-                          _c("td", [
-                            _vm._v(_vm._s(variaction.primary_model.color_name))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(_vm._s(variaction.secondary_model.size_name))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(variaction.seller_sku))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(variaction.quantity))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(" " + _vm._s(variaction.price))])
-                        ])
-                      }),
-                      0
-                    )
-                  ]
-                )
-              ])
-            ])
-          : _vm._e()
+        ])
       ])
     ])
   ])
@@ -80204,66 +78830,6 @@ var staticRenderFns = [
         _c("ul", { staticClass: "icons-list" }, [
           _c("li", [_c("a", { attrs: { "data-action": "reload" } })])
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading" }, [
-      _c("h6", { staticClass: "panel-title" }, [_vm._v("Product Details EN")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "heading-elements" }, [
-        _c("ul", { staticClass: "icons-list" }, [
-          _c("li", [_c("a", { attrs: { "data-action": "reload" } })])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading bg-teal-300" }, [
-      _c("h6", { staticClass: "panel-title" }, [
-        _vm._v("Product Extra Details")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "heading-elements" }, [
-        _c("ul", { staticClass: "icons-list" }, [
-          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })]),
-          _vm._v(" "),
-          _c("li", [_c("a", { attrs: { "data-action": "reload" } })]),
-          _vm._v(" "),
-          _c("li", [_c("a", { attrs: { "data-action": "close" } })])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading bg-teal" }, [
-      _c("h6", { staticClass: "panel-title" }, [_vm._v("Product Variations")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("td", [_vm._v("Color")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Size")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("SKU")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Quantity")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Price")])
       ])
     ])
   }
@@ -97882,9 +96448,47 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     resData: '',
     attachmentsFile: [],
     errors: null,
-    attachment_ids: []
+    attachment_ids: [],
+    cityList: [{
+      key: '0',
+      text: 'All'
+    }, {
+      key: '1',
+      text: 'Bosaso'
+    }, {
+      key: '2',
+      text: 'Qardho'
+    }, {
+      key: '3',
+      text: 'Hargeisa'
+    }, {
+      key: '4',
+      text: 'Badhan'
+    }, {
+      key: '5',
+      text: 'Ceerigaabo'
+    }, {
+      key: '6',
+      text: 'Garowe'
+    }, {
+      key: '7',
+      text: 'Muqdisho'
+    }, {
+      key: '8',
+      text: 'Carmo'
+    }, {
+      key: '9',
+      text: 'Burco'
+    }, {
+      key: '10',
+      text: 'Boorama'
+    }]
   },
-  getters: {},
+  getters: {
+    cities: function cities(state) {
+      return state.cityList;
+    }
+  },
   actions: {},
   mutations: {
     setResponse: function setResponse(state, res) {

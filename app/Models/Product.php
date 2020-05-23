@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 class Product extends Model
 {
     use ManipulateBy;
-
     const ProductType=[
         'Simple'=>1,
         'Variation'=>2
@@ -108,6 +107,11 @@ class Product extends Model
         return 'product_slug';
     }
 
+    public function getProductCityNameAttribute()
+    {
+        $city = array_flip(AddressBook::cityList);
+        return $city[$this->attributes['product_city']];
+    }
     public function getProductNameAttribute()
     {
         if (app()->getLocale() == 'so'){

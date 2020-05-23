@@ -5,6 +5,7 @@ namespace App\Http\Resources\Admin;
 use App\Http\Resources\Admin\Category as CategoryResource;
 use App\Http\Resources\Admin\Brand as BrandResource;
 use App\Http\Resources\Attachment as AttachmentResource;
+use App\Models\AddressBook;
 use Illuminate\Http\Resources\Json\Resource;
 
 class Product extends Resource
@@ -44,6 +45,7 @@ class Product extends Resource
             'seller_sku'=>$this->seller_sku,
             'condition'=>$this->product_condition,
             'discount'=>$this->discount_price,
+            'product_city'=> $this->product_city,
             'thumbImage'=> new AttachmentResource($this->whenLoaded('thumbImage')),
             'category'=>new CategoryResource($this->whenLoaded('category')),
             'brand'=>new BrandResource($this->whenLoaded('brand')),

@@ -6,9 +6,21 @@
                     <legend>{{ $t('buyer.product.new_product') }}</legend>
                     <ul>
                         <li>
-                            <label for="pro_name"> {{ $t('buyer.product.pro_name') }} <span class="required">*</span> </label>
-                            <br>
-                            <input type="text" id="pro_name" v-model="formData.product_name" title="First Name" class="input-text required-entry" style="width:100%;">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <label for="pro_name"> {{ $t('buyer.product.pro_name') }} <span class="required">*</span> </label>
+                                    <br>
+                                    <input type="text" id="pro_name" v-model="formData.product_name" title="First Name" class="input-text required-entry" style="width:100%;">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="product_city"> Product City  <span class="required">*</span> </label>
+                                    <br>
+                                    <select class="address-select" v-model="formData.product_city" id="product_city" style="width:100%;" >
+                                        <option value="" disabled>Select Product City</option>
+                                        <option v-if="cities" v-for="(city, index) in cities" :key="index" :value="city.key">{{ city.text }}</option>
+                                    </select>
+                                </div>
+                            </div>
                         </li>
                         <li>
                             <div class="row">
@@ -197,6 +209,7 @@
                     main_cat_id:'',
                     sec_cat_id:'',
                     trd_cat_id:'',
+                    product_city:'',
                 },
                 btnDisabled:false,
                 cropperData:{
@@ -372,6 +385,7 @@
                 'editProduct',
                 'categoryInfo',
                 'proImages',
+                'cities',
             ]),
             checkTreeListIds(){
                 return JSON.parse(JSON.stringify(this.treeList));
@@ -432,6 +446,7 @@
                         this.formData.product_qty = this.editProduct.product_qty;
                         this.formData.product_price = this.editProduct.product_price;
                         this.formData.thumb_id = this.editProduct.thumb_id;
+                        this.formData.product_city = this.editProduct.product_city;
                         this.formData.main_cat_id = this.categoryInfo.main_cat_id;
                     }
 

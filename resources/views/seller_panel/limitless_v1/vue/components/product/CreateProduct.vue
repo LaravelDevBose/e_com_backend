@@ -9,10 +9,20 @@
 
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-9">
                             <div class="form-group">
                                 <label class="control-label">Product Name: <span class="text text-danger text-bold">*</span></label>
                                 <input type="text" class="form-control" v-model="formData.product_name"  placeholder="product name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">City:</label>
+                                <select v-model="formData.product_city" class="form-control select">
+                                    <option value="" disabled>Select Product City</option>
+                                    <option v-if="cities" v-for="(city, index) in cities" :key="index" :value="city.key">{{ city.text }}</option>
+                                </select>
+                                <span class="text-help text-size-mini text-info">Default Product City will Use Your City Location</span>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -103,7 +113,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-collapsed" >
+                <!--<div class="panel panel-collapsed" >
                     <div class="panel-heading bg-purple-400">
                         <h5 class="panel-title">Product Info in English</h5>
                         <div class="heading-elements">
@@ -229,7 +239,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div class="panel panel-warning" v-if="formData.product_type === 1">
                     <div class="panel-heading">
                         <h5 class="panel-title">Product SKU information</h5>
@@ -273,9 +283,15 @@
                                                     <div class="thumb">
                                                         <img :src="image.img" alt="">
                                                         <div class="caption-overflow">
-                                                            <span>
-                                                                <a :href="image.img" data-fancybox="images"  class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-eye"></i></a>
-                                                            </span>
+                                                        <span>
+                                                            <a
+                                                                href="#"
+                                                                @click.prevent="removeAttachment(image.id)"
+                                                                class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
+                                                            >
+                                                                <i class="icon-trash"></i>
+                                                            </a>
+                                                        </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -324,9 +340,15 @@
                                                     <div class="thumb">
                                                         <img :src="image.img" alt="">
                                                         <div class="caption-overflow">
-                                                    <span>
-                                                        <a :href="image.img" data-fancybox="images"  class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-eye"></i></a>
-                                                    </span>
+                                                            <span>
+                                                                <a
+                                                                    href="#"
+                                                                    @click.prevent="removeAttachment(image.id)"
+                                                                    class="btn btn-danger border-danger text-white  btn-icon btn-rounded"
+                                                                >
+                                                                    <i class="icon-trash"></i>
+                                                                </a>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -493,6 +515,7 @@
                     seller_sku:'',
                     cod_avail:1,
                     discount_price:'',
+                    product_city: 'all',
                 },
                 variations:[],
                 btnDisabled:false,
@@ -828,6 +851,7 @@
                 'skinTypes',
                 'cropImageIds',
                 'productType',
+                'cities'
             ]),
             clonedPrimaryIds(){
                 return JSON.parse(JSON.stringify(this.pri_id));

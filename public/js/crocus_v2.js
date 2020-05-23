@@ -6173,6 +6173,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6209,7 +6221,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         product_price: '',
         main_cat_id: '',
         sec_cat_id: '',
-        trd_cat_id: ''
+        trd_cat_id: '',
+        product_city: ''
       },
       btnDisabled: false,
       cropperData: {
@@ -6374,7 +6387,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['brandList', 'treeList', 'conditionList', 'productImages', 'imageIds', 'cropImageIds', 'editProduct', 'categoryInfo', 'proImages']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['brandList', 'treeList', 'conditionList', 'productImages', 'imageIds', 'cropImageIds', 'editProduct', 'categoryInfo', 'proImages', 'cities']), {
     checkTreeListIds: function checkTreeListIds() {
       return JSON.parse(JSON.stringify(this.treeList));
     },
@@ -6436,6 +6449,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           this.formData.product_qty = this.editProduct.product_qty;
           this.formData.product_price = this.editProduct.product_price;
           this.formData.thumb_id = this.editProduct.thumb_id;
+          this.formData.product_city = this.editProduct.product_city;
           this.formData.main_cat_id = this.categoryInfo.main_cat_id;
         }
       }
@@ -15537,7 +15551,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../../../../no
 
 
 // module
-exports.push([module.i, "\n.close-btn[data-v-a4f5979a]{\r\n    background-color: red;\r\n    padding: 0 3px;\r\n    color: #fff;\r\n    position: absolute;\r\n    top: 0px;\r\n    right: 14px;\n}\r\n", ""]);
+exports.push([module.i, "\n.close-btn[data-v-a4f5979a]{\n    background-color: red;\n    padding: 0 3px;\n    color: #fff;\n    position: absolute;\n    top: 0px;\n    right: 14px;\n}\n", ""]);
 
 // exports
 
@@ -74208,39 +74222,107 @@ var render = function() {
             _vm._v(" "),
             _c("ul", [
               _c("li", [
-                _c("label", { attrs: { for: "pro_name" } }, [
-                  _vm._v(" " + _vm._s(_vm.$t("buyer.product.pro_name")) + " "),
-                  _c("span", { staticClass: "required" }, [_vm._v("*")])
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.formData.product_name,
-                      expression: "formData.product_name"
-                    }
-                  ],
-                  staticClass: "input-text required-entry",
-                  staticStyle: { width: "100%" },
-                  attrs: { type: "text", id: "pro_name", title: "First Name" },
-                  domProps: { value: _vm.formData.product_name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-9" }, [
+                    _c("label", { attrs: { for: "pro_name" } }, [
+                      _vm._v(
+                        " " + _vm._s(_vm.$t("buyer.product.pro_name")) + " "
+                      ),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.product_name,
+                          expression: "formData.product_name"
+                        }
+                      ],
+                      staticClass: "input-text required-entry",
+                      staticStyle: { width: "100%" },
+                      attrs: {
+                        type: "text",
+                        id: "pro_name",
+                        title: "First Name"
+                      },
+                      domProps: { value: _vm.formData.product_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formData,
+                            "product_name",
+                            $event.target.value
+                          )
+                        }
                       }
-                      _vm.$set(
-                        _vm.formData,
-                        "product_name",
-                        $event.target.value
-                      )
-                    }
-                  }
-                })
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formData.product_city,
+                            expression: "formData.product_city"
+                          }
+                        ],
+                        staticClass: "address-select",
+                        staticStyle: { width: "100%" },
+                        attrs: { id: "product_city" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.formData,
+                              "product_city",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "", disabled: "" } }, [
+                          _vm._v("Select Product City")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.cities, function(city, index) {
+                          return _vm.cities
+                            ? _c(
+                                "option",
+                                { key: index, domProps: { value: city.key } },
+                                [_vm._v(_vm._s(city.text))]
+                              )
+                            : _vm._e()
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ])
               ]),
               _vm._v(" "),
               _c("li", [
@@ -74829,7 +74911,7 @@ var render = function() {
                               on: { change: _vm.uploadImage }
                             }),
                             _vm._v(" "),
-                            _vm._m(0)
+                            _vm._m(1)
                           ])
                         ])
                       ]),
@@ -74926,6 +75008,15 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "product_city" } }, [
+      _vm._v(" Product City  "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -97777,37 +97868,37 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       name: 'Woqooyi Galbeed'
     }],
     cityList: [{
-      key: 'all',
+      key: '0',
       text: 'All'
     }, {
-      key: 'bosaso',
+      key: '1',
       text: 'Bosaso'
     }, {
-      key: 'qardho',
+      key: '2',
       text: 'Qardho'
     }, {
-      key: 'hargeisa',
+      key: '3',
       text: 'Hargeisa'
     }, {
-      key: 'badhan',
+      key: '4',
       text: 'Badhan'
     }, {
-      key: 'ceerigaabo',
+      key: '5',
       text: 'Ceerigaabo'
     }, {
-      key: 'garowe',
+      key: '6',
       text: 'Garowe'
     }, {
-      key: 'muqdisho',
+      key: '7',
       text: 'Muqdisho'
     }, {
-      key: 'carmo',
+      key: '8',
       text: 'Carmo'
     }, {
-      key: 'burco',
+      key: '9',
       text: 'Burco'
     }, {
-      key: 'boorama',
+      key: '10',
       text: 'Boorama'
     }]
   },

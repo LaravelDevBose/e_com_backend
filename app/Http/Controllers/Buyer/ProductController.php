@@ -122,7 +122,7 @@ class ProductController extends Controller
                     'product_price'=>$request->product_price,
                     'seller_sku'=>$request->seller_sku,
                     'product_condition'=>$request->product_condition,
-                    'product_city'=>(!empty($request->product_city))? AddressBook::cityList[$request->product_city] :  auth()->guard('seller')->user()->seller->seller_city,
+                    'product_city'=>(!empty($request->product_city))? $request->product_city :  auth()->guard('seller')->user()->seller->seller_city,
                 ]);
                 if(!empty($product)){
                     if(!empty($request->imageIds)){
@@ -270,6 +270,7 @@ class ProductController extends Controller
                     'product_price'=>$request->product_price,
                     'seller_sku'=>$request->seller_sku,
                     'product_condition'=>$request->product_condition,
+                    'product_city'=>(!empty($request->product_city))? $request->product_city :  auth()->guard('seller')->user()->seller->seller_city,
                 ]);
                 if(!empty($product)){
                     if(!empty($request->imageIds)){

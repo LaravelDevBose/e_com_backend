@@ -85,7 +85,7 @@
                     </div>
                 </div>
 
-                <div class="panel panel-info">
+                <!--<div class="panel panel-info">
                     <div class="panel-heading">
                         <h6 class="panel-title">Product Details EN</h6>
                         <div class="heading-elements">
@@ -109,8 +109,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Available hours -->
                 <div class="panel" v-if="typeof proDetails !== 'undefined' && proDetails !== '' ">
                     <div class="panel-heading bg-teal-300">
                         <h6 class="panel-title">Product Extra Details</h6>
@@ -196,9 +194,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- /available hours -->
-
-                <!-- Calendar -->
                 <div class="panel" v-if="proVariations.length !== 0 && typeof proVariations !== 'undefined'">
                     <div class="panel-heading bg-teal">
                         <h6 class="panel-title">Product Variations</h6>
@@ -227,8 +222,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <!-- /calendar -->
+                </div>-->
             </div>
         </div>
 
