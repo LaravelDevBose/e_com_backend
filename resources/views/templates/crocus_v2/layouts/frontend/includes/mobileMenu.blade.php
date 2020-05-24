@@ -7,12 +7,12 @@
                         <div class="input-group-btn">
                             <button class="btn btn-default" type="submit"><i class="fa fa-search"></i> </button>
                         </div>
-                        <input type="text" class="form-control simple" placeholder="Search ..." name="srch-term" id="srch-term">
+                        <input type="text" class="form-control simple" placeholder="{{ __('header.search_here') }}" name="srch-term" id="srch-term">
                     </div>
                 </form>
             </div>
         </li>
-        <li><a href="{{ route('front.index') }}">Home</a> </li>
+        <li><a href="{{ route('front.index') }}">{{ __('header.home') }}</a> </li>
         @if(!empty($categoryTree))
             @foreach($categoryTree as $category)
                 <li><a href="{{ route('front.category.product', $category->category_slug) }}">{{ $category->category_name }}</a>
@@ -48,19 +48,27 @@
     <div class="top-links">
         <ul class="links">
             @if(auth()->guest())
-                <li><a title="My Account" href="{{ route('login') }}">My Account</a> </li>
-                <li class="last"><a title="Login" href="{{ route('login') }}">Login</a> </li>
-                <li class="last"><a title="Login" href="{{ route('seller.login') }}">Seller Login</a> </li>
+
+                <li><a title="{{ __('header.my_account') }}" href="{{ route('login') }}">{{ __('header.my_account') }}</a> </li>
+                <li class="last"><a title="{{ __('header.login') }}" href="{{ route('login') }}">{{ __('header.login') }}</a> </li>
+                <li class="last"><a title="{{ __('header.seller_login') }}" href="{{ route('seller.login') }}">{{ __('header.seller_login') }}</a> </li>
+
             @elseif(auth()->guard('admin')->check())
-                <li><a title="My Account" href="{{ route('admin.home') }}">My Account</a> </li>
-                <li class="last"><a title="Login" href="{{ route('admin.logout') }}">Logout</a> </li>
+
+                <li><a title="{{ __('header.my_account') }}" href="{{ route('admin.home') }}">{{ __('header.my_account') }}</a> </li>
+                <li class="last"><a title="{{ __('header.logout') }}" href="{{ route('admin.logout') }}">{{ __('header.logout') }}</a> </li>
+
             @elseif(auth()->guard('seller')->check())
-                <li><a title="My Account" href="{{ route('seller.home') }}">My Account</a> </li>
-                <li class="last"><a title="Login" href="{{ route('seller.logout') }}">Logout</a> </li>
+
+                <li><a title="{{ __('header.my_account') }}" href="{{ route('seller.home') }}">{{ __('header.my_account') }}</a> </li>
+                <li class="last"><a title="{{ __('header.logout') }}" href="{{ route('seller.logout') }}">{{ __('header.logout') }}</a> </li>
+
             @else
-                <li><a title="My Account" href="{{ route('buyer.home') }}">My Account</a> </li>
-                <li><a title="Checkout" href="{{ route('buyer.checkout') }}">Checkout</a> </li>
-                <li class="last"><a title="Login" href="{{ route('buyer.logout') }}">Logout</a> </li>
+
+                <li><a title="{{ __('header.my_account') }}" href="{{ route('buyer.home') }}">{{ __('header.my_account') }}</a> </li>
+                <li><a title="{{ __('header.checkout') }}" href="{{ route('buyer.checkout') }}">{{ __('header.checkout') }}</a> </li>
+                <li class="last"><a title="{{ __('header.logout') }}" href="{{ route('buyer.logout') }}">{{ __('header.logout') }}</a> </li>
+
             @endif
 
         </ul>

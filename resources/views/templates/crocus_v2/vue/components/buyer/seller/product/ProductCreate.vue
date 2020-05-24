@@ -13,7 +13,7 @@
                                     <input type="text" id="pro_name" v-model="formData.product_name" title="First Name" class="input-text required-entry" style="width:100%;">
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="product_city"> Product City  <span class="required">*</span> </label>
+                                    <label for="product_city">{{ $t('buyer.product.pro_city') }} <span class="required">*</span> </label>
                                     <br>
                                     <select class="address-select" v-model="formData.product_city" id="product_city" style="width:100%;" >
                                         <option value="" disabled>Select Product City</option>

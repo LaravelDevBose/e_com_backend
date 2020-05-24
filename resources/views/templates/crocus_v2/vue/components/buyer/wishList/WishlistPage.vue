@@ -5,7 +5,9 @@
                 <wish-list-products></wish-list-products>
 
                 <div class="buttons-set buttons-set2">
-                    <button class="button btn-add" @click.prevent="addAllToCart()" title="Add All to Cart" type="button"><span>Add All to Cart</span></button>
+                    <button class="button btn-add" @click.prevent="addAllToCart()" title="Add All to Cart" type="button">
+                        <span>{{ $t('buyer.wish_list.add_all_cart')}}</span>
+                    </button>
                 </div>
             </fieldset>
         </div>

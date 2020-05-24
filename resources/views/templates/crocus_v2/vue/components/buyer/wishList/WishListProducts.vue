@@ -2,10 +2,10 @@
     <table id="wishlist-table" class="clean-table linearize-table data-table">
         <thead>
             <tr class="first last">
-                <th class="customer-wishlist-item-image">Image</th>
-                <th class="customer-wishlist-item-info">Product Info</th>
-                <th class="customer-wishlist-item-quantity">Quantity</th>
-                <th class="customer-wishlist-item-price">Price</th>
+                <th class="customer-wishlist-item-image">{{ $t('buyer.wish_list.image')}}</th>
+                <th class="customer-wishlist-item-info">{{ $t('buyer.wish_list.product_info')}}</th>
+                <th class="customer-wishlist-item-quantity">{{ $t('buyer.wish_list.qty')}}</th>
+                <th class="customer-wishlist-item-price">{{ $t('buyer.wish_list.price')}}</th>
                 <th class="customer-wishlist-item-cart"></th>
                 <th class="customer-wishlist-item-remove"></th>
             </tr>
@@ -51,7 +51,9 @@
                 </td>
                 <td class="wishlist-cell4 customer-wishlist-item-cart">
                     <div class="cart-cell">
-                        <button class="button btn-cart" @click.prevent="wishListToCart(wishList.id)" title="Add to Cart" type="button"><span><span>Add to Cart</span></span></button>
+                        <button class="button btn-cart" @click.prevent="wishListToCart(wishList.id)" title="Add to Cart" type="button">
+                            <span><span>{{ $t('buyer.wish_list.add_all_cart')}}</span></span>
+                        </button>
                     </div>
                 </td>
                 <td class="wishlist-cell5 customer-wishlist-item-remove last">

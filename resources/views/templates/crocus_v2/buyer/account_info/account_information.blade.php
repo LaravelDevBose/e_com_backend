@@ -14,14 +14,10 @@
                 <div class="col-main">
                     <div class="my-account">
                         <div class="page-title">
-                            <h2>Account Information</h2>
+                            <h2>{{ __('header.Account Info') }}</h2>
                         </div>
                         <div class="dashboard">
-                            <welcome-message></welcome-message>
                             <div class="box-account">
-                                <div class="page-title">
-                                    <h2>Account Information</h2>
-                                </div>
                                 <account-info-update></account-info-update>
                             </div>
                         </div>

@@ -46,7 +46,7 @@
                     </li>-->
                     <li>
                         <label for="seller_address">
-                            Address
+                           {{ $t('form.address')}}
                             <span class="required">*</span>
                         </label>
                         <br />
@@ -54,11 +54,11 @@
                     </li>
                     <li>
                         <label for="seller_city">
-                            City
+                            {{ $t('form.city')}}
                             <span class="required">*</span>
                         </label>
                         <br />
-                        <select name="" id="seller_city" v-model="formData.seller_city" required class="validate-select">
+                        <select name="" id="seller_city" v-model="formData.seller_city" required class="validate-select" style="width: 80%" placeholder="select City">
                             <option v-for="(city, index) in cities" :key="index" :value="city.key" v-if="index !=0 "> {{ city.text }}</option>
                         </select>
                     </li>

@@ -4,14 +4,14 @@
             <thead>
             <tr class="first last">
                 <th>#</th>
-                <th style="max-width:70px;">Image</th>
-                <th>Product Name</th>
-                <th>Brand</th>
-                <th>Condition</th>
-                <th class="text-center">Qty</th>
-                <th class="text-right">Price</th>
-                <th class="text-center">Status</th>
-                <th class="text-center">Action </th>
+                <th style="max-width:70px;">{{ $t('buyer.product.pro_img')}}</th>
+                <th>{{ $t('buyer.product.pro_name')}}</th>
+                <th>{{ $t('buyer.product.brand')}}</th>
+                <th>{{ $t('buyer.product.condition')}}</th>
+                <th class="text-center">{{ $t('buyer.product.pro_qty')}}</th>
+                <th class="text-right">{{ $t('buyer.product.pro_price')}}</th>
+                <th class="text-center">{{ $t('buyer.product.pro_status')}}</th>
+                <th class="text-center">{{ $t('buyer.product.pro_action')}} </th>
             </tr>
             </thead>
             <tbody>

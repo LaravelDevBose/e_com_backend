@@ -46,7 +46,8 @@ export const ENGLISH_TRANSLATIONS  ={
         range:'Range',
         brand:'Brand|Brands',
         color:'Color|Colors',
-        size:'Size|Sizes'
+        size:'Size|Sizes',
+        overview:'Overview',
     },
     product:{
         availability:'Availability',
@@ -103,9 +104,11 @@ export const ENGLISH_TRANSLATIONS  ={
     },
 
     buyer:{
+        view_all: 'View All',
         dashboard:{
             menu:'Menu',
             seller_dashboard: 'Seller Dashboard',
+            my_dashboard: 'My Dashboard',
         },
         order:{
             menu:'My Order| My Orders',
@@ -121,7 +124,9 @@ export const ENGLISH_TRANSLATIONS  ={
             price: 'Price',
             t_price: 'T. Price',
             qty:'Qty',
-            image: 'Image'
+            image: 'Image',
+            ready_to_ship: 'Ready To Ship',
+            cancel: 'Cancel'
         },
         invoice:{
 
@@ -130,7 +135,7 @@ export const ENGLISH_TRANSLATIONS  ={
             menu:'My WishList',
             image:'Image',
             product_info:'Product Info',
-            qty:'Quentity',
+            qty:'Quantity',
             price:'Price',
             add_all_cart:'Add All To Cart',
         },
@@ -171,6 +176,9 @@ export const ENGLISH_TRANSLATIONS  ={
             pro_img: 'Product Image',
             pro_update: 'Update Product',
             pro_save: 'Save Product',
+            pro_city: 'Product City',
+            pro_status: 'Status',
+            pro_action: 'Action',
         },
         review: {
             review_list: 'Review List',

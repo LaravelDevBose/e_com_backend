@@ -13,12 +13,9 @@
                 <div class="col-main">
                     <div class="my-account">
                         <div class="page-title">
-                            <h2>My Wishlist</h2>
+                            <h2>{{ __('header.My Wishlist') }}</h2>
                         </div>
                         <wishlist-page></wishlist-page>
-                        <div class="buttons-set">
-                            <p class="back-link"><a href="#/customer/account/"><small>« </small>Back</a></p>
-                        </div>
                     </div>
                 </div>
             </section>

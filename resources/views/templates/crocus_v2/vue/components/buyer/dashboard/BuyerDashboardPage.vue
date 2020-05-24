@@ -1,14 +1,13 @@
 <template>
     <div class="my-account">
         <div class="page-title">
-            <h2>My Dashboard</h2>
+            <h2>{{ $t('buyer.dashboard.my_dashboard')}}</h2>
         </div>
         <div class="dashboard">
-<!--            <welcome-message></welcome-message>-->
             <div class="recent-orders">
                 <div class="title-buttons">
-                    <strong>Recent Orders</strong>
-                    <a href="/buyer/my-orders" >View All</a>
+                    <strong>{{ $t('buyer.order.recent_order_list')}}</strong>
+                    <a href="/buyer/my-orders" >{{ $t('buyer.view_all')}}</a>
                 </div>
                 <order-list-table></order-list-table>
             </div>

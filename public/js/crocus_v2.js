@@ -4469,7 +4469,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -6643,6 +6642,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WishListProducts",
@@ -6729,6 +6730,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -68783,7 +68786,14 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("li", [
-              _vm._m(0),
+              _c("label", { attrs: { for: "seller_address" } }, [
+                _vm._v(
+                  "\n                       " +
+                    _vm._s(_vm.$t("form.address")) +
+                    "\n                        "
+                ),
+                _c("span", { staticClass: "required" }, [_vm._v("*")])
+              ]),
               _vm._v(" "),
               _c("br"),
               _vm._v(" "),
@@ -68821,7 +68831,14 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("li", [
-              _vm._m(1),
+              _c("label", { attrs: { for: "seller_city" } }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.$t("form.city")) +
+                    "\n                        "
+                ),
+                _c("span", { staticClass: "required" }, [_vm._v("*")])
+              ]),
               _vm._v(" "),
               _c("br"),
               _vm._v(" "),
@@ -68837,7 +68854,13 @@ var render = function() {
                     }
                   ],
                   staticClass: "validate-select",
-                  attrs: { name: "", id: "seller_city", required: "" },
+                  staticStyle: { width: "80%" },
+                  attrs: {
+                    name: "",
+                    id: "seller_city",
+                    required: "",
+                    placeholder: "select City"
+                  },
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -68972,26 +68995,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "seller_address" } }, [
-      _vm._v("\n                        Address\n                        "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "seller_city" } }, [
-      _vm._v("\n                        City\n                        "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -71612,38 +71616,33 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "my-account" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "page-title" }, [
+      _c("h2", [_vm._v(_vm._s(_vm.$t("buyer.dashboard.my_dashboard")))])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "dashboard" }, [
       _c(
         "div",
         { staticClass: "recent-orders" },
-        [_vm._m(1), _vm._v(" "), _c("order-list-table")],
+        [
+          _c("div", { staticClass: "title-buttons" }, [
+            _c("strong", [
+              _vm._v(_vm._s(_vm.$t("buyer.order.recent_order_list")))
+            ]),
+            _vm._v(" "),
+            _c("a", { attrs: { href: "/buyer/my-orders" } }, [
+              _vm._v(_vm._s(_vm.$t("buyer.view_all")))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("order-list-table")
+        ],
         1
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-title" }, [
-      _c("h2", [_vm._v("My Dashboard")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "title-buttons" }, [
-      _c("strong", [_vm._v("Recent Orders")]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "/buyer/my-orders" } }, [_vm._v("View All")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -72141,23 +72140,16 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "my-account" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "page-title" }, [
+      _c("h2", [_vm._v(_vm._s(_vm.$t("buyer.order.order_list")))])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "dashboard" }, [
       _c("div", { staticClass: "recent-orders" }, [_c("order-list-table")], 1)
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-title" }, [
-      _c("h2", [_vm._v("My Orders")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -74113,7 +74105,7 @@ var render = function() {
                                       }
                                     }
                                   },
-                                  [_vm._v("Cancel")]
+                                  [_vm._v(_vm._s(_vm.$t("buyer.order.cancel")))]
                                 )
                               ]),
                               _vm._v(" "),
@@ -74133,7 +74125,13 @@ var render = function() {
                                       }
                                     }
                                   },
-                                  [_vm._v("Ready To Ship")]
+                                  [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.$t("buyer.order.ready_to_ship")
+                                      )
+                                    )
+                                  ]
                                 )
                               ])
                             ])
@@ -74266,7 +74264,10 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-3" }, [
-                    _vm._m(0),
+                    _c("label", { attrs: { for: "product_city" } }, [
+                      _vm._v(_vm._s(_vm.$t("buyer.product.pro_city")) + " "),
+                      _c("span", { staticClass: "required" }, [_vm._v("*")])
+                    ]),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -74911,7 +74912,7 @@ var render = function() {
                               on: { change: _vm.uploadImage }
                             }),
                             _vm._v(" "),
-                            _vm._m(1)
+                            _vm._m(0)
                           ])
                         ])
                       ]),
@@ -75012,15 +75013,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "product_city" } }, [
-      _vm._v(" Product City  "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "label",
       {
@@ -75060,7 +75052,37 @@ var render = function() {
       "table",
       { staticClass: "data-table", attrs: { id: "my-orders-table" } },
       [
-        _vm._m(0),
+        _c("thead", [
+          _c("tr", { staticClass: "first last" }, [
+            _c("th", [_vm._v("#")]),
+            _vm._v(" "),
+            _c("th", { staticStyle: { "max-width": "70px" } }, [
+              _vm._v(_vm._s(_vm.$t("buyer.product.pro_img")))
+            ]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm.$t("buyer.product.pro_name")))]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm.$t("buyer.product.brand")))]),
+            _vm._v(" "),
+            _c("th", [_vm._v(_vm._s(_vm.$t("buyer.product.condition")))]),
+            _vm._v(" "),
+            _c("th", { staticClass: "text-center" }, [
+              _vm._v(_vm._s(_vm.$t("buyer.product.pro_qty")))
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "text-right" }, [
+              _vm._v(_vm._s(_vm.$t("buyer.product.pro_price")))
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "text-center" }, [
+              _vm._v(_vm._s(_vm.$t("buyer.product.pro_status")))
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "text-center" }, [
+              _vm._v(_vm._s(_vm.$t("buyer.product.pro_action")) + " ")
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "tbody",
@@ -75212,34 +75234,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "first last" }, [
-        _c("th", [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", { staticStyle: { "max-width": "70px" } }, [_vm._v("Image")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Product Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Brand")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Condition")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-right" }, [_vm._v("Price")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Action ")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -75268,7 +75263,29 @@ var render = function() {
       attrs: { id: "wishlist-table" }
     },
     [
-      _vm._m(0),
+      _c("thead", [
+        _c("tr", { staticClass: "first last" }, [
+          _c("th", { staticClass: "customer-wishlist-item-image" }, [
+            _vm._v(_vm._s(_vm.$t("buyer.wish_list.image")))
+          ]),
+          _vm._v(" "),
+          _c("th", { staticClass: "customer-wishlist-item-info" }, [
+            _vm._v(_vm._s(_vm.$t("buyer.wish_list.product_info")))
+          ]),
+          _vm._v(" "),
+          _c("th", { staticClass: "customer-wishlist-item-quantity" }, [
+            _vm._v(_vm._s(_vm.$t("buyer.wish_list.qty")))
+          ]),
+          _vm._v(" "),
+          _c("th", { staticClass: "customer-wishlist-item-price" }, [
+            _vm._v(_vm._s(_vm.$t("buyer.wish_list.price")))
+          ]),
+          _vm._v(" "),
+          _c("th", { staticClass: "customer-wishlist-item-cart" }),
+          _vm._v(" "),
+          _c("th", { staticClass: "customer-wishlist-item-remove" })
+        ])
+      ]),
       _vm._v(" "),
       _vm.wishLists
         ? _c(
@@ -75454,7 +75471,15 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._m(1, true)]
+                          [
+                            _c("span", [
+                              _c("span", [
+                                _vm._v(
+                                  _vm._s(_vm.$t("buyer.wish_list.add_all_cart"))
+                                )
+                              ])
+                            ])
+                          ]
                         )
                       ])
                     ]
@@ -75479,7 +75504,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._m(2, true)]
+                        [_vm._m(0, true)]
                       )
                     ]
                   )
@@ -75493,40 +75518,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "first last" }, [
-        _c("th", { staticClass: "customer-wishlist-item-image" }, [
-          _vm._v("Image")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "customer-wishlist-item-info" }, [
-          _vm._v("Product Info")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "customer-wishlist-item-quantity" }, [
-          _vm._v("Quantity")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "customer-wishlist-item-price" }, [
-          _vm._v("Price")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "customer-wishlist-item-cart" }),
-        _vm._v(" "),
-        _c("th", { staticClass: "customer-wishlist-item-remove" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", [_c("span", [_vm._v("Add to Cart")])])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -75575,7 +75566,11 @@ var render = function() {
                   }
                 }
               },
-              [_c("span", [_vm._v("Add All to Cart")])]
+              [
+                _c("span", [
+                  _vm._v(_vm._s(_vm.$t("buyer.wish_list.add_all_cart")))
+                ])
+              ]
             )
           ])
         ],
@@ -77198,7 +77193,7 @@ var render = function() {
           _vm._l(_vm.productList, function(product, index) {
             return _c(
               "li",
-              { staticClass: "col-lg-3 col-md-3 col-sm-4 col-xs-6" },
+              { staticClass: "col-lg-3 col-md-3 col-sm-4 col-xs-12" },
               [_c("product-grid", { key: index, attrs: { product: product } })],
               1
             )
@@ -97392,7 +97387,8 @@ var ENGLISH_TRANSLATIONS = {
     range: 'Range',
     brand: 'Brand|Brands',
     color: 'Color|Colors',
-    size: 'Size|Sizes'
+    size: 'Size|Sizes',
+    overview: 'Overview'
   },
   product: {
     availability: 'Availability',
@@ -97447,9 +97443,11 @@ var ENGLISH_TRANSLATIONS = {
     "continue": 'Continue'
   },
   buyer: {
+    view_all: 'View All',
     dashboard: {
       menu: 'Menu',
-      seller_dashboard: 'Seller Dashboard'
+      seller_dashboard: 'Seller Dashboard',
+      my_dashboard: 'My Dashboard'
     },
     order: {
       menu: 'My Order| My Orders',
@@ -97465,14 +97463,16 @@ var ENGLISH_TRANSLATIONS = {
       price: 'Price',
       t_price: 'T. Price',
       qty: 'Qty',
-      image: 'Image'
+      image: 'Image',
+      ready_to_ship: 'Ready To Ship',
+      cancel: 'Cancel'
     },
     invoice: {},
     wish_list: {
       menu: 'My WishList',
       image: 'Image',
       product_info: 'Product Info',
-      qty: 'Quentity',
+      qty: 'Quantity',
       price: 'Price',
       add_all_cart: 'Add All To Cart'
     },
@@ -97512,7 +97512,10 @@ var ENGLISH_TRANSLATIONS = {
       thumb_img: 'Thumb Image',
       pro_img: 'Product Image',
       pro_update: 'Update Product',
-      pro_save: 'Save Product'
+      pro_save: 'Save Product',
+      pro_city: 'Product City',
+      pro_status: 'Status',
+      pro_action: 'Action'
     },
     review: {
       review_list: 'Review List',
@@ -97620,11 +97623,13 @@ var SOMALIA_TRANSLATIONS = {
     range: 'Kala Fog',
     brand: 'Astaan Ganacsi |Astaamaha Ganacsi ',
     color: 'Kalar|Kalaro',
-    size: 'Cabir|Cabiro'
+    size: 'Cabir|Cabiro',
+    overview: 'Dulmar guud'
   },
   product: {
     availability: 'La Heli Karo',
     qty: 'Tirada',
+    overview: 'Dulmarka Degdega ah',
     avail_options: 'Khiyaaraadka La Heli Karo',
     add_to_cart: 'Saladda Ku Rido',
     buy_now: 'Hada Iibso',
@@ -97632,7 +97637,7 @@ var SOMALIA_TRANSLATIONS = {
     go_to_store: 'Keydka Tag',
     details: 'Faahfaahinta Badeecada',
     related_product: 'Badeecad La Xiriirta|Badeecadaha La xiriira',
-    quick_view: 'Isha Mari '
+    quick_view: 'Isha Mari'
   },
   auth: {
     sign_up: 'Isdiiwaan Gali ',
@@ -97672,8 +97677,11 @@ var SOMALIA_TRANSLATIONS = {
     "continue": 'Horay U Soco'
   },
   buyer: {
+    view_all: 'Dhammaan fiiri',
     dashboard: {
-      menu: 'Menu'
+      menu: 'Menu',
+      seller_dashboard: 'Gadaal Iibiyaha',
+      my_dashboard: 'Shaashadayda'
     },
     order: {
       menu: 'Dalabkeyga| Dalabyadeyda',
@@ -97685,7 +97693,13 @@ var SOMALIA_TRANSLATIONS = {
       total_order: 'Wadarta Dalabyada',
       status: 'Xaalad',
       view: 'Fiiri',
-      no_order: 'Wali Iib Ma Dhicin'
+      no_order: 'Wali Iib Ma Dhicin',
+      price: 'Qiimo',
+      t_price: 'T. Qiimaha',
+      qty: 'tiro',
+      image: 'Sawir',
+      ready_to_ship: 'Diyaar u noqoshada',
+      cancel: 'Tirtir'
     },
     invoice: {},
     wish_list: {
@@ -97712,6 +97726,31 @@ var SOMALIA_TRANSLATIONS = {
       buyer: 'Iibsade',
       both: 'Iibsade & Iibiye'
     },
+    product: {
+      new_product: 'Kudar Alaabo Cusub',
+      pro_name: 'Magaca badeecada',
+      category: 'Qeybta',
+      select_category: 'Xulo Nooca',
+      sec_cat: 'Qeybta 2-aad',
+      select_sec_cat: 'Xulo Nooca Labaad',
+      trd_cat: 'Qeybta 3-aad',
+      select_trd_cat: 'Xulo Nooca Saddexaad',
+      brand: 'Astaan',
+      select_brand: 'Xulo Astaan',
+      condition: 'Xaaladda Alaabada',
+      select_condition: 'Xulo Xaalad Alaabe',
+      highlight: 'Iftiimin',
+      des: 'Faahfaahin',
+      pro_qty: 'Wax soo saar',
+      pro_price: 'Qiimaha Badeecada',
+      thumb_img: 'Sawirka suulka',
+      pro_img: 'Sawirka sheyga',
+      pro_update: 'Cusboonaysiinta badeecada',
+      pro_save: 'Keydso Badeecada',
+      pro_city: 'Magaalada Wax soo Saarka',
+      pro_status: 'Xaaladda',
+      pro_action: 'Ficil'
+    },
     review: {
       review_list: 'Liiska Dib u eegista',
       review: 'Dib u eegis',
@@ -97736,7 +97775,9 @@ var SOMALIA_TRANSLATIONS = {
     region: 'Gobalka',
     select_region: 'Dooro Gobal',
     postal_code: 'Postal Code',
-    update: 'Cusbooneysiin'
+    update: 'Cusbooneysiin',
+    required: 'Beeraha loo Baahan Yahay',
+    seller_name: 'Magaca Iibiyaha'
   },
   state: {
     Awdal: 'Awdal',

@@ -1,7 +1,6 @@
 <?php
 
 return[
-    'contact_us_today'=>'Maanta Nala Soo Xariir   !',
     'login'=>'Gal Macamiil',
     'seller_login'=>'Gal Iibiye',
     'my_account'=>'Akoonkeyga',
@@ -11,6 +10,10 @@ return[
     'review'=>'Dib U Eegis|Dib U Eegis',
     'logout'=>'Ka Bixid',
     'wishlist'=>'Liiska Ka Helida',
+    'checkout'=>'Baadhid',
+    'admin_panel'=>'Gudiga Maamulka',
+    'sell with'=>'Ku Iibso Dukaanso',
+
     'select_category'=>'Dooro Qeybta',
     'search_here'=>'Halkaan Ka Raadi.',
     'select_lang'=>'Dooro Luqad',
@@ -21,4 +24,12 @@ return[
     'search'=>'Raadi',
     'setting'=>'Setting|Settings',
     'home'=>'Boga Hore',
+    'hot_product'=>'Heshiiska Kulul',
+    'Best Seller Products'=>'Alaabada Iibiyaha ee ugu Fiican',
+    'Most Reviews Products'=>'Badi Qalabka Faallooyinka',
+    'New Arrivals Products'=>'Alaabooyinka Imaatinka Cusub',
+    'welcome'=>'Dukaamada Wellcome',
+    'Account Info'=>'Macluumaadka Akoonka',
+    'My Address Book'=>'Buugga Cinwaanka',
+    'My Wishlist'=>'Liiska aan rabo'
 ];

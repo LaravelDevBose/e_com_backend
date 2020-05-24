@@ -1,7 +1,7 @@
 <template>
     <div class="my-account">
         <div class="page-title">
-            <h2>My Orders</h2>
+            <h2>{{ $t('buyer.order.order_list')}}</h2>
         </div>
         <div class="dashboard">
             <div class="recent-orders">

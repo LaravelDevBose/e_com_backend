@@ -16,28 +16,28 @@
                         </ul>
                     </div>--}}
                     <!-- End Header Currency -->
-                    <div class="welcome-msg"> Welcome Crocus! </div>
+                    <div class="welcome-msg"> {{ __('header.welcome') }}! </div>
                 </div>
                 <div class="col-xs-6 hidden-xs">
                     <!-- Header Top Links -->
                     <div class="toplinks">
                         <div class="links">
                             @if(auth()->guest())
-                                <div class="myaccount"><a title="My Account" href="{{ route('login') }}"><span class="hidden-xs">My Account</span></a> </div>
-                                <div class="login"><a href="{{ route('login') }}"><span class="hidden-xs">Buyer Login</span></a> </div>
-                                <div class="demo"><a title="Blog" href="{{ route('seller.login') }}"><span class="hidden-xs">Seller Login</span></a> </div>
+                                <div class="myaccount"><a title="{{ __('header.my_account') }}" href="{{ route('login') }}"><span class="hidden-xs">{{ __('header.my_account') }}</span></a> </div>
+                                <div class="login"><a href="{{ route('login') }}"><span class="hidden-xs">{{ __('header.login') }}</span></a> </div>
+                                <div class="demo"><a title="{{ __('header.seller_login') }}" href="{{ route('seller.login') }}"><span class="hidden-xs">{{ __('header.seller_login') }}</span></a> </div>
                             @elseif(auth()->guard('admin')->check())
-                                <div class="myaccount"><a title="My Account" href="{{ route('admin.home') }}"><span class="hidden-xs">Admin Panel</span></a> </div>
-                                <div class="login"><a href="{{ route('admin.logout') }}"><span class="hidden-xs">Logout</span></a> </div>
+                                <div class="myaccount"><a title="{{ __('header.my_account') }}" href="{{ route('admin.home') }}"><span class="hidden-xs">{{ __('header.admin_panel') }}</span></a> </div>
+                                <div class="login"><a href="{{ route('admin.logout') }}"><span class="hidden-xs">{{ __('header.logout') }}</span></a> </div>
                             @elseif(auth()->guard('seller')->check())
-                                <div class="myaccount"><a title="My Account" href="{{ route('seller.home') }}"><span class="hidden-xs">My Account</span></a> </div>
-                                <div class="login"><a href="{{ route('seller.logout') }}"><span class="hidden-xs">Logout</span></a> </div>
+                                <div class="myaccount"><a title="{{ __('header.my_account') }}" href="{{ route('seller.home') }}"><span class="hidden-xs">{{ __('header.my_account') }}</span></a> </div>
+                                <div class="login"><a href="{{ route('seller.logout') }}"><span class="hidden-xs">{{ __('header.logout') }}</span></a> </div>
                             @else
                                 @if(auth()->user()->account_type != 3 )
-                                <div class="check"><a title="Sell With Dukaanso" href="{{ route('buyer.seller.register') }}"><span class="hidden-xs">Sell With Dukaanso</span></a> </div>
+                                <div class="check"><a title="{ __('header.sell with') }}" href="{{ route('buyer.seller.register') }}"><span class="hidden-xs">{{ __('header.sell with') }}</span></a> </div>
                                 @endif
-                                <div class="myaccount"><a title="My Account" href="{{ route('buyer.home') }}"><span class="hidden-xs">My Account</span></a> </div>
-                                <div class="login"><a href="{{ route('buyer.logout') }}"><span class="hidden-xs">Logout</span></a> </div>
+                                <div class="myaccount"><a title="{{ __('header.my_account') }}" href="{{ route('buyer.home') }}"><span class="hidden-xs">{{ __('header.my_account') }}</span></a> </div>
+                                <div class="login"><a href="{{ route('buyer.logout') }}"><span class="hidden-xs">{{ __('header.logout') }}</span></a> </div>
                             @endif
                         </div>
                     </div>

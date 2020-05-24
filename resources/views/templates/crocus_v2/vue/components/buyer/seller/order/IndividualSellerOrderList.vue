@@ -47,8 +47,8 @@
                             <span v-if="orderItem.item_status === 1" class="caret"></span>
                         </button>
                         <ul v-if="orderItem.item_status === 1" class="dropdown-menu">
-                            <li><a href="#" class="cancel" @click.prevent="changeOrderStatus(orderItem.item_id, 2)" >Cancel</a></li>
-                            <li><a href="#" class="ready-to-ship"  @click.prevent="changeOrderStatus(orderItem.item_id, 5)" >Ready To Ship</a></li>
+                            <li><a href="#" class="cancel" @click.prevent="changeOrderStatus(orderItem.item_id, 2)" >{{ $t('buyer.order.cancel')}}</a></li>
+                            <li><a href="#" class="ready-to-ship"  @click.prevent="changeOrderStatus(orderItem.item_id, 5)" >{{ $t('buyer.order.ready_to_ship')}}</a></li>
                         </ul>
                     </div>
                 </td>

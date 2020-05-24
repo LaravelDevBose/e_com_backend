@@ -25,7 +25,7 @@
             @if(!empty($hotProducts) && count($hotProducts) > 0)
             <div class=" col-lg-3 col-md-3 col-sm-5 col-xs-12 col-mid">
                 <div class="hot-deal">
-                    <div class="title">Hot Deal</div>
+                    <div class="title">{{ __('header.hot_product') }}</div>
                     <div id="testimonials" class="product-flexslider hidden-buttons" style="margin-top: 0px;">
                         <div class="products-grid slider-items slider-width-col1 owl-carousel owl-theme">
                             @foreach($hotProducts as $hotProduct)
@@ -109,11 +109,11 @@
                                                     <li class="{{ ($activeCheckH== 1)?'active':'' }}">
                                                         <a data-toggle="tab" href="#tab-{{$key.'-'.$activeCheckH }}">
                                                             @if($indexName == 'bestSeller')
-                                                                <span>Best Seller Products</span>
+                                                                <span>{{ __('header.Best Seller Products') }}</span>
                                                             @elseif($indexName == 'mostReviews')
-                                                                <span>Most Reviews Products</span>
+                                                                <span>{{ __('header.Most Reviews Products') }}</span>
                                                             @elseif($indexName == 'newArrivals')
-                                                                <span>New Arrivals Products</span>
+                                                                <span>{{ __('header.New Arrivals Products') }}</span>
                                                             @else
                                                                 <span>Other Products</span>
                                                             @endif
@@ -139,7 +139,7 @@
                                                                 <ul class="products-grid">
                                                                     @foreach($productType as $product)
                                                                         @if(!empty($product))
-                                                                            <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                                                                            <li class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
                                                                                 <product-grid :product="{{ $product }}"></product-grid>
                                                                             </li>
                                                                         @endif

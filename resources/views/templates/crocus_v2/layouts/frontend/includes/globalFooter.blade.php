@@ -6,27 +6,27 @@
             <div class="row">
                 <div class="col-sm-8 col-xs-12 col-lg-9">
                     <div class="footer-column pull-left">
-                        <h4>About Us</h4>
+                        <h4>{{ __('footer.About Us') }}</h4>
                         <ul class="links" style="color: #fff;">
                             <li class="first">
                                 {!! (!empty($contactInfos['about_us']))? $contactInfos['about_us'] : '' !!}
                             </li>
                             <li>
-                                <a>Address: </a>
+                                <a>{{ __('footer.Address') }}: </a>
                                 {!!  (!empty($contactInfos['contact_address']))? $contactInfos['contact_address'] : ''  !!}
                             </li>
                             <li>
-                                <a><b>Phone: </b></a>
+                                <a><b>{{ __('footer.Phone') }}: </b></a>
                                 {{ (!empty($contactInfos['contact_phone']))? $contactInfos['contact_phone'] : '' }}
                             </li>
                             <li>
-                                <a href="#"><b>Hours:</b></a>
-                                Open 24 hours
+                                <a href="#"><b>{{ __('footer.Hours') }}:</b></a>
+                                {{ __('footer.Open 24 hours') }}
                             </li>
                         </ul>
                     </div>
                     <div class="footer-column pull-left">
-                        <h4>Terms and Conditions</h4>
+                        <h4>{{ __('footer.Terms and Conditions') }}</h4>
                         @if(!empty($tcPageMenus))
                         <ul class="links">
                             @foreach($tcPageMenus as $tcPageMenu)
@@ -38,7 +38,7 @@
                         @endif
                     </div>
                     <div class="footer-column pull-left">
-                        <h4>Privacy</h4>
+                        <h4>{{ __('footer.Privacy') }}</h4>
                         @if(!empty($ppPageMenus))
                         <ul class="links">
                             @foreach($ppPageMenus as $ppPageMenu)
@@ -62,7 +62,7 @@
                 <div class="col-xs-12 col-lg-3 col-sm-4">
                     <div class="footer-column-last">
                         <div class="newsletter-wrap">
-                            <h4>Download the App</h4>
+                            <h4>{{ __('footer.Download the App') }}</h4>
                             <div class="app-img"><img src="{{asset('crocus_v2/images/android-app.png')}}" alt="android"></div>
                             <div class="app-img"><img src="{{asset('crocus_v2/images/ios-app.png')}}" alt="android"></div>
 {{--                            <div class="app-img"><img src="{{asset('crocus_v2/images/windows-btn.png')}}" alt="android"></div>--}}

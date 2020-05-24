@@ -1,7 +1,6 @@
 <?php
 
 return[
-    'contact_us_today'=>'Contact Us Today!',
     'login'=>'Customer Login',
     'seller_login'=>'Seller Login',
     'my_account'=>'My Account',
@@ -11,6 +10,10 @@ return[
     'review'=>'Review|Reviews',
     'logout'=>'Logout',
     'wishlist'=>'Wishlist',
+    'checkout'=>'Checkout',
+    'admin_panel'=>'Admin Panel',
+    'sell with'=>'Sell With Dukaanso',
+
     'select_category'=>'Select a Category',
     'search_here'=>'Search Here..',
     'select_lang'=>'Select language',
@@ -21,4 +24,12 @@ return[
     'search'=>'Search',
     'setting'=>'Setting|Settings',
     'home'=>'Home',
+    'hot_product'=>'Hot Deal',
+    'Best Seller Products'=>'Best Seller Products',
+    'Most Reviews Products'=>'Most Reviews Products',
+    'New Arrivals Products'=>'New Arrivals Products',
+    'welcome'=>'Welcome Dukaanso',
+    'Account Info'=>'Account Information',
+    'My Address Book'=>'My Address Book',
+    'My Wishlist'=>'My Wishlist'
 ];

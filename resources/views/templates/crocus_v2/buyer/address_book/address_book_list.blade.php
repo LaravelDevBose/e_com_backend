@@ -14,7 +14,7 @@
                     <div class="col-main">
                         <div class="my-account">
                             <div class="page-title">
-                                <h2>My Address Book
+                                <h2>{{ __('header.My Address Book') }}
                                     <a href="{{route('buyer.address.book.create')}}" class="text text-size-mini pull-right" style="text-decoration: underline"> Create</a>
                                 </h2>
 

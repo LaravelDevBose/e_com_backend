@@ -44,11 +44,13 @@ export const SOMALIA_TRANSLATIONS  ={
         range:'Kala Fog',
         brand:'Astaan Ganacsi |Astaamaha Ganacsi ',
         color:'Kalar|Kalaro',
-        size:'Cabir|Cabiro'
+        size:'Cabir|Cabiro',
+        overview:'Dulmar guud',
     },
     product:{
         availability:'La Heli Karo',
         qty:'Tirada',
+        overview:'Dulmarka Degdega ah',
         avail_options:'Khiyaaraadka La Heli Karo',
         add_to_cart:'Saladda Ku Rido',
         buy_now:'Hada Iibso',
@@ -56,7 +58,7 @@ export const SOMALIA_TRANSLATIONS  ={
         go_to_store:'Keydka Tag',
         details:'Faahfaahinta Badeecada',
         related_product:'Badeecad La Xiriirta|Badeecadaha La xiriira',
-        quick_view:'Isha Mari ',
+        quick_view:'Isha Mari',
     },
 
     auth:{
@@ -98,8 +100,11 @@ export const SOMALIA_TRANSLATIONS  ={
     },
 
     buyer:{
+        view_all: 'Dhammaan fiiri',
         dashboard:{
             menu:'Menu',
+            seller_dashboard: 'Gadaal Iibiyaha',
+            my_dashboard: 'Shaashadayda',
         },
         order:{
             menu:'Dalabkeyga| Dalabyadeyda',
@@ -111,7 +116,13 @@ export const SOMALIA_TRANSLATIONS  ={
             total_order:'Wadarta Dalabyada',
             status:'Xaalad',
             view:'Fiiri',
-            no_order:'Wali Iib Ma Dhicin'
+            no_order:'Wali Iib Ma Dhicin',
+            price: 'Qiimo',
+            t_price: 'T. Qiimaha',
+            qty:'tiro',
+            image: 'Sawir',
+            ready_to_ship: 'Diyaar u noqoshada',
+            cancel: 'Tirtir'
         },
         invoice:{
 
@@ -140,6 +151,31 @@ export const SOMALIA_TRANSLATIONS  ={
             buyer:'Iibsade',
             both:'Iibsade & Iibiye'
         },
+        product: {
+            new_product: 'Kudar Alaabo Cusub',
+            pro_name: 'Magaca badeecada',
+            category: 'Qeybta',
+            select_category:'Xulo Nooca',
+            sec_cat: 'Qeybta 2-aad',
+            select_sec_cat: 'Xulo Nooca Labaad',
+            trd_cat: 'Qeybta 3-aad',
+            select_trd_cat: 'Xulo Nooca Saddexaad',
+            brand: 'Astaan',
+            select_brand: 'Xulo Astaan',
+            condition: 'Xaaladda Alaabada',
+            select_condition: 'Xulo Xaalad Alaabe',
+            highlight:'Iftiimin',
+            des:'Faahfaahin',
+            pro_qty: 'Wax soo saar',
+            pro_price: 'Qiimaha Badeecada',
+            thumb_img: 'Sawirka suulka',
+            pro_img: 'Sawirka sheyga',
+            pro_update: 'Cusboonaysiinta badeecada',
+            pro_save: 'Keydso Badeecada',
+            pro_city: 'Magaalada Wax soo Saarka',
+            pro_status: 'Xaaladda',
+            pro_action: 'Ficil',
+        },
         review: {
             review_list: 'Liiska Dib u eegista',
             review: 'Dib u eegis',
@@ -165,6 +201,8 @@ export const SOMALIA_TRANSLATIONS  ={
         select_region:'Dooro Gobal',
         postal_code:'Postal Code',
         update:'Cusbooneysiin',
+        required:'Beeraha loo Baahan Yahay',
+        seller_name: 'Magaca Iibiyaha'
     },
     state:{
         Awdal:'Awdal',

@@ -1,13 +1,13 @@
 <nav>
     <div class="container">
         <div class="mm-toggle-wrap">
-            <div class="mm-toggle"><i class="fa fa-bars"></i><span class="mm-label">Menu</span> </div>
+            <div class="mm-toggle"><i class="fa fa-bars"></i><span class="mm-label">{{ __('header.menu') }}</span> </div>
         </div>
         <div class="nav-inner">
             <!-- BEGIN NAV -->
             <ul id="nav" class="hidden-xs">
                 <li class="level0" >
-                    <a href="{{ route('front.index') }}" class="level-top"><span>Home</span></a>
+                    <a href="{{ route('front.index') }}" class="level-top"><span>{{ __('header.home') }}</span></a>
                 </li>
                 @if(!empty($categoryTree))
                     @foreach($categoryTree as $category)
