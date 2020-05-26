@@ -8508,6 +8508,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8531,7 +8540,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         range: {
           min: 1,
           max: 10000
-        }
+        },
+        cityIds: []
       }
     };
   },
@@ -8547,7 +8557,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.getSortingProducts(this.sortData);
     }, 500)
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['brands', 'colors', 'tags', 'sizes', 'search_min_price', 'search_max_price']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['brands', 'colors', 'tags', 'sizes', 'search_min_price', 'search_max_price', 'cities']), {
     sortDataCheck: function sortDataCheck() {
       return JSON.parse(JSON.stringify(this.sortData));
     },
@@ -77807,11 +77817,79 @@ var render = function() {
       _c("div", { staticClass: "block-title" }, [_vm._v("Shop By")]),
       _vm._v(" "),
       _c("div", { staticClass: "block-content" }, [
-        _c("p", { staticClass: "block-subtitle" }, [
-          _vm._v(_vm._s(_vm.$t("products.price")))
-        ]),
-        _vm._v(" "),
         _c("dl", { attrs: { id: "narrow-by-list" } }, [
+          _vm.cities.length > 0
+            ? _c("dt", { staticClass: "even" }, [
+                _vm._v(_vm._s(_vm.$t("buyer.product.pro_city")))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.cities
+            ? _c("dd", { staticClass: "even" }, [
+                _c(
+                  "ol",
+                  _vm._l(_vm.cities, function(city, index) {
+                    return _c("li", { key: city.text }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.sortData.cityIds,
+                            expression: "sortData.cityIds"
+                          }
+                        ],
+                        attrs: { id: city.text, type: "checkbox" },
+                        domProps: {
+                          value: city.key,
+                          checked: Array.isArray(_vm.sortData.cityIds)
+                            ? _vm._i(_vm.sortData.cityIds, city.key) > -1
+                            : _vm.sortData.cityIds
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.sortData.cityIds,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = city.key,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.sortData,
+                                    "cityIds",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.sortData,
+                                    "cityIds",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.sortData, "cityIds", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("label", { attrs: { for: city.text } }, [
+                        _vm._v(_vm._s(city.text) + " ")
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("p", { staticClass: "block-subtitle" }, [
+            _vm._v(_vm._s(_vm.$t("products.price")))
+          ]),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "row", staticStyle: { "margin-bottom": "10px" } },
@@ -97909,37 +97987,37 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       name: 'Woqooyi Galbeed'
     }],
     cityList: [{
-      key: '0',
+      key: 0,
       text: 'All'
     }, {
-      key: '1',
+      key: 1,
       text: 'Bosaso'
     }, {
-      key: '2',
+      key: 2,
       text: 'Qardho'
     }, {
-      key: '3',
+      key: 3,
       text: 'Hargeisa'
     }, {
-      key: '4',
+      key: 4,
       text: 'Badhan'
     }, {
-      key: '5',
+      key: 5,
       text: 'Ceerigaabo'
     }, {
-      key: '6',
+      key: 6,
       text: 'Garowe'
     }, {
-      key: '7',
+      key: 7,
       text: 'Muqdisho'
     }, {
-      key: '8',
+      key: 8,
       text: 'Carmo'
     }, {
-      key: '9',
+      key: 9,
       text: 'Burco'
     }, {
-      key: '10',
+      key: 10,
       text: 'Boorama'
     }]
   },

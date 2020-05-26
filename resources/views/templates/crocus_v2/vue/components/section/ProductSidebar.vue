@@ -3,8 +3,17 @@
         <div class="block block-layered-nav">
             <div class="block-title">Shop By</div>
             <div class="block-content">
-                <p class="block-subtitle">{{ $t('products.price')}}</p>
                 <dl id="narrow-by-list">
+                    <dt class="even" v-if="cities.length > 0">{{ $t('buyer.product.pro_city')}}</dt>
+                    <dd class="even" v-if="cities">
+                        <ol>
+                            <li v-for="(city, index) in cities" :key="city.text">
+                                <input v-model="sortData.cityIds" :value="city.key" :id="city.text"  type="checkbox">
+                                <label :for="city.text">{{ city.text }} </label>
+                            </li>
+                        </ol>
+                    </dd>
+                    <p class="block-subtitle">{{ $t('products.price')}}</p>
                     <div class="row" style="margin-bottom: 10px;">
                         <div class="col-md-6">
                             <input type="number" style="display:block" v-model="sortData.range.min" class="form-control">
@@ -74,6 +83,7 @@
                         min: 1,
                         max: 10000,
                     },
+                    cityIds:[],
                 },
             }
         },
@@ -101,6 +111,7 @@
                 'sizes',
                 'search_min_price',
                 'search_max_price',
+                'cities',
             ]),
             sortDataCheck(){
                 return JSON.parse(JSON.stringify(this.sortData));

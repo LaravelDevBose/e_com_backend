@@ -235,6 +235,9 @@ class FrontendController extends Controller
     public function sorting_product(Request $request)
     {
         $products = Product::isActive();
+        if(!empty($request->cityIds)){
+            $products = $products->whereIn('product_city', $request->cityIds);
+        }
         if (!empty($request->category_id)) {
             $categoriesID = array();
 
