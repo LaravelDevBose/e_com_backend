@@ -6,6 +6,7 @@ use App\Traits\ManipulateBy;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class Product extends Model
@@ -161,6 +162,15 @@ class Product extends Model
 
     public function scopeIsOwner($query){
         return $query->where('seller_id', \auth()->user()->seller->seller_id);
+    }
+
+    public function scopeCityWise($query){
+        if (session()->has('cityKey')){
+            return $query->where('product_city', Session::get('cityKey', 0));
+        }else {
+            return $query;
+        }
+
     }
 
     public static function flipProductType()

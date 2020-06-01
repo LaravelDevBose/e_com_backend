@@ -5,6 +5,9 @@
                 <product-grid :product="product" :key="index"></product-grid>
             </li>
         </ul>
+        <div class="alert alert-info text-center" style="margin-top: 1rem;" v-if="productList.length == 0">
+            <h3 class="title">Sorry! Products Not Found :/</h3>
+        </div>
     </div>
 </template>
 

@@ -59,19 +59,19 @@ class FrontendController extends Controller
         $topProducts = GroupProduct::where('group_type', GroupProduct::Groups['Top Product'])
             ->whereDate('expired_at', '>=', Carbon::now())
             ->with(['product' => function ($query) {
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews');
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->cityWise();
             }])->orderBy('position', 'asc')->latest()->get();
 
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->whereDate('expired_at', '>=', Carbon::now())
             ->with(['product' => function ($query) {
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive()->cityWise();
             }])->islive()->isActive()->orderBy('position', 'asc')->latest()->get();
 
         $latestDeals = LatestDeal::where('status', config('app.active'))->whereDate('end_time', '>', Carbon::now()->format('Y-m-d h:i:s'))
             ->with(['deal_products' => function ($query) {
                 return $query->with(['product' => function ($q) {
-                    return $q->isActive();
+                    return $q->isActive()->cityWise();
                 }]);
             }])->first();
         $categories = Category::isParent()->isActive()->select('category_id', 'category_name', 'category_slug', 'sect_banner_id')
@@ -82,7 +82,7 @@ class FrontendController extends Controller
         $categorySection = array();
         foreach ($categories as $category) {
             $catIds = Category::All_children_Ids($category->category_id);
-            $products = Product::isActive()->whereIn('category_id', $catIds)->with('thumbImage', 'singleVariation', 'reviews');
+            $products = Product::isActive()->whereIn('category_id', $catIds)->with('thumbImage', 'singleVariation', 'reviews')->cityWise();
             $productIds = $products->pluck('product_id');
 
             $bestSellProductId = OrderItem::whereIn('product_id', $productIds)
@@ -130,6 +130,14 @@ class FrontendController extends Controller
         App::setLocale($lang);
         return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Successful', App::getLocale());
     }
+    public function set_city(Request $request)
+    {
+        if(empty($request->cityKey) && $request->cityKey != 0){
+            return ResponserTrait::allResponse('Error', Response::HTTP_BAD_REQUEST, 'City Key Not Found');
+        }
+        Session::put('cityKey', $request->cityKey);
+        return ResponserTrait::allResponse('success', Response::HTTP_OK, 'City Select Successful');
+    }
 
     public function section_data_list(Request $request)
     {
@@ -146,7 +154,7 @@ class FrontendController extends Controller
     {
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product' => function ($query) {
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive()->cityWise();
             }])->orderBy('position', 'asc')->islive()->isActive()->latest()->get();
         return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $hotProducts);
     }
@@ -196,7 +204,7 @@ class FrontendController extends Controller
             }
             $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
                 ->with(['product' => function ($query) {
-                    return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
+                    return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive()->cityWise();
                 }])->islive()->isActive()
                 ->orderBy('position', 'asc')->latest()->get();
             $adsPageBodies = AdsBanner::isLive()->whereIn('ads_position', AdsBanner::Ads_pages['Products'])->get();
@@ -235,9 +243,6 @@ class FrontendController extends Controller
     public function sorting_product(Request $request)
     {
         $products = Product::isActive();
-        if(!empty($request->cityIds)){
-            $products = $products->whereIn('product_city', $request->cityIds);
-        }
         if (!empty($request->category_id)) {
             $categoriesID = array();
 
@@ -285,6 +290,7 @@ class FrontendController extends Controller
         $products = Product::isActive()->whereIn('product_id', $sortProIds)
                     ->with(['brand', 'category', 'thumbImage', 'singleVariation', 'reviews'])
                     ->latest()
+                    ->cityWise()
                     ->get();
         if (!empty($products)) {
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $products);
@@ -304,7 +310,7 @@ class FrontendController extends Controller
         }
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->with(['product' => function ($query) {
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive()->cityWise();
             }])->islive()->orderBy('position', 'asc')->latest()->take(5)->get();
         $showSellerInfo = Setting::where('key', 'show_seller_info')->first();
         $reqData = [
@@ -385,7 +391,7 @@ class FrontendController extends Controller
     {
         $shop = Shop::where('shop_slug', $shopSlug)->with(['seller' => function ($query) {
             return $query->with(['products' => function ($qu) {
-                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
+                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive()->cityWise();
             }]);
         }, 'shopLogo', 'banner'])->first();
         return view('templates.' . $this->template_name . '.frontend.shop_profile', [
@@ -398,7 +404,7 @@ class FrontendController extends Controller
         $sliders = CommonData::slider_list([Slider::SliderType['Mall Page']]);
         $shop = Shop::where('shop_id', 1)->with(['seller' => function ($query) {
             return $query->with(['products' => function ($qu) {
-                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews', 'mallLogo')->isActive();
+                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews', 'mallLogo')->isActive()->cityWise();
             }]);
         }, 'shopLogo', 'banner'])->first();
         return view('templates.' . $this->template_name . '.frontend.mall_profile', [

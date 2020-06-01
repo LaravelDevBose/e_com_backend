@@ -17,6 +17,7 @@
                     </div>--}}
                     <!-- End Header Currency -->
                     <div class="welcome-msg"> {{ __('header.welcome') }}! </div>
+                    <header-city-list></header-city-list>
                 </div>
                 <div class="col-xs-6 hidden-xs">
                     <!-- Header Top Links -->

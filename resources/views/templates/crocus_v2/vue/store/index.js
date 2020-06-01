@@ -71,6 +71,12 @@ export default new Vuex.Store({
                     return response.data;
                 });
         },
+        changeCity({commit},formData){
+            return axios.post(`/set/city`, formData)
+                .then(response=>{
+                    return response.data;
+                });
+        },
     },
     mutations:{
         setResponse:(state, res)=>{
