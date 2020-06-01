@@ -37,7 +37,7 @@
         <!-- Basic datatable -->
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title">Shop List</h5>
+                <h5 class="panel-title">Seller List</h5>
             </div>
 
             <div class="table-responsive">
@@ -68,13 +68,13 @@
 
                                 </td>
                                 <td>
-                                    <span>{{ $seller->shop->shop_name }}</span>
+                                    <span>{{ !empty($seller->shop)? $seller->shop->shop_name : '' }}</span>
                                 </td>
                                 <td>
                                     <span>{{ $seller->seller_name }}</span>
                                 </td>
                                 <td class="text-center">
-                                    <span>{{ $seller->user->email }}</span>
+                                    <span>{{ !empty($seller->user)?$seller->user->email: '' }}</span>
                                 </td>
                                 <td class="text-center">
                                     <span>{{ $seller->seller_phone }}</span>

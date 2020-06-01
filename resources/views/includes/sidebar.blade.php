@@ -47,7 +47,7 @@
                             <li ><a href="{{ route('admin.buyer.index') }}"><i class="icon-users"></i> <span>Customer</span></a></li>
                         @endif
                         @if(auth()->user()->adminRole->shops)
-                            <li ><a href="{{ route('admin.shop.index') }}"><i class="icon-store"></i> <span>Shops</span></a></li>
+                            <li ><a href="{{ route('admin.shop.index') }}"><i class="icon-store"></i> <span>Sellers</span></a></li>
                         @endif
                         @if(auth()->user()->adminRole->category)
                             <li ><a href="{{ route('admin.category') }}"><i class="icon-list"></i> <span>Category</span></a></li>
