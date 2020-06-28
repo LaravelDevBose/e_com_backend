@@ -18,7 +18,11 @@
                     </div>
                     <div class="static-contain">
                         <div class="featured-thumb">
-                            <img class="img img-thumbnail img-responsive" alt="{{ $page->page_title }}" src="{{ $page->attachment->image_path }}" style="width: 100%; height: auto; max-height: 300px;">
+                            @if(!empty($page->attachment))
+                                <img class="img img-thumbnail img-responsive" alt="{{ $page->page_title }}" src="{{ $page->attachment->image_path }}" style="width: 100%; height: auto; max-height: 300px;">
+                            @else
+                                <img class="img img-thumbnail img-responsive" alt="{{ $page->page_title }}" src="{{ asset('crocus_v2/images/footer-banner.png') }}" style="width: 100%; height: auto; max-height: 300px;">
+                            @endif
                         </div>
                     </div>
                     <div class="static-contain">
