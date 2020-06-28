@@ -47,7 +47,7 @@
                                     @if($pageMenu->page_id == $page->page_id)
                                     <strong>{{ $pageMenu->menu_title }}</strong>
                                     @else
-                                        <a href="{{ route('front.page', $pageMenu->page_slug) }}"> {{ $pageMenu->menu_title }}</a>
+                                        <a href="{{ route('front.pages', $pageMenu->page_slug) }}"> {{ $pageMenu->menu_title }}</a>
                                     @endif
                                 </li>
                                 @endforeach
