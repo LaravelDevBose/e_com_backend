@@ -698,7 +698,8 @@ ul.currencies_list li a:hover {
 }
 .mini-products-list .product-image img {
 	width: 65px;
-	border:1px #eaeaea solid
+	border:1px #eaeaea solid;
+    max-height: 65px;
 }
 .top-cart-content .product-name {
 	margin: 0;
