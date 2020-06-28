@@ -4,7 +4,7 @@
 
 @section('PageCss')
     <style>
-        p ,li{
+        .static-contain p ,.static-contain li{
             margin-bottom: 1em;
         }
     </style>
