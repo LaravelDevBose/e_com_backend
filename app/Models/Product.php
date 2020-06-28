@@ -166,7 +166,10 @@ class Product extends Model
 
     public function scopeCityWise($query){
         if (session()->has('cityKey')){
-            return $query->where('product_city', Session::get('cityKey', 0));
+            if(Session::get('cityKey', 0) != 0){
+                return $query->where('product_city', Session::get('cityKey', 0));
+            }
+            return $query;
         }else {
             return $query;
         }
