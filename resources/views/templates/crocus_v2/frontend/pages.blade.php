@@ -3,7 +3,11 @@
 @section('Title', 'Pages')
 
 @section('PageCss')
-
+    <style>
+        p ,li{
+            margin-bottom: 1em;
+        }
+    </style>
 @endsection
 
 @section('Content')
