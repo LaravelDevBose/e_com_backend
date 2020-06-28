@@ -25,13 +25,13 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Registered::class => [
-            VerifyEmailListener::class,
+            //VerifyEmailListener::class,
         ],
         VerifiedAccount::class=>[
             VerifiedAccountListener::class,
         ],
         NewOrderStoreEvent::class=>[
-            InvoiceSendToBuyerEmail::class,
+            //InvoiceSendToBuyerEmail::class,
             NotifyAdminForNewOrder::class,
             NotifySellerForNewOrder::class,
         ],

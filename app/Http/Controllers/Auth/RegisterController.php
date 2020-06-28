@@ -97,7 +97,8 @@ class RegisterController extends Controller
                 if($user){
                     $buyer = Buyer::create([
                         'user_id'=>$user->user_id,
-                        'buyer_status'=>config('app.inactive'),
+                        'buyer_status'=>config('app.active'),
+                        'email_verified_at'=>now(),
                     ]);
 
                     if(!empty($buyer)){

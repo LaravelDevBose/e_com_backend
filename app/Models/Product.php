@@ -170,7 +170,6 @@ class Product extends Model
         }else {
             return $query;
         }
-
     }
 
     public static function flipProductType()
