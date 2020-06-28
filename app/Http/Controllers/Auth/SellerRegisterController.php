@@ -105,7 +105,7 @@ class SellerRegisterController extends Controller
                         'seller_email'=>$request->email,
                         'seller_phone'=>$request->phone_no,
                         'seller_address'=>$request->seller_address,
-                        'seller_city'=>AddressBook::cityList[$request->seller_city],
+                        'seller_city'=>$request->seller_city,
                         'seller_type'=>Seller::SellerType['Normal'],
                     ]);
 
