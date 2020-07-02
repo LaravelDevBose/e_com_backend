@@ -66,7 +66,7 @@ class SellerController extends Controller
                     'seller_email'=>$request->seller_email,
                     'seller_phone'=>$request->seller_phone,
                     'seller_address'=>$request->seller_address,
-                    'seller_city'=>AddressBook::cityList[$request->seller_city],
+                    'seller_city'=>$request->seller_city,
                     'seller_type'=>$request->seller_type,
                     'seller_status'=>config('app.active')
                 ]);

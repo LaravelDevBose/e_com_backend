@@ -3,7 +3,7 @@
         <a role="button"  @click.prevent="showCityModal()" class="block-language" href="#">
             {{ selectedCity.text}} <span class="caret"></span>
         </a>
-        <div class="modal fade" id="quickView" tabindex="-1" role="dialog">
+        <div class="modal fade" id="cityModal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-sm" role="document" style="top: 10%;">
                 <form @submit.prevent="setCity()">
                     <div class="modal-content">
@@ -63,7 +63,7 @@
                     .then(response=>{
                         if(typeof response.code !== "undefined" && response.code === 200){
                             localStorage.setItem('cityKey', this.formData.cityKey);
-                            $('#quickView').modal('hide');
+                            $('#cityModal').modal('hide');
                             this.$noty.success(response.message);
                             setTimeout(()=> {
                                 location.reload();
@@ -77,7 +77,7 @@
                     });
             },
             showCityModal(){
-                $('#quickView').modal('show');
+                $('#cityModal').modal('show');
             }
         },
         computed:{

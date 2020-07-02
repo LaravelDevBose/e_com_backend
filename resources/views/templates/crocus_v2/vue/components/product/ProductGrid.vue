@@ -141,6 +141,7 @@
                 }
             },
             quickView(){
+                $('#quickView').modal('show');
                 this.productQuickView(this.product);
             },
             addToCart(){

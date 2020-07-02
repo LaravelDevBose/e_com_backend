@@ -7330,9 +7330,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "QuickViewProduct",
@@ -7847,6 +7844,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     quickView: function quickView() {
+      $('#quickView').modal('show');
       this.productQuickView(this.product);
     },
     addToCart: function addToCart() {
@@ -8248,7 +8246,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.changeCity(this.formData).then(function (response) {
         if (typeof response.code !== "undefined" && response.code === 200) {
           localStorage.setItem('cityKey', _this2.formData.cityKey);
-          $('#quickView').modal('hide');
+          $('#cityModal').modal('hide');
 
           _this2.$noty.success(response.message);
 
@@ -8263,7 +8261,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     showCityModal: function showCityModal() {
-      $('#quickView').modal('show');
+      $('#cityModal').modal('show');
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cities']))
@@ -76364,351 +76362,286 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showModal
-    ? _c("div", [
-        _c("div", {
-          staticStyle: {
-            "background-color": "rgb(119, 119, 119)",
-            opacity: "0.7",
-            cursor: "pointer",
-            height: "1024px",
-            display: "block"
-          },
-          attrs: { id: "fancybox-overlay" }
-        }),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticStyle: { top: "15%", display: "block" },
-            attrs: { id: "fancybox-wrap" }
-          },
-          [
-            _c("div", { attrs: { id: "fancybox-outer" } }, [
-              _c(
-                "div",
-                {
-                  staticStyle: {
-                    "border-width": "10px",
-                    width: "1170px",
-                    height: "auto"
-                  },
-                  attrs: { id: "fancybox-content" }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticStyle: {
-                        width: "auto",
-                        height: "auto",
-                        overflow: "auto",
-                        position: "relative"
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "product-view" }, [
-                        _c("div", { staticClass: "product-essential" }, [
-                          _c(
-                            "form",
-                            {
-                              attrs: {
-                                action: "#",
-                                method: "post",
-                                id: "product_addtocart_form"
-                              }
-                            },
-                            [
-                              _c("input", {
-                                attrs: {
-                                  name: "form_key",
-                                  value: "6UbXroakyQlbfQzK",
-                                  type: "hidden"
-                                }
-                              }),
-                              _vm._v(" "),
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade quickView",
+      attrs: {
+        id: "quickView",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "absentCleaner",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog model-md modal-dialog-centered",
+          attrs: { role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm.showModal
+              ? _c("div", { staticClass: "product-view" }, [
+                  _c("div", { staticClass: "product-essential" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: {
+                          action: "#",
+                          method: "post",
+                          id: "product_addtocart_form"
+                        }
+                      },
+                      [
+                        _c("input", {
+                          attrs: {
+                            name: "form_key",
+                            value: "6UbXroakyQlbfQzK",
+                            type: "hidden"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "product-img-box col-lg-5 col-sm-5 col-xs-12"
+                          },
+                          [
+                            _c("div", { staticClass: "product-image" }, [
+                              _c("div", { staticClass: "product-full" }, [
+                                _c("img", {
+                                  attrs: {
+                                    id: "product-zoom",
+                                    src:
+                                      _vm.modal_product.thumb_image.image_path,
+                                    "data-zoom-image":
+                                      _vm.modal_product.thumb_image.image_path,
+                                    alt: _vm.modal_product.product_name
+                                  }
+                                })
+                              ])
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "product-shop col-lg-7 col-sm-7 col-xs-12"
+                          },
+                          [
+                            _c("div", { staticClass: "product-name" }, [
                               _c(
-                                "div",
+                                "h1",
                                 {
-                                  staticClass:
-                                    "product-img-box col-lg-5 col-sm-5 col-xs-12"
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.productDetails(
+                                        _vm.modal_product.product_slug
+                                      )
+                                    }
+                                  }
                                 },
-                                [
-                                  _c("div", { staticClass: "product-image" }, [
-                                    _c("div", { staticClass: "product-full" }, [
-                                      _c("img", {
-                                        attrs: {
-                                          id: "product-zoom",
-                                          src:
-                                            _vm.modal_product.thumb_image
-                                              .image_path,
-                                          "data-zoom-image":
-                                            _vm.modal_product.thumb_image
-                                              .image_path,
-                                          alt: _vm.modal_product.product_name
-                                        }
-                                      })
-                                    ])
+                                [_vm._v(_vm._s(_vm.modal_product.product_name))]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(1),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "price-block" }, [
+                              _c("div", { staticClass: "price-box" }, [
+                                _c("p", { staticClass: "special-price" }, [
+                                  _c("span", { staticClass: "price-label" }, [
+                                    _vm._v(_vm._s(_vm.$t("products.overview")))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("span", { staticClass: "price" }, [
+                                    _vm._v(
+                                      "$ " + _vm._s(_vm.cartData.price) + " "
+                                    )
                                   ])
-                                ]
-                              ),
+                                ]),
+                                _vm._v(" "),
+                                _vm._m(2)
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "short-description" }, [
+                              _c("h2", [_vm._v("Quick Overview")]),
                               _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "product-shop col-lg-7 col-sm-7 col-xs-12"
-                                },
-                                [
-                                  _c("div", { staticClass: "product-name" }, [
+                              _c("span", {
+                                domProps: {
+                                  innerHTML: _vm._s(_vm.modal_product.highlight)
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "add-to-box" }, [
+                              _c("div", { staticClass: "add-to-cart" }, [
+                                _c("div", { staticClass: "pull-left" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "custom pull-left" },
+                                    [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "reduced items-count",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              return _vm.reducedQty($event)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "i",
+                                            { staticClass: "fa fa-minus" },
+                                            [_vm._v(" ")]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.cartData.qty,
+                                            expression: "cartData.qty"
+                                          }
+                                        ],
+                                        staticClass: "input-text qty",
+                                        attrs: {
+                                          type: "text",
+                                          title: "Qty",
+                                          id: "qty",
+                                          name: "qty"
+                                        },
+                                        domProps: { value: _vm.cartData.qty },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.cartData,
+                                              "qty",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "increase items-count",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              return _vm.increaseQty($event)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "i",
+                                            { staticClass: "fa fa-plus" },
+                                            [_vm._v(" ")]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "button btn-cart",
+                                    attrs: {
+                                      title: "Add to Cart",
+                                      type: "button"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.addToCart()
+                                      }
+                                    }
+                                  },
+                                  [_c("span", [_vm._v("Add to Cart")])]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "email-addto-box" }, [
+                                _c("ul", { staticClass: "add-to-links" }, [
+                                  _c("li", [
                                     _c(
-                                      "h1",
+                                      "a",
                                       {
+                                        staticClass: "link-wishlist",
+                                        attrs: { href: "#" },
                                         on: {
                                           click: function($event) {
                                             $event.preventDefault()
-                                            return _vm.productDetails(
+                                            return _vm.addWishList(
                                               _vm.modal_product.product_slug
                                             )
                                           }
                                         }
                                       },
-                                      [
-                                        _vm._v(
-                                          _vm._s(_vm.modal_product.product_name)
-                                        )
-                                      ]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _vm._m(0),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "price-block" }, [
-                                    _c("div", { staticClass: "price-box" }, [
-                                      _c(
-                                        "p",
-                                        { staticClass: "special-price" },
-                                        [
-                                          _c(
-                                            "span",
-                                            { staticClass: "price-label" },
-                                            [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm.$t("products.overview")
-                                                )
-                                              )
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("span", { staticClass: "price" }, [
-                                            _vm._v(
-                                              "$ " +
-                                                _vm._s(_vm.cartData.price) +
-                                                " "
-                                            )
-                                          ])
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _vm._m(1)
-                                    ])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "short-description" },
-                                    [
-                                      _c("h2", [_vm._v("Quick Overview")]),
-                                      _vm._v(" "),
-                                      _c("span", {
-                                        domProps: {
-                                          innerHTML: _vm._s(
-                                            _vm.modal_product.highlight
-                                          )
-                                        }
-                                      })
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "add-to-box" }, [
-                                    _c("div", { staticClass: "add-to-cart" }, [
-                                      _c("div", { staticClass: "pull-left" }, [
-                                        _c(
-                                          "div",
-                                          { staticClass: "custom pull-left" },
-                                          [
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass:
-                                                  "reduced items-count",
-                                                attrs: { type: "button" },
-                                                on: {
-                                                  click: function($event) {
-                                                    $event.preventDefault()
-                                                    return _vm.reducedQty(
-                                                      $event
-                                                    )
-                                                  }
-                                                }
-                                              },
-                                              [
-                                                _c(
-                                                  "i",
-                                                  {
-                                                    staticClass: "fa fa-minus"
-                                                  },
-                                                  [_vm._v(" ")]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c("input", {
-                                              directives: [
-                                                {
-                                                  name: "model",
-                                                  rawName: "v-model",
-                                                  value: _vm.cartData.qty,
-                                                  expression: "cartData.qty"
-                                                }
-                                              ],
-                                              staticClass: "input-text qty",
-                                              attrs: {
-                                                type: "text",
-                                                title: "Qty",
-                                                id: "qty",
-                                                name: "qty"
-                                              },
-                                              domProps: {
-                                                value: _vm.cartData.qty
-                                              },
-                                              on: {
-                                                input: function($event) {
-                                                  if ($event.target.composing) {
-                                                    return
-                                                  }
-                                                  _vm.$set(
-                                                    _vm.cartData,
-                                                    "qty",
-                                                    $event.target.value
-                                                  )
-                                                }
-                                              }
-                                            }),
-                                            _vm._v(" "),
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass:
-                                                  "increase items-count",
-                                                attrs: { type: "button" },
-                                                on: {
-                                                  click: function($event) {
-                                                    $event.preventDefault()
-                                                    return _vm.increaseQty(
-                                                      $event
-                                                    )
-                                                  }
-                                                }
-                                              },
-                                              [
-                                                _c(
-                                                  "i",
-                                                  { staticClass: "fa fa-plus" },
-                                                  [_vm._v(" ")]
-                                                )
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass: "button btn-cart",
-                                          attrs: {
-                                            title: "Add to Cart",
-                                            type: "button"
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              $event.preventDefault()
-                                              return _vm.addToCart()
-                                            }
-                                          }
-                                        },
-                                        [_c("span", [_vm._v("Add to Cart")])]
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      { staticClass: "email-addto-box" },
-                                      [
-                                        _c(
-                                          "ul",
-                                          { staticClass: "add-to-links" },
-                                          [
-                                            _c("li", [
-                                              _c(
-                                                "a",
-                                                {
-                                                  staticClass: "link-wishlist",
-                                                  attrs: { href: "#" },
-                                                  on: {
-                                                    click: function($event) {
-                                                      $event.preventDefault()
-                                                      return _vm.addWishList(
-                                                        _vm.modal_product
-                                                          .product_slug
-                                                      )
-                                                    }
-                                                  }
-                                                },
-                                                [
-                                                  _c("span", [
-                                                    _vm._v("Add to Wishlist")
-                                                  ])
-                                                ]
-                                              )
-                                            ])
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _vm._m(2)
-                                      ]
+                                      [_c("span", [_vm._v("Add to Wishlist")])]
                                     )
                                   ])
-                                ]
-                              )
-                            ]
-                          )
-                        ])
-                      ])
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("a", {
-                staticStyle: { display: "inline" },
-                attrs: { id: "fancybox-close", href: "#" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.closeModal()
-                  }
-                }
-              })
-            ])
-          ]
-        )
-      ])
-    : _vm._e()
+                                ])
+                              ])
+                            ])
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              : _vm._e()
+          ])
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -76729,16 +76662,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "availability in-stock pull-right" }, [
       _c("span", [_vm._v("In Stock")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "email-friend" }, [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("span", [_vm._v("Email to a Friend")])
-      ])
     ])
   }
 ]
@@ -77543,7 +77466,7 @@ var render = function() {
       "div",
       {
         staticClass: "modal fade",
-        attrs: { id: "quickView", tabindex: "-1", role: "dialog" }
+        attrs: { id: "cityModal", tabindex: "-1", role: "dialog" }
       },
       [
         _c(
