@@ -157,7 +157,7 @@
                                     <div class="col-lg-6">
                                         <single-attachment :folder="mall_folder"></single-attachment>
                                     </div>
-                                    <div class="col-lg-3" v-if="proData.mall_logo !== '' && attachmentId === '' ">
+                                    <div class="col-lg-3" v-if="proData.mall_logo && attachmentId === '' ">
                                         <img :src="proData.mall_logo.image_path" class=" img-responsive img-thumbnail">
                                     </div>
                                 </div>
