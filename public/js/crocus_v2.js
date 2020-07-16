@@ -2858,7 +2858,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         // user_name:'',
         password: '',
         password_confirmation: '',
-        seller_city: '',
+        seller_city: 0,
         seller_address: ''
       },
       disable: false

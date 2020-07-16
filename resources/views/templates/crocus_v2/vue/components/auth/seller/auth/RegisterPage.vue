@@ -104,7 +104,7 @@
                     // user_name:'',
                     password:'',
                     password_confirmation:'',
-                    seller_city: '',
+                    seller_city: 0,
                     seller_address: '',
                 },
                 disable: false,

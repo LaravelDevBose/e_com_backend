@@ -115,11 +115,11 @@ class ProductController extends Controller
             'product_name'=>'required|string|max:255',
             'highlight'=>'required|string|max:1500',
             'description'=>'required',
-            'package_weight'=>'required',
             'product_type'=>'required',
-            'package_length'=>'required',
+            /*'package_length'=>'required',
             'package_width'=>'required',
-            'package_height'=>'required',
+            'package_weight'=>'required',
+            'package_height'=>'required',*/
             'product_status'=>'required',
             'imageIds'=>'required|array',
             'thumb_id'=>'required',
@@ -199,6 +199,26 @@ class ProductController extends Controller
                 'variations.*.price.not_in'=>'Variation Product Price Not 0.',
             ]);
         }
+
+        if($request->category_id){
+            $rules = array_merge($rules,[
+                'car_engine'=>'required|string|max:20',
+                'car_gear_box'=>'required|string|max:20',
+                'car_mileage'=>'required|string|max:20',
+                'car_color'=>'required|string|max:20',
+            ]);
+
+            $messages = array_merge($messages,[
+                'car_engine.required'=>'Must Add Car Engine Info.',
+                'car_engine.string'=>'Car Engine Must Be a String.',
+                'car_gear_box.required'=>'Must Add Gear Box Info.',
+                'car_gear_box.string'=>'Gear Box Must Be a String.',
+                'car_mileage.required'=>'Must Add Total Mileage.',
+                'car_mileage.string'=>'Mileage Must Be a String.',
+                'car_color.required'=>'Must Add Car Color.',
+                'car_color.string'=>'Color Must Be a String.',
+            ]);
+        }
         $validator = Validator::make($request->all(),$rules,$messages);
 
         if($validator->passes()){
@@ -249,6 +269,17 @@ class ProductController extends Controller
                         'warranty_policy_eng'=>$request->warranty_policy_eng,
                         'warranty_period'=>$request->warranty_period,
                         'cod_avail'=>$request->cod_avail,
+
+                        'car_engine'=>$request->car_engine,
+                        'car_gear_box'=>$request->car_gear_box,
+                        'car_mileage'=>$request->car_mileage,
+                        'car_year'=>$request->car_year,
+                        'car_color'=>$request->car_color,
+                        'car_body_type'=>$request->car_body_type,
+                        'car_fuel_type'=>$request->car_fuel_type,
+                        'car_ara_con'=>$request->car_ara_con,
+                        'car_drive_type'=>$request->car_drive_type,
+                        'car_condition'=>$request->car_condition,
                     ]);
 
                     if(!empty($details)){
@@ -423,11 +454,11 @@ class ProductController extends Controller
             'product_name'=>'required|string|max:255',
             'highlight'=>'required|string|max:1500',
             'description'=>'required',
-            'package_weight'=>'required',
             'product_type'=>'required',
+            /*'package_weight'=>'required',
             'package_length'=>'required',
             'package_width'=>'required',
-            'package_height'=>'required',
+            'package_height'=>'required',*/
             'product_status'=>'required',
             /* 'imageIds'=>'required|array',
              'thumb_id'=>'required',*/
@@ -570,6 +601,17 @@ class ProductController extends Controller
                             'warranty_policy_eng'=>$request->warranty_policy_eng,
                             'warranty_period'=>$request->warranty_period,
                             'cod_avail'=>$request->cod_avail,
+
+                            'car_engine'=>$request->car_engine,
+                            'car_gear_box'=>$request->car_gear_box,
+                            'car_mileage'=>$request->car_mileage,
+                            'car_year'=>$request->car_year,
+                            'car_color'=>$request->car_color,
+                            'car_body_type'=>$request->car_body_type,
+                            'car_fuel_type'=>$request->car_fuel_type,
+                            'car_ara_con'=>$request->car_ara_con,
+                            'car_drive_type'=>$request->car_drive_type,
+                            'car_condition'=>$request->car_condition,
                         ]);
                     }else{
                         $details= ProductDetails::create([

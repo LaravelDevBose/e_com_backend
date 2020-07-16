@@ -26,6 +26,17 @@ class ProductDetails extends Model
         'warranty_policy_eng',
         'warranty_period',
         'cod_avail',
+
+        'car_engine',
+        'car_gear_box',
+        'car_mileage',
+        'car_year',
+        'car_color',
+        'car_body_type',
+        'car_fuel_type',
+        'car_ara_con',
+        'car_drive_type',
+        'car_condition'
     ];
 
     public function product(){

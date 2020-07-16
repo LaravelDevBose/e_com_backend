@@ -108,8 +108,8 @@
                             <p v-html="proData.lang_description" ></p>
                         </div>
                     </div>
-                </div>
-                <div class="panel" v-if="typeof proDetails !== 'undefined' && proDetails !== '' ">
+                </div> -->
+                <div class="panel" v-if="typeof proDetails !== 'undefined' && proDetails !== '' && proData.category_id === 1 ">
                     <div class="panel-heading bg-teal-300">
                         <h6 class="panel-title">Product Extra Details</h6>
                         <div class="heading-elements">
@@ -120,8 +120,79 @@
                             </ul>
                         </div>
                     </div>
-
-                    <div class="panel-body" >
+                    <div class="panel-body">
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Engine: </span>
+                                <span v-if="proDetails.car_engine" v-html="proDetails.car_engine"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Gearbox: </span>
+                                <span v-if="proDetails.car_gear_box" v-html="proDetails.car_gear_box"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Mileage : </span>
+                                <span v-if="proDetails.car_mileage" v-html="proDetails.car_mileage"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Color: </span>
+                                <span v-if="proDetails.car_color" v-html="proDetails.car_color"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Year: </span>
+                                <span v-if="proDetails.car_year" v-html="proDetails.car_year"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Body Type: </span>
+                                <span v-if="proDetails.car_body_type" v-html="proDetails.car_body_type"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Fuel Type: </span>
+                                <span v-if="proDetails.car_fuel_type" v-html="proDetails.car_fuel_type"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Air-con: </span>
+                                <span v-if="proDetails.car_ara_con" v-html="proDetails.car_ara_con"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Drive Type: </span>
+                                <span v-if="proDetails.car_drive_type" v-html="proDetails.car_drive_type"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Condition: </span>
+                                <span v-if="proDetails.car_condition" >{{ proDetails.car_condition }}</span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                    </div>
+                    <!--<div class="panel-body">
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">Main Material: </span>
@@ -192,7 +263,7 @@
                                 <span v-else class="text-size-small text-slate-400">0 Day</span>
                             </p>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="panel" v-if="proVariations.length !== 0 && typeof proVariations !== 'undefined'">
                     <div class="panel-heading bg-teal">
@@ -222,7 +293,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>-->
+                </div>
             </div>
         </div>
 
