@@ -18,8 +18,8 @@
         </div>
         <div class="product-info-stock">
             <div class="stock available">
-                <span class="label">Package Dimension : {{ product.package_height +' X '+ product.package_weight +' X '+ product.package_length}} CM </span>
-                <span class="label">Package Weight : {{product.package_weight}} KG</span>
+                <span class="label" v-if="product.package_height && product.package_weight && product.package_length">Package Dimension : {{ product.package_height +' X '+ product.package_weight +' X '+ product.package_length}} CM </span>
+                <span class="label" v-if="product.package_weight">Package Weight : {{product.package_weight}} KG</span>
             </div>
         </div>
         <div class="product-overview">

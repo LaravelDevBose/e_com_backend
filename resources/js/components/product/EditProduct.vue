@@ -449,7 +449,7 @@
                                 <label class="control-label">Previous Product Images: </label>
                                 <div class="row" v-if="proImages">
                                     <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" v-for="(proImage, index) in proImages" :key="proImage.id" >
-                                        <div class="thumbnail">
+                                        <div class="thumbnail" v-if="proImage.image">
                                             <div class="thumb">
                                                 <img :src="proImage.image.image_path" alt="">
                                                 <div class="caption-overflow">
