@@ -42,7 +42,7 @@ export const ENGLISH_TRANSLATIONS  ={
     products:{
         latest_deals:'Latest Deals',
         hot_deals:'Hot Deals',
-        price:'price',
+        price:'Price',
         range:'Range',
         brand:'Brand|Brands',
         color:'Color|Colors',

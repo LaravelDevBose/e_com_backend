@@ -252,6 +252,7 @@ class ProductController extends Controller
                     'discount_price'=>$request->discount_price,
                     'seller_id'=>auth()->guard('seller')->user()->seller->seller_id,
                     'product_city'=>(!empty($request->product_city))? $request->product_city :  auth()->guard('seller')->user()->seller->seller_city,
+                    'product_condition'=> !empty($request->product_condition)? $request->product_condition : auth()->guard('seller')->user()->seller->seller_pro_type,
                 ]);
                 if($product){
 

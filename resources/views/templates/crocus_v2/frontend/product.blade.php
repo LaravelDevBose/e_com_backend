@@ -76,6 +76,15 @@
                                             <a href="#reviews_tabs">{{ $product->reviews->count() }} Review(s)</a>
                                         </p>
                                     </div>
+                                    <div>
+                                        <h5>Product Condition:
+                                            @if($product->product_condition == 1)
+                                                <span class="badge" style="background-color: #0ab154; padding: 7px 10px;">New Product</span>
+                                            @else
+                                                <span class="badge" style="background-color: #daab00; padding: 7px 10px;">Used Product</span>
+                                            @endif
+                                        </h5>
+                                    </div>
                                     <single-product-options :product="{{ $product }}"></single-product-options>
                                 </div>
 
@@ -99,9 +108,9 @@
                                                     @if($product->seller->seller_id !== 1)
                                                         <div class="item">
                                                             @if(!empty($product->seller->shop->shopLogo->image_path))
-                                                                <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ $product->seller->shop->shopLogo->image_path }}">
+                                                                <img class="img" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ $product->seller->shop->shopLogo->image_path }}">
                                                             @else
-                                                                <img class="img img-circle" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ asset('crocus_v2/images/blog-img.jpg') }}">
+                                                                <img class="img" style="margin: 0 auto;" width="60" height="60" alt="blog image" src="{{ asset('images/market.png') }}">
                                                             @endif
                                                         </div>
                                                     @endif

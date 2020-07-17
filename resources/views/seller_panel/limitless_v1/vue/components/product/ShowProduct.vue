@@ -57,12 +57,13 @@
                                    </span>
                                     <span class="text text-bold text-teal ">{{ proData.discount }}</span>
                                 </p>
-                                <div class="content-group">
-                                    <span class="text text-bold text-info ">
-                                        Product Highlight:
+                                <p v-if="proData.product_condition !== 0 && proData.product_condition  !== '' " style="margin-bottom: 5px;">
+                                    <span class="text text-bold text-primary ">
+                                         Product Condition:
                                    </span>
-                                    <p v-html="proData.highlight"></p>
-                                </div>
+                                    <span class="badge badge-success" v-if="proData.product_condition == 1">New Product</span>
+                                    <span class="badge badge-warning" v-else>Used Product</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -77,11 +78,13 @@
                             </ul>
                         </div>
                     </div>
-
                     <div class="panel-body">
-                        <div class="content-group" v-html="proData.description">
-
-                        </div>
+                        <h3>Highlight</h3>
+                        <div class="content-group" v-html="proData.highlight"></div>
+                    </div>
+                    <div class="panel-body">
+                        <h3 class="m-0">Description</h3>
+                        <div class="content-group" v-html="proData.description"></div>
                     </div>
                 </div>
 

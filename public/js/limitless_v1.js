@@ -8452,6 +8452,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
+      seller: '',
       formData: {
         category_id: '',
         brand_id: '',
@@ -8494,6 +8495,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         cod_avail: 1,
         discount_price: '',
         product_city: 0,
+        product_condition: 1,
         car_engine: '',
         car_gear_box: '',
         car_mileage: '',
@@ -8542,6 +8544,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   mounted: function mounted() {
     this.getProductCreateNeedData();
+
+    if (window.seller.seller_pro_type === 2) {
+      this.formData.product_condition = 2;
+      console.log(this.formData.product_condition);
+    }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['allTreeListCategories', 'getBrandList', 'getProductCreateDependency', 'uploadProductImage', 'sellerStoreProductData', 'getProductCreateNeedData', 'attachmentImageRemove']), {
     addPriId: function addPriId(PriID) {
@@ -10359,6 +10366,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
 //
 //
 //
@@ -79530,17 +79540,28 @@ var render = function() {
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                _c("div", { staticClass: "content-group" }, [
-                  _c("span", { staticClass: "text text-bold text-info " }, [
-                    _vm._v(
-                      "\n                                    Product Highlight:\n                               "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("p", {
-                    domProps: { innerHTML: _vm._s(_vm.proData.highlight) }
-                  })
-                ])
+                _vm.proData.product_condition !== 0 &&
+                _vm.proData.product_condition !== ""
+                  ? _c("p", { staticStyle: { "margin-bottom": "5px" } }, [
+                      _c(
+                        "span",
+                        { staticClass: "text text-bold text-primary " },
+                        [
+                          _vm._v(
+                            "\n                                     Product Condition:\n                               "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.proData.product_condition == 1
+                        ? _c("span", { staticClass: "badge badge-success" }, [
+                            _vm._v("New Product")
+                          ])
+                        : _c("span", { staticClass: "badge badge-warning" }, [
+                            _vm._v("Used Product")
+                          ])
+                    ])
+                  : _vm._e()
               ])
             ])
           ])
@@ -79550,6 +79571,17 @@ var render = function() {
           _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "panel-body" }, [
+            _c("h3", [_vm._v("Highlight")]),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "content-group",
+              domProps: { innerHTML: _vm._s(_vm.proData.highlight) }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" }, [
+            _c("h3", { staticClass: "m-0" }, [_vm._v("Description")]),
+            _vm._v(" "),
             _c("div", {
               staticClass: "content-group",
               domProps: { innerHTML: _vm._s(_vm.proData.description) }

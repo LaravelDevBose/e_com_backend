@@ -24,9 +24,9 @@
                         <div class="widget-content">
                             <div class="item text-center">
                                 @if(!empty($shop->shopLogo->image_path))
-                                    <img class="img img-circle" style="margin: 0 auto;" width="100" height="100" alt="blog image" src="{{ $shop->shopLogo->image_path }}">
+                                    <img class="img" style="margin: 0 auto;" width="100" height="100" alt="blog image" src="{{ $shop->shopLogo->image_path }}">
                                 @else
-                                    <img class="img img-circle" style="margin: 0 auto;" width="100" height="100" alt="blog image" src="{{ asset('crocus_v2/images/blog-img.jpg') }}">
+                                    <img class="img" style="margin: 0 auto;" width="100" height="100" alt="blog image" src="{{ asset('images/market.png') }}">
                                 @endif
                             </div>
                             <h3 class="text text-capitalize text-center" style="margin-top: 3px;"><span>{{ $shop->shop_name }}</span></h3>

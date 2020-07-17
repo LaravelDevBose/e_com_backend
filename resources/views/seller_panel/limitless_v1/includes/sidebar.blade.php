@@ -6,8 +6,8 @@
         <div class="sidebar-user-material">
             <div class="category-content">
                 <div class="sidebar-user-material-content">
-                    <a href="#">
-                        <img src="{{ asset('assets/images/placeholder.jpg') }}" class="img-circle img-responsive" alt="">
+                    <a href="{{ route('front.shop.profile', auth()->user()->seller->shop->shop_slug) }}" style="border-radius:0!important; box-shadow: none!important;">
+                        <img src="{{ asset('images/seller_shop_logo.png') }}" class=" img-responsive" alt="" style="box-shadow: none!important;">
                     </a>
                     <h6>{{ ucwords(auth()->guard('seller')->user()->full_name)  }}</h6>
                     <span class="text-size-small">{{ auth()->guard('seller')->user()->role }}</span>

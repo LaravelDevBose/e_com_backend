@@ -66,16 +66,13 @@
                                    </span>
                                     <span class="text text-bold text-teal ">{{ proData.discount }}</span>
                                 </p>
-                                <p v-if="proData.mall_comp_name" style="margin-bottom: 5px;">
-                                    <i class="icon-store text-primary" style="margin-right: .5rem;"></i>
-                                    <span class="text text-bold text-teal h3 text-uppercase">{{ proData.mall_comp_name }}</span>
-                                </p>
-                                <div class="content-group">
-                                   <span class="text text-bold text-primary ">
-                                        Product Highlight:
+                                <p v-if="proData.product_condition !== 0 && proData.product_condition  !== '' " style="margin-bottom: 5px;">
+                                    <span class="text text-bold text-primary ">
+                                         Product Condition:
                                    </span>
-                                    <p v-html="proData.highlight"></p>
-                                </div>
+                                    <span class="badge badge-success" v-if="proData.product_condition == 1">New Product</span>
+                                    <span class="badge badge-warning" v-else>Used Product</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -90,11 +87,13 @@
                             </ul>
                         </div>
                     </div>
-
                     <div class="panel-body">
-                        <div class="content-group" v-html="proData.description">
-
-                        </div>
+                        <h3>Highlight</h3>
+                        <div class="content-group" v-html="proData.highlight"></div>
+                    </div>
+                    <div class="panel-body">
+                        <h3 class="m-0">Description</h3>
+                        <div class="content-group" v-html="proData.description"></div>
                     </div>
                 </div>
 
@@ -124,7 +123,7 @@
                 </div>
 
                 <!-- Available hours -->
-                <div class="panel" v-if="proDetails && proDetails !== '' ">
+                <div class="panel" v-if="typeof proDetails !== 'undefined' && proDetails !== '' && proData.category_id === 1 ">
                     <div class="panel-heading bg-teal-300">
                         <h6 class="panel-title">Product Extra Details</h6>
                         <div class="heading-elements">
@@ -135,8 +134,79 @@
                             </ul>
                         </div>
                     </div>
-
-                    <div class="panel-body" >
+                    <div class="panel-body">
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Engine: </span>
+                                <span v-if="proDetails.car_engine" v-html="proDetails.car_engine"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Gearbox: </span>
+                                <span v-if="proDetails.car_gear_box" v-html="proDetails.car_gear_box"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Mileage : </span>
+                                <span v-if="proDetails.car_mileage" v-html="proDetails.car_mileage"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Color: </span>
+                                <span v-if="proDetails.car_color" v-html="proDetails.car_color"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Year: </span>
+                                <span v-if="proDetails.car_year" v-html="proDetails.car_year"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Body Type: </span>
+                                <span v-if="proDetails.car_body_type" v-html="proDetails.car_body_type"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Fuel Type: </span>
+                                <span v-if="proDetails.car_fuel_type" v-html="proDetails.car_fuel_type"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Air-con: </span>
+                                <span v-if="proDetails.car_ara_con" v-html="proDetails.car_ara_con"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Drive Type: </span>
+                                <span v-if="proDetails.car_drive_type" v-html="proDetails.car_drive_type"></span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <p style="margin-bottom: .5rem;">
+                                <span class="text-bold">Condition: </span>
+                                <span v-if="proDetails.car_condition" >{{ proDetails.car_condition }}</span>
+                                <span v-else class="text-size-small text-slate-400">N/A</span>
+                            </p>
+                        </div>
+                    </div>
+                    <!--<div class="panel-body">
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">Main Material: </span>
@@ -207,7 +277,7 @@
                                 <span v-else class="text-size-small text-slate-400">0 Day</span>
                             </p>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <!-- /available hours -->
 

@@ -82,5 +82,8 @@
 </div>
 @yield('PageJs')
 
+<script>
+    window.seller = @json(auth()->user()->seller)
+</script>
 </body>
 </html>

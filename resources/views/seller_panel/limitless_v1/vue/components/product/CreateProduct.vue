@@ -420,6 +420,7 @@
         },
         data(){
             return {
+                seller: '',
                 formData:{
                     category_id:'',
                     brand_id:'',
@@ -462,6 +463,7 @@
                     cod_avail:1,
                     discount_price:'',
                     product_city: 0,
+                    product_condition: 1,
 
                     car_engine:'',
                     car_gear_box:'',
@@ -512,6 +514,11 @@
         },
         mounted(){
             this.getProductCreateNeedData();
+
+            if(window.seller.seller_pro_type === 2){
+                this.formData.product_condition = 2;
+                console.log(this.formData.product_condition);
+            }
         },
         methods:{
             ...mapActions([
