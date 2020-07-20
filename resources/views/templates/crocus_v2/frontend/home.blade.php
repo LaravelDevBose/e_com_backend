@@ -91,6 +91,25 @@
                 @if(!empty($latestDeals))
                     <latest-deal-section :latest_deal="{{ $latestDeals }}"></latest-deal-section>
                 @endif
+                @if(!empty($usedProducts))
+                        <div class="page-title">
+                            <h2>Used Products
+{{--                                <a href="" class="pull-right" style="color: #167bcb;">See More</a>--}}
+                            </h2>
+                        </div>
+                        <div class="category-products">
+                            <ul class="products-grid row">
+                                @foreach($usedProducts as $usedProduct)
+                                    @if(!empty($usedProduct))
+                                        <li class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                            <product-grid :product="{{ $usedProduct }}"></product-grid>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </div>
+                @endif
+
                 @if(!empty($categorySection))
                     @foreach($categorySection as $key=> $section)
                         @if(!empty($section['productList']))
@@ -165,6 +184,7 @@
                         <div class="title">Top Products</div>
                         <ul>
                             @foreach($topProducts as $topProduct)
+                                @if(!empty($topProduct->product))
                                 <li>
                                     <div class="row">
                                         <div class="col-xs-4 col-sm-4 no-margin">
@@ -187,6 +207,7 @@
                                         </div>
                                     </div>
                                 </li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>

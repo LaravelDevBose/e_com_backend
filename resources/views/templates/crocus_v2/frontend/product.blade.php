@@ -28,66 +28,139 @@
                     <div class="product-view">
                         <div class="product-essential">
                             <form action="#" method="post" id="product_addtocart_form">
-                                <input name="form_key" value="6UbXroakyQlbfQzK" type="hidden">
-                                <div class="product-img-box col-lg-4 col-sm-4 col-xs-12">
-                                    <div class="new-label new-top-left"> New </div>
-                                    <div class="product-image">
-                                        <div class="product-full">
-                                            <img id="product-zoom" src="{{ $product->thumbImage->image_path }}" data-zoom-image="{{ $product->thumbImage->image_path }}" alt="{{ $product->product_name }}"/>
-                                        </div>
-                                        @if(!empty($product->productImages) && count($product->productImages))
-                                            <div class="more-views">
-                                                <div class="slider-items-products">
-                                                    <div id="gallery_01" class="product-flexslider hidden-buttons product-img-thumb">
-                                                        <div class="slider-items slider-width-col4 block-content">
-                                                            <div class="more-views-items">
-                                                                <a href="#" data-image="{{ $product->thumbImage->image_path }}" data-zoom-image="{{ $product->thumbImage->image_path }}">
-                                                                    <img id="product-zoom"  src="{{ $product->thumbImage->image_path }}" alt="{{ $product->product_name }}"/>
-                                                                </a>
-                                                            </div>
+                                <div class="col-lg-9 col-sm-9 col-xs-12">
+                                    <div class="row">
+                                        <div class="product-img-box col-lg-5 col-sm-5 col-xs-12">
+                                            <div class="new-label new-top-left"> New </div>
+                                            <div class="product-image">
+                                                <div class="product-full">
+                                                    <img id="product-zoom" src="{{ $product->thumbImage->image_path }}" data-zoom-image="{{ $product->thumbImage->image_path }}" alt="{{ $product->product_name }}"/>
+                                                </div>
+                                                @if(!empty($product->productImages) && count($product->productImages))
+                                                    <div class="more-views">
+                                                        <div class="slider-items-products">
+                                                            <div id="gallery_01" class="product-flexslider hidden-buttons product-img-thumb">
+                                                                <div class="slider-items slider-width-col4 block-content">
+                                                                    <div class="more-views-items">
+                                                                        <a href="#" data-image="{{ $product->thumbImage->image_path }}" data-zoom-image="{{ $product->thumbImage->image_path }}">
+                                                                            <img id="product-zoom"  src="{{ $product->thumbImage->image_path }}" alt="{{ $product->product_name }}"/>
+                                                                        </a>
+                                                                    </div>
 
-                                                            @foreach($product->productImages as $productImage)
-                                                                <div class="more-views-items">
-                                                                    <a href="#" data-image="{{ $productImage->attachment->image_path }}" data-zoom-image="{{ $productImage->attachment->image_path }}">
-                                                                        <img id="product-zoom"  src="{{ $productImage->attachment->image_path }}" alt="{{ $product->product_name }}"/>
-                                                                    </a>
+                                                                    @foreach($product->productImages as $productImage)
+                                                                        <div class="more-views-items">
+                                                                            <a href="#" data-image="{{ $productImage->attachment->image_path }}" data-zoom-image="{{ $productImage->attachment->image_path }}">
+                                                                                <img id="product-zoom"  src="{{ $productImage->attachment->image_path }}" alt="{{ $product->product_name }}"/>
+                                                                            </a>
+                                                                        </div>
+                                                                    @endforeach
                                                                 </div>
-                                                            @endforeach
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                @endif
                                             </div>
-                                        @endif
-                                    </div>
-                                    <!-- end: more-images -->
-                                </div>
-                                <div class="product-shop col-lg-5 col-sm-5 col-xs-12">
-{{--                                    <div class="product-next-prev"> <a class="product-next" href="#"><span></span></a> <a class="product-prev" href="#"><span></span></a> </div>--}}
-                                    <div class="product-name">
-                                        <h1>{{ $product->product_name}}</h1>
-                                    </div>
-                                    <div class="ratings">
-                                        <star-rating
-                                            :star-size="18"
-                                            :rating="{{ ($product->reviews->count() > 0)? $product->reviews->sum('rating')/$product->reviews->count(): 0 }}"
-                                            :read-only="true"
-                                        ></star-rating>
-                                        <p class="rating-links">
-                                            <a href="#reviews_tabs">{{ $product->reviews->count() }} Review(s)</a>
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <h5>Product Condition:
-                                            @if($product->product_condition == 1)
-                                                <span class="badge" style="background-color: #0ab154; padding: 7px 10px;">New Product</span>
-                                            @else
-                                                <span class="badge" style="background-color: #daab00; padding: 7px 10px;">Used Product</span>
-                                            @endif
-                                        </h5>
-                                    </div>
-                                    <single-product-options :product="{{ $product }}"></single-product-options>
-                                </div>
+                                            <!-- end: more-images -->
+                                        </div>
+                                        <div class="product-shop col-lg-7 col-sm-7 col-xs-12">
+                                            <div class="product-name">
+                                                <h1>{{ $product->product_name}}</h1>
+                                            </div>
+                                            <div class="ratings">
+                                                <star-rating
+                                                    :star-size="18"
+                                                    :rating="{{ ($product->reviews->count() > 0)? $product->reviews->sum('rating')/$product->reviews->count(): 0 }}"
+                                                    :read-only="true"
+                                                ></star-rating>
+                                                <p class="rating-links">
+                                                    <a href="#reviews_tabs">{{ $product->reviews->count() }} Review(s)</a>
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <h5>Product Condition:
+                                                    @if($product->product_condition == 1)
+                                                        <span class="badge" style="background-color: #0ab154; padding: 7px 10px;">New Product</span>
+                                                    @else
+                                                        <span class="badge" style="background-color: #daab00; padding: 7px 10px;">Used Product</span>
+                                                    @endif
+                                                </h5>
+                                            </div>
+                                            <single-product-options :product="{{ $product }}"></single-product-options>
 
+                                        </div>
+                                    </div>
+                                    @if($product->category_id == 1)
+                                        <table class="table table-responsive" >
+                                            <tbody>
+                                            <tr>
+                                                <td class="well" >
+                                                    <div>
+                                                        <h4>Engine</h4>
+                                                        <h5>{{ !empty($product->productDetails->car_engine)? $product->productDetails->car_engine: "N/A" }}</h5>
+                                                    </div>
+                                                </td>
+                                                <td class="well" >
+                                                    <div>
+                                                        <h4>Gearbox</h4>
+                                                        <h5>{{ !empty($product->productDetails->car_gear_box)?$product->productDetails->car_gear_box:'N/A' }}</h5>
+                                                    </div>
+                                                </td>
+                                                <td class="well" >
+                                                    <div >
+                                                        <h4>Mileage</h4>
+                                                        <h5>{{ !empty($product->productDetails->car_mileage)?$product->productDetails->car_mileage:'N/A' }}</h5>
+                                                    </div>
+                                                </td>
+                                                <td class="well" >
+                                                    <div >
+                                                        <h4>Year</h4>
+                                                        <h5>{{ !empty($product->productDetails->car_year)? $product->productDetails->car_year: 'N/A' }}</h5>
+                                                    </div>
+                                                </td>
+                                                <td class="well" >
+                                                    <div>
+                                                        <h4>Color</h4>
+                                                        <h5>{{ !empty($product->productDetails->car_color)? $product->productDetails->car_color:'N/A' }}</h5>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td class="well" >
+                                                    <div>
+                                                        <h4>Body Type</h4>
+                                                        <h5>{{ !empty($product->productDetails->car_body_type)? $product->productDetails->car_body_type : 'N/A' }}</h5>
+                                                    </div>
+                                                </td>
+                                                <td class="well" >
+                                                    <div >
+                                                        <h4>Fuel Type</h4>
+                                                        <h5>{{ !empty($product->productDetails->car_fuel_type)? $product->productDetails->car_fuel_type :'N/A' }}</h5>
+                                                    </div>
+                                                </td>
+                                                <td class="well" >
+                                                    <div >
+                                                        <h4>Air Condition</h4>
+                                                        <h5>{{ !empty($product->productDetails->car_ara_con)? $product->productDetails->car_ara_con : 'N/A' }}</h5>
+                                                    </div>
+                                                </td>
+                                                <td class="well" >
+                                                    <div>
+                                                        <h4>Drive Type</h4>
+                                                        <h5>{{ !empty($product->productDetails->car_drive_type)? $product->productDetails->car_drive_type :'N/A' }}</h5>
+                                                    </div>
+                                                </td>
+                                                <td class="well" >
+                                                    <div>
+                                                        <h4>Condition</h4>
+                                                        <h5>{{ !empty($product->productDetails->car_condition)? $product->productDetails->car_condition : 'N/A' }}</h5>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    @endif
+                                </div>
                                 <div class="col-lg-3 col-sm-3 col-xs-12 pro-banner">
                                     @if(!empty($hotProducts))
                                         <div class="hot-deal">
@@ -157,6 +230,7 @@
                     </div>
                 </div>
                 <div class="product-collateral col-lg-12 col-sm-12 col-xs-12">
+
                     <div class="add_info">
                         <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
                             <li class="active"> <a href="#product_tabs_description" data-toggle="tab"> Product Description </a> </li>

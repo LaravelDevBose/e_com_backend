@@ -165,6 +165,7 @@ class Product extends Model
     }
 
     public function scopeCityWise($query){
+
         if (session()->has('cityKey')){
             if(Session::get('cityKey', 0) != 0){
                 return $query->where('product_city', Session::get('cityKey', 0));
@@ -304,5 +305,10 @@ class Product extends Model
 
     public function latest_deal(){
         return $this->hasOne(LatestDealProduct::class, 'product_id', 'product_id');
+    }
+
+    public function groupProducts()
+    {
+        return $this->hasMany(GroupProduct::class, 'product_id', 'product_id');
     }
 }

@@ -8628,6 +8628,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8650,8 +8663,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         paginate: 20,
         range: {
           min: 1,
-          max: 10000
-        }
+          max: 10000000
+        },
+        conditions: []
       }
     };
   },
@@ -78186,6 +78200,116 @@ var render = function() {
               ])
             ]
           ),
+          _vm._v(" "),
+          _c("dt", { staticClass: "even" }, [_vm._v("Condition")]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "even" }, [
+            _c("ol", [
+              _c("li", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.sortData.conditions,
+                      expression: "sortData.conditions"
+                    }
+                  ],
+                  attrs: { id: "new_product", type: "checkbox" },
+                  domProps: {
+                    value: 1,
+                    checked: Array.isArray(_vm.sortData.conditions)
+                      ? _vm._i(_vm.sortData.conditions, 1) > -1
+                      : _vm.sortData.conditions
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.sortData.conditions,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = 1,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(
+                              _vm.sortData,
+                              "conditions",
+                              $$a.concat([$$v])
+                            )
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.sortData,
+                              "conditions",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.sortData, "conditions", $$c)
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "new_product" } }, [
+                  _vm._v("New Products ")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.sortData.conditions,
+                      expression: "sortData.conditions"
+                    }
+                  ],
+                  attrs: { id: "used_products", type: "checkbox" },
+                  domProps: {
+                    value: 2,
+                    checked: Array.isArray(_vm.sortData.conditions)
+                      ? _vm._i(_vm.sortData.conditions, 2) > -1
+                      : _vm.sortData.conditions
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.sortData.conditions,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = 2,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(
+                              _vm.sortData,
+                              "conditions",
+                              $$a.concat([$$v])
+                            )
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.sortData,
+                              "conditions",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.sortData, "conditions", $$c)
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "used_products" } }, [
+                  _vm._v("Used Products ")
+                ])
+              ])
+            ])
+          ]),
           _vm._v(" "),
           _vm.brands.length > 0
             ? _c("dt", { staticClass: "even" }, [

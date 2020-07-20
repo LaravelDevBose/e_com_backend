@@ -208,6 +208,26 @@
     font-size: 16px;
 }
 
+.product-collateral table tbody tr{
+    border: 2px solid dodgerblue;
+    padding: 5px;
+}
+td.well{
+    border: 2px solid #8ec7ff!important;
+    background: #ffffff!important;
+}
+td.well h4{
+    color: #04bbb4;
+    font-weight: bold;
+    margin: 0;
+}
+td.well h5{
+    color: #f7746d;
+    font-weight: bold;
+    margin: 3px 0 0;
+    text-transform: capitalize;
+}
+
 @media only screen and (min-device-width: 991px) and (max-device-width: 1199px){
     .payment-options ul li{
         width: 93px;
@@ -231,6 +251,14 @@
 @media only screen and (min-device-width: 320px) and (max-device-width: 374px){
     #testimonials .box-timer {
         left: 3rem;
+    }
+    .product-collateral table .well h4{
+        font-size: 13px;
+        font-weight: bold;
+    }
+    .product-collateral table .well h5{
+        font-size: 11px;
+        font-weight: bold;
     }
 }
 

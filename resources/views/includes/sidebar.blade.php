@@ -58,16 +58,16 @@
                         @if(auth()->user()->adminRole->color)
                             <li ><a href="{{ route('admin.color.create') }}"><i class="icon-brush"></i> <span>Color</span></a></li>
                         @endif
-                        @if(auth()->user()->adminRole->tag)
+                        {{--@if(auth()->user()->adminRole->tag)
                             <li ><a href="{{ route('admin.tag.create') }}"><i class="icon-price-tag2"></i> <span>Tag</span></a></li>
-                        @endif
+                        @endif--}}
                         @if(auth()->user()->adminRole->size)
                             <li ><a href="{{ route('admin.size_group.create') }}"><i class="icon-rulers"></i> <span>Product Size</span></a></li>
                         @endif
                         {{--                    <li ><a href="{{ route('admin.delivery_cost.create') }}"><i class="icon-truck"></i> <span>Delivery Cost</span></a></li>--}}
-                        @if(auth()->user()->adminRole->skin_type)
+                        {{--@if(auth()->user()->adminRole->skin_type)
                             <li ><a href="{{ route('admin.skinType.create') }}"><i class="icon-woman"></i> <span>SkinType</span></a></li>
-                        @endif
+                        @endif--}}
                         @if(auth()->user()->adminRole->delivery_method)
                             <li ><a href="{{ route('admin.delivery.method.index') }}"><i class="icon-truck"></i> <span>Delivery Method</span></a></li>
                         @endif

@@ -253,10 +253,11 @@ class CategoryController extends Controller
                     $categoryIds = array_merge($categoryIds, $catIds);
                 }
             }
+
             $reqData = [
                 'categoryIds'=>$categoryIds,
             ];
-            $products = ProductHelper::products_list($reqData);
+            $products = ProductHelper::Admin_products_list($reqData);
         }
 
         if(!empty($products)){

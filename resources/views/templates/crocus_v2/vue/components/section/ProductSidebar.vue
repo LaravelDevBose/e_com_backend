@@ -13,6 +13,19 @@
                             <input type="number" style="display:block" v-model="sortData.range.max" class="form-control">
                         </div>
                     </div>
+                    <dt class="even" >Condition</dt>
+                    <dd class="even">
+                        <ol>
+                            <li>
+                                <input v-model="sortData.conditions" :value="1" id="new_product"  type="checkbox">
+                                <label for="new_product">New Products </label>
+                            </li>
+                            <li>
+                                <input v-model="sortData.conditions" :value="2" id="used_products"  type="checkbox">
+                                <label for="used_products">Used Products </label>
+                            </li>
+                        </ol>
+                    </dd>
                     <dt class="even" v-if="brands.length > 0">{{ $tc('products.brand',brands.length)}}</dt>
                     <dd class="even" v-if="brands">
                         <ol>
@@ -72,8 +85,9 @@
                     paginate:20,
                     range:{
                         min: 1,
-                        max: 10000,
+                        max: 10000000,
                     },
+                    conditions: [],
                 },
             }
         },

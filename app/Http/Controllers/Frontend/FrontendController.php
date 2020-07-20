@@ -59,13 +59,12 @@ class FrontendController extends Controller
         $topProducts = GroupProduct::where('group_type', GroupProduct::Groups['Top Product'])
             ->whereDate('expired_at', '>=', Carbon::now())
             ->with(['product' => function ($query) {
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->cityWise();
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews');
             }])->orderBy('position', 'asc')->latest()->get();
-
         $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
             ->whereDate('expired_at', '>=', Carbon::now())
             ->with(['product' => function ($query) {
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive()->cityWise();
+                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
             }])->islive()->isActive()->orderBy('position', 'asc')->latest()->get();
 
         $latestDeals = LatestDeal::where('status', config('app.active'))->whereDate('end_time', '>', Carbon::now()->format('Y-m-d h:i:s'))
@@ -113,6 +112,12 @@ class FrontendController extends Controller
         $adsSliderRight = AdsBanner::isLive()->where('ads_position', AdsBanner::ADS_POSITIONS['Home Page Slider Right'])
             ->with('image')->first();
         $adsPageBodies = AdsBanner::isLive()->whereIn('ads_position', AdsBanner::Ads_pages['Home Body'])->get();
+
+        $usedProducts = Product::isActive()->where('product_condition', Product::ProductCondition['Used Product'])
+                    ->with('thumbImage', 'singleVariation', 'reviews')
+                    ->cityWise()->latest()
+                    ->take(12)->get();
+
         return view('templates.' . $this->template_name . '.frontend.home', [
             'sliders' => $sliders,
             'topProducts' => $topProducts,
@@ -121,6 +126,7 @@ class FrontendController extends Controller
             'latestDeals' => $latestDeals,
             'adsSliderRight'=>$adsSliderRight,
             'adsPageBodies'=>$adsPageBodies,
+            'usedProducts'=>$usedProducts
         ]);
     }
 
@@ -290,8 +296,13 @@ class FrontendController extends Controller
         $products = Product::isActive()->whereIn('product_id', $sortProIds)
                     ->with(['brand', 'category', 'thumbImage', 'singleVariation', 'reviews'])
                     ->latest()
-                    ->cityWise()
-                    ->get();
+                    ->cityWise();
+
+        if(!empty($request->conditions)){
+            $products = $products->whereIn('product_condition', $request->conditions)->get();
+        }else{
+            $products = $products->get();
+        }
         if (!empty($products)) {
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $products);
         } else {
