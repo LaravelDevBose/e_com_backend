@@ -8,25 +8,7 @@
             <ul class=" nav-left" >
                 <li ><span><i class="fa fa-phone" aria-hidden="true"></i>{{ (!empty($contactInfos['contact_phone'])) ? $contactInfos['contact_phone'] : '' }}</span></li>
                 <li ><span><i class="fa fa-envelope" aria-hidden="true"></i> @lang('header.contact_us') !</span></li>
-                <li class="dropdown switcher  switcher-language">
-                    <a data-toggle="dropdown" role="button" href="#" class="dropdown-toggle switcher-trigger" aria-expanded="false">
-                        <?php
-                        if(app()->getLocale() == 'so'){
-                            $flag = '/kuteshop_v2/images/flags/flag_somalia.png';
-                            $name = 'Somalia';
-                        }else{
-                            $flag = '/kuteshop_v2/images/flags/flag_english.png';
-                            $name = 'English';
-                        }
-                        ?>
-                        <img class="switcher-flag" alt="flag" src="{{ asset($flag) }}">
-                        <span>{{ $name }}</span>
-                        <i aria-hidden="true" class="fa fa-angle-down"></i>
-                    </a>
-                    <div class="dropdown-menu switcher-options ">
-                        <language-switcher></language-switcher>
-                    </div>
-                </li>
+
             </ul>
             <!-- hotline -->
 
@@ -163,12 +145,12 @@
                 <div class="dropdown setting">
                     <a data-toggle="dropdown" role="button" href="#" class="dropdown-toggle "><span>{{ trans_choice('header.setting',2) }}</span> <i aria-hidden="true" class="fa fa-user"></i></a>
                     <div class="dropdown-menu  ">
-                        <div class="switcher  switcher-language">
+                        {{--<div class="switcher  switcher-language">
                             <strong class="title">@lang('header.select_lang')</strong>
                             <div class="switcher-options ">
                                 <language-switcher></language-switcher>
                             </div>
-                        </div>
+                        </div>--}}
                         @if(auth()->guest())
                             <ul class="account">
                                 <li><a href="{{ route('login') }}" >{{ __('header.login')  }}</a></li>
