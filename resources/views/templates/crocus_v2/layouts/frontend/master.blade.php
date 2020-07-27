@@ -94,6 +94,7 @@
 </div>
 
 
+<script src="{{ asset('js/crocus_v2.js') }}"></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/jquery.min.js') }}"  ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/bootstrap.min.js') }}" ></script>
 <script type="text/javascript" src="{{ asset('crocus_v2/js/revslider.js') }}"  ></script>
@@ -105,7 +106,6 @@
 
 @yield('PageJs')
 
-<script src="{{ asset('js/crocus_v2.js') }}"></script>
 </body>
 
 </html>
