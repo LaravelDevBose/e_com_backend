@@ -20,7 +20,6 @@ class Product extends Model
     const ProductCondition = [
         'New Product'=>1,
         'Used Product'=>2,
-        'Republish Product'=>3
     ];
 
     const WarrantyType=[

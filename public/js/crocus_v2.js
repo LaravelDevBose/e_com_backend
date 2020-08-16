@@ -2846,16 +2846,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "RegisterPage",
@@ -2870,8 +2860,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         password: '',
         password_confirmation: '',
         seller_city: 1,
-        seller_address: '',
-        seller_pro_type: 1
+        seller_address: ''
       },
       disable: false
     };
@@ -7717,6 +7706,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -69029,57 +69019,6 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("li", [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.formData.seller_pro_type,
-                      expression: "formData.seller_pro_type"
-                    }
-                  ],
-                  staticClass: "validate-select",
-                  staticStyle: { width: "80%" },
-                  attrs: { name: "", id: "seller_pro_type", required: "" },
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.$set(
-                        _vm.formData,
-                        "seller_pro_type",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
-                    }
-                  }
-                },
-                [
-                  _c("option", { attrs: { value: "1" } }, [
-                    _vm._v(" New Products")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "2" } }, [
-                    _vm._v(" Used Products")
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
               _c("label", { attrs: { for: "reg_pass" } }, [
                 _vm._v(
                   "\n                        " +
@@ -69180,19 +69119,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "seller_city" } }, [
-      _vm._v(
-        "\n                        Selling Product Type\n                        "
-      ),
-      _c("span", { staticClass: "required" }, [_vm._v("*")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -77090,6 +77017,12 @@ var render = function() {
               })
             ]
           ),
+          _vm._v(" "),
+          _vm.product.product_condition === 2
+            ? _c("div", { staticClass: "new-label new-top-right" }, [
+                _vm._v("Used")
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("div", { staticClass: "box-hover" }, [
             _c("ul", { staticClass: "add-to-links" }, [

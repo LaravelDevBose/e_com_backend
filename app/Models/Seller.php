@@ -32,7 +32,6 @@ class Seller extends User
         'seller_type',
         'seller_status',
         'seller_city',
-        'seller_pro_type'
     ];
     protected $appends=[
         'status_label'

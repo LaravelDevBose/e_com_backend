@@ -24,6 +24,7 @@ class CarInfoProductDetailsTable extends Migration
             $table->string('car_ara_con')->nullable();
             $table->string('car_drive_type')->nullable();
             $table->string('car_condition')->nullable();
+            $table->boolean('car_type')->nullable();
         });
     }
 
@@ -45,7 +46,8 @@ class CarInfoProductDetailsTable extends Migration
                 'car_fuel_type',
                 'car_ara_con',
                 'car_drive_type',
-                'car_condition'
+                'car_condition',
+                'car_type',
             ]);
         });
     }

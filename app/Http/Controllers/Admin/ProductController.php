@@ -230,6 +230,7 @@ class ProductController extends Controller
                     'discount_price'=>$request->discount_price,
                     'mall_comp_name'=>$request->mall_comp_name,
                     'mall_comp_logo'=>$request->mall_comp_logo,
+                    'product_condition'=> !empty($request->product_condition)? $request->product_condition : Product::ProductCondition['New Product'],
                     'product_city'=>(!empty($request->product_city))? AddressBook::cityList[$request->product_city] :  auth()->guard('seller')->user()->seller->seller_city,
                 ]);
                 if(!empty($product)){

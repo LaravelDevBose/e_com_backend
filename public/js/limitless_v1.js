@@ -8432,6 +8432,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import the component
 
  // import the styles
@@ -8505,7 +8528,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         car_fuel_type: '',
         car_ara_con: '',
         car_drive_type: '',
-        car_condition: ''
+        car_condition: '',
+        car_type: 1
       },
       variations: [],
       btnDisabled: false,
@@ -9427,6 +9451,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 // import the component
 
  // import the styles
@@ -9497,6 +9529,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         discount_price: '',
         cod_avail: 1,
         product_city: 0,
+        product_condition: 1,
         car_engine: '',
         car_gear_box: '',
         car_mileage: '',
@@ -9506,7 +9539,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         car_fuel_type: '',
         car_ara_con: '',
         car_drive_type: '',
-        car_condition: ''
+        car_condition: '',
+        car_type: 1
       },
       variations: [],
       btnDisabled: false,
@@ -10037,6 +10071,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           this.formData.video_url = this.proData.video_url;
           this.formData.discount_price = this.proData.discount;
           this.formData.product_city = this.proData.product_city;
+          this.formData.product_condition = this.proData.condition;
           /*** Product Details Information Field ***/
 
           if (this.proDetails !== '' && this.proDetails !== null) {
@@ -10061,6 +10096,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             this.formData.car_ara_con = this.proDetails.car_ara_con;
             this.formData.car_drive_type = this.proDetails.car_drive_type;
             this.formData.car_condition = this.proDetails.car_condition;
+            this.formData.car_type = this.proDetails.car_type;
           }
           /*** Type Wish Simple Product Field  ***/
 
@@ -75129,7 +75165,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "col-md-3" }, [
               _c(
                 "div",
                 { staticClass: "form-group" },
@@ -75155,7 +75191,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "col-md-3" }, [
               _c(
                 "div",
                 { staticClass: "form-group" },
@@ -75179,73 +75215,54 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm.formData.category_id !== 1
-              ? _c("div", { staticClass: "col-md-4" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _vm._m(3),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.product_condition,
+                        expression: "formData.product_condition"
+                      }
+                    ],
+                    staticClass: "form-control select",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.formData,
+                          "product_condition",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("New Product")
+                    ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "radio-inline" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.product_type,
-                              expression: "formData.product_type"
-                            }
-                          ],
-                          staticClass: "styled",
-                          attrs: {
-                            type: "radio",
-                            name: "product_type",
-                            checked: "checked"
-                          },
-                          domProps: {
-                            value: 1,
-                            checked: _vm._q(_vm.formData.product_type, 1)
-                          },
-                          on: {
-                            change: function($event) {
-                              return _vm.$set(_vm.formData, "product_type", 1)
-                            }
-                          }
-                        }),
-                        _vm._v(
-                          "\n                                    Simple Product\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("label", { staticClass: "radio-inline" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.product_type,
-                              expression: "formData.product_type"
-                            }
-                          ],
-                          staticClass: "styled",
-                          attrs: { type: "radio", name: "product_type" },
-                          domProps: {
-                            value: 2,
-                            checked: _vm._q(_vm.formData.product_type, 2)
-                          },
-                          on: {
-                            change: function($event) {
-                              return _vm.$set(_vm.formData, "product_type", 2)
-                            }
-                          }
-                        }),
-                        _vm._v(
-                          "\n                                    Variation Product\n                                "
-                        )
-                      ])
+                    _c("option", { attrs: { value: "2" } }, [
+                      _vm._v("Used Product")
                     ])
-                  ])
-                ])
-              : _vm._e()
+                  ]
+                )
+              ])
+            ])
           ])
         ])
       ]),
@@ -75295,7 +75312,21 @@ var render = function() {
                     "div",
                     { staticClass: "form-group" },
                     [
-                      _vm._m(6),
+                      _c("label", { staticClass: "control-label" }, [
+                        _vm.formData.category_id === 1
+                          ? _c("span", [_vm._v("Car Description")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.formData.category_id !== 1
+                          ? _c("span", [_vm._v("Product Description")])
+                          : _vm._e(),
+                        _vm._v(" :\n                                    "),
+                        _c(
+                          "span",
+                          { staticClass: "text text-danger text-bold" },
+                          [_vm._v("*")]
+                        )
+                      ]),
                       _vm._v(" "),
                       _c("vue-editor", {
                         attrs: { id: "description" },
@@ -75317,7 +75348,7 @@ var render = function() {
                 ? _c("div", { staticClass: "row" }, [
                     _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(7),
+                        _vm._m(6),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -75349,7 +75380,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(8),
+                        _vm._m(7),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -75381,7 +75412,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(9),
+                        _vm._m(8),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -75408,6 +75439,63 @@ var render = function() {
                             }
                           }
                         })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(9),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.formData.car_type,
+                                expression: "formData.car_type"
+                              }
+                            ],
+                            staticClass: "form-control select",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.formData,
+                                  "car_type",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "1" } }, [
+                              _vm._v("Car")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "2" } }, [
+                              _vm._v("Bike")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "3" } }, [
+                              _vm._v("Bus")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "4" } }, [
+                              _vm._v("Truck")
+                            ])
+                          ]
+                        )
                       ])
                     ]),
                     _vm._v(" "),
@@ -75654,7 +75742,9 @@ var render = function() {
                     _c("div", { staticClass: "col-md-12" }, [
                       _c("div", { staticClass: "form-group row" }, [
                         _c("div", { staticClass: "col-md-3" }, [
-                          _vm._m(11),
+                          _c("label", { staticClass: "control-label" }, [
+                            _vm._v("Package Weight (kg):")
+                          ]),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -75684,7 +75774,9 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-6" }, [
-                          _vm._m(12),
+                          _c("label", { staticClass: "control-label" }, [
+                            _vm._v("Package Dimensions (cm): ")
+                          ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "row" }, [
                             _c("div", { staticClass: "col-lg-4" }, [
@@ -75867,7 +75959,7 @@ var render = function() {
                     "div",
                     { staticClass: "form-group" },
                     [
-                      _vm._m(13),
+                      _vm._m(11),
                       _vm._v(" "),
                       _c("image-cropper", {
                         attrs: {
@@ -75885,13 +75977,13 @@ var render = function() {
           _vm._v(" "),
           _vm.formData.product_type === 1
             ? _c("div", { staticClass: "panel panel-warning" }, [
-                _vm._m(14),
+                _vm._m(12),
                 _vm._v(" "),
                 _c("div", { staticClass: "panel-body" }, [
                   _c("div", { staticClass: "row" }, [
                     _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(15),
+                        _vm._m(13),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -75923,7 +76015,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(16),
+                        _vm._m(14),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -75955,7 +76047,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(17),
+                        _vm._m(15),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -75990,7 +76082,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-12" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(18),
+                        _vm._m(16),
                         _vm._v(" "),
                         _c("div", { attrs: { id: "simProductImg" } }, [
                           _c("div", { staticClass: "row" }, [
@@ -76008,7 +76100,7 @@ var render = function() {
                                   on: { change: _vm.uploadImage }
                                 }),
                                 _vm._v(" "),
-                                _vm._m(19)
+                                _vm._m(17)
                               ])
                             ])
                           ]),
@@ -76078,7 +76170,7 @@ var render = function() {
           _vm._v(" "),
           _vm.formData.product_type === 2
             ? _c("div", { staticClass: "panel panel-warning" }, [
-                _vm._m(20),
+                _vm._m(18),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -76342,7 +76434,7 @@ var render = function() {
                               "table",
                               { staticClass: "table table-striped table-sm" },
                               [
-                                _vm._m(21),
+                                _vm._m(19),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -76657,7 +76749,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-2" }),
                   _vm._v(" "),
-                  _vm._m(22),
+                  _vm._m(20),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-2 col-md-offset-1" }, [
                     _c(
@@ -76737,7 +76829,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "control-label" }, [
-      _vm._v("Product Type: "),
+      _vm._v("Condition: "),
       _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
     ])
   },
@@ -76755,15 +76847,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "control-label" }, [
       _vm._v("Highlights: "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "control-label" }, [
-      _vm._v("Product Description: "),
       _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
     ])
   },
@@ -76799,25 +76882,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "control-label" }, [
+      _vm._v("Car Type:"),
+      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "control-label" }, [
       _vm._v("Color:"),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "control-label" }, [
-      _vm._v("Package Weight (kg): "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "control-label" }, [
-      _vm._v("Package Dimensions (cm): "),
       _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
     ])
   },
@@ -77072,7 +77146,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "col-md-3" }, [
               _c(
                 "div",
                 { staticClass: "form-group" },
@@ -77098,7 +77172,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "col-md-3" }, [
               _c(
                 "div",
                 { staticClass: "form-group" },
@@ -77122,73 +77196,54 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm.formData.category_id !== 1
-              ? _c("div", { staticClass: "col-md-4" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _vm._m(3),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.product_condition,
+                        expression: "formData.product_condition"
+                      }
+                    ],
+                    staticClass: "form-control select",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.formData,
+                          "product_condition",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("New Product")
+                    ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "radio-inline" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.product_type,
-                              expression: "formData.product_type"
-                            }
-                          ],
-                          staticClass: "styled",
-                          attrs: {
-                            type: "radio",
-                            name: "product_type",
-                            checked: "checked"
-                          },
-                          domProps: {
-                            value: 1,
-                            checked: _vm._q(_vm.formData.product_type, 1)
-                          },
-                          on: {
-                            change: function($event) {
-                              return _vm.$set(_vm.formData, "product_type", 1)
-                            }
-                          }
-                        }),
-                        _vm._v(
-                          "\n                                    Simple Product\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("label", { staticClass: "radio-inline" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.product_type,
-                              expression: "formData.product_type"
-                            }
-                          ],
-                          staticClass: "styled",
-                          attrs: { type: "radio", name: "product_type" },
-                          domProps: {
-                            value: 2,
-                            checked: _vm._q(_vm.formData.product_type, 2)
-                          },
-                          on: {
-                            change: function($event) {
-                              return _vm.$set(_vm.formData, "product_type", 2)
-                            }
-                          }
-                        }),
-                        _vm._v(
-                          "\n                                    Variation Product\n                                "
-                        )
-                      ])
+                    _c("option", { attrs: { value: "2" } }, [
+                      _vm._v("Used Product")
                     ])
-                  ])
-                ])
-              : _vm._e()
+                  ]
+                )
+              ])
+            ])
           ])
         ])
       ]),
@@ -77227,7 +77282,21 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
-                        _vm._m(6),
+                        _c("label", { staticClass: "control-label" }, [
+                          _vm.formData.category_id === 1
+                            ? _c("span", [_vm._v("Car Description")])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.formData.category_id !== 1
+                            ? _c("span", [_vm._v("Product Description")])
+                            : _vm._e(),
+                          _vm._v(" :\n                                    "),
+                          _c(
+                            "span",
+                            { staticClass: "text text-danger text-bold" },
+                            [_vm._v("*")]
+                          )
+                        ]),
                         _vm._v(" "),
                         _c("vue-editor", {
                           attrs: { id: "description" },
@@ -77249,7 +77318,7 @@ var render = function() {
                   ? _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "form-group" }, [
-                          _vm._m(7),
+                          _vm._m(6),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -77281,7 +77350,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "form-group" }, [
-                          _vm._m(8),
+                          _vm._m(7),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -77313,7 +77382,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "form-group" }, [
-                          _vm._m(9),
+                          _vm._m(8),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -77340,6 +77409,64 @@ var render = function() {
                               }
                             }
                           })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(9),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.car_type,
+                                  expression: "formData.car_type"
+                                }
+                              ],
+                              staticClass: "form-control select",
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.formData,
+                                    "car_type",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("option", { attrs: { value: "1" } }, [
+                                _vm._v("Car")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "2" } }, [
+                                _vm._v("Bike")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "3" } }, [
+                                _vm._v("Bus")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "4" } }, [
+                                _vm._v("Truck")
+                              ])
+                            ]
+                          )
                         ])
                       ]),
                       _vm._v(" "),
@@ -78869,7 +78996,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "control-label" }, [
-      _vm._v("Product Type: "),
+      _vm._v("Condition: "),
       _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
     ])
   },
@@ -78887,15 +79014,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "control-label" }, [
       _vm._v("Highlights: "),
-      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "control-label" }, [
-      _vm._v("Product Description: "),
       _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
     ])
   },
@@ -78923,6 +79041,15 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "control-label" }, [
       _vm._v("Mileage:"),
+      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "control-label" }, [
+      _vm._v("Car Type:"),
       _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
     ])
   },

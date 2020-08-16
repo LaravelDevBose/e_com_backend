@@ -6,6 +6,7 @@
                     <a class="product-image" @click.prevent="productDetails(product.product_slug)" :title="product.product_name" href="#">
                         <img :title="product.product_name" :src="product.thumb_image.image_path">
                     </a>
+                    <div class="new-label new-top-right" v-if="product.product_condition === 2">Used</div>
                     <div class="box-hover">
                         <ul class="add-to-links">
                             <li><a class="link-quickview" href="#"  @click.prevent="quickView">{{ $t('product.quick_view')}}</a> </li>

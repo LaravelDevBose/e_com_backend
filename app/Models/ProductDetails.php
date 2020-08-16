@@ -9,8 +9,14 @@ class ProductDetails extends Model
     const PeriodUnitS = 'day';
     const PeriodUnitM = 'days';
 
-    protected $table ='product_details';
+    const CarTypes = [
+        'Car'=>1,
+        'Bike'=>2,
+        'Bus'=>3,
+        'Truck'=>4,
+    ];
 
+    protected $table ='product_details';
     protected $primaryKey = 'details_id';
 
     protected $fillable = [
@@ -36,7 +42,8 @@ class ProductDetails extends Model
         'car_fuel_type',
         'car_ara_con',
         'car_drive_type',
-        'car_condition'
+        'car_condition',
+        'car_type',
     ];
 
     public function product(){

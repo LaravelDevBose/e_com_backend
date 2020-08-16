@@ -200,7 +200,7 @@ class ProductController extends Controller
             ]);
         }
 
-        if($request->category_id){
+        if($request->category_id == 1){
             $rules = array_merge($rules,[
                 'car_engine'=>'required|string|max:20',
                 'car_gear_box'=>'required|string|max:20',
@@ -252,7 +252,7 @@ class ProductController extends Controller
                     'discount_price'=>$request->discount_price,
                     'seller_id'=>auth()->guard('seller')->user()->seller->seller_id,
                     'product_city'=>(!empty($request->product_city))? $request->product_city :  auth()->guard('seller')->user()->seller->seller_city,
-                    'product_condition'=> !empty($request->product_condition)? $request->product_condition : auth()->guard('seller')->user()->seller->seller_pro_type,
+                    'product_condition'=> !empty($request->product_condition)? $request->product_condition : Product::ProductCondition['New Product'],
                 ]);
                 if($product){
 
@@ -281,6 +281,7 @@ class ProductController extends Controller
                         'car_ara_con'=>$request->car_ara_con,
                         'car_drive_type'=>$request->car_drive_type,
                         'car_condition'=>$request->car_condition,
+                        'car_type'=>$request->car_type,
                     ]);
 
                     if(!empty($details)){
@@ -613,6 +614,7 @@ class ProductController extends Controller
                             'car_ara_con'=>$request->car_ara_con,
                             'car_drive_type'=>$request->car_drive_type,
                             'car_condition'=>$request->car_condition,
+                            'car_type'=>$request->car_type,
                         ]);
                     }else{
                         $details= ProductDetails::create([

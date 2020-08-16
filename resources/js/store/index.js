@@ -44,11 +44,25 @@ export default new Vuex.Store({
     state:{
         resData:'',
         errors:null,
-        paginate_data:[]
+        paginate_data:[],
+        cityList :[
+            { key: '0', text: 'All'},
+            { key: '1', text: 'Bosaso'},
+            { key: '2', text: 'Qardho'},
+            { key: '3', text : 'Hargeisa'},
+            { key: '4', text: 'Badhan'},
+            { key: '5', text : 'Ceerigaabo'},
+            { key: '6', text : 'Garowe'},
+            { key: '7', text : 'Muqdisho'},
+            { key: '8', text : 'Carmo'},
+            { key: '9', text : 'Burco'},
+            { key: '10', text : 'Boorama'},
+        ]
 
     },
     getters:{
         paginate:(state)=>state.paginate_data,
+        cities:(state)=>state.cityList,
     },
     actions:{
 

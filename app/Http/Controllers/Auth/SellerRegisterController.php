@@ -92,7 +92,6 @@ class SellerRegisterController extends Controller
             'email'=>'required|string|email|max:255|unique:users',
             'password'=>'required|string|min:8|confirmed',
             'seller_city'=>'required',
-            'seller_pro_type'=>'required'
         ]);
 
         if($validator->passes()){
@@ -107,7 +106,6 @@ class SellerRegisterController extends Controller
                         'seller_phone'=>$request->phone_no,
                         'seller_address'=>$request->seller_address,
                         'seller_city'=>$request->seller_city,
-                        'seller_pro_type'=>$request->seller_pro_type,
                         'seller_type'=>Seller::SellerType['Normal'],
                     ]);
 

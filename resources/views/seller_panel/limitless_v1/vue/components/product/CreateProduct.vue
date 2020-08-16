@@ -25,19 +25,28 @@
                                 <span class="text-help text-size-mini text-info">Default Product City will Use Your City Location</span>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Category: <span class="text text-danger text-bold">*</span></label>
                                 <treeselect v-model="formData.category_id"  :options="treeList" :multiple="false" :normalizer="normalizer" />
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Brand:</label>
                                 <vue-select2 v-model="formData.brand_id" :options="brandList"> </vue-select2>
                             </div>
                         </div>
-                        <div class="col-md-4" v-if="formData.category_id !== 1">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Condition: <span class="text text-danger text-bold">*</span></label>
+                                <select v-model="formData.product_condition" class="form-control select">
+                                    <option value="1" >New Product</option>
+                                    <option value="2" >Used Product</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-3" v-if="formData.category_id !== 1">
                             <div class="form-group">
                                 <label class="control-label">Product Type: <span class="text text-danger text-bold">*</span></label>
                                 <div class="form-group">
@@ -51,7 +60,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -71,7 +80,10 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-label">Product Description: <span class="text text-danger text-bold">*</span></label>
+                                    <label class="control-label">
+                                        <span v-if="formData.category_id === 1">Car Description</span>
+                                        <span v-if="formData.category_id !== 1">Product Description</span> :
+                                        <span class="text text-danger text-bold">*</span></label>
                                     <vue-editor id="description" v-model="formData.description"></vue-editor>
                                 </div>
                             </div>
@@ -94,6 +106,17 @@
                                 <div class="form-group">
                                     <label class="control-label">Mileage:<span class="text text-danger text-bold">*</span></label>
                                     <input type="number" v-model="formData.car_mileage" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Car Type:<span class="text text-danger text-bold">*</span></label>
+                                    <select v-model="formData.car_type" class="form-control select">
+                                        <option value="1" >Car</option>
+                                        <option value="2" >Bike</option>
+                                        <option value="3" >Bus</option>
+                                        <option value="4" >Truck</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -144,11 +167,11 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <div class="col-md-3">
-                                        <label class="control-label">Package Weight (kg): <span class="text text-danger text-bold">*</span></label>
+                                        <label class="control-label">Package Weight (kg):</label>
                                         <input type="number" v-model="formData.package_weight" class="form-control"  step="0.01">
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="control-label">Package Dimensions (cm): <span class="text text-danger text-bold">*</span></label>
+                                        <label class="control-label">Package Dimensions (cm): </label>
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <input type="number" v-model="formData.package_height" placeholder="height" class="form-control" step="0.01">
@@ -475,6 +498,7 @@
                     car_ara_con:'',
                     car_drive_type:'',
                     car_condition:'',
+                    car_type:1,
                 },
                 variations:[],
                 btnDisabled:false,

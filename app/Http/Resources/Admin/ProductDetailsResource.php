@@ -36,6 +36,7 @@ class ProductDetailsResource extends JsonResource
             'car_ara_con'=> $this->car_ara_con,
             'car_drive_type'=> $this->car_drive_type,
             'car_condition'=> $this->car_condition,
+            'car_type'=> $this->car_type,
         ];
     }
 }

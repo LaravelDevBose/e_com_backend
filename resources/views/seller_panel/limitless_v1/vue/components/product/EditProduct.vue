@@ -26,31 +26,25 @@
                                 <span class="text-help text-size-mini text-info">Default Product City will Use Your City Location</span>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Category: <span class="text text-danger text-bold">*</span></label>
                                 <treeselect v-model="formData.category_id"  :options="treeList" :multiple="false" :normalizer="normalizer" />
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Brand:</label>
                                 <vue-select2 v-model="formData.brand_id" :options="brandList"> </vue-select2>
                             </div>
                         </div>
-                        <div class="col-md-4" v-if="formData.category_id !== 1">
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label class="control-label">Product Type: <span class="text text-danger text-bold">*</span></label>
-                                <div class="form-group">
-                                    <label class="radio-inline" >
-                                        <input type="radio" name="product_type" :value="1" v-model="formData.product_type"  class="styled" checked="checked">
-                                        Simple Product
-                                    </label>
-                                    <label class="radio-inline" >
-                                        <input type="radio" name="product_type" :value="2" v-model="formData.product_type"  class="styled">
-                                        Variation Product
-                                    </label>
-                                </div>
+                                <label class="control-label">Condition: <span class="text text-danger text-bold">*</span></label>
+                                <select v-model="formData.product_condition" class="form-control select">
+                                    <option value="1" >New Product</option>
+                                    <option value="2" >Used Product</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -72,7 +66,10 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-label">Product Description: <span class="text text-danger text-bold">*</span></label>
+                                    <label class="control-label">
+                                        <span v-if="formData.category_id === 1">Car Description</span>
+                                        <span v-if="formData.category_id !== 1">Product Description</span> :
+                                        <span class="text text-danger text-bold">*</span></label>
                                     <vue-editor id="description" v-model="formData.description"></vue-editor>
                                 </div>
                             </div>
@@ -94,6 +91,17 @@
                                 <div class="form-group">
                                     <label class="control-label">Mileage:<span class="text text-danger text-bold">*</span></label>
                                     <input type="number" v-model="formData.car_mileage" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Car Type:<span class="text text-danger text-bold">*</span></label>
+                                    <select v-model="formData.car_type" class="form-control select">
+                                        <option value="1" >Car</option>
+                                        <option value="2" >Bike</option>
+                                        <option value="3" >Bus</option>
+                                        <option value="4" >Truck</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -525,6 +533,7 @@
                     discount_price:'',
                     cod_avail:1,
                     product_city:0,
+                    product_condition:1,
 
                     car_engine:'',
                     car_gear_box:'',
@@ -536,6 +545,7 @@
                     car_ara_con:'',
                     car_drive_type:'',
                     car_condition:'',
+                    car_type:1,
                 },
                 variations:[],
                 btnDisabled:false,
@@ -1058,6 +1068,7 @@
                         this.formData.video_url=this.proData.video_url;
                         this.formData.discount_price=this.proData.discount;
                         this.formData.product_city=this.proData.product_city;
+                        this.formData.product_condition=this.proData.condition;
 
                         /*** Product Details Information Field ***/
                         if(this.proDetails !== '' && this.proDetails !== null){
@@ -1083,6 +1094,7 @@
                             this.formData.car_ara_con=this.proDetails.car_ara_con;
                             this.formData.car_drive_type=this.proDetails.car_drive_type;
                             this.formData.car_condition=this.proDetails.car_condition;
+                            this.formData.car_type=this.proDetails.car_type;
                         }
 
                         /*** Type Wish Simple Product Field  ***/

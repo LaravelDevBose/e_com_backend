@@ -62,17 +62,7 @@
                             <option v-for="(city, index) in cities" :key="index" :value="city.key" v-if="index !=0 "> {{ city.text }}</option>
                         </select>
                     </li>
-                    <li>
-                        <label for="seller_city">
-                            Selling Product Type
-                            <span class="required">*</span>
-                        </label>
-                        <br />
-                        <select name="" id="seller_pro_type" v-model="formData.seller_pro_type" required class="validate-select" style="width: 80%">
-                            <option value="1"> New Products</option>
-                            <option value="2"> Used Products</option>
-                        </select>
-                    </li>
+
                     <li>
                         <label for="reg_pass">
                             {{ $t('form.password') }}
@@ -117,7 +107,6 @@
                     password_confirmation:'',
                     seller_city: 1,
                     seller_address: '',
-                    seller_pro_type: 1,
                 },
                 disable: false,
             }
