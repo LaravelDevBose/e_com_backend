@@ -589,9 +589,9 @@ class ProductController extends Controller
 
                 if(!empty($product)){
                     #Store Data in Product Details Table
-                    $details= ProductDetails::where('product_id', $id)->first();
-                    if(!empty($details)){
-                        $details= $details->update([
+                    $details= ProductDetails::updateOrCreate(
+                        ['product_id'=>$id],
+                        [
                             'main_materials'=>$request->main_materials,
                             'product_model'=>$request->product_model,
                             'num_of_pieces'=>$request->num_of_pieces,
@@ -616,22 +616,6 @@ class ProductController extends Controller
                             'car_condition'=>$request->car_condition,
                             'car_type'=>$request->car_type,
                         ]);
-                    }else{
-                        $details= ProductDetails::create([
-                            'product_id'=>$id,
-                            'main_materials'=>$request->main_materials,
-                            'product_model'=>$request->product_model,
-                            'num_of_pieces'=>$request->num_of_pieces,
-                            'product_occasion'=>$request->product_occasion,
-                            'color_shade'=>$request->color_shade,
-                            'skin_type_id'=>$request->skin_type,
-                            'extra_details'=>$request->extra_details,
-                            'warranty_policy'=>$request->warranty_policy,
-                            'warranty_policy_eng'=>$request->warranty_policy_eng,
-                            'warranty_period'=>$request->warranty_period,
-                            'cod_avail'=>$request->cod_avail,
-                        ]);
-                    }
 
 
                     if(!empty($details)){
