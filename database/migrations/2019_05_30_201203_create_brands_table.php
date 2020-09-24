@@ -19,6 +19,9 @@ class CreateBrandsTable extends Migration
             $table->string('brand_slug')->nullable();
             $table->unsignedBigInteger('attachment_id')->nullable();
             $table->boolean('brand_status')->default(config('app.active'));
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
+            $table->unsignedInteger('deleted_by')->nullable();
             $table->timestamps();
         });
     }

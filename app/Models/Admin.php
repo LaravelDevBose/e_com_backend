@@ -25,9 +25,7 @@ class Admin extends Authenticatable
     ];
 
     protected $guard = 'admin';
-
     protected $table = 'admins';
-
     protected $primaryKey = 'admin_id';
 
     /**
@@ -42,7 +40,10 @@ class Admin extends Authenticatable
         'phone_no',
         'admin_role',
         'admin_status',
-        'password'
+        'password',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     /**

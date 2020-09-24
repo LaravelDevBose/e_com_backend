@@ -16,7 +16,6 @@ class CreateSizeGroupsTable extends Migration
         Schema::create('size_groups', function (Blueprint $table) {
             $table->bigIncrements('size_group_id');
             $table->string('size_group_title');
-            $table->string('size_group_slug')->nullable();
             $table->boolean('size_group_status')->default(config('app.active'));
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();

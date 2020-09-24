@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 
 class Category extends Model
 {
@@ -15,7 +14,6 @@ class Category extends Model
 
     const InHeader = 1;
     protected $table = 'categories';
-
     protected $primaryKey = 'category_id';
 
     protected $fillable = [
@@ -23,11 +21,12 @@ class Category extends Model
         'category_slug',
         'parent_id',
         'banner_id',
+        'icon_id',
+        'in_header',
         'category_status',
-        'is_show',
-        'trans_category_name',
-        'sect_banner_id',
-        'icon_id'
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     /**
@@ -38,18 +37,6 @@ class Category extends Model
     public function getRouteKeyName()
     {
         return 'category_slug';
-    }
-
-    public function getCategoryNameAttribute()
-    {
-        if(app()->getLocale() == 'so'){
-            if(!empty($this->attributes['trans_category_name'])){
-                return ucfirst($this->attributes['trans_category_name']);
-            }
-            return ucfirst($this->attributes['category_name']);
-        }else{
-            return ucfirst($this->attributes['category_name']);
-        }
     }
 
     public static function All_children_Ids($catId)
@@ -90,7 +77,7 @@ class Category extends Model
         return $query->where('category_status', config('app.active'));
     }
     public function scopeNotDelete($query){
-        return $query->where('category_status', '!=',0);
+        return $query->where('category_status', '!=', config('app.delete'));
     }
 
     public function scopeBySearch($query, $request){
@@ -109,10 +96,6 @@ class Category extends Model
         return $this->hasOne(Attachment::class,'attachment_id', 'banner_id');
     }
 
-    public function sectionBanner(){
-        return $this->hasOne(Attachment::class,'attachment_id', 'sect_banner_id');
-    }
-
     public function iconImage(){
         return $this->hasOne(Attachment::class,'attachment_id', 'icon_id');
     }
@@ -123,15 +106,6 @@ class Category extends Model
 
     public function products(){
         return $this->hasMany(Product::class, 'category_id', 'category_id');
-    }
-
-    public function sectionCategories()
-    {
-        return $this->hasMany(SectionCategory::class, 'category_id', 'category_id');
-    }
-    public function sectionProducts()
-    {
-        return $this->hasMany(SectionProduct::class, 'category_id', 'category_id');
     }
 
 }

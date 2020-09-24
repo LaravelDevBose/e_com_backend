@@ -57,6 +57,9 @@ class CreateAdminRolesTable extends Migration
             $table->boolean('account_setting')->default(0)->nullable();
             $table->boolean('admin_account')->default(0)->nullable();
             $table->boolean('manage_admin_account')->default(0)->nullable();
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
+            $table->unsignedInteger('deleted_by')->nullable();
             $table->timestamps();
         });
     }

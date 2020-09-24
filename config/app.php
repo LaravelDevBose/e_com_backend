@@ -7,9 +7,7 @@ return [
     | Application Custom Define Values
     |--------------------------------------------------------------------------
     */
-     'default_template' => 'kuteshop_v2',
-    'seller_template' => 'limitless_v2',
-    'mail_template'=>'v1',
+
     'active' => 1,
     'activeView' => 'Active',
     'inactive' => 2,

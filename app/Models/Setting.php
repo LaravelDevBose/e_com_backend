@@ -47,5 +47,8 @@ class Setting extends Model
         'key',
         'value',
         'type',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 }

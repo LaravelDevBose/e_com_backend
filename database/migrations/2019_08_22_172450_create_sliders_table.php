@@ -17,7 +17,7 @@ class CreateSlidersTable extends Migration
             $table->bigIncrements('slider_id');
             $table->string('slider_title');
             $table->string('sub_title')->nullable();
-            $table->string('btn_text')->default('see more');
+            $table->string('btn_text')->default('see more')->nullable();
             $table->text('btn_url')->nullable();
             $table->unsignedTinyInteger('slider_position')->default(0);
             $table->unsignedBigInteger('attachment_id');

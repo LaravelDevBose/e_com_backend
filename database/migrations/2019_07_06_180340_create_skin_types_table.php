@@ -17,6 +17,9 @@ class CreateSkinTypesTable extends Migration
             $table->bigIncrements('skin_type_id');
             $table->string('skin_type');
             $table->boolean('skin_type_status')->default(config('app.active'));
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
+            $table->unsignedInteger('deleted_by')->nullable();
             $table->timestamps();
         });
     }

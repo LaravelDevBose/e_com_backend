@@ -19,18 +19,9 @@ class DefaultBuyerSeeder extends Seeder
             'full_name'=>'Default Buyer',
             'email'=>'buyer@demo.com',
             'phone_no'=>'123456',
-            'account_type'=>User::AccountType['buyer'],
-            'is_buyer'=>1,
-            'is_seller'=>0,
+            'address'=>'Shamoliy, Dhaka-1207',
             'status'=>1,
             'password'=>Hash::make('123456789')
         ]);
-        if(!empty($user)){
-            Buyer::create([
-                'user_id'=>$user->user_id,
-                'buyer_address'=>'buyer, Address',
-                'buyer_status'=>config('app.active'),
-            ]);
-        }
     }
 }

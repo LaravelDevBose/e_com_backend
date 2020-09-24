@@ -21,20 +21,10 @@ class Brand extends Model
         'brand_slug',
         'attachment_id',
         'brand_status',
-        'trans_brand_name'
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
-
-    public function getBrandNameAttributes(){
-        if(app()->getLocale() == 'so'){
-            if(!empty($this->attributes['trans_brand_name'])){
-                return ucfirst($this->attributes['trans_brand_name']);
-            }
-            return ucfirst($this->attributes['brand_name']);
-        }else{
-            return ucfirst($this->attributes['brand_name']);
-        }
-
-    }
 
     public function scopeNotDelete($query){
         return $query->where('brand_status', '!=', config('app.delete'));

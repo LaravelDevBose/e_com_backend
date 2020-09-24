@@ -13,6 +13,9 @@ class SkinType extends Model
     protected $fillable = [
         'skin_type',
         'skin_type_status',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     public function scopeIsActive($query){

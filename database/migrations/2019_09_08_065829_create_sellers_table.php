@@ -15,12 +15,20 @@ class CreateSellersTable extends Migration
     {
         Schema::create('sellers', function (Blueprint $table) {
             $table->bigIncrements('seller_id');
-            $table->unsignedBigInteger('user_id');
+            $table->string('seller_name');
+            $table->string('seller_phone');
+            $table->string('seller_address');
             $table->string('shop_name');
+            $table->string('seller_email')->nullable();
             $table->string('shop_address')->nullable();
             $table->string('shop_phone')->nullable();
             $table->string('shop_email')->nullable();
-            $table->string('shop_status')->default(config('app.inactive'));
+            $table->unsignedBigInteger('logo_id')->nullable();
+            $table->unsignedInteger('shop_category')->nullable();
+            $table->boolean('seller_status')->default(config('app.inactive'));
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
+            $table->unsignedInteger('deleted_by')->nullable();
             $table->timestamps();
         });
     }

@@ -14,6 +14,9 @@ class Size extends Model
         'size_group_id',
         'size_name',
         'size_status',
+        'created_by',
+        'updated_by',
+        'deleted_by'
     ];
 
     public function scopeIsActive($query){

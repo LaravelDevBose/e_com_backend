@@ -15,10 +15,14 @@ class CreateProductImagesTable extends Migration
     {
         Schema::create('product_images', function (Blueprint $table) {
             $table->bigIncrements('image_id');
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('variation_id');
             $table->unsignedBigInteger('attachment_id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('pri_id')->nullable();
+            $table->boolean('model')->nullable();
             $table->boolean('image_status')->default(config('app.inactive'));
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
+            $table->unsignedInteger('deleted_by')->nullable();
             $table->timestamps();
         });
     }

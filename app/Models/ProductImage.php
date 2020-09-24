@@ -7,15 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class ProductImage extends Model
 {
      protected $table = 'product_images';
-
      protected $primaryKey = 'image_id';
 
      protected $fillable =[
          'product_id',
+         'attachment_id',
          'pri_id',
          'model',
-         'attachment_id',
-         'image_status'
+         'image_status',
+         'created_by',
+         'updated_by',
+         'deleted_by',
      ];
 
      public function scopeIsActive($query){

@@ -15,6 +15,7 @@ class CreateSizesTable extends Migration
     {
         Schema::create('sizes', function (Blueprint $table) {
             $table->bigIncrements('size_id');
+            $table->unsignedBigInteger('size_group_id');
             $table->string('size_name');
             $table->boolean('size_status')->default(1)->nullable();
             $table->unsignedInteger('created_by')->nullable();

@@ -6,11 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductDetails extends Model
 {
-    const PeriodUnitS = 'day';
-    const PeriodUnitM = 'days';
-
     protected $table ='product_details';
-
     protected $primaryKey = 'details_id';
 
     protected $fillable = [
@@ -23,9 +19,10 @@ class ProductDetails extends Model
         'skin_type_id',
         'extra_details',
         'warranty_policy',
-        'warranty_policy_eng',
         'warranty_period',
-        'cod_avail',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     public function product(){

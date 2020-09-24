@@ -15,12 +15,6 @@ class Page extends Model
         'Both'=>3,
     ];
 
-    const PageCategory = [
-        'Terms & Conditions'=>1,
-        'Privacy & Policy'=>2,
-        'Customer Service'=>3,
-        'About us'=>4,
-    ];
 
     protected $table = 'pages';
 
@@ -36,7 +30,9 @@ class Page extends Model
         'other_content',
         'attachment_id',
         'page_status',
-        'page_cat'
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
 

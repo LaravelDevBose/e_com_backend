@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
              SettingTableSeeder::class,
              DefaultSellerSeeder::class,
              DefaultBuyerSeeder::class,
-             LatestDealSeeder::class,
          ]);
     }
 }

@@ -15,25 +15,21 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('product_id');
-            $table->unsignedInteger('category_id');
+            $table->unsignedInteger('main_category_id');
+            $table->unsignedInteger('sec_category_id');
+            $table->unsignedInteger('trd_category_id');
             $table->unsignedInteger('brand_id')->nullable();
+            $table->unsignedBigInteger('seller_id')->default(0);
             $table->string('product_name');
-            $table->string('highlight')->nullable();
-            $table->string('description')->nullable();
-            $table->string('lang_product_name')->nullable();
-            $table->string('lang_highlight')->nullable();
-            $table->string('lang_description')->nullable();
-            $table->boolean('dangers_goods')->nullable();
-            $table->string('what_in_box')->nullable();
-            $table->decimal('package_weight')->nullable();
-            $table->decimal('package_length')->nullable();
-            $table->decimal('package_width')->nullable();
-            $table->decimal('package_height')->nullable();
-            $table->decimal('delivery_cost1')->nullable();
-            $table->decimal('delivery_cost2')->nullable();
-            $table->boolean('warranty_type')->nullable();
+            $table->string('product_sku');
+            $table->string('product_slug')->nullable();
+            $table->unsignedBigInteger('thumb_id');
+            $table->longText('highlight')->nullable();
+            $table->longText('description')->nullable();
             $table->text('video_url')->nullable();
-            $table->decimal('product_status')->default(config('app.product_create'));
+            $table->string('seller_sku')->nullable();
+            $table->boolean('product_type')->default(\App\Models\Product::ProductType['Simple']);
+            $table->boolean('product_status')->default(config('app.product_create'));
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
             $table->unsignedInteger('deleted_by')->nullable();

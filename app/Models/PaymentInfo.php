@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,18 +21,20 @@ class PaymentInfo extends Model
     ];
 
     protected $table = 'payment_infos';
-
     protected $primaryKey = 'payment_id';
 
     protected $fillable = [
         'order_id',
-        'buyer_id',
+        'user_id',
         'total_price',
         'invoice_no',
         'paid_by',
         'payment_track_id',
         'paid_at',
         'payment_status',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     public function getPaidByAttribute(){
@@ -46,8 +49,8 @@ class PaymentInfo extends Model
     public function order(){
         return $this->belongsTo(Order::class, 'order_id', 'order_id');
     }
-    public function buyer(){
-        return $this->belongsTo(Buyer::class, 'buyer_id', 'buyer_id');
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
 }

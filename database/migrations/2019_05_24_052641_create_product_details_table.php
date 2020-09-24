@@ -23,11 +23,11 @@ class CreateProductDetailsTable extends Migration
             $table->string('color_shade')->nullable();
             $table->unsignedBigInteger('skin_type_id')->nullable();
             $table->text('extra_details')->nullable();
-            $table->unsignedInteger('gift_product_id')->nullable();
-            $table->string('gift_product_sku')->nullable();
             $table->string('warranty_policy')->nullable();
-            $table->string('warranty_policy_eng')->nullable();
             $table->string('warranty_period')->nullable();
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
+            $table->unsignedInteger('deleted_by')->nullable();
             $table->timestamps();
         });
     }

@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Traits\ManipulateBy;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class Product extends Model
@@ -16,28 +15,6 @@ class Product extends Model
         'Simple'=>1,
         'Variation'=>2
     ];
-
-    const ProductCondition = [
-        'New Product'=>1,
-        'Used Product'=>2,
-        'Republish Product'=>3
-    ];
-
-    const WarrantyType=[
-        1=>'International Manufacturer Warranty',
-        2=>'Non-local warranty',
-        3=>'Local seller warranty',
-        4=>'No Warranty',
-        5=>'International Seller Warranty',
-    ];
-
-    const DangersGoods =[
-        1=>'Battery',
-        2=>'Liquid',
-        3=>'None',
-        4=>'Flammable',
-    ];
-
     const ProductStatus=[
         'Active'=>1,
         'Inactive'=>2,
@@ -46,50 +23,30 @@ class Product extends Model
         'Out of Stock'=>5,
     ];
 
-    const DeliveryType=[
-        'Cash On Delivery'=>1,
-        'Master Card'=>2,
-        'E-Dahab'=>3,
-        'Salaam Bank'=>4
-    ];
-
     protected $table = 'products';
 
     protected $primaryKey = 'product_id';
 
     protected $fillable =[
         'product_sku',
-        'category_id',
+        'main_category_id',
+        'sec_category_id',
+        'trd_category_id',
         'brand_id',
+        'seller_id',
         'product_name',
+        'product_sku',
+        'product_slug',
+        'thumb_id',
         'highlight',
         'description',
-        'lang_product_name',
-        'lang_highlight',
-        'lang_description',
-        'dangers_goods',
-        'what_in_box',
-        'package_weight',
-        'package_length',
-        'package_width',
-        'package_height',
-        'delivery_cost1',
-        'delivery_cost2',
-        'product_status',
-        'warranty_type',
         'video_url',
-        'thumb_id',
-        'product_slug',
-        'seller_id',
-        'product_type',
-        'product_qty',
-        'product_price',
         'seller_sku',
-        'product_condition',
-        'discount_price',
-        'mall_comp_name',
-        'mall_comp_logo',
-        'mall_product',
+        'product_type',
+        'product_status',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     protected static function boot()

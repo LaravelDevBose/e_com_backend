@@ -12,8 +12,10 @@ class SizeGroup extends Model
 
     protected $fillable = [
         'size_group_title',
-        'size_group_slug',
-        'size_group_status'
+        'size_group_status',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     public function scopeIsActive($query){

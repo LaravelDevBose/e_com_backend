@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class ShippingInfo extends Model
@@ -11,12 +12,11 @@ class ShippingInfo extends Model
     ];
 
     protected $table = 'shipping_infos';
-
     protected $primaryKey = 'shipping_id';
 
     protected $fillable = [
         'order_id',
-        'buyer_id',
+        'user_id',
         'address_id',
         'first_name',
         'last_name',
@@ -24,10 +24,13 @@ class ShippingInfo extends Model
         'address',
         'city',
         'state',
-        'postal_code',
-        'country',
         'district',
         'region',
+        'postal_code',
+        'country',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     protected $appends = [
@@ -42,8 +45,8 @@ class ShippingInfo extends Model
         return $this->belongsTo(Order::class, 'order_id', 'order_id');
     }
 
-    public function buyer(){
-        return $this->belongsTo(Buyer::class, 'buyer_id', 'buyer_id');
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
     public function addressBook(){

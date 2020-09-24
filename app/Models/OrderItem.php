@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class OrderItem extends Model
@@ -29,7 +30,6 @@ class OrderItem extends Model
     const CancelBy = [
         'Admin'=>1,
         'Buyer'=>2,
-        'Seller'=>3
     ];
 
     protected $table = 'order_items';
@@ -37,7 +37,7 @@ class OrderItem extends Model
 
     protected $fillable = [
         'order_id',
-        'buyer_id',
+        'user_id',
         'seller_id',
         'product_id',
         'product_name',
@@ -47,14 +47,18 @@ class OrderItem extends Model
         'color',
         'brand_id',
         'brand',
-        'price',
         'qty',
+        'price',
         'subtotal',
         'discount',
         'total_price',
+        'image_id',
         'item_status',
         'cancel_by',
-        'image_id'
+        'created_by',
+        'updated_by',
+        'deleted_by',
+
     ];
 
     protected $appends = [
@@ -74,8 +78,8 @@ class OrderItem extends Model
         return $this->belongsTo(Order::class, 'order_id', 'order_id');
     }
 
-    public function buyer(){
-        return $this->belongsTo(Buyer::class, 'buyer_id', 'buyer_id');
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
     public function seller(){

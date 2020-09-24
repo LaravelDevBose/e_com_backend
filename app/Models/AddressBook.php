@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class AddressBook extends Model
 {
-    const ADDRESS_TYPE =[
-        'billing'=>1,
-        'shipping'=>2
-    ];
+
     const State = [
         1=>'Awdal',
         2=>'Bakool',
@@ -32,23 +30,22 @@ class AddressBook extends Model
     ];
 
     protected $table = 'address_books';
-
     protected $primaryKey = 'address_id';
 
     protected $fillable = [
-        'buyer_id',
+        'user_id',
         'first_name',
         'last_name',
         'phone_no',
         'address',
         'city',
         'state',
-        'postal_code',
-        'country',
-        'address_type',
-        'address_status',
         'district',
         'region',
+        'postal_code',
+        'country',
+        'address_status',
+
     ];
 
     protected $appends = array('full_address');
@@ -57,7 +54,7 @@ class AddressBook extends Model
         return $query->where('address_status', config('app.active'));
     }
     public function scopeMyAddress($query){
-        return $query->where('buyer_id', auth()->user()->buyer->buyer_id);
+        return $query->where('user_id', auth()->id());
     }
 
     public function getFullAddressAttribute(){
@@ -104,12 +101,8 @@ class AddressBook extends Model
         return $address;
     }
 
-    public function buyer(){
-        return $this->belongsTo(Buyer::class, 'buyer_id', 'buyer_id');
-    }
-
-    public function billingInfos(){
-        return $this->hasMany(BillingInfo::class, 'address_id', 'address_id');
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
     public function shippingInfos(){

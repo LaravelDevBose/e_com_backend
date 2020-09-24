@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class WishList extends Model
@@ -11,7 +12,7 @@ class WishList extends Model
     protected $primaryKey ='wish_list_id';
 
     protected $fillable = [
-        'buyer_id',
+        'user_id',
         'product_id',
         'status',
     ];
@@ -20,8 +21,8 @@ class WishList extends Model
         return $query->where('status', config('app.active'));
     }
 
-    public function buyer(){
-        return $this->belongsTo(Buyer::class, 'buyer_id', 'buyer_id');
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
     public function product(){

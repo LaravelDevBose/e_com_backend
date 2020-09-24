@@ -15,16 +15,17 @@ class AddressBooksTable extends Migration
     {
         Schema::create('address_books', function (Blueprint $table) {
             $table->bigIncrements('address_id');
-            $table->unsignedBigInteger('buyer_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('first_name');
-            $table->string('last_name');
+            $table->string('last_name')->nullable();
             $table->string('phone_no');
             $table->text('address');
             $table->string('city')->nullable();
             $table->string('state')->nullable();
+            $table->string('district')->nullable();
+            $table->string('region')->nullable();
             $table->string('postal_code')->nullable();
             $table->string('country')->nullable();
-            $table->boolean('address_type')->default(config('app.active'));
             $table->boolean('address_status')->default(config('app.active'));
             $table->timestamps();
         });

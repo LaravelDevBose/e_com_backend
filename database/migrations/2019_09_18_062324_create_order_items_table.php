@@ -16,7 +16,7 @@ class CreateOrderItemsTable extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->bigIncrements('item_id');
             $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('buyer_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('seller_id');
             $table->unsignedBigInteger('product_id');
             $table->string('product_name');
@@ -27,9 +27,13 @@ class CreateOrderItemsTable extends Migration
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->string('brand')->nullable();
             $table->unsignedInteger('qty');
+            $table->decimal('price');
             $table->decimal('subtotal');
             $table->decimal('discount');
             $table->decimal('total_price');
+            $table->unsignedBigInteger('image_id')->nullable();
+            $table->boolean('item_status')->default(config('app.active'));
+            $table->boolean('cancel_by')->nullable();
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
             $table->unsignedInteger('deleted_by')->nullable();

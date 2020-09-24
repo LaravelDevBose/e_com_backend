@@ -14,13 +14,13 @@ class AdminsTableSeeder extends Seeder
     public function run()
     {
         Admin::create([
-            'full_name'=>'Sallim Supper Admin',
-            'user_name'=>'saliim',
-            'email'=>'saliim@admin.shop',
+            'full_name'=>'Supper Admin',
+            'user_name'=>'super_admin',
+            'email'=>'super@admin.com',
             'phone_no'=>'123456789',
             'admin_role'=>1,
             'admin_status'=>1,
-            'password'=>Hash::make('saliim_shop')
+            'password'=>Hash::make('123456789')
         ]);
     }
 }

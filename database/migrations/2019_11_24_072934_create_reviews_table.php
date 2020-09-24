@@ -15,12 +15,15 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->bigIncrements('review_id');
-            $table->unsignedBigInteger('buyer_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('product_id');
             $table->longText('review');
             $table->decimal('rating');
             $table->boolean('review_status')->default(config('app.active'));
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
+            $table->unsignedInteger('deleted_by')->nullable();
             $table->timestamps();
         });
     }

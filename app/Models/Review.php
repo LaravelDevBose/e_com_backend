@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
@@ -11,12 +12,15 @@ class Review extends Model
     protected $primaryKey = 'review_id';
 
     protected $fillable=[
-        'buyer_id',
+        'user_id',
         'item_id',
         'product_id',
         'review',
         'rating',
         'review_status',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     public function scopeIsActive($query)
@@ -29,9 +33,9 @@ class Review extends Model
         return $query->where('review_status','!=', config('app.delete'));
     }
 
-    public function buyer()
+    public function user()
     {
-        return $this->belongsTo(Buyer::class, 'buyer_id', 'buyer_id');
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
     public function item()

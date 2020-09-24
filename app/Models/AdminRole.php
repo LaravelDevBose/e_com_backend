@@ -51,7 +51,10 @@ class AdminRole extends Model
         'manage_newsletter',
         'account_setting',
         'admin_account',
-        'manage_admin_account'
+        'manage_admin_account',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     const superAdminRoles = [

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,18 +17,12 @@ class Order extends Model
         'Delivered'=>6,
     ];
 
-    const Delivery_media = [
-        'Media 1'=>1,
-        'Media 2'=>2
-    ];
-
     protected $table = 'orders';
-
     protected $primaryKey = 'order_id';
 
     protected $fillable = [
         'order_no',
-        'buyer_id',
+        'user_id',
         'total_qty',
         'sub_total',
         'discount',
@@ -39,7 +34,10 @@ class Order extends Model
         'shipping_method',
         'delivery_date',
         'delivery_media',
-        'delivery_charge'
+        'delivery_charge',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     protected $appends = array('status_label');
@@ -68,16 +66,12 @@ class Order extends Model
         return $status[$this->attributes['order_status']];
     }
 
-    public function buyer(){
-        return $this->belongsTo(Buyer::class, 'buyer_id', 'buyer_id');
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
     public function orderItems(){
         return $this->hasMany(OrderItem::class, 'order_id', 'order_id');
-    }
-
-    public function billing(){
-        return $this->hasOne(BillingInfo::class, 'order_id', 'order_id');
     }
 
     public function shipping(){
