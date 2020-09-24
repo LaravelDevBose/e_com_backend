@@ -3,28 +3,27 @@
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h5 class="panel-title">Brand</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
             </div>
 
             <div class="panel-body">
                 <form action="" @submit.prevent="manipulateBrandData">
                     <div class="row">
-                        <div class="col-md-4 col-md-offset-1">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Brand Name:</label>
                                 <input type="text" v-model="formData.brand_name" class="form-control" placeholder="Brand Name " required>
                             </div>
+
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label>Trans. Brand Name:</label>
-                                <input type="text" v-model="formData.trans_brand_name" class="form-control" placeholder="Somalia Brand Name " required>
+                                <label>Brand Banner:</label>
+                                <image-cropper :cropperData="cropperData" :removeImage="removeImage" :initImage="cropperData.init_image"></image-cropper>
                             </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
+                                <label>Brand Status:</label>
                                 <label class="checkbox-style" for="paypal_payment">
                                     <span class="text-bold text-success" v-if="formData.brand_status">Active</span>
                                     <span class="text-bold text-warning" v-else>Inactive</span>
@@ -40,12 +39,6 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Brand Banner:</label>
-                                <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
-                            </div>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -54,13 +47,6 @@
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">Brand List</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
             </div>
 
             <div class="table-responsive">
@@ -70,7 +56,6 @@
                         <th>#</th>
                         <th style="padding:5px;">Banner Image</th>
                         <th>Brand Name</th>
-                        <th>Somalia Brand Name</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -83,9 +68,6 @@
                         </td>
                         <td>
                             <span class="text text-bold"> {{ brand.name }}</span>
-                        </td>
-                        <td>
-                            <span class="text text-bold" v-if="brand.trans_name"> {{ brand.trans_name }}</span>
                         </td>
                         <td class="text text-center">
                             <span class="badge badge-success" v-if="brand.status === 1">Active</span>
@@ -120,7 +102,6 @@
             return{
                 formData:{
                     id:'',
-                    trans_brand_name:'',
                     brand_name:'',
                     brand_status:'',
                     attachment_id:'',
@@ -190,7 +171,6 @@
             },
             formReset(){
                 this.formData.brand_name='';
-                this.formData.trans_brand_name='';
                 this.formData.brand_status = false;
                 this.formData.attachment_id = '';
                 this.removeImage=true;
@@ -216,8 +196,8 @@
                         this.isedit = true;
                         this.formData.id=brand.id;
                         this.formData.brand_name=brand.name;
-                        this.formData.trans_brand_name=brand.trans_name;
                         this.formData.brand_status = brand.status;
+
                         if(brand.attachment){
                             this.formData.attachment_id = brand.attachment.attachment_id;
                             this.cropperData.init_image = brand.attachment.image_path;

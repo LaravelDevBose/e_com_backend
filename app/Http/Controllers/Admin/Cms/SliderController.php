@@ -16,9 +16,10 @@ use Illuminate\Support\Str;
 class SliderController extends Controller
 {
     use ResponserTrait;
+    public $template_name = 'limitless_v2';
 
     public function index(){
-        return view('cms.slider.index');
+        return view('admin_panel.'.$this->template_name.'.cms.slider.index');
     }
 
     public function slider_list(){
@@ -33,7 +34,7 @@ class SliderController extends Controller
 
     public function create(){
 
-        return view('cms.slider.create');
+        return view('admin_panel.'.$this->template_name.'.cms.slider.create');
     }
 
     /**
@@ -58,14 +59,10 @@ class SliderController extends Controller
                     'slider_title'=>$request->slider_title,
                     'sub_title'=>$request->sub_title,
                     'btn_text'=>$request->btn_text,
-                    'trans_slider_title'=>$request->trans_slider_title,
-                    'trans_sub_title'=>$request->trans_sub_title,
-                    'trans_btn_text'=>$request->trans_btn_text,
                     'btn_url'=>$request->btn_url,
                     'slider_position'=>$request->slider_position,
                     'attachment_id'=>$request->attachmentIds[0],
                     'slider_status'=>(!empty($request->slider_status) && $request->slider_status == config('app.active')) ? $request->slider_status : config('app.inactive'),
-                    'slider_type'=> (!empty($request->slider_type))? $request->slider_type : Slider::SliderType['Home Page'],
                 ]);
                 if($slider){
                     DB::commit();
@@ -96,7 +93,7 @@ class SliderController extends Controller
         $slider = Slider::where('slider_id', $id)->first();
 
         if(!empty($slider)){
-            return view('cms.slider.edit', [
+            return view('admin_panel.'.$this->template_name.'.cms.slider.edit', [
                 'id'=>$id,
             ]);
         }else {
@@ -137,7 +134,6 @@ class SliderController extends Controller
                     'slider_position'=>$request->slider_position,
                     'attachment_id'=>(!empty($request->attachmentIds[0]))? $request->attachmentIds[0] : $slider->attachment_id,
                     'slider_status'=>(!empty($request->slider_status) && $request->slider_status == config('app.active')) ? $request->slider_status : config('app.inactive'),
-                    'slider_type'=> (!empty($request->slider_type))? $request->slider_type : Slider::SliderType['Home Page'],
                 ]);
                 if($slider){
                     DB::commit();

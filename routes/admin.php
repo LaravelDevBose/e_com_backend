@@ -45,22 +45,6 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     Route::post('/import/size-group/', 'SizeGroupController@import_size_group')->name('import.size_group');
     Route::post('/import/size/', 'SizeGroupController@import_size')->name('import.size');
 
-    Route::get('/delivery-costs', 'DeliveryCostController@index')->name('delivery_costs');
-    Route::get('/delivery-cost/create', 'DeliveryCostController@create')->name('delivery_cost.create');
-    Route::post('/delivery-cost/store', 'DeliveryCostController@store')->name('delivery_cost.store');
-    Route::delete('/delivery-cost/delete/{deliveryCost}', 'DeliveryCostController@destroy')->name('delivery_cost.delete');
-    Route::post('/import/delivery_cost', 'DeliveryCostController@import_delivery_cost')->name('import.delivery_cost');
-
-    Route::resource('/campaign', 'CampaignController');
-    Route::get('/campaign/{campaign}/product/manage', 'CampaignController@manage_product_page')->name('campaign.product.manage');
-    Route::put('/campaign/{campaign}/update/product-serial', 'CampaignController@update_product_serial')->name('campaign.update.product-serial');
-
-    Route::get('/details', 'CampaignController@details');
-
-
-    Route::resource('voucher', 'VoucherController');
-    Route::get('formData/voucher/', 'VoucherController@formData')->name('voucher.formData');
-    Route::get('voucher_list', 'VoucherController@voucherList')->name('voucher.list');
 
     Route::resource('/product', 'ProductController');
     Route::get('create/product/dependency/{catID}', 'ProductController@product_create_dependency')->name('product.create.dependency');
@@ -75,11 +59,6 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     Route::delete('product/image/delete/{id}', 'ProductImageController@delete')->name('product_image.delete');
 
     Route::delete('product/{product_id}/validation/{variation_id}/delete', 'ProductController@variation_delete')->name('product.variation.delete');
-    Route::get('/un-publish/products', 'ProductPublishController@index')->name('un-publish.index');
-    Route::post('products/status/change', 'ProductPublishController@change_products_status')->name('products.status.update');
-
-    Route::resource('skinType', 'SkinTypeController');
-    Route::post('/import/skinType', 'SkinTypeController@import_file')->name('import.skinType');
 
     Route::prefix('cms')->namespace('Cms')->as('cms.')->group(function (){
         Route::resource('sliders', 'SliderController');
@@ -126,29 +105,6 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::post('/{seller}/orders', 'ShopController@get_shop_orders')->name('orders');
     });
 
-    Route::prefix('/homepage/section')->as('section.')->group(function (){
-        Route::get('/', 'HomepageSectionController@index')->name('index');
-        Route::get('/create', 'HomepageSectionController@create')->name('create');
-        Route::post('/store', 'HomepageSectionController@store')->name('store');
-        Route::get('/{section_id}/edit', 'HomepageSectionController@edit')->name('edit');
-        Route::put('/{section_id}/update', 'HomepageSectionController@update')->name('update');
-        Route::get('/{section_id}', 'HomepageSectionController@show')->name('show');
-        Route::delete('/{section_id}', 'HomepageSectionController@destroy')->name('destroy');
-        Route::get('/{section_id}/add/products', 'HomepageSectionController@add_section_products')->name('add.product');
-        Route::post('/products/store', 'HomepageSectionController@store_section_product')->name('products.store');
-        Route::get('/{section_id}/manage/products', 'HomepageSectionController@manage_section_products')->name('manage.product');
-        Route::post('/products/update', 'HomepageSectionController@update_section_product')->name('products.update');
-    });
-
-    Route::prefix('/group/products/')->as('group.')->group(function (){
-        Route::get('/index', 'GroupProductController@index')->name('index');
-        Route::get('/create', 'GroupProductController@create')->name('create');
-        Route::post('/store', 'GroupProductController@store')->name('store');
-        Route::get('/{groupId}/edit', 'GroupProductController@edit')->name('edit');
-        Route::put('/{groupId}/update', 'GroupProductController@update')->name('update');
-        Route::delete('/{groupId}', 'GroupProductController@destroy')->name('destroy');
-    });
-
     Route::prefix('delivery')->as('delivery.')->group(function (){
         Route::get('method', 'DeliveryMethodController@index')->name('method.index');
         Route::get('method/list', 'DeliveryMethodController@delivery_method_list')->name('method.list');
@@ -169,13 +125,6 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::get('/setting/page', 'AdminAccountController@setting_page')->name('setting.page');
         Route::post('/details/update', 'AdminAccountController@details_update')->name('details.update');
         Route::post('/password/update', 'AdminAccountController@change_password')->name('password.change');
-    });
-
-    Route::group(['prefix'=>'latest/deal', 'as'=>'latest.deal.'], function (){
-        Route::get('/page', 'LatestDealController@latest_deal_page')->name('page');
-        Route::get('/data', 'LatestDealController@latest_deal_data');
-        Route::post('/store/update', 'LatestDealController@store_update_latest_deal');
-        Route::delete('/delete/product/{dealId}', 'LatestDealController@deal_product_remove');
     });
 });
 

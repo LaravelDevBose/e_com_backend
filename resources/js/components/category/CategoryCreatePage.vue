@@ -22,44 +22,20 @@
                                 <input type="text" v-model="formValue.category_name" class="form-control" placeholder="Category Name " required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2" >
                             <div class="form-group">
-                                <label>Trans. Category Name:</label>
-                                <input type="text" v-model="formValue.trans_category_name" class="form-control" placeholder="Trans. Category Name " required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Category Banner:</label>
-                                <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
-                            </div>
-                        </div>
-                        <div class="col-md-4" v-if="!formValue.parent_id">
-                            <div class="form-group">
-                                <label>Homepage Section:</label>
-                                <image-cropper :cropperData="SectionCropperData" :removeImage="removeImage"></image-cropper>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4" v-if="!formValue.parent_id">
-                            <div class="form-group">
-                                <label>Icon:</label>
-                                <image-cropper :cropperData="iconCropperData" :removeImage="removeImage"></image-cropper>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2 col-md-offset-5" >
-                            <div class="form-group">
-                                <label class="checkbox-style checkbox-inline" for="is_show">
-                                    <span class="text-bold text-success" v-if="formValue.is_show">Show In Header</span>
+                                <label>Category Show In:</label>
+                                <label class="checkbox-style checkbox-inline" for="in_header">
+                                    <span class="text-bold text-success" v-if="formValue.in_header">Show In Header</span>
                                     <span class="text-bold text-warning" v-else>Not Show In Header</span>
-                                    <input type="checkbox" id="is_show" v-model="formValue.is_show" :checked="formValue.is_show">
+                                    <input type="checkbox" id="in_header" v-model="formValue.in_header" :checked="formValue.in_header">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
+                                <label>Category Status:</label>
                                 <label class="checkbox-style" for="status">
                                     <span class="text-bold text-success" v-if="formValue.category_status">Active</span>
                                     <span class="text-bold text-warning" v-else>Inactive</span>
@@ -68,9 +44,23 @@
                                 </label>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Category Banner:</label>
+                                <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                            </div>
+                        </div>
+                        <div class="col-md-4" v-if="!formValue.parent_id">
+                            <div class="form-group">
+                                <label>Category Icon:</label>
+                                <image-cropper :cropperData="iconCropperData" :removeImage="removeImage"></image-cropper>
+                            </div>
+                        </div>
                         <div class="col-md-2">
-                            <div class="text-right form-group">
-                                <button type="submit" class="btn btn-primary" :disabled="btnDisabled">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" :disabled="btnDisabled" style="margin-top: 2em;">
                                     <span v-if="isedit === 1">Update Category </span>
                                     <span v-else>Save Category </span>
                                     <i class="icon-arrow-right14 position-right"></i>
@@ -112,9 +102,7 @@
                     category_name:null,
                     category_status:false,
                     banner_id:'',
-                    is_show:false,
-                    trans_category_name:'',
-                    sect_banner_id:'',
+                    in_header:1,
                     icon_id:'',
                 },
                 normalizer(node) {
@@ -135,18 +123,6 @@
                     modal_id:'banner_image',
                     serial:1,
                 },
-                SectionCropperData:{
-                    width:386,
-                    height:572,
-                    placeholder:'Choose a Homepage Section Image (386X572)',
-                    file_size:1.5,
-                    init_image:'',
-                    folder:'category',
-                    modal_type:2,
-                    modal_id:'section_image',
-                    serial:2,
-                },
-
                 iconCropperData:{
                     width:100,
                     height:100,
@@ -177,18 +153,10 @@
             ]),
             manipulateCategoryData(){
                 let banner_id = $(`.${this.cropperData.modal_id}`).val();
-                let section_id = $(`.${this.SectionCropperData.modal_id}`).val();
                 let icon_id = $(`.${this.iconCropperData.modal_id}`).val();
                 if(typeof banner_id !== "undefined" && banner_id !== ''){
-                    console.log(banner_id);
                     this.formValue.banner_id = banner_id;
                 }
-
-                if(typeof section_id !== "undefined" && section_id !== ''){
-                    console.log(section_id);
-                    this.formValue.sect_banner_id = section_id;
-                }
-
                 if(typeof icon_id !== "undefined" && icon_id !== ''){
                     console.log(icon_id);
                     this.formValue.icon_id = icon_id;
@@ -227,10 +195,8 @@
             emptyFormData(){
                 this.formValue.parent_id = null;
                 this.formValue.category_name = '';
-                this.formValue.trans_category_name = '';
                 this.formValue.category_status = false;
                 this.formValue.banner_id = '';
-                this.formValue.sect_banner_id = '';
                 this.formValue.icon_id = '';
                 this.removeImage = true;
             }
@@ -251,12 +217,11 @@
                         this.formValue.id = this.category.id;
                         this.formValue.parent_id = this.category.parent_id;
                         this.formValue.category_name = this.category.name;
-                        this.formValue.trans_category_name = this.category.trans_name;
                         if(this.category.status === 1){
                             this.formValue.category_status = true;
                         }
-                        if(this.category.is_show === 1){
-                            this.formValue.is_show = true;
+                        if(this.category.in_header === 1){
+                            this.formValue.in_header = true;
                         }
                         if(this.category.attachment){
                             this.formValue.banner_id = this.category.banner_id;
@@ -264,11 +229,6 @@
                         }
 
                         if(this.category.parent_id === null){
-                            if(this.category.sectionBanner){
-                                this.formValue.sect_banner_id = this.category.sect_banner_id;
-                                this.SectionCropperData.init_image = this.category.sectionBanner.image_path;
-                            }
-
                             if(this.category.iconImage){
                                 this.formValue.icon_id = this.category.iconImage.attachment_id;
                                 this.iconCropperData.init_image = this.category.iconImage.image_path;

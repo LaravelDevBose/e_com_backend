@@ -2,41 +2,40 @@
     <div class="content">
         <div class="panel">
             <div class="panel-heading bg-teal">
-                <h5 class="panel-title">Create Color</h5>
-                <!--<div class="heading-elements">
-                    <button type="button" class="btn bg-orange-800 btn-sm" data-toggle="modal" data-target="#modal_import_file">Bulk Import <i class="icon-play3 position-right"></i></button>
-                </div>-->
-
+                <h5 class="panel-title" v-if="is_edit===0">Create Color</h5>
+                <h5 class="panel-title" v-else>Update Color</h5>
             </div>
 
             <div class="panel-body">
                 <form action="" @submit.prevent="colorManipulate">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Color Name:</label>
                                 <input type="text" v-model="form.color_name" class="form-control" placeholder="Color Name " required>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Color Code:</label>
                                 <input type="color" v-model="form.color_code" class="form-control colorpicker-palette" value="#27ADCA">
                             </div>
                         </div>
-                        <div class="col-md-4 col-md-offset-6">
-                            <div class="content-group-lg">
-                                <div class="checkbox checkbox-switchery">
-                                    <label>
-                                        <input type="checkbox" v-model="form.color_status" class="switchery-primary" checked="checked">
-                                        Publish
-                                    </label>
-                                </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Color Status:</label>
+                                <label class="checkbox-style" for="paypal_payment">
+                                    <span class="text-bold text-success" v-if="form.color_status">Active</span>
+                                    <span class="text-bold text-warning" v-else>Inactive</span>
+                                    <input type="checkbox" id="paypal_payment" v-model="form.color_status"  :checked="form.color_status">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <div class="text-right form-group">
-                                <button type="submit" :disabled="btnDisabled" class="btn btn-primary">Save Color <i class="icon-arrow-right14 position-right"></i></button>
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <button type="submit" :disabled="btnDisabled" class="btn btn-primary btn-block">Save Color <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -47,13 +46,6 @@
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">Color List</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
             </div>
 
             <div class="table-responsive">

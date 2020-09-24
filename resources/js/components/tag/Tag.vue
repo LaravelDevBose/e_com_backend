@@ -1,88 +1,83 @@
 <template>
     <div class="content">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h5 class="panel-title">Product Tag/Keywords</h5>
-                <!--<div class="heading-elements">
-                    <button type="button" class="btn bg-orange-800 btn-sm" data-toggle="modal" data-target="#modal_import_file">Bulk Import <i class="icon-play3 position-right"></i></button>
-                </div>-->
-            </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Product Tag/Keywords</h5>
+                    </div>
 
-            <div class="panel-body">
-                <form action="" @submit.prevent="tagManipulate">
-                    <div class="row">
-                        <div class="form-group">
-                            <label class="col-lg-1 control-label">Tag Title:</label>
-                            <div class="col-lg-5">
-                                <input type="text" v-model="form.tag_title" class="form-control" placeholder="Tag Title" required />
-                            </div>
-                            <div class="col-md-2 ">
-                                <div class="content-group-lg">
-                                    <div class="checkbox checkbox-switchery">
-                                        <label>
-                                            <input type="checkbox" v-model="form.tag_status" class="switchery-primary" checked="checked">
-                                            Publish
+                    <div class="panel-body">
+                        <form action="" @submit.prevent="tagManipulate">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Tag Title:</label>
+                                        <input type="text" v-model="form.tag_title" class="form-control" placeholder="Tag Title " required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tag Status:</label>
+                                        <label class="checkbox-style" for="paypal_payment">
+                                            <span class="text-bold text-success" v-if="form.tag_status">Active</span>
+                                            <span class="text-bold text-warning" v-else>Inactive</span>
+                                            <input type="checkbox" id="paypal_payment" v-model="form.tag_status"  :checked="form.tag_status">
+                                            <span class="checkmark"></span>
                                         </label>
+                                    </div>
+                                    <div class="text-right form-group">
+                                        <button type="submit" :disabled="btnDisabled" class="btn btn-success">
+                                            <span v-if="is_edit">Update Tag</span>
+                                            <span v-else>Save Tag</span>
+                                            <i class="icon-arrow-right14 position-right"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="text-right form-group">
-                                    <button type="submit" :disabled="btnDisabled" class="btn btn-primary">
-                                        <span v-if="is_edit">Update Tag</span>
-                                        <span v-else>Save Tag</span>
-                                        <i class="icon-arrow-right14 position-right"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
-                </form>
-            </div>
-        </div>
-        <!-- Basic table -->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Tag List</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
                 </div>
             </div>
+            <div class="col-md-9">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Tag List</h5>
+                    </div>
 
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Tag Title</th>
-                        <th class="text text-center" style="width: 120px;">Tag Status</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-if="tags" v-for="(tag,index) in tags" :key="tag.id">
-                        <td>{{ index }}</td>
-                        <td>{{ tag.title }}</td>
-                        <td class="text text-center">
-                            <span class="badge badge-success" v-if="tag.status === 1">Active</span>
-                            <span class="badge badge-warning" v-else>De-active</span>
-                        </td>
-                        <td class="text text-center">
-                            <ul class="icons-list">
-                                <li class="text-primary-600"><a href="#" @click.prevent="editTag(tag.id)"><i class="icon-pencil7"></i></a></li>
-                                <li class="text-danger-600"><a href="#" @click.prevent="removeTag(tag.id)"><i class="icon-trash"></i></a></li>
-                            </ul>
-                        </td>
-                    </tr>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tag Title</th>
+                                <th class="text-center" >Tag Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-if="tags" v-for="(tag,index) in tags" :key="tag.id">
+                                <td>{{ index }}</td>
+                                <td>{{ tag.title }}</td>
+                                <td class="text text-center">
+                                    <span class="badge badge-success" v-if="tag.status === 1">Active</span>
+                                    <span class="badge badge-warning" v-else>De-active</span>
+                                </td>
+                                <td class="text text-center">
+                                    <ul class="icons-list">
+                                        <li class="text-primary-600"><a href="#" @click.prevent="editTag(tag.id)"><i class="icon-pencil7"></i></a></li>
+                                        <li class="text-danger-600"><a href="#" @click.prevent="removeTag(tag.id)"><i class="icon-trash"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
 
-                    </tbody>
-                </table>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Basic table -->
+
         <!-- /basic table -->
         <import-data :example_image="format_image" :upload_url="action_url" :example_file="format_file" ></import-data>
     </div>

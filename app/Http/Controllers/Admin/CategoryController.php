@@ -96,14 +96,12 @@ class CategoryController extends Controller
 
                 $category = Category::create([
                     'category_name'=>$request->category_name,
-                    'trans_category_name'=>$request->trans_category_name,
                     'category_slug'=>Str::slug($request->category_name),
                     'parent_id'=>(!empty($request->parent_id))?$request->parent_id : null,
                     'banner_id'=>(!empty($request->banner_id))? $request->banner_id:null,
-                    'sect_banner_id'=>(!empty($request->sect_banner_id))? $request->sect_banner_id:null,
                     'icon_id'=>(!empty($request->icon_id))? $request->icon_id:null,
                     'category_status'=>(!empty($request->category_status) && $request->category_status == 1) ? $request->category_status : 2,
-                    'is_show'=>(!empty($request->is_show) && $request->is_show == 1) ? $request->is_show : 2,
+                    'in_header'=>(!empty($request->in_header) && $request->in_header == 1) ? $request->in_header : 2,
                 ]);
                 if($category){
                     DB::commit();
@@ -127,7 +125,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
-    {   $category = Category::where('category_id',$id)->with('attachment','sectionBanner', 'iconImage')->first();
+    {   $category = Category::where('category_id',$id)->with('attachment', 'iconImage')->first();
         if(!empty($category)){
             return ResponserTrait::singleResponse(new CategoryResource($category), 'success', Response::HTTP_OK);
         }else{
@@ -178,14 +176,12 @@ class CategoryController extends Controller
                 $icon_id = $category->icon_id;
                 $categoryUp = $category->update([
                     'category_name'=>$request->category_name,
-                    'trans_category_name'=>$request->trans_category_name,
                     'category_slug'=>Str::slug($request->category_name),
                     'parent_id'=>(!empty($request->parent_id))?$request->parent_id : null,
                     'banner_id'=>(!empty($request->banner_id))? $request->banner_id:$banner_id,
-                    'sect_banner_id'=>(!empty($request->sect_banner_id))? $request->sect_banner_id:$sect_banner_id,
                     'icon_id'=>(!empty($request->icon_id))? $request->icon_id:$icon_id,
                     'category_status'=>(!empty($request->category_status) && $request->category_status == 1) ? $request->category_status : 2,
-                    'is_show'=>(!empty($request->is_show) && $request->is_show == 1) ? $request->is_show : 2,
+                    'in_header'=>(!empty($request->in_header) && $request->in_header == 1) ? $request->in_header : 2,
                 ]);
                 if($categoryUp){
                     DB::commit();
@@ -206,7 +202,7 @@ class CategoryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request)
     {

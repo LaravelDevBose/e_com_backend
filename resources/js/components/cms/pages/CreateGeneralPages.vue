@@ -20,21 +20,14 @@
                                 <label>Menu Title:</label>
                                 <input type="text" v-model="formData.menu_title" class="form-control" placeholder="Menu Title" required>
                             </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Menu Position:</label>
                                 <input type="number" v-model="formData.menu_position" class="form-control" placeholder="Menu Position" required>
                             </div>
-                            <!-- <div class="form-group">
-                                <label>Show In:</label>
-                                <vue-select2 v-model="formData.show_in" :options="pageDependency.show_in"> </vue-select2>
-                            </div> -->
-                        </div>
-                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>Page Category:</label>
-                                <vue-select2 v-model="formData.page_cat" :options="pageCategories"> </vue-select2>
-                            </div>
-                            <div class="form-group">
+                                <label>Page Status:</label>
                                 <label class="checkbox-style" for="paypal_payment">
                                     <span class="text-bold text-success" v-if="formData.page_status">Publish</span>
                                     <span class="text-bold text-warning" v-else>UnPublish</span>
@@ -42,10 +35,6 @@
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                            <!-- <div class="form-group">
-                                <label>Cover Image:</label>
-                                <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
-                            </div> -->
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
@@ -84,13 +73,11 @@
                 formData:{
                     page_title:'',
                     menu_title:'',
-                    show_in:2,
                     menu_position:'',
                     body_content:'',
                     other_content:'',
                     attachment_id:'',
                     page_status:'',
-                    page_cat:1,
                 },
                 cropperData:{
                     width:600,
@@ -102,12 +89,6 @@
                 },
                 removeImage:false,
                 btnDisabled:false,
-                pageCategories:[
-                    {id:1, text:'Terms & Conditions'},
-                    {id:2, text:'Privacy & Policy'},
-                    {id:3, text:'Customer Service'},
-                    {id:4, text:'About Us'},
-                ]
             }
         },
         created() {

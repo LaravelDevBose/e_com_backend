@@ -24,7 +24,6 @@ class Page extends Model
         'page_title',
         'menu_title',
         'page_slug',
-        'show_in',
         'menu_position',
         'body_content',
         'other_content',

@@ -2,7 +2,7 @@
     <div class="content">
         <!-- Basic table -->
         <div class="panel">
-            <div class="panel-heading bg-teal-400">
+            <div class="panel-heading bg-slate">
                 <h5 class="panel-title">Category List</h5>
                 <div class="heading-elements">
                     <div class="heading-elements">
@@ -40,7 +40,7 @@
     import Vue from 'vue';
     import { mapGetters, mapActions} from 'vuex';
     Vue.component('category-banner', {
-        template: `<img v-if="row.attachment" :src="row.attachment.image_path" :alt="row.label" class="img-preview img-responsive" style="width:100px; height:35px;" >`,
+        template: `<img v-if="row.attachment" :src="row.attachment.image_path" :alt="row.label" class="img-preview img-thumbnail"  >`,
         props: ['row']
     });
     Vue.component('second-parent', {
@@ -52,7 +52,7 @@
         props: ['row']
     });
     Vue.component('is-show', {
-        template: `<span class="badge badge-success" v-if="row.is_show === 1">Show</span>
+        template: `<span class="badge badge-success" v-if="row.in_header === 1">Show</span>
                     <span class="badge badge-warning" v-else>Now Show</span>`,
         props: ['row']
     });
@@ -104,7 +104,6 @@
                 columns: [
                     { label: 'Image', component: 'category-banner', align: 'center', sortable: false },
                     { label: 'Category Name', field: 'name',  },
-                    { label: 'Trans. Category Name', field: 'trans_name' , },
                     { label: '2nd Parent', component:'second-parent' },
                     { label: '1st Parent', component:'first-parent' },
                     { label: 'Show in Header', component: 'is-show', align: 'center', sortable: true },

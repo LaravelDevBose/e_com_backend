@@ -71,14 +71,13 @@ class BrandController extends Controller
 
                 $brand = Brand::create([
                     'brand_name'=>$request->brand_name,
-                    'trans_brand_name'=>$request->trans_brand_name,
                     'brand_slug'=>Str::slug($request->brnad_name),
                     'attachment_id'=>(!empty($request->attachment_id))? $request->attachment_id:null,
                     'brand_status'=>(!empty($request->brand_status) && $request->brand_status == 1) ? $request->brand_status : 2,
                 ]);
                 if($brand){
                     DB::commit();
-                    $brand = new BrandResource(Brand::find($brand->brand_id));
+                    $brand = new BrandResource($brand->load('attachment'));
                     return ResponserTrait::allResponse('success', Response::HTTP_OK,'Brand Store Successfully',$brand);
                 }
 
@@ -125,7 +124,6 @@ class BrandController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'brand_name'=>'required',
-            'trans_brand_name'=>'required',
         ]);
 
         if($validator->passes()){
@@ -137,7 +135,6 @@ class BrandController extends Controller
                 }
                 $brand = $brand->update([
                     'brand_name'=>$request->brand_name,
-                    'trans_brand_name'=>$request->trans_brand_name,
                     'brand_slug'=>Str::slug($request->brnad_name),
                     'attachment_id'=>(!empty($request->attachment_id))? $request->attachment_id:null,
                     'brand_status'=>(!empty($request->brand_status) && $request->brand_status == 1) ? $request->brand_status : 2,

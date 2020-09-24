@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class TagController extends Controller
 {
+    public $template_name = 'limitless_v2';
     /**
      * Display a listing of the resource.
      *
@@ -39,7 +40,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('tag.index');
+        return view('admin_panel.'.$this->template_name.'.tag.index');
     }
 
     /**

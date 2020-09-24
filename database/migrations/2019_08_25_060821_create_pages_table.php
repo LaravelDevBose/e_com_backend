@@ -19,7 +19,6 @@ class CreatePagesTable extends Migration
             $table->string('page_title');
             $table->string('menu_title');
             $table->string('page_slug');
-            $table->boolean('show_in')->default(Page::MENU_SHOW_IN['Header'])->nullable();
             $table->boolean('menu_position')->default(1)->nullable();
             $table->longText('body_content')->nullable();
             $table->longText('other_content')->nullable();

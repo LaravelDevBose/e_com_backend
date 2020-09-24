@@ -3,13 +3,6 @@
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h5 class="panel-title">Update Slider Details</h5>
-                <!--<div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>-->
             </div>
 
             <div class="panel-body">
@@ -20,22 +13,19 @@
                                 <label>Slider Title:</label>
                                 <input type="text" v-model="formData.slider_title" class="form-control" placeholder="Slider Title" required>
                             </div>
-                            <!--<div class="form-group">
-                                <label>Sub Title:</label>
-                                <input type="text" v-model="formData.sub_title" class="form-control" placeholder="Sub Title" required>
-                            </div>
+
                             <div class="form-group">
-                                <label>Button Text:</label>
-                                <input type="text" v-model="formData.btn_text" class="form-control" placeholder="Button Text" required>
-                            </div>-->
+                                <label>Slider Image:</label>
+                                <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                                <img :src="sliderData.attachment.image_path" style="max-width: 450px; max-height:250px; padding: 10px;">
+                            </div>
+
+                        </div>
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Slider Position:</label>
                                 <input type="number" v-model="formData.slider_position" class="form-control" placeholder="Slider Position" required>
                             </div>
-                            <!--<div class="form-group">
-                                <label>Button Url:</label>
-                                <input type="text" v-model="formData.btn_url" class="form-control" placeholder="Button Url" required>
-                            </div>-->
                             <div class="content-group-lg">
                                 <label>Slider Status:</label>
                                 <div class="form-group">
@@ -47,36 +37,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-5">
-                            <!--<div class="form-group">
-                                <label>Trans. Slider Title:</label>
-                                <input type="text" v-model="formData.trans_slider_title" class="form-control" placeholder="Slider Title" required>
-                            </div>
                             <div class="form-group">
-                                <label>Trans. Sub Title:</label>
-                                <input type="text" v-model="formData.trans_sub_title" class="form-control" placeholder="Sub Title" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Trans. Button Text:</label>
-                                <input type="text" v-model="formData.trans_btn_text" class="form-control" placeholder="Button Text" required>
-                            </div>-->
-                            <div class="form-group">
-                                <label>Slider Type:</label>
-                                <select v-model="formData.slider_type"  class="form-control" required>
-                                    <option value="1">For Home Page</option>
-                                    <option value="2">For Mall Page</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Slider Image:</label>
-                                <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
-                                <img :src="sliderData.attachment.image_path" style="max-width: 450px; max-height:250px; padding: 10px;">
-                            </div>
-
-                        </div>
-                        <div class="col-md-3 col-md-offset-6">
-                            <div class="text-right form-group">
                                 <button type="submit" :disabled="btnDisabled" class="btn btn-primary btn-block">Save Slider <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
@@ -107,10 +68,6 @@
                     slider_position:'',
                     attachmentIds:'',
                     slider_status:0,
-                    trans_slider_title:'',
-                    trans_sub_title:'',
-                    trans_btn_text:'',
-                    slider_type:1,
                 },
 
                 cropperData:{
@@ -184,7 +141,6 @@
                         this.formData.id = this.sliderData.slider_id;
                         this.formData.slider_title = this.sliderData.slider_title;
                         this.formData.slider_position = this.sliderData.slider_position;
-                        this.formData.slider_type = this.sliderData.slider_type;
                         this.formData.slider_status = this.sliderData.slider_status;
                     }
                 },

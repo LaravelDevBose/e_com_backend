@@ -13,14 +13,6 @@
                     </div>
                     <div class="panel-body">
                         <div class="content-group-lg row">
-
-                            <div class="content-group text-center">
-                                <a href="#" class="display-inline-block">
-                                    <img v-if="pageData.attachment" :src="pageData.attachment.image_path" class="img-responsive" alt="">
-                                    <img v-else :src="noImage" class="img-responsive" alt="">
-                                </a>
-                            </div>
-
                             <h3 class="text-semibold mb-5">
                                 <a href="#" class="text-default">{{ pageData.title }}</a>
                             </h3>
@@ -28,7 +20,6 @@
                             <ul class="list-inline list-inline-separate text-semibold content-group">
                                 <li>By <span class="text-bold text-teal">Admin</span></li>
                                 <li>Created: <span class="text-bold text-teal"> {{ pageData.created_at }}</span> </li>
-                                <li>Show in: <span class="text-bold text-teal">{{ pageData.showIn }}</span></li>
                                 <li>Menu Position: <span class="text-bold text-teal">{{ pageData.position }}</span> </li>
                                 <li>Status:
                                     <span v-if="pageData.status == 1" class="text-bold badge badge-success">Active</span>

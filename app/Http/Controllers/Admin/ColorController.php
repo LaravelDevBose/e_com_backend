@@ -16,6 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ColorController extends Controller
 {
+    public $template_name = 'limitless_v2';
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +39,7 @@ class ColorController extends Controller
      */
     public function create()
     {
-        return view('color.index');
+        return view('admin_panel.'.$this->template_name.'.color.index');
     }
 
     /**

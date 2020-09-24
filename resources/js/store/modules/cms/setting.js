@@ -1,15 +1,11 @@
 //declare State
 const state = {
-    setting_info:[],
-    campaign_setting:[],
-    delivery_setting:[],
+    setting_info:[]
 };
 
 //declare Getters
 const getters = {
     settingData:(state)=>state.setting_info,
-    campaignSetting:(state)=>state.campaign_setting,
-    deliverySetting:(state)=>state.delivery_setting,
 };
 
 const actions = {
@@ -17,7 +13,7 @@ const actions = {
         try {
             return await axios.get('/admin/setting/data')
                 .then(response=>{
-                    if(response.data.code == 200){
+                    if(response.data.code === 200){
                         commit('setSettingInformation', response.data.data);
                         return response.data;
                     }else{
@@ -42,71 +38,12 @@ const actions = {
         }catch (error) {
             commit('setResponse', error.data);
         }
-    },
-    async storeCampaignSetting({commit},formData){
-        try {
-
-            return await axios.post('/admin/setting/campaign/store',formData)
-                .then(response=>{
-                    commit('setResponse', response.data);
-                    return response.data;
-                }).catch(error=>{
-                    commit('setResponse', error.data);
-                    return error;
-                })
-        }catch (error) {
-            commit('setResponse', error.data);
-        }
-    },
-    async storeLogoImage({commit}, formData){
-        try {
-            return  await axios.post('/admin/setting/logo/store', formData)
-                .then(response=>{
-                    commit('setResponse', response.data);
-                    return response.data;
-                }).catch(error=>{
-                    commit('setResponse', error.data);
-                    return error;
-                })
-        }catch (error) {
-            commit('setResponse', error.data);
-        }
-    },
-    async storeDeliverySetting({commit}, formData){
-        try {
-            return await axios.post('/admin/setting/delivery/store',Object.assign({}, formData))
-                .then(response=>{
-                    commit('setResponse', response.data);
-                    return response.data;
-                }).catch(error=>{
-                    commit('setResponse', error.data);
-                    return error;
-                })
-        }catch (error) {
-            commit('setResponse', error.data);
-        }
-    },
-    async storeGeneralSetting({commit}, formData){
-        try {
-            return await axios.post('/admin/setting/general/store',Object.assign({}, formData))
-                .then(response=>{
-                    commit('setResponse', response.data);
-                    return response.data;
-                }).catch(error=>{
-                    commit('setResponse', error.data);
-                    return error;
-                })
-        }catch (error) {
-            commit('setResponse', error.data);
-        }
-    },
+    }
 };
 
 const mutations = {
     setSettingInformation:(state, response)=> {
         state.setting_info= response.contactSetting;
-        state.campaign_setting = response.campaignSetting;
-        state.delivery_setting = response.deliverySetting;
     }
 };
 

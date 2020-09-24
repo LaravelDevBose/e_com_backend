@@ -19,16 +19,14 @@ class Category extends JsonResource
         return [
             'id' => $this->category_id,
             'name' => $this->category_name,
-            'trans_name' => $this->trans_category_name,
             'label' => $this->category_name,
             'slug' => $this->category_slug,
             'parent_id'=>$this->parent_id,
             'status'=>$this->category_status,
-            'is_show'=>$this->is_show,
+            'in_header'=>$this->in_header,
             'children'=>CategoryResource::collection($this->whenLoaded('children')),
             'parent'=>new CategoryResource($this->whenLoaded('parent')),
             'attachment'=> new AttachmentResource($this->whenLoaded('attachment')),
-            'sectionBanner'=> new AttachmentResource($this->whenLoaded('sectionBanner')),
             'iconImage'=> new AttachmentResource($this->whenLoaded('iconImage')),
         ];
     }

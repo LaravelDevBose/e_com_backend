@@ -13,13 +13,12 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\Tests\ResponseTest;
 
 class GeneralPagesController extends Controller
 {
-
+    public $template_name = 'limitless_v2';
     public function index(){
-        return view('cms.pages.index');
+        return view('admin_panel.'.$this->template_name.'.cms.pages.index');
     }
 
     public function page_list(Request $request){
@@ -33,27 +32,14 @@ class GeneralPagesController extends Controller
         }
     }
 
-    public function create(Request $request){
-
-        if($request->ajax()){
-            $showIn = [];
-            foreach (Page::MENU_SHOW_IN as $key=>$value){
-                array_push($showIn, [
-                    'id'=>$value,
-                    'text'=>$key,
-                ]);
-            }
-            $data['show_in'] = $showIn;
-            return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK);
-        }
-        return view('cms.pages.create');
+    public function create(){
+        return view('admin_panel.'.$this->template_name.'.cms.pages.create');
     }
 
     public function store(Request $request){
         $validator = Validator::make($request->all(),[
             'page_title'=>'required|string|min:5|max:100',
             'menu_title'=>'required|string|min:5|max:100',
-            'show_in'=>'required|numeric',
             'attachmentIds'=>'array'
         ]);
 
@@ -65,12 +51,10 @@ class GeneralPagesController extends Controller
                     'page_title'=>$request->page_title,
                     'menu_title'=>$request->menu_title,
                     'page_slug'=>Str::slug($request->menu_title),
-                    'show_in'=>$request->show_in,
                     'menu_position'=>$request->menu_position,
                     'body_content'=>$request->body_content,
                     'other_content'=>$request->other_content,
                     'attachment_id'=>(!empty($request->attachmentIds[0]))?$request->attachmentIds[0]:'',
-                    'page_cat'=>$request->page_cat,
                     'page_status'=>(!empty($request->page_status) && $request->page_status == config('app.active')) ? $request->page_status : config('app.inactive'),
                 ]);
                 if($page){
@@ -109,7 +93,7 @@ class GeneralPagesController extends Controller
                 return ResponserTrait::allResponse('error', 400, 'No Data Found. Something Wrong !');
             }
         }else{
-            return view('cms.pages.show',[
+            return view('admin_panel.'.$this->template_name.'.cms.pages.show',[
                 'pageId'=>$pageId,
             ]);
         }
@@ -118,7 +102,7 @@ class GeneralPagesController extends Controller
 
     public function edit($pageId){
 
-        return view('cms.pages.edit',[
+        return view('admin_panel.'.$this->template_name.'.cms.pages.edit',[
             'pageId'=>$pageId
         ]);
     }
@@ -128,7 +112,6 @@ class GeneralPagesController extends Controller
         $validator = Validator::make($request->all(),[
             'title'=>'required|string|min:5|max:200',
             'menuTitle'=>'required|string|min:5|max:200',
-            'show_in'=>'required|numeric',
             'attachmentIds'=>'array'
         ]);
 
@@ -140,11 +123,9 @@ class GeneralPagesController extends Controller
                     'page_title'=>$request->title,
                     'menu_title'=>$request->menuTitle,
                     'page_slug'=>Str::slug($request->menuTitle),
-                    'show_in'=>$request->show_in,
                     'menu_position'=>$request->position,
                     'body_content'=>$request->body_content,
                     'other_content'=>$request->extra_content,
-                    'page_cat'=>$request->page_cat,
                     'page_status'=>(!empty($request->status) && $request->status == config('app.active')) ? $request->status : config('app.inactive'),
                 ]);
                 if(!empty($request->attachmentIds[0]) && count($request->attachmentIds) > 0){
@@ -198,33 +179,4 @@ class GeneralPagesController extends Controller
             return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, "Invalid Information. No Page Info Found.");
         }
     }
-
-
-    public function about_us(){
-        return view('cms.pages.about_us');
-    }
-
-    public function privacy_policy(){
-        return view('cms.pages.privacy_policy');
-    }
-
-    public function warranty_policy(){
-        return view('cms.pages.warranty_policy');
-    }
-
-    public function shipping_policy(){
-        return view('cms.pages.shipping_policy');
-    }
-
-    public function returns_and_replacement(){
-        return view('cms.pages.return_and_replacement');
-    }
-
-    public function terms_and_conditions(){
-        return view('cms.pages.terms_and_conditions');
-    }
-
-
-
-
 }

@@ -11,7 +11,7 @@
                             <AlertNotify/>
                         </div>
                         <div class="form-group has-feedback has-feedback-left">
-                            <input type="text" class="form-control" placeholder="Username Or Email" v-model="form.identity">
+                            <input type="text" class="form-control"  placeholder="Username Or Email" v-model="form.identity">
                             <div class="form-control-feedback">
                                 <i class="icon-user text-muted"></i>
 
@@ -49,8 +49,8 @@
             return {
                 disabled:false,
                 form:{
-                    identity:'',
-                    password:'',
+                    identity:'super@admin.com',
+                    password:'123456789',
                 },
                 identError:'',
                 pass_error:'',
