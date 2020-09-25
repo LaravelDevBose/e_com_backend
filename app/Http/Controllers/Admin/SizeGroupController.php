@@ -20,6 +20,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class SizeGroupController extends Controller
 {
+    public $template_name = 'limitless_v2';
+
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +43,7 @@ class SizeGroupController extends Controller
      */
     public function create()
     {
-        return view('product_size.size_group');
+        return view('admin_panel.'.$this->template_name.'.product_size.size_group');
     }
 
     /**

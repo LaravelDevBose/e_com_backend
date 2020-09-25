@@ -3,25 +3,32 @@
         <div class="panel panel-info" v-if="!is_edit">
             <div class="panel-heading">
                 <h5 class="panel-title">Product Size Group</h5>
-                <!--<div class="heading-elements">
-                    <button type="button" class="btn bg-orange-800 btn-sm" @click="bulkSizeGroupModel">Bulk Size Group <i class="icon-play3 position-right"></i></button>
-                    <button type="button" class="btn bg-orange-800 btn-sm" @click="bulkSizeModel">Bulk Size <i class="icon-play3 position-right"></i></button>
-                </div>-->
             </div>
 
             <div class="panel-body">
                 <form action="" @submit.prevent="sizeGroupStore" >
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Categories:</label>
                                 <treeselect v-model="form.categoryIDs" :multiple="true" :options="treeList" :normalizer="normalizer" />
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Size Group Name:</label>
                                 <input type="text" v-model="form.size_group_title" class="form-control" placeholder="Size Group Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Size Status:</label>
+                                <label class="checkbox-style" for="paypal_payment">
+                                    <span class="text-bold text-success" v-if="form.size_group_status">Active</span>
+                                    <span class="text-bold text-warning" v-else>Inactive</span>
+                                    <input type="checkbox" id="paypal_payment" v-model="form.size_group_status" :checked="form.size_group_status">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-12" >
@@ -39,19 +46,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 col-md-offset-7">
+
+                        <div class="col-md-3 col-md-offset-9">
                             <div class="form-group">
-                                <label class="checkbox-style" for="paypal_payment">
-                                    <span class="text-bold text-success" v-if="form.size_group_status">Active</span>
-                                    <span class="text-bold text-warning" v-else>Inactive</span>
-                                    <input type="checkbox" id="paypal_payment" v-model="form.size_group_status" :checked="form.size_group_status">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="text-right form-group">
-                                <button type="submit" class="btn btn-primary">Save Size Group <i class="icon-arrow-right14 position-right"></i></button>
+                                <button type="submit" class="btn btn-primary btn-block">Save Size Group <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -67,16 +65,27 @@
             <div class="panel-body">
                 <form action="" @submit.prevent="sizeGroupUpdate" >
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Categories:</label>
                                 <treeselect v-model="form.categoryIDs" :multiple="true" :options="treeList" :normalizer="normalizer" />
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Size Group Name:</label>
                                 <input type="text" v-model="form.size_group_title" class="form-control" placeholder="Size Group Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Size Group Status:</label>
+                                <label class="checkbox-style" for="edit_status">
+                                    <span class="text-bold text-success" v-if="form.size_group_status">Active</span>
+                                    <span class="text-bold text-warning" v-else>Inactive</span>
+                                    <input type="checkbox" id="edit_status" v-model="form.size_group_status" :checked="form.size_group_status">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-12" >
@@ -94,19 +103,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 col-md-offset-7">
+
+                        <div class="col-md-3 col-md-offset-9 ">
                             <div class="form-group">
-                                <label class="checkbox-style" for="edit_status">
-                                    <span class="text-bold text-success" v-if="form.size_group_status">Active</span>
-                                    <span class="text-bold text-warning" v-else>Inactive</span>
-                                    <input type="checkbox" id="edit_status" v-model="form.size_group_status" :checked="form.size_group_status">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="text-right form-group">
-                                <button type="submit" class="btn btn-primary">Update Size Group <i class="icon-arrow-right14 position-right"></i></button>
+                                <button type="submit" class="btn btn-primary btn-block">Update Size Group <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -281,8 +281,9 @@
                         this.form.size_group_status = sizeGroup.status;
                         this.form.categoryIDs.length = 0;
                         sizeGroup.categories.forEach(cat=>{
-                            this.form.categoryIDs.push(cat.category.id);
+                            this.form.categoryIDs.push(cat.cat_id);
                         });
+                        console.log(this.form.categoryIDs);
                         this.sizeInput=0;
                         this.form.sizeNames.length = 0;
                         sizeGroup.sizes.forEach(size=>{

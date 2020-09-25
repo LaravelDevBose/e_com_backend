@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Order;
 use App\Models\SocialProvider;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -57,5 +58,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function social_provider()
     {
         return $this->hasOne(SocialProvider::class, 'user_id', 'user_id');
+    }
+
+    public function scopeNotDelete($query)
+    {
+        return $query->where('status', '!=', config('app.delete'));
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'user_id', 'user_id');
     }
 }

@@ -11,7 +11,7 @@ const getters = {
 const actions = {
     async getBuyerList({commit}, reqData=null){
         try {
-            return await axios.get('/admin/buyer', reqData)
+            return await axios.get('/admin/buyer/list', reqData)
                 .then(response=>{
                     commit('setBuyerList', response.data.data);
                     delete response.data.data;
@@ -67,13 +67,13 @@ const mutations = {
     },
     statusChanging:(state, response)=>{
         state.buyer_list = state.buyer_list.filter(buyer=>{
-            if(buyer.buyer_id == response.id){
-                buyer.user.status = response.status;
+            if(buyer.user_id === response.id){
+                buyer.status = response.status;
             }
             return buyer;
         })
     },
-    deletingBuyer:(state, buyerID)=>state.buyer_list = state.buyer_list.filter(buyer=>buyer.buyer_id !==buyerID)
+    deletingBuyer:(state, buyerID)=>state.buyer_list = state.buyer_list.filter(buyer=>buyer.user_id !==buyerID)
 };
 
 export default {

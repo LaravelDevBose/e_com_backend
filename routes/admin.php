@@ -91,9 +91,11 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
 
     Route::prefix('buyer')->as('buyer.')->group(function (){
         Route::get('/', 'BuyerController@index')->name('index');
-        Route::get('/{buyer}/show', 'BuyerController@buyer_show')->name('show');
-        Route::post('/{buyer}/change/status', 'BuyerController@buyer_status_change')->name('change.status');
-        Route::delete('/{buyer}', 'BuyerController@destroy')->name('delete');
+        Route::get('/list', 'BuyerController@user_list')->name('list');
+        Route::get('/{user}/show', 'BuyerController@buyer_show')->name('show');
+        Route::get('/{user}/details', 'BuyerController@user_details')->name('details');
+        Route::post('/{user}/change/status', 'BuyerController@buyer_status_change')->name('change.status');
+        Route::delete('/{user}', 'BuyerController@destroy')->name('delete');
     });
 
     Route::prefix('shop')->as('shop.')->group(function (){
