@@ -98,13 +98,15 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::delete('/{user}', 'BuyerController@destroy')->name('delete');
     });
 
-    Route::prefix('shop')->as('shop.')->group(function (){
-        Route::get('/', 'ShopController@index')->name('index');
-        Route::get('/status', 'ShopController@shop_status')->name('status');
-        Route::post('/{seller}/change/status', 'ShopController@shop_status_change')->name('change.status');
-        Route::get('/{seller}', 'ShopController@show')->name('show');
-        Route::delete('/{seller}', 'ShopController@destroy')->name('delete');
-        Route::post('/{seller}/orders', 'ShopController@get_shop_orders')->name('orders');
+    Route::prefix('seller')->as('seller.')->group(function (){
+        Route::get('/', 'SellerController@index')->name('index');
+        Route::get('/list', 'SellerController@seller_list')->name('list');
+        Route::get('/create', 'SellerController@create')->name('create');
+        Route::post('/store', 'SellerController@store')->name('store');
+        Route::get('/{sellerId}', 'SellerController@show')->name('show');
+        Route::get('/{sellerId}/edit', 'SellerController@edit')->name('edit');
+        Route::put('/{sellerId}/update', 'SellerController@update')->name('update');
+        Route::delete('/{sellerId}', 'SellerController@destroy')->name('delete');
     });
 
     Route::prefix('delivery')->as('delivery.')->group(function (){

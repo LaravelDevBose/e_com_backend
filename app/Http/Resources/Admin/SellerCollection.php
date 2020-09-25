@@ -4,8 +4,9 @@ namespace App\Http\Resources\Admin;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class DeliveryCostCollection extends ResourceCollection
+class SellerCollection extends ResourceCollection
 {
+    public $collects = 'App\Http\Resources\Admin\SellerResource';
     /**
      * Transform the resource collection into an array.
      *

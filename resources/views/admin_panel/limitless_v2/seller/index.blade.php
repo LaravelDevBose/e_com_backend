@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('PageTitle','Brand')
+@section('PageTitle','seller List')
 
 @section('PageCss')
 
@@ -11,8 +11,7 @@
 @endsection
 
 @section('content')
-
-    <brand></brand>
+    <seller-list></seller-list>
 @endsection
 @section('PageJs')
 

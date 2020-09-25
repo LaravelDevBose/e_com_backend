@@ -3,10 +3,10 @@
         <!-- Basic table -->
         <div class="panel">
             <div class="panel-heading bg-slate">
-                <h5 class="panel-title">Category List</h5>
+                <h5 class="panel-title">Seller List</h5>
                 <div class="heading-elements">
                     <div class="heading-elements">
-                        <a href="/admin/category/create" class="btn btn-success btn-sm btn-inline"><i class="icon-plus-circle2 text-left"></i> Add New Category</a>
+                        <a href="/admin/seller/create" class="btn btn-success btn-sm btn-inline"><i class="icon-plus-circle2 text-left"></i> Add New Seller</a>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                         </div>
 
                         <div id="table">
-                            <datatable class="table-bordered table-striped" :columns="columns" :data="categories" :filter-by="filter"></datatable>
+                            <datatable class="table-bordered table-striped" :columns="columns" :data="sellerList" :filter-by="filter"></datatable>
                         </div>
                         <div class="form-inline" style="margin:1em; float:right;">
                             <div class="form-group">
@@ -39,43 +39,26 @@
 <script>
     import Vue from 'vue';
     import { mapGetters, mapActions} from 'vuex';
-    Vue.component('category-banner', {
-        template: `<img v-if="row.attachment" :src="row.attachment.image_path" :alt="row.label" class="img-preview img-thumbnail"  >`,
-        props: ['row']
-    });
-    Vue.component('second-parent', {
-        template: `<span class="text text-center" v-if="row.parent !== null">{{ row.parent.name }}</span>`,
-        props: ['row']
-    });
-    Vue.component('first-parent', {
-        template: `<span class="text text-center" v-if="row.parent !== null && row.parent.parent !== null">{{ row.parent.parent.name }}</span>`,
-        props: ['row']
-    });
-    Vue.component('is-show', {
-        template: `<span class="badge badge-success" v-if="row.in_header === 1">Show</span>
-                    <span class="badge badge-warning" v-else>Now Show</span>`,
-        props: ['row']
-    });
-    Vue.component('category-status', {
+    Vue.component('status', {
         template: `
             <span class="badge badge-success" v-if="row.status === 1">Active</span>
             <span class="badge badge-warning" v-else>De-active</span>
         `,
         props: ['row']
     });
-    Vue.component('category-action', {
+    Vue.component('action', {
         template: `<ul class="icons-list">
                         <li class="text-primary-600"><a href="#" @click.prevent="goToEditPage(row.id)"><i class="icon-pencil7"></i></a></li>
-                        <li class="text-danger-600"><a href="#" @click.prevent="deleteCategory(row.id)"><i class="icon-trash"></i></a></li>
+                        <li class="text-danger-600"><a href="#" @click.prevent="deleteSellerData(row.id)"><i class="icon-trash"></i></a></li>
                     </ul>`,
         props: ['row'],
         methods:{
             ...mapActions([
-                'categoryDelete',
+                'deleteSeller',
             ]),
-            deleteCategory(cat_id){
+            deleteSellerData(id){
                 if(confirm('Are Your Sure..?')){
-                    this.categoryDelete(cat_id).then(response=>{
+                    this.deleteSeller(id).then(response=>{
                         if(response.status === 'success'){
                             Notify.success(response.message);
                         }else{
@@ -87,13 +70,13 @@
                 }
             },
             goToEditPage(Id){
-                location.href = `/admin/category/${Id}/edit`
+                location.href = `/admin/seller/${Id}/edit`
             }
         }
     });
 
     export default {
-        name: "Category",
+        name: "SellerList",
         data(){
             return{
                 laravelData:{},
@@ -102,24 +85,26 @@
                 filter: '',
                 rows:'',
                 columns: [
-                    { label: 'Image', component: 'category-banner', align: 'center', sortable: false },
-                    { label: 'Category Name', field: 'name',  },
-                    { label: '2nd Parent', component:'second-parent' },
-                    { label: '1st Parent', component:'first-parent' },
-                    { label: 'Show in Header', component: 'is-show', align: 'center', sortable: true },
-                    { label: 'Status', component: 'category-status', align: 'center', sortable: false },
-                    { label: 'Action', component: 'category-action', align: 'center', sortable: false },
+                    { label: 'Seller Name', field: 'name' },
+                    { label: 'Phone No', field: 'phone'},
+                    { label: 'Email', field: 'email'},
+                    { label: 'Address', field: 'address', sortable: false },
+                    { label: 'Shop Name', field: 'shop_name', sortable: false },
+                    { label: 'Shop Phone', field: 'shop_phone', sortable: false },
+                    { label: 'Shop Address', field: 'shop_address', sortable: false },
+                    { label: 'Shop Email', field: 'shop_email', sortable: false },
+                    { label: 'Status', component: 'status', align: 'center', sortable: false },
+                    { label: 'Action', component: 'action', align: 'center', sortable: false },
 
                 ],
             }
         },
         created(){
-            this.allCategory();
+            this.getSellerList();
         },
         methods:{
             ...mapActions([
-                'allCategory',
-                'categoryDelete',
+                'getSellerList',
             ]),
             getResults(page = 1) {
                 axios.get('example/results?page=' + page)
@@ -130,7 +115,7 @@
         },
         computed:{
             ...mapGetters([
-                'categories',
+                'sellerList',
 
             ]),
         }

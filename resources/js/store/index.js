@@ -22,10 +22,9 @@ import  general_pages from "./modules/cms/general_pages";
 import  setting from "./modules/cms/setting";
 import order from "./modules/order";
 import buyer from "./modules/buyer";
-import shop from "./modules/shop";
 import delivery_method from "./modules/delivery_method";
 import admin from "./modules/admin";
-
+import seller from "./modules/seller";
 
 
 export default new Vuex.Store({
@@ -63,9 +62,9 @@ export default new Vuex.Store({
         setting,
         order,
         buyer,
-        shop,
         delivery_method,
         admin,
+        seller,
     }
 })
 

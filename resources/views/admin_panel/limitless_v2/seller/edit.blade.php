@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('PageTitle','Brand')
+@section('PageTitle','Seller Update')
 
 @section('PageCss')
 
@@ -11,10 +11,8 @@
 @endsection
 
 @section('content')
-
-    <brand></brand>
+    <seller-create-edit-page :sellerId="{{$sellerId}}" :isEdit="1"></seller-create-edit-page>
 @endsection
 @section('PageJs')
 
 @endsection
-
