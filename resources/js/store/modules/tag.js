@@ -1,11 +1,13 @@
 //declare State
 const state = {
-    allTags:'',
+    allTags:[],
+    tag_list: []
 };
 
 //declare Getters
 const getters = {
     tags:(state)=>state.allTags,
+    tagList:(state)=>state.tag_list,
 };
 
 const actions = {
@@ -16,6 +18,17 @@ const actions = {
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
                         commit('setTags', response.data.data.data);
                     }
+                })
+        }catch (error) {
+            console.log(error);
+            commit('setResponse', error.data);
+        }
+    },
+    async getTagList({commit}){
+        try {
+            await axios.get('/admin/tag/list')
+                .then(response=>{
+                    commit('setTagList', response.data);
                 })
         }catch (error) {
             console.log(error);
@@ -71,6 +84,7 @@ const actions = {
 
 const mutations = {
     setTags:(state, response)=>state.allTags = response,
+    setTagList:(state, response)=>state.tag_list = response,
     tagStore:(state, response)=>state.allTags.unshift(response),
     removeTag:(state, tagID)=> state.allTags = state.allTags.filter(tag => tag.id !== parseInt(tagID)),
     tagUpdateInfo:(state, response)=>{

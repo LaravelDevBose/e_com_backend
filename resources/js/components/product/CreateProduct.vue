@@ -8,61 +8,48 @@
                 </div>
 
                 <div class="panel-body">
-
-                    <div class="form-group row">
-                        <label class="col-lg-2 control-label">Product Name: <span class="text text-danger text-bold h4">*</span> </label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" v-model="formData.product_name"  placeholder="product name" required>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Product Name: <span class="text text-danger text-bold h4">*</span> </label>
+                                <input type="text" class="form-control" v-model="formData.product_name"  placeholder="Product name" required>
+                            </div>
                         </div>
                     </div>
 
+
                     <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group row">
-                                <label class="col-lg-3 control-label">Parent Category: <span class="text text-danger text-bold h4">*</span></label>
-                                <div class="col-lg-9">
-                                    <treeselect v-model="formData.category_id"  :options="treeList" :multiple="false" :normalizer="normalizer" />
-                                </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Category: <span class="text text-danger text-bold ">*</span></label>
+                                <treeselect v-model="formData.category_id"  :options="treeList" :multiple="false" :normalizer="normalizer" />
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <label class="col-lg-4 control-label">Brand:</label>
-                                <div class="col-lg-8">
-                                    <vue-select2 v-model="formData.brand_id" :options="brandList"> </vue-select2>
-                                </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Brand:</label>
+                                <v-select v-model="formData.brand_id" label="text" :options="brandList" :reduce="text => text.id"></v-select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <label class="col-lg-6 control-label">COD Available:</label>
-                                <div class="col-lg-6">
-                                    <label class="checkbox-style" for="cod_avail">
-                                        <span class="text-bold text-success" v-if="formData.cod_avail">Yes</span>
-                                        <span class="text-bold text-warning" v-else>No</span>
-                                        <input type="checkbox" id="cod_avail" v-model="formData.cod_avail"  :checked="formData.cod_avail">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Seller: <span class="text text-danger text-bold ">*</span></label>
+                                <v-select v-model="formData.seller_id" label="text" :options="sellerListData" :reduce="text => text.id"></v-select>
                             </div>
                         </div>
-                        <div class="col-md-5 col-md-offset-1">
-                            <div class="form-group row">
-                                <label class="col-lg-3 control-label">Product Type: <span class="text text-danger text-bold h4">*</span></label>
-                                <div class="col-lg-8">
-                                    <div class="form-group">
-                                        <label class="radio-inline" >
-                                            <input type="radio" name="product_type" :value="1" v-model="formData.product_type"  class="styled" checked="checked">
-                                            Simple Product
-                                        </label>
-                                        <label class="radio-inline" >
-                                            <input type="radio" name="product_type" :value="2" v-model="formData.product_type"  class="styled">
-                                            Variation Product
-                                        </label>
-                                    </div>
-                                </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Product Type: <span class="text text-danger text-bold">*</span></label>
+                                <br>
+                                <label class="radio-inline" >
+                                    <input type="radio" name="product_type" :value="1" v-model="formData.product_type"  class="styled" checked="checked">
+                                    Simple Product
+                                </label>
+                                <br>
+                                <label class="radio-inline" >
+                                    <input type="radio" name="product_type" :value="2" v-model="formData.product_type"  class="styled">
+                                    Variation Product
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -75,128 +62,35 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Highlights: <span class="text text-danger text-bold h4">*</span></label>
-                            <div class="col-lg-10">
-                                <vue-editor id="highlight" v-model="formData.highlight"></vue-editor>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Highlights: <span class="text text-danger text-bold h4">*</span></label>
+                                    <vue-editor id="highlight" v-model="formData.highlight"></vue-editor>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Product Description: <span class="text text-danger text-bold h4">*</span></label>
-                            <div class="col-lg-10">
-                                <vue-editor id="description" v-model="formData.description"></vue-editor>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <label class="col-lg-4 control-label">Package Weight (kg): </label>
-                                    <div class="col-lg-8">
-                                        <input type="number" v-model="formData.package_weight" class="form-control"  step="0.01">
-                                    </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Product Description: <span class="text text-danger text-bold h4">*</span></label>
+                                    <vue-editor id="description" v-model="formData.description"></vue-editor>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="row">
-                                    <label class="col-lg-3 control-label">Package Dimensions (cm): </label>
-                                    <div class="col-lg-3">
-                                        <input type="number" v-model="formData.package_height" placeholder="height" class="form-control" step="0.01">
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="number" v-model="formData.package_width" placeholder="width" class="form-control" step="0.01">
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="number" v-model="formData.package_length" placeholder="length" class="form-control" step="0.01">
-                                    </div>
+                                <div class="form-group">
+                                    <label class=" control-label">Product Thumb Image: <span class="text text-danger text-bold h4">*</span></label>
+                                    <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <label class="col-lg-6 control-label">Discount:</label>
-                                    <div class="col-lg-6">
-                                        <input type="number" v-model="formData.discount_price" class="form-control" placeholder="Discount Price">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="row">
-                                    <label class="col-lg-2 control-label">Product Thumb Image: <span class="text text-danger text-bold h4">*</span></label>
-                                    <div class="col-lg-10">
-                                        <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--<div class="col-md-6">
-                                <div class="row">
-                                    <label class="col-lg-2 control-label">Video Url:</label>
-                                    <div class="col-lg-10">
-                                        <input type="text" v-model="formData.video_url" class="form-control" maxlength="255">
-                                    </div>
-                                </div>
-                            </div>-->
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <label class="col-lg-4 control-label">Mall Company Name:</label>
-                                    <div class="col-lg-8">
-                                        <input type="text" v-model="formData.mall_comp_name" class="form-control" placeholder="Mall Company Name">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <label class="col-lg-3 control-label">Mall Company Logo: </label>
-                                    <div class="col-lg-9">
-                                        <single-attachment :folder="mall_folder"></single-attachment>
-                                    </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Tags: <span class="text text-danger text-bold ">*</span></label>
+                                    <v-select v-model="formData.tag_ids" label="text" :options="tagList" :multiple="true" :reduce="text => text.id"></v-select>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-collapsed" >
-                    <div class="panel-heading bg-purple-400">
-                        <h5 class="panel-title">Product Info in English</h5>
-                        <div class="heading-elements">
-                            <ul class="icons-list">
-                                <li><a data-action="collapse"></a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="panel-body" style="display: none;">
-
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Product Name EN:</label>
-                            <div class="col-lg-10">
-                                <input type="text" v-model="formData.lang_product_name" class="form-control"  placeholder="product name">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Highlights EN:</label>
-                            <div class="col-lg-10">
-                                <vue-editor id="lang_highlight" v-model="formData.lang_highlight"></vue-editor>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Description EN:</label>
-                            <div class="col-lg-10">
-                                <vue-editor id="lang_description" v-model="formData.lang_description"></vue-editor>
-                            </div>
-                        </div>
-
-                    </div>
-                </div >
-                <div class="panel panel-collapsed" >
+                <div class="panel" >
                     <div class="panel-heading bg-indigo-600">
                         <h5 class="panel-title">More Product Details</h5>
                         <div class="heading-elements">
@@ -206,16 +100,8 @@
                         </div>
                     </div>
 
-                    <div class="panel-body" style="display: none;">
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Warranty Type:</label>
-                            <div class="col-lg-10">
-                                <label class="radio-inline" v-if="warrantyTypes" v-for="(warranty, index) in warrantyTypes" :key="index">
-                                    <input type="radio" v-model="formData.warranty_type" name="warrantyType"  class="styled" :value="index" >
-                                    {{ warranty }}
-                                </label>
-                            </div>
-                        </div>
+                    <div class="panel-body">
+
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Warranty Period:</label>
                             <div class="col-lg-10">
@@ -225,28 +111,7 @@
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Warranty Policy:</label>
                             <div class="col-lg-10">
-                                <input type="text" v-model="formData.warranty_policy" class="form-control" maxlength="255" >
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Warranty Policy EN:</label>
-                            <div class="col-lg-10">
-                                <input type="text" v-model="formData.warranty_policy_eng" class="form-control" maxlength="255">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Dangers Goods:</label>
-                            <div class="col-lg-10">
-                                <label class="radio-inline"  v-if="dangersGoods" v-for="(dangersGood ,index) in dangersGoods" :key="index">
-                                    <input type="checkbox" :id="'dng'+index" v-model="formData.dangers_goods"  class="styled" :value="index">
-                                    {{ dangersGood }}
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">What's in box:</label>
-                            <div class="col-lg-10">
-                                <input type="text" v-model="formData.what_in_box" class="form-control" maxlength="255">
+                                <input type="text" v-model="formData.warranty_policy" class="form-control" maxlength="255" placeholder="Warranty Policy">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -270,19 +135,13 @@
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Color Shade/Number:</label>
                             <div class="col-lg-10">
-                                <input type="text" v-model="formData.color_shade" class="form-control" >
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Skin Type:</label>
-                            <div class="col-lg-10">
-                                <vue-select2 v-model="formData.skin_type" :options="skinTypes"> </vue-select2>
+                                <input type="text" v-model="formData.color_shade" class="form-control" placeholder="Color Shade" >
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Extra Details:</label>
                             <div class="col-lg-10">
-                                <input type="text" v-model="formData.extra_details" class="form-control" maxlength="255" >
+                                <input type="text" v-model="formData.extra_details" class="form-control" maxlength="255" placeholder="Extra Details">
                             </div>
                         </div>
                     </div>
@@ -298,7 +157,7 @@
                                 <div class="row">
                                     <label class="col-lg-3 control-label">Seller SKU: <span class="text text-danger text-bold h4">*</span></label>
                                     <div class="col-lg-9">
-                                        <input type="text" v-model="formData.seller_sku" class="form-control"  placeholder="Seller Sku">
+                                        <input type="text" v-model="seller_sku" class="form-control"  placeholder="Seller Sku">
                                     </div>
                                 </div>
                             </div>
@@ -306,7 +165,7 @@
                                 <div class="row">
                                     <label class="col-lg-4 control-label">Product Qty: <span class="text text-danger text-bold h4">*</span></label>
                                     <div class="col-lg-8">
-                                        <input type="number" v-model="formData.product_qty" class="form-control" placeholder="Product qty">
+                                        <input type="number" v-model="qty" class="form-control" placeholder="Product qty">
                                     </div>
                                 </div>
                             </div>
@@ -314,7 +173,7 @@
                                 <div class="row">
                                     <label class="col-lg-4 control-label">Product Price: <span class="text text-danger text-bold h4">*</span></label>
                                     <div class="col-lg-8">
-                                        <input type="number" v-model="formData.product_price" class="form-control" placeholder="product price" >
+                                        <input type="number" v-model="price" class="form-control" placeholder="product price" >
                                     </div>
                                 </div>
                             </div>
@@ -368,7 +227,7 @@
                             <div class="form-group row">
                                 <label class="col-lg-2 control-label">Color: <span class="text text-danger text-bold h4">*</span></label>
                                 <div class="col-lg-4" @click="priIdIndex(i)">
-                                    <vue-select2 v-model="pri_id[i]" :options="productColors"> </vue-select2>
+                                    <v-select v-model="pri_id[i]" label="text" :options="productColors" :reduce="text => text.id"></v-select>
                                 </div>
                                 <div class="col-lg-1" >
                                     <span class="text-danger" @click="removePriIdData(i)"> <i class="icon-trash"></i></span>
@@ -388,7 +247,7 @@
                                             </div>
                                         </div>
                                         <div class="row" v-if="productImages">
-                                            <div class="col-xs-4 col-sm-4 col-lg-1" v-for="(image, index) in productImages.filter(img=> img.pri_id === pri_id[i])" :key="image.id" >
+                                            <div class="col-xs-4 col-sm-4 col-lg-1" v-for="(image, index) in productImages.filter(img=> img.pri_id == pri_id[i])" :key="image.id" >
                                                 <div class="thumbnail">
                                                     <div class="thumb">
                                                         <img :src="image.img" alt="">
@@ -415,9 +274,7 @@
                         <div class="form-group row">
                             <label class="col-lg-2 control-label">Size: <span class="text text-danger text-bold h4">*</span></label>
                             <div class="col-lg-4 selectMulti">
-                                <multi-select2 v-model="sec_id"  :options="sizes" >
-                                    <option disabled value="0">Select one</option>
-                                </multi-select2>
+                                <v-select v-model="sec_id" label="text" :options="sizes" :multiple="true" :reduce="text => text.id"></v-select>
                             </div>
                         </div>
 
@@ -515,8 +372,6 @@
     // import the styles
     import '@riophae/vue-treeselect/dist/vue-treeselect.css';
     import {mapGetters, mapActions} from 'vuex';
-    import VueSelect2 from '../helper/Select2';
-    import MultiSelect2 from '../helper/MultipleSelect2';
     import ImageCropper from "../cropper/ImageCropper";
     import SingleAttachment from "../attachment/SingleAttachment";
 
@@ -526,8 +381,6 @@
             SingleAttachment,
             ImageCropper,
             Treeselect,
-            'vue-select2':VueSelect2,
-            'multi-select2':MultiSelect2,
             VueEditor,
         },
         data(){
@@ -538,43 +391,21 @@
                     product_name:'',
                     highlight:'',
                     description:'',
-                    lang_product_name:'',
-                    lang_highlight:'',
-                    lang_description:'',
-                    dangers_goods:[],
-                    what_in_box:'',
-                    package_weight:'',
-                    package_length:'',
-                    package_width:'',
-                    package_height:'',
-                    delivery_cost1:'',
-                    delivery_cost2:'',
                     product_status:false,
-                    warranty_type:'',
                     video_url:'',
                     main_materials:'',
                     product_model:'',
                     num_of_pieces:'',
-                    product_occasion:'',
                     color_shade:'',
-                    skin_type:'',
                     extra_details:'',
-                    gift_product_id:'',
                     warranty_policy:'',
-                    warranty_policy_eng:'',
                     warranty_period:'',
-                    pri_model:'Color',
-                    variations:'',
+                    variations:[],
                     imageIds:'',
                     thumb_id:'',
                     product_type:1,
-                    product_qty:'',
-                    product_price:'',
-                    seller_sku:'',
-                    discount_price:'',
-                    mall_comp_name:'',
-                    mall_comp_logo:'',
-                    cod_avail:1,
+                    seller_id:1,
+                    tag_ids: [],
                 },
                 variations:[],
                 btnDisabled:false,
@@ -605,16 +436,18 @@
                 },
                 removeImage:false,
                 vari_id:'variaction_',
-                mall_folder:'mall',
+                seller_sku: '',
+                qty: 1,
+                price:1,
             }
         },
         created() {
             this.allTreeListCategories();
-            this.getBrandList();
-
         },
         mounted(){
-            this.getProductCreateNeedData();
+            this.getBrandList();
+            this.getSellerSelectList();
+            this.getTagList();
         },
         methods:{
             ...mapActions([
@@ -623,8 +456,9 @@
                 'getProductCreateDependency',
                 'uploadProductImage',
                 'storeProductData',
-                'getProductCreateNeedData',
-                'attachmentImageRemove'
+                'attachmentImageRemove',
+                'getSellerSelectList',
+                'getTagList'
             ]),
             addPriId(PriID){
                 this.priId = PriID;
@@ -727,7 +561,6 @@
                             seller_sku:'',
                             qty:'',
                             price:'',
-                            gift_product:'',
                             status:1,
                         };
 
@@ -757,7 +590,6 @@
                             seller_sku:'',
                             qty:'',
                             price:'',
-                            gift_product:'',
                             status:1,
                         };
 
@@ -825,7 +657,19 @@
 
                 // append variation data and images ids in form Data
                 this.formData.thumb_id = this.cropImageIds[0];
-                this.formData.variations = this.variations;
+                if(this.formData.product_type === 1){
+                    this.formData.variations = [
+                        {
+                            seller_sku: this.seller_sku,
+                            qty:this.qty,
+                            price:this.price,
+                            status:1,
+                        }
+                    ]
+                }else{
+                    this.formData.variations = this.variations;
+                }
+
                 this.formData.imageIds = this.imageIds;
                 if(this.attachmentId !== ''){
                     this.formData.mall_comp_logo = this.attachmentId;
@@ -867,9 +711,9 @@
                 this.sec_id.length=0;
                 this.sec_id={};
                 this.pri_id_index='';
-                this.formData.product_qty='';
-                this.formData.product_price='';
-                this.formData.seller_sku='';
+                this.seller_sku='';
+                this.qty=1;
+                this.price=1;
                 if(this.formData.variations.length > 0){
                     this.formData.variations.length=0;
                 }
@@ -904,27 +748,24 @@
             ...mapGetters([
                 'treeList',
                 'brandList',
-                'warrantyTypes',
-                'dangersGoods',
                 'productColors',
                 'sizes',
                 'productImages',
                 'imageIds',
-                'skinTypes',
                 'cropImageIds',
-                'productType',
                 'attachmentId',
+                'sellerListData',
+                'tagList',
             ]),
             clonedPrimaryIds(){
                 return JSON.parse(JSON.stringify(this.pri_id));
             },
             clonedSecondaryIds(){
-                return JSON.parse(JSON.stringify(this.sec_id));
+                if (this.sec_id){
+                    return JSON.parse(JSON.stringify(this.sec_id));
+                }
+
             },
-            // variations(){
-            //     // return this.variations;
-            //     return _.orderBy(this.variations, 'color_name')
-            // },
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
             },
@@ -958,11 +799,14 @@
             },
             clonedSecondaryIds:{
                 handler(newVal, oldVal){
-                    if(jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length){
-                        this.addNewVariationSizeWish(newVal, oldVal);
-                    }else if(jQuery.isEmptyObject(newVal)  && !jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length ){
-                        this.removeVariationSizeWish(newVal, oldVal);
+                    if(this.formData.product_type ===  2){
+                        if(jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length){
+                            this.addNewVariationSizeWish(newVal, oldVal);
+                        }else if(jQuery.isEmptyObject(newVal)  && !jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length ){
+                            this.removeVariationSizeWish(newVal, oldVal);
+                        }
                     }
+
                 }
             },
             'formData.category_id':{

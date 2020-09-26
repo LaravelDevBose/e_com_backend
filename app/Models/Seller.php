@@ -7,13 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Seller extends User
 {
-    const ShopStatus = [
-        'Active'=>1,
-        'Pending'=>2,
-        'Un-Verified'=>3,
-        'Block'=>4,
-    ];
-
     protected $table ='sellers';
     protected $primaryKey ='seller_id';
     protected $fillable=[
@@ -32,22 +25,14 @@ class Seller extends User
         'updated_by',
         'deleted_by',
     ];
-    protected $appends=[
-        'status_label'
-    ];
-
-    public function getStatusLabelAttribute()
-    {
-        $shopStatus = array_flip(self::ShopStatus);
-        if(empty($shopStatus[$this->attributes['seller_status']])){
-            return 'Undefined';
-        }
-        return $shopStatus[$this->attributes['seller_status']];
-    }
-
     public function scopeNotDelete($query)
     {
         return $query->where('seller_status', '!=', config('app.delete'));
+    }
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('seller_status', config('app.active'));
     }
 
     public function products(){

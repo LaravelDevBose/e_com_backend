@@ -38,6 +38,12 @@ class SellerController extends Controller
         return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $coll);
     }
 
+    public function seller_select_list()
+    {
+        $sellers = Seller::select('seller_id as id', 'seller_name as text')->where('seller_status', config('app.active'))->latest()->get();
+        return response()->json($sellers);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

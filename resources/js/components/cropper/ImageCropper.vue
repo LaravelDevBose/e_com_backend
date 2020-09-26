@@ -85,8 +85,7 @@
         name: "ImageCropper",
         props:{
             cropperData:{
-                type:[Object],
-                default:''
+                type: [Object]
             },
             removeImage:{
                 type: [Boolean,Number],

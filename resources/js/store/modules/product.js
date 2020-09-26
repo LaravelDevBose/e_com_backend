@@ -1,17 +1,12 @@
 //declare State
 const state = {
-    warrantyType:[],
-    dangersGoods:[],
     productColors:[],
     productSizes:[],
-    productSkinTypes:[],
     allProducts:[],
     singleProduct:{},
     selectedProIds:[],
     selected_date_time:[],
-    product_type:[],
     status_list:[],
-
     product_data:{},
     product_details:{},
     variations:[],
@@ -20,16 +15,13 @@ const state = {
 
 //declare Getters
 const getters = {
-    warrantyTypes:(state)=> state.warrantyType,
-    dangersGoods:(state)=> state.dangersGoods,
+
     productColors:(state)=>state.productColors,
     sizes:(state)=>state.productSizes,
-    skinTypes:(state)=>state.productSkinTypes,
     products:(state)=>state.allProducts,
     product:(state)=>state.singleProduct,
     selectedProIds:(state)=>state.selectedProIds,
     selectedDateTimes:(state)=>state.selected_date_time,
-    productType:(state)=>state.product_type,
     productStatus:(state)=>state.status_list,
 
     proData:(state)=>state.product_data,
@@ -44,16 +36,6 @@ const actions = {
             await axios.get(`/admin/create/product/dependency/${catID}`)
                 .then(response=>{
                     commit('productCreateDependency', response.data.data);
-                })
-        }catch (error) {
-            commit('setResponse', error.data);
-        }
-    },
-    async getProductCreateNeedData({commit}){
-        try {
-            await axios.get(`/admin/product/create`)
-                .then(response=>{
-                    commit('productCreateNeedData', response.data.data);
                 })
         }catch (error) {
             commit('setResponse', error.data);
@@ -186,12 +168,6 @@ const mutations = {
     productCreateDependency:(state,response)=>{
         state.productColors = response.colors;
         state.productSizes = response.sizes;
-    },
-    productCreateNeedData:(state,response)=>{
-        state.warrantyType = response.warrantyType;
-        state.dangersGoods = response.dangersGoods;
-        state.productSkinTypes = response.skinTypes;
-        state.product_type = response.product_type;
     },
     getProductData:(state, response)=>{
         state.allProducts = response.data;

@@ -2,12 +2,14 @@
 const state = {
     seller_data:{},
     seller_list:[],
+    seller_select_list: [],
 };
 
 //declare Getters
 const getters = {
     sellerData:(state)=> state.seller_data,
     sellerList:(state)=>state.seller_list,
+    sellerListData:(state)=> state.seller_select_list,
 };
 
 const actions = {
@@ -26,6 +28,16 @@ const actions = {
             await axios.get('/admin/seller/list')
                 .then(response=>{
                     commit('setSellerList', response.data.data.data);
+                })
+        }catch (error) {
+            commit('setResponse', error.data);
+        }
+    },
+    async getSellerSelectList({commit}){
+        try {
+            await axios.get('/admin/seller/select/list')
+                .then(response=>{
+                    commit('setSellerSelectList', response.data);
                 })
         }catch (error) {
             commit('setResponse', error.data);
@@ -82,6 +94,7 @@ const mutations = {
     removeSeller:(state, sellerId)=>state.seller_list = state.seller_list.filter(seller=>seller.id !==sellerId),
     setSellerList:(state,response)=>state.seller_list = response,
     setSellerData:(state,response)=>state.seller_data = response,
+    setSellerSelectList:(state,response)=>state.seller_select_list = response,
     updateSellerData:(state,response)=>{
         state.seller_list = state.seller_list.filter(seller=>{
             if(seller.id === response.id){

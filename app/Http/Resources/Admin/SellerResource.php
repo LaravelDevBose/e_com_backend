@@ -26,7 +26,6 @@ class SellerResource extends JsonResource
             'shop_email'=>$this->shop_email,
             'shop_category'=>$this->shop_category,
             'status'=>$this->seller_status,
-            'status_label'=>$this->status_label,
         ];
     }
 }

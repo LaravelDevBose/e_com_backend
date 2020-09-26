@@ -15,9 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('product_id');
-            $table->unsignedInteger('main_category_id');
-            $table->unsignedInteger('sec_category_id');
-            $table->unsignedInteger('trd_category_id');
+            $table->unsignedInteger('category_id');
             $table->unsignedInteger('brand_id')->nullable();
             $table->unsignedBigInteger('seller_id')->default(0);
             $table->string('product_name');
@@ -27,7 +25,6 @@ class CreateProductsTable extends Migration
             $table->longText('highlight')->nullable();
             $table->longText('description')->nullable();
             $table->text('video_url')->nullable();
-            $table->string('seller_sku')->nullable();
             $table->boolean('product_type')->default(\App\Models\Product::ProductType['Simple']);
             $table->boolean('product_status')->default(config('app.product_create'));
             $table->unsignedInteger('created_by')->nullable();

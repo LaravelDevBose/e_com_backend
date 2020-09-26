@@ -22,6 +22,7 @@
     <link href="{{ asset('/assets/css/colors.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('/assets/css/custom.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('/assets/css/extras/animate.min.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/vue-select@3.0.0/dist/vue-select.css">
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->

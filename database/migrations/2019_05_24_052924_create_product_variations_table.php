@@ -16,10 +16,9 @@ class CreateProductVariationsTable extends Migration
         Schema::create('product_variations', function (Blueprint $table) {
             $table->bigIncrements('variation_id');
             $table->unsignedBigInteger('product_id');
-            $table->string('pri_id')->nullable();
-            $table->string('pri_model')->nullable();
-            $table->string('sec_id')->nullable();
-            $table->string('sec_model')->nullable();
+            $table->string('seller_sku')->nullable();
+            $table->string('color_id')->nullable();
+            $table->string('size_id')->nullable();
             $table->unsignedInteger('quantity')->default(1);
             $table->decimal('price');
             $table->boolean('variation_status')->default(config('app.active'));

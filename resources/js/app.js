@@ -24,6 +24,9 @@ window.Notify = Notify;
 import AppStorage from "./helper/AppStorage";
 window.AppStorage = AppStorage;
 
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
+
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 

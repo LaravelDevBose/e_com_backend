@@ -10,6 +10,7 @@ use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductDetails;
 use App\Models\ProductImage;
+use App\Models\ProductTag;
 use App\Models\ProductVariation;
 use App\Models\Size;
 use App\Models\SizeGroupCategory;
@@ -62,21 +63,7 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
-        if($request->ajax()){
-            $data = [
-                'warrantyType'=>Product::WarrantyType,
-                'dangersGoods'=>Product::DangersGoods,
-                'skinTypes'=>SkinType::isActive()->select('skin_type_id as id', 'skin_type as text')->latest()->get(),
-                'product_type'=>Product::flipProductType(),
-            ];
-            if(!empty($data)){
-                return ResponserTrait::singleResponse($data,'success', Response::HTTP_OK, '');
-            }else{
-                return ResponserTrait::allResponse('error', Response::HTTP_OK, 'Data Not Found', [],'');
-            }
-        }else{
-            return view('admin_panel.'.$this->template_name.'.product.create');
-        }
+        return view('admin_panel.'.$this->template_name.'.product.create');
     }
 
     public function product_create_dependency($catID){
@@ -99,7 +86,7 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -109,14 +96,16 @@ class ProductController extends Controller
             'product_name'=>'required|string|max:255',
             'highlight'=>'required|string|max:1500',
             'description'=>'required',
-//            'package_weight'=>'required',
             'product_type'=>'required',
-//            'package_length'=>'required',
-//            'package_width'=>'required',
-//            'package_height'=>'required',
             'product_status'=>'required',
             'imageIds'=>'required|array',
             'thumb_id'=>'required',
+            'seller_id'=>'required',
+            'variations'=>'required|array',
+            'variations.*.seller_sku'=>'required',
+            'variations.*.qty'=>'required|integer|min:0|not_in:0',
+            'variations.*.price'=>'required|min:0|not_in:0',
+            'variations.*.status'=>'required',
         ];
 
         $messages = [
@@ -128,35 +117,30 @@ class ProductController extends Controller
             'highlight.string'=>'Product Highlight Must Be a String.',
             'highlight.max'=>'Product Highlight Max 1000 Character.',
             'description.required'=>'Product Description is Required.',
-            'package_weight.required'=>'Package Weight is Required.',
             'product_type.required'=>'Product Type is Required.',
-            'package_length.required'=>'Package Length is Required.',
-            'package_width.required'=>'Package Width is Required.',
-            'package_height.required'=>'Package Height is Required.',
             'product_status.required'=>'Product Status is Required.',
-            'imageIds.required'=>'Select Your Product Image',
+            'imageIds.required'=>'Select Your Product Images',
             'thumb_id.required'=>'Select Product Thumbnail Image',
+            'seller_id.required'=>'Select Product Seller Information',
+
+            'variations.*.seller_sku.required'=>'Add Product Seller SKU.',
+            'variations.*.status.required'=>'Active All Variations Status',
+
+            'variations.*.qty.required'=>'Variation Product Qty is Required.',
+            'variations.*.qty.string'=>'Variation Product Qty Must Be a Integer Number.',
+            'variations.*.qty.min'=>'Variation Product Qty Not 0.',
+            'variations.*.qty.not_in'=>'Variation Product Qty Not 0.',
+
+            'variations.*.price.required'=>'Every Variation Product Price is Required.',
+            'variations.*.price.string'=>'Every Variation Product Price Must Be a Integer Number',
+            'variations.*.price.min'=>'Variation Product Price Not 0.',
+            'variations.*.price.not_in'=>'Variation Product Price Not 0.',
         ];
 
         if ($request->product_type == 1){
-            $rules = array_merge($rules,[
-                'seller_sku'=>'required|string|max:20',
-                'product_qty'=>'required|integer|min:0|not_in:0',
-                'product_price'=>'required|min:0|not_in:0',
-            ]);
-
-            $messages = array_merge($messages,[
-                'seller_sku.required'=>'Must Add Product SKU.',
-                'seller_sku.string'=>'SKU Must Be a String.',
-                'seller_sku.max'=>'SKU Max 20 Character.',
-                'product_qty.required'=>'Must Add Product QTY.',
-                'product_qty.string'=>'Product QTY Must Be a Integer.',
-                'product_qty.min'=>'Product QTY Not 0.',
-                'product_qty.not_in'=>'Product QTY Not 0.',
-                'product_price.required'=>'Must Add Product Price.',
-                'product_price.string'=>'Product Price Must Be a Integer.',
-                'product_price.min'=>'Product Price Not 0.',
-                'product_price.not_in'=>'Product Price Not 0.',
+            array_merge($messages,[
+                'variations.required'=>'Add Product Seller Sku, Price and Qty.',
+                'variations.array'=>'Add Product Seller Sku, Price and Qty.',
             ]);
         }
 
@@ -165,30 +149,15 @@ class ProductController extends Controller
                 'variations'=>'required|array',
                 'variations.*.color_id'=>'required',
                 'variations.*.size_id'=>'required',
-                'variations.*.seller_sku'=>'required',
-                'variations.*.qty'=>'required|integer|min:0|not_in:0',
-                'variations.*.price'=>'required|min:0|not_in:0',
-                'variations.*.status'=>'required',
             ]);
 
-            $messages = array_merge($messages,[
-                'variations.required'=>'Add Your Product Variations.',
-                'variations.array'=>'Add Your Product Variations.',
+            array_merge($messages,[
+                'variations.required'=>'Add Product Size, Color, Seller Sku, Price and Qty.',
+                'variations.array'=>'Add Product Size, Color, Seller Sku, Price and Qty.',
 
                 'variations.*.color_id.required'=>'Select Product Colors.',
                 'variations.*.size_id.required'=>'Select Product Sizes.',
-                'variations.*.seller_sku.required'=>'Add Product Seller SKU.',
-                'variations.*.status.required'=>'Active All Variations Status',
 
-                'variations.*.qty.required'=>'Variation Product Qty is Required.',
-                'variations.*.qty.string'=>'Variation Product Qty Must Be a Integer Number.',
-                'variations.*.qty.min'=>'Variation Product Qty Not 0.',
-                'variations.*.qty.not_in'=>'Variation Product Qty Not 0.',
-
-                'variations.*.price.required'=>'Every Variation Product Price is Required.',
-                'variations.*.price.string'=>'Every Variation Product Price Must Be a Integer Number',
-                'variations.*.price.min'=>'Variation Product Price Not 0.',
-                'variations.*.price.not_in'=>'Variation Product Price Not 0.',
             ]);
         }
 
@@ -197,38 +166,21 @@ class ProductController extends Controller
         if($validator->passes()){
             try{
                 DB::beginTransaction();
-                /*if(!empty($request->discount_price) && $request->discount_price >= $request->product_price){
-                    throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
-                }*/
+
                 #Store Data in Product Table
                 $product = Product::create([
-                    'product_sku'=>Product::product_sku_generate(),
                     'category_id'=>$request->category_id,
                     'brand_id'=>$request->brand_id,
+                    'seller_id'=>$request->seller_id,
                     'product_name'=>$request->product_name,
-                    'product_slug'=>str_slug($request->product_name),
+                    'product_sku'=>Product::product_sku_generate(),
+                    'product_slug'=>Str::slug($request->product_name).'_'.Str::random(4),
+                    'thumb_id'=>$request->thumb_id,
                     'highlight'=>$request->highlight,
                     'description'=>$request->description,
-                    'lang_product_name'=>$request->lang_product_name,
-                    'lang_highlight'=>$request->lang_highlight,
-                    'lang_description'=>$request->lang_description,
-                    'dangers_goods'=>implode(',', $request->dangers_goods),
-                    'what_in_box'=>$request->what_in_box,
-                    'package_weight'=>$request->package_weight,
-                    'package_length'=>$request->package_length,
-                    'package_width'=>$request->package_width,
-                    'package_height'=>$request->package_height,
-                    'delivery_cost1'=>$request->delivery_cost1,
-                    'delivery_cost2'=>$request->delivery_cost2,
-                    'product_status'=>(!empty($request->product_status) && $request->product_status == 1) ? $request->product_status : 2,
-                    'warranty_type'=>$request->warranty_type,
-                    'thumb_id'=>$request->thumb_id,
                     'video_url'=>$request->video_url,
-                    'seller_id'=>1, // Seller id 1 = Admin Default
                     'product_type'=>$request->product_type,
-                    'discount_price'=>$request->discount_price,
-                    'mall_comp_name'=>$request->mall_comp_name,
-                    'mall_comp_logo'=>$request->mall_comp_logo,
+                    'product_status'=>(!empty($request->product_status) && $request->product_status == 1) ? $request->product_status : 2,
                 ]);
                 if(!empty($product)){
                     #Store Data in Product Details Table
@@ -237,57 +189,32 @@ class ProductController extends Controller
                         'main_materials'=>$request->main_materials,
                         'product_model'=>$request->product_model,
                         'num_of_pieces'=>$request->num_of_pieces,
-                        'product_occasion'=>$request->product_occasion,
                         'color_shade'=>$request->color_shade,
-                        'skin_type_id'=>$request->skin_type,
                         'extra_details'=>$request->extra_details,
                         'warranty_policy'=>$request->warranty_policy,
-                        'warranty_policy_eng'=>$request->warranty_policy_eng,
                         'warranty_period'=>$request->warranty_period,
-                        'cod_avail'=>$request->cod_avail,
                     ]);
 
                     if(!empty($details)){
+                        $variations = $request->variations;
 
-                        if(!empty($request->product_type) && $request->product_type == Product::ProductType['Variation']){
-                            #Store Data in Product Variation Table
-                            if(!empty($request->variations)){
-                                $variations = $request->variations;
-                                $variationArray = array();
-                                foreach ($variations as $variation){
-                                    /*if(!empty($request->discount_price) && $request->discount_price >= $variation->price){
-                                        throw new Exception('Product Discount Never Equal or Getter Then Main Price', Response::HTTP_BAD_REQUEST);
-                                    }*/
-                                    $variation = (object) $variation;
-                                    $gift ='';
-                                    if(!empty($variation->gift_product)){
-                                        $gift = Product::where('product_sku', $variation->gift_product)->first();
-                                    }
+                        $variationArray = array();
 
-                                    array_push($variationArray,[
-                                        'product_id'=>$product->product_id,
-                                        'seller_sku'=>$variation->seller_sku,
-                                        'pri_id'=>$variation->color_id,
-                                        'pri_model'=>config('app.variation_model.color'),
-                                        'sec_id'=>$variation->size_id,
-                                        'sec_model'=>config('app.variation_model.size'),
-                                        'quantity'=>$variation->qty,
-                                        'price'=>$variation->price,
-//                                    'special_price'=>(!empty($variation->special_price))?$variation->special_price:0,
-                                        'gift_product_id'=>(!empty($gift))?$gift->product_id: 0,
-                                        'gift_product_sku'=>(!empty($gift))?$gift->product_sku: '',
-                                    ]);
+                        foreach ($variations as $variation){
+                            $variation = (object)$variation;
+                            array_push($variationArray,[
+                                'product_id'=>$product->product_id,
+                                'seller_sku'=>$variation->seller_sku,
+                                'color_id'=>!empty($variation->color_id)? $variation->color_id: null,
+                                'size_id'=>!empty($variation->size_id)? $variation->size_id : null,
+                                'quantity'=>$variation->qty,
+                                'price'=>$variation->price,
+                                'variation_status'=>$variation->status,
+                            ]);
 
-                                }
-                                $variationProduct = ProductVariation::insert($variationArray);
-                                if(empty($variationProduct)){
-                                    throw new Exception('Invalid Product Variation Information', Response::HTTP_BAD_REQUEST);
-                                }
-                            }
-
-
-                            #Store Data in Product Image Table
-
+                        }
+                        $variationProduct = ProductVariation::insert($variationArray);
+                        if(!empty($variationProduct)){
                             if(!empty($request->imageIds)){
                                 $imageIds = $request->imageIds;
                                 $imageArray = array();
@@ -295,59 +222,42 @@ class ProductController extends Controller
                                     $imageId = (object)$imageId;
                                     array_push($imageArray,[
                                         'product_id'=>$product->product_id,
-                                        'pri_id'=>$imageId->pri_id,
-                                        'model'=>ProductVariation::VARIATION_MODEL[strtolower($request->pri_model)],
                                         'attachment_id'=>$imageId->image_id,
                                         'image_status'=>config('app.active')
                                     ]);
                                 }
                                 ProductImage::insert($imageArray);
-                                /*if(!empty($productImages)){
-                                    throw new Exception('Invalid Product Image Information', Response::HTTP_BAD_REQUEST);
-                                }*/
                             }
+                            if (!empty($request->tag_ids)){
+                                $productTags = array();
+                                foreach ($request->tag_ids as $key => $tag){
+                                    array_push($productTags,[
+                                        'product_id'=>$product->product_id,
+                                        'tag_id'=>$tag,
+                                        'status'=>config('app.active')
+                                    ]);
+                                }
+                                ProductTag::insert($productTags);
+                            }
+                            DB::commit();
+
+                            return ResponserTrait::allResponse(
+                                'success',
+                                Response::HTTP_CREATED,
+                                'Product Store Successfully',
+                                '',
+                                route('admin.product.index')
+                            );
 
                         }else{
-                            $product->update([
-                                'product_qty'=>$request->product_qty,
-                                'product_price'=>$request->product_price,
-                                'seller_sku'=>$request->seller_sku,
-                            ]);
-                            if(!empty($request->imageIds)){
-                                $imageIds = $request->imageIds;
-                                $imageArray = array();
-                                foreach ($imageIds as  $imageId){
-                                    $imageId = (object)$imageId;
-                                    array_push($imageArray,[
-                                        'product_id'=>$product->product_id,
-                                        'pri_id'=>'',
-                                        'model'=>'',
-                                        'attachment_id'=>$imageId->image_id,
-                                        'image_status'=>config('app.active')
-                                    ]);
-                                }
-                                ProductImage::insert($imageArray);
-                                /*if(!empty($productImages)){
-                                    throw new Exception('Invalid Product Image Information', Response::HTTP_BAD_REQUEST);
-                                }*/
-                            }
+                            throw new Exception('Invalid Product Variation Information', Response::HTTP_BAD_REQUEST);
                         }
+
+
                     }else{
                         throw new Exception('Invalid Product Details Information', Response::HTTP_BAD_REQUEST);
                     }
-                    $product = $product->update([
-                        'product_slug'=>Str::slug($request->product_name).'-'.$product->product_id,
-                    ]);
-                    if(!empty($product)){
-                        DB::commit();
-                        return response()->json([
-                            'status'=>'success',
-                            'message'=>'Product Store Successfully',
-                            'url'=>route('admin.product.index')
-                        ]);
-                    }else{
-                        throw new Exception('Invalid Product Information', Response::HTTP_BAD_REQUEST);
-                    }
+
                 }else{
                     throw new Exception('Invalid Product Information', Response::HTTP_BAD_REQUEST);
 
@@ -355,25 +265,11 @@ class ProductController extends Controller
 
             }catch (Exception $ex){
                 DB::rollBack();
-                return response()->json([
-                    'status' => 'error',
-                    'message' => $ex->getMessage()
-                ]);
+                return ResponserTrait::allResponse('error', $ex->getCode(), $ex->getMessage());
             }
         }else{
             $errors = array_values($validator->errors()->getMessages());
-            $message = null;
-            foreach ($errors as $error){
-                if(!empty($error)){
-                    foreach ($error as $errorItem){
-                        $message .=  $errorItem .'<br/> ';
-                    }
-                }
-            }
-            return response()->json([
-                'status' => 'validation',
-                'message' => ($message != null) ? $message :'Invalid File!'
-            ]);
+            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
         }
     }
 

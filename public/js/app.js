@@ -10062,8 +10062,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "ImageCropper",
   props: {
     cropperData: {
-      type: [Object],
-      "default": ''
+      type: [Object]
     },
     removeImage: {
       type: [Boolean, Number],
@@ -10745,7 +10744,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['options', 'value', 'name', 'multiple'],
   name: "Select2",
@@ -10761,7 +10759,7 @@ __webpack_require__.r(__webpack_exports__);
       placeholder: 'Select A Item'
     }).val(this.value).trigger('change') //emit event on change
     .on('change', function () {
-      vm.$emit('input', this.value);
+      vm.$emit('input', $(this).val());
     });
   },
   updated: function updated() {
@@ -12344,159 +12342,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _riophae_vue_treeselect_dist_vue_treeselect_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @riophae/vue-treeselect/dist/vue-treeselect.css */ "./node_modules/@riophae/vue-treeselect/dist/vue-treeselect.css");
 /* harmony import */ var _riophae_vue_treeselect_dist_vue_treeselect_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_riophae_vue_treeselect_dist_vue_treeselect_css__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _helper_Select2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helper/Select2 */ "./resources/js/components/helper/Select2.vue");
-/* harmony import */ var _helper_MultipleSelect2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helper/MultipleSelect2 */ "./resources/js/components/helper/MultipleSelect2.vue");
-/* harmony import */ var _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../cropper/ImageCropper */ "./resources/js/components/cropper/ImageCropper.vue");
-/* harmony import */ var _attachment_SingleAttachment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../attachment/SingleAttachment */ "./resources/js/components/attachment/SingleAttachment.vue");
+/* harmony import */ var _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../cropper/ImageCropper */ "./resources/js/components/cropper/ImageCropper.vue");
+/* harmony import */ var _attachment_SingleAttachment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../attachment/SingleAttachment */ "./resources/js/components/attachment/SingleAttachment.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -12872,16 +12725,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CreateProduct",
   components: {
-    SingleAttachment: _attachment_SingleAttachment__WEBPACK_IMPORTED_MODULE_7__["default"],
-    ImageCropper: _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_6__["default"],
+    SingleAttachment: _attachment_SingleAttachment__WEBPACK_IMPORTED_MODULE_5__["default"],
+    ImageCropper: _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_4__["default"],
     Treeselect: _riophae_vue_treeselect__WEBPACK_IMPORTED_MODULE_0___default.a,
-    'vue-select2': _helper_Select2__WEBPACK_IMPORTED_MODULE_4__["default"],
-    'multi-select2': _helper_MultipleSelect2__WEBPACK_IMPORTED_MODULE_5__["default"],
     VueEditor: vue2_editor__WEBPACK_IMPORTED_MODULE_1__["VueEditor"]
   },
   data: function data() {
@@ -12892,43 +12741,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         product_name: '',
         highlight: '',
         description: '',
-        lang_product_name: '',
-        lang_highlight: '',
-        lang_description: '',
-        dangers_goods: [],
-        what_in_box: '',
-        package_weight: '',
-        package_length: '',
-        package_width: '',
-        package_height: '',
-        delivery_cost1: '',
-        delivery_cost2: '',
         product_status: false,
-        warranty_type: '',
         video_url: '',
         main_materials: '',
         product_model: '',
         num_of_pieces: '',
-        product_occasion: '',
         color_shade: '',
-        skin_type: '',
         extra_details: '',
-        gift_product_id: '',
         warranty_policy: '',
-        warranty_policy_eng: '',
         warranty_period: '',
-        pri_model: 'Color',
-        variations: '',
+        variations: [],
         imageIds: '',
         thumb_id: '',
         product_type: 1,
-        product_qty: '',
-        product_price: '',
-        seller_sku: '',
-        discount_price: '',
-        mall_comp_name: '',
-        mall_comp_logo: '',
-        cod_avail: 1
+        seller_id: 1,
+        tag_ids: []
       },
       variations: [],
       btnDisabled: false,
@@ -12959,17 +12786,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       removeImage: false,
       vari_id: 'variaction_',
-      mall_folder: 'mall'
+      seller_sku: '',
+      qty: 1,
+      price: 1
     };
   },
   created: function created() {
     this.allTreeListCategories();
-    this.getBrandList();
   },
   mounted: function mounted() {
-    this.getProductCreateNeedData();
+    this.getBrandList();
+    this.getSellerSelectList();
+    this.getTagList();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['allTreeListCategories', 'getBrandList', 'getProductCreateDependency', 'uploadProductImage', 'storeProductData', 'getProductCreateNeedData', 'attachmentImageRemove']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['allTreeListCategories', 'getBrandList', 'getProductCreateDependency', 'uploadProductImage', 'storeProductData', 'attachmentImageRemove', 'getSellerSelectList', 'getTagList']), {
     addPriId: function addPriId(PriID) {
       this.priId = PriID;
     },
@@ -13086,7 +12916,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             seller_sku: '',
             qty: '',
             price: '',
-            gift_product: '',
             status: 1
           };
           vm.variations.push(data);
@@ -13123,7 +12952,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             seller_sku: '',
             qty: '',
             price: '',
-            gift_product: '',
             status: 1
           };
 
@@ -13205,7 +13033,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.btnDisabled = true; // append variation data and images ids in form Data
 
       this.formData.thumb_id = this.cropImageIds[0];
-      this.formData.variations = this.variations;
+
+      if (this.formData.product_type === 1) {
+        this.formData.variations = [{
+          seller_sku: this.seller_sku,
+          qty: this.qty,
+          price: this.price,
+          status: 1
+        }];
+      } else {
+        this.formData.variations = this.variations;
+      }
+
       this.formData.imageIds = this.imageIds;
 
       if (this.attachmentId !== '') {
@@ -13247,9 +13086,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.sec_id.length = 0;
       this.sec_id = {};
       this.pri_id_index = '';
-      this.formData.product_qty = '';
-      this.formData.product_price = '';
-      this.formData.seller_sku = '';
+      this.seller_sku = '';
+      this.qty = 1;
+      this.price = 1;
 
       if (this.formData.variations.length > 0) {
         this.formData.variations.length = 0;
@@ -13279,17 +13118,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['treeList', 'brandList', 'warrantyTypes', 'dangersGoods', 'productColors', 'sizes', 'productImages', 'imageIds', 'skinTypes', 'cropImageIds', 'productType', 'attachmentId']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['treeList', 'brandList', 'productColors', 'sizes', 'productImages', 'imageIds', 'cropImageIds', 'attachmentId', 'sellerListData', 'tagList']), {
     clonedPrimaryIds: function clonedPrimaryIds() {
       return JSON.parse(JSON.stringify(this.pri_id));
     },
     clonedSecondaryIds: function clonedSecondaryIds() {
-      return JSON.parse(JSON.stringify(this.sec_id));
+      if (this.sec_id) {
+        return JSON.parse(JSON.stringify(this.sec_id));
+      }
     },
-    // variations(){
-    //     // return this.variations;
-    //     return _.orderBy(this.variations, 'color_name')
-    // },
     formDataCheck: function formDataCheck() {
       return JSON.parse(JSON.stringify(this.formData));
     },
@@ -13324,10 +13161,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     clonedSecondaryIds: {
       handler: function handler(newVal, oldVal) {
-        if (jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length) {
-          this.addNewVariationSizeWish(newVal, oldVal);
-        } else if (jQuery.isEmptyObject(newVal) && !jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length) {
-          this.removeVariationSizeWish(newVal, oldVal);
+        if (this.formData.product_type === 2) {
+          if (jQuery.isEmptyObject(oldVal) || newVal.length > oldVal.length) {
+            this.addNewVariationSizeWish(newVal, oldVal);
+          } else if (jQuery.isEmptyObject(newVal) && !jQuery.isEmptyObject(newVal) || newVal.length < oldVal.length) {
+            this.removeVariationSizeWish(newVal, oldVal);
+          }
         }
       }
     },
@@ -84952,6 +84791,7 @@ var render = function() {
       staticClass: "form-control",
       attrs: {
         name: _vm.name,
+        multiple: _vm.multiple,
         placeholder: "Select an Option",
         "data-width": "100%"
       },
@@ -87113,238 +86953,193 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "panel-body" }, [
-          _c("div", { staticClass: "form-group row" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-10" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.formData.product_name,
-                    expression: "formData.product_name"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "product name",
-                  required: ""
-                },
-                domProps: { value: _vm.formData.product_name },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.formData, "product_name", $event.target.value)
-                  }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-8" }, [
-              _c("div", { staticClass: "form-group row" }, [
-                _vm._m(2),
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(1),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-lg-9" },
-                  [
-                    _c("treeselect", {
-                      attrs: {
-                        options: _vm.treeList,
-                        multiple: false,
-                        normalizer: _vm.normalizer
-                      },
-                      model: {
-                        value: _vm.formData.category_id,
-                        callback: function($$v) {
-                          _vm.$set(_vm.formData, "category_id", $$v)
-                        },
-                        expression: "formData.category_id"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-4 control-label" }, [
-                  _vm._v("Brand:")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-lg-8" },
-                  [
-                    _c("vue-select2", {
-                      attrs: { options: _vm.brandList },
-                      model: {
-                        value: _vm.formData.brand_id,
-                        callback: function($$v) {
-                          _vm.$set(_vm.formData, "brand_id", $$v)
-                        },
-                        expression: "formData.brand_id"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-lg-6 control-label" }, [
-                  _vm._v("COD Available:")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-lg-6" }, [
-                  _c(
-                    "label",
+                _c("input", {
+                  directives: [
                     {
-                      staticClass: "checkbox-style",
-                      attrs: { for: "cod_avail" }
-                    },
-                    [
-                      _vm.formData.cod_avail
-                        ? _c(
-                            "span",
-                            { staticClass: "text-bold text-success" },
-                            [_vm._v("Yes")]
-                          )
-                        : _c(
-                            "span",
-                            { staticClass: "text-bold text-warning" },
-                            [_vm._v("No")]
-                          ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.cod_avail,
-                            expression: "formData.cod_avail"
-                          }
-                        ],
-                        attrs: { type: "checkbox", id: "cod_avail" },
-                        domProps: {
-                          checked: _vm.formData.cod_avail,
-                          checked: Array.isArray(_vm.formData.cod_avail)
-                            ? _vm._i(_vm.formData.cod_avail, null) > -1
-                            : _vm.formData.cod_avail
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.formData.cod_avail,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.formData,
-                                    "cod_avail",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.formData,
-                                    "cod_avail",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.formData, "cod_avail", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "checkmark" })
-                    ]
-                  )
-                ])
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.formData.product_name,
+                      expression: "formData.product_name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Product name",
+                    required: ""
+                  },
+                  domProps: { value: _vm.formData.product_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.formData,
+                        "product_name",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
               ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-3" }, [
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("treeselect", {
+                    attrs: {
+                      options: _vm.treeList,
+                      multiple: false,
+                      normalizer: _vm.normalizer
+                    },
+                    model: {
+                      value: _vm.formData.category_id,
+                      callback: function($$v) {
+                        _vm.$set(_vm.formData, "category_id", $$v)
+                      },
+                      expression: "formData.category_id"
+                    }
+                  })
+                ],
+                1
+              )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-5 col-md-offset-1" }, [
-              _c("div", { staticClass: "form-group row" }, [
-                _vm._m(3),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Brand:")
+                  ]),
+                  _vm._v(" "),
+                  _c("v-select", {
+                    attrs: {
+                      label: "text",
+                      options: _vm.brandList,
+                      reduce: function(text) {
+                        return text.id
+                      }
+                    },
+                    model: {
+                      value: _vm.formData.brand_id,
+                      callback: function($$v) {
+                        _vm.$set(_vm.formData, "brand_id", $$v)
+                      },
+                      expression: "formData.brand_id"
+                    }
+                  })
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("v-select", {
+                    attrs: {
+                      label: "text",
+                      options: _vm.sellerListData,
+                      reduce: function(text) {
+                        return text.id
+                      }
+                    },
+                    model: {
+                      value: _vm.formData.seller_id,
+                      callback: function($$v) {
+                        _vm.$set(_vm.formData, "seller_id", $$v)
+                      },
+                      expression: "formData.seller_id"
+                    }
+                  })
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(4),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-lg-8" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { staticClass: "radio-inline" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.product_type,
-                            expression: "formData.product_type"
-                          }
-                        ],
-                        staticClass: "styled",
-                        attrs: {
-                          type: "radio",
-                          name: "product_type",
-                          checked: "checked"
-                        },
-                        domProps: {
-                          value: 1,
-                          checked: _vm._q(_vm.formData.product_type, 1)
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(_vm.formData, "product_type", 1)
-                          }
-                        }
-                      }),
-                      _vm._v(
-                        "\n                                        Simple Product\n                                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "radio-inline" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.product_type,
-                            expression: "formData.product_type"
-                          }
-                        ],
-                        staticClass: "styled",
-                        attrs: { type: "radio", name: "product_type" },
-                        domProps: {
-                          value: 2,
-                          checked: _vm._q(_vm.formData.product_type, 2)
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(_vm.formData, "product_type", 2)
-                          }
-                        }
-                      }),
-                      _vm._v(
-                        "\n                                        Variation Product\n                                    "
-                      )
-                    ])
-                  ])
+                _c("br"),
+                _vm._v(" "),
+                _c("label", { staticClass: "radio-inline" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.product_type,
+                        expression: "formData.product_type"
+                      }
+                    ],
+                    staticClass: "styled",
+                    attrs: {
+                      type: "radio",
+                      name: "product_type",
+                      checked: "checked"
+                    },
+                    domProps: {
+                      value: 1,
+                      checked: _vm._q(_vm.formData.product_type, 1)
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.formData, "product_type", 1)
+                      }
+                    }
+                  }),
+                  _vm._v(
+                    "\n                                Simple Product\n                            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("label", { staticClass: "radio-inline" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.product_type,
+                        expression: "formData.product_type"
+                      }
+                    ],
+                    staticClass: "styled",
+                    attrs: { type: "radio", name: "product_type" },
+                    domProps: {
+                      value: 2,
+                      checked: _vm._q(_vm.formData.product_type, 2)
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.formData, "product_type", 2)
+                      }
+                    }
+                  }),
+                  _vm._v(
+                    "\n                                Variation Product\n                            "
+                  )
                 ])
               ])
             ])
@@ -87366,902 +87161,369 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "panel" }, [
-            _vm._m(4),
+            _vm._m(5),
             _vm._v(" "),
             _c("div", { staticClass: "panel-body" }, [
-              _c("div", { staticClass: "form-group row" }, [
-                _vm._m(5),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-lg-10" },
-                  [
-                    _c("vue-editor", {
-                      attrs: { id: "highlight" },
-                      model: {
-                        value: _vm.formData.highlight,
-                        callback: function($$v) {
-                          _vm.$set(_vm.formData, "highlight", $$v)
-                        },
-                        expression: "formData.highlight"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group row" }, [
-                _vm._m(6),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-lg-10" },
-                  [
-                    _c("vue-editor", {
-                      attrs: { id: "description" },
-                      model: {
-                        value: _vm.formData.description,
-                        callback: function($$v) {
-                          _vm.$set(_vm.formData, "description", $$v)
-                        },
-                        expression: "formData.description"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group row" }, [
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("label", { staticClass: "col-lg-4 control-label" }, [
-                      _vm._v("Package Weight (kg): ")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-lg-8" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.package_weight,
-                            expression: "formData.package_weight"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "number", step: "0.01" },
-                        domProps: { value: _vm.formData.package_weight },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "package_weight",
-                              $event.target.value
-                            )
-                          }
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c("vue-editor", {
+                        attrs: { id: "highlight" },
+                        model: {
+                          value: _vm.formData.highlight,
+                          callback: function($$v) {
+                            _vm.$set(_vm.formData, "highlight", $$v)
+                          },
+                          expression: "formData.highlight"
                         }
                       })
-                    ])
-                  ])
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _vm._m(7),
+                      _vm._v(" "),
+                      _c("vue-editor", {
+                        attrs: { id: "description" },
+                        model: {
+                          value: _vm.formData.description,
+                          callback: function($$v) {
+                            _vm.$set(_vm.formData, "description", $$v)
+                          },
+                          expression: "formData.description"
+                        }
+                      })
+                    ],
+                    1
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("label", { staticClass: "col-lg-3 control-label" }, [
-                      _vm._v("Package Dimensions (cm): ")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-lg-3" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.package_height,
-                            expression: "formData.package_height"
-                          }
-                        ],
-                        staticClass: "form-control",
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _vm._m(8),
+                      _vm._v(" "),
+                      _c("image-cropper", {
                         attrs: {
-                          type: "number",
-                          placeholder: "height",
-                          step: "0.01"
-                        },
-                        domProps: { value: _vm.formData.package_height },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "package_height",
-                              $event.target.value
-                            )
-                          }
+                          cropperData: _vm.cropperData,
+                          removeImage: _vm.removeImage
                         }
                       })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-lg-3" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.package_width,
-                            expression: "formData.package_width"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          placeholder: "width",
-                          step: "0.01"
-                        },
-                        domProps: { value: _vm.formData.package_width },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "package_width",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-lg-3" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.package_length,
-                            expression: "formData.package_length"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          placeholder: "length",
-                          step: "0.01"
-                        },
-                        domProps: { value: _vm.formData.package_length },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "package_length",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group row" }, [
-                _c("div", { staticClass: "col-md-4" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("label", { staticClass: "col-lg-6 control-label" }, [
-                      _vm._v("Discount:")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-lg-6" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.discount_price,
-                            expression: "formData.discount_price"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          placeholder: "Discount Price"
-                        },
-                        domProps: { value: _vm.formData.discount_price },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "discount_price",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ])
+                    ],
+                    1
+                  )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-8" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-lg-10" },
-                      [
-                        _c("image-cropper", {
-                          attrs: {
-                            cropperData: _vm.cropperData,
-                            removeImage: _vm.removeImage
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group row" }, [
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("label", { staticClass: "col-lg-4 control-label" }, [
-                      _vm._v("Mall Company Name:")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-lg-8" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.mall_comp_name,
-                            expression: "formData.mall_comp_name"
-                          }
-                        ],
-                        staticClass: "form-control",
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _vm._m(9),
+                      _vm._v(" "),
+                      _c("v-select", {
                         attrs: {
-                          type: "text",
-                          placeholder: "Mall Company Name"
-                        },
-                        domProps: { value: _vm.formData.mall_comp_name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formData,
-                              "mall_comp_name",
-                              $event.target.value
-                            )
+                          label: "text",
+                          options: _vm.tagList,
+                          multiple: true,
+                          reduce: function(text) {
+                            return text.id
                           }
+                        },
+                        model: {
+                          value: _vm.formData.tag_ids,
+                          callback: function($$v) {
+                            _vm.$set(_vm.formData, "tag_ids", $$v)
+                          },
+                          expression: "formData.tag_ids"
                         }
                       })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("label", { staticClass: "col-lg-3 control-label" }, [
-                      _vm._v("Mall Company Logo: ")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-lg-9" },
-                      [
-                        _c("single-attachment", {
-                          attrs: { folder: _vm.mall_folder }
-                        })
-                      ],
-                      1
-                    )
-                  ])
+                    ],
+                    1
+                  )
                 ])
               ])
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "panel panel-collapsed" }, [
-            _vm._m(8),
+          _c("div", { staticClass: "panel" }, [
+            _vm._m(10),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "panel-body", staticStyle: { display: "none" } },
-              [
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Product Name EN:")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-10" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.lang_product_name,
-                          expression: "formData.lang_product_name"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "product name" },
-                      domProps: { value: _vm.formData.lang_product_name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formData,
-                            "lang_product_name",
-                            $event.target.value
-                          )
-                        }
+            _c("div", { staticClass: "panel-body" }, [
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-lg-2 control-label" }, [
+                  _vm._v("Warranty Period:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.warranty_period,
+                        expression: "formData.warranty_period"
                       }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Highlights EN:")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-lg-10" },
-                    [
-                      _c("vue-editor", {
-                        attrs: { id: "lang_highlight" },
-                        model: {
-                          value: _vm.formData.lang_highlight,
-                          callback: function($$v) {
-                            _vm.$set(_vm.formData, "lang_highlight", $$v)
-                          },
-                          expression: "formData.lang_highlight"
-                        }
-                      })
                     ],
-                    1
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Description EN:")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-lg-10" },
-                    [
-                      _c("vue-editor", {
-                        attrs: { id: "lang_description" },
-                        model: {
-                          value: _vm.formData.lang_description,
-                          callback: function($$v) {
-                            _vm.$set(_vm.formData, "lang_description", $$v)
-                          },
-                          expression: "formData.lang_description"
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "number",
+                      maxlength: "2",
+                      placeholder: "Total Number of Days"
+                    },
+                    domProps: { value: _vm.formData.warranty_period },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
                         }
-                      })
-                    ],
-                    1
-                  )
+                        _vm.$set(
+                          _vm.formData,
+                          "warranty_period",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
                 ])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel panel-collapsed" }, [
-            _vm._m(9),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "panel-body", staticStyle: { display: "none" } },
-              [
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Warranty Type:")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-lg-10" },
-                    _vm._l(_vm.warrantyTypes, function(warranty, index) {
-                      return _vm.warrantyTypes
-                        ? _c(
-                            "label",
-                            { key: index, staticClass: "radio-inline" },
-                            [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.formData.warranty_type,
-                                    expression: "formData.warranty_type"
-                                  }
-                                ],
-                                staticClass: "styled",
-                                attrs: { type: "radio", name: "warrantyType" },
-                                domProps: {
-                                  value: index,
-                                  checked: _vm._q(
-                                    _vm.formData.warranty_type,
-                                    index
-                                  )
-                                },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.$set(
-                                      _vm.formData,
-                                      "warranty_type",
-                                      index
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(warranty) +
-                                  "\n                            "
-                              )
-                            ]
-                          )
-                        : _vm._e()
-                    }),
-                    0
-                  )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-lg-2 control-label" }, [
+                  _vm._v("Warranty Policy:")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Warranty Period:")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-10" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.warranty_period,
-                          expression: "formData.warranty_period"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        maxlength: "2",
-                        placeholder: "Total Number of Days"
-                      },
-                      domProps: { value: _vm.formData.warranty_period },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formData,
-                            "warranty_period",
-                            $event.target.value
-                          )
-                        }
+                _c("div", { staticClass: "col-lg-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.warranty_policy,
+                        expression: "formData.warranty_policy"
                       }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Warranty Policy:")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-10" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.warranty_policy,
-                          expression: "formData.warranty_policy"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", maxlength: "255" },
-                      domProps: { value: _vm.formData.warranty_policy },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formData,
-                            "warranty_policy",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Warranty Policy EN:")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-10" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.warranty_policy_eng,
-                          expression: "formData.warranty_policy_eng"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", maxlength: "255" },
-                      domProps: { value: _vm.formData.warranty_policy_eng },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formData,
-                            "warranty_policy_eng",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Dangers Goods:")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-lg-10" },
-                    _vm._l(_vm.dangersGoods, function(dangersGood, index) {
-                      return _vm.dangersGoods
-                        ? _c(
-                            "label",
-                            { key: index, staticClass: "radio-inline" },
-                            [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.formData.dangers_goods,
-                                    expression: "formData.dangers_goods"
-                                  }
-                                ],
-                                staticClass: "styled",
-                                attrs: { type: "checkbox", id: "dng" + index },
-                                domProps: {
-                                  value: index,
-                                  checked: Array.isArray(
-                                    _vm.formData.dangers_goods
-                                  )
-                                    ? _vm._i(
-                                        _vm.formData.dangers_goods,
-                                        index
-                                      ) > -1
-                                    : _vm.formData.dangers_goods
-                                },
-                                on: {
-                                  change: function($event) {
-                                    var $$a = _vm.formData.dangers_goods,
-                                      $$el = $event.target,
-                                      $$c = $$el.checked ? true : false
-                                    if (Array.isArray($$a)) {
-                                      var $$v = index,
-                                        $$i = _vm._i($$a, $$v)
-                                      if ($$el.checked) {
-                                        $$i < 0 &&
-                                          _vm.$set(
-                                            _vm.formData,
-                                            "dangers_goods",
-                                            $$a.concat([$$v])
-                                          )
-                                      } else {
-                                        $$i > -1 &&
-                                          _vm.$set(
-                                            _vm.formData,
-                                            "dangers_goods",
-                                            $$a
-                                              .slice(0, $$i)
-                                              .concat($$a.slice($$i + 1))
-                                          )
-                                      }
-                                    } else {
-                                      _vm.$set(
-                                        _vm.formData,
-                                        "dangers_goods",
-                                        $$c
-                                      )
-                                    }
-                                  }
-                                }
-                              }),
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(dangersGood) +
-                                  "\n                            "
-                              )
-                            ]
-                          )
-                        : _vm._e()
-                    }),
-                    0
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("What's in box:")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-10" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.what_in_box,
-                          expression: "formData.what_in_box"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", maxlength: "255" },
-                      domProps: { value: _vm.formData.what_in_box },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formData,
-                            "what_in_box",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Main Material:")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-10" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.main_materials,
-                          expression: "formData.main_materials"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "Main Material" },
-                      domProps: { value: _vm.formData.main_materials },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formData,
-                            "main_materials",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Product Model:")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-10" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.product_model,
-                          expression: "formData.product_model"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "Product Model" },
-                      domProps: { value: _vm.formData.product_model },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formData,
-                            "product_model",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Number of pieces:")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-10" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.num_of_pieces,
-                          expression: "formData.num_of_pieces"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "Number of Pieces" },
-                      domProps: { value: _vm.formData.num_of_pieces },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formData,
-                            "num_of_pieces",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Color Shade/Number:")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-10" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.color_shade,
-                          expression: "formData.color_shade"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.formData.color_shade },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formData,
-                            "color_shade",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Skin Type:")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-lg-10" },
-                    [
-                      _c("vue-select2", {
-                        attrs: { options: _vm.skinTypes },
-                        model: {
-                          value: _vm.formData.skin_type,
-                          callback: function($$v) {
-                            _vm.$set(_vm.formData, "skin_type", $$v)
-                          },
-                          expression: "formData.skin_type"
-                        }
-                      })
                     ],
-                    1
-                  )
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      maxlength: "255",
+                      placeholder: "Warranty Policy"
+                    },
+                    domProps: { value: _vm.formData.warranty_policy },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formData,
+                          "warranty_policy",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-lg-2 control-label" }, [
+                  _vm._v("Main Material:")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("label", { staticClass: "col-lg-2 control-label" }, [
-                    _vm._v("Extra Details:")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-10" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.extra_details,
-                          expression: "formData.extra_details"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", maxlength: "255" },
-                      domProps: { value: _vm.formData.extra_details },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formData,
-                            "extra_details",
-                            $event.target.value
-                          )
-                        }
+                _c("div", { staticClass: "col-lg-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.main_materials,
+                        expression: "formData.main_materials"
                       }
-                    })
-                  ])
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Main Material" },
+                    domProps: { value: _vm.formData.main_materials },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formData,
+                          "main_materials",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
                 ])
-              ]
-            )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-lg-2 control-label" }, [
+                  _vm._v("Product Model:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.product_model,
+                        expression: "formData.product_model"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Product Model" },
+                    domProps: { value: _vm.formData.product_model },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formData,
+                          "product_model",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-lg-2 control-label" }, [
+                  _vm._v("Number of pieces:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.num_of_pieces,
+                        expression: "formData.num_of_pieces"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Number of Pieces" },
+                    domProps: { value: _vm.formData.num_of_pieces },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formData,
+                          "num_of_pieces",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-lg-2 control-label" }, [
+                  _vm._v("Color Shade/Number:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.color_shade,
+                        expression: "formData.color_shade"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Color Shade" },
+                    domProps: { value: _vm.formData.color_shade },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formData,
+                          "color_shade",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-lg-2 control-label" }, [
+                  _vm._v("Extra Details:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.extra_details,
+                        expression: "formData.extra_details"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      maxlength: "255",
+                      placeholder: "Extra Details"
+                    },
+                    domProps: { value: _vm.formData.extra_details },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formData,
+                          "extra_details",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ])
+            ])
           ]),
           _vm._v(" "),
           _vm.formData.product_type === 1
             ? _c("div", { staticClass: "panel panel-warning" }, [
-                _vm._m(10),
+                _vm._m(11),
                 _vm._v(" "),
                 _c("div", { staticClass: "panel-body" }, [
                   _c("div", { staticClass: "form-group row" }, [
                     _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "row" }, [
-                        _vm._m(11),
+                        _vm._m(12),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-lg-9" }, [
                           _c("input", {
@@ -88269,60 +87531,19 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.formData.seller_sku,
-                                expression: "formData.seller_sku"
+                                value: _vm.seller_sku,
+                                expression: "seller_sku"
                               }
                             ],
                             staticClass: "form-control",
                             attrs: { type: "text", placeholder: "Seller Sku" },
-                            domProps: { value: _vm.formData.seller_sku },
+                            domProps: { value: _vm.seller_sku },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
-                                _vm.$set(
-                                  _vm.formData,
-                                  "seller_sku",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-4" }, [
-                      _c("div", { staticClass: "row" }, [
-                        _vm._m(12),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-8" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.formData.product_qty,
-                                expression: "formData.product_qty"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "number",
-                              placeholder: "Product qty"
-                            },
-                            domProps: { value: _vm.formData.product_qty },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.formData,
-                                  "product_qty",
-                                  $event.target.value
-                                )
+                                _vm.seller_sku = $event.target.value
                               }
                             }
                           })
@@ -88340,8 +87561,41 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.formData.product_price,
-                                expression: "formData.product_price"
+                                value: _vm.qty,
+                                expression: "qty"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              placeholder: "Product qty"
+                            },
+                            domProps: { value: _vm.qty },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.qty = $event.target.value
+                              }
+                            }
+                          })
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _vm._m(14),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-lg-8" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.price,
+                                expression: "price"
                               }
                             ],
                             staticClass: "form-control",
@@ -88349,17 +87603,13 @@ var render = function() {
                               type: "number",
                               placeholder: "product price"
                             },
-                            domProps: { value: _vm.formData.product_price },
+                            domProps: { value: _vm.price },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
-                                _vm.$set(
-                                  _vm.formData,
-                                  "product_price",
-                                  $event.target.value
-                                )
+                                _vm.price = $event.target.value
                               }
                             }
                           })
@@ -88369,7 +87619,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group row" }, [
-                    _vm._m(14),
+                    _vm._m(15),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-lg-11" }, [
                       _c("div", { attrs: { id: "simProductImg" } }, [
@@ -88388,7 +87638,7 @@ var render = function() {
                                 on: { change: _vm.uploadImage }
                               }),
                               _vm._v(" "),
-                              _vm._m(15)
+                              _vm._m(16)
                             ])
                           ])
                         ]),
@@ -88460,7 +87710,7 @@ var render = function() {
           _vm._v(" "),
           _vm.formData.product_type === 2
             ? _c("div", { staticClass: "panel panel-warning" }, [
-                _vm._m(16),
+                _vm._m(17),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -88469,7 +87719,7 @@ var render = function() {
                     _vm._l(_vm.total, function(i) {
                       return _c("div", { key: i, attrs: { id: i } }, [
                         _c("div", { staticClass: "form-group row" }, [
-                          _vm._m(17, true),
+                          _vm._m(18, true),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -88482,8 +87732,14 @@ var render = function() {
                               }
                             },
                             [
-                              _c("vue-select2", {
-                                attrs: { options: _vm.productColors },
+                              _c("v-select", {
+                                attrs: {
+                                  label: "text",
+                                  options: _vm.productColors,
+                                  reduce: function(text) {
+                                    return text.id
+                                  }
+                                },
                                 model: {
                                   value: _vm.pri_id[i],
                                   callback: function($$v) {
@@ -88526,7 +87782,7 @@ var render = function() {
                             staticClass: "form-group row"
                           },
                           [
-                            _vm._m(18, true),
+                            _vm._m(19, true),
                             _vm._v(" "),
                             _c("div", { staticClass: "col-lg-10" }, [
                               _c("div", { attrs: { id: "productImage" } }, [
@@ -88578,7 +87834,7 @@ var render = function() {
                                       { staticClass: "row" },
                                       _vm._l(
                                         _vm.productImages.filter(function(img) {
-                                          return img.pri_id === _vm.pri_id[i]
+                                          return img.pri_id == _vm.pri_id[i]
                                         }),
                                         function(image, index) {
                                           return _c(
@@ -88660,32 +87916,29 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(19),
+                      _vm._m(20),
                       _vm._v(" "),
                       _c(
                         "div",
                         { staticClass: "col-lg-4 selectMulti" },
                         [
-                          _c(
-                            "multi-select2",
-                            {
-                              attrs: { options: _vm.sizes },
-                              model: {
-                                value: _vm.sec_id,
-                                callback: function($$v) {
-                                  _vm.sec_id = $$v
-                                },
-                                expression: "sec_id"
+                          _c("v-select", {
+                            attrs: {
+                              label: "text",
+                              options: _vm.sizes,
+                              multiple: true,
+                              reduce: function(text) {
+                                return text.id
                               }
                             },
-                            [
-                              _c(
-                                "option",
-                                { attrs: { disabled: "", value: "0" } },
-                                [_vm._v("Select one")]
-                              )
-                            ]
-                          )
+                            model: {
+                              value: _vm.sec_id,
+                              callback: function($$v) {
+                                _vm.sec_id = $$v
+                              },
+                              expression: "sec_id"
+                            }
+                          })
                         ],
                         1
                       )
@@ -88704,7 +87957,7 @@ var render = function() {
                               "table",
                               { staticClass: "table table-striped table-sm" },
                               [
-                                _vm._m(20),
+                                _vm._m(21),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -89155,7 +88408,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "col-lg-2 control-label" }, [
+    return _c("label", { staticClass: "control-label" }, [
       _vm._v("Product Name: "),
       _c("span", { staticClass: "text text-danger text-bold h4" }, [
         _vm._v("*")
@@ -89166,22 +88419,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "col-lg-3 control-label" }, [
-      _vm._v("Parent Category: "),
-      _c("span", { staticClass: "text text-danger text-bold h4" }, [
-        _vm._v("*")
-      ])
+    return _c("label", { staticClass: "control-label" }, [
+      _vm._v("Category: "),
+      _c("span", { staticClass: "text text-danger text-bold " }, [_vm._v("*")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "col-lg-3 control-label" }, [
+    return _c("label", { staticClass: "control-label" }, [
+      _vm._v("Seller: "),
+      _c("span", { staticClass: "text text-danger text-bold " }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "control-label" }, [
       _vm._v("Product Type: "),
-      _c("span", { staticClass: "text text-danger text-bold h4" }, [
-        _vm._v("*")
-      ])
+      _c("span", { staticClass: "text text-danger text-bold" }, [_vm._v("*")])
     ])
   },
   function() {
@@ -89196,7 +88454,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "col-lg-2 control-label" }, [
+    return _c("label", { staticClass: "control-label" }, [
       _vm._v("Highlights: "),
       _c("span", { staticClass: "text text-danger text-bold h4" }, [
         _vm._v("*")
@@ -89207,7 +88465,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "col-lg-2 control-label" }, [
+    return _c("label", { staticClass: "control-label" }, [
       _vm._v("Product Description: "),
       _c("span", { staticClass: "text text-danger text-bold h4" }, [
         _vm._v("*")
@@ -89218,7 +88476,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "col-lg-2 control-label" }, [
+    return _c("label", { staticClass: " control-label" }, [
       _vm._v("Product Thumb Image: "),
       _c("span", { staticClass: "text text-danger text-bold h4" }, [
         _vm._v("*")
@@ -89229,16 +88487,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading bg-purple-400" }, [
-      _c("h5", { staticClass: "panel-title" }, [
-        _vm._v("Product Info in English")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "heading-elements" }, [
-        _c("ul", { staticClass: "icons-list" }, [
-          _c("li", [_c("a", { attrs: { "data-action": "collapse" } })])
-        ])
-      ])
+    return _c("label", { staticClass: "control-label" }, [
+      _vm._v("Tags: "),
+      _c("span", { staticClass: "text text-danger text-bold " }, [_vm._v("*")])
     ])
   },
   function() {
@@ -94532,6 +93783,18 @@ function normalizeComponent (
   }
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/vue-select/dist/vue-select.js":
+/*!****************************************************!*\
+  !*** ./node_modules/vue-select/dist/vue-select.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(t,e){ true?module.exports=e():undefined}("undefined"!=typeof self?self:this,(function(){return function(t){var e={};function n(o){if(e[o])return e[o].exports;var i=e[o]={i:o,l:!1,exports:{}};return t[o].call(i.exports,i,i.exports,n),i.l=!0,i.exports}return n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:o})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var i in t)n.d(o,i,function(e){return t[e]}.bind(null,i));return o},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="/",n(n.s=8)}([function(t,e,n){var o=n(4),i=n(5),r=n(6);t.exports=function(t){return o(t)||i(t)||r()}},function(t,e){function n(e){return"function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?t.exports=n=function(t){return typeof t}:t.exports=n=function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},n(e)}t.exports=n},function(t,e,n){},function(t,e){t.exports=function(t,e,n){return e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}},function(t,e){t.exports=function(t){if(Array.isArray(t)){for(var e=0,n=new Array(t.length);e<t.length;e++)n[e]=t[e];return n}}},function(t,e){t.exports=function(t){if(Symbol.iterator in Object(t)||"[object Arguments]"===Object.prototype.toString.call(t))return Array.from(t)}},function(t,e){t.exports=function(){throw new TypeError("Invalid attempt to spread non-iterable instance")}},function(t,e,n){"use strict";var o=n(2);n.n(o).a},function(t,e,n){"use strict";n.r(e);var o=n(0),i=n.n(o),r=n(1),s=n.n(r),a=n(3),l=n.n(a),c={props:{autoscroll:{type:Boolean,default:!0}},watch:{typeAheadPointer:function(){this.autoscroll&&this.maybeAdjustScroll()}},methods:{maybeAdjustScroll:function(){var t,e=(null===(t=this.$refs.dropdownMenu)||void 0===t?void 0:t.children[this.typeAheadPointer])||!1;if(e){var n=this.getDropdownViewport(),o=e.getBoundingClientRect(),i=o.top,r=o.bottom,s=o.height;if(i<n.top)return this.$refs.dropdownMenu.scrollTop=e.offsetTop;if(r>n.bottom)return this.$refs.dropdownMenu.scrollTop=e.offsetTop-(n.height-s)}},getDropdownViewport:function(){return this.$refs.dropdownMenu?this.$refs.dropdownMenu.getBoundingClientRect():{height:0,top:0,bottom:0}}}},u={data:function(){return{typeAheadPointer:-1}},watch:{filteredOptions:function(){for(var t=0;t<this.filteredOptions.length;t++)if(this.selectable(this.filteredOptions[t])){this.typeAheadPointer=t;break}}},methods:{typeAheadUp:function(){for(var t=this.typeAheadPointer-1;t>=0;t--)if(this.selectable(this.filteredOptions[t])){this.typeAheadPointer=t;break}},typeAheadDown:function(){for(var t=this.typeAheadPointer+1;t<this.filteredOptions.length;t++)if(this.selectable(this.filteredOptions[t])){this.typeAheadPointer=t;break}},typeAheadSelect:function(){var t=this.filteredOptions[this.typeAheadPointer];t&&this.select(t)}}},p={props:{loading:{type:Boolean,default:!1}},data:function(){return{mutableLoading:!1}},watch:{search:function(){this.$emit("search",this.search,this.toggleLoading)},loading:function(t){this.mutableLoading=t}},methods:{toggleLoading:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null;return this.mutableLoading=null==t?!this.mutableLoading:t}}};function h(t,e,n,o,i,r,s,a){var l,c="function"==typeof t?t.options:t;if(e&&(c.render=e,c.staticRenderFns=n,c._compiled=!0),o&&(c.functional=!0),r&&(c._scopeId="data-v-"+r),s?(l=function(t){(t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),i&&i.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(s)},c._ssrRegister=l):i&&(l=a?function(){i.call(this,this.$root.$options.shadowRoot)}:i),l)if(c.functional){c._injectStyles=l;var u=c.render;c.render=function(t,e){return l.call(e),u(t,e)}}else{var p=c.beforeCreate;c.beforeCreate=p?[].concat(p,l):[l]}return{exports:t,options:c}}var d={Deselect:h({},(function(){var t=this.$createElement,e=this._self._c||t;return e("svg",{attrs:{xmlns:"http://www.w3.org/2000/svg",width:"10",height:"10"}},[e("path",{attrs:{d:"M6.895455 5l2.842897-2.842898c.348864-.348863.348864-.914488 0-1.263636L9.106534.261648c-.348864-.348864-.914489-.348864-1.263636 0L5 3.104545 2.157102.261648c-.348863-.348864-.914488-.348864-1.263636 0L.261648.893466c-.348864.348864-.348864.914489 0 1.263636L3.104545 5 .261648 7.842898c-.348864.348863-.348864.914488 0 1.263636l.631818.631818c.348864.348864.914773.348864 1.263636 0L5 6.895455l2.842898 2.842897c.348863.348864.914772.348864 1.263636 0l.631818-.631818c.348864-.348864.348864-.914489 0-1.263636L6.895455 5z"}})])}),[],!1,null,null,null).exports,OpenIndicator:h({},(function(){var t=this.$createElement,e=this._self._c||t;return e("svg",{attrs:{xmlns:"http://www.w3.org/2000/svg",width:"14",height:"10"}},[e("path",{attrs:{d:"M9.211364 7.59931l4.48338-4.867229c.407008-.441854.407008-1.158247 0-1.60046l-.73712-.80023c-.407008-.441854-1.066904-.441854-1.474243 0L7 5.198617 2.51662.33139c-.407008-.441853-1.066904-.441853-1.474243 0l-.737121.80023c-.407008.441854-.407008 1.158248 0 1.600461l4.48338 4.867228L7 10l2.211364-2.40069z"}})])}),[],!1,null,null,null).exports},f={inserted:function(t,e,n){var o=n.context;if(o.appendToBody){var i=o.$refs.toggle.getBoundingClientRect(),r=i.height,s=i.top,a=i.left,l=i.width,c=window.scrollX||window.pageXOffset,u=window.scrollY||window.pageYOffset;t.unbindPosition=o.calculatePosition(t,o,{width:l+"px",left:c+a+"px",top:u+s+r+"px"}),document.body.appendChild(t)}},unbind:function(t,e,n){n.context.appendToBody&&(t.unbindPosition&&"function"==typeof t.unbindPosition&&t.unbindPosition(),t.parentNode&&t.parentNode.removeChild(t))}};var y=function(t){var e={};return Object.keys(t).sort().forEach((function(n){e[n]=t[n]})),JSON.stringify(e)},b=0;var g=function(){return++b};function v(t,e){var n=Object.keys(t);if(Object.getOwnPropertySymbols){var o=Object.getOwnPropertySymbols(t);e&&(o=o.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),n.push.apply(n,o)}return n}function m(t){for(var e=1;e<arguments.length;e++){var n=null!=arguments[e]?arguments[e]:{};e%2?v(Object(n),!0).forEach((function(e){l()(t,e,n[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(n)):v(Object(n)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(n,e))}))}return t}var _={components:m({},d),mixins:[c,u,p],directives:{appendToBody:f},props:{value:{},components:{type:Object,default:function(){return{}}},options:{type:Array,default:function(){return[]}},disabled:{type:Boolean,default:!1},clearable:{type:Boolean,default:!0},searchable:{type:Boolean,default:!0},multiple:{type:Boolean,default:!1},placeholder:{type:String,default:""},transition:{type:String,default:"vs__fade"},clearSearchOnSelect:{type:Boolean,default:!0},closeOnSelect:{type:Boolean,default:!0},label:{type:String,default:"label"},autocomplete:{type:String,default:"off"},reduce:{type:Function,default:function(t){return t}},selectable:{type:Function,default:function(t){return!0}},getOptionLabel:{type:Function,default:function(t){return"object"===s()(t)?t.hasOwnProperty(this.label)?t[this.label]:console.warn('[vue-select warn]: Label key "option.'.concat(this.label,'" does not')+" exist in options object ".concat(JSON.stringify(t),".\n")+"https://vue-select.org/api/props.html#getoptionlabel"):t}},getOptionKey:{type:Function,default:function(t){if("object"!==s()(t))return t;try{return t.hasOwnProperty("id")?t.id:y(t)}catch(e){return console.warn("[vue-select warn]: Could not stringify this option to generate unique key. Please provide'getOptionKey' prop to return a unique key for each option.\nhttps://vue-select.org/api/props.html#getoptionkey",t,e)}}},onTab:{type:Function,default:function(){this.selectOnTab&&!this.isComposing&&this.typeAheadSelect()}},taggable:{type:Boolean,default:!1},tabindex:{type:Number,default:null},pushTags:{type:Boolean,default:!1},filterable:{type:Boolean,default:!0},filterBy:{type:Function,default:function(t,e,n){return(e||"").toLowerCase().indexOf(n.toLowerCase())>-1}},filter:{type:Function,default:function(t,e){var n=this;return t.filter((function(t){var o=n.getOptionLabel(t);return"number"==typeof o&&(o=o.toString()),n.filterBy(t,o,e)}))}},createOption:{type:Function,default:function(t){return"object"===s()(this.optionList[0])?l()({},this.label,t):t}},resetOnOptionsChange:{default:!1,validator:function(t){return["function","boolean"].includes(s()(t))}},clearSearchOnBlur:{type:Function,default:function(t){var e=t.clearSearchOnSelect,n=t.multiple;return e&&!n}},noDrop:{type:Boolean,default:!1},inputId:{type:String},dir:{type:String,default:"auto"},selectOnTab:{type:Boolean,default:!1},selectOnKeyCodes:{type:Array,default:function(){return[13]}},searchInputQuerySelector:{type:String,default:"[type=search]"},mapKeydown:{type:Function,default:function(t,e){return t}},appendToBody:{type:Boolean,default:!1},calculatePosition:{type:Function,default:function(t,e,n){var o=n.width,i=n.top,r=n.left;t.style.top=i,t.style.left=r,t.style.width=o}}},data:function(){return{uid:g(),search:"",open:!1,isComposing:!1,pushedTags:[],_value:[]}},watch:{options:function(t,e){var n=this;!this.taggable&&("function"==typeof n.resetOnOptionsChange?n.resetOnOptionsChange(t,e,n.selectedValue):n.resetOnOptionsChange)&&this.clearSelection(),this.value&&this.isTrackingValues&&this.setInternalValueFromOptions(this.value)},value:function(t){this.isTrackingValues&&this.setInternalValueFromOptions(t)},multiple:function(){this.clearSelection()},open:function(t){this.$emit(t?"open":"close")}},created:function(){this.mutableLoading=this.loading,void 0!==this.value&&this.isTrackingValues&&this.setInternalValueFromOptions(this.value),this.$on("option:created",this.pushTag)},methods:{setInternalValueFromOptions:function(t){var e=this;Array.isArray(t)?this.$data._value=t.map((function(t){return e.findOptionFromReducedValue(t)})):this.$data._value=this.findOptionFromReducedValue(t)},select:function(t){this.isOptionSelected(t)||(this.taggable&&!this.optionExists(t)&&this.$emit("option:created",t),this.multiple&&(t=this.selectedValue.concat(t)),this.updateValue(t)),this.onAfterSelect(t)},deselect:function(t){var e=this;this.updateValue(this.selectedValue.filter((function(n){return!e.optionComparator(n,t)})))},clearSelection:function(){this.updateValue(this.multiple?[]:null)},onAfterSelect:function(t){this.closeOnSelect&&(this.open=!this.open,this.searchEl.blur()),this.clearSearchOnSelect&&(this.search="")},updateValue:function(t){var e=this;void 0===this.value&&(this.$data._value=t),null!==t&&(t=Array.isArray(t)?t.map((function(t){return e.reduce(t)})):this.reduce(t)),this.$emit("input",t)},toggleDropdown:function(t){var e=t.target!==this.searchEl;e&&t.preventDefault(),[].concat(i()(this.$refs.deselectButtons||[]),i()([this.$refs.clearButton]||false)).some((function(e){return e.contains(t.target)||e===t.target}))?t.preventDefault():this.open&&e?this.searchEl.blur():this.disabled||(this.open=!0,this.searchEl.focus())},isOptionSelected:function(t){var e=this;return this.selectedValue.some((function(n){return e.optionComparator(n,t)}))},optionComparator:function(t,e){return this.getOptionKey(t)===this.getOptionKey(e)},findOptionFromReducedValue:function(t){var e=this,n=[].concat(i()(this.options),i()(this.pushedTags)).filter((function(n){return JSON.stringify(e.reduce(n))===JSON.stringify(t)}));return 1===n.length?n[0]:n.find((function(t){return e.optionComparator(t,e.$data._value)}))||t},closeSearchOptions:function(){this.open=!1,this.$emit("search:blur")},maybeDeleteValue:function(){if(!this.searchEl.value.length&&this.selectedValue&&this.selectedValue.length&&this.clearable){var t=null;this.multiple&&(t=i()(this.selectedValue.slice(0,this.selectedValue.length-1))),this.updateValue(t)}},optionExists:function(t){var e=this;return this.optionList.some((function(n){return e.optionComparator(n,t)}))},normalizeOptionForSlot:function(t){return"object"===s()(t)?t:l()({},this.label,t)},pushTag:function(t){this.pushedTags.push(t)},onEscape:function(){this.search.length?this.search="":this.searchEl.blur()},onSearchBlur:function(){if(!this.mousedown||this.searching){var t=this.clearSearchOnSelect,e=this.multiple;return this.clearSearchOnBlur({clearSearchOnSelect:t,multiple:e})&&(this.search=""),void this.closeSearchOptions()}this.mousedown=!1,0!==this.search.length||0!==this.options.length||this.closeSearchOptions()},onSearchFocus:function(){this.open=!0,this.$emit("search:focus")},onMousedown:function(){this.mousedown=!0},onMouseUp:function(){this.mousedown=!1},onSearchKeyDown:function(t){var e=this,n=function(t){return t.preventDefault(),!e.isComposing&&e.typeAheadSelect()},o={8:function(t){return e.maybeDeleteValue()},9:function(t){return e.onTab()},27:function(t){return e.onEscape()},38:function(t){return t.preventDefault(),e.typeAheadUp()},40:function(t){return t.preventDefault(),e.typeAheadDown()}};this.selectOnKeyCodes.forEach((function(t){return o[t]=n}));var i=this.mapKeydown(o,this);if("function"==typeof i[t.keyCode])return i[t.keyCode](t)}},computed:{isTrackingValues:function(){return void 0===this.value||this.$options.propsData.hasOwnProperty("reduce")},selectedValue:function(){var t=this.value;return this.isTrackingValues&&(t=this.$data._value),t?[].concat(t):[]},optionList:function(){return this.options.concat(this.pushTags?this.pushedTags:[])},searchEl:function(){return this.$scopedSlots.search?this.$refs.selectedOptions.querySelector(this.searchInputQuerySelector):this.$refs.search},scope:function(){var t=this,e={search:this.search,loading:this.loading,searching:this.searching,filteredOptions:this.filteredOptions};return{search:{attributes:m({disabled:this.disabled,placeholder:this.searchPlaceholder,tabindex:this.tabindex,readonly:!this.searchable,id:this.inputId,"aria-autocomplete":"list","aria-labelledby":"vs".concat(this.uid,"__combobox"),"aria-controls":"vs".concat(this.uid,"__listbox"),ref:"search",type:"search",autocomplete:this.autocomplete,value:this.search},this.dropdownOpen&&this.filteredOptions[this.typeAheadPointer]?{"aria-activedescendant":"vs".concat(this.uid,"__option-").concat(this.typeAheadPointer)}:{}),events:{compositionstart:function(){return t.isComposing=!0},compositionend:function(){return t.isComposing=!1},keydown:this.onSearchKeyDown,blur:this.onSearchBlur,focus:this.onSearchFocus,input:function(e){return t.search=e.target.value}}},spinner:{loading:this.mutableLoading},noOptions:{search:this.search,loading:this.loading,searching:this.searching},openIndicator:{attributes:{ref:"openIndicator",role:"presentation",class:"vs__open-indicator"}},listHeader:e,listFooter:e,header:m({},e,{deselect:this.deselect}),footer:m({},e,{deselect:this.deselect})}},childComponents:function(){return m({},d,{},this.components)},stateClasses:function(){return{"vs--open":this.dropdownOpen,"vs--single":!this.multiple,"vs--searching":this.searching&&!this.noDrop,"vs--searchable":this.searchable&&!this.noDrop,"vs--unsearchable":!this.searchable,"vs--loading":this.mutableLoading,"vs--disabled":this.disabled}},searching:function(){return!!this.search},dropdownOpen:function(){return!this.noDrop&&(this.open&&!this.mutableLoading)},searchPlaceholder:function(){if(this.isValueEmpty&&this.placeholder)return this.placeholder},filteredOptions:function(){var t=[].concat(this.optionList);if(!this.filterable&&!this.taggable)return t;var e=this.search.length?this.filter(t,this.search,this):t;if(this.taggable&&this.search.length){var n=this.createOption(this.search);this.optionExists(n)||e.unshift(n)}return e},isValueEmpty:function(){return 0===this.selectedValue.length},showClearButton:function(){return!this.multiple&&this.clearable&&!this.open&&!this.isValueEmpty}}},O=(n(7),h(_,(function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"v-select",class:t.stateClasses,attrs:{dir:t.dir}},[t._t("header",null,null,t.scope.header),t._v(" "),n("div",{ref:"toggle",staticClass:"vs__dropdown-toggle",attrs:{id:"vs"+t.uid+"__combobox",role:"combobox","aria-expanded":t.dropdownOpen.toString(),"aria-owns":"vs"+t.uid+"__listbox","aria-label":"Search for option"},on:{mousedown:function(e){return t.toggleDropdown(e)}}},[n("div",{ref:"selectedOptions",staticClass:"vs__selected-options"},[t._l(t.selectedValue,(function(e){return t._t("selected-option-container",[n("span",{key:t.getOptionKey(e),staticClass:"vs__selected"},[t._t("selected-option",[t._v("\n            "+t._s(t.getOptionLabel(e))+"\n          ")],null,t.normalizeOptionForSlot(e)),t._v(" "),t.multiple?n("button",{ref:"deselectButtons",refInFor:!0,staticClass:"vs__deselect",attrs:{disabled:t.disabled,type:"button",title:"Deselect "+t.getOptionLabel(e),"aria-label":"Deselect "+t.getOptionLabel(e)},on:{click:function(n){return t.deselect(e)}}},[n(t.childComponents.Deselect,{tag:"component"})],1):t._e()],2)],{option:t.normalizeOptionForSlot(e),deselect:t.deselect,multiple:t.multiple,disabled:t.disabled})})),t._v(" "),t._t("search",[n("input",t._g(t._b({staticClass:"vs__search"},"input",t.scope.search.attributes,!1),t.scope.search.events))],null,t.scope.search)],2),t._v(" "),n("div",{ref:"actions",staticClass:"vs__actions"},[n("button",{directives:[{name:"show",rawName:"v-show",value:t.showClearButton,expression:"showClearButton"}],ref:"clearButton",staticClass:"vs__clear",attrs:{disabled:t.disabled,type:"button",title:"Clear Selected","aria-label":"Clear Selected"},on:{click:t.clearSelection}},[n(t.childComponents.Deselect,{tag:"component"})],1),t._v(" "),t._t("open-indicator",[t.noDrop?t._e():n(t.childComponents.OpenIndicator,t._b({tag:"component"},"component",t.scope.openIndicator.attributes,!1))],null,t.scope.openIndicator),t._v(" "),t._t("spinner",[n("div",{directives:[{name:"show",rawName:"v-show",value:t.mutableLoading,expression:"mutableLoading"}],staticClass:"vs__spinner"},[t._v("Loading...")])],null,t.scope.spinner)],2)]),t._v(" "),n("transition",{attrs:{name:t.transition}},[t.dropdownOpen?n("ul",{directives:[{name:"append-to-body",rawName:"v-append-to-body"}],key:"vs"+t.uid+"__listbox",ref:"dropdownMenu",staticClass:"vs__dropdown-menu",attrs:{id:"vs"+t.uid+"__listbox",role:"listbox"},on:{mousedown:function(e){return e.preventDefault(),t.onMousedown(e)},mouseup:t.onMouseUp}},[t._t("list-header",null,null,t.scope.listHeader),t._v(" "),t._l(t.filteredOptions,(function(e,o){return n("li",{key:t.getOptionKey(e),staticClass:"vs__dropdown-option",class:{"vs__dropdown-option--selected":t.isOptionSelected(e),"vs__dropdown-option--highlight":o===t.typeAheadPointer,"vs__dropdown-option--disabled":!t.selectable(e)},attrs:{role:"option",id:"vs"+t.uid+"__option-"+o,"aria-selected":o===t.typeAheadPointer||null},on:{mouseover:function(n){t.selectable(e)&&(t.typeAheadPointer=o)},mousedown:function(n){n.preventDefault(),n.stopPropagation(),t.selectable(e)&&t.select(e)}}},[t._t("option",[t._v("\n          "+t._s(t.getOptionLabel(e))+"\n        ")],null,t.normalizeOptionForSlot(e))],2)})),t._v(" "),0===t.filteredOptions.length?n("li",{staticClass:"vs__no-options"},[t._t("no-options",[t._v("Sorry, no matching options.")],null,t.scope.noOptions)],2):t._e(),t._v(" "),t._t("list-footer",null,null,t.scope.listFooter)],2):n("ul",{staticStyle:{display:"none",visibility:"hidden"},attrs:{id:"vs"+t.uid+"__listbox",role:"listbox"}})]),t._v(" "),t._t("footer",null,null,t.scope.footer)],2)}),[],!1,null,null,null).exports),w={ajax:p,pointer:u,pointerScroll:c};n.d(e,"VueSelect",(function(){return O})),n.d(e,"mixins",(function(){return w}));e.default=O}])}));
+//# sourceMappingURL=vue-select.js.map
 
 /***/ }),
 
@@ -109168,24 +108431,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 /* harmony import */ var _helper_pNotify__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./helper/pNotify */ "./resources/js/helper/pNotify.js");
 /* harmony import */ var _helper_AppStorage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./helper/AppStorage */ "./resources/js/helper/AppStorage.js");
-/* harmony import */ var _components_auth_AdminLogin__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/auth/AdminLogin */ "./resources/js/components/auth/AdminLogin.vue");
-/* harmony import */ var _components_category_Category__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/category/Category */ "./resources/js/components/category/Category.vue");
-/* harmony import */ var _components_color_Color__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/color/Color */ "./resources/js/components/color/Color.vue");
-/* harmony import */ var _components_tag_Tag__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/tag/Tag */ "./resources/js/components/tag/Tag.vue");
-/* harmony import */ var _components_size_SizeGroup__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/size/SizeGroup */ "./resources/js/components/size/SizeGroup.vue");
-/* harmony import */ var _components_attachment_Attachment__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/attachment/Attachment */ "./resources/js/components/attachment/Attachment.vue");
-/* harmony import */ var _components_product_ProductList__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/product/ProductList */ "./resources/js/components/product/ProductList.vue");
-/* harmony import */ var _components_product_CreateProduct__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/product/CreateProduct */ "./resources/js/components/product/CreateProduct.vue");
-/* harmony import */ var _components_product_ShowProduct__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/product/ShowProduct */ "./resources/js/components/product/ShowProduct.vue");
-/* harmony import */ var _components_helper_ImportData__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/helper/ImportData */ "./resources/js/components/helper/ImportData.vue");
-/* harmony import */ var _components_brand_Brand__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/brand/Brand */ "./resources/js/components/brand/Brand.vue");
-/* harmony import */ var _components_cms_slider_SliderPage__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/cms/slider/SliderPage */ "./resources/js/components/cms/slider/SliderPage.vue");
-/* harmony import */ var _components_cms_slider_SliderCreatePage__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/cms/slider/SliderCreatePage */ "./resources/js/components/cms/slider/SliderCreatePage.vue");
-/* harmony import */ var _components_cms_pages_CreateGeneralPages__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/cms/pages/CreateGeneralPages */ "./resources/js/components/cms/pages/CreateGeneralPages.vue");
-/* harmony import */ var _components_cms_pages_GeneralPagesList__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/cms/pages/GeneralPagesList */ "./resources/js/components/cms/pages/GeneralPagesList.vue");
-/* harmony import */ var _components_cms_pages_ShowGeneralPages__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/cms/pages/ShowGeneralPages */ "./resources/js/components/cms/pages/ShowGeneralPages.vue");
-/* harmony import */ var _components_cms_pages_EditGeneralPages__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/cms/pages/EditGeneralPages */ "./resources/js/components/cms/pages/EditGeneralPages.vue");
-/* harmony import */ var _components_cms_setting_SettingPage__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/cms/setting/SettingPage */ "./resources/js/components/cms/setting/SettingPage.vue");
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_auth_AdminLogin__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/auth/AdminLogin */ "./resources/js/components/auth/AdminLogin.vue");
+/* harmony import */ var _components_category_Category__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/category/Category */ "./resources/js/components/category/Category.vue");
+/* harmony import */ var _components_color_Color__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/color/Color */ "./resources/js/components/color/Color.vue");
+/* harmony import */ var _components_tag_Tag__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/tag/Tag */ "./resources/js/components/tag/Tag.vue");
+/* harmony import */ var _components_size_SizeGroup__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/size/SizeGroup */ "./resources/js/components/size/SizeGroup.vue");
+/* harmony import */ var _components_attachment_Attachment__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/attachment/Attachment */ "./resources/js/components/attachment/Attachment.vue");
+/* harmony import */ var _components_product_ProductList__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/product/ProductList */ "./resources/js/components/product/ProductList.vue");
+/* harmony import */ var _components_product_CreateProduct__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/product/CreateProduct */ "./resources/js/components/product/CreateProduct.vue");
+/* harmony import */ var _components_product_ShowProduct__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/product/ShowProduct */ "./resources/js/components/product/ShowProduct.vue");
+/* harmony import */ var _components_helper_ImportData__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/helper/ImportData */ "./resources/js/components/helper/ImportData.vue");
+/* harmony import */ var _components_brand_Brand__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/brand/Brand */ "./resources/js/components/brand/Brand.vue");
+/* harmony import */ var _components_cms_slider_SliderPage__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/cms/slider/SliderPage */ "./resources/js/components/cms/slider/SliderPage.vue");
+/* harmony import */ var _components_cms_slider_SliderCreatePage__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/cms/slider/SliderCreatePage */ "./resources/js/components/cms/slider/SliderCreatePage.vue");
+/* harmony import */ var _components_cms_pages_CreateGeneralPages__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/cms/pages/CreateGeneralPages */ "./resources/js/components/cms/pages/CreateGeneralPages.vue");
+/* harmony import */ var _components_cms_pages_GeneralPagesList__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/cms/pages/GeneralPagesList */ "./resources/js/components/cms/pages/GeneralPagesList.vue");
+/* harmony import */ var _components_cms_pages_ShowGeneralPages__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/cms/pages/ShowGeneralPages */ "./resources/js/components/cms/pages/ShowGeneralPages.vue");
+/* harmony import */ var _components_cms_pages_EditGeneralPages__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/cms/pages/EditGeneralPages */ "./resources/js/components/cms/pages/EditGeneralPages.vue");
+/* harmony import */ var _components_cms_setting_SettingPage__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/cms/setting/SettingPage */ "./resources/js/components/cms/setting/SettingPage.vue");
 
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
@@ -109208,6 +108473,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vuejs-dat
 window.Notify = _helper_pNotify__WEBPACK_IMPORTED_MODULE_6__["default"];
 
 window.AppStorage = _helper_AppStorage__WEBPACK_IMPORTED_MODULE_7__["default"];
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('v-select', vue_select__WEBPACK_IMPORTED_MODULE_8___default.a);
 
 var files = __webpack_require__("./resources/js sync recursive \\.vue$/");
 
@@ -109238,24 +108505,24 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   store: _store__WEBPACK_IMPORTED_MODULE_5__["default"],
   components: {
-    AdminLogin: _components_auth_AdminLogin__WEBPACK_IMPORTED_MODULE_8__["default"],
-    'attachment': _components_attachment_Attachment__WEBPACK_IMPORTED_MODULE_13__["default"],
-    'import-date': _components_helper_ImportData__WEBPACK_IMPORTED_MODULE_17__["default"],
-    Category: _components_category_Category__WEBPACK_IMPORTED_MODULE_9__["default"],
-    Color: _components_color_Color__WEBPACK_IMPORTED_MODULE_10__["default"],
-    'brand': _components_brand_Brand__WEBPACK_IMPORTED_MODULE_18__["default"],
-    'tag': _components_tag_Tag__WEBPACK_IMPORTED_MODULE_11__["default"],
-    'size-group': _components_size_SizeGroup__WEBPACK_IMPORTED_MODULE_12__["default"],
-    'product-list': _components_product_ProductList__WEBPACK_IMPORTED_MODULE_14__["default"],
-    'create-product': _components_product_CreateProduct__WEBPACK_IMPORTED_MODULE_15__["default"],
-    'show-product': _components_product_ShowProduct__WEBPACK_IMPORTED_MODULE_16__["default"],
-    'slider-page': _components_cms_slider_SliderPage__WEBPACK_IMPORTED_MODULE_19__["default"],
-    'slider-create-page': _components_cms_slider_SliderCreatePage__WEBPACK_IMPORTED_MODULE_20__["default"],
-    'create-general-pages': _components_cms_pages_CreateGeneralPages__WEBPACK_IMPORTED_MODULE_21__["default"],
-    'general-pages-list': _components_cms_pages_GeneralPagesList__WEBPACK_IMPORTED_MODULE_22__["default"],
-    'show-general-pages': _components_cms_pages_ShowGeneralPages__WEBPACK_IMPORTED_MODULE_23__["default"],
-    'edit-general-pages': _components_cms_pages_EditGeneralPages__WEBPACK_IMPORTED_MODULE_24__["default"],
-    'setting-page': _components_cms_setting_SettingPage__WEBPACK_IMPORTED_MODULE_25__["default"]
+    AdminLogin: _components_auth_AdminLogin__WEBPACK_IMPORTED_MODULE_9__["default"],
+    'attachment': _components_attachment_Attachment__WEBPACK_IMPORTED_MODULE_14__["default"],
+    'import-date': _components_helper_ImportData__WEBPACK_IMPORTED_MODULE_18__["default"],
+    Category: _components_category_Category__WEBPACK_IMPORTED_MODULE_10__["default"],
+    Color: _components_color_Color__WEBPACK_IMPORTED_MODULE_11__["default"],
+    'brand': _components_brand_Brand__WEBPACK_IMPORTED_MODULE_19__["default"],
+    'tag': _components_tag_Tag__WEBPACK_IMPORTED_MODULE_12__["default"],
+    'size-group': _components_size_SizeGroup__WEBPACK_IMPORTED_MODULE_13__["default"],
+    'product-list': _components_product_ProductList__WEBPACK_IMPORTED_MODULE_15__["default"],
+    'create-product': _components_product_CreateProduct__WEBPACK_IMPORTED_MODULE_16__["default"],
+    'show-product': _components_product_ShowProduct__WEBPACK_IMPORTED_MODULE_17__["default"],
+    'slider-page': _components_cms_slider_SliderPage__WEBPACK_IMPORTED_MODULE_20__["default"],
+    'slider-create-page': _components_cms_slider_SliderCreatePage__WEBPACK_IMPORTED_MODULE_21__["default"],
+    'create-general-pages': _components_cms_pages_CreateGeneralPages__WEBPACK_IMPORTED_MODULE_22__["default"],
+    'general-pages-list': _components_cms_pages_GeneralPagesList__WEBPACK_IMPORTED_MODULE_23__["default"],
+    'show-general-pages': _components_cms_pages_ShowGeneralPages__WEBPACK_IMPORTED_MODULE_24__["default"],
+    'edit-general-pages': _components_cms_pages_EditGeneralPages__WEBPACK_IMPORTED_MODULE_25__["default"],
+    'setting-page': _components_cms_setting_SettingPage__WEBPACK_IMPORTED_MODULE_26__["default"]
   }
 });
 
@@ -117283,16 +116550,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  warrantyType: [],
-  dangersGoods: [],
   productColors: [],
   productSizes: [],
-  productSkinTypes: [],
   allProducts: [],
   singleProduct: {},
   selectedProIds: [],
   selected_date_time: [],
-  product_type: [],
   status_list: [],
   product_data: {},
   product_details: {},
@@ -117301,20 +116564,11 @@ var state = {
 }; //declare Getters
 
 var getters = {
-  warrantyTypes: function warrantyTypes(state) {
-    return state.warrantyType;
-  },
-  dangersGoods: function dangersGoods(state) {
-    return state.dangersGoods;
-  },
   productColors: function productColors(state) {
     return state.productColors;
   },
   sizes: function sizes(state) {
     return state.productSizes;
-  },
-  skinTypes: function skinTypes(state) {
-    return state.productSkinTypes;
   },
   products: function products(state) {
     return state.allProducts;
@@ -117327,9 +116581,6 @@ var getters = {
   },
   selectedDateTimes: function selectedDateTimes(state) {
     return state.selected_date_time;
-  },
-  productType: function productType(state) {
-    return state.product_type;
   },
   productStatus: function productStatus(state) {
     return state.status_list;
@@ -117387,8 +116638,8 @@ var actions = {
 
     return getProductCreateDependency;
   }(),
-  getProductCreateNeedData: function () {
-    var _getProductCreateNeedData = _asyncToGenerator(
+  getProductStatusList: function () {
+    var _getProductStatusList = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
       var commit;
@@ -117399,8 +116650,8 @@ var actions = {
               commit = _ref2.commit;
               _context2.prev = 1;
               _context2.next = 4;
-              return axios.get("/admin/product/create").then(function (response) {
-                commit('productCreateNeedData', response.data.data);
+              return axios.get("/admin/status/list/product").then(function (response) {
+                commit('setProductStatusList', response.data.data);
               });
 
             case 4:
@@ -117420,14 +116671,14 @@ var actions = {
       }, _callee2, null, [[1, 6]]);
     }));
 
-    function getProductCreateNeedData(_x3) {
-      return _getProductCreateNeedData.apply(this, arguments);
+    function getProductStatusList(_x3) {
+      return _getProductStatusList.apply(this, arguments);
     }
 
-    return getProductCreateNeedData;
+    return getProductStatusList;
   }(),
-  getProductStatusList: function () {
-    var _getProductStatusList = _asyncToGenerator(
+  getProducts: function () {
+    var _getProducts = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
       var commit;
@@ -117438,37 +116689,37 @@ var actions = {
               commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
-              return axios.get("/admin/status/list/product").then(function (response) {
-                commit('setProductStatusList', response.data.data);
+              return axios.get('/admin/collection/product').then(function (response) {
+                commit('getProductData', response.data);
+                return response;
               });
 
             case 4:
-              _context3.next = 9;
-              break;
+              return _context3.abrupt("return", _context3.sent);
 
-            case 6:
-              _context3.prev = 6;
+            case 7:
+              _context3.prev = 7;
               _context3.t0 = _context3["catch"](1);
-              commit('setResponse', _context3.t0.data);
+              commit('getProductData', _context3.t0.data);
 
-            case 9:
+            case 10:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 6]]);
+      }, _callee3, null, [[1, 7]]);
     }));
 
-    function getProductStatusList(_x4) {
-      return _getProductStatusList.apply(this, arguments);
+    function getProducts(_x4) {
+      return _getProducts.apply(this, arguments);
     }
 
-    return getProductStatusList;
+    return getProducts;
   }(),
-  getProducts: function () {
-    var _getProducts = _asyncToGenerator(
+  storeProductData: function () {
+    var _storeProductData = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, fromData) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
@@ -117477,9 +116728,10 @@ var actions = {
               commit = _ref4.commit;
               _context4.prev = 1;
               _context4.next = 4;
-              return axios.get('/admin/collection/product').then(function (response) {
-                commit('getProductData', response.data);
-                return response;
+              return axios.post('/admin/product', fromData).then(function (response) {
+                console.log(response);
+                commit('setResponse', response.data);
+                return response.data;
               });
 
             case 4:
@@ -117488,7 +116740,7 @@ var actions = {
             case 7:
               _context4.prev = 7;
               _context4.t0 = _context4["catch"](1);
-              commit('getProductData', _context4.t0.data);
+              commit('setResponse', _context4.t0.data);
 
             case 10:
             case "end":
@@ -117498,16 +116750,16 @@ var actions = {
       }, _callee4, null, [[1, 7]]);
     }));
 
-    function getProducts(_x5) {
-      return _getProducts.apply(this, arguments);
+    function storeProductData(_x5, _x6) {
+      return _storeProductData.apply(this, arguments);
     }
 
-    return getProducts;
+    return storeProductData;
   }(),
-  storeProductData: function () {
-    var _storeProductData = _asyncToGenerator(
+  singleProduct: function () {
+    var _singleProduct = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, fromData) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, productID) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
@@ -117516,10 +116768,12 @@ var actions = {
               commit = _ref5.commit;
               _context5.prev = 1;
               _context5.next = 4;
-              return axios.post('/admin/product', fromData).then(function (response) {
-                console.log(response);
-                commit('setResponse', response.data);
-                return response.data;
+              return axios.get("/admin/single/product/".concat(productID)).then(function (response) {
+                if (response.data.status === 'error') {
+                  return response.data;
+                } else {
+                  commit('singleProductData', response.data.data);
+                }
               });
 
             case 4:
@@ -117538,30 +116792,40 @@ var actions = {
       }, _callee5, null, [[1, 7]]);
     }));
 
-    function storeProductData(_x6, _x7) {
-      return _storeProductData.apply(this, arguments);
+    function singleProduct(_x7, _x8) {
+      return _singleProduct.apply(this, arguments);
     }
 
-    return storeProductData;
+    return singleProduct;
   }(),
-  singleProduct: function () {
-    var _singleProduct = _asyncToGenerator(
+  selectedProductIdUpdate: function selectedProductIdUpdate(_ref6, selectData) {
+    var commit = _ref6.commit;
+    commit('setSelectedProduct', selectData);
+    return true;
+  },
+  selectedProductDateTimeUpdate: function selectedProductDateTimeUpdate(_ref7, selectData) {
+    var commit = _ref7.commit;
+    commit('setSelectedDateTime', selectData);
+    return true;
+  },
+  productStatusChange: function () {
+    var _productStatusChange = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref6, productID) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref8, fromData) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
-              commit = _ref6.commit;
+              commit = _ref8.commit;
               _context6.prev = 1;
               _context6.next = 4;
-              return axios.get("/admin/single/product/".concat(productID)).then(function (response) {
-                if (response.data.status === 'error') {
-                  return response.data;
-                } else {
-                  commit('singleProductData', response.data.data);
+              return axios.post('/admin/product/status/update', fromData).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('updateProductStatus', response.data.data);
                 }
+
+                return response.data;
               });
 
             case 4:
@@ -117580,26 +116844,16 @@ var actions = {
       }, _callee6, null, [[1, 7]]);
     }));
 
-    function singleProduct(_x8, _x9) {
-      return _singleProduct.apply(this, arguments);
+    function productStatusChange(_x9, _x10) {
+      return _productStatusChange.apply(this, arguments);
     }
 
-    return singleProduct;
+    return productStatusChange;
   }(),
-  selectedProductIdUpdate: function selectedProductIdUpdate(_ref7, selectData) {
-    var commit = _ref7.commit;
-    commit('setSelectedProduct', selectData);
-    return true;
-  },
-  selectedProductDateTimeUpdate: function selectedProductDateTimeUpdate(_ref8, selectData) {
-    var commit = _ref8.commit;
-    commit('setSelectedDateTime', selectData);
-    return true;
-  },
-  productStatusChange: function () {
-    var _productStatusChange = _asyncToGenerator(
+  deleteProductImage: function () {
+    var _deleteProductImage = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(_ref9, fromData) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(_ref9, imageId) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
         while (1) {
@@ -117608,12 +116862,13 @@ var actions = {
               commit = _ref9.commit;
               _context7.prev = 1;
               _context7.next = 4;
-              return axios.post('/admin/product/status/update', fromData).then(function (response) {
-                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
-                  commit('updateProductStatus', response.data.data);
-                }
-
+              return axios["delete"]("/admin/product/image/delete/".concat(imageId)).then(function (response) {
+                commit('productImageRemove', imageId);
                 return response.data;
+              })["catch"](function (errors) {
+                console.log(errors);
+                commit('setResponse', errors.data);
+                return errors.data;
               });
 
             case 4:
@@ -117622,7 +116877,7 @@ var actions = {
             case 7:
               _context7.prev = 7;
               _context7.t0 = _context7["catch"](1);
-              commit('setResponse', _context7.t0.data);
+              console.log(_context7.t0);
 
             case 10:
             case "end":
@@ -117632,16 +116887,16 @@ var actions = {
       }, _callee7, null, [[1, 7]]);
     }));
 
-    function productStatusChange(_x10, _x11) {
-      return _productStatusChange.apply(this, arguments);
+    function deleteProductImage(_x11, _x12) {
+      return _deleteProductImage.apply(this, arguments);
     }
 
-    return productStatusChange;
+    return deleteProductImage;
   }(),
-  deleteProductImage: function () {
-    var _deleteProductImage = _asyncToGenerator(
+  variationDataDelete: function () {
+    var _variationDataDelete = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(_ref10, imageId) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(_ref10, reqData) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
         while (1) {
@@ -117650,8 +116905,7 @@ var actions = {
               commit = _ref10.commit;
               _context8.prev = 1;
               _context8.next = 4;
-              return axios["delete"]("/admin/product/image/delete/".concat(imageId)).then(function (response) {
-                commit('productImageRemove', imageId);
+              return axios["delete"]("/admin/product/".concat(reqData.product_id, "/validation/").concat(reqData.variation_id, "/delete")).then(function (response) {
                 return response.data;
               })["catch"](function (errors) {
                 console.log(errors);
@@ -117675,16 +116929,16 @@ var actions = {
       }, _callee8, null, [[1, 7]]);
     }));
 
-    function deleteProductImage(_x12, _x13) {
-      return _deleteProductImage.apply(this, arguments);
+    function variationDataDelete(_x13, _x14) {
+      return _variationDataDelete.apply(this, arguments);
     }
 
-    return deleteProductImage;
+    return variationDataDelete;
   }(),
-  variationDataDelete: function () {
-    var _variationDataDelete = _asyncToGenerator(
+  updateProductData: function () {
+    var _updateProductData = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(_ref11, reqData) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(_ref11, fromData) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
         while (1) {
@@ -117693,12 +116947,8 @@ var actions = {
               commit = _ref11.commit;
               _context9.prev = 1;
               _context9.next = 4;
-              return axios["delete"]("/admin/product/".concat(reqData.product_id, "/validation/").concat(reqData.variation_id, "/delete")).then(function (response) {
+              return axios.put("/admin/product/".concat(fromData.product_id), fromData).then(function (response) {
                 return response.data;
-              })["catch"](function (errors) {
-                console.log(errors);
-                commit('setResponse', errors.data);
-                return errors.data;
               });
 
             case 4:
@@ -117707,7 +116957,7 @@ var actions = {
             case 7:
               _context9.prev = 7;
               _context9.t0 = _context9["catch"](1);
-              console.log(_context9.t0);
+              commit('setResponse', _context9.t0.data);
 
             case 10:
             case "end":
@@ -117717,16 +116967,16 @@ var actions = {
       }, _callee9, null, [[1, 7]]);
     }));
 
-    function variationDataDelete(_x14, _x15) {
-      return _variationDataDelete.apply(this, arguments);
+    function updateProductData(_x15, _x16) {
+      return _updateProductData.apply(this, arguments);
     }
 
-    return variationDataDelete;
+    return updateProductData;
   }(),
-  updateProductData: function () {
-    var _updateProductData = _asyncToGenerator(
+  deleteProductData: function () {
+    var _deleteProductData = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10(_ref12, fromData) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10(_ref12, productId) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
         while (1) {
@@ -117735,7 +116985,11 @@ var actions = {
               commit = _ref12.commit;
               _context10.prev = 1;
               _context10.next = 4;
-              return axios.put("/admin/product/".concat(fromData.product_id), fromData).then(function (response) {
+              return axios["delete"]("/admin/product/".concat(productId)).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('removeProductData', productId);
+                }
+
                 return response.data;
               });
 
@@ -117755,49 +117009,7 @@ var actions = {
       }, _callee10, null, [[1, 7]]);
     }));
 
-    function updateProductData(_x16, _x17) {
-      return _updateProductData.apply(this, arguments);
-    }
-
-    return updateProductData;
-  }(),
-  deleteProductData: function () {
-    var _deleteProductData = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11(_ref13, productId) {
-      var commit;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
-        while (1) {
-          switch (_context11.prev = _context11.next) {
-            case 0:
-              commit = _ref13.commit;
-              _context11.prev = 1;
-              _context11.next = 4;
-              return axios["delete"]("/admin/product/".concat(productId)).then(function (response) {
-                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
-                  commit('removeProductData', productId);
-                }
-
-                return response.data;
-              });
-
-            case 4:
-              return _context11.abrupt("return", _context11.sent);
-
-            case 7:
-              _context11.prev = 7;
-              _context11.t0 = _context11["catch"](1);
-              commit('setResponse', _context11.t0.data);
-
-            case 10:
-            case "end":
-              return _context11.stop();
-          }
-        }
-      }, _callee11, null, [[1, 7]]);
-    }));
-
-    function deleteProductData(_x18, _x19) {
+    function deleteProductData(_x17, _x18) {
       return _deleteProductData.apply(this, arguments);
     }
 
@@ -117808,12 +117020,6 @@ var mutations = {
   productCreateDependency: function productCreateDependency(state, response) {
     state.productColors = response.colors;
     state.productSizes = response.sizes;
-  },
-  productCreateNeedData: function productCreateNeedData(state, response) {
-    state.warrantyType = response.warrantyType;
-    state.dangersGoods = response.dangersGoods;
-    state.productSkinTypes = response.skinTypes;
-    state.product_type = response.product_type;
   },
   getProductData: function getProductData(state, response) {
     state.allProducts = response.data;
@@ -117903,7 +117109,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //declare State
 var state = {
   seller_data: {},
-  seller_list: []
+  seller_list: [],
+  seller_select_list: []
 }; //declare Getters
 
 var getters = {
@@ -117912,6 +117119,9 @@ var getters = {
   },
   sellerList: function sellerList(state) {
     return state.seller_list;
+  },
+  sellerListData: function sellerListData(state) {
+    return state.seller_select_list;
   }
 };
 var actions = {
@@ -117993,10 +117203,10 @@ var actions = {
 
     return getSellerList;
   }(),
-  storeSellerData: function () {
-    var _storeSellerData = _asyncToGenerator(
+  getSellerSelectList: function () {
+    var _getSellerSelectList = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, from) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
@@ -118005,6 +117215,45 @@ var actions = {
               commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
+              return axios.get('/admin/seller/select/list').then(function (response) {
+                commit('setSellerSelectList', response.data);
+              });
+
+            case 4:
+              _context3.next = 9;
+              break;
+
+            case 6:
+              _context3.prev = 6;
+              _context3.t0 = _context3["catch"](1);
+              commit('setResponse', _context3.t0.data);
+
+            case 9:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 6]]);
+    }));
+
+    function getSellerSelectList(_x4) {
+      return _getSellerSelectList.apply(this, arguments);
+    }
+
+    return getSellerSelectList;
+  }(),
+  storeSellerData: function () {
+    var _storeSellerData = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, from) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              _context4.prev = 1;
+              _context4.next = 4;
               return axios.post('/admin/seller/store', from).then(function (response) {
                 if (response.data.status === "success") {
                   commit('storeSeller', response.data.data);
@@ -118017,54 +117266,12 @@ var actions = {
               });
 
             case 4:
-              return _context3.abrupt("return", _context3.sent);
-
-            case 7:
-              _context3.prev = 7;
-              _context3.t0 = _context3["catch"](1);
-              commit('setResponse', _context3.t0.data);
-
-            case 10:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, null, [[1, 7]]);
-    }));
-
-    function storeSellerData(_x4, _x5) {
-      return _storeSellerData.apply(this, arguments);
-    }
-
-    return storeSellerData;
-  }(),
-  updateSellerData: function () {
-    var _updateSellerData = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, fromData) {
-      var commit;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              commit = _ref4.commit;
-              _context4.prev = 1;
-              _context4.next = 4;
-              return axios.put("/admin/seller/".concat(fromData.id, "/update"), fromData).then(function (response) {
-                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
-                  commit('updateSellerData', response.data.data);
-                }
-
-                return response.data;
-              });
-
-            case 4:
               return _context4.abrupt("return", _context4.sent);
 
             case 7:
               _context4.prev = 7;
               _context4.t0 = _context4["catch"](1);
-              return _context4.abrupt("return", _context4.t0.data);
+              commit('setResponse', _context4.t0.data);
 
             case 10:
             case "end":
@@ -118074,16 +117281,16 @@ var actions = {
       }, _callee4, null, [[1, 7]]);
     }));
 
-    function updateSellerData(_x6, _x7) {
-      return _updateSellerData.apply(this, arguments);
+    function storeSellerData(_x5, _x6) {
+      return _storeSellerData.apply(this, arguments);
     }
 
-    return updateSellerData;
+    return storeSellerData;
   }(),
-  deleteSeller: function () {
-    var _deleteSeller = _asyncToGenerator(
+  updateSellerData: function () {
+    var _updateSellerData = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, brandID) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, fromData) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
@@ -118092,6 +117299,48 @@ var actions = {
               commit = _ref5.commit;
               _context5.prev = 1;
               _context5.next = 4;
+              return axios.put("/admin/seller/".concat(fromData.id, "/update"), fromData).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('updateSellerData', response.data.data);
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context5.abrupt("return", _context5.sent);
+
+            case 7:
+              _context5.prev = 7;
+              _context5.t0 = _context5["catch"](1);
+              return _context5.abrupt("return", _context5.t0.data);
+
+            case 10:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[1, 7]]);
+    }));
+
+    function updateSellerData(_x7, _x8) {
+      return _updateSellerData.apply(this, arguments);
+    }
+
+    return updateSellerData;
+  }(),
+  deleteSeller: function () {
+    var _deleteSeller = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref6, brandID) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              commit = _ref6.commit;
+              _context6.prev = 1;
+              _context6.next = 4;
               return axios["delete"]("/admin/seller/".concat(brandID)).then(function (response) {
                 if (response.data.status === "success") {
                   commit('removeSeller', brandID);
@@ -118102,23 +117351,23 @@ var actions = {
               });
 
             case 4:
-              return _context5.abrupt("return", _context5.sent);
+              return _context6.abrupt("return", _context6.sent);
 
             case 7:
-              _context5.prev = 7;
-              _context5.t0 = _context5["catch"](1);
-              commit('setResponse', _context5.t0.data);
-              return _context5.abrupt("return", _context5.t0.data);
+              _context6.prev = 7;
+              _context6.t0 = _context6["catch"](1);
+              commit('setResponse', _context6.t0.data);
+              return _context6.abrupt("return", _context6.t0.data);
 
             case 11:
             case "end":
-              return _context5.stop();
+              return _context6.stop();
           }
         }
-      }, _callee5, null, [[1, 7]]);
+      }, _callee6, null, [[1, 7]]);
     }));
 
-    function deleteSeller(_x8, _x9) {
+    function deleteSeller(_x9, _x10) {
       return _deleteSeller.apply(this, arguments);
     }
 
@@ -118139,6 +117388,9 @@ var mutations = {
   },
   setSellerData: function setSellerData(state, response) {
     return state.seller_data = response;
+  },
+  setSellerSelectList: function setSellerSelectList(state, response) {
+    return state.seller_select_list = response;
   },
   updateSellerData: function updateSellerData(state, response) {
     state.seller_list = state.seller_list.filter(function (seller) {
@@ -118420,12 +117672,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //declare State
 var state = {
-  allTags: ''
+  allTags: [],
+  tag_list: []
 }; //declare Getters
 
 var getters = {
   tags: function tags(state) {
     return state.allTags;
+  },
+  tagList: function tagList(state) {
+    return state.tag_list;
   }
 };
 var actions = {
@@ -118471,10 +117727,10 @@ var actions = {
 
     return getTags;
   }(),
-  storeTag: function () {
-    var _storeTag = _asyncToGenerator(
+  getTagList: function () {
+    var _getTagList = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, formData) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
@@ -118483,23 +117739,18 @@ var actions = {
               commit = _ref2.commit;
               _context2.prev = 1;
               _context2.next = 4;
-              return axios.post('/admin/tag/store', formData).then(function (response) {
-                if (typeof response.data.code !== "undefined" && response.data.code === 201) {
-                  commit('tagStore', response.data.data);
-                  delete response.data.data;
-                }
-
-                return response.data;
-              })["catch"](function (error) {
-                commit('setResponse', error.data);
+              return axios.get('/admin/tag/list').then(function (response) {
+                commit('setTagList', response.data);
               });
 
             case 4:
-              return _context2.abrupt("return", _context2.sent);
+              _context2.next = 10;
+              break;
 
-            case 7:
-              _context2.prev = 7;
+            case 6:
+              _context2.prev = 6;
               _context2.t0 = _context2["catch"](1);
+              console.log(_context2.t0);
               commit('setResponse', _context2.t0.data);
 
             case 10:
@@ -118507,17 +117758,17 @@ var actions = {
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 7]]);
+      }, _callee2, null, [[1, 6]]);
     }));
 
-    function storeTag(_x2, _x3) {
-      return _storeTag.apply(this, arguments);
+    function getTagList(_x2) {
+      return _getTagList.apply(this, arguments);
     }
 
-    return storeTag;
+    return getTagList;
   }(),
-  updateTag: function () {
-    var _updateTag = _asyncToGenerator(
+  storeTag: function () {
+    var _storeTag = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, formData) {
       var commit;
@@ -118528,9 +117779,9 @@ var actions = {
               commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
-              return axios.put("/admin/tag/".concat(formData.tag_id, "/update"), formData).then(function (response) {
-                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
-                  commit('tagUpdateInfo', response.data.data);
+              return axios.post('/admin/tag/store', formData).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 201) {
+                  commit('tagStore', response.data.data);
                   delete response.data.data;
                 }
 
@@ -118555,16 +117806,16 @@ var actions = {
       }, _callee3, null, [[1, 7]]);
     }));
 
-    function updateTag(_x4, _x5) {
-      return _updateTag.apply(this, arguments);
+    function storeTag(_x3, _x4) {
+      return _storeTag.apply(this, arguments);
     }
 
-    return updateTag;
+    return storeTag;
   }(),
-  deleteTag: function () {
-    var _deleteTag = _asyncToGenerator(
+  updateTag: function () {
+    var _updateTag = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, tagID) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, formData) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
@@ -118573,12 +117824,15 @@ var actions = {
               commit = _ref4.commit;
               _context4.prev = 1;
               _context4.next = 4;
-              return axios["delete"]("/admin/tag/delete/".concat(tagID)).then(function (response) {
+              return axios.put("/admin/tag/".concat(formData.tag_id, "/update"), formData).then(function (response) {
                 if (typeof response.data.code !== "undefined" && response.data.code === 200) {
-                  commit('removeTag', tagID);
+                  commit('tagUpdateInfo', response.data.data);
+                  delete response.data.data;
                 }
 
                 return response.data;
+              })["catch"](function (error) {
+                commit('setResponse', error.data);
               });
 
             case 4:
@@ -118597,7 +117851,49 @@ var actions = {
       }, _callee4, null, [[1, 7]]);
     }));
 
-    function deleteTag(_x6, _x7) {
+    function updateTag(_x5, _x6) {
+      return _updateTag.apply(this, arguments);
+    }
+
+    return updateTag;
+  }(),
+  deleteTag: function () {
+    var _deleteTag = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, tagID) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit;
+              _context5.prev = 1;
+              _context5.next = 4;
+              return axios["delete"]("/admin/tag/delete/".concat(tagID)).then(function (response) {
+                if (typeof response.data.code !== "undefined" && response.data.code === 200) {
+                  commit('removeTag', tagID);
+                }
+
+                return response.data;
+              });
+
+            case 4:
+              return _context5.abrupt("return", _context5.sent);
+
+            case 7:
+              _context5.prev = 7;
+              _context5.t0 = _context5["catch"](1);
+              commit('setResponse', _context5.t0.data);
+
+            case 10:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[1, 7]]);
+    }));
+
+    function deleteTag(_x7, _x8) {
       return _deleteTag.apply(this, arguments);
     }
 
@@ -118607,6 +117903,9 @@ var actions = {
 var mutations = {
   setTags: function setTags(state, response) {
     return state.allTags = response;
+  },
+  setTagList: function setTagList(state, response) {
+    return state.tag_list = response;
   },
   tagStore: function tagStore(state, response) {
     return state.allTags.unshift(response);

@@ -27,4 +27,9 @@ class Tag extends Model
     public function scopeBySearch($query, $request){
         return $query;
     }
+
+    public function products()
+    {
+        return $this->hasMany(ProductTag::class, 'tag_id', 'tag_id');
+    }
 }

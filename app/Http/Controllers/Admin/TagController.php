@@ -33,6 +33,12 @@ class TagController extends Controller
         }
     }
 
+    public function tag_list()
+    {
+        $tags = Tag::isActive()->select('tag_id as id', 'tag_title as text')->latest()->get();
+        return \response()->json($tags);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

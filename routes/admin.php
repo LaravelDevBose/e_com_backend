@@ -34,6 +34,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     Route::post('/import/color', 'ColorController@import')->name('color.import');
 
     Route::get('/tags','TagController@index')->name('tag');
+    Route::get('/tag/list','TagController@tag_list');
     Route::get('/tag/create', 'TagController@create')->name('tag.create');
     Route::post('/tag/store', 'TagController@store')->name('tag.store');
     Route::put('/tag/{tag}/update', 'TagController@update')->name('tag.update');
@@ -101,6 +102,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     Route::prefix('seller')->as('seller.')->group(function (){
         Route::get('/', 'SellerController@index')->name('index');
         Route::get('/list', 'SellerController@seller_list')->name('list');
+        Route::get('/select/list', 'SellerController@seller_select_list');
         Route::get('/create', 'SellerController@create')->name('create');
         Route::post('/store', 'SellerController@store')->name('store');
         Route::get('/{sellerId}', 'SellerController@show')->name('show');

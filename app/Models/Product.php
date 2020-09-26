@@ -28,10 +28,7 @@ class Product extends Model
     protected $primaryKey = 'product_id';
 
     protected $fillable =[
-        'product_sku',
-        'main_category_id',
-        'sec_category_id',
-        'trd_category_id',
+        'category_id',
         'brand_id',
         'seller_id',
         'product_name',
@@ -41,7 +38,6 @@ class Product extends Model
         'highlight',
         'description',
         'video_url',
-        'seller_sku',
         'product_type',
         'product_status',
         'created_by',
@@ -64,41 +60,7 @@ class Product extends Model
         return 'product_slug';
     }
 
-    public function getProductNameAttribute()
-    {
-        if (app()->getLocale() == 'so'){
-            if(!empty($this->attributes['lang_product_name'])){
-                return ucfirst($this->attributes['lang_product_name']);
-            }
-            return ucfirst($this->attributes['product_name']);
-        }else{
-            return ucfirst($this->attributes['product_name']);
-        }
-    }
 
-    public function getHighlightAttribute()
-    {
-        if (app()->getLocale() == 'so'){
-            if(!empty($this->attributes['lang_highlight'])){
-                return ucfirst($this->attributes['lang_highlight']);
-            }
-            return ucfirst($this->attributes['highlight']);
-        }else{
-            return ucfirst($this->attributes['highlight']);
-        }
-    }
-
-    public function getDescriptionAttribute()
-    {
-        if (app()->getLocale() == 'so'){
-            if(!empty($this->attributes['lang_description'])){
-                return ucfirst($this->attributes['lang_description']);
-            }
-            return ucfirst($this->attributes['description']);
-        }else{
-            return ucfirst($this->attributes['description']);
-        }
-    }
     public function scopeNotDelete($query){
         return $query->where('product_status', '!=', config('app.delete'));
     }
@@ -125,10 +87,6 @@ class Product extends Model
         return array_flip(self::ProductStatus);
     }
 
-    public static function flipProductCondition()
-    {
-        return array_flip(self::ProductCondition);
-    }
 
     public static function product_sku_generate(){
         $sku = '';
@@ -142,20 +100,7 @@ class Product extends Model
         return $sku;
     }
 
-    public static function dangers_goods_data($data){
-        $goods = [];
-        if(!empty($data)){
-            $list = explode(',', $data);
-            if(!empty($list)){
-                foreach ($list as $key=>$value){
-                    if(!empty($value) && !empty(Self::DangersGoods[$value])){
-                        array_push($goods, Self::DangersGoods[$value]);
-                    }
-                }
-            }
-        }
-        return $goods;
-    }
+
 
     public function scopeDateRangeWish($query,$request){
 
@@ -224,25 +169,14 @@ class Product extends Model
         return $this->hasMany(OrderItem::class, 'product_id', 'product_id');
     }
 
-    public function sectionProduct()
-    {
-        return $this->hasMany(SectionProduct::class, 'product_id', 'product_id');
-    }
-
-    public function rating(){
-        return $this->hasOne(Rating::class, 'product_id', 'product_id');
-    }
-
     public function reviews()
     {
         return $this->hasMany(Review::class, 'product_id', 'product_id');
     }
 
-    public function mallLogo(){
-        return $this->hasOne(Attachment::class,  'attachment_id','mall_comp_logo');
-    }
-
-    public function latest_deal(){
-        return $this->hasOne(LatestDealProduct::class, 'product_id', 'product_id');
+    public function tags()
+    {
+        return $this->belongsTo(ProductTag::class, 'product_id', 'product_id')
+            ->where('status', config('app.active'));
     }
 }

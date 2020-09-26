@@ -1,6 +1,5 @@
 <template>
-    <select class="form-control"  :name="name" :value="value" placeholder="Select an Option" data-width="100%">
-
+    <select class="form-control"  :name="name" :value="value" :multiple="multiple" placeholder="Select an Option" data-width="100%">
         <slot></slot>
     </select>
 </template>
@@ -25,7 +24,7 @@
                 .trigger('change')
             //emit event on change
                 .on('change', function () {
-                    vm.$emit('input', this.value)
+                    vm.$emit('input', $(this).val())
                 })
         },
         updated() {

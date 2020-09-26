@@ -19,9 +19,7 @@ class CreateProductDetailsTable extends Migration
             $table->string('main_materials')->nullable();
             $table->string('product_model')->nullable();
             $table->unsignedTinyInteger('num_of_pieces')->nullable();
-            $table->boolean('product_occasion')->nullable();
             $table->string('color_shade')->nullable();
-            $table->unsignedBigInteger('skin_type_id')->nullable();
             $table->text('extra_details')->nullable();
             $table->string('warranty_policy')->nullable();
             $table->string('warranty_period')->nullable();
