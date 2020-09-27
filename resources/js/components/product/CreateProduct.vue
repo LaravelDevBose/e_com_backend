@@ -101,47 +101,48 @@
                     </div>
 
                     <div class="panel-body">
-
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Warranty Period:</label>
-                            <div class="col-lg-10">
-                                <input type="number" v-model="formData.warranty_period" class="form-control" maxlength="2" placeholder="Total Number of Days" >
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Warranty Period:</label>
+                                    <input type="number" v-model="formData.warranty_period" class="form-control" maxlength="2" placeholder="Total Number of Days" >
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Warranty Policy:</label>
-                            <div class="col-lg-10">
-                                <input type="text" v-model="formData.warranty_policy" class="form-control" maxlength="255" placeholder="Warranty Policy">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label">Warranty Policy:</label>
+                                    <vue-editor id="policy" v-model="formData.warranty_policy"></vue-editor>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Main Material:</label>
-                            <div class="col-lg-10">
-                                <input type="text" v-model="formData.main_materials" class="form-control"  placeholder="Main Material" >
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Main Material:</label>
+                                    <input type="text" v-model="formData.main_materials" class="form-control"  placeholder="Main Material" >
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Product Model:</label>
-                            <div class="col-lg-10">
-                                <input type="text" v-model="formData.product_model" class="form-control"  placeholder="Product Model" >
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Product Model:</label>
+                                    <input type="text" v-model="formData.product_model" class="form-control"  placeholder="Product Model" >
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Number of pieces:</label>
-                            <div class="col-lg-10">
-                                <input type="text" v-model="formData.num_of_pieces" class="form-control"  placeholder="Number of Pieces" >
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Number of pieces:</label>
+                                    <input type="text" v-model="formData.num_of_pieces" class="form-control"  placeholder="Number of Pieces" >
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Color Shade/Number:</label>
-                            <div class="col-lg-10">
-                                <input type="text" v-model="formData.color_shade" class="form-control" placeholder="Color Shade" >
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Color Shade/Number:</label>
+                                    <input type="text" v-model="formData.color_shade" class="form-control" placeholder="Color Shade" >
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label">Extra Details:</label>
-                            <div class="col-lg-10">
-                                <input type="text" v-model="formData.extra_details" class="form-control" maxlength="255" placeholder="Extra Details">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Extra Details:</label>
+                                    <input type="text" v-model="formData.extra_details" class="form-control" maxlength="255" placeholder="Extra Details">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -516,7 +517,7 @@
                 let vm = this;
                 let color = '';
                 this.productColors.filter(pColor=>{
-                    if(pColor.id == parseInt(newPriID)){
+                    if(pColor.id === parseInt(newPriID)){
                         color = pColor.text;
                     }
                 });
@@ -545,14 +546,14 @@
                 let vm = this;
                 let color = '';
                 this.productColors.filter(pColor=>{
-                    if(pColor.id == parseInt(newPriID)){
+                    if(pColor.id === parseInt(newPriID)){
                         color = pColor.text;
                     }
                 });
 
                 if(!jQuery.isEmptyObject(this.sec_id)){
                     for (let key in this.sec_id) {
-                        let size = vm.sizes.find(element=> element.id == parseInt(this.sec_id[key]));
+                        let size = vm.sizes.find(element=> element.id === parseInt(this.sec_id[key]));
                         let data ={
                             color_id:newPriID,
                             color_name:color,
@@ -671,9 +672,6 @@
                 }
 
                 this.formData.imageIds = this.imageIds;
-                if(this.attachmentId !== ''){
-                    this.formData.mall_comp_logo = this.attachmentId;
-                }
                 //send Vuex request
                 this.storeProductData(this.formData)
                     .then(response=>{
@@ -714,6 +712,9 @@
                 this.seller_sku='';
                 this.qty=1;
                 this.price=1;
+                this.formData.product_qty='';
+                this.formData.product_price='';
+                this.formData.seller_sku='';
                 if(this.formData.variations.length > 0){
                     this.formData.variations.length=0;
                 }
@@ -753,7 +754,6 @@
                 'productImages',
                 'imageIds',
                 'cropImageIds',
-                'attachmentId',
                 'sellerListData',
                 'tagList',
             ]),
@@ -768,10 +768,7 @@
             },
             formDataCheck(){
                 return JSON.parse(JSON.stringify(this.formData));
-            },
-            attachment_idsDataCheck(){
-                return JSON.parse(JSON.stringify(this.attachment_ids));
-            },
+            }
         },
         watch:{
             clonedPrimaryIds:{

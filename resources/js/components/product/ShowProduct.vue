@@ -22,52 +22,36 @@
                                 <h3 class="text-semibold" style="margin-top: 0px;">
                                     <a href="#" class="text-default">{{ proData.product_name}}</a>
                                 </h3>
-                                <p v-if="proData.product_sku !== '' " style="margin-bottom: 5px;" >
-                                    <i class="icon-barcode2 text-primary" style="margin-right: .5rem;"></i>
-                                    <span class="text text-bold text-teal ">{{ proData.product_sku }}</span>
+                                <p v-if="proData.product_sku !== '' " style="margin-bottom: 5px;" class="text-bold text-teal">
+                                    SKU:
+                                    <span class="text text-bold text-teal "> {{ proData.product_sku }}</span>
                                 </p>
-                                <p class="text text-bold font-weight-bold text-teal" style="margin-bottom: 5px;" v-if="category !== '' " >
-                                    <i class="icon-list2 text-primary" style="margin-right: .5rem;"></i>
+                                <p class="text text-teal text-bold" style="margin-bottom: 5px;" v-if="category !== '' " >
+                                    Category:
                                     <span v-if="trd_category !== '' " > {{ trd_category.name}} <i class="icon-arrow-right15"></i></span>
                                     <span v-if="sec_category !== '' " >{{ sec_category.name}} <i class="icon-arrow-right15"></i></span>
                                     <span>{{ category.name}}</span>
                                 </p>
-                                <p v-if="proData.brand" style="margin-bottom: 5px;">
-                                    <i class="icon-hammer-wrench text-primary" style="margin-right: .5rem;"></i>
+                                <p v-if="proData.brand" style="margin-bottom: 5px;" class="text-teal text-bold">
+                                   Brand:
                                     <span class="text text-bold text-teal ">{{ proData.brand.name }}</span>
                                 </p>
-                                <p v-if="proData.seller.shop" style="margin-bottom: 5px;">
-                                    <i class="icon-store2 text-primary" style="margin-right: .5rem;"></i>
-                                    <span class="text text-bold text-teal ">{{ proData.seller.shop.name }}</span>
-                                </p>
-                                <p v-if="proData.seller !== null && proData.seller.name  !== '' " style="margin-bottom: 5px;">
-                                    <i class="icon-user text-primary" style="margin-right: .5rem;"></i>
+                                <p v-if="proData.seller" style="margin-bottom: 5px;" class="text-teal text-bold">
+                                    Seller:
                                     <span class="text text-bold text-teal ">{{ proData.seller.name }}</span>
                                 </p>
-                                <div class="content-group" v-if="proData.product_type === 1">
-                                    <p style="margin-bottom: 5px;">
-                                        <span class="text text-bold text-primary ">
-                                            Product Price:
-                                        </span>
-                                        <span class="text text-bold text-teal ">{{ proData.product_price }}</span>
+                                <div v-if="proData.product_type === 1">
+                                    <p v-if="proData.variation.seller_sku" style="margin-bottom: 5px;">
+                                        <span class="text text-bold text-teal ">Seller SKU: {{ proData.variation.seller_sku }}</span>
                                     </p>
-                                    <p style="margin-bottom: 5px;">
-                                        <span class="text text-bold text-primary ">
-                                            Qty:
-                                       </span>
-                                        <span class="text text-bold text-teal ">{{ proData.product_qty }}</span>
+                                    <p v-if="proData.variation.price" style="margin-bottom: 5px;">
+                                        <span class="text text-bold text-teal ">Price: {{ proData.variation.price }}</span>
+                                    </p>
+                                    <p v-if="proData.variation.quantity" style="margin-bottom: 5px;">
+                                        <span class="text text-bold text-teal ">Qty: {{ proData.variation.quantity }}</span>
                                     </p>
                                 </div>
-                                <p v-if="proData.discount_price !== 0 && proData.discount_price  !== '' " style="margin-bottom: 5px;">
-                                    <span class="text text-bold text-primary ">
-                                         Discount:
-                                   </span>
-                                    <span class="text text-bold text-teal ">{{ proData.discount }}</span>
-                                </p>
-                                <p v-if="proData.mall_comp_name !== '' " style="margin-bottom: 5px;">
-                                    <i class="icon-store text-primary" style="margin-right: .5rem;"></i>
-                                    <span class="text text-bold text-teal h3 text-uppercase">{{ proData.mall_comp_name }}</span>
-                                </p>
+
                                 <div class="content-group">
                                    <span class="text text-bold text-primary ">
                                         Product Highlight:
@@ -92,31 +76,6 @@
                     <div class="panel-body">
                         <div class="content-group" v-html="proData.description">
 
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h6 class="panel-title">Product Details EN</h6>
-                        <div class="heading-elements">
-                            <ul class="icons-list">
-                                <li><a data-action="reload"></a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="panel-body">
-                        <div class="content-group">
-                            <p class="text text-bold">Product Name (EN) : {{proData.lang_product_name }}</p>
-                        </div>
-                        <div class="content-group">
-                            <p class="text text-bold" style="margin-bottom: .5rem;">Product Highlight (EN): </p>
-                            <p v-html="proData.lang_highlight"></p>
-                        </div>
-                        <div class="content-group" >
-                            <p class="text text-bold" style="margin-bottom: .5rem;">Product Description (EN): </p>
-                            <p v-html="proData.lang_description" ></p>
                         </div>
                     </div>
                 </div>
@@ -158,22 +117,8 @@
                         </div>
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
-                                <span class="text-bold">Product Occasion: </span>
-                                <span v-if="proDetails.occasion" v-html="proDetails.occasion"></span>
-                                <span v-else class="text-size-small text-slate-400">No Data</span>
-                            </p>
-                        </div>
-                        <div class="content-group">
-                            <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">Color Shade : </span>
                                 <span v-if="proDetails.color_shade" v-html="proDetails.color_shade"></span>
-                                <span v-else class="text-size-small text-slate-400">No Data</span>
-                            </p>
-                        </div>
-                        <div class="content-group">
-                            <p style="margin-bottom: .5rem;">
-                                <span class="text-bold">Skin Type: </span>
-                                <span v-if="proDetails.skin_type" v-html="proDetails.skin_type"></span>
                                 <span v-else class="text-size-small text-slate-400">No Data</span>
                             </p>
                         </div>
@@ -193,13 +138,6 @@
                         </div>
                         <div class="content-group">
                             <p style="margin-bottom: .5rem;">
-                                <span class="text-bold">Warranty Policy (EN): </span>
-                                <span v-if="proDetails.warranty_policy_eng" v-html="proDetails.warranty_policy_eng"></span>
-                                <span v-else class="text-size-small text-slate-400">No Data</span>
-                            </p>
-                        </div>
-                        <div class="content-group">
-                            <p style="margin-bottom: .5rem;">
                                 <span class="text-bold">Warranty Period : </span>
                                 <span v-if="proDetails.warranty_period" >{{ proDetails.warranty_period }} days</span>
                                 <span v-else class="text-size-small text-slate-400">0 Day</span>
@@ -210,7 +148,7 @@
                 <!-- /available hours -->
 
                 <!-- Calendar -->
-                <div class="panel" v-if="proVariations.length !== 0 && typeof proVariations !== 'undefined'">
+                <div class="panel" v-if="proData.product_type ===2 && proVariations.length !== 0 && typeof proVariations !== 'undefined'">
                     <div class="panel-heading bg-teal">
                         <h6 class="panel-title">Product Variations</h6>
                     </div>
@@ -229,8 +167,8 @@
 
                             <tbody>
                             <tr v-for="variaction in proVariations">
-                                <td>{{ variaction.primary_model.color_name }}</td>
-                                <td>{{ variaction.secondary_model.size_name }}</td>
+                                <td>{{ variaction.color.color_name }}</td>
+                                <td>{{ variaction.size.size_name }}</td>
                                 <td>{{ variaction.seller_sku}}</td>
                                 <td>{{ variaction.quantity}}</td>
                                 <td> {{ variaction.price }}</td>
@@ -278,7 +216,8 @@
                 'proData',
                 'proDetails',
                 'proVariations',
-                'proImages'
+                'proImages',
+                'validation'
             ])
         },
         watch:{
@@ -290,12 +229,13 @@
                     });
                     if(newVal.category !== null){
                         this.category = newVal.category
-                    }
-                    if(newVal.category.parent !== null){
-                        this.sec_category = newVal.category.parent;
-                    }
-                    if(newVal.category.parent.parent !== null){
-                        this.trd_category = newVal.category.parent.parent;
+                        if(newVal.category.parent !== null){
+                            this.sec_category = newVal.category.parent;
+                            if(newVal.category.parent.parent !== null){
+                                this.trd_category = newVal.category.parent.parent;
+                            }
+                        }
+
                     }
 
 

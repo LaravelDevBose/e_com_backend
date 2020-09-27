@@ -57,6 +57,7 @@
                     { label: 'Product SKU', field: 'sku' , },
                     { label: 'Category', field: 'category.name' },
                     { label: 'Brand', field: 'brand.name', sortable: true },
+                    { label: 'Seller', field: 'seller.name', sortable: true },
                     { label: 'Quantity', field: 'total_qty', align: 'center', sortable: true },
                     { label: 'Status', component: 'product-status', align: 'center', sortable: false },
                     { label: 'Action', component: 'product-action', align: 'center', sortable: false },

@@ -25,11 +25,11 @@ class ProductVariation extends Model
     public function product(){
         return $this->belongsTo(Product::class, 'product_id', 'product_id');
     }
-    public function primaryModel(){
+    public function color(){
         return $this->belongsTo(Color::class, 'color_id', 'color_id');
     }
 
-    public function secondaryModel(){
+    public function size(){
         return $this->belongsTo(Size::class, 'size_id', 'size_id');
     }
 

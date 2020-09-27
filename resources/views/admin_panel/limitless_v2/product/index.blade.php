@@ -50,6 +50,7 @@
                         <th>Product Sku</th>
                         <th class="text-center">Category</th>
                         <th class="text-center">Brand</th>
+                        <th class="text-center">Seller</th>
                         <th class="text-center">Quantity</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Actions</th>
@@ -77,11 +78,10 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                @if($product->product_type == 1)
-                                <span>{{ $product->product_qty }}</span>
-                                @else
+                                <span>{{ $product->seller->seller_name }}</span>
+                            </td>
+                            <td class="text-center">
                                 <span>{{ $product->variations->sum('quantity') }}</span>
-                                @endif
                             </td>
                             <td class="text-center">
                                 <div class="btn-group">

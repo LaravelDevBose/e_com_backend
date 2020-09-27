@@ -153,7 +153,7 @@ class Product extends Model
         return $this->hasMany(ProductImage::class, 'product_id', 'product_id');
     }
 
-    public function singleVariation(){
+    public function variation(){
         return $this->hasOne(ProductVariation::class, 'product_id', 'product_id');
     }
 
@@ -176,7 +176,7 @@ class Product extends Model
 
     public function tags()
     {
-        return $this->belongsTo(ProductTag::class, 'product_id', 'product_id')
+        return $this->hasMany(ProductTag::class, 'product_id', 'product_id')
             ->where('status', config('app.active'));
     }
 }
