@@ -45,6 +45,8 @@ class AdminRole extends Model
         'account_setting',
         'admin_account',
         'manage_admin_account',
+        'coupon_create',
+        'coupon_manage',
         'created_by',
         'updated_by',
         'deleted_by',
@@ -83,7 +85,9 @@ class AdminRole extends Model
         'manage_newsletter',
         'account_setting',
         'admin_account',
-        'manage_admin_account'
+        'manage_admin_account',
+        'coupon_create',
+        'coupon_manage',
     ];
 
     const adminRoles = [
@@ -111,6 +115,8 @@ class AdminRole extends Model
         'manage_slider',
         'newsletter',
         'manage_newsletter',
+        'coupon_create',
+        'coupon_manage',
     ];
 
     const subAdminRoles = [

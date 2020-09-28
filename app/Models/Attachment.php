@@ -17,8 +17,8 @@ class Attachment extends Model
         'page'=>6,
         'setting'=>7,
         'thumbnail'=>8,
-        'shop'=>9,
-        'review'=>10,
+        'review'=>9,
+        'coupon'=>10
     ];
 
     protected $table = 'attachments';

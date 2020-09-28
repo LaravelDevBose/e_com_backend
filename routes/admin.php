@@ -120,6 +120,15 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::delete('method/{delivery_id}', 'DeliveryMethodController@destroy')->name('method.delete');
     });
 
+    Route::prefix('coupon-code')->as('coupon_code.')->group(function (){
+        Route::get('/', 'CouponCodeController@index')->name('index');
+        Route::get('/list', 'CouponCodeController@coupon_code_list')->name('list');
+        Route::post('/store', 'CouponCodeController@store')->name('store');
+        Route::get('/{coupon_id}/edit', 'CouponCodeController@edit')->name('edit');
+        Route::put('/{coupon_id}/update', 'CouponCodeController@update')->name('update');
+        Route::delete('/{coupon_id}', 'CouponCodeController@destroy')->name('delete');
+    });
+
     Route::group(['prefix'=>'account', 'as'=>'account.'], function(){
         Route::get('/','AdminAccountController@index')->name('index');
         Route::get('/list','AdminAccountController@admin_list')->name('list');

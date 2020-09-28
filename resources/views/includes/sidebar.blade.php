@@ -66,6 +66,9 @@
                         @if(auth()->user()->adminRole->delivery_method)
                             <li ><a href="{{ route('admin.delivery.method.index') }}"><i class="icon-truck"></i> <span>Delivery Method</span></a></li>
                         @endif
+                            @if(auth()->user()->adminRole->coupon_manage)
+                                <li ><a href="{{ route('admin.coupon_code.index') }}"><i class="icon-code"></i> <span>Coupon Code</span></a></li>
+                            @endif
                         @if(auth()->user()->adminRole->cms)
                             <li>
                                 <a href="#"><i class="icon-cart"></i> <span>CMS</span></a>
