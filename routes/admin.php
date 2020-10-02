@@ -51,15 +51,13 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     Route::get('create/product/dependency/{catID}', 'ProductController@product_create_dependency')->name('product.create.dependency');
     Route::get('collection/product', 'ProductController@product_collection')->name('product.collection');
     Route::get('single/product/{product}','ProductController@single_product')->name('single.product');
-
     Route::get('/status/list/product', 'ProductController@get_product_status');
     Route::post('/product/status/update', 'ProductController@product_status_update')->name('product.status.update');
     Route::get('/product/status/update', 'ProductController@product_status_update')->name('product.status.update');
-
     Route::post('product/image/store', 'ProductImageController@store')->name('product_image.store');
     Route::delete('product/image/delete/{id}', 'ProductImageController@delete')->name('product_image.delete');
-
     Route::delete('product/{product_id}/validation/{variation_id}/delete', 'ProductController@variation_delete')->name('product.variation.delete');
+
 
     Route::prefix('cms')->namespace('Cms')->as('cms.')->group(function (){
         Route::resource('sliders', 'SliderController');
@@ -141,6 +139,15 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::post('/details/update', 'AdminAccountController@details_update')->name('details.update');
         Route::post('/password/update', 'AdminAccountController@change_password')->name('password.change');
     });
+
+    Route::prefix('discount-product')->as('discount_product.')->group(function (){
+        Route::get('/', 'DiscountProductController@index')->name('index');
+        Route::get('/list', 'DiscountProductController@list')->name('list');
+        Route::get('/create', 'DiscountProductController@create')->name('create');
+        Route::post('/store', 'DiscountProductController@store')->name('store');
+        Route::delete('/{coupon_id}', 'DiscountProductController@destroy')->name('delete');
+    });
+
 });
 
 Route::get('/admin/newsletters', 'NewsLetterController@index')->middleware('auth:admin')->name('admin.newsletters');

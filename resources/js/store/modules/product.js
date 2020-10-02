@@ -5,7 +5,7 @@ const state = {
     allProducts:[],
     singleProduct:{},
     selectedProIds:[],
-    selected_date_time:[],
+
     status_list:[],
     product_data:{},
     product_details:{},
@@ -21,7 +21,6 @@ const getters = {
     products:(state)=>state.allProducts,
     product:(state)=>state.singleProduct,
     selectedProIds:(state)=>state.selectedProIds,
-    selectedDateTimes:(state)=>state.selected_date_time,
     productStatus:(state)=>state.status_list,
 
     proData:(state)=>state.product_data,
@@ -91,10 +90,6 @@ const actions = {
     },
     selectedProductIdUpdate({commit},selectData){
         commit('setSelectedProduct', selectData);
-        return true;
-    },
-    selectedProductDateTimeUpdate({commit},selectData){
-        commit('setSelectedDateTime', selectData);
         return true;
     },
     async productStatusChange({commit}, fromData){
@@ -191,18 +186,6 @@ const mutations = {
             state.selectedProIds = state.selectedProIds.filter(productId=>{
                 if(productId !== selectData.productId){
                     return productId;
-                }
-            });
-        }
-
-    },
-    setSelectedDateTime:(state,selectedData)=>{
-        if(selectedData.type === 'add'){
-            state.selected_date_time.push(selectedData);
-        }else{
-            state.selected_date_time = state.selected_date_time.filter(dateTime=>{
-                if(dateTime.productId !== selectedData.productId){
-                    return dateTime;
                 }
             });
         }

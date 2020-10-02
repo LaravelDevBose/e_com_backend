@@ -179,4 +179,10 @@ class Product extends Model
         return $this->hasMany(ProductTag::class, 'product_id', 'product_id')
             ->where('status', config('app.active'));
     }
+
+    public function discount()
+    {
+        return $this->hasOne(DiscountProduct::class, 'product_id', 'product_id')
+            ->latest();
+    }
 }

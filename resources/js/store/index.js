@@ -26,6 +26,8 @@ import delivery_method from "./modules/delivery_method";
 import admin from "./modules/admin";
 import seller from "./modules/seller";
 import couponCode from "./modules/coupon_code";
+import discount_product from "./modules/discount_product";
+
 
 export default new Vuex.Store({
     state:{
@@ -66,6 +68,7 @@ export default new Vuex.Store({
         admin,
         seller,
         couponCode,
+        discount_product,
     }
 })
 

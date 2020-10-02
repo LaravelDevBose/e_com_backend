@@ -30,6 +30,8 @@ class ProductCollection extends Resource
             'seller'=>new SellerResource($this->whenLoaded('seller')),
             'category'=>New CategoryResource($this->whenLoaded('category')),
             'brand'=>New BrandResource($this->whenLoaded('brand')),
+            'variations'=> ProductVariationResource::collection($this->whenLoaded('variations')),
+            'variation'=> new ProductVariationResource($this->whenLoaded('variation')),
         ];
     }
 }

@@ -16,6 +16,8 @@
                 this.image_path = this.row.thumbnail.image_path;
             }else if(this.row.hasOwnProperty('thumb_image')){
                 this.image_path = this.row.thumb_image.image_path;
+            }else if(this.row.product.hasOwnProperty('thumbnail')){
+                this.image_path = this.row.product.thumbnail.image_path;
             }else{
                 this.image_path = BASE_URL+'/assets/images/placeholder.jpg';
             }

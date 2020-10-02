@@ -27,7 +27,7 @@
                     <li ><a href="{{ route('admin.home') }}"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                     @if(!empty(auth()->user()->adminRole))
                         @if(auth()->user()->adminRole->orders)
-                            <li ><a href="{{ route('admin.order.index') }}"><i class="icon-cart"></i> <span>Orders</span></a></li>
+                            <li ><a href="{{ route('admin.order.index') }}"><i class="icon-cart-add2"></i> <span>Orders</span></a></li>
                         @endif
                         @if(auth()->user()->adminRole->product)
                             <li>
@@ -52,13 +52,13 @@
                             <li ><a href="{{ route('admin.category') }}"><i class="icon-list"></i> <span>Category</span></a></li>
                         @endif
                         @if(auth()->user()->adminRole->brand)
-                            <li ><a href="{{ route('admin.brand.create') }}"><i class="icon-list"></i> <span>Brand</span></a></li>
+                            <li ><a href="{{ route('admin.brand.create') }}"><i class="icon-equalizer2"></i> <span>Brand</span></a></li>
                         @endif
                         @if(auth()->user()->adminRole->color)
                             <li ><a href="{{ route('admin.color.create') }}"><i class="icon-brush"></i> <span>Color</span></a></li>
                         @endif
                         @if(auth()->user()->adminRole->tag)
-                            <li ><a href="{{ route('admin.tag.create') }}"><i class="icon-price-tag2"></i> <span>Tag</span></a></li>
+                            <li ><a href="{{ route('admin.tag.create') }}"><i class="icon-price-tags"></i> <span>Tag</span></a></li>
                         @endif
                         @if(auth()->user()->adminRole->size)
                             <li ><a href="{{ route('admin.size_group.create') }}"><i class="icon-rulers"></i> <span>Product Size</span></a></li>
@@ -66,18 +66,21 @@
                         @if(auth()->user()->adminRole->delivery_method)
                             <li ><a href="{{ route('admin.delivery.method.index') }}"><i class="icon-truck"></i> <span>Delivery Method</span></a></li>
                         @endif
-                            @if(auth()->user()->adminRole->coupon_manage)
-                                <li ><a href="{{ route('admin.coupon_code.index') }}"><i class="icon-code"></i> <span>Coupon Code</span></a></li>
-                            @endif
+                        @if(auth()->user()->adminRole->coupon_manage)
+                            <li ><a href="{{ route('admin.coupon_code.index') }}"><i class="icon-ticket"></i> <span>Coupon Code</span></a></li>
+                        @endif
+                        @if(auth()->user()->adminRole->coupon_manage)
+                            <li ><a href="{{ route('admin.discount_product.index') }}"><i class="icon-percent"></i> <span>Discount</span></a></li>
+                        @endif
                         @if(auth()->user()->adminRole->cms)
                             <li>
-                                <a href="#"><i class="icon-cart"></i> <span>CMS</span></a>
+                                <a href="#"><i class="icon-stack2"></i> <span>CMS</span></a>
                                 <ul>
                                     @if(auth()->user()->adminRole->slider)
-                                        <li><a href="{{ route('admin.cms.sliders.index') }}"><i class="icon-list-numbered"></i>Slider</a></li>
+                                        <li><a href="{{ route('admin.cms.sliders.index') }}"><i class="icon-images2"></i>Slider</a></li>
                                     @endif
                                     @if(auth()->user()->adminRole->general_page)
-                                        <li><a href="{{ route('admin.cms.pages.index') }}"><i class="icon-list-numbered"></i> General Pages</a></li>
+                                        <li><a href="{{ route('admin.cms.pages.index') }}"><i class="icon-newspaper"></i> General Pages</a></li>
                                     @endif
                                     @if(auth()->user()->adminRole->setting)
                                         <li><a href="{{ route('admin.setting.page') }}"><i class="icon-cogs"></i> Setting</a></li>
@@ -86,7 +89,7 @@
                             </li>
                         @endif
                         @if(auth()->user()->adminRole->newsletter)
-                            <li ><a href="{{ route('admin.newsletters') }}"><i class="icon-list"></i> <span>Newsletter</span></a></li>
+                            <li ><a href="{{ route('admin.newsletters') }}"><i class="icon-equalizer3"></i> <span>Newsletter</span></a></li>
                         @endif
                     @endif
                 </ul>

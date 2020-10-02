@@ -10,31 +10,15 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+
+    public $template_name = 'limitless_v2';
     public function __construct()
     {
         $this->middleware('auth:admin');
     }
 
     public function dashboard(){
-        return view('home.index');
+        return view('admin_panel.'.$this->template_name.'.home.index');
     }
 
-    public function statistics_data(){
-        $customers = Buyer::notDelete();
-        $thisYearCus = $customers->whereYear('created_at', Carbon::today()->format('Y'))->where('buyer_status', 1)->count();
-        $thisMonthCus = $customers->whereMonth('created_at', Carbon::today()->format('m'))->where('buyer_status', 1)->count();
-        $totalCus = $customers->where('buyer_status', 1)->count();
-
-        $shops = Shop::notDelete();
-        $totalShop = $shops->count();
-        $thisYShop = $shops->whereYear('created_at', Carbon::today()->format('Y'))->count();
-        $thisMShop = $shops->whereMonth('created_at', Carbon::today()->format('m'))->count();
-
-        $products = Product::notDelete();
-        $totalPro = $products->isActive()->count();
-        $thisYPro = $products->isActive()->whereYear('created_at', Carbon::today()->format('Y'))->count();
-        $thisMPro = $products->whereMonth()->whereYear('created_at', Carbon::today()->format('m'))->count();
-
-        $orders = Order::where('order_status', '!=', 0);
-    }
 }

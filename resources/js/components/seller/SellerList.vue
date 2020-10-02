@@ -39,14 +39,14 @@
 <script>
     import Vue from 'vue';
     import { mapGetters, mapActions} from 'vuex';
-    Vue.component('status', {
+    Vue.component('seller-status', {
         template: `
             <span class="badge badge-success" v-if="row.status === 1">Active</span>
             <span class="badge badge-warning" v-else>De-active</span>
         `,
         props: ['row']
     });
-    Vue.component('action', {
+    Vue.component('seller-action', {
         template: `<ul class="icons-list">
                         <li class="text-primary-600"><a href="#" @click.prevent="goToEditPage(row.id)"><i class="icon-pencil7"></i></a></li>
                         <li class="text-danger-600"><a href="#" @click.prevent="deleteSellerData(row.id)"><i class="icon-trash"></i></a></li>
@@ -93,8 +93,8 @@
                     { label: 'Shop Phone', field: 'shop_phone', sortable: false },
                     { label: 'Shop Address', field: 'shop_address', sortable: false },
                     { label: 'Shop Email', field: 'shop_email', sortable: false },
-                    { label: 'Status', component: 'status', align: 'center', sortable: false },
-                    { label: 'Action', component: 'action', align: 'center', sortable: false },
+                    { label: 'Status', component: 'seller-status', align: 'center', sortable: false },
+                    { label: 'Action', component: 'seller-action', align: 'center', sortable: false },
 
                 ],
             }
