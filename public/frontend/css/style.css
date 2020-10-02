@@ -4308,7 +4308,7 @@ select.input-sm {
 
 .header-opt-3 .header-content {
     background-color: #fff;
-    padding: 23px 0
+    padding: 15px 0
 }
 
 .header-opt-3 .header-content .nav-right {
@@ -4316,7 +4316,12 @@ select.input-sm {
 }
 
 .header-opt-3 .header-content .logo {
-    display: block
+    display: block;
+    height: 65px;
+}
+.header-opt-3 .header-content .logo img {
+    width: 100%;
+    height: 100%;
 }
 
 .header-opt-3 .header-content .block-search {

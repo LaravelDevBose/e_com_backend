@@ -1,0 +1,78 @@
+<template>
+    <div class="box-header-nav">
+
+        <span data-action="toggle-nav-cat" class="nav-toggle-menu nav-toggle-cat">
+            <span>Categories</span>
+            <i aria-hidden="true" class="fa fa-bars"></i>
+        </span>
+
+        <!-- categori -->
+        <div class="block-nav-categori">
+
+            <div class="block-title">
+                <span>Categories</span>
+            </div>
+
+            <div class="block-content">
+                <div class="clearfix"><span data-action="close-cat" class="close-cate"><span>Categories</span></span>
+                </div>
+                <header-category-menu></header-category-menu>
+
+                <div class="view-all-categori">
+                    <a class="open-cate btn-view-all">All Categories</a>
+                </div>
+            </div>
+
+        </div><!-- categori -->
+
+        <!-- menu -->
+        <div class="block-nav-menu">
+            <div class="clearfix"><span data-action="close-nav" class="close-nav"><span>close</span></span></div>
+            <mega-menu-section></mega-menu-section>
+
+        </div><!-- menu -->
+
+        <span data-action="toggle-nav" class="nav-toggle-menu">
+            <span>Menu</span>
+            <i aria-hidden="true" class="fa fa-bars"></i>
+        </span>
+
+        <div class="block-minicart dropdown ">
+            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                <span class="cart-icon"></span>
+            </a>
+            <header-cart-dropdown></header-cart-dropdown>
+        </div>
+
+        <div class="block-search">
+            <div class="block-title">
+                <span>Search</span>
+            </div>
+            <div class="block-content">
+                <div class="form-search">
+                    <form>
+                        <div class="box-group">
+                            <input type="text" class="form-control" placeholder="Search here...">
+                            <button class="btn btn-search" type="button"><span>search</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import HeaderCategoryMenu from "./HeaderCategoryMenu";
+import HeaderCartDropdown from "./cart/HeaderCartDropdown";
+import MegaMenuSection from "./megamenu/MegaMenuSection";
+
+export default {
+    name: "HeaderMenu",
+    components: {MegaMenuSection, HeaderCartDropdown, HeaderCategoryMenu}
+}
+</script>
+
+<style scoped>
+
+</style>

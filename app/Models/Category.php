@@ -96,7 +96,7 @@ class Category extends Model
         return $this->hasOne(Attachment::class,'attachment_id', 'banner_id');
     }
 
-    public function iconImage(){
+    public function icon(){
         return $this->hasOne(Attachment::class,'attachment_id', 'icon_id');
     }
 

@@ -3,143 +3,43 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Helpers\Frontend\ProductHelper;
-use App\Helpers\TemplateHelper;
-use App\Http\Resources\Frontend\brand\BrandCollection;
 use App\Http\Resources\Frontend\category\CategoryCollection;
-use App\Http\Resources\Frontend\product\ProductCollection;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\DeliveryMethod;
-use App\Models\GroupProduct;
-use App\Models\HomepageSection;
-use App\Models\LatestDeal;
-use App\Models\OrderItem;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductVariation;
-use App\Models\Review;
-use App\Models\SectionCategory;
-use App\Models\SectionProduct;
-use App\Models\Seller;
 use App\Models\Setting;
-use App\Models\Shop;
 use App\Models\Size;
 use App\Models\Slider;
+use App\Traits\ApiResponser;
 use App\Traits\CommonData;
 use App\Traits\ResponserTrait;
-use Carbon\Carbon;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Session;
 
 class FrontendController extends Controller
 {
     use CommonData;
-    public $template_name;
 
-    public function __construct()
+    public function category_list(Request $request)
     {
-        $this->template_name = TemplateHelper::templateName();
-        if (empty($this->template_name)) {
-            $this->template_name = config('app.default_template');
+        $categories = Category::isActive()->isParent()->with(['attachment','icon','children'=>function($query){
+            return $query->isActive()->with(['children'=>function($q){
+                return $q->isActive();
+            }]);
+        }])->get();
+        if (!empty($categories)){
+            $coll = new CategoryCollection($categories);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
+        }else{
+            return ApiResponser::AllResponse('Not Found', Response::HTTP_NOT_FOUND, false, 'Category list not found');
         }
-    }
-
-    public function index()
-    {
-        $sliders = CommonData::slider_list([Slider::SliderType['Home Page']]);
-
-        $sections = HomepageSection::with(['attachment',
-            'sectionCategories' => function ($query) {
-                return $query->with(['category', 'secCatProducts' => function ($q) {
-                    return $q->with(['product.thumbImage', 'product.singleVariation']);
-                }]);
-            }, 'sectionProducts' => function ($q) {
-                return $q->isActive()->count();
-            }])->orderBy('section_position', 'asc')->isActive()->get();
-
-        $topProducts = GroupProduct::where('group_type', GroupProduct::Groups['Top Product'])
-            ->with(['product' => function ($query) {
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews');
-            }])->orderBy('position', 'asc')->latest()->get();
-
-        $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
-            ->with(['product' => function ($query) {
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
-            }])->islive()->orderBy('position', 'asc')->latest()->get();
-
-
-        $adminBestSellProIds = OrderItem::where('seller_id', 1) //seller id 1 is Booked for admin
-        ->select('order_id', 'product_id', DB::raw('count(*) as total'))
-            ->groupBy('product_id')->orderBy('total', 'desc')
-            ->take(20)
-            ->pluck('product_id');
-        $adminBestSellProducts = Product::isActive()->whereIn('product_id', $adminBestSellProIds)
-            ->with('thumbImage', 'singleVariation', 'reviews')->take(16)->get();
-
-        $adminLatestProducts = Product::isActive()->where('seller_id', 1)
-            ->with('thumbImage', 'singleVariation', 'reviews', 'brand.attachment', 'mallLogo')
-            ->latest()->take(20)->get();
-
-        $categories = Category::isParent()->isActive()->select('category_id', 'category_name', 'category_slug', 'sect_banner_id')
-            ->with(['sectionBanner', 'children' => function ($query) {
-                return $query->isActive();
-            }])->get();
-
-        $categorySection = array();
-        foreach ($categories as $category) {
-            $catIds = Category::All_children_Ids($category->category_id);
-            $products = Product::isActive()->whereIn('category_id', $catIds)->with('thumbImage', 'singleVariation', 'reviews');
-            $productIds = $products->pluck('product_id');
-
-            $bestSellProductId = OrderItem::whereIn('product_id', $productIds)
-                ->select('order_id', 'product_id', DB::raw('count(*) as total'))
-                ->groupBy('product_id')->orderBy('total', 'desc')
-                ->pluck('product_id');
-
-            $mostReviewProductIds = Review::whereIn('product_id', $productIds)
-                ->select('review_id', 'product_id', DB::raw('count(*) as total'))
-                ->groupBy('product_id')->orderBy('total', 'desc')
-                ->pluck('product_id');
-            $bestSellProducts = $products;
-            $mostReviewsProducts = $products;
-            $latestProducts = $products->latest()->take(18)->get();
-            $bestSellProducts = $bestSellProducts->whereIn('product_id', $bestSellProductId)->take(12)->get();
-            $mostReviewsProducts = $mostReviewsProducts->whereIn('product_id', $mostReviewProductIds)->take(12)->get();
-
-            array_push($categorySection, [
-                'category' => $category,
-                'productList' => [
-                    'newArrivals' => $latestProducts,
-                    'bestSeller' => $bestSellProducts,
-                    'mostReviews' => $mostReviewsProducts,
-                ]
-            ]);
-        }
-
-        $latestDeals = LatestDeal::where('status', config('app.active'))->whereDate('end_time', '>', Carbon::now()->format('Y-m-d h:i:s'))
-            ->with(['deal_products' => function ($query) {
-                return $query->with(['product' => function ($q) {
-                    return $q->isActive();
-                }]);
-            }])->first();
-        return view('templates.' . $this->template_name . '.frontend.home', [
-            'sliders' => $sliders,
-            'sections' => $sections,
-            'topProducts' => $topProducts,
-            'hotProducts' => $hotProducts,
-            'categorySection' => $categorySection,
-            'adminBestSellProducts' => $adminBestSellProducts,
-            'adminLatestProducts' => $adminLatestProducts,
-            'latestDeals' => $latestDeals,
-        ]);
     }
 
     public function set_lang($lang)
@@ -319,16 +219,12 @@ class FrontendController extends Controller
     public function product_details($slug)
     {
         $product = Product::where('product_slug', $slug)
-            ->with(['brand', 'category', 'productDetails', 'variations', 'productImages', 'singleVariation', 'thumbImage', 'seller.shop', 'reviews.buyer'])
+            ->with(['brand', 'category', 'productDetails', 'variations', 'productImages', 'thumbImage', 'seller.shop', 'reviews.buyer'])
             ->firstOrFail();
 
         if (empty($product)) {
             return abort(Response::HTTP_NOT_FOUND);
         }
-        $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
-            ->with(['product' => function ($query) {
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage')->isActive();
-            }])->islive()->orderBy('position', 'asc')->latest()->take(5)->get();
         $showSellerInfo = Setting::where('key', 'show_seller_info')->first();
         $reqData = [
             'product_id' => $product->product_id,
@@ -342,7 +238,6 @@ class FrontendController extends Controller
         $deliveryMethods = DeliveryMethod::isActive()->get();
         return view('templates.' . $this->template_name . '.frontend.product', [
             'product' => $product,
-            'hotProducts' => $hotProducts,
             'relatedProducts' => $relatedProducts,
             'deliveryMethods' => $deliveryMethods,
             'showSellerInfo'   => $showSellerInfo,
@@ -483,7 +378,10 @@ class FrontendController extends Controller
 
     public function get_category_list()
     {
-        $categories = Category::isActive()->groupBy('category_id', 'parent_id')->orderBy('category_id', 'asc')->select('category_name as name', 'category_id as id')->get()->toArray();
+        $categories = Category::isActive()->groupBy('category_id', 'parent_id')
+            ->orderBy('category_id', 'asc')
+            ->select('category_name as name', 'category_id as id')
+            ->get()->toArray();
 
         if (!empty($categories)) {
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $categories);
