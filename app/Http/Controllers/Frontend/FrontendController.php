@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Helpers\Frontend\ProductHelper;
+use App\Http\Resources\Frontend\brand\BrandCollection;
 use App\Http\Resources\Frontend\category\CategoryCollection;
+use App\Http\Resources\Frontend\discount\DiscountProductCollection;
+use App\Http\Resources\Frontend\product\ProductCollection;
+use App\Http\Resources\Frontend\slider\SliderResource;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\DeliveryMethod;
+use App\Models\DiscountProduct;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductVariation;
@@ -39,6 +44,77 @@ class FrontendController extends Controller
             return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
         }else{
             return ApiResponser::AllResponse('Not Found', Response::HTTP_NOT_FOUND, false, 'Category list not found');
+        }
+    }
+
+    public function brand_list()
+    {
+        $brands = Brand::isActive()->with(['attachment'])->get();
+        if (!empty($brands)){
+            $coll = new BrandCollection($brands);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
+        }else{
+            return ApiResponser::AllResponse('Not Found', Response::HTTP_NOT_FOUND, false);
+        }
+    }
+
+    public function slider_list()
+    {
+        $sliders = Slider::isActive()->with('attachment')->orderby('slider_position', 'asc')->get();
+        if (!empty($sliders)){
+            $coll = SliderResource::collection($sliders);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
+        }else{
+            return ApiResponser::AllResponse('Not Found', Response::HTTP_NOT_FOUND, false, 'Slider list not found');
+        }
+    }
+
+    public function discount_products_list()
+    {
+        $discounts = DiscountProduct::live()->with(['product'=>function($query){
+            return $query->isActive()->with(['variation', 'thumbImage']);
+        }])->orderBy('discount_percent', 'desc')->take(8)->get();
+
+        if(!empty($discounts)){
+            $coll = new DiscountProductCollection($discounts);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
+        }else{
+            return ApiResponser::AllResponse('Not Found', Response::HTTP_NOT_FOUND, false);
+        }
+    }
+
+    public function new_arrival_products()
+    {
+        $newArrivals = Product::isActive()->with(['variation', 'thumbImage', 'discount'])->latest()->take(8)->get();
+        if(!empty($newArrivals)){
+            $coll = new ProductCollection($newArrivals);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
+        }else{
+            return ApiResponser::AllResponse('Not Found', Response::HTTP_NOT_FOUND, false);
+        }
+    }
+
+    public function trending_products()
+    {
+        ## TODO Update Trending Product Method
+        $newArrivals = Product::isActive()->with(['variation', 'thumbImage', 'discount'])->take(8)->get();
+        if(!empty($newArrivals)){
+            $coll = new ProductCollection($newArrivals);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
+        }else{
+            return ApiResponser::AllResponse('Not Found', Response::HTTP_NOT_FOUND, false);
+        }
+    }
+
+    public function recommended_products()
+    {
+        ## TODO Update Recommended Product Method
+        $newArrivals = Product::isActive()->with(['variation', 'thumbImage', 'discount'])->take(8)->get();
+        if(!empty($newArrivals)){
+            $coll = new ProductCollection($newArrivals);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
+        }else{
+            return ApiResponser::AllResponse('Not Found', Response::HTTP_NOT_FOUND, false);
         }
     }
 

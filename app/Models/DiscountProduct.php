@@ -28,10 +28,17 @@ class DiscountProduct extends Model
     {
         return $query->where('status', '!=', config('app.delete'));
     }
+    public function scopeLive($query)
+    {
+        return $query->where('status', config('app.active'))
+            ->whereDate('start_at', '<', Carbon::now())
+            ->whereDate('expire_at', '>', Carbon::now());
+    }
 
     public function getIsLiveAttribute()
     {
         $discount = self::where('status', config('app.active'))
+            ->whereDate('start_at', '<', Carbon::now())
             ->whereDate('expire_at', '>', Carbon::now())->first();
         if(!empty($discount)){
             return true;

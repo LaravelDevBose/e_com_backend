@@ -33,8 +33,4 @@ class ProductVariation extends Model
         return $this->belongsTo(Size::class, 'size_id', 'size_id');
     }
 
-    public function giftProduct(){
-        return $this->hasOne(Product::class, 'product_id', 'gift_product_id');
-    }
-
 }

@@ -20,6 +20,11 @@ export default new Router({
             path: "/category/:slug/products",
             name: "Category Products",
             component: ()=> import("../pages/ProductsPage.vue"),
+        },
+        {
+            path: "/product/:slug",
+            name: "Product",
+            component: ()=> import("../pages/ProductDetailPage.vue"),
         }
     ]
 })

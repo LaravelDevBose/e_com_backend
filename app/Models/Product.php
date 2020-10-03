@@ -183,6 +183,7 @@ class Product extends Model
     public function discount()
     {
         return $this->hasOne(DiscountProduct::class, 'product_id', 'product_id')
+            ->live()
             ->latest();
     }
 }

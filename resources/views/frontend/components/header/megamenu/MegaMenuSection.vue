@@ -4,7 +4,7 @@
             <router-link :to="{name: 'Home'}">Home</router-link>
         </li>
         <li
-            v-for="category in categories"
+            v-for="category in categories.filter(category=> category.header === 1)"
             :key="category.name"
             :class="{'parent parent-megamenu active' : category.children}">
             <router-link

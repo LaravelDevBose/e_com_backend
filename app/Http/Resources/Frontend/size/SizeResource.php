@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\size;
+namespace App\Http\Resources\Frontend\size;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class SizeResource extends Resource
+class SizeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

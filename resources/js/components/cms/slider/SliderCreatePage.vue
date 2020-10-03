@@ -65,9 +65,9 @@
                 },
 
                 cropperData:{
-                    width:600,
-                    height:460,
-                    placeholder:'Choose a image in 600*500',
+                    width:712,
+                    height:480,
+                    placeholder:'Choose a image in 712X480',
                     file_size:1.5,
                     init_image:'',
                     folder:'slider',

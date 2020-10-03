@@ -1,5 +1,8 @@
 <template>
-    <div class="block-floor-products block-floor-products-opt3 floor-products4" >
+    <div
+        class="block-floor-products block-floor-products-opt3 floor-products4"
+        v-if="recommendedProducts && recommendedProducts.length > 0"
+    >
         <div class="container">
             <!-- title -->
             <div class="block-title ">
@@ -10,15 +13,15 @@
 
                 <!-- banner -->
                 <div class="col-banner">
-                    <a href="" class="box-img">
-                        <img src="images/media/index3/baner-floor4.jpg" alt="baner-floor">
-                        <div class="des"><span>up to 30% off</span></div>
-                    </a>
+                    <router-link to="/" class="box-img" title="Shop Now">
+                        <img :src="$baseUrl+'/images/section/trending.jpg'" alt="RECOMMENDATION Products" style="height: 100%;">
+<!--                        <div class="des"><span>SHOW ALL</span></div>-->
+                    </router-link>
                 </div>
 
                 <!-- tab product -->
                 <div class="col-products">
-                    <div class="owl-carousel"
+                    <div class="owl-carousel owl-carousel-recommended"
                          data-nav="true"
                          data-dots="false"
                          data-margin="8"
@@ -30,21 +33,14 @@
                                     "992":{"items":3},
                                     "1200":{"items":4}
                                 }'>
-                        <div class=" product-item  product-item-opt-1 ">
-                            <product-item></product-item>
+                        <div
+                            class="product-item product-item-opt-1"
+                            v-for="product in recommendedProducts"
+                            :key="'R-'+product.id"
+                        >
+                            <product-item :product="product"></product-item>
                         </div>
-                        <div class="product-item  product-item-opt-1 ">
-                            <product-item></product-item>
-                        </div>
-                        <div class="product-item  product-item-opt-1 ">
-                            <product-item></product-item>
-                        </div>
-                        <div class="product-item  product-item-opt-1 ">
-                            <product-item></product-item>
-                        </div>
-                        <div class="product-item  product-item-opt-1 ">
-                            <product-item></product-item>
-                        </div>
+
                     </div>
                 </div>
 
@@ -56,9 +52,43 @@
 
 <script>
 import ProductItem from "../product/ProductItem";
+import {mapActions, mapGetters} from "vuex";
+import Vue from "vue";
 export default {
-name: "RecommendationSection",
-    components: {ProductItem}
+    name: "RecommendationSection",
+    components: {ProductItem},
+    created() {
+        this.getRecommendedProducts();
+    },
+    methods:{
+        ...mapActions(['getRecommendedProducts']),
+        installOwlCarousel: function() {
+            const OwlData = $('.owl-carousel-recommended');
+            var config = OwlData.data();
+            config.navText = ['',''];
+            config.dotsData = false;
+            config.smartSpeed="800";
+            config.animateOut="fadeOutDown";
+            config.animateIn="fadeInDown";
+            OwlData.owlCarousel(config);
+        }
+    },
+    computed: {
+        ...mapGetters(['recommendedProducts']),
+        checkRecommendedProducts(){
+            return JSON.parse(JSON.stringify(this.recommendedProducts))
+        }
+    },
+    watch:{
+        checkRecommendedProducts:{
+            handler(newValue){
+                Vue.nextTick(function(){
+                    this.installOwlCarousel();
+                }.bind(this));
+            },
+            deep:true,
+        },
+    }
 }
 </script>
 

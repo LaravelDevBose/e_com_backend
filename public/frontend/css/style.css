@@ -16439,7 +16439,7 @@ select.input-sm {
     height: 50px;
     background-position: center top 7px;
     background-repeat: no-repeat;
-    background-image: url(../images/icon/index1/btn-cart.png);
+    background-image: url(../images/icon/btn-cart.png);
     display: inline-block;
     vertical-align: middle;
     margin-right: 8px
@@ -18629,11 +18629,11 @@ select.input-sm {
 
 .product-item-deal-opt12 .product-item-actions .btn:hover {
     color: #fff;
-    background-color: #f36
+    background-color: #08c;
 }
 
 .product-item-deal-opt12 .product-item-actions .btn-cart {
-    background-color: #11a8ab;
+    background-color: #f36;
     color: #fff;
     width: 120px;
     font-size: 16px;
@@ -18651,13 +18651,14 @@ select.input-sm {
     height: 22px;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url(../images/icon/index12/btn-cart.png);
+    background-image: url(../images/icon/btn-cart.png);
     display: inline-block;
     vertical-align: top
 }
 
 .product-item-deal-opt12 .product-item-actions .btn-cart:hover {
-    background-color: #f36
+    background-color: #08c;
+    color: #fff;
 }
 
 .product-item-deal-opt12 .product-item-actions .btn-compare,
@@ -18673,39 +18674,41 @@ select.input-sm {
 }
 
 .product-item-deal-opt12 .product-item-actions .btn-wishlist {
-    background-image: url(../images/icon/index12/btn-wishlist.png)
+    background-image: url(../images/icon/btn-wishlist.png);
+    background-color: #11a8ab;
 }
 
 .product-item-deal-opt12 .product-item-actions .btn-compare {
-    background-image: url(../images/icon/index12/btn-compare.png)
+    background-image: url(../images/icon/btn-compare.png)
 }
 
 .product-item-deal-opt12 .product-item-actions .btn-quickview {
-    background-image: url(../images/icon/index12/btn-quickview.png)
+    background-image: url(../images/icon/btn-quickview.png);
+    background-color: #11a8ab;
 }
 
 .product-item-deal-opt12 .product-item-label {
     position: absolute;
     bottom: 18px;
     right: 17px;
-    line-height: 40px;
-    width: 40px;
+    line-height: 50px;
+    width: 50px;
     padding: 0 8px;
     display: block;
     text-align: center;
-    background-color: #3395ff;
+    background-color: #e52e04;
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
     border-radius: 100%;
     text-transform: uppercase;
     font-family: Oswald, sans-serif;
-    font-weight: 400;
+    font-weight: 600;
     z-index: 1
 }
 
 .product-item-deal-opt12 .product-item-label.label-sale {
-    background-color: #89B13A;
-    top: 15px;
+    background-color: #e52e04;
+    top: 10px;
     right: 15px;
     bottom: auto;
     left: auto
@@ -28888,8 +28891,8 @@ img.alignright {
 
 .floor-products1.block-floor-products-opt3 .product-item .btn-cart:hover,
 .floor-products1.block-floor-products-opt3 .product-item .product-item-actions .btn:hover {
-    background-color: #e62e04;
-    border-color: #e62e04
+    background-color: #08c;
+    border-color: #08c;
 }
 
 .floor-products2.block-floor-products-opt3 .product-item .btn-cart:hover,
@@ -31094,7 +31097,7 @@ img.alignright {
 }
 
 .block-hot-deals-opt7 .block-title {
-    width: 125px;
+    width: 15px;
     float: left;
     padding-bottom: 23px
 }

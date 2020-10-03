@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Http\Resources\seller;
+namespace App\Http\Resources\Frontend\seller;
 
-use App\Http\Resources\shop\ShopResource;
-use App\Http\Resources\user\UserResource;
 use Illuminate\Http\Resources\Json\Resource;
 
 class SellerResource extends Resource
@@ -18,14 +16,9 @@ class SellerResource extends Resource
     {
         return [
             'id'=>$this->seller_id,
-            'userId'=>$this->user_id,
             'name'=>$this->seller_name,
-            'email'=>$this->seller_email,
-            'phone'=>$this->seller_phone,
-            'address'=>$this->seller_address,
-            'type'=>$this->seller_type,
-            'shop'=> new ShopResource($this->whenLoaded('shop')),
-            'user'=> new UserResource($this->whenLoaded('user')),
+            'shop_name'=>$this->shop_name,
+            'shop_address'=>$this->shop_address,
         ];
     }
 }

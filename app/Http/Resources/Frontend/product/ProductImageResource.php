@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Resources\product;
+namespace App\Http\Resources\Frontend\product;
 
-use App\Http\Resources\attachment\AttachmentResource;
+use App\Http\Resources\Attachment as AttachmentResource;
 use Illuminate\Http\Resources\Json\Resource;
 
 class ProductImageResource extends Resource

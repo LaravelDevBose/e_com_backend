@@ -1,9 +1,6 @@
 <?php
 
-namespace App\Http\Resources\user;
-
-use App\Http\Resources\buyer\BuyerResource;
-use App\Http\Resources\seller\SellerResource;
+namespace App\Http\Resources\Frontend\user;
 use Illuminate\Http\Resources\Json\Resource;
 
 class UserResource extends Resource
@@ -24,8 +21,6 @@ class UserResource extends Resource
             'type'=>$this->account_type,
             'isBuyer'=>$this->is_buyer,
             'isSeller'=>$this->is_seller,
-            'seller'=> new SellerResource($this->whenLoaded('seller')),
-            'buyer'=> new BuyerResource($this->whenLoaded('buyer')),
         ];
     }
 }

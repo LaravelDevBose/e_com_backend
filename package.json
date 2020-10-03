@@ -41,10 +41,9 @@
         "vue-slider-component": "^3.1.0",
         "vue-star-rating": "^1.6.1",
         "vue2-editor": "^2.10.2",
-        "vue2-flip-countdown": "^0.9.3",
         "vuejs-datatable": "^1.7.0",
         "vuetify": "^1.5.19",
         "vuex": "^3.1.1",
-        "weekstart": "^1.0.0"
+        "weekstart": "^1.0.1"
     }
 }

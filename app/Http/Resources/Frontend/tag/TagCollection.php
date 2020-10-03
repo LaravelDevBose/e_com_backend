@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Resources\tag;
+namespace App\Http\Resources\Frontend\tag;
 
 use Illuminate\Http\Resources\Json\Resource;
 
 class TagCollection extends Resource
 {
+    public $collects = 'App\Http\Resources\tag\ProductCollResource';
     /**
      * Transform the resource collection into an array.
      *

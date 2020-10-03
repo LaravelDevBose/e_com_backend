@@ -1,41 +1,16 @@
 <?php
 
-namespace App\Http\Resources\product;
+namespace App\Http\Resources\Frontend\product;
 
-use App\Models\Product;
+use App\Http\Resources\Attachment as AttachmentResource;
+use App\Http\Resources\Frontend\brand\BrandResource;
+use App\Http\Resources\Frontend\category\CategoryResource;
+use App\Http\Resources\Frontend\discount\DiscountProductResource;
+use App\Http\Resources\Frontend\tag\ProductTagResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductCollResource extends JsonResource
 {
-    private $price = 0;
-    private $prvPrice = 0;
-    private $discount = 0;
-
-    public function __construct($resource)
-    {
-        if ($resource->product_type == Product::ProductType['Variation'] && !empty($resource->singleVariation)){
-
-            if (!empty($resource->discount_price) && $resource->discount_price > 0) {
-                $this->prvPrice = $resource->singleVariation->price;
-                $this->price = ($resource->singleVariation->price - $resource->discount_price);
-                $this->discount = $resource->discount_price;
-            } else {
-                $this->price = $resource->singleVariation->price;
-            }
-
-        } else {
-            if (!empty($resource->discount_price) && $resource->discount_price > 0) {
-                $this->prvPrice = $resource->product_price;
-                $this->price = ($resource->product_price - $resource->discount_price);
-                $this->discount = $resource->discount_price;
-
-            } else {
-                $this->price = $resource->product_price;
-            }
-        }
-        parent::__construct($resource);
-    }
-
     /**
      * Transform the resource into an array.
      *
@@ -45,18 +20,21 @@ class ProductCollResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->product_id,
-            'name' => $this->product_name,
-            'slug' => $this->product_slug,
-            'productType' => $this->product_type,
-            'prvPrice' => $this->prvPrice,
-            'price' => $this->price,
-            'discount' => $this->discount,
-            'image'=>$this->thumbImage->image_path,
-            'imageId'=>$this->thumbImage->attachment_id,
-            'mallProduct'=> (!empty($this->seller_id) && $this->seller_id ==1) ? true : false,
-            'isFavorite'=> $this->is_favorite,
-            'mallCompName'=> (!empty($this->seller_id) && $this->seller_id ==1 && !empty($this->mall_comp_name)) ?  $this->mall_comp_name : '',
+            'id'=> $this->product_id,
+            'sku'=>$this->product_sku,
+            'name'=>$this->product_name,
+            'slug'=>$this->product_slug,
+            'highlight'=>$this->highlight,
+            'description'=>$this->description,
+            'total_qty'=>$this->variations->sum('quantity'),
+            'image'=> new AttachmentResource($this->whenLoaded('thumbImage')),
+            'category'=>new CategoryResource($this->whenLoaded('category')),
+            'brand'=>new BrandResource($this->whenLoaded('brand')),
+            'variations'=> ProductVariationResource::collection($this->whenLoaded('variations')),
+            'variation'=> new ProductVariationResource($this->whenLoaded('variation')),
+            'images'=> ProductImageResource::collection($this->whenLoaded('productImages')),
+            'tags'=> ProductTagResource::collection($this->whenLoaded('tags')),
+            'discount'=> new DiscountProductResource($this->whenLoaded('discount'))
         ];
     }
 

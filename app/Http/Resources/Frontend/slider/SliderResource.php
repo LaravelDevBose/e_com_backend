@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Resources\slider;
+namespace App\Http\Resources\Frontend\slider;
 
-use App\Http\Resources\attachment\AttachmentResource;
+use App\Http\Resources\Attachment as AttachmentResource;
 use Illuminate\Http\Resources\Json\Resource;
 
 class SliderResource extends Resource
@@ -21,7 +21,6 @@ class SliderResource extends Resource
             'subTitle'=>$this->sub_title,
             'btnText'=>$this->btn_text,
             'btnUrl'=>$this->btn_url,
-            'position'=>$this->slider_position,
             'attachment'=> new AttachmentResource($this->whenLoaded('attachment')),
         ];
     }

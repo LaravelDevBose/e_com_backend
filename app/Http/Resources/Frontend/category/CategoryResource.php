@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Frontend\category;
 
 use App\Http\Resources\Attachment as AttachmentResource;
-use App\Http\Resources\product\ProductCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryResource extends JsonResource
@@ -21,6 +20,7 @@ class CategoryResource extends JsonResource
             'name' => $this->category_name,
             'slug' => $this->category_slug,
             'parent_id'=>$this->parent_id,
+            'header'=> $this->in_header,
             'children'=> CategoryResource::collection($this->whenLoaded('children')),
             'attachment'=> new AttachmentResource($this->whenLoaded('attachment')),
             'icon'=> new AttachmentResource($this->whenLoaded('icon')),

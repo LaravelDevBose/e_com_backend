@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources\product;
+namespace App\Http\Resources\Frontend\product;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ProductCollection extends ResourceCollection
 {
-    public $collects = 'App\Http\Resources\product\ProductCollResource';
+    public $collects = 'App\Http\Resources\Frontend\product\ProductCollResource';
 
     /**
      * Transform the resource collection into an array.

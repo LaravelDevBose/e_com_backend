@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Resources\product;
+namespace App\Http\Resources\Frontend\product;
 
-use App\Http\Resources\color\ColorResource;
-use App\Http\Resources\size\SizeResource;
+use App\Http\Resources\Frontend\color\ColorResource;
+use App\Http\Resources\Frontend\size\SizeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductVariationResource extends JsonResource
@@ -19,14 +19,10 @@ class ProductVariationResource extends JsonResource
         return [
             'id'=>$this->variation_id,
             'sellerSku'=>$this->seller_sku,
-            'priId'=>$this->pri_id,
-            'priModel'=>$this->pri_model,
-            'secId'=>$this->sec_id,
-            'secModel'=>$this->sec_model,
             'quantity'=>$this->quantity,
             'price'=>$this->price,
-            'primaryModel'=> new ColorResource($this->primaryModel),
-            'secondaryModel'=> new SizeResource($this->secondaryModel)
+            'color'=> new ColorResource($this->color),
+            'size'=> new SizeResource($this->size)
         ];
     }
 }

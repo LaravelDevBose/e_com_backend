@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Resources\brand;
+namespace App\Http\Resources\Frontend\brand;
 
-use App\Http\Resources\attachment\AttachmentResource;
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class BrandCollection extends Resource
+class BrandCollection extends ResourceCollection
 {
+
+    public $collects = 'App\Http\Resources\Frontend\brand\BrandResource';
+
     /**
      * Transform the resource collection into an array.
      *
@@ -16,10 +18,7 @@ class BrandCollection extends Resource
     public function toArray($request)
     {
         return [
-            'id'=>$this->brand_id,
-            'name'=>$this->brand_name,
-            'slug'=>$this->brand_slug,
-            'attachment'=>new AttachmentResource($this->whenLoaded('attachment'))
+            'data'=> $this->collection
         ];
     }
 }

@@ -12,12 +12,22 @@ export default new Vuex.Store({
         category_list: [],
         product_list: [],
         brand_list: [],
+        slider_list: [],
+        discount_products:[],
+        new_arrivals:[],
+        trending_products:[],
+        recommended_products:[],
 
     },
     getters:{
         categories: (state) => state.category_list,
         products: state => state.product_list,
         brands: state => state.brand_list,
+        sliders: state => state.slider_list,
+        discountProducts: state => state.discount_products,
+        newArrivals: state => state.new_arrivals,
+        trendingProducts: state => state.trending_products,
+        recommendedProducts: state => state.recommended_products,
     },
     actions:{
         async getCategories({commit}){
@@ -29,7 +39,67 @@ export default new Vuex.Store({
             }catch (error){
                 console.log(error);
             }
-        }
+        },
+        async getBrands({state}){
+            try {
+                await axios.get('/front/get-brands')
+                    .then(({data})=>{
+                        state.brand_list = data.data;
+                    })
+            }catch (error){
+                console.log(error);
+            }
+        },
+        async getSliders({state}){
+            try {
+                await axios.get('/front/get-sliders')
+                    .then(({data})=>{
+                        state.slider_list = data.data;
+                    })
+            }catch (error){
+                console.log(error);
+            }
+        },
+        async getDiscountProducts({state}){
+            try {
+                await axios.get('/front/get-discount/products')
+                    .then(({data})=>{
+                        state.discount_products = data.data;
+                    })
+            }catch (error){
+                console.log(error);
+            }
+        },
+        async getNewArrivalProducts({state}){
+            try {
+                await axios.get('/front/get-new-arrival/products')
+                    .then(({data})=>{
+                        state.new_arrivals = data.data;
+                    })
+            }catch (error){
+                console.log(error);
+            }
+        },
+        async getTrendingProducts({state}){
+            try {
+                await axios.get('/front/get-trending/products')
+                    .then(({data})=>{
+                        state.trending_products = data.data;
+                    })
+            }catch (error){
+                console.log(error);
+            }
+        },
+        async getRecommendedProducts({state}){
+            try {
+                await axios.get('/front/get-recommended/products')
+                    .then(({data})=>{
+                        state.recommended_products = data.data;
+                    })
+            }catch (error){
+                console.log(error);
+            }
+        },
     },
     mutations:{
         setCategoryList:(state, response)=> state.category_list = response,

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources\addressBook;
+namespace App\Http\Resources\Frontend\addressBook;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class AddressBookCollection extends ResourceCollection
 {
-    public $collects = 'App\Http\Resources\addressBook\AddressBookResource';
+    public $collects = 'App\Http\Resources\Frontend\addressBook\AddressBookResource';
     /**
      * Transform the resource collection into an array.
      *

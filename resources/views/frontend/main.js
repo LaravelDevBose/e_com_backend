@@ -11,7 +11,14 @@ import store from './store'
 import router from './router';
 
 import vSelect from 'vue-select'
-Vue.component('v-select', vSelect)
+Vue.component('v-select', vSelect);
+
+import StarRating from 'vue-star-rating';
+Vue.component('star-rating', StarRating);
+
+
+import VueClazyLoad from 'vue-clazy-load';
+Vue.use(VueClazyLoad);
 
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));

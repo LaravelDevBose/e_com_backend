@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\addressBook;
+namespace App\Http\Resources\Frontend\addressBook;
 
 use Illuminate\Http\Resources\Json\Resource;
 
@@ -22,10 +22,11 @@ class AddressBookResource extends Resource
             'address'=>$this->address,
             'city'=>$this->city,
             'state'=>$this->state,
-            'postalCode'=>$this->postal_code,
-            'country'=>$this->country,
             'district'=>$this->district,
             'region'=>$this->region,
+            'postalCode'=>$this->postal_code,
+            'country'=>$this->country,
+            'status'=> $this->address_status,
 //            'fullAddress'=>$this->full_address,
         ];
     }

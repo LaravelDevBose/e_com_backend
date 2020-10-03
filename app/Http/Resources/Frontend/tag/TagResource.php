@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Http\Resources\tag;
-
-use App\Http\Resources\product\ProductCollection;
+namespace App\Http\Resources\Frontend\tag;
 use Illuminate\Http\Resources\Json\Resource;
 
 class TagResource extends Resource
@@ -19,10 +17,6 @@ class TagResource extends Resource
             'id'=>$this->tag_id,
             'title'=>$this->tag_title,
             'slug'=>$this->tag_slug,
-            'products'=> ProductCollection::collection($this->whenLoaded('products')),
-            'links'=>[
-                'products_link'=>url('tag/'.$this->tag_id.'products'),
-            ]
         ];
     }
 }

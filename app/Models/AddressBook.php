@@ -45,7 +45,6 @@ class AddressBook extends Model
         'postal_code',
         'country',
         'address_status',
-
     ];
 
     protected $appends = array('full_address');

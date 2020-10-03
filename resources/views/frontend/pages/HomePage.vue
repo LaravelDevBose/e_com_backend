@@ -48,17 +48,17 @@
         <!-- block -floor -products / floor 1-->
 
         <!-- block -floor -products / floor 2 -->
-            <top-sell-section></top-sell-section>
+            <trending-sell-section></trending-sell-section>
         <!-- block -floor -products / floor 2-->
 
         <!-- banner -->
         <div class="block-banner-lag-opt3  effect-banner3">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <a class="box-img" href=""><img alt="banner" src="images/media/index3/banner1-1.jpg"></a>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <a class="box-img" href=""><img alt="banner" src="images/media/index3/banner1-2.jpg"></a>
                     </div>
                 </div>
@@ -68,7 +68,9 @@
         <!-- block -floor -products / floor 4 -->
             <recommendation-section></recommendation-section>
         <!-- block -floor -products / floor 4-->
-
+        <!-- block  showcase-->
+            <brand-section></brand-section>
+        <!-- block  showcase-->
     </main><!-- end MAIN -->
 </template>
 
@@ -79,16 +81,22 @@ import HomeTrendingSection from "../components/home/HomeTrendingSection";
 import HomeServiceSection from "../components/home/HomeServiceSection";
 import HotDealGridSection from "../components/section/HotDealGridSection";
 import NewArrivalSection from "../components/section/NewArrivalSection";
-import TopSellSection from "../components/section/TopSellSection";
 import RecommendationSection from "../components/section/RecommendationSection";
+import TrendingSellSection from "../components/section/TrendingSellSection";
+import BrandSection from "../components/section/BrandSection";
 export default {
-name: "HomePage",
+    name: "HomePage",
     components: {
+        BrandSection,
+        TrendingSellSection,
         RecommendationSection,
-        TopSellSection,
         NewArrivalSection,
         HotDealGridSection,
-        HomeServiceSection, HomeTrendingSection, HomeSliderSection, HeaderCategoryMenu}
+        HomeServiceSection,
+        HomeTrendingSection,
+        HomeSliderSection,
+        HeaderCategoryMenu
+    }
 }
 </script>
 

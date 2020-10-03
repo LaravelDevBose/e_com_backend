@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Resources\brand;
+namespace App\Http\Resources\Frontend\brand;
 
-use App\Http\Resources\attachment\AttachmentResource;
+use App\Http\Resources\Attachment as AttachmentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BrandResource extends JsonResource

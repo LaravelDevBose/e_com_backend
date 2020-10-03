@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Resources\color;
+namespace App\Http\Resources\Frontend\color;
 
-use App\Http\Resources\product\ProductCollection;
 use Illuminate\Http\Resources\Json\Resource;
 
 class ColorResource extends Resource
