@@ -13,7 +13,11 @@
 
                 <!-- banner -->
                 <div class="col-banner">
-                    <router-link to="/" class="box-img" title="Shop Now">
+                    <router-link
+                        :to="{name: 'Section Products', params:{section_slug: 'recommendation'}}"
+                        class="box-img"
+                        title="Shop Now"
+                    >
                         <img :src="$baseUrl+'/images/section/trending.jpg'" alt="RECOMMENDATION Products" style="height: 100%;">
 <!--                        <div class="des"><span>SHOW ALL</span></div>-->
                     </router-link>

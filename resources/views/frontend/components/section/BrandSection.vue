@@ -25,7 +25,7 @@
                          :key="'brand-'+brand.id"
                          :title="brand.name"
                     >
-                        <router-link :to="{name: 'Brand Product', params:{ slug: brand.slug }}" class="item-img">
+                        <router-link :to="{ name: 'Brand Products', params:{ brand_slug: brand.slug }}" class="item-img">
                             <span v-if="brand.attachment">
                                 <img  :src="brand.attachment.image_path" :alt="brand.name">
                             </span>

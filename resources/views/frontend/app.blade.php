@@ -37,7 +37,7 @@
 
 </head>
 
-<body class="cms-index-index index-opt-3">
+<body class="index-opt-1 catalog-category-view catalog-view_op1">
 <div class="wrapper" id="main">
     <main-app></main-app>
     <!--back-to-top  -->

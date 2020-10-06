@@ -9,7 +9,15 @@
                 </div>
 
                 <div class="block-content ">
-
+                    <div class="col-banner">
+                        <div class="des">
+                            <router-link :to="{name: 'Section Products', params:{section_slug: 'hot_deal'}}" title="Shop now">
+                            Show All
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-content ">
                     <div class="owl-carousel owl-carousel-hot"
                          data-nav="true"
                          data-dots="false"
@@ -90,5 +98,15 @@ export default {
 </script>
 
 <style scoped>
-
+.des{
+    float: right;
+    height: 25px;
+    width: max-content;
+    color: #fff;
+    background-color: #08c;
+    padding: 2px 5px;
+}
+a{
+    color: #fff!important;
+}
 </style>

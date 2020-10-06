@@ -21,6 +21,7 @@ class ProductVariation extends Model
         'updated_by',
         'deleted_by',
     ];
+    protected $casts = ['price'=> 'float'];
 
     public function product(){
         return $this->belongsTo(Product::class, 'product_id', 'product_id');

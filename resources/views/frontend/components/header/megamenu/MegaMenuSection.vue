@@ -8,7 +8,7 @@
             :key="category.name"
             :class="{'parent parent-megamenu active' : category.children}">
             <router-link
-                :to="{name:'Category Products', params:{slug: category.slug}}"
+                :to="{name:'Category Products', params:{category_slug: category.slug}}"
             >{{ category.name }}
             </router-link>
 

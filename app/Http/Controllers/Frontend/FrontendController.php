@@ -4,10 +4,15 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Helpers\Frontend\ProductHelper;
 use App\Http\Resources\Frontend\brand\BrandCollection;
+use App\Http\Resources\Frontend\brand\BrandResource;
 use App\Http\Resources\Frontend\category\CategoryCollection;
+use App\Http\Resources\Frontend\category\CategoryResource;
+use App\Http\Resources\Frontend\color\ColorResource;
 use App\Http\Resources\Frontend\discount\DiscountProductCollection;
 use App\Http\Resources\Frontend\product\ProductCollection;
+use App\Http\Resources\Frontend\size\SizeResource;
 use App\Http\Resources\Frontend\slider\SliderResource;
+use App\Http\Resources\Frontend\tag\TagResource;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Color;
@@ -15,10 +20,12 @@ use App\Models\DeliveryMethod;
 use App\Models\DiscountProduct;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\ProductTag;
 use App\Models\ProductVariation;
 use App\Models\Setting;
 use App\Models\Size;
 use App\Models\Slider;
+use App\Models\Tag;
 use App\Traits\ApiResponser;
 use App\Traits\CommonData;
 use App\Traits\ResponserTrait;
@@ -26,6 +33,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class FrontendController extends Controller
@@ -118,6 +126,145 @@ class FrontendController extends Controller
         }
     }
 
+
+    public function get_sidebar_data(Request $request)
+    {
+        $category = '';
+        if (!empty($request->category_slug)){
+            $category = Category::where('category_slug', $request->category_slug)
+                ->with(['attachment','children'=>function($query){
+                    return $query->isActive()->with(['attachment','children'=>function($q){
+                        return $q->with('attachment')->isActive();
+                    }]);
+                }])->first();
+            $categoryIds = Category::All_children_Ids($category->category_id);
+            $products = Product::isActive()->whereIn('category_id', $categoryIds)->get();
+            $category = new CategoryResource($category);
+        }
+
+        if (!empty($request->brand_slug)){
+            $brandId = Brand::where('brand_slug', $request->brand_slug)->first()->value('brand_id');
+            $products = Product::isActive()->where('brand_id', $brandId)->get();
+        }
+
+        if (!empty($request->tag_slug)){
+            $tag = Tag::where('tag_slug', $request->tag_slug)->with('products')->first();
+            $products = Product::isActive()->whereIn('product_id', $tag->products->pluck('product_id'))->get();
+        }
+
+        if (!empty($request->section_slug)){
+            if($request->section_slug == 'hot_deal'){
+                $productIds = DiscountProduct::live()->orderBy('discount_percent', 'desc')->pluck('product_id');
+                $products = Product::isActive()->whereIn('product_id', $productIds)->get();
+
+            }else if($request->section_slug == 'new_arrival'){
+                $products = Product::isActive()->latest()->get();
+            }else{
+                ## TODO Update Trending product query and recomm
+                $products = Product::isActive()->get();
+            }
+        }
+
+        $productV = ProductVariation::whereIn('product_id', $products->pluck('product_id')->toArray());
+        $brandIds = $products->where('brand_id', '!=', 0)->pluck('brand_id')->toArray();
+        $colorIds = $productV->distinct('color_id')->pluck('color_id')->toArray();
+        $sizeIds = $productV->distinct('size_id')->pluck('size_id')->toArray();
+        $tagIds = ProductTag::whereIn('product_id', $products->pluck('product_id')->toArray())->pluck('tag_id');
+        $search_min_price = Setting::where('key', 'search_min_price')->where('type', Setting::Setting_Type['general'])->first();
+        $search_max_price = Setting::where('key', 'search_max_price')->where('type', Setting::Setting_Type['general'])->first();
+
+
+        $data = [
+            'category'=>$category,
+            'brands' => BrandResource::collection(Brand::isActive()->whereIn('brand_id', $brandIds)->get()),
+            'colors' => ColorResource::collection(Color::isActive()->whereIn('color_id', $colorIds)->get()),
+            'tags' => TagResource::collection(Tag::isActive()->whereIn('tag_id', $tagIds)->get()),
+            'sizes' => SizeResource::collection(Size::isActive()->whereIn('size_id', $sizeIds)->get()),
+            'search_min_price'=> (!empty($search_min_price)) ? $search_min_price->value : 1,
+            'search_max_price'=> (!empty($search_max_price)) ? $search_max_price->value : 10000,
+        ];
+
+        return ApiResponser::SingleResponse($data, 'success', Response::HTTP_OK);
+    }
+
+    public function products_list(Request $request)
+    {
+        $products = Product::isActive();
+        if (!empty($request->category_slug)) {
+            $catId = Category::where('category_slug', $request->category_slug)->value('category_id');
+            $categoriesID = array();
+            $categoriesID = array_merge($categoriesID, [
+                $catId
+            ]);
+            $childIds = Category::where('parent_id', $catId)->isActive()->pluck('category_id')->toArray();
+            if (!empty($childIds) && count($childIds) > 0) {
+
+                $categoriesID = array_merge($categoriesID, $childIds);
+                if (!empty($childIds)) {
+                    $childId = Category::whereIn('parent_id', $childIds)->isActive()->pluck('category_id')->toArray();
+                    $categoriesID = array_merge($categoriesID, $childId);
+                }
+            }
+            $products = $products->whereIn('category_id', $categoriesID);
+        }
+        if (!empty($request->brand_slug)){
+            $brandId = Brand::where('brand_slug', $request->brand_slug)->value('brand_id');
+            $products = $products->where('brand_id', $brandId);
+        }
+        if (!empty($request->tag_slug)){
+            $tag = Tag::where('tag_slug', $request->tag_slug)->with('products')->first();
+            $products = $products->whereIn('product_id', $tag->products->pluck('product_id'));
+        }
+
+        if (!empty($request->section_slug)){
+            if($request->section_slug == 'hot_deal'){
+                $productIds = DiscountProduct::live()->orderBy('discount_percent', 'desc')->pluck('product_id');
+                $products = $products->whereIn('product_id', $productIds);
+
+            }else if($request->section_slug == 'new_arrival'){
+                $products = $products->latest();
+            }else{
+                ## TODO Update Trending product query and recomm
+
+            }
+        }
+
+        if (!empty($request->brand_ids) && is_array($request->brand_ids)) {
+            $products = $products->whereIn('brand_id', $request->brand_ids);
+        }
+
+        $productIds = $products->pluck('product_id')->toArray();
+        if(!empty($request->color_ids) || !empty($request->size_ids)){
+            $productIds = ProductVariation::whereIn('product_id', $productIds)
+                ->where('variation_status', 1)
+                ->whereIn('color_id',$request->color_ids)
+                ->whereIn('size_id', $request->size_ids)
+                ->where('price', '>=', $request->price['min'])
+                ->where('price', '<=', $request->price['max'])
+                ->pluck('product_id')->toArray();
+        }
+
+        if(!empty($request->order_by) && $request->order_by == 'price'){
+            $rawQuery = 'product_variations.price '.$request->order_type;
+        }else{
+            $rawQuery = 'products.product_name '.$request->order_type;
+        }
+        $products = Product::isActive()->whereIn('products.product_id', $productIds)
+            ->with(['variation','thumbImage', 'discount'])
+            ->join('product_variations', 'products.product_id', '=', 'product_variations.product_id')
+            ->orderByRaw($rawQuery)
+            ->groupBy('products.product_id');
+
+        $list = ApiResponser::MakeCollectionResponse($request, $products);
+        if (!empty($list)) {
+            $coll = new ProductCollection($list);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
+        } else {
+            return ApiResponser::AllResponse('error', Response::HTTP_BAD_REQUEST, 'No Products Found');
+        }
+    }
+
+
     public function set_lang($lang)
     {
         Session::put('lang', $lang);
@@ -125,46 +272,7 @@ class FrontendController extends Controller
         return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Successful', App::getLocale());
     }
 
-    public function section_data_list(Request $request)
-    {
-        $sections = HomepageSection::with(['sectionCategories.category', 'attachment'])
-            ->orderBy('section_position', 'asc')->paginate(1);
-        if (!empty($sections)) {
-            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $sections);
-        } else {
-            return ResponserTrait::allResponse('error', Response::HTTP_NO_CONTENT, 'No Section Found');
-        }
-    }
 
-    public function hot_products()
-    {
-        $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
-            ->with(['product' => function ($query) {
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
-            }])->orderBy('position', 'asc')->islive()->isActive()->latest()->get();
-        return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $hotProducts);
-    }
-
-    public function get_section_products($sectionId)
-    {
-        $section = HomepageSection::where('section_id', $sectionId)->first();
-        if (empty($section)) {
-            return ResponserTrait::allResponse('error', Response::HTTP_NO_CONTENT, 'Invalid Section Details');
-        }
-        $productIds = SectionProduct::where('section_id', $sectionId)->pluck('product_id')->toArray();
-        $categoryIds = SectionCategory::where('section_id', $sectionId)->pluck('category_id');
-        $reqData1 = [
-            'categoryIds' => $categoryIds,
-            'productIds' => $productIds,
-            'productIdsType' => 'add',
-        ];
-        $products = ProductHelper::products_list($reqData1);
-        if (!empty($products)) {
-            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $products);
-        } else {
-            return ResponserTrait::allResponse('error', Response::HTTP_NO_CONTENT, 'No Product Found');
-        }
-    }
 
     public function category_wish_products(Request $request, $category_slug)
     {
@@ -210,87 +318,7 @@ class FrontendController extends Controller
         }
     }
 
-    public function product_sidebar_data(Request $request)
-    {
-        $categoryIds = Category::All_children_Ids($request->category_id);
-        $products = Product::isActive()->whereIn('category_id', $categoryIds)->get();
 
-        $brandIds = $products->where('brand_id', '!=', 0)->pluck('brand_id')->toArray();
-        $productIds = $products->pluck('product_id')->toArray();
-        $colorIds = ProductVariation::whereIn('product_id', $productIds)->distinct('pri_id')->pluck('pri_id')->toArray();
-        $sizeIds = ProductVariation::whereIn('product_id', $productIds)->distinct('sec_id')->pluck('sec_id')->toArray();
-        $search_min_price = Setting::where('key', 'search_min_price')->where('type', Setting::Setting_Type['general'])->first();
-        $search_max_price = Setting::where('key', 'search_max_price')->where('type', Setting::Setting_Type['general'])->first();
-        $data = [
-            'brands' => Brand::isActive()->whereIn('brand_id', $brandIds)->get(),
-            'colors' => Color::isActive()->whereIn('color_id', $colorIds)->get(),
-            'tags' => CommonData::tag_list(),
-            'sizes' => Size::isActive()->whereIn('size_id', $sizeIds)->get(),
-            'search_min_price'=> (!empty($search_min_price)) ? $search_min_price->value : 1,
-            'search_max_price'=> (!empty($search_max_price)) ? $search_max_price->value : 10000,
-        ];
-
-        return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK);
-    }
-
-    public function sorting_product(Request $request)
-    {
-        $products = Product::isActive();
-        if (!empty($request->category_id)) {
-            $categoriesID = array();
-
-            $categoriesID = array_merge($categoriesID, [
-                $request->category_id
-            ]);
-            $childIds = Category::where('parent_id', $request->category_id)->isActive()->pluck('category_id')->toArray();
-            if (!empty($childIds) && count($childIds) > 0) {
-
-                $categoriesID = array_merge($categoriesID, $childIds);
-                if (!empty($childIds)) {
-                    $childId = Category::whereIn('parent_id', $childIds)->isActive()->pluck('category_id')->toArray();
-                    $categoriesID = array_merge($categoriesID, $childId);
-                }
-            }
-            $products = $products->whereIn('category_id', $categoriesID);
-        }
-
-        if (!empty($request->brandIds) && is_array($request->brandIds)) {
-            $products = $products->whereIn('brand_id', $request->brandIds);
-        }
-
-        $simProds = $products->get();
-
-        $varProIds = [];
-        if(!empty($request->colorIds) || !empty($request->sizeIds)){
-            $varProds = $products->get();
-
-            // Variation Product Filter
-            $productIds = $varProds->where('product_type', Product::ProductType['Variation'])->pluck('product_id');
-            $varProIds = ProductVariation::whereIn('product_id', $productIds)
-                ->where('variation_status', '!=', 0)
-                ->whereIn('pri_id',$request->colorIds)
-                ->whereIn('sec_id', $request->sizeIds)
-                ->where('price', '>=', $request->range['min'])
-                ->where('price', '<=', $request->range['max'])
-                ->pluck('product_id')->toArray();
-        }
-
-        // Simple Product Filter
-        $simProIds = $simProds->where('product_type', Product::ProductType['Simple'])
-            ->where('product_price', '>=', $request->range[0])
-            ->where('product_price', '<=', $request->range[1])
-            ->pluck('product_id')->toArray();
-
-        $sortProIds = array_merge($varProIds, $simProIds);
-        $products = Product::isActive()->whereIn('product_id', $sortProIds)
-                    ->with(['brand', 'category', 'thumbImage', 'singleVariation', 'reviews'])
-                    ->get();
-        if (!empty($products)) {
-            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $products);
-        } else {
-            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'No Products Found');
-        }
-    }
 
     public function product_details($slug)
     {

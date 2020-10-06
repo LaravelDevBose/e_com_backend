@@ -73,7 +73,6 @@ trait ApiResponser
         }else{
             $list = $list->get();
         }
-
         return $list;
     }
 }

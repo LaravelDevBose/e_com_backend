@@ -9,7 +9,7 @@
             <div class="block-content">
                 <!-- banner -->
                 <div class="col-banner">
-                    <router-link to="/" class="box-img" title="Shop now">
+                    <router-link :to="{name: 'Section Products', params:{section_slug: 'new_arrival'}}" class="box-img" title="Shop now">
                         <img :src="$baseUrl+'/images/section/new-arrival.jpg'" alt="New Arrival Products">
                         <div class="des" v-if="max_discount > 0"><span>up to {{ max_discount}}% off</span></div>
                     </router-link>

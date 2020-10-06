@@ -17,14 +17,34 @@ export default new Router({
             component: ()=>import("../pages/AboutPage.vue")
         },
         {
-            path: "/category/:slug/products",
+            path: "/category/:category_slug/products",
             name: "Category Products",
+            component: ()=> import("../pages/ProductsPage.vue"),
+        },
+        {
+            path: "/brand/:brand_slug/products",
+            name: "Brand Products",
+            component: ()=> import("../pages/ProductsPage.vue"),
+        },
+        {
+            path: "/section/:section_slug/products",
+            name: "Section Products",
+            component: ()=> import("../pages/ProductsPage.vue"),
+        },
+        {
+            path: "/tag/:tag_slug/products",
+            name: "TagProducts",
             component: ()=> import("../pages/ProductsPage.vue"),
         },
         {
             path: "/product/:slug",
             name: "Product",
             component: ()=> import("../pages/ProductDetailPage.vue"),
+        },
+        {
+            path: "/page_not_found",
+            name: "not_found",
+            component: ()=> import("../pages/PageNotFound"),
         }
     ]
 })

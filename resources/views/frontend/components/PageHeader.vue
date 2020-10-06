@@ -1,5 +1,5 @@
 <template>
-    <header class="site-header header-opt-3 cate-show">
+    <header class="site-header header-opt-3 cate-show" style="border-bottom: 3px solid #08c;">
 
         <header-top></header-top>
 

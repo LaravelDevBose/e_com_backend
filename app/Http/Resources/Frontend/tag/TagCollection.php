@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources\Frontend\tag;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class TagCollection extends Resource
+class TagCollection extends ResourceCollection
 {
-    public $collects = 'App\Http\Resources\tag\ProductCollResource';
+    public $collects = 'App\Http\Resources\Frontend\tag\TagResource';
     /**
      * Transform the resource collection into an array.
      *
@@ -16,9 +16,7 @@ class TagCollection extends Resource
     public function toArray($request)
     {
         return [
-            'id'=>$this->tag_id,
-            'title'=>$this->tag_title,
-            'slug'=>$this->tag_slug
+            'data'=>$this->collection,
         ];
     }
 }

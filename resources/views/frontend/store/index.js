@@ -3,14 +3,13 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex);
 
+import product_page from "./modules/product_page";
 
 export default new Vuex.Store({
     state:{
-        resData:'',
-        errors:null,
+        response_info:{},
         paginate_data:[],
         category_list: [],
-        product_list: [],
         brand_list: [],
         slider_list: [],
         discount_products:[],
@@ -20,8 +19,8 @@ export default new Vuex.Store({
 
     },
     getters:{
+        responseInfo: state => state.response_info,
         categories: (state) => state.category_list,
-        products: state => state.product_list,
         brands: state => state.brand_list,
         sliders: state => state.slider_list,
         discountProducts: state => state.discount_products,
@@ -105,7 +104,7 @@ export default new Vuex.Store({
         setCategoryList:(state, response)=> state.category_list = response,
     },
     modules:{
-
+        product_page,
     }
 })
 

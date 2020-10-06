@@ -146,7 +146,8 @@ class Product extends Model
     }
 
     public function variations(){
-        return $this->hasMany(ProductVariation::class, 'product_id', 'product_id')->where('variation_status', config('app.active'));
+        return $this->hasMany(ProductVariation::class, 'product_id', 'product_id')
+            ->where('variation_status', config('app.active'));
     }
 
     public function productImages(){

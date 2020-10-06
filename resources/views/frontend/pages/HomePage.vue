@@ -36,7 +36,7 @@
         </div>
 
         <!-- block  service-->
-        <home-service-section></home-service-section>
+            <home-service-section></home-service-section>
         <!-- block  service-->
 
         <!-- hot deals -->
