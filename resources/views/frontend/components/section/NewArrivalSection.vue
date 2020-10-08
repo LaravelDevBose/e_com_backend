@@ -64,14 +64,14 @@ export default {
     methods:{
         ...mapActions(['getNewArrivalProducts']),
         installOwlCarousel: function() {
-            const hotDealOwl = $('.owl-carousel-new-arrival');
-            var config = hotDealOwl.data();
+            const newAOwl = $('.owl-carousel-new-arrival');
+            var config = newAOwl.data();
             config.navText = ['',''];
             config.dotsData = false;
             config.smartSpeed="800";
             config.animateOut="fadeOutDown";
             config.animateIn="fadeInDown";
-            hotDealOwl.owlCarousel(config);
+            newAOwl.owlCarousel(config);
         },
         findMaxDiscount(){
             this.newArrivals.filter(product=> {

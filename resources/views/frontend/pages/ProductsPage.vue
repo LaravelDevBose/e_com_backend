@@ -192,8 +192,6 @@ export default {
             config.navText = ['',''];
             config.dotsData = false;
             config.smartSpeed="800";
-            config.animateOut="fadeOutDown";
-            config.animateIn="fadeInDown";
             config.loop= true;
             config.rewind = true;
             this.hotDealOwl.owlCarousel(config);

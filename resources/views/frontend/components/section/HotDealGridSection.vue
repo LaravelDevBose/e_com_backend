@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="block-content ">
-                    <div class="owl-carousel owl-carousel-hot"
+                    <div class="owl-carousel owl-carousel-hot-grid"
                          data-nav="true"
                          data-dots="false"
                          data-margin="30"
@@ -67,9 +67,8 @@ export default {
     methods:{
         ...mapActions(['getDiscountProducts']),
         installOwlCarousel: function() {
-            const hotDealOwl = $('.owl-carousel-hot');
+            const hotDealOwl = $('.owl-carousel-hot-grid');
             var config = hotDealOwl.data();
-            config.navText = ['',''];
             config.dotsData = false;
             config.smartSpeed="800";
             config.animateOut="fadeOutDown";

@@ -5,6 +5,7 @@ namespace App\Http\Resources\Frontend\product;
 use App\Http\Resources\Attachment as AttachmentResource;
 use App\Http\Resources\Frontend\brand\BrandResource;
 use App\Http\Resources\Frontend\category\CategoryResource;
+use App\Http\Resources\Frontend\discount\DiscountProductResource;
 use App\Http\Resources\Frontend\review\ReviewResource;
 use App\Http\Resources\Frontend\tag\ProductTagResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -31,6 +32,7 @@ class ProductResource extends JsonResource
             'video_url'=>$this->video_url,
             'product_type'=>$this->product_type,
             'total_qty'=>$this->variations->sum('quantity'),
+            'rating'=> ($this->reviews->count() > 0)? $this->reviews->sum('rating')/$this->reviews->count(): 0,
             'image'=> new AttachmentResource($this->whenLoaded('thumbImage')),
             'category'=>new CategoryResource($this->whenLoaded('category')),
             'brand'=>new BrandResource($this->whenLoaded('brand')),
@@ -39,7 +41,8 @@ class ProductResource extends JsonResource
             'variation'=> new ProductVariationResource($this->whenLoaded('variation')),
             'productImages'=> ProductImageResource::collection($this->whenLoaded('productImages')),
             'tags'=> ProductTagResource::collection($this->whenLoaded('tags')),
-
+            'reviews'=> ReviewResource::collection($this->whenLoaded('reviews')),
+            'discount'=> new DiscountProductResource($this->whenLoaded('discount'))
         ];
     }
 }

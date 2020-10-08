@@ -1,5 +1,5 @@
 <template>
-    <div class="block-deal-opt12" >
+    <div class="block-deal-opt12" v-if="discountProducts && discountProducts.length > 0" >
 
         <div class="block-title">
             <span class="title">hot deal of this week</span>
@@ -17,7 +17,6 @@
                     "992":{"items":1},
                     "1200":{"items":1}
                     }'
-                 v-if="discountProducts && discountProducts.length > 0"
             >
 
                 <div
@@ -54,21 +53,21 @@ export default {
     name: "HotDealCarouselSection",
     components:{HotDealProductItem},
     created() {
-        if (this.discountProducts.length <= 0){
-            this.getDiscountProducts();
-        }
+        this.getDiscountProducts();
     },
     methods:{
         ...mapActions(['getDiscountProducts']),
-        installOwlCarousel: function() {
-            const hotDealOwl = $('.owl-carousel-hot-deal');
-            var config = hotDealOwl.data();
+        installOwlCarousels: function() {
+            const hotDealOwlC = $('.owl-carousel-hot-deal');
+            var config = hotDealOwlC.data();
             config.navText = ['',''];
             config.dotsData = false;
             config.smartSpeed="800";
-            config.animateOut="fadeOutDown";
-            config.animateIn="fadeInDown";
-            hotDealOwl.owlCarousel(config);
+            config.loop= true;
+            config.rewind = true;
+            /*config.animateOut="fadeOutDown";
+            config.animateIn="fadeInDown";*/
+            hotDealOwlC.owlCarousel(config);
         }
     },
     computed:{
@@ -81,7 +80,7 @@ export default {
         checkDiscountProducts:{
             handler(newValue){
                 Vue.nextTick(function(){
-                    this.installOwlCarousel();
+                    this.installOwlCarousels();
                 }.bind(this));
             },
             deep:true,

@@ -28,6 +28,7 @@ class ProductCollResource extends JsonResource
             'highlight'=>$this->highlight,
             'description'=>$this->description,
             'total_qty'=>$this->variations->sum('quantity'),
+            'rating'=> ($this->reviews->count() > 0)? $this->reviews->sum('rating')/$this->reviews->count(): 0,
             'image'=> new AttachmentResource($this->whenLoaded('thumbImage')),
             'category'=>new CategoryResource($this->whenLoaded('category')),
             'brand'=>new BrandResource($this->whenLoaded('brand')),

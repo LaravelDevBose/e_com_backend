@@ -4,9 +4,9 @@ namespace App\Http\Resources\Frontend\review;
 
 use App\Http\Resources\Frontend\user\UserResource;
 use Carbon\Carbon;
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class ReviewResource extends Resource
+class ReviewResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,7 +21,7 @@ class ReviewResource extends Resource
             'review'=>$this->review,
             'rating'=>$this->rating,
             'date'=>Carbon::parse($this->created_at)->format('d M-Y'),
-            'buyer'=> new UserResource($this->whenLoaded('buyer')),
+            'user'=> new UserResource($this->whenLoaded('user')),
         ];
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Resources\Frontend\category\CategoryResource;
 use App\Http\Resources\Frontend\color\ColorResource;
 use App\Http\Resources\Frontend\discount\DiscountProductCollection;
 use App\Http\Resources\Frontend\product\ProductCollection;
+use App\Http\Resources\Frontend\product\ProductResource;
 use App\Http\Resources\Frontend\size\SizeResource;
 use App\Http\Resources\Frontend\slider\SliderResource;
 use App\Http\Resources\Frontend\tag\TagResource;
@@ -29,6 +30,7 @@ use App\Models\Tag;
 use App\Traits\ApiResponser;
 use App\Traits\CommonData;
 use App\Traits\ResponserTrait;
+use Cloudinary\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
@@ -265,59 +267,41 @@ class FrontendController extends Controller
     }
 
 
+    public function get_product_details($slug)
+    {
+        $product = Product::where('product_slug', $slug)
+            ->where('product_status', config('app.active'))
+            ->with(['brand', 'category', 'productDetails','variation','variations', 'productImages', 'thumbImage', 'tags.tag', 'reviews.user', 'discount'])
+            ->first();
+        if(!empty($product)){
+            $productIds = Product::whereIn('product_id', $product->tags->pluck('product_id')->toArray())
+                ->where('product_id', '!=', $product->product_id)->pluck('product_id');
+            $catId = $product->category_id;
+            $brandId = $product->brand_id;
+            $relatedProducts = Product::where('product_status', config('app.active'))
+                ->where('product_id', '!=', $product->product_id)
+                ->where(function ($query) use ($catId,$brandId, $productIds) {
+                    $query->orWhere('category_id', $catId)
+                    ->orWhere('brand_id', $brandId)
+                    ->orWhereIn('product_id', $productIds);
+                })
+                ->with(['variation', 'thumbImage', 'discount'])
+                ->take(18)->get();
+            $data = [
+                'product'=> new ProductResource($product),
+                'related_products'=> new ProductCollection($relatedProducts),
+            ];
+            return ApiResponser::SingleResponse($data, 'success', Response::HTTP_OK);
+        }
+        return ApiResponser::AllResponse('Not Found', Response::HTTP_NOT_FOUND, false, 'Product Not found');
+
+    }
     public function set_lang($lang)
     {
         Session::put('lang', $lang);
         App::setLocale($lang);
         return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Successful', App::getLocale());
     }
-
-
-
-    public function category_wish_products(Request $request, $category_slug)
-    {
-        $category = Category::where('category_slug', $category_slug)->isActive()->firstOrFail();
-
-        if ($request->ajax()) {
-            if (empty($category)) {
-                return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Category Data Not Found', [], route('error.404'));
-            }
-
-            $products = ProductHelper::products_list($request);
-
-            if (!empty($products)) {
-                return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $products);
-            } else {
-                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'No Products Found');
-            }
-
-        } else {
-
-            if (empty($category)) {
-                return abort(Response::HTTP_NOT_FOUND);
-            }
-
-            /*$req['category_id'] = $category->category_id;
-
-            $products = ProductHelper::products_list($req);*/
-            $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
-                ->with(['product' => function ($query) {
-                    return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
-                }])->islive()->isActive()
-                ->orderBy('position', 'asc')->latest()->get();
-            return view('templates.' . $this->template_name . '.frontend.products', [
-                'category' => $category,
-                'categories' => CommonData::category_tree(),
-                'hotProducts' => $hotProducts,
-                /*'brands' => CommonData::brand_list(),
-                'colors' => CommonData::color_list(),
-                'tags' => CommonData::tag_list(),
-                'sizes' => CommonData::size_list($req),
-                'products' => $products*/
-            ]);
-        }
-    }
-
 
 
     public function product_details($slug)

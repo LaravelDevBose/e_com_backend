@@ -19,6 +19,7 @@ Route::namespace('Frontend')->prefix('front')->group(function () {
     Route::get('/get-recommended/products', 'FrontendController@recommended_products');
     Route::post('/get-sidebar-data', 'FrontendController@get_sidebar_data');
     Route::post('/products-list', 'FrontendController@products_list');
+    Route::get('/get-product/{product_slug}', 'FrontendController@get_product_details');
 });
 
 

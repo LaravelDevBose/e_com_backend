@@ -65,14 +65,14 @@ export default {
     methods:{
         ...mapActions(['getTrendingProducts']),
         installOwlCarousel: function() {
-            const hotDealOwl = $('.owl-carousel-trending');
-            var config = hotDealOwl.data();
+            const trendOwl = $('.owl-carousel-trending');
+            var config = trendOwl.data();
             config.navText = ['',''];
             config.dotsData = false;
             config.smartSpeed="800";
             config.animateOut="fadeOutDown";
             config.animateIn="fadeInDown";
-            hotDealOwl.owlCarousel(config);
+            trendOwl.owlCarousel(config);
         }
     },
     computed: {

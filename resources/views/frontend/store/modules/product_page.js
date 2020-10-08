@@ -44,6 +44,8 @@ const state = {
     links: null,
     category_info: '',
     view: 1,
+    product_data: {},
+    related_products: [],
 };
 
 //declare Getters
@@ -60,6 +62,8 @@ const getters = {
     metaData: state => state.meta,
     links: state => state.links,
     viewAs: state=> state.view,
+    productData: state=> state.product_data,
+    relatedProducts: state => state.related_products,
 };
 
 const actions = {
@@ -90,6 +94,20 @@ const actions = {
                 });
         }catch (e){
 
+        }
+    },
+    async getProductDetails({commit}, slug){
+        try{
+            return await axios.get(`/front/get-product/${slug}`)
+                .then(({data}) =>{
+                    if(data.status === 200){
+                        commit('updateProductDetails', data.data);
+                    }
+                    return data;
+                });
+        }catch (error){
+            console.log(error);
+            return  error;
         }
     },
     async updateSlugData({commit}, data){
@@ -176,7 +194,10 @@ const mutations = {
         if(response.category !== ''){
             state.category_info = response.category;
         }
-
+    },
+    updateProductDetails:(state, response) =>{
+        state.product_data = response.product;
+        state.related_products = response.related_products.data;
     }
 };
 

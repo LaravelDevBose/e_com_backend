@@ -18,9 +18,6 @@ class UserResource extends Resource
             'name'=>$this->full_name,
             'phone'=>$this->phone_no,
             'email'=>$this->email,
-            'type'=>$this->account_type,
-            'isBuyer'=>$this->is_buyer,
-            'isSeller'=>$this->is_seller,
         ];
     }
 }

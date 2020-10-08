@@ -1,7 +1,9 @@
 <template>
     <div id="page-body">
         <page-header></page-header>
-        <router-view :key="$route.fullPath"></router-view>
+        <keep-alive>
+            <router-view :key="$route.fullPath"></router-view>
+        </keep-alive>
         <page-footer></page-footer>
 
         <a href="#" class="back-to-top">
