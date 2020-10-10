@@ -6,9 +6,9 @@
                 <span class="cart-icon"></span>
                 <span class="counter qty">
                         <span class="cart-text">cart</span>
-                        <span class="counter-number">6</span>
-                        <span class="counter-label">6 <span>Item(s)</span></span>
-                        <span class="counter-price">$75.00</span>
+                        <span class="counter-number">{{ cartTotal}}</span>
+                        <span class="counter-label">{{ cartTotal }} <span>Item(s)</span></span>
+                        <span class="counter-price">{{ cartTotalPrice }}</span>
                     </span>
             </a>
             <header-cart-dropdown></header-cart-dropdown>
@@ -28,9 +28,19 @@
 
 <script>
 import HeaderCartDropdown from "./cart/HeaderCartDropdown";
+import {mapActions, mapGetters} from 'vuex';
 export default {
     name: "HeaderRightSection",
-    components: {HeaderCartDropdown}
+    components: {HeaderCartDropdown},
+    mounted() {
+        this.getCartDetails();
+    },
+    methods:{
+        ...mapActions(['getCartDetails'])
+    },
+    computed:{
+        ...mapGetters(['cartTotal', 'cartTotalPrice'])
+    }
 }
 </script>
 

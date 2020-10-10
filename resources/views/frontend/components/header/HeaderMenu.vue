@@ -19,7 +19,9 @@
                 <header-category-menu></header-category-menu>
 
                 <div class="view-all-categori">
-                    <a class="open-cate btn-view-all">All Categories</a>
+                    <router-link :to="{name: 'all_category'}" class="btn-view-all">
+                        All Categories
+                    </router-link>
                 </div>
             </div>
 

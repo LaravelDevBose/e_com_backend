@@ -20,7 +20,12 @@ Route::namespace('Frontend')->prefix('front')->group(function () {
     Route::post('/get-sidebar-data', 'FrontendController@get_sidebar_data');
     Route::post('/products-list', 'FrontendController@products_list');
     Route::get('/get-product/{product_slug}', 'FrontendController@get_product_details');
+
+    Route::post('/add-to-cart', 'CartController@add_to_cart');
+    Route::get('/cart-list', 'CartController@cart_list');
+    Route::get('/cart/{rowId}/remove', 'CartController@remove_from_cart');
 });
+
 
 
 Route::post('/subscribe', 'NewsLetterController@store');

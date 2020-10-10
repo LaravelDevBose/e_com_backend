@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="text-align: center; margin: 3px 0">
         <div class="day">
             <span class="number">{{ days }}</span>
             <div class="format">{{ wordString.day }}</div>
@@ -105,8 +105,8 @@ export default {
     display: inline-block;
     font-weight: 500;
     text-align: center;
-    margin: 5px;
-    width: 48px;
+    margin: 3px;
+    width: 40px;
 }
 .format {
     font-weight: 300;

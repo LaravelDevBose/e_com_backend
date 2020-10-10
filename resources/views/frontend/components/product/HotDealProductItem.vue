@@ -27,6 +27,14 @@
                     </div>
                 </clazy-load>
             </router-link>
+            <div class="product-item-actions">
+                <a class="btn btn-wishlist" href=""><span>wishlist</span></a>
+            </div>
+            <button
+                type="button"
+                class="btn btn-cart"
+                @click.prevent="addToCart()"
+            ><span>Add to Cart</span></button>
         </div>
         <div class="product-item-detail">
             <strong class="product-item-name">
@@ -34,14 +42,20 @@
                     {{ product.name }}
                 </router-link>
             </strong>
-            <div class="product-item-price">
-                <span class="price">{{ cartData.price }}</span>
-                <span class="old-price" v-if="cartData.oldPrice > 0" >{{ cartData.oldPrice }}</span>
+            <div class="product-reviews-summary" style="display: block; width: 100%; margin-bottom: 5px;">
+                <div class="rating-summary">
+                    <div class="rating-result" :title="product.rating">
+                         <span :style="{width: product.rating * 100 +'%'}">
+                            <span><span>{{ product.rating }}</span>% of <span>100</span></span>
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="product-item-actions">
-                <button type="button" class="btn btn-cart"><span>Add to Cart</span></button>
-                <a class="btn btn-wishlist" href=""><span>wishlist</span></a>
-                <a class="btn btn-quickview" href=""><span>compare</span></a>
+            <div class="clearfix">
+                <div class="product-item-price">
+                    <span class="price">{{ cartData.price }}</span>
+                    <span class="old-price" v-if="cartData.oldPrice > 0" >{{ cartData.oldPrice }}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -49,6 +63,7 @@
 
 <script>
 import Timer from "../helper/Timer";
+import {mapActions} from "vuex";
 export default {
     name: "HotDealProductItem",
     components: {Timer},
@@ -69,15 +84,62 @@ export default {
                 sizeId:'',
                 oldPrice:0,
                 discount: 0,
-            },
-            rating:0,
+            }
         }
     },
     mounted() {
         this.cartData.oldPrice = parseInt(this.product.variation.price).toFixed(2);
-        let discount = (this.cartData.oldPrice * this.percent)/100;
-        this.cartData.price = this.cartData.oldPrice - discount.toFixed(0);
+        this.cartData.discount = (this.cartData.oldPrice * this.percent)/100;
+        this.cartData.price = this.cartData.oldPrice - this.cartData.discount.toFixed(0);
         this.cartData.price = parseFloat(this.cartData.price).toFixed(2);
+
+    },
+    methods:{
+        ...mapActions([
+            'insertToWishList',
+            'deleteFromWishList',
+            'addToCartProduct',
+        ]),
+        addToCart(){
+            this.cartData.id = this.product.id;
+            this.cartData.name = this.product.name;
+            if(this.product.product_type === 2){
+                this.cartData.colorId =this.product.variation.color_id;
+                this.cartData.sizeId = this.product.variation.size_id;
+            }
+
+            this.addToCartProduct(this.cartData);
+        },
+        addWishList(slug){
+            if(AppStorage.getWhoIs() === 'buyer'){
+                this.insertToWishList(slug)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            this.$noty.success(response.message)
+                        }else{
+                            this.$noty.error('Try Again Later.');
+                            console.log(response);
+                        }
+                    })
+            }else{
+                location.href = '/login';
+            }
+        },
+        removeWishList(slug){
+            if(AppStorage.getWhoIs() === 'buyer'){
+                this.deleteFromWishList(slug)
+                    .then(response=>{
+                        if(typeof response.code !== "undefined" && response.code === 200){
+                            this.$noty.success(response.message)
+                        }else{
+                            this.$noty.error(response.message);
+                            console.log(response);
+                        }
+                    })
+            }else{
+                location.href = '/login';
+            }
+        },
     }
 }
 </script>

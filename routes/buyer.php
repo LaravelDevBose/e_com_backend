@@ -48,43 +48,5 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
         Route::post('/store', 'ReviewController@store')->name('store');
     });
 
-
-    Route::prefix('seller')->as('seller.')->group(function (){
-        Route::get('/register', 'SellerController@register_page')->name('register');
-        Route::post('/register', 'SellerController@create_seller_account')->name('register');
-
-        Route::get('/dashboard', 'SellerController@index')->name('home');
-
-        Route::prefix('product')->group(function (){
-            Route::get('/', 'ProductController@index')->name('product.index');
-            Route::get('/list', 'ProductController@product_ist')->name('product.list');
-            Route::get('/create', 'ProductController@create')->name('product.create');
-            Route::get('/create/dependency', 'ProductController@product_create_dependency');
-            Route::post('/', 'ProductController@store')->name('product.store');
-            Route::get('/{product}', 'ProductController@show')->name('product.show');
-            Route::get('/{slug}/edit', 'ProductController@edit')->name('product.edit');
-            Route::put('/{productId}/update', 'ProductController@update')->name('product.update');
-            Route::delete('/{slug}', 'ProductController@destroy')->name('product.destroy');
-            Route::post('/image/store', 'ProductImageController@store')->name('product_image.store');
-            Route::delete('/image/delete/{id}', 'ProductImageController@delete')->name('product_image.delete');
-        });
-
-        Route::group(['prefix'=>'order', 'as'=>'order.'], function (){
-            Route::get('/list', 'SellerController@order_list')->name('list');
-            Route::post('/status/change', 'SellerController@change_order_status');
-        });
-    });
-
-});
-
-Route::namespace('Buyer')->group(function (){
-    Route::get('/cart/list', 'CartController@cart_details')->name('cart.details');
-    Route::get('/cart/suggested/products', 'CartController@cart_suggested_products');
-    Route::post('/cart/add', 'CartController@add_to_cart');
-    Route::put('/cart/update', 'CartController@cart_update');
-    Route::delete('/cart/{cartId}/remove', 'CartController@remove_from_cart');
-    Route::delete('/destroy/cart', 'CartController@cart_destroy');
-    Route::get('/wishlist/toCart/products', 'CartController@wishList_to_cart_all_products')->middleware('web')->name('wishlist.to_cart.products');
-
 });
 

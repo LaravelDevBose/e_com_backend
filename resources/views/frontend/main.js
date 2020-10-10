@@ -20,6 +20,14 @@ Vue.component('star-rating', StarRating);
 import VueClazyLoad from 'vue-clazy-load';
 Vue.use(VueClazyLoad);
 
+
+import VueNoty from 'vuejs-noty'
+Vue.use(VueNoty, {
+    timeout: 2000,
+    progressBar: true,
+    layout: 'topRight'
+})
+
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 

@@ -1,14 +1,14 @@
 <template>
-    <div class="block-hot-deals-opt7" >
+    <div class="block-hot-deals-opt3" >
         <div class="container">
 
             <div class="box-content">
 
-                <div class="block-title">
+                <div class="block-title" style="padding-top: 0;">
                     <span class="title"><span>H<br>o<br>t</span><span>d<br>e<br>a<br>l<br>s</span></span>
                 </div>
 
-                <div class="block-content ">
+                <div class="block-content " style="padding: 0;">
                     <div class="col-banner">
                         <div class="des">
                             <router-link :to="{name: 'Section Products', params:{section_slug: 'hot_deal'}}" title="Shop now">
@@ -24,7 +24,7 @@
                          data-margin="30"
                          data-responsive='{
                                 "0":{"items":1},
-                                "480":{"items":2},
+                                "480":{"items":2, "nav": false},
                                 "480":{"items":2},
                                 "768":{"items":3},
                                 "992":{"items":4},
@@ -34,7 +34,7 @@
                     >
 
                         <div
-                            class=" product-item product-item-deal-opt12"
+                            class=" product-item product-item-opt-1"
                             v-for="disProduct in discountProducts"
                             :key="disProduct.id"
                         >

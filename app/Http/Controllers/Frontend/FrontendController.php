@@ -287,9 +287,15 @@ class FrontendController extends Controller
                 })
                 ->with(['variation', 'thumbImage', 'discount'])
                 ->take(18)->get();
+            $colors = Color::whereIn('color_id', $product->variations->pluck('color_id'))->get();
+            $sizes = Size::whereIn('size_id', $product->variations->pluck('size_id'))->get();
             $data = [
                 'product'=> new ProductResource($product),
                 'related_products'=> new ProductCollection($relatedProducts),
+                'variations'=>[
+                    'colors'=> ColorResource::collection($colors),
+                    'sizes'=> SizeResource::collection($sizes)
+                ]
             ];
             return ApiResponser::SingleResponse($data, 'success', Response::HTTP_OK);
         }

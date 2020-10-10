@@ -18,6 +18,8 @@ class ProductVariationResource extends JsonResource
     {
         return [
             'id'=>$this->variation_id,
+            'colorId'=> $this->color_id,
+            'sizeId'=> $this->size_id,
             'sellerSku'=>$this->seller_sku,
             'quantity'=>$this->quantity,
             'price'=>$this->price,

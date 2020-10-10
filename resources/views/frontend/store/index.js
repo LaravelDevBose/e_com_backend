@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 import product_page from "./modules/product_page";
+import cart from './modules/cart';
 
 export default new Vuex.Store({
     state:{
@@ -102,9 +103,11 @@ export default new Vuex.Store({
     },
     mutations:{
         setCategoryList:(state, response)=> state.category_list = response,
+        updateResponse:(state, response)=> state.response_info = response,
     },
     modules:{
         product_page,
+        cart,
     }
 })
 

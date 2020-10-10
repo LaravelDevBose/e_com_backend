@@ -128,76 +128,94 @@
 
                                 <div class="product-add-form">
                                     <p>Available Options:</p>
-                                    <form>
 
-                                        <div class="product-options-wrapper">
 
-                                            <div class="swatch-opt"
-                                                 v-if="productData.product_type === 2 && productData.variations.length >0">
-                                                <div class="swatch-attribute color">
-                                                    <span class="swatch-attribute-label">Color:</span>
-                                                    <div class="swatch-attribute-options clearfix">
-                                                        <div
-                                                            v-for="colorVar in productData.variations"
-                                                            v-if="colorVar.color !== ''"
-                                                            :key="colorVar.color.name"
-                                                            :title="colorVar.color.name"
-                                                            class="swatch-option color"
-                                                            :style="{backgroundColor: colorVar.color.code}"
-                                                            :class="{selected: colorVar.color.id === cartData.colorId}"
-                                                            @click.prevent="cartData.colorId = colorVar.color.id"
-                                                        ></div>
-                                                    </div>
+                                    <div class="product-options-wrapper">
+
+                                        <div class="swatch-opt"
+                                             v-if="productData.product_type === 2 && variations.colors.length >0">
+                                            <div class="swatch-attribute color">
+                                                <span class="swatch-attribute-label">Color:</span>
+                                                <div class="swatch-attribute-options clearfix">
+                                                    <div
+                                                        v-for="color in variations.colors"
+                                                        v-if="color !== ''"
+                                                        :key="color.name"
+                                                        :title="color.name"
+                                                        class="swatch-option color"
+                                                        :style="{backgroundColor: color.code}"
+                                                        :class="{selected: color.id === cartData.colorId}"
+                                                        @click.prevent="cartData.colorId = color.id"
+                                                    ></div>
                                                 </div>
                                             </div>
-                                            <div class="form-qty">
-                                                <label class="label">Qty: </label>
-                                                <div class="control">
-                                                    <input type="text" class="form-control input-qty" value='1'
-                                                           id="qty1" name="qty1" maxlength="12" minlength="1">
-                                                    <button class="btn-number  qtyminus" data-type="minus"
-                                                            data-field="qty1"><span>-</span></button>
-                                                    <button class="btn-number  qtyplus" data-type="plus"
-                                                            data-field="qty1"><span>+</span></button>
-                                                </div>
+                                        </div>
+                                        <div class="form-qty">
+                                            <label class="label">Qty: </label>
+                                            <div class="control">
+                                                <input type="text"
+                                                       class="form-control input-qty"
+                                                       value='1'
+                                                       id="qty1"
+                                                       name="qty1"
+                                                       :maxlength="max_qty.length"
+                                                       minlength="1"
+                                                       v-model="cartData.qty"
+                                                >
+                                                <button
+                                                    class="btn-number qtyminus"
+                                                    data-type="minus"
+                                                    data-field="qty1"
+                                                    @click.prevent="reducedQty()"
+                                                ><span>-</span></button>
+                                                <button
+                                                    class="btn-number qtyplus"
+                                                    data-type="plus"
+                                                    data-field="qty1"
+                                                    @click.prevent="increaseQty()"
+                                                ><span>+</span></button>
                                             </div>
-                                            <div class="form-configurable"
-                                                 v-if="productData.product_type === 2 && productData.variations.length >0">
-                                                <label for="forSize" class="label">Size: </label>
-                                                <div class="control">
-                                                    <select id="forSize" class="form-control attribute-select">
-                                                        <option
-                                                            v-for="sizeVar in productData.variations"
-                                                            v-if="sizeVar.size !== ''"
-                                                            :key="sizeVar.size.name"
-                                                            :value="sizeVar.size.id"
-                                                        >{{ sizeVar.size.name }}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                                <a href="" class="size-chart">Size chart</a>
+                                        </div>
+                                        <div class="form-configurable"
+                                             v-if="productData.product_type === 2 && variations.sizes.length >0">
+                                            <label for="forSize" class="label">Size: </label>
+                                            <div class="control">
+                                                <select id="forSize" class="form-control attribute-select" v-model="cartData.sizeId">
+                                                    <option
+                                                        v-for="size in variations.sizes"
+                                                        v-if="size !== ''"
+                                                        :key="size.name"
+                                                        :value="size.id"
+                                                    >{{ size.name }}
+                                                    </option>
+                                                </select>
+                                            </div>
+<!--                                            <a href="" class="size-chart">Size chart</a>-->
+                                        </div>
+                                    </div>
+
+
+                                    <div class="product-options-bottom clearfix">
+
+                                        <div class="actions">
+                                            <p class="alert alert-warning" v-if="disableBtn">This combination is not availabel</p>
+                                            <button type="button"
+                                                    title="Add to Cart"
+                                                    class="action btn-cart"
+                                                    :disabled="disableBtn"
+                                                    @click.prevent="addToCart()"
+                                            >
+                                                <span>Add to Cart</span>
+                                            </button>
+                                            <div class="product-addto-links">
+
+                                                <a href="#" class="action btn-wishlist" title="Wish List">
+                                                    <span>Wishlist</span>
+                                                </a>
                                             </div>
                                         </div>
 
-
-                                        <div class="product-options-bottom clearfix">
-
-                                            <div class="actions">
-
-                                                <button type="submit" title="Add to Cart" class="action btn-cart">
-                                                    <span>Add to Cart</span>
-                                                </button>
-                                                <div class="product-addto-links">
-
-                                                    <a href="#" class="action btn-wishlist" title="Wish List">
-                                                        <span>Wishlist</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </form>
+                                    </div>
                                 </div>
                             </div><!-- detail- product -->
 
@@ -353,17 +371,18 @@ export default {
             productOwlCarousel: {},
             elevateZoom: false,
             productElevateZoom: {},
-            cartData: {
-                id: '',
-                name: '',
-                qty: 1,
-                price: 0,
-                colorId: '',
-                sizeId: '',
-                oldPrice: 0,
+            cartData:{
+                id:'',
+                name:'',
+                qty:1,
+                price:0,
+                colorId:'',
+                sizeId:'',
+                oldPrice:0,
                 discount: 0,
             },
-            rating: 0,
+            max_qty: 0,
+            disableBtn: false,
         }
     },
     beforeRouteEnter(to, from, next) {
@@ -404,7 +423,8 @@ export default {
     },
     methods: {
         ...mapActions([
-            'getProductDetails'
+            'getProductDetails',
+            'addToCartProduct'
         ]),
         installOwlCarousel: function () {
             this.owl_carousel = true;
@@ -438,20 +458,77 @@ export default {
             });
         },
         intProductInfo() {
+
             this.cartData.price = parseInt(this.productData.variation.price).toFixed(2);
+            this.max_qty = parseInt(this.productData.variation.quantity);
+            if(this.productData.product_type === 2){
+                if(this.productData.variation.color){
+                    this.cartData.colorId = this.productData.variation.color.id;
+                }
+
+                if(this.productData.variation.size){
+                    this.cartData.sizeId = this.productData.variation.size.id;
+                }
+            }
+
             if (this.productData.discount) {
-                this.cartData.discount = this.productData.discount.percent;
                 this.cartData.oldPrice = this.cartData.price;
-                let discount = (this.cartData.oldPrice * this.productData.discount.percent) / 100;
-                this.cartData.price = this.cartData.oldPrice - discount.toFixed(0);
+                this.cartData.discount = (this.cartData.oldPrice * this.productData.discount.percent) / 100;
+                this.cartData.price = this.cartData.oldPrice - this.cartData.discount.toFixed(0);
                 this.cartData.price = parseFloat(this.cartData.price).toFixed(2);
             }
         },
+        increaseQty(){
+            if(this.max_qty > this.cartData.qty){
+                this.cartData.qty ++;
+            }else{
+                this.$noty.warning(`Max Order Qty is ${this.max_qty}`);
+            }
 
+        },
+
+        reducedQty(){
+            this.cartData.qty --;
+            if(this.cartData.qty < 1){
+                this.$noty.warning('Min 1 Qty Required');
+                this.cartData.qty =1 ;
+            }
+        },
+        setProductPrice(){
+            if(this.productData.product_type === 2){
+                let variations = this.productData.variations;
+                let match = false;
+                variations.filter(variation=>{
+                    if(parseInt(variation.colorId) === this.cartData.colorId && parseInt(variation.sizeId) === this.cartData.sizeId){
+                        match = true;
+                        this.cartData.price = parseInt(variation.price).toFixed(2);
+                        this.max_qty = parseInt(variation.quantity);
+                        if (this.productData.discount) {
+                            this.cartData.oldPrice = this.cartData.price;
+                            this.cartData.discount = (this.cartData.oldPrice * this.productData.discount.percent) / 100;
+                            this.cartData.price = this.cartData.oldPrice - this.cartData.discount.toFixed(0);
+                            this.cartData.price = parseFloat(this.cartData.price).toFixed(2);
+                        }
+                    }
+                });
+
+                if(!match){
+                    this.disableBtn = true;
+                }else{
+                    this.disableBtn = false;
+                }
+            }
+        },
+        addToCart(){
+            this.cartData.id = this.productData.id;
+            this.cartData.name = this.productData.name;
+            this.addToCartProduct(this.cartData);
+        },
     },
     computed: {
         ...mapGetters([
-            'productData'
+            'productData',
+            'variations',
         ]),
 
         checkProductData() {
@@ -470,12 +547,31 @@ export default {
                     this.installElevateZoom();
                     this.intProductInfo();
                 }.bind(this));
-            }
+            },
+            deep:true,
+        },
+        'cartData.colorId':{
+            handler(newValue, oldValue){
+                if(newValue !== oldValue){
+                    this.setProductPrice();
+                }
+            },deep:true,
+        },
+        'cartData.sizeId':{
+            handler(newValue, oldValue){
+                if(newValue !== oldValue){
+                    this.setProductPrice();
+                }
+            },deep:true,
         }
     }
 }
 </script>
 
 <style scoped>
-
+.btn-cart:disabled,
+.btn-cart:disabled:hover,
+button[disabled]{
+    background-color: #ff336669;
+}
 </style>

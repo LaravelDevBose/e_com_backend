@@ -1,6 +1,4 @@
 //declare State
-import VueNoty from "../../../../js/helper/Noty";
-
 const state = {
     slugs:{
         category_slug: '',
@@ -46,6 +44,7 @@ const state = {
     view: 1,
     product_data: {},
     related_products: [],
+    variations: [],
 };
 
 //declare Getters
@@ -64,6 +63,7 @@ const getters = {
     viewAs: state=> state.view,
     productData: state=> state.product_data,
     relatedProducts: state => state.related_products,
+    variations: state=> state.variations,
 };
 
 const actions = {
@@ -198,6 +198,7 @@ const mutations = {
     updateProductDetails:(state, response) =>{
         state.product_data = response.product;
         state.related_products = response.related_products.data;
+        state.variations = response.variations;
     }
 };
 

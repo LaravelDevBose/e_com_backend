@@ -5,7 +5,7 @@
             <span class="title">hot deal of this week</span>
         </div>
 
-        <div class="block-content">
+        <div class="block-content" style="padding: 0;">
             <div class="owl-carousel owl-carousel-hot-deal"
                  data-nav="true"
                  data-dots="false"
@@ -20,7 +20,7 @@
             >
 
                 <div
-                    class=" product-item product-item-deal-opt12"
+                    class=" product-item product-item-opt-1"
                     v-for="disProduct in discountProducts"
                     :key="disProduct.id"
                 >

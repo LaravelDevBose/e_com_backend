@@ -130,8 +130,7 @@ class ProductController extends Controller
                             $imageId = (object)$imageId;
                             array_push($imageArray,[
                                 'product_id'=>$product->product_id,
-                                'pri_id'=>'',
-                                'model'=>'',
+                                'color_id'=> !empty($request->pri_id)? $request->pri_id : '',
                                 'attachment_id'=>$imageId->image_id,
                                 'image_status'=>config('app.active')
                             ]);

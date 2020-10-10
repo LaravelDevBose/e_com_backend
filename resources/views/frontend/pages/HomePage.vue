@@ -17,7 +17,9 @@
                             <header-category-menu></header-category-menu>
 
                             <div class="view-all-categori">
-                                <a  class="open-cate btn-view-all">All Categories</a>
+                                <router-link :to="{name: 'all_category'}" class="btn-view-all">
+                                    All Categories
+                                </router-link>
                             </div>
                         </div>
 
@@ -34,40 +36,40 @@
                 </div>
             </div>
         </div>
-
         <!-- block  service-->
-            <home-service-section></home-service-section>
+        <home-service-section></home-service-section>
+        <!-- hot deals -->
+        <hot-deal-grid-section></hot-deal-grid-section>
+        <!-- hot deals -->
         <!-- block  service-->
+        <div class="block" style="background-color: #EAEAEA;padding-top: 30px;padding-bottom:17px ;margin-bottom: 30px;">
 
-        <!-- hot deals -->
-            <hot-deal-grid-section></hot-deal-grid-section>
-        <!-- hot deals -->
-
-        <!-- block -floor -products / floor 1 -->
+            <!-- block -floor -products / floor 1 -->
             <new-arrival-section></new-arrival-section>
-        <!-- block -floor -products / floor 1-->
+            <!-- block -floor -products / floor 1-->
 
-        <!-- block -floor -products / floor 2 -->
+            <!-- block -floor -products / floor 2 -->
             <trending-sell-section></trending-sell-section>
-        <!-- block -floor -products / floor 2-->
+            <!-- block -floor -products / floor 2-->
 
-        <!-- banner -->
-        <div class="block-banner-lag-opt3  effect-banner3">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <a class="box-img" href=""><img alt="banner" src="images/media/index3/banner1-1.jpg"></a>
-                    </div>
-                    <div class="col-sm-3">
-                        <a class="box-img" href=""><img alt="banner" src="images/media/index3/banner1-2.jpg"></a>
+            <!-- banner -->
+            <div class="block-banner-lag-opt3  effect-banner3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <a class="box-img" href=""><img alt="banner" src="images/media/index3/banner1-1.jpg"></a>
+                        </div>
+                        <div class="col-sm-3">
+                            <a class="box-img" href=""><img alt="banner" src="images/media/index3/banner1-2.jpg"></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div><!-- banner -->
+            </div><!-- banner -->
 
-        <!-- block -floor -products / floor 4 -->
+            <!-- block -floor -products / floor 4 -->
             <recommendation-section></recommendation-section>
-        <!-- block -floor -products / floor 4-->
+            <!-- block -floor -products / floor 4-->
+        </div>
         <!-- block  showcase-->
             <brand-section></brand-section>
         <!-- block  showcase-->

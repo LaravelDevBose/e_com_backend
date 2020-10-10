@@ -11,6 +11,7 @@ class ProductImage extends Model
 
      protected $fillable =[
          'product_id',
+         'color_id',
          'attachment_id',
          'image_status',
          'created_by',

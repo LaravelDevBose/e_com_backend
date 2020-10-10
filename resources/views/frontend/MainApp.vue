@@ -16,13 +16,22 @@
 import PageHeader from "./components/PageHeader";
 import PageFooter from "./components/PageFooter";
 import {mapGetters} from 'vuex';
-import VueNoty from "../../js/helper/Noty";
+import 'vuejs-noty/dist/vuejs-noty.css'
 export default {
     name: "MainApp",
     components: {PageHeader, PageFooter},
     methods:{
         showNotification(data){
-            VueNoty.show(data.message, data.type);
+            if(data.type === 'Success'){
+                this.$noty.success(data.message);
+            }else if(data.type === 'Error'){
+                this.$noty.error(data.message);
+            }else if(data.type === 'Warning'){
+                this.$noty.warning(data.message);
+            }else {
+                this.$noty.info(data.message);
+            }
+
         }
     },
     computed:{
@@ -37,7 +46,7 @@ export default {
                 if (newValue !== oldValue){
                     this.showNotification(this.responseInfo);
                 }
-            }
+            }, deep: true,
         }
     }
 }

@@ -67,9 +67,12 @@
                 </router-link>
                 <div class="product-item-actions">
                     <a class="btn btn-wishlist" href=""><span>wishlist</span></a>
-                    <a class="btn btn-quickview" href=""><span>quickview</span></a>
                 </div>
-                <button type="button" class="btn btn-cart"><span>Add to Cart</span></button>
+                <button
+                    type="button"
+                    class="btn btn-cart"
+                    @click.prevent="addToCart()"
+                ><span>Add to Cart</span></button>
             </div>
             <div class="product-item-detail">
                 <strong class="product-item-name">
@@ -77,6 +80,15 @@
                         {{ product.name }}
                     </router-link>
                 </strong>
+                <div class="product-reviews-summary" style="display: block; width: 100%; margin-bottom: 5px;">
+                <div class="rating-summary">
+                    <div class="rating-result" :title="product.rating">
+                         <span :style="{width: product.rating * 100 +'%'}">
+                            <span><span>{{ product.rating }}</span>% of <span>100</span></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
                 <div class="clearfix">
                     <div class="product-item-price">
                         <span class="price">{{ cartData.price }}</span>
@@ -90,7 +102,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import {mapGetters, mapActions} from 'vuex';
 export default {
     name: "ProductItem",
     props: {
@@ -112,7 +124,6 @@ export default {
                 oldPrice:0,
                 discount: 0,
             },
-            rating:0,
             view: 1,
         }
     },
@@ -120,10 +131,24 @@ export default {
         this.cartData.price = parseInt(this.product.variation.price).toFixed(2);
         if (this.product.discount){
             this.cartData.oldPrice = this.cartData.price;
-            let discount = (this.cartData.oldPrice * this.product.discount.percent)/100;
-            this.cartData.price = this.cartData.oldPrice - discount.toFixed(0);
+            this.cartData.discount = (this.cartData.oldPrice * this.product.discount.percent)/100;
+            this.cartData.price = this.cartData.oldPrice - this.cartData.discount.toFixed(0);
             this.cartData.price = parseFloat(this.cartData.price).toFixed(2);
         }
+    },
+    methods:{
+        ...mapActions([
+            'addToCartProduct'
+        ]),
+        addToCart(){
+            this.cartData.id = this.product.id;
+            this.cartData.name = this.product.name;
+            if(this.product.product_type === 2){
+                this.cartData.colorId =this.product.variation.color_id;
+                this.cartData.sizeId = this.product.variation.size_id;
+            }
+            this.addToCartProduct(this.cartData);
+        },
     },
     computed:{
         ...mapGetters(['viewAs']),
