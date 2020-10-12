@@ -21,8 +21,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- All Css Links -->
-    <link href="{{ asset('/assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('/assets/css/colors.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('custom/css/custom_style.css') }}">

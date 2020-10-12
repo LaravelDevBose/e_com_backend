@@ -28,6 +28,12 @@ Vue.use(VueNoty, {
     layout: 'topRight'
 })
 
+const token = localStorage.getItem('token')
+if (token) {
+    axios.defaults.headers.common['Authorization'] = token
+}
+
+
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 

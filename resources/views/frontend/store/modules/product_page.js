@@ -37,6 +37,7 @@ const state = {
     size_list:[],
     product_brand_list: [],
     tag_list: [],
+    page_title: '',
     product_list: [],
     meta: null,
     links: null,
@@ -64,6 +65,7 @@ const getters = {
     productData: state=> state.product_data,
     relatedProducts: state => state.related_products,
     variations: state=> state.variations,
+    pageTitle: state=> state.page_title,
 };
 
 const actions = {
@@ -187,6 +189,7 @@ const mutations = {
         state.product_list = response.data;
     },
     updateSidebarData:(state, response)=>{
+        state.page_title = response.pageTitle;
         state.color_list = response.colors;
         state.size_list = response.sizes;
         state.product_brand_list = response.brands;

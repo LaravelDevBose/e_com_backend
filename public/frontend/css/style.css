@@ -37815,12 +37815,13 @@ img.alignright {
 
 .block-categori-opt12 .item {
     position: relative;
-    background-position: right bottom;
+    /*background-position: right bottom;*/
     background-repeat: no-repeat;
     border: 1px solid #eee;
     background-color: #fff;
     padding: 20px 23px 18px 30px;
-    margin-bottom: 30px
+    margin-bottom: 30px;
+    background-size: cover;
 }
 
 .block-categori-opt12 .item:after,
@@ -37851,7 +37852,7 @@ img.alignright {
     text-transform: uppercase;
     font-weight: 700;
     color: #f36;
-    font-size: 30px;
+    font-size: 22px;
     font-family: Montserrat-Black, sans-serif;
     line-height: 1
 }

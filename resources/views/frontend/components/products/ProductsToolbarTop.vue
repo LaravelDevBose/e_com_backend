@@ -1,7 +1,7 @@
 <template>
     <div class=" toolbar-products toolbar-top row">
         <div class=" col-md-6 col-sm-12">
-            <h1 class="cate-title">Electronics</h1>
+            <h1 class="cate-title">{{ pageTitle }}</h1>
         </div>
         <div class=" col-md-6 col-sm-12">
             <div class="toolbar-option">
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 export default {
     name: "ProductsToolbarTop",
     data(){
@@ -73,6 +73,7 @@ export default {
         }
     },
     computed:{
+        ...mapGetters(['pageTitle']),
         checkReqData(){
             return JSON.parse(JSON.stringify(this.reqData));
         },

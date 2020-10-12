@@ -132,6 +132,7 @@ class FrontendController extends Controller
     public function get_sidebar_data(Request $request)
     {
         $category = '';
+        $pageTitle = '';
         if (!empty($request->category_slug)){
             $category = Category::where('category_slug', $request->category_slug)
                 ->with(['attachment','children'=>function($query){
@@ -139,18 +140,21 @@ class FrontendController extends Controller
                         return $q->with('attachment')->isActive();
                     }]);
                 }])->first();
+            $pageTitle = $category->category_name;
             $categoryIds = Category::All_children_Ids($category->category_id);
             $products = Product::isActive()->whereIn('category_id', $categoryIds)->get();
             $category = new CategoryResource($category);
         }
 
         if (!empty($request->brand_slug)){
-            $brandId = Brand::where('brand_slug', $request->brand_slug)->first()->value('brand_id');
-            $products = Product::isActive()->where('brand_id', $brandId)->get();
+            $brandId = Brand::where('brand_slug', $request->brand_slug)->first();
+            $pageTitle = $brandId->brand_name;
+            $products = Product::isActive()->where('brand_id', $brandId->brand_id)->get();
         }
 
         if (!empty($request->tag_slug)){
             $tag = Tag::where('tag_slug', $request->tag_slug)->with('products')->first();
+            $pageTitle = $tag->tag_title;
             $products = Product::isActive()->whereIn('product_id', $tag->products->pluck('product_id'))->get();
         }
 
@@ -158,11 +162,13 @@ class FrontendController extends Controller
             if($request->section_slug == 'hot_deal'){
                 $productIds = DiscountProduct::live()->orderBy('discount_percent', 'desc')->pluck('product_id');
                 $products = Product::isActive()->whereIn('product_id', $productIds)->get();
-
+                $pageTitle = "Hot Deal";
             }else if($request->section_slug == 'new_arrival'){
+                $pageTitle = "New Arrival";
                 $products = Product::isActive()->latest()->get();
             }else{
                 ## TODO Update Trending product query and recomm
+                $pageTitle = "Product List";
                 $products = Product::isActive()->get();
             }
         }
@@ -184,6 +190,7 @@ class FrontendController extends Controller
             'sizes' => SizeResource::collection(Size::isActive()->whereIn('size_id', $sizeIds)->get()),
             'search_min_price'=> (!empty($search_min_price)) ? $search_min_price->value : 1,
             'search_max_price'=> (!empty($search_max_price)) ? $search_max_price->value : 10000,
+            'pageTitle'=>$pageTitle,
         ];
 
         return ApiResponser::SingleResponse($data, 'success', Response::HTTP_OK);

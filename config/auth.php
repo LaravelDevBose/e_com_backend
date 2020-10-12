@@ -43,7 +43,7 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'users',
             'hash' => false,
         ],
@@ -57,18 +57,7 @@ return [
             'driver' => 'token',
             'provider' => 'admins',
             'hash' => false,
-        ],
-
-        'seller' => [
-            'driver' => 'session',
-            'provider' => 'sellers',
-        ],
-
-        'seller-api' => [
-            'driver' => 'token',
-            'provider' => 'sellers',
-            'hash' => false,
-        ],
+        ]
     ],
 
     /*

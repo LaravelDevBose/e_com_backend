@@ -7,6 +7,7 @@ use App\Models\SocialProvider;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -17,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
         3=>'Un-Verified'
     ];
 
-    use Notifiable;
+    use Notifiable, HasApiTokens;
 
     protected $table = 'users';
     protected $primaryKey = 'user_id';

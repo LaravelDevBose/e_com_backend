@@ -1,6 +1,6 @@
 //declare State
 const state = {
-    carts:{},
+    carts:[],
     qty:0,
     weight:'',
     subtotal:0,
@@ -35,12 +35,11 @@ const actions = {
     },
     async getCartSuggestedProducts({commit},reqData=null){
         try {
-            return await axios.get('/cart/suggested/products',reqData)
+            await axios.get('/front/cart/suggested/products',reqData)
                 .then(response=>{
                     if(typeof response.data.status !== "undefined" && response.data.status === 200){
                         commit('setCartSuggestedProducts', response.data.data);
                     }
-                    return response.data;
                 });
         }catch (error) {
             console.log(error);
@@ -87,26 +86,31 @@ const actions = {
     },
     async destroyCart({commit}){
         try {
-            return await axios.delete('/destroy/cart')
-                .then(response=>{
+            return await axios.delete('/front/destroy/cart')
+                .then(response =>{
                     if(typeof response.data.status !== "undefined" && response.data.status === 200){
                         commit('setCartDetails', response.data.data);
                     }
                     return response.data;
-                })
+                });
         }catch (error) {
             console.log(error);
+            commit('updateResponse', {message: "Invalid Information", type: 'Error'});
             return error;
         }
     },
     async updateCart({commit},updateDate){
         try {
-            return await axios.put('/cart/update',updateDate)
-                .then(response=>{
-                    if(typeof response.data.status !== "undefined" && response.data.status === 200){
-                        commit('setCartDetails', response.data.data);
+            return await axios.put('/front/cart/update',updateDate)
+                .then(({data})=>{
+                    if(typeof data.status !== "undefined" && data.status === 200){
+                        commit('setCartDetails', data.data);
+                        commit('updateResponse', {message: data.message, type: data.statusText});
+                    }else if(data.status === 400){
+                        commit('updateResponse', {message: data.message, type: 'Warning'});
+                    }else{
+                        commit('updateResponse', {message: "Invalid Information", type: 'Error'});
                     }
-                    return response.data;
                 })
         }catch (error) {
             console.log(error);
@@ -128,12 +132,22 @@ const actions = {
 
 const mutations = {
     setCartDetails:(state,response)=>{
-        state.carts = response.carts;
-        state.qty = response.qty;
-        state.weight = response.weight;
-        state.subtotal = response.subtotal;
-        state.discount = response.discount;
-        state.total = response.total;
+        if(response){
+            state.carts = (response.carts)? response.carts : [];
+            state.qty = (response.qty)? response.qty : 0;
+            state.weight = (response.weight)? response.weight: 0;
+            state.subtotal = (response.subtotal)? response.subtotal: 0;
+            state.discount = (response.discount)? response.discount: 0;
+            state.total = (response.total)? response.total: 0;
+        }else{
+            state.carts =  [];
+            state.qty =0;
+            state.weight = 0;
+            state.subtotal = 0;
+            state.discount = 0;
+            state.total = 0;
+        }
+
     },
     setCartSuggestedProducts:(state,response)=>{
         state.suggested_products = response;

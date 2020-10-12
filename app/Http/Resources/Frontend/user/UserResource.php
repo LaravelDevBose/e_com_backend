@@ -14,7 +14,7 @@ class UserResource extends Resource
     public function toArray($request)
     {
         return [
-            'id'=>$this->id,
+            'id'=>$this->user_id,
             'name'=>$this->full_name,
             'phone'=>$this->phone_no,
             'email'=>$this->email,

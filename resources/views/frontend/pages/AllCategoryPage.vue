@@ -19,69 +19,39 @@
                     <!-- show categori +img -->
                     <div class="block-categori-opt12 style-opt13">
                         <div class="container">
-                            <div class="row">
-
-                                <div class="col-md-4">
-                                    <div class="item item1" style="background-image: url(images/media/index12/bg-categories1.png);">
+                            <div class="row" v-if="categories && categories.length > 0">
+                                <div
+                                    class="col-md-4"
+                                    v-for="category in categories"
+                                    :key="category.slug"
+                                >
+                                    <div class="item item1"
+                                         :style="{'background-image': 'url('+ category.attachment.image_path +')'}">
                                         <div class="title">
-                                            <span>categories </span>
-                                            <strong class="sub-title"> women</strong>
+                                            <strong class="sub-title"> {{  category.name }}</strong>
                                         </div>
-                                        <ul class="list-cat">
-                                            <li><a href="">Dresses</a></li>
-                                            <li><a href="">Blouses & Shirts</a></li>
-                                            <li><a href="">Swimwear</a></li>
-                                            <li><a href="">Nail Art & Salon</a></li>
-                                            <li><a href="">Skin Care</a></li>
-                                            <li><a href="">Beauty Equipment</a></li>
-                                            <li><a href="">Tattoo & Body Art</a></li>
+                                        <ul
+                                            class="list-cat"
+                                            v-if="category.children && category.children.length > 0"
+                                        >
+                                            <li v-for="subCategory in category.children">
+                                                <router-link :to="{name:'Category Products', params:{category_slug: subCategory.slug}}">
+                                                    {{ subCategory.name }}
+                                                </router-link>
+                                                <ul v-if="subCategory.children && subCategory.children.length > 0">
+                                                    <li
+                                                        v-for="child in subCategory.children"
+                                                        :key="child.name"
+                                                    >
+                                                        <router-link :to="{name:'Category Products', params:{category_slug: child.slug}}">
+                                                            {{ child.name }}
+                                                        </router-link>
+                                                    </li>
+                                                </ul>
+                                            </li>
                                         </ul>
-                                        <div class="actions">
-                                            <a href="" class="btn-view">View all</a>
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="item item2" style="background-image: url(images/media/index12/bg-categories2.png);">
-                                        <div class="title">
-                                            <span>categories  </span>
-                                            <strong class="sub-title"> men</strong>
-                                        </div>
-                                        <ul class="list-cat">
-                                            <li><a href="">Dresses</a></li>
-                                            <li><a href="">Blouses & Shirts</a></li>
-                                            <li><a href="">Swimwear</a></li>
-                                            <li><a href="">Nail Art & Salon</a></li>
-                                            <li><a href="">Skin Care</a></li>
-                                            <li><a href="">Beauty Equipment</a></li>
-                                            <li><a href="">Tattoo & Body Art</a></li>
-                                        </ul>
-                                        <div class="actions">
-                                            <a href="" class="btn-view">View all</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="item item3" style="background-image: url(images/media/index12/bg-categories3.png);">
-                                        <div class="title">
-                                            <span>categories  </span>
-                                            <strong class="sub-title"> Accessory</strong>
-                                        </div>
-                                        <ul class="list-cat">
-                                            <li><a href="">Dresses</a></li>
-                                            <li><a href="">Blouses & Shirts</a></li>
-                                            <li><a href="">Swimwear</a></li>
-                                            <li><a href="">Nail Art & Salon</a></li>
-                                            <li><a href="">Skin Care</a></li>
-                                            <li><a href="">Beauty Equipment</a></li>
-                                            <li><a href="">Tattoo & Body Art</a></li>
-                                        </ul>
-                                        <div class="actions">
-                                            <a href="" class="btn-view">View all</a>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -98,11 +68,17 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 export default {
-name: "AllCategoryPage"
+    name: "AllCategoryPage",
+    computed:{
+        ...mapGetters(['categories'])
+    }
 }
 </script>
 
 <style scoped>
-
+.list-cat li ul{
+    padding-left: 10px;
+}
 </style>

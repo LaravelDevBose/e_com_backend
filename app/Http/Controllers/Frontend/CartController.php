@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Helpers\Frontend\ProductHelper;
+use App\Http\Resources\Frontend\product\ProductCollection;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductImage;
@@ -49,17 +50,19 @@ class CartController extends Controller
         if(!empty(Cart::content())){
             $productIds = Arr::pluck(Cart::content(), 'id');
             $cartProducts = Product::whereIn('product_id', $productIds)->get();
-            $reqData = [
-                'productIds'=>$productIds,
-                'productIdsType'=>'remove',
-                'brandIds'=>$cartProducts->pluck('brand_id')->toArray(),
-                'categoryIds'=>$cartProducts->pluck('category_id')->toArray(),
-                'take'=>8
-            ];
-            $sugProducts = ProductHelper::products_list($reqData);
-            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $sugProducts);
+            $brandIds = $cartProducts->pluck('brand_id')->toArray();
+            $catIds = $cartProducts->pluck('category_id')->toArray();
+            $products = Product::where('product_status', config('app.active'))
+                ->whereNotIn('product_id', $productIds)
+                ->whereIn('category_id', $catIds)
+                ->whereIn('brand_id', $brandIds)
+                ->with(['variation', 'thumbImage', 'discount'])
+                ->take(18)->get();
+
+            $sugProducts = new ProductCollection($products);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK,  $sugProducts);
         }else{
-            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'Cart is Empty');
+            return ApiResponser::AllResponse('error', Response::HTTP_BAD_REQUEST, false,'Cart is Empty');
         }
 
     }
@@ -157,18 +160,18 @@ class CartController extends Controller
                 if(!empty($cart)){
                     DB::commit();
                     $carts = $this->cart_content();
-                    return ResponserTrait::singleResponse($carts, 'success', Response::HTTP_OK, 'Product Update Cart Successfully');
+                    return ApiResponser::AllResponse( 'success', Response::HTTP_OK, true,'Product Update Cart Successfully', $carts);
                 }else{
                     throw new Exception('Invalid Information!', Response::HTTP_BAD_REQUEST);
                 }
 
             }catch (Exception $ex){
                 DB::rollBack();
-                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+                return ApiResponser::AllResponse('error', Response::HTTP_BAD_REQUEST, false, $ex->getMessage());
             }
         }else{
             $errors = array_values($validator->errors()->getMessages());
-            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+            return ApiResponser::ValidationResponse($errors,'validation', Response::HTTP_BAD_REQUEST);
         }
     }
     public function remove_from_cart($rowId){
@@ -190,12 +193,12 @@ class CartController extends Controller
         try{
             $carts = Cart::destroy();
             if(empty($carts)){
-                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Cart Destroy Successfully', []);
+                return ApiResponser::allResponse('success', Response::HTTP_OK, true,'Cart Destroy Successfully', []);
             }else{
                 throw new Exception('Cart Not Destroyed.', Response::HTTP_BAD_REQUEST);
             }
         }catch (Exception $ex){
-            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            return ApiResponser::AllResponse('error', Response::HTTP_BAD_REQUEST, false, $ex->getMessage());
         }
 
     }

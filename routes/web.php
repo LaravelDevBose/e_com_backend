@@ -4,8 +4,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Auth::routes(['verify' => true]);
-
 Route::get('/', 'HomeController@index')->name('index');
 
 
@@ -23,10 +21,13 @@ Route::namespace('Frontend')->prefix('front')->group(function () {
 
     Route::post('/add-to-cart', 'CartController@add_to_cart');
     Route::get('/cart-list', 'CartController@cart_list');
+    Route::get('/cart/suggested/products', 'CartController@cart_suggested_products');
+    Route::put('/cart/update', 'CartController@cart_update');
     Route::get('/cart/{rowId}/remove', 'CartController@remove_from_cart');
+    Route::delete('/destroy/cart', 'CartController@cart_destroy');
 });
-
-
+//Route::get('/admin/{any}', 'Auth\AdminLoginController@show_login_page');
+Route::get('/{any}', 'HomeController@index')->where('any', '.*');
 
 Route::post('/subscribe', 'NewsLetterController@store');
 
@@ -42,4 +43,4 @@ Route::get('social/login/{provider}', 'SocialLoginController@redirectToProvider'
 Route::get('social/login/{provider}/callback', 'SocialLoginController@handleProviderCallback');
 Route::get('/vue/social/login/{provider}', 'SocialLoginController@handleProviderCallback');
 
-Route::get('/{any}', 'HomeController@index')->where('any', '.*');
+

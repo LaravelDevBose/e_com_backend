@@ -1,6 +1,30 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 Vue.use(Router);
+import store from '../store';
+
+
+const ifNotAuthenticated = (to, from, next) => {
+    if (!store.getters.isAuthenticated) {
+        next();
+        return;
+    }else if (store.getters.cartTotal && store.getters.cartTotal > 0){
+        next('/checkout');
+        return ;
+    }else{
+        next('/buyer/dashboard');
+    }
+
+}
+
+const ifAuthenticated = (to, from, next) => {
+    if (store.getters.isAuthenticated) {
+        next();
+        return;
+    }
+    next('/login');
+}
+
 
 import HomePage from "../pages/HomePage";
 export default new Router({
@@ -47,9 +71,40 @@ export default new Router({
             component: ()=> import("../pages/ProductDetailPage.vue"),
         },
         {
+            path: "/shopping-bag",
+            name: "shopping_bag",
+            component: ()=> import("../pages/CartPage.vue"),
+        },
+        {
+            path: "/login",
+            name: "auth",
+            component: ()=> import("../pages/AuthPage.vue"),
+            beforeEnter: ifNotAuthenticated,
+        },
+        {
+            path: "/checkout",
+            name: "checkout",
+            component: ()=> import("../pages/CheckoutPage.vue"),
+            beforeEnter: ifAuthenticated,
+        },
+        {
+            path: "/buyer",
+            component: ()=> import("../pages/buyer/BuyerLayout.vue"),
+            beforeEnter: ifAuthenticated,
+            children:[
+                {
+                    path: "dashboard",
+                    name: "dashboard",
+                    component: ()=> import("../pages/buyer/Dashboard.vue"),
+                    beforeEnter: ifAuthenticated,
+
+                }
+            ]
+        },
+        {
             path: "/page_not_found",
             name: "not_found",
-            component: ()=> import("../pages/PageNotFound"),
+            component: ()=> import("../pages/PageNotFound.vue"),
         }
     ]
 })

@@ -1,7 +1,7 @@
 <template>
     <span>
         <!--   List View Product-->
-        <div class="product-item-info" v-if="view === 2 && page">
+        <div class="product-item-info" v-if="viewAs === 2 && page">
             <div class="product-item-photo">
                 <router-link :to="{ name: 'Product', params:{ slug: product.slug } }" class="product-item-img" >
                     <clazy-load :src="product.image.image_path">
@@ -21,12 +21,11 @@
                     </router-link>
                 </strong>
                 <div class="clearfix product-info-des">
-
                     <div class="product-reviews-summary">
                         <div class="rating-summary">
-                            <div class="rating-result" title="80%">
-                                <span style="width:80%">
-                                    <span><span>80</span>% of <span>100</span></span>
+                            <div class="rating-result" :title="product.rating">
+                                 <span :style="{width: product.rating * 100 +'%'}">
+                                    <span><span>{{ product.rating }}</span>% of <span>100</span></span>
                                 </span>
                             </div>
                         </div>
@@ -43,9 +42,12 @@
                         <span class="title">Availability:</span> In stock
                     </div>
                     <div class="product-item-actions">
-                        <button class="btn btn-cart" type="button"><span>Add to Cart</span></button>
+                        <button
+                            class="btn btn-cart"
+                            type="button"
+                            @click.prevent="addToCart()"
+                        ><span>Add to Cart</span></button>
                         <a href="" class="btn btn-wishlist"><span>wishlist</span></a>
-                        <a href="" class="btn btn-quickview"><span>quickview</span></a>
                     </div>
                 </div>
                 <div class="product-item-des" v-html="product.highlight"> </div>

@@ -1,10 +1,10 @@
 <template>
-    <h3>404 Page</h3>
+    <h2>Buyer Dashboard</h2>
 </template>
 
 <script>
 export default {
-    name: "PageNotFound"
+    name: "Dashboard"
 }
 </script>
 
