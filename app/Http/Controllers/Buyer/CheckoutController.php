@@ -2,80 +2,106 @@
 
 namespace App\Http\Controllers\Buyer;
 
-use App\Helpers\TemplateHelper;
-use App\Models\AddressBook;
+use App\Http\Resources\Frontend\coupon\CouponResource;
+use App\Models\CouponCode;
 use App\Models\DeliveryMethod;
-use App\Models\PaymentInfo;
-use App\Models\Setting;
-use App\Models\ShippingInfo;
+use App\Traits\ApiResponser;
 use App\Traits\ResponserTrait;
+use Carbon\Carbon;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use App\Http\Resources\Frontend\deliveryMethod\DeliveryMethodResource;
+use Illuminate\Support\Facades\Validator;
 
 class CheckoutController extends Controller
 {
-
-    public $template_name;
-
-    public function __construct()
+    public function get_delivery_info()
     {
-        $this->template_name = TemplateHelper::templateName();
-        if(empty($this->template_name)){
-            $this->template_name = config('app.default_template');
+        $deliveryMethods = DeliveryMethod::isActive()->get();
+        $coll = DeliveryMethodResource::collection($deliveryMethods);
+        if(!empty($coll)){
+            return ApiResponser::SingleResponse($coll, 'Success', Response::HTTP_OK);
         }
-        $this->middleware('auth');
+
+        return ApiResponser::AllResponse('Error', Response::HTTP_BAD_REQUEST, false, 'Not Found');
+
     }
 
-    public function index(Request $request){
+    public function store_checkout_info_session(Request $request)
+    {
+        try {
+            $sessionData = array();
 
-        if($request->ajax()){
-            $dataCollection = array();
-            $addressBooks = AddressBook::myAddress()->isActive()->latest()->get();
-            $address = AddressBook::addressBookSelect($addressBooks);
-            $shippingPrice = Setting::where('key','delivery_rate')->first();
-            if(empty($shippingPrice)){
-                $shippingPrice = 50;
-            }else{
-                $shippingPrice =  $shippingPrice->value;
+            if (Session::has('checkout')){
+                $sessionData = Session::get('checkout');
             }
-            $payment_methods = [];
-            $methods = array_flip(PaymentInfo::Payment_Method);
-            $acceptedMethods = Setting::where('type', Setting::Setting_Type['delivery'])->where('key', '!=', 'delivery_rate')->pluck('value', 'key');
-            if(!empty($acceptedMethods)){
-                foreach ($acceptedMethods as $key=> $acceptedMethod){
+            array_push($sessionData, $request->all());
 
-                    if($key== PaymentInfo::setting_key[1] && $acceptedMethod == 1){
-                        array_push($payment_methods,[
-                            'key'=>1,
-                            'value'=>$methods[1]
-                        ]);
-                    }
-                    if($key== PaymentInfo::setting_key[2] && $acceptedMethod == 1){
-                        array_push($payment_methods,[
-                            'key'=>2,
-                            'value'=>$methods[2]
-                        ]);
-                    }
-                    if($key== PaymentInfo::setting_key[3] && $acceptedMethod == 1){
-                        array_push($payment_methods,[
-                            'key'=>3,
-                            'value'=>$methods[3]
-                        ]);
-                    }
-                }
-            }
-            $deliveryMethods = DeliveryMethod::isActive()->latest()->get();
-            $dataCollection = [
-                'address_list'=>$address,
-                'payment_methods'=>$payment_methods,
-                'shipping_methods'=>array_flip(ShippingInfo::METHOD),
-                'shipping_price'=>$shippingPrice,
-                'delivery_methods'=>$deliveryMethods
-            ];
-            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $dataCollection);
+            return ApiResponser::AllResponse('Success', Response::HTTP_OK, true, 'Store Successfully');
+        }catch (\Exception $ex){
+            return ApiResponser::AllResponse('Error', Response::HTTP_BAD_REQUEST);
         }
-        return view('templates.'.$this->template_name.'.buyer.checkout.checkout');
+
+    }
+
+    public function get_checkout_session()
+    {
+        try {
+            $sessionData = array();
+
+            if (Session::has('checkout')){
+                $sessionData = Session::get('checkout');
+            }
+            return ApiResponser::SingleResponse($sessionData,'Success', Response::HTTP_OK, true);
+        }catch (\Exception $ex){
+            return ApiResponser::AllResponse('Error', Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function check_coupon_code(Request  $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'coupon_code'=> 'required|string|min:6'
+        ]);
+        if($validator->passes()) {
+            try {
+                DB::beginTransaction();
+                $coupon = CouponCode::where('coupon_status', config('app.active'))
+                    ->where('coupon_code', $request->coupon_code)
+                    ->with('used_coupons')->first();
+
+                if (empty($coupon)){
+                    throw new \Exception('Invalid Coupon Code', Response::HTTP_BAD_REQUEST);
+                }
+                if (!empty($coupon->coupon_qty) && $coupon->coupon_qty > $coupon->used_coupons->count()){
+                    throw new \Exception('Coupon code already reach limit', Response::HTTP_BAD_REQUEST);
+                }
+
+                if (Carbon::parse($coupon->expire_at) < Carbon::today()){
+                    throw new \Exception('Coupon code already expired', Response::HTTP_BAD_REQUEST);
+                }
+                if (!empty($coupon->min_order) && $coupon->min_order > Cart::total()){
+                    throw new \Exception('Apply Coupon code min order limit '.$coupon->min_order, Response::HTTP_BAD_REQUEST);
+                }
+
+                if (!empty($coupon)){
+                    $data = new CouponResource($coupon);
+                    return ApiResponser::AllResponse( 'Success', Response::HTTP_OK, true, 'Coupon Code Apply Successfully', $data);
+                }else{
+                    throw new \Exception('Invalid Coupon Code Information', Response::HTTP_BAD_REQUEST);
+                }
+            }catch (\Exception $ex){
+                DB::rollBack();
+                return ApiResponser::allResponse('error', $ex->getCode(), false, $ex->getMessage());
+            }
+        }else{
+            $errors = array_values($validator->errors()->getMessages());
+            return ApiResponser::validationResponse($errors,'validation', Response::HTTP_BAD_REQUEST);
+        }
     }
 
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources\order;
+namespace App\Http\Resources\Frontend\order;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class OrderItemCollection extends ResourceCollection
 {
-    public $collects = 'App\Http\Resources\order\OrderItemResource';
+    public $collects = 'App\Http\Resources\Frontend\order\OrderItemResource';
     /**
      * Transform the resource collection into an array.
      *

@@ -3,6 +3,8 @@
 namespace App\Http\Resources\order;
 
 use App\Http\Resources\buyer\BuyerResource;
+use App\Http\Resources\Frontend\color\ColorResource;
+use App\Http\Resources\Frontend\size\SizeResource;
 use App\Http\Resources\seller\SellerResource;
 use Illuminate\Http\Resources\Json\Resource;
 
@@ -23,11 +25,7 @@ class OrderItemResource extends Resource
             'productName'=>$this->product_name,
             'productType'=> $this->product->product_type,
             'sizeId'=>$this->sizeId,
-            'size'=>$this->size,
             'colorId'=>$this->color_id,
-            'color'=>$this->color,
-            'brandId'=>$this->brand_id,
-            'brand'=>$this->brand,
             'price'=>number_format($this->price, 2),
             'qty'=>$this->qty,
             'subtotal'=> number_format($this->subtotal, 2),
@@ -38,9 +36,8 @@ class OrderItemResource extends Resource
             'cancelBy'=>$this->cancel_by,
             'canceled'=>$this->canceled,
             'image'=>!empty($this->image->image_path)? $this->image->image_path : '',
-            'seller'=> new SellerResource($this->whenLoaded('seller')),
-            'order'=> new OrderResource($this->whenLoaded('order')),
-            'buyer'=> new BuyerResource($this->whenLoaded('buyer')),
+            'color'=>new ColorResource($this->whenLoaded('color')),
+            'size'=> new SizeResource($this->whenLoaded('size')),
         ];
     }
 }

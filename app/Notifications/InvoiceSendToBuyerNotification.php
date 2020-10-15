@@ -42,7 +42,7 @@ class InvoiceSendToBuyerNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $orderInfo = Order::where('order_id', $this->order->order_id)->with('buyer.user', 'orderItems.product','orderItems.seller', 'billing', 'shipping', 'payment')->first();
+        $orderInfo = Order::where('order_id', $this->order->order_id)->with('user', 'orderItems.product','orderItems', 'shipping')->first();
         return (new MailMessage)
             ->from(env('MAIL_FROM_ADDRESS', 'admin@info.com'), env('MAIL_FROM_NAME', 'Shop'))
             ->view('mail.v1.invoice.invoice_mail',[

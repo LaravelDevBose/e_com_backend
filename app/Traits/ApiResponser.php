@@ -22,7 +22,7 @@ trait ApiResponser
             'message'=>$message,
             'url'=>$url,
             'data'=>$data,
-        ], $status);
+        ]);
     }
 
     public static function CollectionResponse($statusText='Success', $status=200, $collection=null){

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\shipping;
+namespace App\Http\Resources\Frontend\shipping;
 
 use Illuminate\Http\Resources\Json\Resource;
 
@@ -23,7 +23,6 @@ class ShippingResource extends Resource
             'city'=>$this->city,
             'state'=>$this->state,
             'postalCode'=>$this->postal_code,
-            'country'=>$this->country,
             'district'=>$this->district,
             'region'=>$this->region,
 //            'fullAddress'=>$this->full_address,

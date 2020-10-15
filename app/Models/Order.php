@@ -5,6 +5,7 @@ namespace App\Models;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Order extends Model
 {
@@ -15,6 +16,7 @@ class Order extends Model
         'Confirm'=>4,
         'Ready To Ship'=>5,
         'Delivered'=>6,
+        'Un-paid'=>7,
     ];
 
     protected $table = 'orders';
@@ -26,12 +28,10 @@ class Order extends Model
         'total_qty',
         'sub_total',
         'discount',
-        'voucher_id',
-        'voucher_price',
         'total',
         'order_date',
         'order_status',
-        'shipping_method',
+        'delivery_method_id',
         'delivery_date',
         'delivery_media',
         'delivery_charge',
@@ -41,6 +41,18 @@ class Order extends Model
     ];
 
     protected $appends = array('status_label');
+
+    public static function order_no_generate(){
+        $sku = '';
+        for ($i=1; $i<=4; $i++){
+            $sku.= Str::random(4);
+            if($i != 4){
+                $sku .= '-';
+            }
+        }
+
+        return $sku;
+    }
 
     public function scopeOrderStatus($query, $status){
         return $query->where('order_status', $status);

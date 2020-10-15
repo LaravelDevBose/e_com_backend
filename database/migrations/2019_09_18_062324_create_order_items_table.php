@@ -21,11 +21,7 @@ class CreateOrderItemsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->string('product_name');
             $table->unsignedBigInteger('size_id')->nullable();
-            $table->string('size')->nullable();
             $table->unsignedBigInteger('color_id')->nullable();
-            $table->string('color')->nullable();
-            $table->unsignedBigInteger('brand_id')->nullable();
-            $table->string('brand')->nullable();
             $table->unsignedInteger('qty');
             $table->decimal('price');
             $table->decimal('subtotal');

@@ -52,4 +52,9 @@ class CouponCode extends Model
     {
         return $this->hasOne(Attachment::class, 'attachment_id', 'attachment_id');
     }
+
+    public function used_coupons()
+    {
+        return $this->hasMany(UsedCoupon::class, 'coupon_id', 'coupon_id');
+    }
 }

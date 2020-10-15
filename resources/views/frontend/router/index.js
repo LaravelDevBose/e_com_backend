@@ -25,6 +25,20 @@ const ifAuthenticated = (to, from, next) => {
     next('/login');
 }
 
+const ifAuthenticatedAndHaveCartItem = (to, form, next) =>{
+    if (store.getters.isAuthenticated && store.getters.cartTotal && store.getters.cartTotal > 0){
+        next();
+    }else {
+        next(form);
+    }
+}
+const ifHaveCartItem = (to, form, next) =>{
+    if (store.getters.cartTotal && store.getters.cartTotal > 0){
+        next();
+    }else {
+        next(form);
+    }
+}
 
 import HomePage from "../pages/HomePage";
 export default new Router({
@@ -74,6 +88,7 @@ export default new Router({
             path: "/shopping-bag",
             name: "shopping_bag",
             component: ()=> import("../pages/CartPage.vue"),
+            beforeEnter: ifHaveCartItem,
         },
         {
             path: "/login",
@@ -85,7 +100,7 @@ export default new Router({
             path: "/checkout",
             name: "checkout",
             component: ()=> import("../pages/CheckoutPage.vue"),
-            beforeEnter: ifAuthenticated,
+            beforeEnter: ifAuthenticatedAndHaveCartItem,
         },
         {
             path: "/buyer",

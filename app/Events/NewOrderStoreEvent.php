@@ -18,14 +18,19 @@ class NewOrderStoreEvent
 
     public $order;
     public $user;
+    public $productUpdateArray;
+
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param User $user
+     * @param Order $order
+     * @param $productUpdateArray
      */
-    public function __construct(User $user, Order $order)
+    public function __construct(User $user, Order $order, $productUpdateArray)
     {
         $this->user = $user;
         $this->order = $order;
+        $this->productUpdateArray = $productUpdateArray;
     }
 }

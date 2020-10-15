@@ -37,6 +37,7 @@
                             class=" product-item product-item-opt-1"
                             v-for="disProduct in discountProducts"
                             :key="disProduct.id"
+                            v-if="disProduct.product"
                         >
                             <hot-deal-product-item
                                 :product="disProduct.product"

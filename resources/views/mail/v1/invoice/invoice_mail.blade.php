@@ -15,7 +15,7 @@
         <div class="col-sm-5">
             <h6 class="mb-3 head-title">Payment Details:</h6>
             <div>
-                <strong>Invoice: #{{ $orderInfo->payment->invoice_no }}</strong>
+                <strong>Invoice: #{{ $orderInfo->order_no }}</strong>
             </div>
             <div class="email"><strong>Total:</strong> ${{ $orderInfo->total }}</div>
             <div class="phone"><strong>Paid By:</strong> {{ $orderInfo->payment->paid_by }}</div>

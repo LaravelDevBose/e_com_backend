@@ -5,15 +5,18 @@ namespace App\Http\Controllers\Buyer;
 use App\Events\NewOrderStoreEvent;
 use App\Events\OnCancelOrderItem;
 use App\Helpers\OrderHelper;
-use App\Helpers\TemplateHelper;
-use App\Models\BillingInfo;
+use App\Http\Resources\Frontend\order\OrderCollection;
+use App\Http\Resources\Frontend\order\OrderResource;
+use App\Models\CouponCode;
+use App\Models\DeliveryMethod;
 use App\Models\OrderItem;
 use App\Models\PaymentInfo;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\ProductVariation;
 use App\Models\ShippingInfo;
-use App\Models\Size;
+use App\Models\UsedCoupon;
+use App\Traits\ApiResponser;
 use App\Traits\ResponserTrait;
 use App\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -25,28 +28,15 @@ use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
-    public $template_name;
-
-    public function __construct()
-    {
-        $this->template_name = TemplateHelper::templateName();
-        if(empty($this->template_name)){
-            $this->template_name = config('app.default_template');
-        }
-        $this->middleware('auth');
-    }
-
-    public function index(Request $request){
-        return view('templates.'.$this->template_name.'.buyer.order.my_orders');
-    }
 
     public function order_list(Request $request){
-        $orders = OrderHelper::order_list($request);
-        if(!empty($orders)){
-            // TODO Order Collection added
-            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $orders);
+        $orders = Order::with( 'shipping')->latest();
+        $list = ApiResponser::MakeCollectionResponse($request, $orders);
+        if(!empty($list)){
+            $coll = new OrderCollection($list);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
         }else{
-            return ResponserTrait::allResponse('error', Response::HTTP_OK, 'No Order Found');
+            return ApiResponser::AllResponse('error', Response::HTTP_OK, false, 'No Order Found');
         }
     }
 
@@ -79,14 +69,28 @@ class OrderController extends Controller
     public function order_store(Request $request){
         // TODO check Cart is empty or not
         if(empty(Cart::content())){
-            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, 'Your Cart is Empty');
+            return ApiResponser::AllResponse('error', Response::HTTP_BAD_REQUEST, false, 'Your Cart is Empty');
         }
         // TODO check Validation
         $validator = Validator::make($request->all(),[
-            'billing_address'=>'array',
-            'shipping_address'=>'required|array',
-            'shipping_method_id'=>'required',
-            'payment_method_id'=>'required',
+            'shipping_info'=>'required',
+            'delivery_method_id'=>'required',
+            'shipping_info.first_name'=>'required|string',
+            'shipping_info.phone_no'=>'required|string',
+            'shipping_info.address'=>'required|string',
+            'shipping_info.postal_code'=>'required|integer',
+        ], [
+            'shipping_info.required'=>'Shipping Information is required',
+            'delivery_method_id.required'=>'Delivery Method is required',
+            'shipping_info.first_name.required'=>'Shipping First Name is required',
+            'shipping_info.phone_no.required'=>'Shipping Phone No is required',
+            'shipping_info.address.required'=>'Shipping Address is required',
+            'shipping_info.postal_code.required'=>'Shipping Postal Code is required',
+
+            'shipping_info.first_name.string'=>'Shipping First Name Must string',
+            'shipping_info.phone_no.string'=>'Shipping Phone No Must string',
+            'shipping_info.address.string'=>'Shipping Address Must string',
+            'shipping_info.postal_code.integer'=>'Shipping Postal Code Must Number',
         ]);
 
         if($validator->passes()){
@@ -95,77 +99,80 @@ class OrderController extends Controller
                 DB::beginTransaction();
                 // get session cart details
                 $carts = Cart::content();
-//                return \response()->json(Cart::subtotal());
-                $buyer = auth()->guard('web')->user()->buyer;
+
+                //get Selected Delivery Information
+                $deliveryMethod = DeliveryMethod::where('delivery_id', $request->delivery_method_id)->first();
+                if (empty($deliveryMethod)){
+                    throw new \Exception('Invalid Delivery Information', Response::HTTP_BAD_REQUEST);
+                }
+                $orderTotal = Cart::total();
+                $discount = 0;
+                if (!empty($request->coupon_id)){
+                    $coupon = CouponCode::where('coupon_id', $request->coupon_id)->first();
+                    if (empty($coupon)){
+                        throw new \Exception('Invalid Coupon Information', Response::HTTP_BAD_REQUEST);
+                    }else{
+                        $discount = $coupon->coupon_amount;
+                        $orderTotal = $orderTotal - $coupon->coupon_amount;
+                    }
+                }
+
                 //store data on order table
                 // TODO Check is have any error
                 $order = Order::create([
-                    'order_no'=>uniqid(),
-                    'buyer_id'=>$buyer->buyer_id,
+                    'order_no'=>Order::order_no_generate(),
+                    'user_id'=>$request->user()->user_id,
                     'total_qty'=>Cart::count(),
-                    'sub_total'=>0,
-                    'discount'=>$request->discount,
-                    'voucher_id'=>$request->voucher_id,
-                    'voucher_price'=>$request->voucher_price,
-                    'delivery_charge'=>$request->delivery_charge,
-                    'total'=>0,
+                    'sub_total'=>Cart::subtotal(),
+                    'discount'=>$discount,
+                    'total'=>$orderTotal+$deliveryMethod->cost_price,
+                    'delivery_charge'=>$deliveryMethod->cost_price,
+                    'delivery_method_id'=>$request->delivery_method_id,
                     'order_date'=>now(),
-                    'order_status'=>config('app.active'),
-                    'shipping_method'=>(!empty($request->shipping_method_id))?$request->shipping_method_id:1,
+                    'order_status'=>Order::OrderStatus['Un-paid'],
                 ]);
 
                 if(!empty($order)){
                     $orderItemsArray = [];
                     $productUpdateArray = array();
-                    $orderTotal = 0;
                     // get single cart product
-                        foreach ($carts as $cart){
-                            // get product, brand, size, color details
-                            $product = Product::where('product_id',$cart->id)->with('brand', 'singleVariation')->first();
-                            if($product->product_type == Product::ProductType['Variation'] && !empty($cart->options->sizeId) && !empty($cart->options->colorId)){
-                                $variationProduct = ProductVariation::where('product_id', $cart->id)
-                                    ->where('pri_id', $cart->options->colorId)
-                                    ->where('sec_id', $cart->options->colorId)->first();
-                                $currentQty = $variationProduct->quantity;
-                                $variation_id = $variationProduct->variation_id;
-                            }else{
-                                if($product->product_type === Product::ProductType['Simple']){
-                                    $currentQty = $product->product_qty;
-                                    $variation_id = '';
-                                }else{
-                                    $currentQty = $product->singleVariation->quantity;
-                                    $variation_id= $product->singleVariation->variation_id;
-                                }
-                            }
-
-                            array_push($productUpdateArray,[
-                                'id'=>$product->product_id,
-                                'curtQty'=>$currentQty,
-                                'orderQty'=>$cart->qty,
-                                'variation_id'=>$variation_id,
-                                'status'=>$product->product_status,
-                            ]);
-                            array_push($orderItemsArray,[
-                                'order_id'=>$order->order_id,
-                                'buyer_id'=>$buyer->buyer_id,
-                                'seller_id'=>$product->seller_id,
-                                'product_id'=>$product->product_id,
-                                'product_name'=>$product->product_name,
-                                'size_id'=>$cart->options->sizeId??null,
-                                'size'=>$cart->options->size??null,
-                                'color_id'=>$cart->options->colorId??null,
-                                'color'=>$cart->options->color??null,
-                                'brand_id'=>$product->brand_id,
-                                'brand'=>(!empty($product->brand))?$product->brand->brand_name:'',
-                                'price'=>$cart->price,
-                                'qty'=>$cart->qty,
-                                'subtotal'=>($cart->qty*$cart->price),
-                                'discount'=>0,
-                                'total_price'=>($cart->qty*$cart->price),
-                                'image_id'=> $cart->options->image_id
-                            ]);
-                            $orderTotal += ($cart->qty*$cart->price);
+                    foreach ($carts as $cart){
+                        // get product, brand, size, color details
+                        $product = Product::where('product_id',$cart->id)->with('brand', 'variation')->first();
+                        if($product->product_type == Product::ProductType['Variation'] && !empty($cart->options->sizeId) && !empty($cart->options->colorId)){
+                            $variationProduct = ProductVariation::where('product_id', $cart->id)
+                                ->where('color_id', $cart->options->colorId)
+                                ->where('size_id', $cart->options->colorId)->first();
+                            $currentQty = $variationProduct->quantity;
+                            $variation_id = $variationProduct->variation_id;
+                        }else{
+                            $currentQty = $product->variation->quantity;
+                            $variation_id= $product->variation->variation_id;
                         }
+
+                        array_push($productUpdateArray,[
+                            'id'=>$product->product_id,
+                            'curtQty'=>$currentQty,
+                            'orderQty'=>$cart->qty,
+                            'variation_id'=>$variation_id,
+                            'status'=>$product->product_status,
+                        ]);
+                        array_push($orderItemsArray,[
+                            'order_id'=>$order->order_id,
+                            'user_id'=>$request->user()->user_id,
+                            'seller_id'=>$product->seller_id,
+                            'product_id'=>$product->product_id,
+                            'product_name'=>$product->product_name,
+                            'size_id'=>$cart->options->sizeId??null,
+                            'color_id'=>$cart->options->colorId??null,
+                            'price'=>$cart->price,
+                            'qty'=>$cart->qty,
+                            'subtotal'=>($cart->options->old_price > 0)?($cart->qty*$cart->options->old_price): ($cart->qty*$cart->price),
+                            'discount'=>$cart->options->discount * $cart->qty,
+                            'total_price'=>($cart->qty*$cart->price),
+                            'image_id'=> $cart->options->image_id
+                        ]);
+                    }
 
                     // Store order items
                     if(!empty($orderItemsArray)){
@@ -175,108 +182,46 @@ class OrderController extends Controller
                     }
 
                     if(!empty($orderItems)){
-
-                        // TODO store order billing details
-                         $billingInfo = (Object) $request->get('billing_address');
-                        if(!empty($request->get('billing_address'))){
-                            $billing = BillingInfo::create([
-                                'order_id'=>$order->order_id,
-                                'buyer_id'=>$buyer->buyer_id,
-                                'address_id'=>$request->billing_address_id,
-                                'first_name'=>$billingInfo->first_name,
-                                'last_name'=>$billingInfo->last_name,
-                                'phone_no'=>$billingInfo->phone_no,
-                                'address'=>$billingInfo->address,
-                                'city'=>$billingInfo->city,
-                                'state'=>$billingInfo->state,
-                                'district'=>$billingInfo->district,
-                                'region'=>$billingInfo->region,
-                                'postal_code'=>$billingInfo->postal_code,
-                                'country'=>'somalia',
-                            ]);
-
-                            if(empty($billing)){
-                                throw new \Exception('Order Not Place', Response::HTTP_BAD_REQUEST);
-                            }
-                        }
-
                         // TODO store order shipping details
-                        $shippingInfo = (Object) $request->get('shipping_address');
+                        $shippingInfo = (Object) $request->get('shipping_info');
                         $shipping = ShippingInfo::create([
                             'order_id'=>$order->order_id,
-                            'buyer_id'=>$buyer->buyer_id,
-                            'address_id'=>$request->shipping_address_id,
+                            'user_id'=>$request->user()->user_id,
                             'first_name'=>$shippingInfo->first_name,
                             'last_name'=>$shippingInfo->last_name,
                             'phone_no'=>$shippingInfo->phone_no,
                             'address'=>$shippingInfo->address,
-                            'city'=>$shippingInfo->city,
-                            'state'=>$shippingInfo->state,
                             'district'=>$shippingInfo->district,
-                            'region'=>$shippingInfo->region,
-                            'postal_code'=>$shippingInfo->postal_code,
-                            'country'=>'somalia',
+                            'region'=>$shippingInfo->division,
+                            'postal_code'=>$shippingInfo->postal_code
                         ]);
 
                         if(empty($shipping)){
                             throw new \Exception('Invalid Shipping Information',Response::HTTP_BAD_REQUEST);
                         }
 
-                        // TODO store order payment details
-                        $payment = PaymentInfo::create([
-                            'order_id'=>$order->order_id,
-                            'buyer_id'=>$buyer->buyer_id,
-                            'total_price'=>$order->total,
-                            'invoice_no'=>uniqid(),
-                            'paid_by'=>$request->payment_method_id,
-                            'payment_track_id'=>null,
-                            'paid_at'=>now(),
-                            'payment_status'=>config('app.active'),
-                        ]);
-
-                        if(empty($payment)){
-                            throw new \Exception('Invalid Payment Information', Response::HTTP_BAD_REQUEST);
+                        if (!empty($request->coupon_id)){
+                            UsedCoupon::create([
+                                'coupon_id'=>$request->coupon_id,
+                                'order_id'=>$order->order_id,
+                                'user_id'=>$request->user()->user_id,
+                                'coupon_amount'=> $discount,
+                            ]);
                         }
 
-                        // TODO Sent invoice to buyer email address
 
-                        // TODO return buyer panel invoice page
-
-                        ## Product Qty Update
-                        foreach ($productUpdateArray as $productInfo){
-                            $newQty = $productInfo['curtQty'] - $productInfo['orderQty'];
-                            $status = $productInfo['status'];
-                            if($newQty<=0){
-                                $newQty = 0;
-                                $status = Product::ProductStatus['Out of Stock'];
-                            }
-                            if(!empty($productInfo['variation_id'])){
-                                $updateArray = [
-                                    'product_status'=>$status
-                                ];
-                                ProductVariation::where('variation_id', $productInfo['variation_id'])
-                                    ->update([
-                                        'quantity'=>$newQty,
-                                    ]);
-                            }else{
-                                $updateArray = [
-                                    'product_qty'=>$newQty,
-                                    'product_status'=>$status
-                                ];
-                            }
-                            Product::where('product_id', $productInfo['id'])->update($updateArray);
-                        }
-                        $user = User::where('user_id', auth()->id())->with('buyer')->first();
-                        event(new NewOrderStoreEvent($user,$order));
-                        $order = $order->update([
-                            'sub_total'=>$orderTotal,
-                            'total'=>$orderTotal+$request->delivery_charge
-                        ]);
+                        $user = User::where('user_id', $request->user()->user_id)->first();
+                        event(new NewOrderStoreEvent($user, $order, $productUpdateArray));
                         if(!empty($order)){
                             DB::commit();
                             Cart::destroy();
-                            //TODO Change to Invoice Page url
-                            return ResponserTrait::allResponse('success', Response::HTTP_CREATED, 'Your Order Place Successfully', '', route('buyer.order.index'));
+                            $data = new OrderResource($order);
+                            return ApiResponser::AllResponse('success',
+                                Response::HTTP_CREATED,
+                                true,
+                                'Your Order Place Successfully',
+                                $data
+                            );
                         }else{
                             throw new \Exception('Order Not Place. Try Again.', Response::HTTP_BAD_REQUEST);
                         }
@@ -291,11 +236,11 @@ class OrderController extends Controller
 
             }catch (\Exception $ex){
                 DB::rollBack();
-                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+                return ApiResponser::AllResponse('error', Response::HTTP_BAD_REQUEST, false, $ex->getMessage());
             }
         }else{
             $errors = array_values($validator->errors()->getMessages());
-            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+            return ApiResponser::validationResponse($errors,'validation', Response::HTTP_BAD_REQUEST);
         }
     }
 

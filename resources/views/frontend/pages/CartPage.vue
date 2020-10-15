@@ -35,34 +35,12 @@
                     <div class="col-md-9">
                         <div class="order-detail-content">
                             <div class="table-responsive">
-                                <table class="table table-bordered  cart_summary">
-                                    <thead>
+                                <cart-table-component>
                                     <tr>
-                                        <th class="cart_product">Product</th>
-                                        <th>Description</th>
-                                        <th>Unit price</th>
-                                        <th>Qty</th>
-                                        <th>Total</th>
-                                        <th class="action">Clear</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <cart-table-item
-                                        v-for="cartItem in cartList"
-                                        :key="cartItem.rowId"
-                                        :cart="cartItem"
-                                    ></cart-table-item>
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <!--<td>
-                                            <a href="#" style="color: #da4735;" @click.prevent="destroyCart()" >Empty Cart</a>
-                                        </td>-->
                                         <td colspan="4"><strong>Total</strong></td>
                                         <td colspan="2"><strong>{{ cartTotalPrice }}</strong></td>
                                     </tr>
-                                    </tfoot>
-                                </table>
+                                </cart-table-component>
                             </div>
                             <div class="cart_navigation">
                                 <router-link to="/home" class="prev-btn">Continue shopping</router-link>
@@ -82,12 +60,14 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex';
-import CartTableItem from "../components/header/cart/CartTableItem";
-import HotDealCarouselSection from "../components/section/HotDealCarouselSection";
 import OwlCarouselProductList from "../components/section/OwlCarouselProductList";
+import CartTableComponent from "../components/cart/CartTableComponent";
 export default {
     name: "CartPage",
-    components: {OwlCarouselProductList, HotDealCarouselSection, CartTableItem},
+    components: {
+        CartTableComponent,
+        OwlCarouselProductList
+    },
     mounted() {
         $('body').removeClass('catalog-category-view');
         $('body').addClass('page-order catalog-product-view');
@@ -116,28 +96,9 @@ export default {
     },
     computed:{
         ...mapGetters([
-            'cartList',
-            'cartTotal',
-            'cartTotalPrice',
-            'sugProducts'
-        ]),
-        checkCartData(){
-            return JSON.parse(JSON.stringify(this.cartList));
-        }
-    },
-    watch:{
-        checkCartData:{
-            handler(newVal, oldVal){
-                if(newVal !== oldVal){
-                    if (this.cartTotal === 0 && this.cartList.length <= 0){
-                        this.$router.push({
-                            name: 'Home'
-                        });
-                    }
-                }
-
-            }
-        }
+            'sugProducts',
+            'cartTotalPrice'
+        ])
     }
 }
 </script>

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('buyer/logout', 'Auth\LoginController@logout')->name('buyer.logout');
-Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->group(function (){
+Route::prefix('buyer')->middleware('auth:api')->namespace('Buyer')->as('buyer.')->group(function (){
 
     Route::get('/user/info', 'HomeController@userInfo');
     Route::get('/info', 'HomeController@buyer_info')->name('info');
@@ -26,11 +26,13 @@ Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->gr
     /*** Buyer Order Route List ***/
     Route::get('my-orders', 'OrderController@index')->name('order.index');
     Route::post('/order/store', 'OrderController@order_store')->name('order.store');
-    Route::post('/order/list', 'OrderController@order_list');
+
     Route::get('/order/{order_no}/show', 'OrderController@show')->name('order.show');
     Route::get('/order/{order_id}/invoice', 'OrderController@order_details');
     Route::get('/order/{order_id}/cancel', 'OrderController@order_cancel');
     Route::get('/order/item/{item_id}/cancel', 'OrderController@order_item_cancel');
+
+
 
     /**** Address Book Route List ****/
     Route::get('address-book/list', 'AddressBookController@index')->name('address.book');

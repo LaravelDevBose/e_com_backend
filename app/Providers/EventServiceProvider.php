@@ -7,7 +7,7 @@ use App\Events\OnCancelOrderItem;
 use App\Events\VerifiedAccount;
 use App\Listeners\InvoiceSendToBuyerEmail;
 use App\Listeners\NotifyAdminForNewOrder;
-use App\Listeners\NotifySellerForNewOrder;
+use App\Listeners\ProductQtyUpdate;
 use App\Listeners\UpdateProductQtyListener;
 use App\Listeners\VerifyEmailListener;
 use App\Listeners\VerifiedAccountListener;
@@ -31,9 +31,9 @@ class EventServiceProvider extends ServiceProvider
             VerifiedAccountListener::class,
         ],
         NewOrderStoreEvent::class=>[
-            InvoiceSendToBuyerEmail::class,
+            //InvoiceSendToBuyerEmail::class,
             NotifyAdminForNewOrder::class,
-            NotifySellerForNewOrder::class,
+            ProductQtyUpdate::class,
         ],
         OnCancelOrderItem::class=>[
             UpdateProductQtyListener::class,

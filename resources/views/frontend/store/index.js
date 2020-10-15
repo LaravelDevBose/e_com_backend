@@ -6,6 +6,9 @@ Vue.use(Vuex);
 import product_page from "./modules/product_page";
 import cart from './modules/cart';
 import auth from './modules/auth';
+import checkout from './modules/checkout';
+import payment from "./modules/payment";
+import buyer from "./modules/buyer";
 
 export default new Vuex.Store({
     state:{
@@ -110,6 +113,9 @@ export default new Vuex.Store({
         product_page,
         cart,
         auth,
+        checkout,
+        payment,
+        buyer
     }
 })
 

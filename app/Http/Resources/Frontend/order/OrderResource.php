@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Resources\order;
+namespace App\Http\Resources\Frontend\order;
 
-use App\Http\Resources\deliverymethod\DeliveryMethodResource;
-use App\Http\Resources\payment\PaymentResource;
-use App\Http\Resources\shipping\ShippingResource;
-use App\Http\Resources\user\UserResource;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Frontend\user\UserResource;
+use App\Http\Resources\Frontend\payment\PaymentResource;
+use App\Http\Resources\Frontend\shipping\ShippingResource;
+use App\Http\Resources\Frontend\deliveryMethod\DeliveryMethodResource;
 
 class OrderResource extends JsonResource
 {
@@ -21,17 +21,17 @@ class OrderResource extends JsonResource
     {
         return [
             'id'=>$this->order_id,
-            'orderNo' =>$this->order_no,
-            'buyerId'=>$this->buyer_id,
-            'totalQty'=>$this->total_qty,
+            'order_no' =>$this->order_no,
+            'user_id'=>$this->user_id,
+            'total_qty'=>$this->total_qty,
             'subtotal'=>$this->sub_total,
             'discount'=>$this->discount,
             'total'=>$this->total,
             'date'=>$this->order_date,
-            'deliveryCharge'=> number_format($this->delivery_charge, 2),
+            'delivery_charge'=> number_format($this->delivery_charge, 2),
             'status'=>$this->order_status,
             'statusLabel'=>$this->status_label,
-            'buyer'=> new UserResource($this->whenLoaded('buyer.user')),
+            'user'=> new UserResource($this->whenLoaded('user')),
             'orderItems'=> new OrderItemCollection($this->whenLoaded('orderItems')),
             'shippingInfo'=> new ShippingResource($this->whenLoaded('shipping')),
             'paymentInfo'=> new PaymentResource($this->whenLoaded('payment')),
