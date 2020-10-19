@@ -1,6 +1,7 @@
 //declare State
 const state = {
-    order_list: []
+    order_list: [],
+    wish_list: [],
 };
 
 //declare Getters

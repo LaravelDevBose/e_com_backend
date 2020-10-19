@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\WishList;
 use App\User;
 use Carbon\Carbon;
 use App\Traits\ApiResponser;
@@ -40,11 +41,13 @@ class AuthController extends Controller
                 if (Auth::guard('web')->attempt($credential)) {
                     $user = Auth::user();
                     $token =  $user->createToken('Password Access Token');
+                    $wishlist = WishList::where('user_id', $user->user_id)->where('status',config('app.active'))->pluck('product_id');
                     $response = [
                         'user'=> new UserResource($user),
                         'token_type'=> 'Bearer',
                         'access_token'=> $token->accessToken,
-                        'token_id'=>$token->token->id
+                        'token_id'=>$token->token->id,
+                        'wishlist'=>$wishlist,
                     ];
                     DB::commit();
                     return ApiResponser::AllResponse('Success', Response::HTTP_OK, true,'Login successful', $response);

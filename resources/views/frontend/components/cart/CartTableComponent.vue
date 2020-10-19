@@ -25,7 +25,7 @@
 
 <script>
 import {mapGetters} from "vuex";
-import CartTableItem from "../header/cart/CartTableItem";
+import CartTableItem from "./CartTableItem";
 
 export default {
     name: "CartTableComponent",

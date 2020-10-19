@@ -3,19 +3,6 @@
         <timer
             :starttime="start_at"
             :endtime="expire_at"
-            trans='{
-             "day":"Day",
-             "hours":"Hours",
-             "minutes":"Minuts",
-             "seconds":"Seconds",
-             "expired":"Event has been expired.",
-             "running":"Till the end of event.",
-             "upcoming":"Till start of event.",
-             "status": {
-                "expired":"Expired",
-                "running":"Running",
-                "upcoming":"Future"
-               }}'
         ></timer>
         <div class="product-item-photo">
             <router-link :to="{ name: 'Product', params:{ slug: product.slug } }" class="product-item-img" >
@@ -28,7 +15,8 @@
                 </clazy-load>
             </router-link>
             <div class="product-item-actions">
-                <a class="btn btn-wishlist" href=""><span>wishlist</span></a>
+                <a class="btn btn-wishlist" href="#" v-if="wishlisted" @click.prevent="wishlistRemove()"><span>wishlist</span></a>
+                <a class="btn btn-wishlist" href="#" v-else @click.prevent="wishlistAdd()"><span>wishlist</span></a>
             </div>
             <button
                 type="button"
@@ -63,7 +51,7 @@
 
 <script>
 import Timer from "../helper/Timer";
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 export default {
     name: "HotDealProductItem",
     components: {Timer},
@@ -84,7 +72,8 @@ export default {
                 sizeId:'',
                 oldPrice:0,
                 discount: 0,
-            }
+            },
+            wishlisted: false,
         }
     },
     mounted() {
@@ -96,8 +85,8 @@ export default {
     },
     methods:{
         ...mapActions([
-            'insertToWishList',
-            'deleteFromWishList',
+            'addToWishlist',
+            'removeFromWishlist',
             'addToCartProduct',
         ]),
         addToCart(){
@@ -110,36 +99,29 @@ export default {
 
             this.addToCartProduct(this.cartData);
         },
-        addWishList(slug){
-            if(AppStorage.getWhoIs() === 'buyer'){
-                this.insertToWishList(slug)
-                    .then(response=>{
-                        if(typeof response.code !== "undefined" && response.code === 200){
-                            this.$noty.success(response.message)
-                        }else{
-                            this.$noty.error('Try Again Later.');
-                            console.log(response);
-                        }
-                    })
-            }else{
-                location.href = '/login';
-            }
+        wishlistAdd(){
+            this.addToWishlist(this.product.slug);
         },
-        removeWishList(slug){
-            if(AppStorage.getWhoIs() === 'buyer'){
-                this.deleteFromWishList(slug)
-                    .then(response=>{
-                        if(typeof response.code !== "undefined" && response.code === 200){
-                            this.$noty.success(response.message)
-                        }else{
-                            this.$noty.error(response.message);
-                            console.log(response);
-                        }
-                    })
-            }else{
-                location.href = '/login';
-            }
-        },
+        wishlistRemove(){
+            this.removeFromWishlist(this.product.slug);
+        }
+    },
+    computed:{
+        ...mapGetters([
+            'wishlistProducts',
+        ]),
+        checkWishlistProducts(){
+            return JSON.parse(JSON.stringify(this.wishlistProducts))
+        }
+    },
+    watch:{
+        checkWishlistProducts: {
+            handler(newVal, oldVal){
+                if (newVal !== oldVal){
+                    this.wishlisted = !!this.wishlistProducts.includes(this.product.id);
+                }
+            }, deep: true,
+        }
     }
 }
 </script>

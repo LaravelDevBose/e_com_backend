@@ -2,52 +2,41 @@
 
 namespace App\Http\Controllers\Buyer;
 
-
-use App\Helpers\TemplateHelper;
-use App\Http\Resources\Frontend\product\ProductCollection;
 use App\Models\Product;
 use App\Models\WishList;
-use App\Traits\ResponserTrait;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\Frontend\product\ProductCollection;
 
 class WishListController extends Controller
 {
 
-    public $template_name;
-
-    public function __construct()
-    {
-        $this->template_name = TemplateHelper::templateName();
-        if(empty($this->template_name)){
-            $this->template_name = config('app.default_template');
-        }
-        $this->middleware('auth');
-    }
-
-    public function wish_lists(){
-        $wishListProductIDs = WishList::isActive()->where('buyer_id', auth()->user()->buyer->buyer_id)->pluck('product_id');
+    public function wish_lists(Request  $request){
+        $wishListProductIDs = WishList::isActive()->where('user_id', $request->user()->user_id)->pluck('product_id');
         if(empty($wishListProductIDs)){
-           return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Wish List is Empty');
+           return ApiResponser::AllResponse('success', Response::HTTP_OK, false, 'Wish List is Empty');
         }
 
-        $products = Product::whereIn('product_id', $wishListProductIDs)->isActive()->get();
+        $products = Product::whereIn('product_id', $wishListProductIDs)
+            ->with(['thumbImage', 'brand', 'discount'])->isActive()->get();
 
         if(!empty($products)){
-            $collection = ProductCollection::collection($products);
-            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $collection);
+            $collection = new ProductCollection($products);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $collection);
         }
+
+        return ApiResponser::AllResponse('success', Response::HTTP_OK, false, 'Wish List is Empty');
     }
 
-    public function add_to_wish_list(Request $request){
+    public function add_to_wish_list(Request $request, $slug){
 
         try{
             DB::beginTransaction();
-            if(!empty($request->product_slug)){
-                $product = Product::where('product_slug', $request->product_slug)->first();
+            if(!empty($slug)){
+                $product = Product::where('product_slug', $slug)->first();
             }
 
             if(!empty($request->product_id)){
@@ -60,7 +49,7 @@ class WishListController extends Controller
 
             $wishList = WishList::updateOrCreate(
                 [
-                    'buyer_id'=>auth()->user()->buyer->buyer_id,
+                    'user_id'=>$request->user()->user_id,
                     'product_id'=> $product->product_id
                 ],
                 [
@@ -68,25 +57,26 @@ class WishListController extends Controller
                 ]
             );
 
-            if($wishList){
+            if(!empty($wishList)){
+                $wishlist = WishList::where('user_id', $request->user()->user_id)->where('status',config('app.active'))->pluck('product_id');
                 DB::commit();
-                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Added To Wish List');
+                return ApiResponser::AllResponse('success', Response::HTTP_OK, true, 'Product Added To Wish List', $wishlist);
             }else{
                 throw new \Exception('Not Added To Wish list', Response::HTTP_BAD_REQUEST);
             }
 
         }catch (\Exception $ex){
             DB::rollBack();
-            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            return ApiResponser::AllResponse('error', Response::HTTP_BAD_REQUEST, false, $ex->getMessage());
         }
 
     }
 
-    public function remove_from_wish_list(Request $request){
+    public function remove_from_wish_list(Request $request, $slug){
         try{
             DB::beginTransaction();
-            if(!empty($request->product_slug)){
-                $product = Product::where('product_slug', $request->product_slug)->first();
+            if(!empty($slug)){
+                $product = Product::where('product_slug', $slug)->first();
             }
 
             if(!empty($request->product_id)){
@@ -99,7 +89,7 @@ class WishListController extends Controller
 
             $wishList = WishList::updateOrCreate(
                 [
-                    'buyer_id'=>auth()->user()->buyer->buyer_id,
+                    'user_id'=>$request->user()->user_id,
                     'product_id'=> $product->product_id
                 ],
                 [
@@ -107,16 +97,17 @@ class WishListController extends Controller
                 ]
             );
 
-            if($wishList){
+            if(!empty($wishList)){
+                $wishlist = WishList::where('user_id', $request->user()->user_id)->where('status',config('app.active'))->pluck('product_id');
                 DB::commit();
-                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Product Removed From Wish List');
+                return ApiResponser::AllResponse('success', Response::HTTP_OK, true, 'Product Removed From Wish List', $wishlist);
             }else{
                 throw new \Exception('Not Remove From Wish list', Response::HTTP_BAD_REQUEST);
             }
 
         }catch (\Exception $ex){
             DB::rollBack();
-            return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+            return ApiResponser::AllResponse('error', Response::HTTP_BAD_REQUEST, false, $ex->getMessage());
         }
     }
 }

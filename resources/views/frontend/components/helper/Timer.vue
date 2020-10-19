@@ -1,5 +1,5 @@
 <template>
-    <div style="text-align: center; margin: 3px 0">
+    <div :style="elStyle">
         <div class="day">
             <span class="number">{{ days }}</span>
             <div class="format">{{ wordString.day }}</div>
@@ -22,11 +22,32 @@
 <script>
 export default {
     name: "Timer",
-    props: ['starttime','endtime','trans'] ,
+    props:{
+        starttime: String,
+        endtime: String,
+        elStyle: {
+            type: String,
+            default: 'text-align: center; margin: 3px 0'
+        }
+
+    },
     data: function(){
         return{
             timer:"",
-            wordString: {},
+            wordString: {
+                "day":"Day",
+                "hours":"Hours",
+                "minutes":"Minuts",
+                "seconds":"Seconds",
+                "expired":"Event has been expired.",
+                "running":"Till the end of event.",
+                "upcoming":"Till start of event.",
+                "status": {
+                    "expired":"Expired",
+                    "running":"Running",
+                    "upcoming":"Future"
+                }
+            },
             start: "",
             end: "",
             interval: "",
@@ -41,7 +62,6 @@ export default {
         };
     },
     created: function () {
-        this.wordString = JSON.parse(this.trans);
     },
     mounted(){
         this.start = new Date(this.starttime).getTime();

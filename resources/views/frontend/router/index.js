@@ -113,6 +113,20 @@ export default new Router({
                     component: ()=> import("../pages/buyer/Dashboard.vue"),
                     beforeEnter: ifAuthenticated,
 
+                },
+                {
+                    path: "wishlist",
+                    name: "wishlist",
+                    component: ()=> import("../pages/buyer/WishListPage.vue"),
+                    beforeEnter: ifAuthenticated,
+
+                },
+                {
+                    path: "reviews",
+                    name: "reviews",
+                    component: ()=> import("../pages/buyer/ReviewPage.vue"),
+                    beforeEnter: ifAuthenticated,
+
                 }
             ]
         },

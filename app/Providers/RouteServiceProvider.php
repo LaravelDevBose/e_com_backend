@@ -81,7 +81,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapBuyerRoutes()
     {
-        Route::middleware('web')
+        Route::prefix('api')
+            ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/buyer.php'));
     }

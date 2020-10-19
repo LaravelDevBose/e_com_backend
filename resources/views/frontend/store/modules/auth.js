@@ -80,6 +80,7 @@ const mutations = {
         const token = response.token_type+' '+response.access_token;
         localStorage.setItem("token", token);
         localStorage.setItem("token_id", response.token_id);
+        localStorage.setItem("wishlist_product_id", response.wishlist);
         axios.defaults.headers.common['Authorization'] = token;
 
         state.userInfo = response.user;
@@ -88,6 +89,7 @@ const mutations = {
     userLogout:(state) =>{
         localStorage.removeItem("token");
         localStorage.removeItem("token_id");
+        localStorage.removeItem("wishlist_product_id");
         delete axios.defaults.headers.common['Authorization'];
 
         state.userInfo = {};

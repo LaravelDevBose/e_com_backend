@@ -1,11 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-Auth::routes();
-
-Route::get('buyer/logout', 'Auth\LoginController@logout')->name('buyer.logout');
-Route::prefix('buyer')->middleware('auth:api')->namespace('Buyer')->as('buyer.')->group(function (){
+Route::prefix('buyer')->middleware('auth:api')->namespace('Buyer')->group(function (){
 
     Route::get('/user/info', 'HomeController@userInfo');
     Route::get('/info', 'HomeController@buyer_info')->name('info');
@@ -17,11 +13,7 @@ Route::prefix('buyer')->middleware('auth:api')->namespace('Buyer')->as('buyer.')
     Route::get('change-password', 'HomeController@change_password')->name('change.password');
     Route::get('wish-list', 'HomeController@my_wishlist')->name('wish_list');
 
-    //WishList Data Route
-    Route::get('wishLists', 'WishListController@wish_lists');
-    Route::post('/wishList/add', 'WishListController@add_to_wish_list');
-    Route::post('/wishList/remove', 'WishListController@remove_from_wish_list');
-    Route::get('checkout', 'CheckoutController@index')->name('checkout');
+
 
     /*** Buyer Order Route List ***/
     Route::get('my-orders', 'OrderController@index')->name('order.index');

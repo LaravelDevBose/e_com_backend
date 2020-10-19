@@ -22,6 +22,11 @@ Route::middleware('auth:api')->namespace('Buyer')->group(function (){
 
     Route::get('/order-list', 'OrderController@order_list');
 
+    //WishList Data Route
+    Route::get('wishLists', 'WishListController@wish_lists');
+    Route::get('/wishlist/{slug}/add', 'WishListController@add_to_wish_list');
+    Route::delete('/wishlist/{slug}/remove', 'WishListController@remove_from_wish_list');
+
 
     Route::group(['prefix'=>'bkash'], function (){
         Route::post('get-token', 'BkashPaymentController@get_token');

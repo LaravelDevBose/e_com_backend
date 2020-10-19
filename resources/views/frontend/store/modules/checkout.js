@@ -75,7 +75,7 @@ const actions = {
     },
     async orderSubmit({commit}, orderData){
         try {
-            await axios.post('/buyer/order/store', orderData)
+            await axios.post('/api/buyer/order/store', orderData)
                 .then(({data}) =>{
                     if(data.status === 201){
                         commit('updateOrderInfo', data.data);

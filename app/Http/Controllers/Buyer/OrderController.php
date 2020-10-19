@@ -30,7 +30,7 @@ class OrderController extends Controller
 {
 
     public function order_list(Request $request){
-        $orders = Order::with( 'shipping')->latest();
+        $orders = Order::with( 'shipping')->where('user_id', $request->user()->user_id)->latest();
         $list = ApiResponser::MakeCollectionResponse($request, $orders);
         if(!empty($list)){
             $coll = new OrderCollection($list);

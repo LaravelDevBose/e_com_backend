@@ -22,7 +22,7 @@ class DefaultSellerSeeder extends Seeder
             'shop_address'=>'Shop Address',
             'shop_phone'=>'123456789',
             'shop_email'=>'mall@saliim.com',
-            'seller_status'=>Seller::ShopStatus['Active'],
+            'seller_status'=>1,
         ]);
     }
 }

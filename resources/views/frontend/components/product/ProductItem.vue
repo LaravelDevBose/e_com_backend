@@ -68,7 +68,8 @@
                     </clazy-load>
                 </router-link>
                 <div class="product-item-actions">
-                    <a class="btn btn-wishlist" href=""><span>wishlist</span></a>
+                    <a class="btn btn-wishlist wishlisted" href="#" v-if="wishlisted" @click.prevent="wishlistRemove()"><span>wishlist</span></a>
+                    <a class="btn btn-wishlist" href="#" v-else @click.prevent="wishlistAdd()"><span>wishlist</span></a>
                 </div>
                 <button
                     type="button"
@@ -127,6 +128,7 @@ export default {
                 discount: 0,
             },
             view: 1,
+            wishlisted: false,
         }
     },
     mounted() {
@@ -140,7 +142,9 @@ export default {
     },
     methods:{
         ...mapActions([
-            'addToCartProduct'
+            'addToCartProduct',
+            'addToWishlist',
+            'removeFromWishlist'
         ]),
         addToCart(){
             this.cartData.id = this.product.id;
@@ -151,11 +155,23 @@ export default {
             }
             this.addToCartProduct(this.cartData);
         },
+        wishlistAdd(){
+            this.addToWishlist(this.product.slug);
+        },
+        wishlistRemove(){
+            this.removeFromWishlist(this.product.slug);
+        }
     },
     computed:{
-        ...mapGetters(['viewAs']),
+        ...mapGetters([
+            'viewAs',
+            'wishlistProducts',
+        ]),
         checkViewAs(){
             return JSON.parse(JSON.stringify(this.viewAs))
+        },
+        checkWishlistProducts(){
+            return JSON.parse(JSON.stringify(this.wishlistProducts))
         }
     },
     watch:{
@@ -164,12 +180,22 @@ export default {
                 if (newVal !== oldVal){
                     this.view = this.viewAs;
                 }
-            }
+            }, deep: true,
+        },
+        checkWishlistProducts: {
+            handler(newVal, oldVal){
+                if (newVal !== oldVal){
+                    this.wishlisted = !!this.wishlistProducts.includes(this.product.id);
+                }
+            }, deep: true,
         }
     }
 }
 </script>
 
 <style scoped>
-
+    .wishlisted{
+        color: #fff;
+        background-color: #f36;
+    }
 </style>
