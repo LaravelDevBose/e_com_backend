@@ -35,18 +35,17 @@
                 </span>
             </div>
             <div class="product-item-qty">
-                <span class="label">Qty: </span><span
-                class="number">{{ cart.qty }}</span>
+                <span class="label">Qty: </span>
+                <span class="number">{{ cart.qty }}</span>
+                <a class="action " style="float: right; color: red;" href="#" title="Remove item" @click.prevent="removeFromCart(cart.rowId)">
+                    <i class="fas fa-times"></i>
+                </a>
             </div>
             <div class="product-item-qty">
                 <span class="label" v-if="cart.options.color">Color: </span><b class="number">{{ cart.options.color }}</b>
                 <span class="label" v-if="cart.options.size" style="margin-left: 5px;">Size: </span><b class="number">{{ cart.options.size }}</b>
             </div>
-            <div class="product-item-actions">
-                <a class="action delete" href="#" title="Remove item" @click.prevent="removeFromCart(cart.rowId)">
-                    <span>Remove</span>
-                </a>
-            </div>
+
         </div>
     </li>
 </template>

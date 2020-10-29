@@ -17,8 +17,8 @@
 
 
         <!-- link  Login-->
-            <router-link v-if="!token" to="/login" class="link-login"><span>Login</span></router-link>
-            <div class="dropdown link-login setting" v-if="token">
+            <router-link v-if="!isAuthenticated" to="/login" class="link-login"><span>Login</span></router-link>
+            <div class="dropdown link-login setting" v-if="isAuthenticated">
                 <a data-toggle="dropdown" role="button" href="#" class="dropdown-toggle "><span>Login</span> <i aria-hidden="true" class="fa fa-angle-down"></i></a>
                 <div class="dropdown-menu  ">
                     <ul class="account">
@@ -31,7 +31,7 @@
                             <router-link  to="/buyer/reviews">Review</router-link>
                         </li>
                         <li>
-                            <a  href="#" @click.prevent="logout()">Logout</a>
+                            <a  href="#" @click.prevent="logoutUser()">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -59,10 +59,18 @@ export default {
         this.getCartDetails();
     },
     methods:{
-        ...mapActions(['getCartDetails', 'logout'])
+        ...mapActions(['getCartDetails', 'logout']),
+        logoutUser(){
+            this.logout()
+            .then(response=>{
+                if(typeof response.status !== "undefined" && response.status === 200){
+                    this.$router.push('/');
+                }
+            })
+        }
     },
     computed:{
-        ...mapGetters(['cartTotal', 'cartTotalPrice'])
+        ...mapGetters(['cartTotal', 'cartTotalPrice', 'isAuthenticated'])
     }
 }
 </script>

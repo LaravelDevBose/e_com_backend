@@ -40,28 +40,19 @@ class OrderController extends Controller
         }
     }
 
-    public function show($order_id){
-        $orderInfo = Order::where('order_id', $order_id)->first();
-        if(empty($orderInfo)){
-            return abort(Response::HTTP_NOT_FOUND);
-        }
-        return view('templates.'.$this->template_name.'.buyer.order.order_details',[
-            'orderId'=>$orderInfo->order_id,
-        ]);
 
-    }
-
-    public function Order_details($orderId)
+    public function Order_details($orderNo)
     {
-        $orderInfo = Order::where('order_id', $orderId)
-            ->with(['buyer.user','billing', 'shipping', 'payment', 'orderItems'=>function($query){
-                return $query->with('product', 'seller.shop', 'image');
-            } ])->first();
+        $orderInfo = Order::where('order_no', $orderNo)
+            ->with(['user','shipping', 'payment', 'deliveryMethod', 'orderItems'=>function($query){
+                return $query->with('product', 'image');
+            }])->first();
 
         if(!empty($orderInfo)) {
-            return ResponserTrait::singleResponse($orderInfo, 'success', Response::HTTP_OK, 'Order Details Found');
+            $data = new OrderResource($orderInfo);
+            return ApiResponser::SingleResponse($data, 'success', Response::HTTP_OK, true);
         }else{
-            return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Order Details Not Found');
+            return ApiResponser::AllResponse('error', Response::HTTP_NOT_FOUND, false,'Order Details Not Found');
         }
 
     }

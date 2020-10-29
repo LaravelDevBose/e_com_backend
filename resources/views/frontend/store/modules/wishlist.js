@@ -52,7 +52,7 @@ const actions = {
                     if(typeof data.status !== "undefined" && data.status === 200){
                         commit('wishlistedProductUpdate', data.data);
                         commit('updateResponse', {message: data.message, type: data.statusText});
-                    }else if(data.status === 400){
+                    }else if(data.status === 400 || data.status === 401){
                         commit('updateResponse', {message: data.message, type: 'Warning'});
                     }else{
                         commit('updateResponse', {message: "Invalid Information", type: 'Error'});
@@ -63,6 +63,15 @@ const actions = {
             commit('updateResponse', {message: "Invalid Information", type: 'Error'});
         }
     },
+    async getLocalStorageWishList({state}){
+        let wislistedId = localStorage.getItem('wishlist_product_id');
+        if(wislistedId !== ''){
+            state.wishlist_products = wislistedId.split(',').map(el=>{
+                return Number(el);
+            });
+        }
+        console.log(state.wishlist_products);
+    }
 };
 
 const mutations = {
@@ -71,8 +80,9 @@ const mutations = {
         state.wish_list = state.wish_list.filter(product => product.slug !== slug);
     },
     wishlistedProductUpdate:(state, response)=>{
-        console.log(response);
-        localStorage.setItem("wishlist_product_id", [response]);
+        state.wishlist_products = response;
+        console.log(state.wishlist_products);
+        localStorage.setItem("wishlist_product_id", response);
     }
 };
 

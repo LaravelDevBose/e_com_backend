@@ -40,7 +40,9 @@
                         <span class="badge badge-warning" v-else-if="order.status === 7">{{ order.statusLabel }}</span>
                     </td>
                     <td class="text-center">
-                        <a href="#" class="btn btn-info">view</a>
+                        <router-link :to="{name: 'invoice', params:{order_no: order.order_no }}" class="btn btn-info">
+                            view
+                        </router-link>
                     </td>
                 </tr>
             </tbody>

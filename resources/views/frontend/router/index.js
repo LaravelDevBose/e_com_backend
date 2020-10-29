@@ -1,44 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 Vue.use(Router);
-import store from '../store';
-
-
-const ifNotAuthenticated = (to, from, next) => {
-    if (!store.getters.isAuthenticated) {
-        next();
-        return;
-    }else if (store.getters.cartTotal && store.getters.cartTotal > 0){
-        next('/checkout');
-        return ;
-    }else{
-        next('/buyer/dashboard');
-    }
-
-}
-
-const ifAuthenticated = (to, from, next) => {
-    if (store.getters.isAuthenticated) {
-        next();
-        return;
-    }
-    next('/login');
-}
-
-const ifAuthenticatedAndHaveCartItem = (to, form, next) =>{
-    if (store.getters.isAuthenticated && store.getters.cartTotal && store.getters.cartTotal > 0){
-        next();
-    }else {
-        next(form);
-    }
-}
-const ifHaveCartItem = (to, form, next) =>{
-    if (store.getters.cartTotal && store.getters.cartTotal > 0){
-        next();
-    }else {
-        next(form);
-    }
-}
+import middleware from "./middleware";
 
 import HomePage from "../pages/HomePage";
 export default new Router({
@@ -88,44 +51,51 @@ export default new Router({
             path: "/shopping-bag",
             name: "shopping_bag",
             component: ()=> import("../pages/CartPage.vue"),
-            beforeEnter: ifHaveCartItem,
+            beforeEnter: middleware.ifHaveCartItem,
         },
         {
             path: "/login",
             name: "auth",
             component: ()=> import("../pages/AuthPage.vue"),
-            beforeEnter: ifNotAuthenticated,
+            beforeEnter: middleware.ifNotAuthenticated,
         },
         {
             path: "/checkout",
             name: "checkout",
             component: ()=> import("../pages/CheckoutPage.vue"),
-            beforeEnter: ifAuthenticatedAndHaveCartItem,
+            beforeEnter: middleware.ifAuthenticatedAndHaveCartItem,
         },
         {
             path: "/buyer",
             component: ()=> import("../pages/buyer/BuyerLayout.vue"),
-            beforeEnter: ifAuthenticated,
+            beforeEnter: middleware.ifAuthenticated,
             children:[
                 {
                     path: "dashboard",
                     name: "dashboard",
                     component: ()=> import("../pages/buyer/Dashboard.vue"),
-                    beforeEnter: ifAuthenticated,
+                    beforeEnter: middleware.ifAuthenticated,
 
                 },
                 {
                     path: "wishlist",
                     name: "wishlist",
                     component: ()=> import("../pages/buyer/WishListPage.vue"),
-                    beforeEnter: ifAuthenticated,
+                    beforeEnter: middleware.ifAuthenticated,
 
                 },
                 {
                     path: "reviews",
                     name: "reviews",
                     component: ()=> import("../pages/buyer/ReviewPage.vue"),
-                    beforeEnter: ifAuthenticated,
+                    beforeEnter: middleware.ifAuthenticated,
+
+                },
+                {
+                    path: "order/:order_no/invoice",
+                    name: "invoice",
+                    component: ()=> import("../pages/buyer/OrderDetailPage.vue"),
+                    beforeEnter: middleware.ifAuthenticated,
 
                 }
             ]

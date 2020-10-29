@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Resources\order;
+namespace App\Http\Resources\Frontend\order;
 
-use App\Http\Resources\buyer\BuyerResource;
 use App\Http\Resources\Frontend\color\ColorResource;
 use App\Http\Resources\Frontend\size\SizeResource;
-use App\Http\Resources\seller\SellerResource;
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderItemResource extends Resource
+class OrderItemResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -24,6 +22,7 @@ class OrderItemResource extends Resource
             'productId'=>$this->product_id,
             'productName'=>$this->product_name,
             'productType'=> $this->product->product_type,
+            'slug'=> $this->product->product_slug,
             'sizeId'=>$this->sizeId,
             'colorId'=>$this->color_id,
             'price'=>number_format($this->price, 2),
@@ -36,8 +35,8 @@ class OrderItemResource extends Resource
             'cancelBy'=>$this->cancel_by,
             'canceled'=>$this->canceled,
             'image'=>!empty($this->image->image_path)? $this->image->image_path : '',
-            'color'=>new ColorResource($this->whenLoaded('color')),
-            'size'=> new SizeResource($this->whenLoaded('size')),
+            'color'=>new ColorResource($this->color),
+            'size'=> new SizeResource($this->size),
         ];
     }
 }

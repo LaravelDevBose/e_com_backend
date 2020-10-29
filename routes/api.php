@@ -11,16 +11,15 @@ Route::namespace('Api')->group(function (){
 
 Route::middleware('auth:api')->namespace('Api')->group(function (){
     Route::post('logout', 'AuthController@logout');
-
 });
 
 Route::middleware('auth:api')->namespace('Buyer')->group(function (){
     Route::get('get/delivery-methods', 'CheckoutController@get_delivery_info');
-    Route::get('get/checkout-data', 'CheckoutController@get_checkout_session');
-    Route::post('store/checkout-info', 'CheckoutController@store_checkout_info_session');
     Route::post('/coupon-apply', 'CheckoutController@check_coupon_code');
 
+    Route::post('/order/store', 'OrderController@order_store');
     Route::get('/order-list', 'OrderController@order_list');
+    Route::get('/order/{order_no}/details', 'OrderController@order_details');
 
     //WishList Data Route
     Route::get('wishLists', 'WishListController@wish_lists');

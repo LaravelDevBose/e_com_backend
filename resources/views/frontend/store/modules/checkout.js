@@ -8,7 +8,6 @@ const state = {
         coupon_id:'',
     },
     coupon_amount: 0,
-    order_info: {},
 };
 
 //declare Getters
@@ -17,7 +16,6 @@ const getters = {
     activeSection:(state) => state.active_section,
     checkoutData: (state) => state.checkout_data,
     couponAmount: (state) => state.coupon_amount,
-    orderInfo: (state) => state.order_info,
 };
 
 const actions = {
@@ -75,7 +73,7 @@ const actions = {
     },
     async orderSubmit({commit}, orderData){
         try {
-            await axios.post('/api/buyer/order/store', orderData)
+            await axios.post('/api/order/store', orderData)
                 .then(({data}) =>{
                     if(data.status === 201){
                         commit('updateOrderInfo', data.data);

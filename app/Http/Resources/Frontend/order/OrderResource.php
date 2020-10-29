@@ -32,7 +32,7 @@ class OrderResource extends JsonResource
             'status'=>$this->order_status,
             'statusLabel'=>$this->status_label,
             'user'=> new UserResource($this->whenLoaded('user')),
-            'orderItems'=> new OrderItemCollection($this->whenLoaded('orderItems')),
+            'orderItems'=> OrderItemResource::collection($this->whenLoaded('orderItems')),
             'shippingInfo'=> new ShippingResource($this->whenLoaded('shipping')),
             'paymentInfo'=> new PaymentResource($this->whenLoaded('payment')),
             'deliveryMethod'=> new DeliveryMethodResource($this->whenLoaded('deliveryMethod')),

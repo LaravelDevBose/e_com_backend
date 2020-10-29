@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Traits\ApiResponser;
 use App\Traits\ResponserTrait;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
@@ -60,15 +61,15 @@ class Handler extends ExceptionHandler
             case 'admin':
                 $login = 'admin.login';
                 break;
-            case 'seller':
-                $login = 'seller.login';
-                break;
             default:
                 $login = 'login';
                 break;
         }
         if($request->ajax()){
-            return ResponserTrait::allResponse('error', Response::HTTP_UNAUTHORIZED, 'You Are Not Login. Login First', '', route($login));
+            if($guard == 'admin'){
+                return ResponserTrait::allResponse('error', Response::HTTP_UNAUTHORIZED, 'You Are Not Login. Login First', '', route($login));
+            }
+            return ApiResponser::AllResponse('error', Response::HTTP_UNAUTHORIZED, false,'You Are Not Login. Login First');
         }else{
             return redirect()->guest(route($login));
         }

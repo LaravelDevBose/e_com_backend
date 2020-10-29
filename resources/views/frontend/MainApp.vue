@@ -15,11 +15,14 @@
 <script>
 import PageHeader from "./components/PageHeader";
 import PageFooter from "./components/PageFooter";
-import {mapGetters} from 'vuex';
+import {mapGetters, mapActions} from 'vuex';
 import 'vuejs-noty/dist/vuejs-noty.css'
 export default {
     name: "MainApp",
     components: {PageHeader, PageFooter},
+    created() {
+        this.getLocalStorageWishList();
+    },
     methods:{
         showNotification(data){
             if(data.type === 'Success'){
@@ -32,7 +35,8 @@ export default {
                 this.$noty.info(data.message);
             }
 
-        }
+        },
+        ...mapActions(['getLocalStorageWishList'])
     },
     computed:{
         ...mapGetters(['responseInfo']),

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('index');
-
+Auth::routes();
 
 Route::namespace('Frontend')->prefix('front')->group(function () {
     Route::get('/get-categories', 'FrontendController@category_list');

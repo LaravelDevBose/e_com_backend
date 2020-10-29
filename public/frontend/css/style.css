@@ -166,6 +166,10 @@ body {
 a {
     color: #333
 }
+.wishlisted{
+    background-color: #f36!important;
+    border-color: #f36!important;
+}
 
 a:focus,
 a:hover {

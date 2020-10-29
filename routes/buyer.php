@@ -17,10 +17,10 @@ Route::prefix('buyer')->middleware('auth:api')->namespace('Buyer')->group(functi
 
     /*** Buyer Order Route List ***/
     Route::get('my-orders', 'OrderController@index')->name('order.index');
-    Route::post('/order/store', 'OrderController@order_store')->name('order.store');
+
 
     Route::get('/order/{order_no}/show', 'OrderController@show')->name('order.show');
-    Route::get('/order/{order_id}/invoice', 'OrderController@order_details');
+
     Route::get('/order/{order_id}/cancel', 'OrderController@order_cancel');
     Route::get('/order/item/{item_id}/cancel', 'OrderController@order_item_cancel');
 

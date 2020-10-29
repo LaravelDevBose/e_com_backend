@@ -96,6 +96,6 @@ class Order extends Model
 
     public function deliveryMethod()
     {
-        return $this->hasOne(DeliveryMethod::class, 'delivery_id', 'shipping_method');
+        return $this->hasOne(DeliveryMethod::class, 'delivery_id', 'delivery_method_id');
     }
 }

@@ -171,7 +171,7 @@ export default {
             return JSON.parse(JSON.stringify(this.viewAs))
         },
         checkWishlistProducts(){
-            return JSON.parse(JSON.stringify(this.wishlistProducts))
+            this.wishlisted = !!this.wishlistProducts.includes(this.product.id);
         }
     },
     watch:{
@@ -181,21 +181,11 @@ export default {
                     this.view = this.viewAs;
                 }
             }, deep: true,
-        },
-        checkWishlistProducts: {
-            handler(newVal, oldVal){
-                if (newVal !== oldVal){
-                    this.wishlisted = !!this.wishlistProducts.includes(this.product.id);
-                }
-            }, deep: true,
         }
     }
 }
 </script>
 
 <style scoped>
-    .wishlisted{
-        color: #fff;
-        background-color: #f36;
-    }
+
 </style>
