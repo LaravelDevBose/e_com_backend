@@ -1,5 +1,5 @@
 <template>
-    <div class="block-hot-deals-opt3" >
+    <div class="block-hot-deals-opt3" v-if="discountProducts && discountProducts.length > 0">
         <div class="container">
 
             <div class="box-content">
@@ -86,9 +86,11 @@ export default {
     watch:{
         checkDiscountProducts:{
             handler(newValue){
-                Vue.nextTick(function(){
-                    this.installOwlCarousel();
-                }.bind(this));
+                if(this.discountProducts && this.discountProducts.length > 0) {
+                    Vue.nextTick(function () {
+                        this.installOwlCarousel();
+                    }.bind(this));
+                }
             },
             deep:true,
         },

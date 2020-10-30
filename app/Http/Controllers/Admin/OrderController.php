@@ -17,7 +17,7 @@ class OrderController extends Controller
 {
 
     public function index(Request $request){
-        return view('order.index');
+        return view('admin_panel.limitless_v2.order.index');
     }
 
     public function latest_order(Request $request){
@@ -25,7 +25,7 @@ class OrderController extends Controller
     }
 
     public function order_list(Request $request){
-        $orders = OrderHelper::order_list($request);
+        $orders = Order::with('user', 'orderItems', 'shipping')->get();
         if(!empty($orders)){
             // TODO Order Collection added
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $orders);
@@ -48,12 +48,14 @@ class OrderController extends Controller
         if(empty($order)){
             abort(Response::HTTP_NOT_FOUND);
         }
-        return view('order.show',[
+        return view('admin_panel.limitless_v2.order.show',[
             'orderId'=>$orderId,
         ]);
     }
     public function order_details($orderId){
-        $order = Order::where('order_id', $orderId)->with('buyer.user', 'orderItems.product','orderItems.seller.shop', 'billing', 'shipping', 'payment', 'orderItems.image')->first();
+        $order = Order::where('order_id', $orderId)->with(['user','shipping', 'payment','orderItems'=>function($query){
+            return $query->with('seller', 'product', 'image', 'size', 'color');
+        }])->first();
         if(!empty($order)){
             return ResponserTrait::singleResponse($order, 'success', Response::HTTP_OK);
         }else{
@@ -62,8 +64,10 @@ class OrderController extends Controller
     }
 
     public function invoice_print($orderId){
-        $order = Order::where('order_id', $orderId)->with('buyer.user', 'orderItems.product','orderItems.seller.shop', 'billing', 'shipping', 'payment', 'orderItems.image')->first();
-        return view('order.invoice_print', [
+        $order = Order::where('order_id', $orderId)->with(['user','shipping', 'payment','orderItems'=>function($query){
+            return $query->with('seller', 'product', 'image', 'size', 'color');
+        }])->first();
+        return view('admin_panel.limitless_v2.order.invoice_print', [
             'order'=>$order
         ]);
     }

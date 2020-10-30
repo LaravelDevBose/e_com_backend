@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Buyer;
 
+use App\Http\Resources\Frontend\order\OrderItemCollection;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Traits\ApiResponser;
 use Exception;
 use App\Helpers\TemplateHelper;
 use App\Models\Review;
@@ -17,20 +19,6 @@ use Illuminate\Support\Facades\Validator;
 
 class ReviewController extends Controller
 {
-    public $template_name;
-
-    public function __construct()
-    {
-        $this->template_name = TemplateHelper::templateName();
-        if(empty($this->template_name)){
-            $this->template_name = config('app.default_template');
-        }
-        $this->middleware('auth');
-    }
-
-    public function index(){
-        return view('templates.'.$this->template_name.'.buyer.review.review_history');
-    }
 
     public function review_list()
     {
@@ -43,20 +31,19 @@ class ReviewController extends Controller
         }
     }
 
-    public function get_order_items($orderId)
+    public function get_order_items($orderNo)
     {
-        $orderItems = OrderItem::where('order_id', $orderId)->with('product.thumbImage', 'seller.shop','review')->get();
-        if(!empty($orderItems)){
-            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $orderItems);
-        }else{
-            return ResponserTrait::allResponse('success', Response::HTTP_NOT_FOUND, 'No Order Items Found');
+        $order = Order::where('order_no', $orderNo)->first();
+        if(empty($order)){
+            return ApiResponser::AllResponse('success', Response::HTTP_NOT_FOUND, false);
         }
-    }
-
-    public function add_review_page($orderId){
-        return view('templates.'.$this->template_name.'.buyer.review.add_review',[
-            'orderId'=>$orderId,
-        ]);
+        $orderItems = OrderItem::where('order_id', $order->order_id)->with('product', 'image','review')->get();
+        if(!empty($orderItems)){
+            $coll = new OrderItemCollection($orderItems);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
+        }else{
+            return ApiResponser::AllResponse('success', Response::HTTP_NOT_FOUND, false);
+        }
     }
 
     public function store(Request $request)

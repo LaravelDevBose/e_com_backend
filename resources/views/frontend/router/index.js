@@ -78,6 +78,13 @@ export default new Router({
 
                 },
                 {
+                    path: "order/:order_no/invoice",
+                    name: "invoice",
+                    component: ()=> import("../pages/buyer/OrderDetailPage.vue"),
+                    beforeEnter: middleware.ifAuthenticated,
+
+                },
+                {
                     path: "wishlist",
                     name: "wishlist",
                     component: ()=> import("../pages/buyer/WishListPage.vue"),
@@ -92,9 +99,9 @@ export default new Router({
 
                 },
                 {
-                    path: "order/:order_no/invoice",
-                    name: "invoice",
-                    component: ()=> import("../pages/buyer/OrderDetailPage.vue"),
+                    path: "add/:order_no/review",
+                    name: "add_review",
+                    component: ()=> import("../pages/buyer/AddReviewPage.vue"),
                     beforeEnter: middleware.ifAuthenticated,
 
                 }

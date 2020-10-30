@@ -76,9 +76,12 @@ export default {
     watch:{
         checkBrands:{
             handler(newValue){
-                Vue.nextTick(function(){
-                    this.installOwlCarousel();
-                }.bind(this));
+                if (this.brands && this.brands.length >0){
+                    Vue.nextTick(function(){
+                        this.installOwlCarousel();
+                    }.bind(this));
+                }
+
             },
             deep:true,
         },

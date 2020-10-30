@@ -1,7 +1,7 @@
 <template>
     <div class="btn-group">
         <span  class="label  dropdown-toggle"
-               :class="{'bg-info':row.order_status == 1, 'bg-danger':row.order_status == 2, 'bg-warning':row.order_status == 3, 'bg-primary':row.order_status == 4, 'bg-indigo-400':row.order_status == 5, 'bg-teal':row.order_status == 6 }"
+               :class="bgClass"
                data-toggle="dropdown" aria-expanded="false">
             {{ row.status_label }}
             <span v-if="row.order_status != 2  && row.order_status != 6" class="caret"></span>
@@ -12,7 +12,7 @@
                     <a href="#" @click.prevent="changeOrderStatus(row.order_no, index)">
                         <span
                             class="status-mark position-left"
-                            :class="{'bg-info':index == 1, 'bg-danger':index == 2, 'bg-warning':index == 3, 'bg-primary':index == 4, 'bg-indigo-400':index == 5, 'bg-teal':index == 6 }"
+                            :class="{'bg-info':index == 1, 'bg-danger':index == 2 || index == 7, 'bg-warning':index == 3, 'bg-primary':index == 4, 'bg-indigo-400':index == 5, 'bg-teal':index == 6 }"
                         ></span> {{ status }}
                     </a>
                 </li>
@@ -26,6 +26,39 @@
     export default {
         name: "OrderStatusBadge",
         props: ['row'],
+        data(){
+            return{
+                bgClass: 'bg-info'
+            }
+        },
+        created() {
+            switch (this.row.order_status) {
+                case 1:
+                    this.bgClass = 'bg-info';
+                break;
+                case 2:
+                    this.bgClass = 'bg-danger';
+                    break;
+                case 3:
+                    this.bgClass = 'bg-warning';
+                    break;
+                case 4:
+                    this.bgClass = 'bg-primary';
+                    break;
+                case 5:
+                    this.bgClass = 'bg-indigo-400';
+                    break;
+                case 6:
+                    this.bgClass = 'bg-teal';
+                    break;
+                case 7:
+                    this.bgClass = 'bg-danger';
+                    break;
+                default:
+                    this.bgClass = 'bg-info';
+                    break;
+            }
+        },
         methods:{
             ...mapActions([
                 'orderStatusChange'

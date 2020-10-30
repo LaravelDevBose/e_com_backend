@@ -26,6 +26,14 @@ Route::middleware('auth:api')->namespace('Buyer')->group(function (){
     Route::get('/wishlist/{slug}/add', 'WishListController@add_to_wish_list');
     Route::delete('/wishlist/{slug}/remove', 'WishListController@remove_from_wish_list');
 
+    Route::prefix('reviews')->as('reviews.')->group(function (){
+        Route::get('/', 'ReviewController@index')->name('index');
+        Route::get('/list', 'ReviewController@review_list')->name('list');
+        Route::get('/order/{order_no}/items', 'ReviewController@get_order_items')->name('order.items');
+        Route::get('/add/{orderId}', 'ReviewController@add_review_page')->name('add');
+        Route::post('/store', 'ReviewController@store')->name('store');
+    });
+
 
     Route::group(['prefix'=>'bkash'], function (){
         Route::post('get-token', 'BkashPaymentController@get_token');

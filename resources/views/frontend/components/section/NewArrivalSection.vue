@@ -92,10 +92,13 @@ export default {
     watch:{
         checkNewArrivalsProducts:{
             handler(newValue){
-                Vue.nextTick(function(){
-                    this.installOwlCarousel();
-                }.bind(this));
-                this.findMaxDiscount();
+                if (this.newArrivals && this.newArrivals.length> 0){
+                    Vue.nextTick(function(){
+                        this.installOwlCarousel();
+                    }.bind(this));
+                    this.findMaxDiscount();
+                }
+
             },
             deep:true,
         },

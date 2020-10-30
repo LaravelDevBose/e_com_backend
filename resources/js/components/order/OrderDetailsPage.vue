@@ -1,5 +1,5 @@
 <template>
-    <div class="content">
+    <div class="content" v-if="order">
         <div class="panel">
             <div class="panel-heading bg-teal-400">
                 <h5 class="panel-title">Order Details</h5>
@@ -23,32 +23,20 @@
                 </div>
 
                 <div class="row">
-                    <div v-if="order.shipping !== null" class="col-sm-4 col-md-4 col-lg-4">
+                    <div v-if="order.shipping" class="col-sm-6 col-md-6 col-lg-6">
                         <div class="content-group">
                             <span class="text-muted">Shipping To:</span>
                             <ul class="list-condensed list-unstyled">
-                                <li><h5 v-if="order.shipping.full_name">{{ order.shipping.full_name }}</h5></li>
+                                <li><h5>{{ order.shipping.first_name +' '+order.shipping.last_name  }}</h5></li>
                                 <li><span class="text-semibold">{{ order.shipping.phone_no }}</span></li>
                                 <li>{{ order.shipping.address }}</li>
-                                <li>{{ order.shipping.city }}</li>
-                                <li>{{ order.shipping.state }} <span v-if="order.shipping.postal_code" class="text-semibold">- {{ order.shipping.postal_code }}</span></li>
-                                <li>{{ order.shipping.country }}</li>
+                                <li>{{ order.shipping.district }}</li>
+                                <li>{{ order.shipping.region }} <span v-if="order.shipping.postal_code" class="text-semibold">- {{ order.shipping.postal_code }}</span></li>
                             </ul>
                         </div>
                     </div>
-                    <div v-if="order.payment" class="col-sm-4 col-md-4 col-lg-4">
-                        <div class=" content-group">
-                            <span class="text-muted">Payment Details:</span>
-                            <ul class="list-condensed list-unstyled">
-                                <li><h5>Total: <span class="text-semibold">$ {{ order.total }}</span></h5></li>
-                                <!--<li>Invoice: <span class="text-bold text-uppercase">{{ order.payment.invoice_no }}</span></li>-->
-                                <li>Paid By: <span class="text-semibold">{{ order.payment.paid_by }}</span></li>
-                                <li>Paid At: <span class="text-semibold">{{ order.payment.paid_at }}</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 col-md-4 col-lg-4">
-                        <div class="invoice-details content-group">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="invoice-details content-group" style="text-align: right;">
                             <h5 class="text-uppercase text-semibold">Order No #{{ order.order_no }}</h5>
                             <ul class="list-condensed list-unstyled">
                                 <li>Order Date: <span class="text-semibold">{{ order.order_date }}</span></li>
@@ -116,19 +104,18 @@
                             <span class="text-muted">
                                 <span class="text-slate"> <i class="icon-barcode2"></i> {{ item.product.product_sku }}</span>
                             </span>
-                            <div v-if="item.product.product_type === 2">
-                                <div class="text-muted text-size-small">
-                                    <span class="text-warning position-left text-bold">Size:</span>
-                                    {{ item.size }}
-                                </div>
-                                <div class="text-muted text-size-small">
-                                    <span class="text-warning position-left text-bold">Color:</span>
-                                    {{ item.color }}
-                                </div>
+                            <div class="text-muted text-size-small" v-if="item.size">
+                                <span class="text-warning position-left text-bold">Size:</span>
+                                {{ item.size.size_name }}
+                            </div>
+                            <div class="text-muted text-size-small" v-if="item.color">
+                                <span class="text-warning position-left text-bold">Color:</span>
+                                {{ item.color.color_name }}
                             </div>
                         </td>
                         <td>
-                            <span class="text-teal" style="margin-right:.5rem; " v-if="item.seller.shop"> <i class="icon-store2"></i> {{ item.seller.shop.shop_name }}</span>
+                            <span class="text-teal" style="margin-right:.5rem; " v-if="item.seller">
+                                <i class="icon-store2"></i> {{ item.seller.seller_name }}</span>
                         </td>
                         <td class="text-center">
                             <div class="btn-group">
@@ -151,7 +138,6 @@
                                 <span v-if="item.item_status === 2 && item.cancel_by !== null">
                                         <span v-if="item.cancel_by === 1"> / Admin</span>
                                         <span v-if="item.cancel_by === 2"> / Buyer</span>
-                                        <span v-if="item.cancel_by === 3"> / Seller</span>
                                     </span>
                                 <div v-if="item.item_status != 2 && item.item_status != 6" >
                                     <ul v-if="statusList" class="dropdown-menu dropdown-menu-right">
@@ -167,9 +153,9 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="text-right">$ {{ item.price }}</td>
+                        <td class="text-right"> {{ item.price }}</td>
                         <td class="text-center">{{ item.qty }}</td>
-                        <td class="text-right"><span class="text-semibold">$ {{ item.total_price }}</span></td>
+                        <td class="text-right"><span class="text-semibold"> {{ item.total_price }}</span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -177,7 +163,18 @@
 
             <div class="panel-body">
                 <div class="row invoice-payment">
-                    <div class="col-sm-5 col-sm-offset-7">
+                    <div v-if="order.payment" class="col-sm-6 col-md-6 col-lg-6">
+                        <div class=" content-group">
+                            <span class="text-muted">Payment Details:</span>
+                            <ul class="list-condensed list-unstyled">
+                                <li><h5>Total: <span class="text-semibold">$ {{ order.total }}</span></h5></li>
+                                <!--<li>Invoice: <span class="text-bold text-uppercase">{{ order.payment.invoice_no }}</span></li>-->
+                                <li>Paid By: <span class="text-semibold">{{ order.payment.paid_by }}</span></li>
+                                <li>Paid At: <span class="text-semibold">{{ order.payment.paid_at }}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 " :class="{'col-sm-offset-7': !order.payment}">
                         <div class="content-group">
                             <h6>Summary</h6>
                             <div class="table-responsive ">
@@ -185,15 +182,19 @@
                                     <tbody>
                                     <tr>
                                         <th>Subtotal:</th>
-                                        <td class="text-right">$ {{ order.sub_total }}</td>
+                                        <td class="text-right"> {{ order.sub_total }}</td>
                                     </tr>
                                     <tr>
                                         <th>Delivery:</th>
-                                        <td class="text-right">$ {{ order.delivery_charge}}</td>
+                                        <td class="text-right"> {{ order.delivery_charge}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Discount:</th>
+                                        <td class="text-right"> {{ order.discount}}</td>
                                     </tr>
                                     <tr>
                                         <th>Total:</th>
-                                        <td class="text-right text-primary"><h5 class="text-semibold">$ {{ order.total }}</h5></td>
+                                        <td class="text-right text-primary"><h5 class="text-semibold"> {{ order.total }}</h5></td>
                                     </tr>
                                     </tbody>
                                 </table>

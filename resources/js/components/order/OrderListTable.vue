@@ -15,7 +15,6 @@
                 <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
             </div>
         </div>
-        <invoice-modal-view></invoice-modal-view>
     </div>
 </template>
 
@@ -72,7 +71,7 @@
         props: ['row']
     });
     Vue.component('shipping-to', {
-        template: `<div v-if="row.shipping != null "><span>{{ row.shipping.full_name }}</span></div>`,
+        template: `<div v-if="row.shipping"><span>{{ row.shipping.full_name }}</span></div>`,
         props: ['row']
     });
     export default {
@@ -92,7 +91,7 @@
                 columns: [
                     { label: 'Order No', field: 'order_no',  },
                     { label: 'Order Date', field: 'order_date', filterable: true, sortable:true },
-                    { label: 'Buyer', field: 'buyer.user.full_name' , filterable: true, sortable:true },
+                    { label: 'Buyer', field: 'user.full_name' , filterable: true, sortable:true },
                     { label: 'Shipping To', component: 'shipping-to' , filterable: true, sortable:true },
                     { label: 'Products - (Qty)', component:'product-list', filterable: true, sortable:false },
                     { label: 'Quantity', field: 'total_qty', align: 'right',  },

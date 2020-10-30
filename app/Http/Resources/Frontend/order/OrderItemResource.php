@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Frontend\order;
 
 use App\Http\Resources\Frontend\color\ColorResource;
+use App\Http\Resources\Frontend\review\ReviewResource;
 use App\Http\Resources\Frontend\size\SizeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -37,6 +38,7 @@ class OrderItemResource extends JsonResource
             'image'=>!empty($this->image->image_path)? $this->image->image_path : '',
             'color'=>new ColorResource($this->color),
             'size'=> new SizeResource($this->size),
+            'review'=> new ReviewResource($this->whenLoaded('review'))
         ];
     }
 }

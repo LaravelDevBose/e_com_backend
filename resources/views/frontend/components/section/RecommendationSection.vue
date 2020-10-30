@@ -86,9 +86,11 @@ export default {
     watch:{
         checkRecommendedProducts:{
             handler(newValue){
-                Vue.nextTick(function(){
-                    this.installOwlCarousel();
-                }.bind(this));
+                if (this.recommendedProducts && this.recommendedProducts.length> 0){
+                    Vue.nextTick(function(){
+                        this.installOwlCarousel();
+                    }.bind(this));
+                }
             },
             deep:true,
         },

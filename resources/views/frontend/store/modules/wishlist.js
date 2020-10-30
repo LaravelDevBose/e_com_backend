@@ -70,7 +70,6 @@ const actions = {
                 return Number(el);
             });
         }
-        console.log(state.wishlist_products);
     }
 };
 
@@ -81,7 +80,6 @@ const mutations = {
     },
     wishlistedProductUpdate:(state, response)=>{
         state.wishlist_products = response;
-        console.log(state.wishlist_products);
         localStorage.setItem("wishlist_product_id", response);
     }
 };

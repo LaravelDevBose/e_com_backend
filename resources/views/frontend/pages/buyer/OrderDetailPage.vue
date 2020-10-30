@@ -1,6 +1,14 @@
 <template>
     <div v-if="orderInfo">
-        <h3>Invoice No:  {{ orderInfo.order_no}}</h3>
+        <h3 style="display: inline-block;">Invoice No:  {{ orderInfo.order_no}}</h3>
+        <router-link
+            :to="{name: 'add_review', params:{order_no: orderInfo.order_no}}"
+            class="btn btn-info"
+            style="float: right;"
+            title="Add Review"
+        >
+            Add Review
+        </router-link>
         <div class="row">
             <div class="col-md-6">
                 <div class="heading-counter warning" v-if="orderInfo.shippingInfo">Shipping To: {{ orderInfo.shippingInfo.firstName +' '+ orderInfo.shippingInfo.lastName }}
@@ -55,7 +63,6 @@
                         <th class="text-right">Unit price</th>
                         <th class="text-center">Qty</th>
                         <th class="text-right">Total</th>
-                        <th class="action">Action</th>
                     </tr>
                     </thead>
                         <tbody>
@@ -88,29 +95,24 @@
                             <td class="price">
                                 <span>{{ item.subtotal }}</span>
                             </td>
-                            <td class="text-center">
-                                <a href="#"  class="btn btn-info" @click="addReview()" title="Add Review">
-                                    <i class="far fa-comment-alt"></i>
-                                </a>
-                            </td>
                         </tr>
                         </tbody>
                     <tfoot>
                     <tr>
                         <td colspan="4"><strong>Subtotal</strong></td>
-                        <td colspan="2"><strong>{{ orderInfo.subtotal }}</strong></td>
+                        <td colspan="1"><strong>{{ orderInfo.subtotal }}</strong></td>
                     </tr>
                     <tr>
                         <td colspan="4"><strong>Discount</strong></td>
-                        <td colspan="2"><strong>{{ orderInfo.discount }}</strong></td>
+                        <td colspan="1"><strong>{{ orderInfo.discount }}</strong></td>
                     </tr>
                     <tr>
                         <td colspan="4"><strong>Delivery Charge</strong></td>
-                        <td colspan="2"><strong>{{ orderInfo.delivery_charge }}</strong></td>
+                        <td colspan="1"><strong>{{ orderInfo.delivery_charge }}</strong></td>
                     </tr>
                     <tr>
                         <td colspan="4"><strong>Total</strong></td>
-                        <td colspan="2"><strong>{{ orderInfo.total }}</strong></td>
+                        <td colspan="1"><strong>{{ orderInfo.total }}</strong></td>
                     </tr>
                     </tfoot>
                 </table>
@@ -163,9 +165,5 @@ p{
 .cart_product img{
     width: 50px!important;
     height: 50px!important;
-}
-.btn{
-    padding: 10px!important;
-    line-height: 0!important;
 }
 </style>

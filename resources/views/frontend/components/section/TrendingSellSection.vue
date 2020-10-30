@@ -84,9 +84,11 @@ export default {
     watch:{
         checkTrendingProducts:{
             handler(newValue){
-                Vue.nextTick(function(){
-                    this.installOwlCarousel();
-                }.bind(this));
+                if (this.trendingProducts && this.trendingProducts.length > 0){
+                    Vue.nextTick(function(){
+                        this.installOwlCarousel();
+                    }.bind(this));
+                }
             },
             deep:true,
         },

@@ -53,7 +53,7 @@
             <!-- block -floor -products / floor 2-->
 
             <!-- banner -->
-            <div class="block-banner-lag-opt3  effect-banner3">
+            <!--<div class="block-banner-lag-opt3  effect-banner3">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-3">
@@ -64,7 +64,8 @@
                         </div>
                     </div>
                 </div>
-            </div><!-- banner -->
+            </div>-->
+            <!-- banner -->
 
             <!-- block -floor -products / floor 4 -->
             <recommendation-section></recommendation-section>

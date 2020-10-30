@@ -10,6 +10,7 @@ import checkout from './modules/checkout';
 import payment from "./modules/payment";
 import buyer from "./modules/buyer";
 import wishlist from "./modules/wishlist";
+import review from "./modules/review";
 
 export default new Vuex.Store({
     state:{
@@ -117,7 +118,8 @@ export default new Vuex.Store({
         checkout,
         payment,
         buyer,
-        wishlist
+        wishlist,
+        review
     }
 })
 

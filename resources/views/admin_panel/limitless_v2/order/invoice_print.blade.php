@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>invoice No {{ $order->order_no }}</title>
-    @include('order.print_asset')
+    @include('admin_panel.limitless_v2.order.print_asset')
     <style>
         .table>tbody>tr>td {
             padding: 5px !important;
@@ -45,35 +45,24 @@
 
             <div class="row">
                 @if(!empty($order->shipping))
-                <div class="col-sm-4 col-md-4 col-lg-4" style="float:left; width: 33%">
+                <div class="col-sm-6 col-md-6 col-lg-6" style="float:left; width: 49%">
                     <div class="content-group">
                         <span class="text-muted">Shipping To:</span>
                         <ul class="list-condensed list-unstyled">
                             <li style="margin: 0;"><h5 style="margin: 0; font-size: 14px;"> {{ $order->shipping->full_name}} </h5></li>
                             <li style="margin: 0;"><span class="text-semibold">{{ $order->shipping->phone_no}} </span></li>
-                            <li style="margin: 0;"> {{ $order->shipping->address}} , {{ $order->shipping->city }} </li>
-                            <li style="margin: 0;"> {{ $order->shipping->state}}
+                            <li style="margin: 0;"> {{ $order->shipping->address}} , {{ $order->shipping->district }} </li>
+                            <li style="margin: 0;"> {{ $order->shipping->region}}
                                 @if(!empty($order->shipping->postal_code))
                                 <span class="text-semibold">-  {{ $order->shipping->postal_code }} </span>
                                 @endif
-                                {{ $order->shipping->country }}
                             </li>
                         </ul>
                     </div>
                 </div>
                 @endif
-                @if(!empty($order->payment))
-                <div class="col-sm-4 col-md-4 col-lg-4" style="float:left; width: 33%">
-                    <div class=" content-group">
-                        <span class="text-muted">Payment Details:</span>
-                        <ul class="list-condensed list-unstyled">
-                            <li style="margin: 0;"><h5 style="margin: 0; font-size: 14px;">Total: <span class="text-semibold">$  {{ $order->total}} </span></h5></li>
-                            <li style="margin: 0;">Paid By: <span class="text-semibold"> {{ $order->payment->paid_by }} </span></li>
-                        </ul>
-                    </div>
-                </div>
-                @endif
-                <div class="col-sm-4 col-md-4 col-lg-4" style="float:left; width: 33%">
+
+                <div class="col-sm-6 col-md-6 col-lg-6" style="float: left; text-align:right; width: 49%">
                     <div class="invoice-details content-group">
                         <h5 class="text-uppercase text-semibold" style="margin: 0; font-size: 14px;">Order No # {{ $order->order_no }} </h5>
                         <p>Order Date: <span class="text-semibold">{{ $order->order_date }} </span></p>
@@ -89,7 +78,6 @@
                 <tr>
                     <th style="width:70px">Image</th>
                     <th style="width: 43%; ">Product Description</th>
-                    <th style="text-align: center;">Shop Name</th>
                     <th style="text-align: right;">Rate</th>
                     <th style="text-align: center;">QTY</th>
                     <th style="text-align: right;">Subtotal</th>
@@ -104,19 +92,16 @@
                         <td>
                             <h6 style="margin: 0;">{{ $item->product_name }}</h6>
                             <span class="text-muted"> SKU: {{ $item->product->product_sku }} </span>
-                            @if($item->product->product_type == 2)
-                            <div class="text-muted text-size-small"> Size: {{ $item->size }} </div>
-                            <div class="text-muted text-size-small"> Color: {{ $item->color }} </div>
+                            @if($item->size)
+                            <div class="text-muted text-size-small"> Size: {{ $item->size->size_name }} </div>
+                            @endif
+                            @if($item->color)
+                            <div class="text-muted text-size-small"> Color: {{ $item->color->color_name }} </div>
                             @endif
                         </td>
-                        <td style="text-align: center;">
-                            @if(!empty($item->seller->shop))
-                                {{ $item->seller->shop->shop_name }}
-                            @endif
-                        </td>
-                        <td class="text-right">$ {{ number_format($item->price, 2) }} </td>
+                        <td class="text-right"> {{ number_format($item->price, 2) }} </td>
                         <td class="text-center"> X {{  $item->qty }} </td>
-                        <td class="text-right"><span class="text-semibold">$  {{ $item->total_price }} </span></td>
+                        <td class="text-right"><span class="text-semibold">  {{ $item->total_price }} </span></td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -125,7 +110,18 @@
         @endif
         <div class="panel-body">
             <div class="row invoice-payment">
-                <div class="col-sm-5 col-sm-offset-7" style="float: right; width: 50%;">
+                @if(!empty($order->payment))
+                    <div class="col-sm-6 col-md-6 col-lg-6" style="float:left; width: 33%">
+                        <div class=" content-group">
+                            <span class="text-muted">Payment Details:</span>
+                            <ul class="list-condensed list-unstyled">
+                                <li style="margin: 0;"><h5 style="margin: 0; font-size: 14px;">Total: <span class="text-semibold">$  {{ $order->total}} </span></h5></li>
+                                <li style="margin: 0;">Paid By: <span class="text-semibold"> {{ $order->payment->paid_by }} </span></li>
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+                <div class="col-sm-5 {{ empty($order->payment)? 'col-sm-offset-7': 'col-sm-offset-1' }} " style="float: right; width: 50%;">
                     <div class="content-group">
                         <h6>Summary</h6>
                         <div class="table-responsive ">
@@ -133,16 +129,20 @@
                                 <tbody>
                                 <tr>
                                     <th>Subtotal:</th>
-                                    <td class="text-right">$ {{ $order->sub_total }} </td>
+                                    <td class="text-right"> {{ $order->sub_total }} </td>
                                 </tr>
                                 <tr>
                                     <th>Delivery:</th>
-                                    <td class="text-right">$ {{ $order->delivery_charge }}</td>
+                                    <td class="text-right"> {{ number_format($order->delivery_charge, 2) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Discount:</th>
+                                    <td class="text-right"> {{ $order->discount }}</td>
                                 </tr>
                                 <tr>
                                     <th>Total:</th>
                                     <td class="text-right text-primary">
-                                        <h5 class="text-semibold" style="margin: 0px;">$ {{ $order->total }} </h5></td>
+                                        <h5 class="text-semibold" style="margin: 0px;"> {{ $order->total }} </h5></td>
                                 </tr>
                                 </tbody>
                             </table>

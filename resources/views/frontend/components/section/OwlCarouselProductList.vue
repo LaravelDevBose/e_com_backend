@@ -94,10 +94,13 @@ export default {
     watch:{
         checkProducts:{
             handler(newValue){
-                this.createProductChuck();
-                Vue.nextTick(function(){
-                    this.installOwlCarousel();
-                }.bind(this));
+                if (this.products && this.products.length > 0){
+                    this.createProductChuck();
+                    Vue.nextTick(function(){
+                        this.installOwlCarousel();
+                    }.bind(this));
+                }
+
             },
             deep:true,
         },

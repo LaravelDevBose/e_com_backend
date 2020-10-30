@@ -80,9 +80,12 @@ export default {
     watch:{
         checkDiscountProducts:{
             handler(newValue){
-                Vue.nextTick(function(){
-                    this.installOwlCarousels();
-                }.bind(this));
+                if(this.discountProducts && this.discountProducts.length > 0){
+                    Vue.nextTick(function(){
+                        this.installOwlCarousels();
+                    }.bind(this));
+                }
+
             },
             deep:true,
         },
