@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Http\Resources\Frontend\order\OrderItemCollection;
+use App\Http\Resources\Frontend\review\ReviewResource;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Traits\ApiResponser;
 use Exception;
-use App\Helpers\TemplateHelper;
 use App\Models\Review;
-use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
@@ -20,14 +19,16 @@ use Illuminate\Support\Facades\Validator;
 class ReviewController extends Controller
 {
 
-    public function review_list()
+    public function review_list(Request $request)
     {
-        $reviews = Review::notDelete()->latest()->with('item', 'product')->where('buyer_id', auth()->user()->buyer->buyer_id)->paginate(20);
-
+        $reviews = Review::notDelete()->latest()
+            ->with('product.thumbImage')
+            ->where('user_id', $request->user()->user_id)->get();
         if(!empty($reviews)){
-            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $reviews);
+            $coll =  ReviewResource::collection($reviews);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
         }else{
-            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'You haven\'t written any review');
+            return ApiResponser::allResponse('success', Response::HTTP_OK, 'You haven\'t written any review');
         }
     }
 
@@ -69,7 +70,7 @@ class ReviewController extends Controller
                 }
 
                 $review = Review::create([
-                    'buyer_id'=>auth()->user()->buyer->buyer_id,
+                    'user_id'=>$request->user()->id,
                     'item_id'=>$request->item_id,
                     'product_id'=>$request->product_id,
                     'review'=>$request->review,
@@ -80,18 +81,18 @@ class ReviewController extends Controller
 
                 if(!empty($review)){
                     DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Thank you. For Your Great Review.', route('buyer.reviews.index'));
+                    return ApiResponser::AllResponse('success', Response::HTTP_OK, true,'Thank you. For Your Great Review.');
                 }else{
                     throw new Exception('Invalid Information!', Response::HTTP_BAD_REQUEST);
                 }
 
             }catch (Exception $ex){
                 DB::rollBack();
-                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+                return ApiResponser::AllResponse('error', Response::HTTP_BAD_REQUEST, false, $ex->getMessage());
             }
         }else{
             $errors = array_values($validator->errors()->getMessages());
-            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+            return ApiResponser::ValidationResponse($errors,'validation', Response::HTTP_BAD_REQUEST);
         }
     }
 }

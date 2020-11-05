@@ -65,7 +65,7 @@ const actions = {
     },
     async getLocalStorageWishList({state}){
         let wislistedId = localStorage.getItem('wishlist_product_id');
-        if(wislistedId !== ''){
+        if(wislistedId && wislistedId !== ''){
             state.wishlist_products = wislistedId.split(',').map(el=>{
                 return Number(el);
             });

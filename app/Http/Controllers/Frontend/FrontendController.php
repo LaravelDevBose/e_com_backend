@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Helpers\Frontend\ProductHelper;
 use App\Http\Resources\Frontend\brand\BrandCollection;
 use App\Http\Resources\Frontend\brand\BrandResource;
 use App\Http\Resources\Frontend\category\CategoryCollection;
@@ -17,9 +16,7 @@ use App\Http\Resources\Frontend\tag\TagResource;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Color;
-use App\Models\DeliveryMethod;
 use App\Models\DiscountProduct;
-use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductTag;
 use App\Models\ProductVariation;
@@ -30,12 +27,10 @@ use App\Models\Tag;
 use App\Traits\ApiResponser;
 use App\Traits\CommonData;
 use App\Traits\ResponserTrait;
-use Cloudinary\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class FrontendController extends Controller
@@ -317,115 +312,6 @@ class FrontendController extends Controller
     }
 
 
-    public function product_details($slug)
-    {
-        $product = Product::where('product_slug', $slug)
-            ->with(['brand', 'category', 'productDetails', 'variations', 'productImages', 'thumbImage', 'seller.shop', 'reviews.buyer'])
-            ->firstOrFail();
-
-        if (empty($product)) {
-            return abort(Response::HTTP_NOT_FOUND);
-        }
-        $showSellerInfo = Setting::where('key', 'show_seller_info')->first();
-        $reqData = [
-            'product_id' => $product->product_id,
-            'category_id' => $product->cateory_id,
-            'brand_id' => $product->brand_id,
-            'order_by' => 'desc',
-            'take' => 12
-        ];
-
-        $relatedProducts = ProductHelper::products_list($reqData);
-        $deliveryMethods = DeliveryMethod::isActive()->get();
-        return view('templates.' . $this->template_name . '.frontend.product', [
-            'product' => $product,
-            'relatedProducts' => $relatedProducts,
-            'deliveryMethods' => $deliveryMethods,
-            'showSellerInfo'   => $showSellerInfo,
-        ]);
-    }
-
-    public function product_variation_data(Request $request)
-    {
-        if (empty($request->product_id)) {
-            return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Invalid Product Info');
-        }
-
-        $variations = ProductVariation::where('product_id', $request->product_id)->get();
-        $colorIds = $variations->pluck('pri_id');
-        $sizeIds = $variations->pluck('sec_id');
-        $reqData = [
-            'colorIds' => $colorIds,
-            'sizeIds' => $sizeIds,
-        ];
-
-        $data = [
-            'colorInfos' => CommonData::color_list($reqData),
-            'sizeInfos' => CommonData::size_list($reqData)
-        ];
-        return ResponserTrait::singleResponse($data, 'success', Response::HTTP_OK, 'Data Found');
-    }
-
-    public function checkout()
-    {
-        return view('templates.' . $this->template_name . '.frontend.checkout');
-    }
-
-    public function cart_page()
-    {
-        return view('templates.' . $this->template_name . '.frontend.cart');
-    }
-
-    public function general_pages($page_slug)
-    {
-        $page = Page::isActive()->where('page_slug', $page_slug)->firstOrFail();
-
-        if (empty($page)) {
-            return abort(Response::HTTP_NOT_FOUND);
-        }
-        $hotProducts = GroupProduct::where('group_type', GroupProduct::Groups['Hot Deal'])
-            ->with(['product' => function ($query) {
-                return $query->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews');
-            }])->islive()
-            ->orderBy('position', 'asc')->latest()->get();
-        return view('templates.' . $this->template_name . '.frontend.pages', [
-            'page' => $page,
-            'pagesMenuList' => CommonData::pages_menu_list(),
-            'hotProducts' => $hotProducts,
-        ]);
-    }
-
-    public function contact_pages()
-    {
-        return view('templates.' . $this->template_name . '.frontend.contact');
-    }
-
-    public function shop_profile($shopSlug)
-    {
-        $shop = Shop::where('shop_slug', $shopSlug)->with(['seller' => function ($query) {
-            return $query->with(['products' => function ($qu) {
-                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews')->isActive();
-            }]);
-        }, 'shopLogo', 'banner'])->first();
-        return view('templates.' . $this->template_name . '.frontend.shop_profile', [
-            'shop' => $shop,
-        ]);
-    }
-
-    public function mall_products()
-    {
-        $sliders = CommonData::slider_list([Slider::SliderType['Mall Page']]);
-        $shop = Shop::where('shop_id', 1)->with(['seller' => function ($query) {
-            return $query->with(['products' => function ($qu) {
-                return $qu->with('brand', 'category', 'singleVariation', 'thumbImage', 'reviews', 'mallLogo')->isActive();
-            }]);
-        }, 'shopLogo', 'banner'])->first();
-        return view('templates.' . $this->template_name . '.frontend.mall_profile', [
-            'shop' => $shop,
-            'sliders'=>$sliders,
-        ]);
-    }
-
     public function searching_data(Request $request)
     {
         $result = [
@@ -437,19 +323,11 @@ class FrontendController extends Controller
             $products = Product::where('product_status', Product::ProductStatus['Active'])
                 ->where('product_name', 'like', '%' . $request->search_key . '%')
                 ->orWhere('product_sku', 'like', '%' . $request->search_key . '%')
-                ->orWhere('lang_product_name', 'like', '%' . $request->search_key . '%')
-                ->orwhere('lang_highlight', 'like', '%' . $request->search_key . '%')
-                ->isActive();
-
-            if (!empty($request->categoryId)) {
-                $products = $products->where('category_id', $request->categoryId)->take(7)->get();
-            } else {
-                $products = $products->take(7)->get();
-            }
+                ->with('thumbImage')->take(7)->get();
 
 
             ## TODO Product Status Check
-            $productColl = ProductCollection::collection($products);
+            $productColl = new ProductCollection($products);
             if (!empty($productColl)) {
                 $result['products'] = $productColl;
             }
@@ -457,37 +335,23 @@ class FrontendController extends Controller
             $categories = Category::isActive()
                 ->Where('category_name', 'like', '%' . $request->search_key . '%')->take(5)->get();
             if (!empty($categories)) {
-                $result['categories'] = CategoryCollection::collection($categories);
+                $result['categories'] = new CategoryCollection($categories);
             }
 
             $brands = Brand::isActive()->where('brand_name', 'like', '%' . $request->search_key . '%')->take(5)->get();
             if (!empty($brands)) {
-                $result['brands'] = BrandCollection::collection($brands);
+                $result['brands'] = new BrandCollection($brands);
             }
 
             if (!empty($result)) {
-                return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Search Result Found', $result);
+                return ApiResponser::AllResponse('success', Response::HTTP_OK, true,'Search Result Found', $result);
             } else {
-                return ResponserTrait::allResponse('success', Response::HTTP_NO_CONTENT, 'No Result Found', $result);
+                return ApiResponser::AllResponse('success', Response::HTTP_OK, false,'No Result Found', $result);
             }
         } else {
-            return ResponserTrait::allResponse('success', Response::HTTP_BAD_REQUEST, 'No Search Key Found', $result);
+            return ApiResponser::AllResponse('success', Response::HTTP_OK, false,'No Search Key Found', $result);
         }
 
 
-    }
-
-    public function get_category_list()
-    {
-        $categories = Category::isActive()->groupBy('category_id', 'parent_id')
-            ->orderBy('category_id', 'asc')
-            ->select('category_name as name', 'category_id as id')
-            ->get()->toArray();
-
-        if (!empty($categories)) {
-            return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $categories);
-        } else {
-            return ResponserTrait::singleResponse([], 'error', Response::HTTP_NOT_FOUND, 'No Data Found');
-        }
     }
 }

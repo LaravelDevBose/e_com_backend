@@ -15,13 +15,11 @@ const getters = {
 const actions = {
     async getBuyerReviews({commit}){
         try {
-            return await axios.get('/buyer/reviews/list')
-                .then(response=>{
-                    if (typeof response.data.code !== "undefined" && response.data.code === 200){
-                        commit('setBuyerReviews', response.data.data);
-                        delete response.data.data;
+            await axios.get('/api/reviews/list')
+                .then(({data})=>{
+                    if (typeof data.status !== "undefined" && data.status === 200){
+                        commit('setBuyerReviews', data.data);
                     }
-                    return response.data;
                 })
         }catch (e) {
             console.log(e);
@@ -41,12 +39,20 @@ const actions = {
     },
     async storeBuyerReview({commit},formData){
         try {
-            return await axios.post(`/buyer/reviews/store`, formData)
-                .then(response=>{
-                    return response.data;
+            return await axios.post(`/api/reviews/store`, formData)
+                .then(({data})=>{
+                    if(typeof data.status !== "undefined" && data.status === 200){
+                        commit('updateResponse', {message: data.message, type: data.statusText});
+                    }else if(data.status === 400){
+                        commit('updateResponse', {message: data.message, type: 'Warning'});
+                    }else{
+                        commit('updateResponse', {message: "Invalid Information", type: 'Error'});
+                    }
+                    return data;
                 })
         }catch (e) {
-            console.log(e);
+            console.log(error);
+            commit('updateResponse', {message: "Invalid Information", type: 'Error'});
         }
     }
 };

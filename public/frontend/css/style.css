@@ -4332,7 +4332,7 @@ select.input-sm {
     float: right;
     position: relative;
     width: 100%;
-    margin-top: 23px
+    margin-top: 30px
 }
 
 @media (min-width:1200px) {
@@ -4347,7 +4347,6 @@ select.input-sm {
 
 .header-opt-3 .header-content .block-search .form-search {
     width: 100%;
-    max-width: 395px
 }
 
 .header-opt-3 .header-content .block-search .form-search .form-control {

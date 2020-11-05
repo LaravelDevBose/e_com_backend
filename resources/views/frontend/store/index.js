@@ -11,7 +11,7 @@ import payment from "./modules/payment";
 import buyer from "./modules/buyer";
 import wishlist from "./modules/wishlist";
 import review from "./modules/review";
-
+import search from "./modules/search";
 export default new Vuex.Store({
     state:{
         response_info:{},
@@ -119,7 +119,8 @@ export default new Vuex.Store({
         payment,
         buyer,
         wishlist,
-        review
+        review,
+        search,
     }
 })
 

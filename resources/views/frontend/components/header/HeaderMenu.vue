@@ -50,16 +50,7 @@
             <div class="block-title">
                 <span>Search</span>
             </div>
-            <div class="block-content">
-                <div class="form-search">
-                    <form>
-                        <div class="box-group">
-                            <input type="text" class="form-control" placeholder="Search here...">
-                            <button class="btn btn-search" type="button"><span>search</span></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <mini-search-section></mini-search-section>
         </div>
     </div>
 </template>
@@ -68,10 +59,11 @@
 import HeaderCategoryMenu from "./HeaderCategoryMenu";
 import HeaderCartDropdown from "./cart/HeaderCartDropdown";
 import MegaMenuSection from "./megamenu/MegaMenuSection";
+import MiniSearchSection from "./search/MiniSearchSection";
 
 export default {
     name: "HeaderMenu",
-    components: {MegaMenuSection, HeaderCartDropdown, HeaderCategoryMenu}
+    components: {MiniSearchSection, MegaMenuSection, HeaderCartDropdown, HeaderCategoryMenu}
 }
 </script>
 

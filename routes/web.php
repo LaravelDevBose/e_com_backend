@@ -25,6 +25,8 @@ Route::namespace('Frontend')->prefix('front')->group(function () {
     Route::put('/cart/update', 'CartController@cart_update');
     Route::get('/cart/{rowId}/remove', 'CartController@remove_from_cart');
     Route::delete('/destroy/cart', 'CartController@cart_destroy');
+
+    Route::post('/search', 'FrontendController@searching_data');
 });
 //Route::get('/admin/{any}', 'Auth\AdminLoginController@show_login_page');
 Route::get('/{any}', 'HomeController@index')->where('any', '.*');

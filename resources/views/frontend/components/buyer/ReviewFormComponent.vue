@@ -15,7 +15,11 @@
                     </div>
                     <div class="product-item-detail col-sm-8 col-md-10">
                         <h4 style="margin-top:0px; margin-bottom:3px;">
-                            <strong class="product-item-name"><a href="#">{{ order_item.productName }}</a></strong>
+                            <strong class="product-item-name">
+                                <router-link :to="{ name: 'Product', params:{ slug: order_item.slug } }" >
+                                    {{ order_item.productName }}
+                                </router-link>
+                            </strong>
                         </h4>
                         <p v-if="order_item.color">
                             <strong class="product-item-name">Color:</strong> {{ order_item.color.name }}
@@ -28,7 +32,7 @@
             </div>
         </div>
         <form action="" @submit.prevent="addBuyerReview">
-            <ul v-if="order_item.item_status === 6">
+            <ul v-if="order_item.status === 6">
                 <li class="row">
                     <div class="col-sm-12 col-md-4">
                         <label class="required">Rating</label>
@@ -102,19 +106,14 @@ export default {
                 return false;
             }
             this.btnDisabled = true;
-            this.formData.item_id = this.order_item.item_id;
-            this.formData.product_id = this.order_item.product_id;
+            this.formData.item_id = this.order_item.id;
+            this.formData.product_id = this.order_item.productId;
             this.storeBuyerReview(this.formData)
-                .then(response => {
-                    if (typeof response.code !== 'undefined' && response.code === 200) {
-                        this.haveReview = true;
-                        this.$noty.success(response.message);
-                    } else if (response.status === 'validation') {
-                        this.$noty.warning(response.message);
-                    } else {
-                        this.$noty.error(response.message);
-                    }
-                })
+            .then(response=>{
+                if(typeof response.status !== "undefined" && response.status === 200){
+                    this.haveReview = true;
+                }
+            });
         },
         checkValidation() {
             if (this.formData.rating === '' && this.formData.review === '') {

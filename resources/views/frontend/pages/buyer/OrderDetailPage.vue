@@ -2,6 +2,7 @@
     <div v-if="orderInfo">
         <h3 style="display: inline-block;">Invoice No:  {{ orderInfo.order_no}}</h3>
         <router-link
+            v-if="orderInfo.status === 6"
             :to="{name: 'add_review', params:{order_no: orderInfo.order_no}}"
             class="btn btn-info"
             style="float: right;"
