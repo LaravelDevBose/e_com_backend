@@ -1,54 +1,7 @@
 <template>
     <!-- FOOTER -->
     <footer class="site-footer footer-opt-3">
-
-        <div class="footer-top">
-            <div class="container">
-
-                <strong class="logo-footer">
-                    <a href=""><img src="images/media/index3/logo-footer.png" alt="logo"></a>
-                </strong>
-
-                <div class="block-social">
-                    <div class="block-title">Let’s Socialize </div>
-                    <div class="block-content">
-                        <a href="" class="sh-facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="" class="sh-pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
-                        <a href="" class="sh-vk"><i class="fa fa-vk" aria-hidden="true"></i></a>
-                        <a href="" class="sh-twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="" class="sh-google"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                    </div>
-                </div>
-                <ul class="nav-link">
-                    <li><a href="">About Us</a></li>
-                    <li><a href="">Affiliates      </a></li>
-                    <li><a href="">Careers</a></li>
-                    <li><a href="">Privacy Policy </a></li>
-                    <li><a href="">Terms of Use</a></li>
-                    <li><a href="">Contact Us</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-content" style="background-image: url(images/media/index3/bg-footer.jpg);">
-
-            <div class="block-newletter">
-                <div class="container">
-                    <div class="block-title">Sign up below for early updates</div>
-                    <div class="block-content">
-                        <p class="note">You a Client , large or small, and want to participate in this adventure, please send us an email to support@kuteshop.com</p>
-                        <form>
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Enter Your E-mail Address">
-                                <span class="input-group-btn">
-                                        <button class="btn btn-subcribe" type="button"><span>Subcribe</span></button>
-                                    </span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
+        <div class="footer-content" >
             <div class="footer-column">
                 <div class="container">
 
@@ -59,56 +12,50 @@
                                 <table class="address">
                                     <tr>
                                         <td><i class="fa fa-map-marker" aria-hidden="true"></i></td>
-                                        <td>2046 Blue Spruce Lane Laurel, tetxac, Orton Tolanto, Canada</td>
+                                        <td>{{ companyInfo.contact_address !== ''? companyInfo.contact_address : '' }}</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa fa-phone" aria-hidden="true"></i></td>
-                                        <td>0200 410-369-3920</td>
+                                        <td>{{ companyInfo.contact_phone !== ''? companyInfo.contact_phone : '' }}</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa fa-envelope" aria-hidden="true"></i></td>
-                                        <td>info@kutethemes.com</td>
+                                        <td>{{ companyInfo.contact_email !== ''? companyInfo.contact_email : '' }}</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa fa-mobile" aria-hidden="true"></i></td>
-                                        <td>Hotline: 090 999 8686</td>
+                                        <td>Hotline: {{ companyInfo.contact_mobile !== ''? companyInfo.contact_mobile : '' }}</td>
                                     </tr>
                                 </table>
 
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-6">
 
-                                <h3 class="title">COMPANY</h3>
-                                <ul class="links">
-                                    <li><a href="">About Us</a></li>
-                                    <li><a href="">Testimonials</a></li>
-                                    <li><a href="">Affiliate Program</a></li>
-                                    <li><a href="">Terms & Conditions</a></li>
-                                    <li><a href="">Contact Us</a></li>
+                                <h3 class="title">About Us</h3>
+                                <p v-html="companyInfo.about_us !== '' ? companyInfo.about_us :''"></p>
+
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6">
+
+                                <h3 class="title">Useful Links</h3>
+                                <ul class="links" v-if="pages && pages.length > 0">
+                                    <li v-for="page in pages.slice(0, 4)" :key="page.slug">
+                                        <router-link :to="{name: 'page', params:{slug: page.slug}}">
+                                            {{ page.menuTitle }}
+                                        </router-link>
+                                    </li>
                                 </ul>
 
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-6">
 
-                                <h3 class="title">my account</h3>
-                                <ul class="links">
-                                    <li><a href="">My Orders</a></li>
-                                    <li><a href="">My Credit Slips</a></li>
-                                    <li><a href="">My Addresses</a></li>
-                                    <li><a href="">My Personal Info</a></li>
-                                    <li><a href="">Specials</a></li>
-                                </ul>
-
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-sm-6">
-
-                                <h3 class="title">SUPPORT</h3>
-                                <ul class="links">
-                                    <li><a href="">Payments & My Vouchers</a></li>
-                                    <li><a href="">Saved Cards</a></li>
-                                    <li><a href="">Shipping Free</a></li>
-                                    <li><a href="">Cancellation & Returns</a></li>
-                                    <li><a href="">FAQ & Support Online</a></li>
+                                <h3 class="title">Useful Links</h3>
+                                <ul class="links" v-if="pages && pages.length > 0">
+                                    <li v-for="page in pages.slice(5, 9)" :key="page.slug">
+                                        <router-link :to="{name: 'page', params:{slug: page.slug}}">
+                                            {{ page.menuTitle }}
+                                        </router-link>
+                                    </li>
                                 </ul>
 
                             </div>
@@ -124,11 +71,8 @@
 
                         </div>
 
-                        <div class="payment">
-                            <img src="images/media/index3/payment1.jpg" alt="payment">
-                            <img src="images/media/index3/payment2.jpg" alt="payment">
-                            <img src="images/media/index3/payment3.jpg" alt="payment">
-                            <img src="images/media/index3/payment4.jpg" alt="payment">
+                        <div class="payment copyright">
+                            <p>Powered by: Brainchild Software</p>
                         </div>
 
                     </div>
@@ -143,11 +87,17 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 export default {
-name: "PageFooter"
+    name: "PageFooter",
+    computed:{
+        ...mapGetters(['companyInfo', 'pages'])
+    }
 }
 </script>
 
 <style scoped>
-
+.footer-content{
+    background-color: #2D2D2D;
+}
 </style>

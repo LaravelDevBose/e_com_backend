@@ -108,6 +108,11 @@ export default new Router({
             ]
         },
         {
+            path: "/page/:slug/info",
+            name: "page",
+            component: ()=> import("../pages/SupportPage.vue"),
+        },
+        {
             path: "/page_not_found",
             name: "not_found",
             component: ()=> import("../pages/PageNotFound.vue"),

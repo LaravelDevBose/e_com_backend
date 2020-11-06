@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex';
-
 export default {
     name: "HomeSliderSection",
     data(){
@@ -33,15 +31,7 @@ export default {
         }catch (error){
             console.log(error);
         }
-    },
-    /*methods:{
-        ...mapActions([
-            'getSliders'
-        ])
-    },
-    computed:{
-        ...mapGetters(['sliders'])
-    }*/
+    }
 }
 </script>
 

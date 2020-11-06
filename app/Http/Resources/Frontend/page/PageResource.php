@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Resources\page;
+namespace App\Http\Resources\Frontend\page;
 
-use App\Http\Resources\attachment\AttachmentResource;
+use App\Http\Resources\Attachment as AttachmentResource;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 

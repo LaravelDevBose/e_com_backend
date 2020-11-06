@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\page;
+namespace App\Http\Resources\Frontend\page;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class PageCollection extends Resource
+class PageCollection extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -21,9 +21,6 @@ class PageCollection extends Resource
             'slug'=>$this->page_slug,
             'showIn'=>$this->show_in,
             'position'=>$this->menu_position,
-            'links'=>[
-
-            ]
         ];
     }
 }

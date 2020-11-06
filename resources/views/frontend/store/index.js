@@ -18,22 +18,25 @@ export default new Vuex.Store({
         paginate_data:[],
         category_list: [],
         brand_list: [],
-        slider_list: [],
         discount_products:[],
         new_arrivals:[],
         trending_products:[],
         recommended_products:[],
-
+        page_list: [],
+        company_info:{},
+        page_info: {},
     },
     getters:{
         responseInfo: state => state.response_info,
         categories: (state) => state.category_list,
         brands: state => state.brand_list,
-        sliders: state => state.slider_list,
         discountProducts: state => state.discount_products,
         newArrivals: state => state.new_arrivals,
         trendingProducts: state => state.trending_products,
         recommendedProducts: state => state.recommended_products,
+        pages: state => state.page_list,
+        companyInfo: state => state.company_info,
+        pageInfo: state => state.page_info,
     },
     actions:{
         async getCategories({commit}){
@@ -51,16 +54,6 @@ export default new Vuex.Store({
                 await axios.get('/front/get-brands')
                     .then(({data})=>{
                         state.brand_list = data.data;
-                    })
-            }catch (error){
-                console.log(error);
-            }
-        },
-        async getSliders({state}){
-            try {
-                await axios.get('/front/get-sliders')
-                    .then(({data})=>{
-                        state.slider_list = data.data;
                     })
             }catch (error){
                 console.log(error);
@@ -106,6 +99,31 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
+        async getCompanyInfo({state}){
+            try {
+                await axios.get('/front/company-info')
+                    .then(({data})=>{
+                        state.page_list = data.data.pages;
+                        state.company_info = data.data.info;
+                    })
+            }catch (error){
+                console.log(error);
+            }
+        },
+        async getPageDetails({state}, slug){
+            try {
+                return await axios.get(`/front/${slug}/page-info`)
+                    .then(({data})=>{
+                        if (data.status === 200){
+                            state.page_info = data.data;
+                        }
+                        return data;
+                    })
+            }catch (error){
+                console.log(error);
+            }
+        },
+
     },
     mutations:{
         setCategoryList:(state, response)=> state.category_list = response,

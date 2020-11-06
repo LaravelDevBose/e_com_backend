@@ -68,7 +68,7 @@
                                 class="product-item"
                                 v-if="products && products.length > 0"
                                 v-for="(productEl, index) in products"
-                                :key="randomNumber(productEl.slug)"
+                                :key="randomNumber(productEl.slug)+'-'+index"
                                 :class="[view === 2 ? 'col-sm-12': 'col-sm-3']"
                             >
                                 <div class="product-item-opt-1">
@@ -153,6 +153,7 @@ export default {
         next(vm => vm.updateSlugData(req_data));
     },
     beforeRouteUpdate(to, from, next){
+
         let req_data = {
             category_slug: '',
             brand_slug: '',
@@ -174,14 +175,8 @@ export default {
         this.getProductList();
         next();
     },
-    beforeCreate() {
-
-    },
-    created() {
-
-    },
-    mounted(){
-        //console.log(this.reqData);
+    updated() {
+        this.view = this.viewAs;
     },
     methods:{
         ...mapActions(['updateSlugData', 'getProductList']),
@@ -236,7 +231,6 @@ export default {
         randomNumber : function(slug){
             return (Math.floor(Math.random() * (10 - 1 + 1)) + 1) + slug;
         }
-
     },
     computed:{
         ...mapGetters([
@@ -287,9 +281,7 @@ export default {
         },
         checkViewAs: {
             handler(newVal, oldVal){
-                if (newVal !== oldVal){
-                    this.view = this.viewAs;
-                }
+                this.view = this.viewAs;
             }, deep: true
         }
     }

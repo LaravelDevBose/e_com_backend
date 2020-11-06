@@ -8,6 +8,8 @@ use App\Http\Resources\Frontend\category\CategoryCollection;
 use App\Http\Resources\Frontend\category\CategoryResource;
 use App\Http\Resources\Frontend\color\ColorResource;
 use App\Http\Resources\Frontend\discount\DiscountProductCollection;
+use App\Http\Resources\Frontend\page\PageCollection;
+use App\Http\Resources\Frontend\page\PageResource;
 use App\Http\Resources\Frontend\product\ProductCollection;
 use App\Http\Resources\Frontend\product\ProductResource;
 use App\Http\Resources\Frontend\size\SizeResource;
@@ -17,6 +19,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\DiscountProduct;
+use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductTag;
 use App\Models\ProductVariation;
@@ -354,4 +357,56 @@ class FrontendController extends Controller
 
 
     }
+
+    public function company_details()
+    {
+        $companyInfo = Setting::where('type', 1)->get();
+        $data = [
+            'info'=>[
+                'contact_phone' => '',
+                'contact_mobile' => '',
+                'contact_email' => '',
+                'contact_address' => '',
+                'about_us' => '',
+            ],
+            'pages'=>[]
+        ];
+
+        foreach ($companyInfo as $value){
+            if ($value->key == 'contact_phone'){
+                $data['info']['contact_phone'] = $value->value;
+            }
+            if ($value->key == 'contact_mobile'){
+                $data['info']['contact_mobile'] = $value->value;
+            }
+            if ($value->key == 'contact_email'){
+                $data['info']['contact_email'] = $value->value;
+            }
+            if ($value->key == 'contact_address'){
+                $data['info']['contact_address'] = $value->value;
+            }
+            if ($value->key == 'about_us'){
+                $data['info']['about_us'] = $value->value;
+            }
+        }
+
+        $pages = Page::where('page_status', config('app.active'))
+            ->orderBy('menu_position', 'asc')
+            ->get();
+        $data['pages']= PageCollection::collection($pages);
+        return ApiResponser::SingleResponse($data,'success', Response::HTTP_OK, true);
+    }
+
+    public function page_details($slug)
+    {
+        $page = Page::where('page_slug', $slug)->where('page_status', config('app.active'))->first();
+
+        if (!empty($page)){
+            $data = new PageResource($page);
+            return ApiResponser::SingleResponse($data, 'success', Response::HTTP_OK);
+        }else{
+            return ApiResponser::AllResponse('Not Found', Response::HTTP_NOT_FOUND, false, 'Page info Not found');
+        }
+    }
+
 }

@@ -47,7 +47,8 @@
                             type="button"
                             @click.prevent="addToCart()"
                         ><span>Add to Cart</span></button>
-                        <a href="" class="btn btn-wishlist"><span>wishlist</span></a>
+                        <a class="btn btn-wishlist wishlisted" href="#" v-if="wishlisted" @click.prevent="wishlistRemove()"><span>wishlist</span></a>
+                        <a class="btn btn-wishlist" href="#" v-else @click.prevent="wishlistAdd()"><span>wishlist</span></a>
                     </div>
                 </div>
                 <div class="product-item-des" v-html="product.highlight"> </div>

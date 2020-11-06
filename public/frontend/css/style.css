@@ -4184,7 +4184,8 @@ select.input-sm {
 
 .header-opt-3 .nav-left {
     float: left;
-    color: #53524e
+    color: #53524e;
+    margin-top: 5px;
 }
 
 .header-opt-3 .nav-left:after,

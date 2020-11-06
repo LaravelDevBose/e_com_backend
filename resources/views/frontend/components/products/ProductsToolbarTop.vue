@@ -62,9 +62,9 @@ export default {
             }
         }
     },
-    beforeDestroy() {
+    /*beforeDestroy() {
         this.$store.state.view = 1;
-    },
+    },*/
     methods:{
         ...mapActions(['updateViewAsData', 'updateSortingData']),
         updateProductViewAs(data){
