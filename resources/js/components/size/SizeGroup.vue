@@ -169,15 +169,14 @@
 </template>
 
 <script>
+    import '@riophae/vue-treeselect/dist/vue-treeselect.css';
     import Treeselect from '@riophae/vue-treeselect';
 
     import {mapGetters, mapActions} from 'vuex';
-    import ImportData from "../helper/ImportData";
-    import CreateSizeGroup from "./CreateSizeGroup";
 
     export default {
         name: "Size",
-        components:{CreateSizeGroup, Treeselect, 'import-data':ImportData},
+        components:{ Treeselect},
         data(){
             return{
                 form:{

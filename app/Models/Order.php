@@ -40,7 +40,7 @@ class Order extends Model
         'deleted_by',
     ];
 
-    protected $appends = array('status_label');
+    protected $appends = array('status_label', 'order_total');
 
     public static function order_no_generate(){
         $sku = '';
@@ -69,12 +69,12 @@ class Order extends Model
     public function getSubTotalAttribute(){
         return number_format($this->attributes['sub_total'], 2);
     }
-    public function getTotalAttribute(){
+    public function getOrderTotalAttribute(){
         return number_format($this->attributes['total'], 2);
     }
 
     public function getStatusLabelAttribute(){
-        $status = array_flip(Self::OrderStatus);
+        $status = array_flip(self::OrderStatus);
         return $status[$this->attributes['order_status']];
     }
 

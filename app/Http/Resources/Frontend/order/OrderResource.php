@@ -26,7 +26,7 @@ class OrderResource extends JsonResource
             'total_qty'=>$this->total_qty,
             'subtotal'=>$this->sub_total,
             'discount'=>$this->discount,
-            'total'=>$this->total,
+            'total'=>$this->order_total,
             'date'=>$this->order_date,
             'delivery_charge'=> number_format($this->delivery_charge, 2),
             'status'=>$this->order_status,

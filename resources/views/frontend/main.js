@@ -34,10 +34,10 @@ if (token) {
 }
 
 
-const files = require.context('./', true, /\.vue$/i);
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+/*const files = require.context('./', true, /\.vue$/i);
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));*/
 
-Vue.component('mainApp', require('./MainApp').default);
+Vue.component('mainApp', ()=> import('./MainApp'));
 
 const app = new Vue({
     el: '#main',

@@ -148,6 +148,13 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
         Route::delete('/{coupon_id}', 'DiscountProductController@destroy')->name('delete');
     });
 
+    Route::prefix('report')->as('report.')->group(function (){
+        Route::get('/yearly-sale', 'HomeController@yearly_sale_data');
+        Route::get('/monthly-sale', 'HomeController@monthly_sale_data');
+        Route::get('/weekly-sale', 'HomeController@weekly_sale_data');
+        Route::get('/status-wish', 'HomeController@order_status_wish_data');
+    });
+
 });
 
 Route::get('/admin/newsletters', 'NewsLetterController@index')->middleware('auth:admin')->name('admin.newsletters');

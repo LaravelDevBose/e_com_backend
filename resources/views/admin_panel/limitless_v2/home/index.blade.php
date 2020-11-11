@@ -5,10 +5,16 @@
 
 @endsection
 @section('ThemeJs')
+
     <script type="text/javascript" src="{{ asset('assets/js/core/app.js') }}"></script>
 @endsection
 @section('content')
-    <dashboard panel="Seller Panel" ></dashboard>
+    <dashboard
+        :total-products="{{$totalProduct}}"
+        :total-cancel="{{$totalCancel}}"
+        :total-sale="{{$totalSale}}"
+        :total-user="{{$totalUser}}"
+    ></dashboard>
 @endsection
 @section('PageJs')
 

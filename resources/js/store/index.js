@@ -3,8 +3,6 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex);
 
-
-
 //import Modules
 import  authentication from "./modules/authentication";
 import  category from './modules/category'
@@ -27,7 +25,7 @@ import admin from "./modules/admin";
 import seller from "./modules/seller";
 import couponCode from "./modules/coupon_code";
 import discount_product from "./modules/discount_product";
-
+import report from './modules/report';
 
 export default new Vuex.Store({
     state:{
@@ -69,6 +67,7 @@ export default new Vuex.Store({
         seller,
         couponCode,
         discount_product,
+        report,
     }
 })
 
