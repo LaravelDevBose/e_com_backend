@@ -40,6 +40,47 @@ const actions = {
             commit('setResponse', error.data);
         }
     },
+
+    async getYearlyVisitorAnalyticData({commit}){
+        try {
+            return await axios.get('/admin/report/analytic/yearly-data');
+        }catch (error) {
+            console.log(error);
+            commit('setResponse', error.data);
+        }
+    },
+    async getMonthlyVisitorAnalyticData({commit}){
+        try {
+            return await axios.get('/admin/report/analytic/monthly-data');
+        }catch (error) {
+            console.log(error);
+            commit('setResponse', error.data);
+        }
+    },
+    async getWeeklyVisitorAnalyticData({commit}){
+        try {
+            return await axios.get('/admin/report/analytic/weekly-data');
+        }catch (error) {
+            console.log(error);
+            commit('setResponse', error.data);
+        }
+    },
+    async getTopBrowsersAnalyticData({commit}){
+        try {
+            return await axios.get('/admin/report/analytic/top-browsers');
+        }catch (error) {
+            console.log(error);
+            commit('setResponse', error.data);
+        }
+    },
+    async getUserBonceAnalyticData({commit}){
+        try {
+            return await axios.get('/admin/report/analytic/user-bounce');
+        }catch (error) {
+            console.log(error);
+            commit('setResponse', error.data);
+        }
+    },
 };
 
 const mutations = {

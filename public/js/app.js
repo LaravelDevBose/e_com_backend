@@ -64012,6 +64012,11 @@ var map = {
 		2,
 		65
 	],
+	"./components/chart/DonutChart.vue": [
+		"./resources/js/components/chart/DonutChart.vue",
+		2,
+		88
+	],
 	"./components/chart/LineChart.vue": [
 		"./resources/js/components/chart/LineChart.vue",
 		2,
@@ -64233,6 +64238,16 @@ var map = {
 		"./resources/js/components/product/ShowProduct.vue",
 		58
 	],
+	"./components/report/AnalyticReportPage.vue": [
+		"./resources/js/components/report/AnalyticReportPage.vue",
+		2,
+		87
+	],
+	"./components/report/OrderReportPage.vue": [
+		"./resources/js/components/report/OrderReportPage.vue",
+		2,
+		90
+	],
 	"./components/seller/SellerCreateEditPage.vue": [
 		"./resources/js/components/seller/SellerCreateEditPage.vue",
 		59
@@ -64415,6 +64430,18 @@ var map = {
 		9,
 		2,
 		65
+	],
+	"./components/chart/DonutChart": [
+		"./resources/js/components/chart/DonutChart.vue",
+		9,
+		2,
+		88
+	],
+	"./components/chart/DonutChart.vue": [
+		"./resources/js/components/chart/DonutChart.vue",
+		9,
+		2,
+		88
 	],
 	"./components/chart/LineChart": [
 		"./resources/js/components/chart/LineChart.vue",
@@ -64955,6 +64982,30 @@ var map = {
 		"./resources/js/components/product/ShowProduct.vue",
 		9,
 		58
+	],
+	"./components/report/AnalyticReportPage": [
+		"./resources/js/components/report/AnalyticReportPage.vue",
+		9,
+		2,
+		87
+	],
+	"./components/report/AnalyticReportPage.vue": [
+		"./resources/js/components/report/AnalyticReportPage.vue",
+		9,
+		2,
+		87
+	],
+	"./components/report/OrderReportPage": [
+		"./resources/js/components/report/OrderReportPage.vue",
+		9,
+		2,
+		90
+	],
+	"./components/report/OrderReportPage.vue": [
+		"./resources/js/components/report/OrderReportPage.vue",
+		9,
+		2,
+		90
 	],
 	"./components/seller/SellerCreateEditPage": [
 		"./resources/js/components/seller/SellerCreateEditPage.vue",
@@ -70432,6 +70483,191 @@ var actions = {
     }
 
     return getMonthlySaleData;
+  }(),
+  getYearlyVisitorAnalyticData: function () {
+    var _getYearlyVisitorAnalyticData = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit;
+              _context5.prev = 1;
+              _context5.next = 4;
+              return axios.get('/admin/report/analytic/yearly-data');
+
+            case 4:
+              return _context5.abrupt("return", _context5.sent);
+
+            case 7:
+              _context5.prev = 7;
+              _context5.t0 = _context5["catch"](1);
+              console.log(_context5.t0);
+              commit('setResponse', _context5.t0.data);
+
+            case 11:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[1, 7]]);
+    }));
+
+    function getYearlyVisitorAnalyticData(_x5) {
+      return _getYearlyVisitorAnalyticData.apply(this, arguments);
+    }
+
+    return getYearlyVisitorAnalyticData;
+  }(),
+  getMonthlyVisitorAnalyticData: function () {
+    var _getMonthlyVisitorAnalyticData = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref6) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              commit = _ref6.commit;
+              _context6.prev = 1;
+              _context6.next = 4;
+              return axios.get('/admin/report/analytic/monthly-data');
+
+            case 4:
+              return _context6.abrupt("return", _context6.sent);
+
+            case 7:
+              _context6.prev = 7;
+              _context6.t0 = _context6["catch"](1);
+              console.log(_context6.t0);
+              commit('setResponse', _context6.t0.data);
+
+            case 11:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, null, [[1, 7]]);
+    }));
+
+    function getMonthlyVisitorAnalyticData(_x6) {
+      return _getMonthlyVisitorAnalyticData.apply(this, arguments);
+    }
+
+    return getMonthlyVisitorAnalyticData;
+  }(),
+  getWeeklyVisitorAnalyticData: function () {
+    var _getWeeklyVisitorAnalyticData = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(_ref7) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              commit = _ref7.commit;
+              _context7.prev = 1;
+              _context7.next = 4;
+              return axios.get('/admin/report/analytic/weekly-data');
+
+            case 4:
+              return _context7.abrupt("return", _context7.sent);
+
+            case 7:
+              _context7.prev = 7;
+              _context7.t0 = _context7["catch"](1);
+              console.log(_context7.t0);
+              commit('setResponse', _context7.t0.data);
+
+            case 11:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7, null, [[1, 7]]);
+    }));
+
+    function getWeeklyVisitorAnalyticData(_x7) {
+      return _getWeeklyVisitorAnalyticData.apply(this, arguments);
+    }
+
+    return getWeeklyVisitorAnalyticData;
+  }(),
+  getTopBrowsersAnalyticData: function () {
+    var _getTopBrowsersAnalyticData = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(_ref8) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              commit = _ref8.commit;
+              _context8.prev = 1;
+              _context8.next = 4;
+              return axios.get('/admin/report/analytic/top-browsers');
+
+            case 4:
+              return _context8.abrupt("return", _context8.sent);
+
+            case 7:
+              _context8.prev = 7;
+              _context8.t0 = _context8["catch"](1);
+              console.log(_context8.t0);
+              commit('setResponse', _context8.t0.data);
+
+            case 11:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8, null, [[1, 7]]);
+    }));
+
+    function getTopBrowsersAnalyticData(_x8) {
+      return _getTopBrowsersAnalyticData.apply(this, arguments);
+    }
+
+    return getTopBrowsersAnalyticData;
+  }(),
+  getUserBonceAnalyticData: function () {
+    var _getUserBonceAnalyticData = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(_ref9) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              commit = _ref9.commit;
+              _context9.prev = 1;
+              _context9.next = 4;
+              return axios.get('/admin/report/analytic/user-bounce');
+
+            case 4:
+              return _context9.abrupt("return", _context9.sent);
+
+            case 7:
+              _context9.prev = 7;
+              _context9.t0 = _context9["catch"](1);
+              console.log(_context9.t0);
+              commit('setResponse', _context9.t0.data);
+
+            case 11:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9, null, [[1, 7]]);
+    }));
+
+    function getUserBonceAnalyticData(_x9) {
+      return _getUserBonceAnalyticData.apply(this, arguments);
+    }
+
+    return getUserBonceAnalyticData;
   }()
 };
 var mutations = {};

@@ -1,8 +1,8 @@
 <script>
-import { Pie} from 'vue-chartjs'
+import {Pie} from 'vue-chartjs';
 export default {
-    extends:Pie,
-    name: "PieChart",
+    extends: Pie,
+    name: "DonutChart",
     props: {
         chartData: {
             type: Array,
@@ -30,7 +30,6 @@ export default {
             labels: this.chartLabels,
             datasets: [
                 {
-                    backgroundColor: this.chartColors,
                     data: this.chartData
                 }
             ],

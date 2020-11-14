@@ -149,10 +149,20 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     });
 
     Route::prefix('report')->as('report.')->group(function (){
-        Route::get('/yearly-sale', 'HomeController@yearly_sale_data');
-        Route::get('/monthly-sale', 'HomeController@monthly_sale_data');
-        Route::get('/weekly-sale', 'HomeController@weekly_sale_data');
-        Route::get('/status-wish', 'HomeController@order_status_wish_data');
+        Route::get('order/page', 'ReportController@order_report_page')->name('order.page');
+        Route::get('analytic/page', 'ReportController@analytic_report_page')->name('analytic.page');
+
+
+        Route::get('/yearly-sale', 'ReportController@yearly_sale_data');
+        Route::get('/monthly-sale', 'ReportController@monthly_sale_data');
+        Route::get('/weekly-sale', 'ReportController@weekly_sale_data');
+        Route::get('/status-wish', 'ReportController@order_status_wish_data');
+
+        Route::get('/analytic/yearly-data', 'ReportController@analytic_yearly_visitors');
+        Route::get('/analytic/monthly-data', 'ReportController@analytic_monthly_visitors');
+        Route::get('/analytic/weekly-data', 'ReportController@analytic_weekly_visitor');
+        Route::get('/analytic/top-browsers', 'ReportController@analytic_top_browsers');
+        Route::get('/analytic/user-bounce', 'ReportController@analytic_user_bounce');
     });
 
 });

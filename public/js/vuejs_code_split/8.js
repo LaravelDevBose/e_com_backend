@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     chartColors: {
       type: Array,
-      required: true
+      required: false
     }
   },
   data: function data() {
@@ -365,6 +365,60 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -384,11 +438,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      bar: {
-        data: [],
-        labels: [],
-        load: false
-      },
       pie: {
         data: [],
         colors: [],
@@ -404,33 +453,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         data: [],
         labels: [],
         load: false
+      },
+      topBrowsers: {
+        data: [],
+        colors: [],
+        labels: [],
+        load: false
+      },
+      userBounce: {
+        data: [],
+        colors: [],
+        labels: [],
+        load: false
+      },
+      weeklyVisitors: {
+        data: [],
+        labels: [],
+        load: false
       }
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    this.getYearlySaleData().then(function (_ref) {
+    this.getStatusWishOrderData().then(function (_ref) {
       var data = _ref.data;
-      console.log(data);
-
-      if (typeof data.code !== "undefined" && data.code === 200) {
-        _this.bar.labels = data.data.labels;
-        data.data.datasets.map(function (barData) {
-          var dataSet = {
-            label: barData.label,
-            backgroundColor: barData.bgColor,
-            data: barData.data
-          };
-
-          _this.bar.data.push(dataSet);
-        });
-        _this.bar.load = true;
-      }
-    });
-    this.getStatusWishOrderData().then(function (_ref2) {
-      var data = _ref2.data;
-      console.log(data);
 
       if (typeof data.code !== "undefined" && data.code === 200) {
         _this.pie.labels = data.data.labels;
@@ -442,9 +489,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.pie.load = true;
       }
     });
-    this.getWeeklySaleData().then(function (_ref3) {
-      var data = _ref3.data;
-      console.log(data);
+    this.getWeeklySaleData().then(function (_ref2) {
+      var data = _ref2.data;
 
       if (typeof data.code !== "undefined" && data.code === 200) {
         _this.weeklySale.labels = data.data.labels;
@@ -462,9 +508,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.weeklySale.load = true;
       }
     });
-    this.getMonthlySaleData().then(function (_ref4) {
-      var data = _ref4.data;
-      console.log(data);
+    this.getMonthlySaleData().then(function (_ref3) {
+      var data = _ref3.data;
 
       if (typeof data.code !== "undefined" && data.code === 200) {
         _this.monthlySale.labels = data.data.labels;
@@ -482,8 +527,49 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.monthlySale.load = true;
       }
     });
+    this.getWeeklyVisitorAnalyticData().then(function (_ref4) {
+      var data = _ref4.data;
+
+      if (typeof data.code !== "undefined" && data.code === 200) {
+        _this.weeklyVisitors.labels = data.data.labels;
+        data.data.datasets.map(function (barData) {
+          var dataSet = {
+            label: barData.label,
+            borderColor: barData.bgColor,
+            data: barData.data,
+            fill: false,
+            backgroundColor: 'transparent'
+          };
+
+          _this.weeklyVisitors.data.push(dataSet);
+        });
+        _this.weeklyVisitors.load = true;
+      }
+    });
+    this.getTopBrowsersAnalyticData().then(function (_ref5) {
+      var data = _ref5.data;
+
+      if (typeof data.code !== "undefined" && data.code === 200) {
+        _this.topBrowsers.labels = data.data.labels;
+        data.data.datasets.map(function (dataSet) {
+          _this.topBrowsers.data.push(dataSet.data);
+        });
+        _this.topBrowsers.load = true;
+      }
+    });
+    this.getUserBonceAnalyticData().then(function (_ref6) {
+      var data = _ref6.data;
+
+      if (typeof data.code !== "undefined" && data.code === 200) {
+        _this.userBounce.labels = data.data.labels;
+        data.data.datasets.map(function (dataSet) {
+          _this.userBounce.data.push(dataSet.data);
+        });
+        _this.userBounce.load = true;
+      }
+    });
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getYearlySaleData', 'getStatusWishOrderData', 'getWeeklySaleData', 'getMonthlySaleData']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getStatusWishOrderData', 'getWeeklySaleData', 'getMonthlySaleData', 'getWeeklyVisitorAnalyticData', 'getTopBrowsersAnalyticData', 'getUserBonceAnalyticData']))
 });
 
 /***/ }),
@@ -899,9 +985,84 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "panel panel-default" }, [
           _vm._m(5),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" }, [
+            _c(
+              "div",
+              { staticClass: "chart-container" },
+              [
+                _vm.topBrowsers.load
+                  ? _c("pie-chart", {
+                      attrs: {
+                        "chart-data": _vm.topBrowsers.data,
+                        "chart-colors": _vm.topBrowsers.colors,
+                        "chart-labels": _vm.topBrowsers.labels
+                      }
+                    })
+                  : _vm._e()
+              ],
+              1
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "panel panel-default" }, [
+          _vm._m(6),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" }, [
+            _c(
+              "div",
+              { staticClass: "chart-container" },
+              [
+                _vm.userBounce.load
+                  ? _c("pie-chart", {
+                      attrs: {
+                        "chart-data": _vm.userBounce.data,
+                        "chart-labels": _vm.userBounce.labels
+                      }
+                    })
+                  : _vm._e()
+              ],
+              1
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "panel panel-default" }, [
+          _vm._m(7),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" }, [
+            _c(
+              "div",
+              { staticClass: "chart-container" },
+              [
+                _vm.weeklyVisitors.load
+                  ? _c("line-chart", {
+                      attrs: {
+                        "chart-data": _vm.weeklyVisitors.data,
+                        "chart-labels": _vm.weeklyVisitors.labels
+                      }
+                    })
+                  : _vm._e()
+              ],
+              1
+            )
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-3" }, [
+        _c("div", { staticClass: "panel panel-default" }, [
+          _vm._m(8),
           _vm._v(" "),
           _c("div", { staticClass: "panel-body" }, [
             _c(
@@ -924,9 +1085,9 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "panel panel-default" }, [
-          _vm._m(6),
+          _vm._m(9),
           _vm._v(" "),
           _c("div", { staticClass: "panel-body" }, [
             _c(
@@ -948,9 +1109,9 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "col-md-5" }, [
         _c("div", { staticClass: "panel panel-default" }, [
-          _vm._m(7),
+          _vm._m(10),
           _vm._v(" "),
           _c("div", { staticClass: "panel-body" }, [
             _c(
@@ -962,30 +1123,6 @@ var render = function() {
                       attrs: {
                         "chart-data": _vm.monthlySale.data,
                         "chart-labels": _vm.monthlySale.labels
-                      }
-                    })
-                  : _vm._e()
-              ],
-              1
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "panel panel-default" }, [
-          _vm._m(8),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel-body" }, [
-            _c(
-              "div",
-              { staticClass: "chart-container" },
-              [
-                _vm.bar.load
-                  ? _c("bar-chart", {
-                      attrs: {
-                        "chart-data": _vm.bar.data,
-                        "chart-labels": _vm.bar.labels
                       }
                     })
                   : _vm._e()
@@ -1054,6 +1191,38 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Top Browser Report")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "heading-elements" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("User Bounce Report")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "heading-elements" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [
+        _vm._v(" This Week and Prv Week Visitor")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "heading-elements" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
       _c("h5", { staticClass: "panel-title" }, [
         _vm._v("Status Wish Order Summary")
       ]),
@@ -1083,16 +1252,6 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "heading-elements" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading" }, [
-      _c("h5", { staticClass: "panel-title" }, [
-        _vm._v("This Year and Prv Year Order Summary")
-      ])
     ])
   }
 ]

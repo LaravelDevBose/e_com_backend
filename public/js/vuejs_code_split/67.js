@@ -25,7 +25,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     chartColors: {
       type: Array,
-      required: true
+      required: false
     }
   },
   data: function data() {

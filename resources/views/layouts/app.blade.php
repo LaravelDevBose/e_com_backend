@@ -10,7 +10,7 @@
 
     <title>@yield('PageTitle') | {{ env('APP_NAME', 'Saliim') }}</title>
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Global stylesheets -->
@@ -25,26 +25,10 @@
     <link rel="stylesheet" href="https://unpkg.com/vue-select@3.0.0/dist/vue-select.css">
     <!-- /global stylesheets -->
 
-    <!-- Core JS files -->
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/pace.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/core/libraries/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/core/libraries/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/blockui.min.js') }}"></script>
-    <!-- /core JS files -->
+
 
     @yield('PageCss')
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/pnotify.min.js') }}"></script>
 
-    @yield('ThemeJs')
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/forms/selects/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/core/app.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/pages/datatables_basic.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/ui/ripple.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/pages/components_notifications_pnotify.js') }}"></script>
-
-    <script type="text/javascript" src="{{ asset('assets/js/pages/animations_css3.js') }}"></script>
 </head>
 <body class="navbar-top  pace-done sidebar-xs">
 
@@ -80,6 +64,26 @@
 
 </div>
 @yield('PageJs')
+<!-- Core JS files -->
+<script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/pace.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/core/libraries/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/core/libraries/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/blockui.min.js') }}"></script>
+<!-- /core JS files -->
 
+<script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/pnotify.min.js') }}"></script>
+
+@yield('ThemeJs')
+<script type="text/javascript" src="{{ asset('assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/core/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/pages/datatables_basic.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/plugins/ui/ripple.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/pages/components_notifications_pnotify.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('assets/js/pages/animations_css3.js') }}"></script>
+
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

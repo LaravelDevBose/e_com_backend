@@ -382,6 +382,11 @@ __webpack_require__.r(__webpack_exports__);
     MegaMenuSection: _megamenu_MegaMenuSection__WEBPACK_IMPORTED_MODULE_2__["default"],
     HeaderCartDropdown: _cart_HeaderCartDropdown__WEBPACK_IMPORTED_MODULE_1__["default"],
     HeaderCategoryMenu: _HeaderCategoryMenu__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  mounted: function mounted() {
+    var externalScript = document.createElement('script');
+    externalScript.setAttribute('src', this.$baseUrl + '/frontend/js/main.js');
+    document.getElementById('mainjs').appendChild(externalScript);
   }
 });
 

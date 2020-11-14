@@ -43,4 +43,7 @@ const app = new Vue({
     el: '#main',
     store:store,
     router,
+    created(){
+
+    }
 });

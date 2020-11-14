@@ -42,6 +42,16 @@
                                 </ul>
                             </li>
                         @endif
+                        @if(auth()->user()->adminRole->report)
+                            <li>
+                                <a href="#"><i class="icon-graph"></i> <span>Report</span></a>
+                                <ul>
+                                    <li><a href="{{ route('admin.report.order.page') }}"><i class="icon-stats-growth"></i>Order Report</a></li>
+                                    <li><a href="{{ route('admin.report.analytic.page') }}"><i class="icon-stats-dots"></i>Analytic Report</a></li>
+
+                                </ul>
+                            </li>
+                        @endif
                         @if(auth()->user()->adminRole->customer)
                             <li ><a href="{{ route('admin.buyer.index') }}"><i class="icon-users"></i> <span>Customer</span></a></li>
                         @endif

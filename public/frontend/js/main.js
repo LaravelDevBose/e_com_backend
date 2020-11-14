@@ -523,14 +523,15 @@
     });
 
     //menu
-    $(window).load(function() {
+    /*$(window).load(function() {
 
         resizeMenu();
         resizeDropdown();
         resizeCategori();
-    });
+    });*/
 
     $(document).ready(function() {
+        console.log(new Date());
         resizeMenu();
         resizeDropdown();
         resizeCategori();
@@ -543,12 +544,12 @@
         resizeCategori();
     });
 
-    $(window).scroll(function() {
+    /*$(window).scroll(function() {
         resizeMenu();
         resizeDropdown();
         resizeCategori();
 
-    });
+    });*/
 
     function resizeMenu(){
         var container = $('.container').innerWidth();

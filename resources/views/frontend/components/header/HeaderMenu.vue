@@ -63,7 +63,12 @@ import MiniSearchSection from "./search/MiniSearchSection";
 
 export default {
     name: "HeaderMenu",
-    components: {MiniSearchSection, MegaMenuSection, HeaderCartDropdown, HeaderCategoryMenu}
+    components: {MiniSearchSection, MegaMenuSection, HeaderCartDropdown, HeaderCategoryMenu},
+    mounted() {
+        let externalScript = document.createElement('script')
+        externalScript.setAttribute('src', this.$baseUrl+'/frontend/js/main.js');
+        document.getElementById('mainjs').appendChild(externalScript)
+    }
 }
 </script>
 
