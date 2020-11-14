@@ -28,6 +28,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('expired:check')->everyThirtyMinutes();
+        $schedule->command('backup:clean')->dailyAt('03:30');
+        $schedule->command('backup:run --only-db')->dailyAt('04:00');
     }
 
     /**

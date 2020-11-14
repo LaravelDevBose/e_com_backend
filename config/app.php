@@ -201,6 +201,7 @@ return [
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        App\Providers\GoogleDriveServiceProvider::class,
         /*
          * Application Service Providers...
          */
