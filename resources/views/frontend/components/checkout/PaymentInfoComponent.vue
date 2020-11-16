@@ -17,7 +17,7 @@
             <div class="col-md-6">
                 <div class="box-border">
                     <h3>Thank You. Your Order Successfully Complete.</h3>
-                    <p><strong>Invoice No: {{ orderInfo.order_no }}</strong></p>
+                    <p><strong>Invoice No: {{ orderData.order_no }}</strong></p>
                 </div>
             </div>
         </div>
@@ -30,14 +30,15 @@
 import {mapGetters, mapActions} from 'vuex';
 export default {
     name: "PaymentInfoComponent",
-    mounted() {
-
+    beforeDestroy(){
+        this.updateActiveSection(1);
     },
     methods:{
         ...mapActions([
             'getBKashAccessToken',
             'bkashCreateRequest',
-            'bkashExecuteRequest'
+            'bkashExecuteRequest',
+            'updateActiveSection'
         ]),
         gotoPage(url){
             this.$router.push(url);
@@ -70,7 +71,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['orderInfo'])
+        ...mapGetters(['orderData'])
     }
 }
 </script>

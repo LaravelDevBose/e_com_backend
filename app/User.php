@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\Order;
 use App\Models\SocialProvider;
+use App\Notifications\CustomerVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;

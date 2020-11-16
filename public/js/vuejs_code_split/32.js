@@ -1,16 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[32],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/slider/SliderCreatePage.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cms/slider/SliderCreatePage.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/pages/ShowGeneralPages.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cms/pages/ShowGeneralPages.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../cropper/ImageCropper */ "./resources/js/components/cropper/ImageCropper.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -66,82 +65,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "SliderCreatePage",
-  components: {
-    ImageCropper: _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
+  props: ['id'],
+  name: "ShowGeneralPages",
   data: function data() {
     return {
-      formData: {
-        slider_title: '',
-        sub_title: '',
-        btn_text: '',
-        btn_url: '',
-        slider_position: '',
-        attachmentIds: '',
-        slider_status: 0
-      },
-      cropperData: {
-        width: 712,
-        height: 480,
-        placeholder: 'Choose a image in 712X480',
-        file_size: 1.5,
-        init_image: '',
-        folder: 'slider',
-        modal_type: 3
-      },
-      removeImage: false,
-      btnDisabled: false
+      noImage: BASE_URL + '/assets/images/cover.jpg'
     };
   },
-  created: function created() {},
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeSlider']), {
-    sliderStore: function sliderStore() {
-      var _this = this;
-
-      this.btnDisabled = true;
-      var vm = this;
-      vm.formData.attachmentIds = vm.cropImageIds;
-      vm.storeSlider(vm.formData).then(function (response) {
-        if (response.status === 'success') {
-          Notify.success(response.message); // this.emptyFormData();
-
-          _this.removeImage = true;
-
-          if (response.hasOwnProperty('url')) {
-            setTimeout(function () {
-              location.href = response.url;
-            });
-          } else {
-            location.reload();
-          }
-        } else {
-          Notify.warning(response.message);
-        }
-      });
+  created: function created() {
+    var pageId = this.id;
+    console.log(pageId);
+    this.singleGeneralPageData(pageId);
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['singleGeneralPageData']), {
+    goToEditPage: function goToEditPage(pageId) {
+      window.location = '/admin/cms/pages/' + pageId + '/edit';
+    },
+    goBack: function goBack() {
+      window.location = '/admin/cms/pages';
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cropImageIds'])),
-  watch: {
-    formData: {
-      handler: function handler(newValue, oldValue) {
-        if (oldValue === newValue) {
-          this.btnDisabled = false;
-        }
-      },
-      deep: true
-    }
-  }
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['pageData']))
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/slider/SliderCreatePage.vue?vue&type=template&id=89e4d58e&scoped=true&":
-/*!******************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cms/slider/SliderCreatePage.vue?vue&type=template&id=89e4d58e&scoped=true& ***!
-  \******************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/pages/ShowGeneralPages.vue?vue&type=template&id=52786116&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cms/pages/ShowGeneralPages.vue?vue&type=template&id=52786116&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -154,206 +107,137 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content" }, [
-    _c("div", { staticClass: "panel panel-info" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "panel-body" }, [
-        _c(
-          "form",
-          {
-            attrs: { action: "" },
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.sliderStore($event)
-              }
-            }
-          },
-          [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-5 col-md-offset-1" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Slider Title:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.slider_title,
-                        expression: "formData.slider_title"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Slider Title",
-                      required: ""
-                    },
-                    domProps: { value: _vm.formData.slider_title },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.formData,
-                          "slider_title",
-                          $event.target.value
-                        )
-                      }
+    _c("div", { staticClass: "container-detached" }, [
+      _c("div", { staticClass: "content-detached" }, [
+        _c("div", { staticClass: "panel" }, [
+          _c(
+            "div",
+            {
+              staticClass: "panel-heading bg-teal-400",
+              staticStyle: { "line-height": "3.87rem" }
+            },
+            [
+              _c(
+                "h5",
+                {
+                  staticClass: "panel-title",
+                  staticStyle: { display: "inline-block" }
+                },
+                [_vm._v(_vm._s(_vm.pageData.title) + " Details ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-sm btn-warning text-small",
+                  staticStyle: { float: "right", "margin-top": "0px" },
+                  attrs: { href: "" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.goBack()
                     }
-                  })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group" },
-                  [
-                    _c("label", [_vm._v("Slider Image:")]),
-                    _vm._v(" "),
-                    _c("image-cropper", {
-                      attrs: {
-                        cropperData: _vm.cropperData,
-                        removeImage: _vm.removeImage
-                      }
-                    })
-                  ],
-                  1
-                )
+                  }
+                },
+                [_c("i", { staticClass: "icon-undo2" }), _vm._v(" Back")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" }, [
+            _c("div", { staticClass: "content-group-lg row" }, [
+              _c("h3", { staticClass: "text-semibold mb-5" }, [
+                _c("a", { staticClass: "text-default", attrs: { href: "#" } }, [
+                  _vm._v(_vm._s(_vm.pageData.title))
+                ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-5" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Slider Position:")]),
+              _c(
+                "ul",
+                {
+                  staticClass:
+                    "list-inline list-inline-separate text-semibold content-group"
+                },
+                [
+                  _vm._m(0),
                   _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.slider_position,
-                        expression: "formData.slider_position"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "number",
-                      placeholder: "Slider Position",
-                      required: ""
-                    },
-                    domProps: { value: _vm.formData.slider_position },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.formData,
-                          "slider_position",
-                          $event.target.value
+                  _c("li", [
+                    _vm._v("Created: "),
+                    _c("span", { staticClass: "text-bold text-teal" }, [
+                      _vm._v(" " + _vm._s(_vm.pageData.created_at))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _vm._v("Menu Position: "),
+                    _c("span", { staticClass: "text-bold text-teal" }, [
+                      _vm._v(_vm._s(_vm.pageData.position))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _vm._v("Status:\n                                "),
+                    _vm.pageData.status == 1
+                      ? _c(
+                          "span",
+                          { staticClass: "text-bold badge badge-success" },
+                          [_vm._v("Active")]
                         )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content-group-lg" }, [
-                  _c("label", [_vm._v("Slider Status:")]),
+                      : _vm.pageData.status == 2
+                      ? _c(
+                          "span",
+                          { staticClass: "text-bold badge badge-danger" },
+                          [_vm._v("Inactive")]
+                        )
+                      : _c(
+                          "span",
+                          { staticClass: "text-bold badge badge-info" },
+                          [_vm._v("Undefined")]
+                        )
+                  ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
+                  _c("li", { staticStyle: { float: "right" } }, [
                     _c(
-                      "label",
+                      "a",
                       {
-                        staticClass: "checkbox-style",
-                        attrs: { for: "paypal_payment" }
+                        staticClass: "btn btn-sm bg-info-600",
+                        attrs: { href: "" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.goToEditPage(_vm.pageData.id)
+                          }
+                        }
                       },
                       [
-                        _vm.formData.slider_status
-                          ? _c(
-                              "span",
-                              { staticClass: "text-bold text-success" },
-                              [_vm._v("Active")]
-                            )
-                          : _c(
-                              "span",
-                              { staticClass: "text-bold text-warning" },
-                              [_vm._v("Inactive")]
-                            ),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.slider_status,
-                              expression: "formData.slider_status"
-                            }
-                          ],
-                          attrs: { type: "checkbox", id: "paypal_payment" },
-                          domProps: {
-                            checked: _vm.formData.slider_status,
-                            checked: Array.isArray(_vm.formData.slider_status)
-                              ? _vm._i(_vm.formData.slider_status, null) > -1
-                              : _vm.formData.slider_status
-                          },
-                          on: {
-                            change: function($event) {
-                              var $$a = _vm.formData.slider_status,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = null,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.formData,
-                                      "slider_status",
-                                      $$a.concat([$$v])
-                                    )
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.formData,
-                                      "slider_status",
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
-                              } else {
-                                _vm.$set(_vm.formData, "slider_status", $$c)
-                              }
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "checkmark" })
+                        _c("i", { staticClass: "icon-pencil7" }),
+                        _vm._v(" Edit")
                       ]
                     )
                   ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "text-right form-group" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary btn-block",
-                      attrs: { type: "submit", disabled: _vm.btnDisabled }
-                    },
-                    [
-                      _vm._v("Save Slider "),
-                      _c("i", {
-                        staticClass: "icon-arrow-right14 position-right"
-                      })
-                    ]
-                  )
-                ])
-              ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("label", { staticClass: "text text-bold" }, [
+                _vm._v("Body Content: ")
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "content-group",
+                domProps: { innerHTML: _vm._s(_vm.pageData.content) }
+              }),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "content-group",
+                domProps: { innerHTML: _vm._s(_vm.pageData.extra_content) }
+              })
             ])
-          ]
-        )
+          ])
+        ])
       ])
     ])
   ])
@@ -363,8 +247,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading" }, [
-      _c("h5", { staticClass: "panel-title" }, [_vm._v("Add Slider Details")])
+    return _c("li", [
+      _vm._v("By "),
+      _c("span", { staticClass: "text-bold text-teal" }, [_vm._v("Admin")])
     ])
   }
 ]
@@ -481,17 +366,17 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ "./resources/js/components/cms/slider/SliderCreatePage.vue":
-/*!*****************************************************************!*\
-  !*** ./resources/js/components/cms/slider/SliderCreatePage.vue ***!
-  \*****************************************************************/
+/***/ "./resources/js/components/cms/pages/ShowGeneralPages.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/cms/pages/ShowGeneralPages.vue ***!
+  \****************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _SliderCreatePage_vue_vue_type_template_id_89e4d58e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SliderCreatePage.vue?vue&type=template&id=89e4d58e&scoped=true& */ "./resources/js/components/cms/slider/SliderCreatePage.vue?vue&type=template&id=89e4d58e&scoped=true&");
-/* harmony import */ var _SliderCreatePage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SliderCreatePage.vue?vue&type=script&lang=js& */ "./resources/js/components/cms/slider/SliderCreatePage.vue?vue&type=script&lang=js&");
+/* harmony import */ var _ShowGeneralPages_vue_vue_type_template_id_52786116_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShowGeneralPages.vue?vue&type=template&id=52786116&scoped=true& */ "./resources/js/components/cms/pages/ShowGeneralPages.vue?vue&type=template&id=52786116&scoped=true&");
+/* harmony import */ var _ShowGeneralPages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShowGeneralPages.vue?vue&type=script&lang=js& */ "./resources/js/components/cms/pages/ShowGeneralPages.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -501,50 +386,50 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _SliderCreatePage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _SliderCreatePage_vue_vue_type_template_id_89e4d58e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _SliderCreatePage_vue_vue_type_template_id_89e4d58e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _ShowGeneralPages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ShowGeneralPages_vue_vue_type_template_id_52786116_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ShowGeneralPages_vue_vue_type_template_id_52786116_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "89e4d58e",
+  "52786116",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/cms/slider/SliderCreatePage.vue"
+component.options.__file = "resources/js/components/cms/pages/ShowGeneralPages.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/cms/slider/SliderCreatePage.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************!*\
-  !*** ./resources/js/components/cms/slider/SliderCreatePage.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************/
+/***/ "./resources/js/components/cms/pages/ShowGeneralPages.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/cms/pages/ShowGeneralPages.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderCreatePage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SliderCreatePage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/slider/SliderCreatePage.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderCreatePage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowGeneralPages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ShowGeneralPages.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/pages/ShowGeneralPages.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowGeneralPages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/cms/slider/SliderCreatePage.vue?vue&type=template&id=89e4d58e&scoped=true&":
-/*!************************************************************************************************************!*\
-  !*** ./resources/js/components/cms/slider/SliderCreatePage.vue?vue&type=template&id=89e4d58e&scoped=true& ***!
-  \************************************************************************************************************/
+/***/ "./resources/js/components/cms/pages/ShowGeneralPages.vue?vue&type=template&id=52786116&scoped=true&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/cms/pages/ShowGeneralPages.vue?vue&type=template&id=52786116&scoped=true& ***!
+  \***********************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderCreatePage_vue_vue_type_template_id_89e4d58e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SliderCreatePage.vue?vue&type=template&id=89e4d58e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/slider/SliderCreatePage.vue?vue&type=template&id=89e4d58e&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderCreatePage_vue_vue_type_template_id_89e4d58e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowGeneralPages_vue_vue_type_template_id_52786116_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ShowGeneralPages.vue?vue&type=template&id=52786116&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/pages/ShowGeneralPages.vue?vue&type=template&id=52786116&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowGeneralPages_vue_vue_type_template_id_52786116_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderCreatePage_vue_vue_type_template_id_89e4d58e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowGeneralPages_vue_vue_type_template_id_52786116_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -27,8 +27,10 @@ const ifAuthenticated = (to, from, next) => {
 const ifAuthenticatedAndHaveCartItem = (to, form, next) =>{
     if (store.getters.isAuthenticated && store.getters.cartTotal && store.getters.cartTotal > 0){
         next();
-    }if (!store.getters.isAuthenticated && store.getters.cartTotal && store.getters.cartTotal > 0){
+    }else if (!store.getters.isAuthenticated && store.getters.cartTotal && store.getters.cartTotal > 0){
         next('/login');
+    }else if(store.getters.cartTotal && store.getters.cartTotal > 0){
+        next();
     }else {
         store.commit('updateResponse', {message: "Cart is Empty", type: 'Warning'});
         next(form);

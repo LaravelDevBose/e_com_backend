@@ -18,6 +18,6 @@ class VerifyEmailListener
      */
     public function handle($event)
     {
-        Notification::send($event->user, new CustomerVerifyEmail($event->user));
+        Notification::send($event->user, new CustomerVerifyEmail());
     }
 }

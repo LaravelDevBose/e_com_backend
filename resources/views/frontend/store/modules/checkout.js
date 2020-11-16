@@ -8,6 +8,7 @@ const state = {
         coupon_id:'',
     },
     coupon_amount: 0,
+    order_data:{},
 };
 
 //declare Getters
@@ -16,6 +17,7 @@ const getters = {
     activeSection:(state) => state.active_section,
     checkoutData: (state) => state.checkout_data,
     couponAmount: (state) => state.coupon_amount,
+    orderData: (state) => state.order_data,
 };
 
 const actions = {
@@ -73,21 +75,26 @@ const actions = {
     },
     async orderSubmit({commit}, orderData){
         try {
-            await axios.post('/api/order/store', orderData)
+            return await axios.post('/api/order/store', orderData)
                 .then(({data}) =>{
                     if(data.status === 201){
                         commit('updateOrderInfo', data.data);
+                        commit('setCartDetails');
                         commit('updateResponse', {message: data.message, type: data.statusText});
-                    }else if(data.status === 400){
+                    }else if(data.status === 400 || data.status === 406){
                         commit('updateResponse', {message: data.message, type: 'Warning'});
                     }else{
                         commit('updateResponse', {message: "Invalid Order Information", type: 'Error'});
                     }
+                    return data;
                 });
         }catch (error){
             console.log(error);
             commit('updateResponse', {message: 'Invalid Order Information', type: 'Error'});
         }
+    },
+    async updateActiveSection({state}, value){
+        state.active_section = value;
     }
 };
 
@@ -104,14 +111,14 @@ const mutations = {
         state.coupon_amount = response.amount;
     },
     updateOrderInfo:(state, response) =>{
-        state.order_info = response;
+        state.order_data = response;
         state.active_section = 4;
-        state.carts =  [];
+       /* state.carts =  [];
         state.qty =0;
         state.weight = 0;
         state.subtotal = 0;
         state.discount = 0;
-        state.total = 0;
+        state.total = 0;*/
     }
 };
 

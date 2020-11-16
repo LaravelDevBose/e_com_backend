@@ -3,6 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-xVVam1KS4+Qt2OrFa+VdRUoXygyKIuNWUUUBZYv+n27STsJ7oDOHJgfF0bNKLMJF" crossorigin="anonymous">
 </head>
 <body>
     <style>
@@ -36,7 +37,7 @@
                                 <!-- Body content -->
                                 <tr>
                                     <td class="content-cell">
-                                        {{ Illuminate\Mail\Markdown::parse($slot) }}
+                                        {!! Illuminate\Mail\Markdown::parse($slot) !!}
 
                                         {{ $subcopy ?? '' }}
                                     </td>

@@ -2,23 +2,25 @@
 
 namespace App\Notifications;
 
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class SellerNewOrderNotification extends Notification
+class NewOrderNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $order;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Order $order)
     {
-        //
+        $this->order = $order;
     }
 
     /**
@@ -40,22 +42,13 @@ class SellerNewOrderNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $orderInfo = Order::where('order_id', $this->order->order_id)->with('shipping')->first();
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->from(\config('mail.from.address', 'admin@info.com'), config('mail.from.name', 'Laravel'))
+            ->markdown('emails.invoice.invoice_mail',[
+                'orderInfo'=>$orderInfo,
+                'url'=> url('/buyer/order/'.$orderInfo->order_no.'/invoice')
+            ]);
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
-    }
 }

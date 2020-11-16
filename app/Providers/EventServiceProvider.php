@@ -5,8 +5,8 @@ namespace App\Providers;
 use App\Events\NewOrderStoreEvent;
 use App\Events\OnCancelOrderItem;
 use App\Events\VerifiedAccount;
-use App\Listeners\InvoiceSendToBuyerEmail;
-use App\Listeners\NotifyAdminForNewOrder;
+use App\Listeners\NewOrderListeners;
+use App\Listeners\NewOrderAdminListener;
 use App\Listeners\ProductQtyUpdate;
 use App\Listeners\UpdateProductQtyListener;
 use App\Listeners\VerifyEmailListener;
@@ -27,12 +27,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             VerifyEmailListener::class,
         ],
-        VerifiedAccount::class=>[
+        /*VerifiedAccount::class=>[
             VerifiedAccountListener::class,
-        ],
+        ],*/
         NewOrderStoreEvent::class=>[
-            //InvoiceSendToBuyerEmail::class,
-            NotifyAdminForNewOrder::class,
+            NewOrderListeners::class,
+            NewOrderAdminListener::class,
             ProductQtyUpdate::class,
         ],
         OnCancelOrderItem::class=>[

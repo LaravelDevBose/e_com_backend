@@ -125,7 +125,16 @@ export default {
         }
     },
     computed: {},
-    watch: {}
+    watch:{
+        formData:{
+            handler(newValue, oldValue){
+                if(oldValue !== newValue){
+                    this.btnDisabled = false;
+                }
+            },
+            deep:true,
+        }
+    }
 }
 </script>
 

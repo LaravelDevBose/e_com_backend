@@ -63966,141 +63966,141 @@ var regionDayMap = {
 var map = {
 	"./components/account/AccountSettingPage.vue": [
 		"./resources/js/components/account/AccountSettingPage.vue",
-		22
+		24
 	],
 	"./components/account/AdminAccountPage.vue": [
 		"./resources/js/components/account/AdminAccountPage.vue",
-		23
+		25
 	],
 	"./components/attachment/Attachment.vue": [
 		"./resources/js/components/attachment/Attachment.vue",
-		24
+		26
 	],
 	"./components/attachment/ProductImage.vue": [
 		"./resources/js/components/attachment/ProductImage.vue",
-		25
+		27
 	],
 	"./components/attachment/SingleAttachment.vue": [
 		"./resources/js/components/attachment/SingleAttachment.vue",
-		26
+		28
 	],
 	"./components/auth/AdminLogin.vue": [
 		"./resources/js/components/auth/AdminLogin.vue",
-		14
+		16
 	],
 	"./components/brand/Brand.vue": [
 		"./resources/js/components/brand/Brand.vue",
 		0,
-		13
+		15
 	],
 	"./components/buyer/BuyerListPage.vue": [
 		"./resources/js/components/buyer/BuyerListPage.vue",
-		27
+		29
 	],
 	"./components/category/Category.vue": [
 		"./resources/js/components/category/Category.vue",
-		28
+		30
 	],
 	"./components/category/CategoryCreatePage.vue": [
 		"./resources/js/components/category/CategoryCreatePage.vue",
-		1,
+		2,
 		0,
-		61
+		63
 	],
 	"./components/chart/BarChart.vue": [
 		"./resources/js/components/chart/BarChart.vue",
-		2,
-		65
+		1,
+		67
 	],
 	"./components/chart/DonutChart.vue": [
 		"./resources/js/components/chart/DonutChart.vue",
-		2,
-		88
+		1,
+		68
 	],
 	"./components/chart/LineChart.vue": [
 		"./resources/js/components/chart/LineChart.vue",
-		2,
-		66
+		1,
+		69
 	],
 	"./components/chart/PieChart.vue": [
 		"./resources/js/components/chart/PieChart.vue",
-		2,
-		67
+		1,
+		70
 	],
 	"./components/cms/pages/CreateGeneralPages.vue": [
 		"./resources/js/components/cms/pages/CreateGeneralPages.vue",
 		3,
 		0,
-		15
+		17
 	],
 	"./components/cms/pages/EditGeneralPages.vue": [
 		"./resources/js/components/cms/pages/EditGeneralPages.vue",
 		3,
 		0,
-		16
+		18
 	],
 	"./components/cms/pages/GeneralPagesList.vue": [
 		"./resources/js/components/cms/pages/GeneralPagesList.vue",
-		29
+		31
 	],
 	"./components/cms/pages/ShowGeneralPages.vue": [
 		"./resources/js/components/cms/pages/ShowGeneralPages.vue",
-		30
+		32
 	],
 	"./components/cms/setting/SettingPage.vue": [
 		"./resources/js/components/cms/setting/SettingPage.vue",
-		31
+		33
 	],
 	"./components/cms/slider/SliderCreatePage.vue": [
 		"./resources/js/components/cms/slider/SliderCreatePage.vue",
 		0,
-		32
+		34
 	],
 	"./components/cms/slider/SliderEditPage.vue": [
 		"./resources/js/components/cms/slider/SliderEditPage.vue",
 		0,
-		33
+		35
 	],
 	"./components/cms/slider/SliderPage.vue": [
 		"./resources/js/components/cms/slider/SliderPage.vue",
 		0,
-		34
+		36
 	],
 	"./components/color/Color.vue": [
 		"./resources/js/components/color/Color.vue",
 		6,
-		20
+		22
 	],
 	"./components/coupon/CouponCode.vue": [
 		"./resources/js/components/coupon/CouponCode.vue",
 		0,
-		35
+		37
 	],
 	"./components/cropper/ImageCropper.vue": [
 		"./resources/js/components/cropper/ImageCropper.vue",
 		0,
-		68
+		71
 	],
 	"./components/delivery_method/DeliveryMethodPage.vue": [
 		"./resources/js/components/delivery_method/DeliveryMethodPage.vue",
-		36
+		38
 	],
 	"./components/discount_product/AddDiscountProduct.vue": [
 		"./resources/js/components/discount_product/AddDiscountProduct.vue",
-		1,
+		2,
 		10
 	],
 	"./components/discount_product/DiscountPercent.vue": [
 		"./resources/js/components/discount_product/DiscountPercent.vue",
-		37
+		39
 	],
 	"./components/discount_product/DiscountProductAction.vue": [
 		"./resources/js/components/discount_product/DiscountProductAction.vue",
-		38
+		40
 	],
 	"./components/discount_product/DiscountProductExpired.vue": [
 		"./resources/js/components/discount_product/DiscountProductExpired.vue",
-		39
+		41
 	],
 	"./components/discount_product/DiscountProductList.vue": [
 		"./resources/js/components/discount_product/DiscountProductList.vue",
@@ -64108,15 +64108,15 @@ var map = {
 	],
 	"./components/discount_product/DiscountProductStartDate.vue": [
 		"./resources/js/components/discount_product/DiscountProductStartDate.vue",
-		40
+		42
 	],
 	"./components/discount_product/DiscountProductStatus.vue": [
 		"./resources/js/components/discount_product/DiscountProductStatus.vue",
-		41
+		43
 	],
 	"./components/discount_product/ProductCheckbox.vue": [
 		"./resources/js/components/discount_product/ProductCheckbox.vue",
-		42
+		44
 	],
 	"./components/helper/ImportData.vue": [
 		"./resources/js/components/helper/ImportData.vue",
@@ -64124,72 +64124,72 @@ var map = {
 	],
 	"./components/helper/MultipleSelect2.vue": [
 		"./resources/js/components/helper/MultipleSelect2.vue",
-		18
+		20
 	],
 	"./components/helper/ProductList.vue": [
 		"./resources/js/components/helper/ProductList.vue",
-		19
+		21
 	],
 	"./components/helper/Select2.vue": [
 		"./resources/js/components/helper/Select2.vue",
-		43
+		45
 	],
 	"./components/helper/StatusBadge.vue": [
 		"./resources/js/components/helper/StatusBadge.vue",
-		44
+		46
 	],
 	"./components/helper/SummerNote.vue": [
 		"./resources/js/components/helper/SummerNote.vue",
-		45
+		47
 	],
 	"./components/helper/VueRadio.vue": [
 		"./resources/js/components/helper/VueRadio.vue",
-		46
+		48
 	],
 	"./components/helper/WysiHtml.vue": [
 		"./resources/js/components/helper/WysiHtml.vue",
-		47
+		49
 	],
 	"./components/helper/table/ActiveInactiveStatus.vue": [
 		"./resources/js/components/helper/table/ActiveInactiveStatus.vue",
-		48
+		50
 	],
 	"./components/helper/table/OrderStatusBadge.vue": [
 		"./resources/js/components/helper/table/OrderStatusBadge.vue",
-		49
+		51
 	],
 	"./components/helper/table/ProductAction.vue": [
 		"./resources/js/components/helper/table/ProductAction.vue",
-		50
+		52
 	],
 	"./components/helper/table/ProductStatus.vue": [
 		"./resources/js/components/helper/table/ProductStatus.vue",
-		51
+		53
 	],
 	"./components/helper/table/ProductThumbImg.vue": [
 		"./resources/js/components/helper/table/ProductThumbImg.vue",
-		52
+		54
 	],
 	"./components/helper/table/ProductUnselect.vue": [
 		"./resources/js/components/helper/table/ProductUnselect.vue",
-		53
+		55
 	],
 	"./components/home/Dashboard.vue": [
 		"./resources/js/components/home/Dashboard.vue",
-		2,
+		1,
 		8
 	],
 	"./components/includes/AlertNotify.vue": [
 		"./resources/js/components/includes/AlertNotify.vue",
-		54
+		56
 	],
 	"./components/includes/ModelNotify.vue": [
 		"./resources/js/components/includes/ModelNotify.vue",
-		55
+		57
 	],
 	"./components/includes/PNotify.vue": [
 		"./resources/js/components/includes/PNotify.vue",
-		56
+		58
 	],
 	"./components/invoice/InvoiceModalView.vue": [
 		"./resources/js/components/invoice/InvoiceModalView.vue",
@@ -64199,17 +64199,17 @@ var map = {
 		"./resources/js/components/order/LatestOrderPage.vue",
 		4,
 		5,
-		62
+		64
 	],
 	"./components/order/ManageOrderPage.vue": [
 		"./resources/js/components/order/ManageOrderPage.vue",
 		4,
 		5,
-		63
+		65
 	],
 	"./components/order/OrderDetailsPage.vue": [
 		"./resources/js/components/order/OrderDetailsPage.vue",
-		57
+		59
 	],
 	"./components/order/OrderListTable.vue": [
 		"./resources/js/components/order/OrderListTable.vue",
@@ -64219,14 +64219,14 @@ var map = {
 	"./components/product/CreateProduct.vue": [
 		"./resources/js/components/product/CreateProduct.vue",
 		3,
-		1,
+		2,
 		0,
-		17
+		19
 	],
 	"./components/product/EditProduct.vue": [
 		"./resources/js/components/product/EditProduct.vue",
 		3,
-		1,
+		2,
 		0,
 		11
 	],
@@ -64236,35 +64236,35 @@ var map = {
 	],
 	"./components/product/ShowProduct.vue": [
 		"./resources/js/components/product/ShowProduct.vue",
-		58
+		60
 	],
 	"./components/report/AnalyticReportPage.vue": [
 		"./resources/js/components/report/AnalyticReportPage.vue",
-		2,
-		87
+		1,
+		13
 	],
 	"./components/report/OrderReportPage.vue": [
 		"./resources/js/components/report/OrderReportPage.vue",
-		2,
-		90
+		1,
+		14
 	],
 	"./components/seller/SellerCreateEditPage.vue": [
 		"./resources/js/components/seller/SellerCreateEditPage.vue",
-		59
+		61
 	],
 	"./components/seller/SellerList.vue": [
 		"./resources/js/components/seller/SellerList.vue",
-		60
+		62
 	],
 	"./components/size/SizeGroup.vue": [
 		"./resources/js/components/size/SizeGroup.vue",
-		1,
-		21
+		2,
+		23
 	],
 	"./components/tag/Tag.vue": [
 		"./resources/js/components/tag/Tag.vue",
 		6,
-		64
+		66
 	]
 };
 function webpackAsyncContext(req) {
@@ -64316,338 +64316,338 @@ var map = {
 	"./components/account/AccountSettingPage": [
 		"./resources/js/components/account/AccountSettingPage.vue",
 		9,
-		22
+		24
 	],
 	"./components/account/AccountSettingPage.vue": [
 		"./resources/js/components/account/AccountSettingPage.vue",
 		9,
-		22
+		24
 	],
 	"./components/account/AdminAccountPage": [
 		"./resources/js/components/account/AdminAccountPage.vue",
 		9,
-		23
+		25
 	],
 	"./components/account/AdminAccountPage.vue": [
 		"./resources/js/components/account/AdminAccountPage.vue",
 		9,
-		23
+		25
 	],
 	"./components/attachment/Attachment": [
 		"./resources/js/components/attachment/Attachment.vue",
 		9,
-		24
+		26
 	],
 	"./components/attachment/Attachment.vue": [
 		"./resources/js/components/attachment/Attachment.vue",
 		9,
-		24
+		26
 	],
 	"./components/attachment/ProductImage": [
 		"./resources/js/components/attachment/ProductImage.vue",
 		9,
-		25
+		27
 	],
 	"./components/attachment/ProductImage.vue": [
 		"./resources/js/components/attachment/ProductImage.vue",
 		9,
-		25
+		27
 	],
 	"./components/attachment/SingleAttachment": [
 		"./resources/js/components/attachment/SingleAttachment.vue",
 		9,
-		26
+		28
 	],
 	"./components/attachment/SingleAttachment.vue": [
 		"./resources/js/components/attachment/SingleAttachment.vue",
 		9,
-		26
+		28
 	],
 	"./components/auth/AdminLogin": [
 		"./resources/js/components/auth/AdminLogin.vue",
 		9,
-		14
+		16
 	],
 	"./components/auth/AdminLogin.vue": [
 		"./resources/js/components/auth/AdminLogin.vue",
 		9,
-		14
+		16
 	],
 	"./components/brand/Brand": [
 		"./resources/js/components/brand/Brand.vue",
 		9,
 		0,
-		13
+		15
 	],
 	"./components/brand/Brand.vue": [
 		"./resources/js/components/brand/Brand.vue",
 		9,
 		0,
-		13
+		15
 	],
 	"./components/buyer/BuyerListPage": [
 		"./resources/js/components/buyer/BuyerListPage.vue",
 		9,
-		27
+		29
 	],
 	"./components/buyer/BuyerListPage.vue": [
 		"./resources/js/components/buyer/BuyerListPage.vue",
 		9,
-		27
+		29
 	],
 	"./components/category/Category": [
 		"./resources/js/components/category/Category.vue",
 		9,
-		28
+		30
 	],
 	"./components/category/Category.vue": [
 		"./resources/js/components/category/Category.vue",
 		9,
-		28
+		30
 	],
 	"./components/category/CategoryCreatePage": [
 		"./resources/js/components/category/CategoryCreatePage.vue",
 		9,
-		1,
+		2,
 		0,
-		61
+		63
 	],
 	"./components/category/CategoryCreatePage.vue": [
 		"./resources/js/components/category/CategoryCreatePage.vue",
 		9,
-		1,
+		2,
 		0,
-		61
+		63
 	],
 	"./components/chart/BarChart": [
 		"./resources/js/components/chart/BarChart.vue",
 		9,
-		2,
-		65
+		1,
+		67
 	],
 	"./components/chart/BarChart.vue": [
 		"./resources/js/components/chart/BarChart.vue",
 		9,
-		2,
-		65
+		1,
+		67
 	],
 	"./components/chart/DonutChart": [
 		"./resources/js/components/chart/DonutChart.vue",
 		9,
-		2,
-		88
+		1,
+		68
 	],
 	"./components/chart/DonutChart.vue": [
 		"./resources/js/components/chart/DonutChart.vue",
 		9,
-		2,
-		88
+		1,
+		68
 	],
 	"./components/chart/LineChart": [
 		"./resources/js/components/chart/LineChart.vue",
 		9,
-		2,
-		66
+		1,
+		69
 	],
 	"./components/chart/LineChart.vue": [
 		"./resources/js/components/chart/LineChart.vue",
 		9,
-		2,
-		66
+		1,
+		69
 	],
 	"./components/chart/PieChart": [
 		"./resources/js/components/chart/PieChart.vue",
 		9,
-		2,
-		67
+		1,
+		70
 	],
 	"./components/chart/PieChart.vue": [
 		"./resources/js/components/chart/PieChart.vue",
 		9,
-		2,
-		67
+		1,
+		70
 	],
 	"./components/cms/pages/CreateGeneralPages": [
 		"./resources/js/components/cms/pages/CreateGeneralPages.vue",
 		9,
 		3,
 		0,
-		15
+		17
 	],
 	"./components/cms/pages/CreateGeneralPages.vue": [
 		"./resources/js/components/cms/pages/CreateGeneralPages.vue",
 		9,
 		3,
 		0,
-		15
+		17
 	],
 	"./components/cms/pages/EditGeneralPages": [
 		"./resources/js/components/cms/pages/EditGeneralPages.vue",
 		9,
 		3,
 		0,
-		16
+		18
 	],
 	"./components/cms/pages/EditGeneralPages.vue": [
 		"./resources/js/components/cms/pages/EditGeneralPages.vue",
 		9,
 		3,
 		0,
-		16
+		18
 	],
 	"./components/cms/pages/GeneralPagesList": [
 		"./resources/js/components/cms/pages/GeneralPagesList.vue",
 		9,
-		29
+		31
 	],
 	"./components/cms/pages/GeneralPagesList.vue": [
 		"./resources/js/components/cms/pages/GeneralPagesList.vue",
 		9,
-		29
+		31
 	],
 	"./components/cms/pages/ShowGeneralPages": [
 		"./resources/js/components/cms/pages/ShowGeneralPages.vue",
 		9,
-		30
+		32
 	],
 	"./components/cms/pages/ShowGeneralPages.vue": [
 		"./resources/js/components/cms/pages/ShowGeneralPages.vue",
 		9,
-		30
+		32
 	],
 	"./components/cms/setting/SettingPage": [
 		"./resources/js/components/cms/setting/SettingPage.vue",
 		9,
-		31
+		33
 	],
 	"./components/cms/setting/SettingPage.vue": [
 		"./resources/js/components/cms/setting/SettingPage.vue",
 		9,
-		31
+		33
 	],
 	"./components/cms/slider/SliderCreatePage": [
 		"./resources/js/components/cms/slider/SliderCreatePage.vue",
 		9,
 		0,
-		32
+		34
 	],
 	"./components/cms/slider/SliderCreatePage.vue": [
 		"./resources/js/components/cms/slider/SliderCreatePage.vue",
 		9,
 		0,
-		32
+		34
 	],
 	"./components/cms/slider/SliderEditPage": [
 		"./resources/js/components/cms/slider/SliderEditPage.vue",
 		9,
 		0,
-		33
+		35
 	],
 	"./components/cms/slider/SliderEditPage.vue": [
 		"./resources/js/components/cms/slider/SliderEditPage.vue",
 		9,
 		0,
-		33
+		35
 	],
 	"./components/cms/slider/SliderPage": [
 		"./resources/js/components/cms/slider/SliderPage.vue",
 		9,
 		0,
-		34
+		36
 	],
 	"./components/cms/slider/SliderPage.vue": [
 		"./resources/js/components/cms/slider/SliderPage.vue",
 		9,
 		0,
-		34
+		36
 	],
 	"./components/color/Color": [
 		"./resources/js/components/color/Color.vue",
 		9,
 		6,
-		20
+		22
 	],
 	"./components/color/Color.vue": [
 		"./resources/js/components/color/Color.vue",
 		9,
 		6,
-		20
+		22
 	],
 	"./components/coupon/CouponCode": [
 		"./resources/js/components/coupon/CouponCode.vue",
 		9,
 		0,
-		35
+		37
 	],
 	"./components/coupon/CouponCode.vue": [
 		"./resources/js/components/coupon/CouponCode.vue",
 		9,
 		0,
-		35
+		37
 	],
 	"./components/cropper/ImageCropper": [
 		"./resources/js/components/cropper/ImageCropper.vue",
 		9,
 		0,
-		68
+		71
 	],
 	"./components/cropper/ImageCropper.vue": [
 		"./resources/js/components/cropper/ImageCropper.vue",
 		9,
 		0,
-		68
+		71
 	],
 	"./components/delivery_method/DeliveryMethodPage": [
 		"./resources/js/components/delivery_method/DeliveryMethodPage.vue",
 		9,
-		36
+		38
 	],
 	"./components/delivery_method/DeliveryMethodPage.vue": [
 		"./resources/js/components/delivery_method/DeliveryMethodPage.vue",
 		9,
-		36
+		38
 	],
 	"./components/discount_product/AddDiscountProduct": [
 		"./resources/js/components/discount_product/AddDiscountProduct.vue",
 		9,
-		1,
+		2,
 		10
 	],
 	"./components/discount_product/AddDiscountProduct.vue": [
 		"./resources/js/components/discount_product/AddDiscountProduct.vue",
 		9,
-		1,
+		2,
 		10
 	],
 	"./components/discount_product/DiscountPercent": [
 		"./resources/js/components/discount_product/DiscountPercent.vue",
 		9,
-		37
+		39
 	],
 	"./components/discount_product/DiscountPercent.vue": [
 		"./resources/js/components/discount_product/DiscountPercent.vue",
 		9,
-		37
+		39
 	],
 	"./components/discount_product/DiscountProductAction": [
 		"./resources/js/components/discount_product/DiscountProductAction.vue",
 		9,
-		38
+		40
 	],
 	"./components/discount_product/DiscountProductAction.vue": [
 		"./resources/js/components/discount_product/DiscountProductAction.vue",
 		9,
-		38
+		40
 	],
 	"./components/discount_product/DiscountProductExpired": [
 		"./resources/js/components/discount_product/DiscountProductExpired.vue",
 		9,
-		39
+		41
 	],
 	"./components/discount_product/DiscountProductExpired.vue": [
 		"./resources/js/components/discount_product/DiscountProductExpired.vue",
 		9,
-		39
+		41
 	],
 	"./components/discount_product/DiscountProductList": [
 		"./resources/js/components/discount_product/DiscountProductList.vue",
@@ -64662,32 +64662,32 @@ var map = {
 	"./components/discount_product/DiscountProductStartDate": [
 		"./resources/js/components/discount_product/DiscountProductStartDate.vue",
 		9,
-		40
+		42
 	],
 	"./components/discount_product/DiscountProductStartDate.vue": [
 		"./resources/js/components/discount_product/DiscountProductStartDate.vue",
 		9,
-		40
+		42
 	],
 	"./components/discount_product/DiscountProductStatus": [
 		"./resources/js/components/discount_product/DiscountProductStatus.vue",
 		9,
-		41
+		43
 	],
 	"./components/discount_product/DiscountProductStatus.vue": [
 		"./resources/js/components/discount_product/DiscountProductStatus.vue",
 		9,
-		41
+		43
 	],
 	"./components/discount_product/ProductCheckbox": [
 		"./resources/js/components/discount_product/ProductCheckbox.vue",
 		9,
-		42
+		44
 	],
 	"./components/discount_product/ProductCheckbox.vue": [
 		"./resources/js/components/discount_product/ProductCheckbox.vue",
 		9,
-		42
+		44
 	],
 	"./components/helper/ImportData": [
 		"./resources/js/components/helper/ImportData.vue",
@@ -64702,174 +64702,174 @@ var map = {
 	"./components/helper/MultipleSelect2": [
 		"./resources/js/components/helper/MultipleSelect2.vue",
 		9,
-		18
+		20
 	],
 	"./components/helper/MultipleSelect2.vue": [
 		"./resources/js/components/helper/MultipleSelect2.vue",
 		9,
-		18
+		20
 	],
 	"./components/helper/ProductList": [
 		"./resources/js/components/helper/ProductList.vue",
 		9,
-		19
+		21
 	],
 	"./components/helper/ProductList.vue": [
 		"./resources/js/components/helper/ProductList.vue",
 		9,
-		19
+		21
 	],
 	"./components/helper/Select2": [
 		"./resources/js/components/helper/Select2.vue",
 		9,
-		43
+		45
 	],
 	"./components/helper/Select2.vue": [
 		"./resources/js/components/helper/Select2.vue",
 		9,
-		43
+		45
 	],
 	"./components/helper/StatusBadge": [
 		"./resources/js/components/helper/StatusBadge.vue",
 		9,
-		44
+		46
 	],
 	"./components/helper/StatusBadge.vue": [
 		"./resources/js/components/helper/StatusBadge.vue",
 		9,
-		44
+		46
 	],
 	"./components/helper/SummerNote": [
 		"./resources/js/components/helper/SummerNote.vue",
 		9,
-		45
+		47
 	],
 	"./components/helper/SummerNote.vue": [
 		"./resources/js/components/helper/SummerNote.vue",
 		9,
-		45
+		47
 	],
 	"./components/helper/VueRadio": [
 		"./resources/js/components/helper/VueRadio.vue",
 		9,
-		46
+		48
 	],
 	"./components/helper/VueRadio.vue": [
 		"./resources/js/components/helper/VueRadio.vue",
 		9,
-		46
+		48
 	],
 	"./components/helper/WysiHtml": [
 		"./resources/js/components/helper/WysiHtml.vue",
 		9,
-		47
+		49
 	],
 	"./components/helper/WysiHtml.vue": [
 		"./resources/js/components/helper/WysiHtml.vue",
 		9,
-		47
+		49
 	],
 	"./components/helper/table/ActiveInactiveStatus": [
 		"./resources/js/components/helper/table/ActiveInactiveStatus.vue",
 		9,
-		48
+		50
 	],
 	"./components/helper/table/ActiveInactiveStatus.vue": [
 		"./resources/js/components/helper/table/ActiveInactiveStatus.vue",
 		9,
-		48
+		50
 	],
 	"./components/helper/table/OrderStatusBadge": [
 		"./resources/js/components/helper/table/OrderStatusBadge.vue",
 		9,
-		49
+		51
 	],
 	"./components/helper/table/OrderStatusBadge.vue": [
 		"./resources/js/components/helper/table/OrderStatusBadge.vue",
 		9,
-		49
+		51
 	],
 	"./components/helper/table/ProductAction": [
 		"./resources/js/components/helper/table/ProductAction.vue",
 		9,
-		50
+		52
 	],
 	"./components/helper/table/ProductAction.vue": [
 		"./resources/js/components/helper/table/ProductAction.vue",
 		9,
-		50
+		52
 	],
 	"./components/helper/table/ProductStatus": [
 		"./resources/js/components/helper/table/ProductStatus.vue",
 		9,
-		51
+		53
 	],
 	"./components/helper/table/ProductStatus.vue": [
 		"./resources/js/components/helper/table/ProductStatus.vue",
 		9,
-		51
+		53
 	],
 	"./components/helper/table/ProductThumbImg": [
 		"./resources/js/components/helper/table/ProductThumbImg.vue",
 		9,
-		52
+		54
 	],
 	"./components/helper/table/ProductThumbImg.vue": [
 		"./resources/js/components/helper/table/ProductThumbImg.vue",
 		9,
-		52
+		54
 	],
 	"./components/helper/table/ProductUnselect": [
 		"./resources/js/components/helper/table/ProductUnselect.vue",
 		9,
-		53
+		55
 	],
 	"./components/helper/table/ProductUnselect.vue": [
 		"./resources/js/components/helper/table/ProductUnselect.vue",
 		9,
-		53
+		55
 	],
 	"./components/home/Dashboard": [
 		"./resources/js/components/home/Dashboard.vue",
 		9,
-		2,
+		1,
 		8
 	],
 	"./components/home/Dashboard.vue": [
 		"./resources/js/components/home/Dashboard.vue",
 		9,
-		2,
+		1,
 		8
 	],
 	"./components/includes/AlertNotify": [
 		"./resources/js/components/includes/AlertNotify.vue",
 		9,
-		54
+		56
 	],
 	"./components/includes/AlertNotify.vue": [
 		"./resources/js/components/includes/AlertNotify.vue",
 		9,
-		54
+		56
 	],
 	"./components/includes/ModelNotify": [
 		"./resources/js/components/includes/ModelNotify.vue",
 		9,
-		55
+		57
 	],
 	"./components/includes/ModelNotify.vue": [
 		"./resources/js/components/includes/ModelNotify.vue",
 		9,
-		55
+		57
 	],
 	"./components/includes/PNotify": [
 		"./resources/js/components/includes/PNotify.vue",
 		9,
-		56
+		58
 	],
 	"./components/includes/PNotify.vue": [
 		"./resources/js/components/includes/PNotify.vue",
 		9,
-		56
+		58
 	],
 	"./components/invoice/InvoiceModalView": [
 		"./resources/js/components/invoice/InvoiceModalView.vue",
@@ -64886,38 +64886,38 @@ var map = {
 		9,
 		4,
 		5,
-		62
+		64
 	],
 	"./components/order/LatestOrderPage.vue": [
 		"./resources/js/components/order/LatestOrderPage.vue",
 		9,
 		4,
 		5,
-		62
+		64
 	],
 	"./components/order/ManageOrderPage": [
 		"./resources/js/components/order/ManageOrderPage.vue",
 		9,
 		4,
 		5,
-		63
+		65
 	],
 	"./components/order/ManageOrderPage.vue": [
 		"./resources/js/components/order/ManageOrderPage.vue",
 		9,
 		4,
 		5,
-		63
+		65
 	],
 	"./components/order/OrderDetailsPage": [
 		"./resources/js/components/order/OrderDetailsPage.vue",
 		9,
-		57
+		59
 	],
 	"./components/order/OrderDetailsPage.vue": [
 		"./resources/js/components/order/OrderDetailsPage.vue",
 		9,
-		57
+		59
 	],
 	"./components/order/OrderListTable": [
 		"./resources/js/components/order/OrderListTable.vue",
@@ -64935,23 +64935,23 @@ var map = {
 		"./resources/js/components/product/CreateProduct.vue",
 		9,
 		3,
-		1,
+		2,
 		0,
-		17
+		19
 	],
 	"./components/product/CreateProduct.vue": [
 		"./resources/js/components/product/CreateProduct.vue",
 		9,
 		3,
-		1,
+		2,
 		0,
-		17
+		19
 	],
 	"./components/product/EditProduct": [
 		"./resources/js/components/product/EditProduct.vue",
 		9,
 		3,
-		1,
+		2,
 		0,
 		11
 	],
@@ -64959,7 +64959,7 @@ var map = {
 		"./resources/js/components/product/EditProduct.vue",
 		9,
 		3,
-		1,
+		2,
 		0,
 		11
 	],
@@ -64976,80 +64976,80 @@ var map = {
 	"./components/product/ShowProduct": [
 		"./resources/js/components/product/ShowProduct.vue",
 		9,
-		58
+		60
 	],
 	"./components/product/ShowProduct.vue": [
 		"./resources/js/components/product/ShowProduct.vue",
 		9,
-		58
+		60
 	],
 	"./components/report/AnalyticReportPage": [
 		"./resources/js/components/report/AnalyticReportPage.vue",
 		9,
-		2,
-		87
+		1,
+		13
 	],
 	"./components/report/AnalyticReportPage.vue": [
 		"./resources/js/components/report/AnalyticReportPage.vue",
 		9,
-		2,
-		87
+		1,
+		13
 	],
 	"./components/report/OrderReportPage": [
 		"./resources/js/components/report/OrderReportPage.vue",
 		9,
-		2,
-		90
+		1,
+		14
 	],
 	"./components/report/OrderReportPage.vue": [
 		"./resources/js/components/report/OrderReportPage.vue",
 		9,
-		2,
-		90
+		1,
+		14
 	],
 	"./components/seller/SellerCreateEditPage": [
 		"./resources/js/components/seller/SellerCreateEditPage.vue",
 		9,
-		59
+		61
 	],
 	"./components/seller/SellerCreateEditPage.vue": [
 		"./resources/js/components/seller/SellerCreateEditPage.vue",
 		9,
-		59
+		61
 	],
 	"./components/seller/SellerList": [
 		"./resources/js/components/seller/SellerList.vue",
 		9,
-		60
+		62
 	],
 	"./components/seller/SellerList.vue": [
 		"./resources/js/components/seller/SellerList.vue",
 		9,
-		60
+		62
 	],
 	"./components/size/SizeGroup": [
 		"./resources/js/components/size/SizeGroup.vue",
 		9,
-		1,
-		21
+		2,
+		23
 	],
 	"./components/size/SizeGroup.vue": [
 		"./resources/js/components/size/SizeGroup.vue",
 		9,
-		1,
-		21
+		2,
+		23
 	],
 	"./components/tag/Tag": [
 		"./resources/js/components/tag/Tag.vue",
 		9,
 		6,
-		64
+		66
 	],
 	"./components/tag/Tag.vue": [
 		"./resources/js/components/tag/Tag.vue",
 		9,
 		6,
-		64
+		66
 	],
 	"./helper/AppStorage": [
 		"./resources/js/helper/AppStorage.js",
@@ -65339,7 +65339,7 @@ files.forEach(function (file) {
   });
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('dashboard', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ./components/home/Dashboard */ "./resources/js/components/home/Dashboard.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ./components/home/Dashboard */ "./resources/js/components/home/Dashboard.vue"));
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',

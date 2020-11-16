@@ -11,44 +11,14 @@
 <style>
     /*** Header Style ***/
     .logo{
-        display: inline-block;
+        display: block;
         height: 100px;
         width: 100px;
-        float: left;
-        padding-top: 20px;
+        margin: 0 auto;
     }
     .logo img{
         width: 100%;
         height: auto;
-    }
-    .ionfo{
-        display: inline-block;
-        padding: 15px;
-    }
-    .ionfo h2{
-        padding: 5px 0px !important;
-        margin-bottom: 0px;
-        text-align: left;
-    }
-    .ionfo div{
-        font-size: .9rem;
-        font-weight: bold;
-        line-height: 1.1rem;
-        text-align: left;
-    }
-    .ionfo .email, .ionfo .phne, .ionfo .address{
-        font-size: .8rem;
-        font-weight: 700;
-        line-height: 1.1rem;
-        text-align: left;
-    }
-    .print-date{
-        display: inline-block;
-        float: right;
-    }
-    .print-date span{
-        font-weight: bold;
-        font-size: .7rem;
     }
     /*** End Header Style ***/
 
@@ -65,4 +35,273 @@
         border-bottom: 1px solid #0c5460;
     }
     /*** End Invoice Style ***/
+</style>
+
+<style>
+    /* Base */
+
+    body,
+    body *:not(html):not(style):not(br):not(tr):not(code) {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        box-sizing: border-box;
+    }
+    .fal, .far , .fad {
+        font-family: "Font Awesome 5 Pro"!important;
+        color: #6f42c1;
+    }
+    body {
+        background-color: #f8fafc;
+        color: #74787e;
+        height: 100%;
+        hyphens: auto;
+        line-height: 1.4;
+        margin: 0;
+        -moz-hyphens: auto;
+        -ms-word-break: break-all;
+        width: 100% !important;
+        -webkit-hyphens: auto;
+        -webkit-text-size-adjust: none;
+        word-break: break-all;
+        word-break: break-word;
+    }
+
+    p,
+    ul,
+    ol,
+    blockquote {
+        line-height: 1.4;
+        text-align: left;
+    }
+
+    a {
+        color: #3869d4;
+    }
+
+    a img {
+        border: none;
+    }
+
+    /* Typography */
+
+    h1 {
+        color: #3d4852;
+        font-size: 19px;
+        font-weight: bold;
+        margin-top: 0;
+        text-align: left;
+    }
+
+    h2 {
+        color: #3d4852;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 0;
+    }
+
+    h3 {
+        color: #3d4852;
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 0;
+        text-align: left;
+    }
+
+    p {
+        color: #3d4852;
+        font-size: 16px;
+        line-height: 1.5em;
+        margin-top: 0;
+        text-align: left;
+    }
+
+    p.sub {
+        font-size: 12px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    /* Body */
+    .inner-body {
+        background-color: #f8fafc;
+        padding: 0;
+        max-width:800px;
+        margin:auto;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        -premailer-width: 570px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+    }
+
+    /* Subcopy */
+
+    .subcopy {
+        border-top: 1px solid #edeff2;
+        margin-top: 25px;
+        padding-top: 25px;
+    }
+
+    .subcopy p {
+        font-size: 12px;
+    }
+
+    /* Footer */
+
+    .footer {
+        width: 100%;
+        max-width:800px;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        -premailer-width: 800px;
+        background-color: #f8fafc;
+    }
+
+    .footer .comp-info{
+        float: right;
+    }
+    .footer .comp-info h6{
+        margin: 0 0 3px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #08c;
+        text-align: center;
+    }
+
+    .footer p {
+        color: #aeaeae;
+        font-size: 12px;
+        text-align: left;
+        margin-bottom: 0;
+    }
+    .footer p i{
+        padding-left: 3px;
+    }
+    .footer p span{
+        margin-left: 5px;
+    }
+
+    /* Tables */
+
+    .table table {
+        margin: 30px auto;
+        width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        -premailer-width: 100%;
+    }
+
+    .table th {
+        border-bottom: 1px solid #edeff2;
+        padding-bottom: 8px;
+        margin: 0;
+    }
+
+    .table td {
+        color: #74787e;
+        font-size: 15px;
+        line-height: 18px;
+        padding: 10px 10px;
+        margin: 0;
+    }
+
+    .content-cell {
+        padding: 35px;
+    }
+
+    /* Buttons */
+
+    .action {
+        margin: 30px auto;
+        padding: 0;
+        text-align: center;
+        width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        -premailer-width: 100%;
+    }
+
+    .button {
+        border-radius: 3px;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
+        color: #fff;
+        display: inline-block;
+        text-decoration: none;
+        -webkit-text-size-adjust: none;
+        text-underline: none;
+    }
+
+    .button-blue,
+    .button-primary {
+        background-color: #3490dc;
+        border-top: 10px solid #3490dc;
+        border-right: 18px solid #3490dc;
+        border-bottom: 10px solid #3490dc;
+        border-left: 18px solid #3490dc;
+    }
+
+    .button-green,
+    .button-success {
+        background-color: #38c172;
+        border-top: 10px solid #38c172;
+        border-right: 18px solid #38c172;
+        border-bottom: 10px solid #38c172;
+        border-left: 18px solid #38c172;
+    }
+
+    .button-red,
+    .button-error {
+        background-color: #e3342f;
+        border-top: 10px solid #e3342f;
+        border-right: 18px solid #e3342f;
+        border-bottom: 10px solid #e3342f;
+        border-left: 18px solid #e3342f;
+    }
+
+    /* Panels */
+
+    .panel {
+        margin: 0 0 21px;
+    }
+
+    .panel-content {
+        background-color: #f1f5f8;
+        padding: 16px;
+    }
+
+    .panel-item {
+        padding: 0;
+    }
+
+    .panel-item p:last-of-type {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    /* Promotions */
+
+    .promotion {
+        background-color: #ffffff;
+        border: 2px dashed #9ba2ab;
+        margin: 0;
+        margin-bottom: 25px;
+        margin-top: 25px;
+        padding: 24px;
+        width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        -premailer-width: 100%;
+    }
+
+    .promotion h1 {
+        text-align: center;
+    }
+
+    .promotion p {
+        font-size: 15px;
+        text-align: center;
+    }
+
 </style>

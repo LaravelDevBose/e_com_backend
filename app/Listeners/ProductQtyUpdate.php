@@ -30,9 +30,14 @@ class ProductQtyUpdate
         foreach ($event->productUpdateArray as $productInfo){
             $newQty = $productInfo['curtQty'] - $productInfo['orderQty'];
             $status = $productInfo['status'];
+            $product = Product::where('product_id', $productInfo['id'])
+                ->with('variations')->first();
+
+            if ($product->variations->sum('quantity') <=0 ){
+                $status = Product::ProductStatus['Out of Stock'];
+            }
             if($newQty<=0){
                 $newQty = 0;
-                $status = Product::ProductStatus['Out of Stock'];
             }
             if(!empty($productInfo['variation_id'])){
                 $updateArray = [

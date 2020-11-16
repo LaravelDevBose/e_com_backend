@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[31],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/setting/SettingPage.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cms/setting/SettingPage.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/pages/GeneralPagesList.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cms/pages/GeneralPagesList.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -77,170 +77,48 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "SettingPage",
+  name: "GeneralPagesList",
   data: function data() {
-    return {
-      btnDisabled: false,
-      contactSetting: {
-        contact_phone: '',
-        contact_mobile: '',
-        contact_email: '',
-        contact_address: '',
-        about_us: ''
-      }
-    };
+    return {};
   },
   created: function created() {
-    var _this = this;
-
-    this.getSettingInformation().then(function (response) {
-      if (response.code === 200) {
-        _this.contactSetting = response.data.contactSetting;
-      } else {
-        Notify.error(response.message);
-      }
-    });
+    this.getGeneralPagesList();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getSettingInformation', 'storeContactSetting']), {
-    contactSettingStore: function contactSettingStore() {
-      var _this2 = this;
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getGeneralPagesList', 'deleteGeneralPage']), {
+    pageDelete: function pageDelete(pageId) {
+      var con = confirm('Are You Sure..?');
 
-      this.btnDisabled = true;
-      this.storeContactSetting(this.contactSetting).then(function (response) {
-        _this2.btnDisabled = false;
-
-        if (response.code === 200) {
-          Notify.success(response.message);
-        } else if (response.status === 'validation') {
-          Notify.validation(response.message);
-        } else {
-          Notify.error(response.message);
-        }
-      });
+      if (con) {
+        this.deleteGeneralPage(pageId).then(function (response) {
+          if (response.code == 200) {
+            Notify.success(response.message);
+          } else {
+            Notify.error(response.message);
+          }
+        });
+        return true;
+      } else {
+        return false;
+      }
+    },
+    showGeneralPage: function showGeneralPage(pageId) {
+      window.location = '/admin/cms/pages/' + pageId;
+    },
+    editGeneralPage: function editGeneralPage(pageId) {
+      window.location = '/admin/cms/pages/' + pageId + '/edit';
     }
   }),
-  watch: {
-    contactSetting: {
-      handler: function handler(newValue, oldValue) {
-        if (oldValue === newValue) {
-          this.btnDisabled = false;
-        }
-      },
-      deep: true
-    }
-  }
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['pagesList']))
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/setting/SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true&":
-/*!**************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cms/setting/SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true& ***!
-  \**************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/pages/GeneralPagesList.vue?vue&type=template&id=511cbbd4&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cms/pages/GeneralPagesList.vue?vue&type=template&id=511cbbd4&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -253,213 +131,115 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "panel" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel-body" }, [
+    _c("div", { staticClass: "panel panel-flat" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "table-responsive" }, [
+        _c(
+          "table",
+          { staticClass: "table table-bordered table-striped table-sm" },
+          [
+            _vm._m(1),
+            _vm._v(" "),
             _c(
-              "form",
-              {
-                attrs: { action: "" },
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.contactSettingStore($event)
-                  }
-                }
-              },
-              [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-5 col-md-offset-1" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Contact No 1:")]),
+              "tbody",
+              _vm._l(_vm.pagesList, function(page, index) {
+                return _vm.pagesList
+                  ? _c("tr", { key: page.id }, [
+                      _c("td", [_vm._v(_vm._s(index))]),
                       _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.contactSetting.contact_phone,
-                            expression: "contactSetting.contact_phone"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          placeholder: "Contact No",
-                          required: ""
-                        },
-                        domProps: { value: _vm.contactSetting.contact_phone },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.contactSetting,
-                              "contact_phone",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Contact No 2:")]),
+                      _c("td", [
+                        _c("span", { staticClass: "text text-bold" }, [
+                          _vm._v(" " + _vm._s(page.title))
+                        ])
+                      ]),
                       _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.contactSetting.contact_mobile,
-                            expression: "contactSetting.contact_mobile"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          placeholder: "Contact No 2",
-                          required: ""
-                        },
-                        domProps: { value: _vm.contactSetting.contact_mobile },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.contactSetting,
-                              "contact_mobile",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Contact Email:")]),
+                      _c("td", [
+                        _c("span", { staticClass: "text text-bold" }, [
+                          _vm._v(" " + _vm._s(page.menuTitle))
+                        ])
+                      ]),
                       _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.contactSetting.contact_email,
-                            expression: "contactSetting.contact_email"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "email",
-                          placeholder: "Contact Email",
-                          required: ""
-                        },
-                        domProps: { value: _vm.contactSetting.contact_email },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.contactSetting,
-                              "contact_email",
-                              $event.target.value
+                      _c("td", [
+                        _c("span", { staticClass: "text text-bold" }, [
+                          _vm._v(_vm._s(page.showIn))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("span", { staticClass: "text text-bold" }, [
+                          _vm._v(_vm._s(page.position))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text text-center" }, [
+                        page.status === 1
+                          ? _c("span", { staticClass: "badge badge-success" }, [
+                              _vm._v("Active")
+                            ])
+                          : _c("span", { staticClass: "badge badge-warning" }, [
+                              _vm._v("De-active")
+                            ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text text-center" }, [
+                        _c("ul", { staticClass: "icons-list" }, [
+                          _c("li", { staticClass: "text-info-600" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.showGeneralPage(page.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-eye" })]
                             )
-                          }
-                        }
-                      })
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "text-primary-600" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.editGeneralPage(page.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-pencil7" })]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", { staticClass: "text-danger-600" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.pageDelete(page.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "icon-trash" })]
+                            )
+                          ])
+                        ])
+                      ])
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-5 " }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Contact Address:")]),
-                      _vm._v(" "),
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.contactSetting.contact_address,
-                            expression: "contactSetting.contact_address"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { rows: "2" },
-                        domProps: { value: _vm.contactSetting.contact_address },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.contactSetting,
-                              "contact_address",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Footer About Us:")]),
-                      _vm._v(" "),
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.contactSetting.about_us,
-                            expression: "contactSetting.about_us"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { rows: "4" },
-                        domProps: { value: _vm.contactSetting.about_us },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.contactSetting,
-                              "about_us",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3 col-md-offset-8" }, [
-                    _c("div", { staticClass: "text-right form-group" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-success",
-                          attrs: { type: "submit", disabled: _vm.btnDisabled }
-                        },
-                        [
-                          _vm._v("Store Setting"),
-                          _c("i", {
-                            staticClass: "icon-arrow-right14 position-right"
-                          })
-                        ]
-                      )
-                    ])
-                  ])
-                ])
-              ]
+                  : _vm._e()
+              }),
+              0
             )
-          ])
-        ])
+          ]
+        )
       ])
     ])
   ])
@@ -469,9 +249,43 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading bg-info" }, [
-      _c("h6", { staticClass: "panel-title" }, [
-        _c("a", { attrs: { href: "#" } }, [_vm._v("Contact Information")])
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h5", { staticClass: "panel-title" }, [_vm._v("Slider List")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "heading-elements" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn bg-success btn-sm",
+            attrs: { href: "/admin/cms/pages/create", type: "button" }
+          },
+          [
+            _c("i", { staticClass: "icon-plus-circle2 position-left" }),
+            _vm._v(" Add Pages")
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { staticStyle: { padding: "5px" } }, [_vm._v("Page Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Menu Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Show In")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Position")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
     ])
   }
@@ -589,17 +403,17 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ "./resources/js/components/cms/setting/SettingPage.vue":
-/*!*************************************************************!*\
-  !*** ./resources/js/components/cms/setting/SettingPage.vue ***!
-  \*************************************************************/
+/***/ "./resources/js/components/cms/pages/GeneralPagesList.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/cms/pages/GeneralPagesList.vue ***!
+  \****************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _SettingPage_vue_vue_type_template_id_1bb3405f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true& */ "./resources/js/components/cms/setting/SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true&");
-/* harmony import */ var _SettingPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SettingPage.vue?vue&type=script&lang=js& */ "./resources/js/components/cms/setting/SettingPage.vue?vue&type=script&lang=js&");
+/* harmony import */ var _GeneralPagesList_vue_vue_type_template_id_511cbbd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GeneralPagesList.vue?vue&type=template&id=511cbbd4&scoped=true& */ "./resources/js/components/cms/pages/GeneralPagesList.vue?vue&type=template&id=511cbbd4&scoped=true&");
+/* harmony import */ var _GeneralPagesList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GeneralPagesList.vue?vue&type=script&lang=js& */ "./resources/js/components/cms/pages/GeneralPagesList.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -609,50 +423,50 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _SettingPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _SettingPage_vue_vue_type_template_id_1bb3405f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _SettingPage_vue_vue_type_template_id_1bb3405f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _GeneralPagesList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _GeneralPagesList_vue_vue_type_template_id_511cbbd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _GeneralPagesList_vue_vue_type_template_id_511cbbd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "1bb3405f",
+  "511cbbd4",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/cms/setting/SettingPage.vue"
+component.options.__file = "resources/js/components/cms/pages/GeneralPagesList.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/cms/setting/SettingPage.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/cms/setting/SettingPage.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************/
+/***/ "./resources/js/components/cms/pages/GeneralPagesList.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/cms/pages/GeneralPagesList.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SettingPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/setting/SettingPage.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneralPagesList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./GeneralPagesList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/pages/GeneralPagesList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneralPagesList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/cms/setting/SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true&":
-/*!********************************************************************************************************!*\
-  !*** ./resources/js/components/cms/setting/SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true& ***!
-  \********************************************************************************************************/
+/***/ "./resources/js/components/cms/pages/GeneralPagesList.vue?vue&type=template&id=511cbbd4&scoped=true&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/cms/pages/GeneralPagesList.vue?vue&type=template&id=511cbbd4&scoped=true& ***!
+  \***********************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingPage_vue_vue_type_template_id_1bb3405f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/setting/SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingPage_vue_vue_type_template_id_1bb3405f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneralPagesList_vue_vue_type_template_id_511cbbd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./GeneralPagesList.vue?vue&type=template&id=511cbbd4&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/pages/GeneralPagesList.vue?vue&type=template&id=511cbbd4&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneralPagesList_vue_vue_type_template_id_511cbbd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingPage_vue_vue_type_template_id_1bb3405f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneralPagesList_vue_vue_type_template_id_511cbbd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

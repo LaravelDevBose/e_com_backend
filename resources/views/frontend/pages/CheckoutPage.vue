@@ -52,8 +52,16 @@
                                 <button class="button" style="display: inline-block; width: 76px; margin-top: 0;" @click.prevent="applyCoupon()">Apply</button>
                             </div>
                             <div class="col-sm-3 col-sm-offset-5">
-                                <label >&nbsp;</label>
-                                <button class="button pull-right btn-block" @click.prevent="placeOrder()">Place Order</button>
+                                <label>&nbsp</label>
+                                <button class="button pull-right btn-block" :disabled="btnDisable" @click.prevent="placeOrder()">Place Order</button>
+
+                            </div>
+                            <div class="col-md-12">
+                                <div class="alert alert-info" v-if="btnDisable">
+                                    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                                    <span class="sr-only">Loading...</span>
+                                    Please Wait...
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -86,7 +94,8 @@ export default {
             reqData:{
                 coupon_code: ''
             },
-            errorText: ''
+            errorText: '',
+            btnDisable: false,
         }
     },
     methods:{
@@ -112,7 +121,11 @@ export default {
         },
 
         placeOrder(){
-            this.orderSubmit(this.checkoutData);
+            this.btnDisable = true;
+            this.orderSubmit(this.checkoutData)
+            .then(response=>{
+                this.btnDisable = false;
+            });
         }
 
     },
@@ -125,6 +138,9 @@ export default {
         ]),
         totalPrice(){
             return this.cartTotalPrice - this.couponAmount;
+        },
+        checkActiveSection(){
+            return JSON.parse(JSON.stringify(this.activeSection));
         }
     }
 }

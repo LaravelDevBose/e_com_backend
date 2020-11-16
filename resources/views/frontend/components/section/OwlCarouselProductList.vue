@@ -75,7 +75,8 @@ export default {
             owlProList.owlCarousel(config);
         },
         createProductChuck(){
-            Object.defineProperty(Array.prototype, 'chunk', {
+            var arrP = Array.prototype;
+            Object.defineProperty(arrP, 'chunk', {
                 value: function(chunkSize) {
                     var R = [];
                     for (var i = 0; i < this.length; i += chunkSize)

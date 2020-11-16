@@ -5,7 +5,7 @@ namespace App\Listeners;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NotifyAdminForNewOrder
+class NewOrderAdminListener
 {
 
     public function handle($event)

@@ -1,16 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[33],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/slider/SliderEditPage.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cms/slider/SliderEditPage.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/setting/SettingPage.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cms/setting/SettingPage.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../cropper/ImageCropper */ "./resources/js/components/cropper/ImageCropper.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -67,95 +66,168 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "SliderEditPage",
-  components: {
-    ImageCropper: _cropper_ImageCropper__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  props: {
-    id: [Number]
-  },
+  name: "SettingPage",
   data: function data() {
     return {
-      formData: {
-        id: '',
-        slider_title: '',
-        sub_title: '',
-        btn_text: '',
-        btn_url: '',
-        slider_position: '',
-        attachmentIds: '',
-        slider_status: 0
-      },
-      cropperData: {
-        width: 712,
-        height: 480,
-        placeholder: 'Choose a image in 712X480',
-        file_size: 1.5,
-        init_image: '',
-        folder: 'slider',
-        modal_type: 3
-      },
-      removeImage: false,
-      btnDisabled: false
+      btnDisabled: false,
+      contactSetting: {
+        contact_phone: '',
+        contact_mobile: '',
+        contact_email: '',
+        contact_address: '',
+        about_us: ''
+      }
     };
   },
   created: function created() {
-    this.getSlider(this.id);
+    var _this = this;
+
+    this.getSettingInformation().then(function (response) {
+      if (response.code === 200) {
+        _this.contactSetting = response.data.contactSetting;
+      } else {
+        Notify.error(response.message);
+      }
+    });
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['updateSlider', 'getSlider']), {
-    sliderUpdate: function sliderUpdate() {
-      var _this = this;
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getSettingInformation', 'storeContactSetting']), {
+    contactSettingStore: function contactSettingStore() {
+      var _this2 = this;
 
       this.btnDisabled = true;
-      var vm = this;
+      this.storeContactSetting(this.contactSetting).then(function (response) {
+        _this2.btnDisabled = false;
 
-      if (vm.cropImageIds.length > 0) {
-        vm.formData.attachmentIds = vm.cropImageIds;
-      }
-
-      vm.updateSlider(vm.formData).then(function (response) {
-        if (response.status === 'success') {
-          Notify.success(response.message); // this.emptyFormData();
-
-          _this.removeImage = true;
-
-          if (response.hasOwnProperty('url')) {
-            setTimeout(function () {
-              location.href = response.url;
-            });
-          } else {
-            location.reload();
-          }
+        if (response.code === 200) {
+          Notify.success(response.message);
+        } else if (response.status === 'validation') {
+          Notify.validation(response.message);
         } else {
-          Notify.warning(response.message);
+          Notify.error(response.message);
         }
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['cropImageIds', 'sliderData']), {
-    sliderDataCheck: function sliderDataCheck() {
-      return JSON.parse(JSON.stringify(this.sliderData));
-    }
-  }),
   watch: {
-    formData: {
+    contactSetting: {
       handler: function handler(newValue, oldValue) {
         if (oldValue === newValue) {
           this.btnDisabled = false;
-        }
-      },
-      deep: true
-    },
-    sliderDataCheck: {
-      handler: function handler(newValue, oldValue) {
-        if (oldValue !== newValue) {
-          this.formData.id = this.sliderData.slider_id;
-          this.formData.slider_title = this.sliderData.slider_title;
-          this.formData.slider_position = this.sliderData.slider_position;
-          this.formData.slider_status = this.sliderData.slider_status;
         }
       },
       deep: true
@@ -165,10 +237,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/slider/SliderEditPage.vue?vue&type=template&id=641799c7&scoped=true&":
-/*!****************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cms/slider/SliderEditPage.vue?vue&type=template&id=641799c7&scoped=true& ***!
-  \****************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/setting/SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cms/setting/SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -181,215 +253,213 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content" }, [
-    _c("div", { staticClass: "panel panel-info" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "panel-body" }, [
-        _c(
-          "form",
-          {
-            attrs: { action: "" },
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.sliderUpdate($event)
-              }
-            }
-          },
-          [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-5 col-md-offset-1" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Slider Title:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.slider_title,
-                        expression: "formData.slider_title"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Slider Title",
-                      required: ""
-                    },
-                    domProps: { value: _vm.formData.slider_title },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.formData,
-                          "slider_title",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group" },
-                  [
-                    _c("label", [_vm._v("Slider Image:")]),
-                    _vm._v(" "),
-                    _c("image-cropper", {
-                      attrs: {
-                        cropperData: _vm.cropperData,
-                        removeImage: _vm.removeImage
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("img", {
-                      staticStyle: {
-                        "max-width": "450px",
-                        "max-height": "250px",
-                        padding: "10px"
-                      },
-                      attrs: { src: _vm.sliderData.attachment.image_path }
-                    })
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-5" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Slider Position:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.slider_position,
-                        expression: "formData.slider_position"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "number",
-                      placeholder: "Slider Position",
-                      required: ""
-                    },
-                    domProps: { value: _vm.formData.slider_position },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.formData,
-                          "slider_position",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "content-group-lg" }, [
-                  _c("label", [_vm._v("Slider Status:")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "checkbox-style",
-                        attrs: { for: "paypal_payment" }
-                      },
-                      [
-                        _vm.formData.slider_status
-                          ? _c(
-                              "span",
-                              { staticClass: "text-bold text-success" },
-                              [_vm._v("Active")]
-                            )
-                          : _c(
-                              "span",
-                              { staticClass: "text-bold text-warning" },
-                              [_vm._v("Inactive")]
-                            ),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.formData.slider_status,
-                              expression: "formData.slider_status"
-                            }
-                          ],
-                          attrs: { type: "checkbox", id: "paypal_payment" },
-                          domProps: {
-                            checked: _vm.formData.slider_status,
-                            checked: Array.isArray(_vm.formData.slider_status)
-                              ? _vm._i(_vm.formData.slider_status, null) > -1
-                              : _vm.formData.slider_status
-                          },
-                          on: {
-                            change: function($event) {
-                              var $$a = _vm.formData.slider_status,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = null,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.formData,
-                                      "slider_status",
-                                      $$a.concat([$$v])
-                                    )
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.formData,
-                                      "slider_status",
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
-                              } else {
-                                _vm.$set(_vm.formData, "slider_status", $$c)
-                              }
-                            }
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "panel" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" }, [
+            _c(
+              "form",
+              {
+                attrs: { action: "" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.contactSettingStore($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-5 col-md-offset-1" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Contact No 1:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.contactSetting.contact_phone,
+                            expression: "contactSetting.contact_phone"
                           }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "checkmark" })
-                      ]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary btn-block",
-                      attrs: { type: "submit", disabled: _vm.btnDisabled }
-                    },
-                    [
-                      _vm._v("Save Slider "),
-                      _c("i", {
-                        staticClass: "icon-arrow-right14 position-right"
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Contact No",
+                          required: ""
+                        },
+                        domProps: { value: _vm.contactSetting.contact_phone },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.contactSetting,
+                              "contact_phone",
+                              $event.target.value
+                            )
+                          }
+                        }
                       })
-                    ]
-                  )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Contact No 2:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.contactSetting.contact_mobile,
+                            expression: "contactSetting.contact_mobile"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Contact No 2",
+                          required: ""
+                        },
+                        domProps: { value: _vm.contactSetting.contact_mobile },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.contactSetting,
+                              "contact_mobile",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Contact Email:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.contactSetting.contact_email,
+                            expression: "contactSetting.contact_email"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "email",
+                          placeholder: "Contact Email",
+                          required: ""
+                        },
+                        domProps: { value: _vm.contactSetting.contact_email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.contactSetting,
+                              "contact_email",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-5 " }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Contact Address:")]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.contactSetting.contact_address,
+                            expression: "contactSetting.contact_address"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { rows: "2" },
+                        domProps: { value: _vm.contactSetting.contact_address },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.contactSetting,
+                              "contact_address",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Footer About Us:")]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.contactSetting.about_us,
+                            expression: "contactSetting.about_us"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { rows: "4" },
+                        domProps: { value: _vm.contactSetting.about_us },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.contactSetting,
+                              "about_us",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3 col-md-offset-8" }, [
+                    _c("div", { staticClass: "text-right form-group" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success",
+                          attrs: { type: "submit", disabled: _vm.btnDisabled }
+                        },
+                        [
+                          _vm._v("Store Setting"),
+                          _c("i", {
+                            staticClass: "icon-arrow-right14 position-right"
+                          })
+                        ]
+                      )
+                    ])
+                  ])
                 ])
-              ])
-            ])
-          ]
-        )
+              ]
+            )
+          ])
+        ])
       ])
     ])
   ])
@@ -399,9 +469,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading" }, [
-      _c("h5", { staticClass: "panel-title" }, [
-        _vm._v("Update Slider Details")
+    return _c("div", { staticClass: "panel-heading bg-info" }, [
+      _c("h6", { staticClass: "panel-title" }, [
+        _c("a", { attrs: { href: "#" } }, [_vm._v("Contact Information")])
       ])
     ])
   }
@@ -519,17 +589,17 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ "./resources/js/components/cms/slider/SliderEditPage.vue":
-/*!***************************************************************!*\
-  !*** ./resources/js/components/cms/slider/SliderEditPage.vue ***!
-  \***************************************************************/
+/***/ "./resources/js/components/cms/setting/SettingPage.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/cms/setting/SettingPage.vue ***!
+  \*************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _SliderEditPage_vue_vue_type_template_id_641799c7_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SliderEditPage.vue?vue&type=template&id=641799c7&scoped=true& */ "./resources/js/components/cms/slider/SliderEditPage.vue?vue&type=template&id=641799c7&scoped=true&");
-/* harmony import */ var _SliderEditPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SliderEditPage.vue?vue&type=script&lang=js& */ "./resources/js/components/cms/slider/SliderEditPage.vue?vue&type=script&lang=js&");
+/* harmony import */ var _SettingPage_vue_vue_type_template_id_1bb3405f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true& */ "./resources/js/components/cms/setting/SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true&");
+/* harmony import */ var _SettingPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SettingPage.vue?vue&type=script&lang=js& */ "./resources/js/components/cms/setting/SettingPage.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -539,50 +609,50 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _SliderEditPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _SliderEditPage_vue_vue_type_template_id_641799c7_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _SliderEditPage_vue_vue_type_template_id_641799c7_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _SettingPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SettingPage_vue_vue_type_template_id_1bb3405f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SettingPage_vue_vue_type_template_id_1bb3405f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "641799c7",
+  "1bb3405f",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/cms/slider/SliderEditPage.vue"
+component.options.__file = "resources/js/components/cms/setting/SettingPage.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/cms/slider/SliderEditPage.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************!*\
-  !*** ./resources/js/components/cms/slider/SliderEditPage.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************/
+/***/ "./resources/js/components/cms/setting/SettingPage.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/cms/setting/SettingPage.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderEditPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SliderEditPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/slider/SliderEditPage.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderEditPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SettingPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/setting/SettingPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/cms/slider/SliderEditPage.vue?vue&type=template&id=641799c7&scoped=true&":
-/*!**********************************************************************************************************!*\
-  !*** ./resources/js/components/cms/slider/SliderEditPage.vue?vue&type=template&id=641799c7&scoped=true& ***!
-  \**********************************************************************************************************/
+/***/ "./resources/js/components/cms/setting/SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/cms/setting/SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true& ***!
+  \********************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderEditPage_vue_vue_type_template_id_641799c7_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SliderEditPage.vue?vue&type=template&id=641799c7&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/slider/SliderEditPage.vue?vue&type=template&id=641799c7&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderEditPage_vue_vue_type_template_id_641799c7_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingPage_vue_vue_type_template_id_1bb3405f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cms/setting/SettingPage.vue?vue&type=template&id=1bb3405f&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingPage_vue_vue_type_template_id_1bb3405f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SliderEditPage_vue_vue_type_template_id_641799c7_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingPage_vue_vue_type_template_id_1bb3405f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

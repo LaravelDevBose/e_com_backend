@@ -1,7 +1,8 @@
 <tr>
     <td class="header">
         <a href="{{ $url }}">
-            {{ $slot }}
+            <img src="{{ asset('saliim.png') }}">
         </a>
     </td>
 </tr>
+

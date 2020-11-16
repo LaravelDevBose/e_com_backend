@@ -85,7 +85,7 @@ class AuthController extends Controller
                 ]);
 
                 if(!empty($user)){
-                    //event(new Registered($user));
+                    event(new Registered($user));
 
                     $token =  $user->createToken('Personal Access Token');
                     $response = [
