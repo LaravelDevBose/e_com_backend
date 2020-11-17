@@ -61,6 +61,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "LoginComponent",
@@ -463,7 +465,17 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _vm._m(2),
+      _c(
+        "p",
+        [
+          _c(
+            "router-link",
+            { attrs: { to: { name: "password_reset_email" } } },
+            [_vm._v("Forgot your password?")]
+          )
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("button", { staticClass: "button" }, [_vm._v("Login")])
     ]
@@ -486,14 +498,6 @@ var staticRenderFns = [
     return _c("label", [
       _vm._v("Password"),
       _c("span", { staticClass: "text text-danger" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Forgot your password?")])
     ])
   }
 ]

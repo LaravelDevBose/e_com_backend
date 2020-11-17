@@ -3,18 +3,22 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\SocialProvider;
+use App\Traits\ApiResponser;
 use App\User;
 use Exception;
 use App\Helpers\TemplateHelper;
 use App\Http\Controllers\Controller;
 use App\Traits\ResponserTrait;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\ResponseTrait;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
@@ -36,8 +40,8 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
-    public $template_name;
+    protected $redirectTo = '/buyer/dashboard';
+
     /**
      * Create a new controller instance.
      *
@@ -45,20 +49,13 @@ class ResetPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->template_name = TemplateHelper::templateName();
-        if(empty($this->template_name)){
-            $this->template_name = config('app.default_template');
-        }
-
         $this->middleware('guest');
     }
 
 
     public function showResetForm(Request $request, $token = null)
     {
-        return view('templates.'.$this->template_name.'.auth.passwords.reset')->with(
-            ['token' => $token, 'email' => $request->email]
-        );
+        return view('frontend.app');
     }
 
     public function reset(Request $request)
@@ -77,18 +74,43 @@ class ResetPasswordController extends Controller
                 });
                 if($response == Password::PASSWORD_RESET){
                     DB::commit();
-                    return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Account Password Reset Successfully');
+                    return ApiResponser::AllResponse('success', Response::HTTP_OK, true,'Account Password Reset Successfully');
                 }else{
-                    throw new Exception('Invalid Information',Response::HTTP_BAD_REQUEST);
+                    if ($response == Password::INVALID_TOKEN){
+                        $message = 'Invalid Token Or Token Expired';
+                    }else if($response == Password::INVALID_USER){
+                        $message = 'Invalid User Information';
+                    }else{
+                        $message = 'Something Wrong. Invalid Information';
+                    }
+                    throw new Exception($message,Response::HTTP_BAD_REQUEST);
                 }
 
             }catch (Exception $ex){
                 DB::rollBack();
-                return ResponserTrait::allResponse('error', Response::HTTP_BAD_REQUEST, $ex->getMessage());
+                return ApiResponser::allResponse('error', Response::HTTP_BAD_REQUEST, false, $ex->getMessage());
             }
         }else{
             $errors = array_values($validator->errors()->getMessages());
-            return ResponserTrait::validationResponse('validation', Response::HTTP_BAD_REQUEST, $errors);
+            return ApiResponser::ValidationResponse($errors,'validation', Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    /**
+     * Reset the given user's password.
+     *
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param  string  $password
+     * @return void
+     */
+    protected function resetPassword($user, $password)
+    {
+        $user->password = Hash::make($password);
+
+        $user->setRememberToken(Str::random(60));
+
+        $user->save();
+
+        //event(new PasswordReset($user));
     }
 }

@@ -30,6 +30,11 @@ Route::namespace('Frontend')->prefix('front')->group(function () {
     Route::get('/company-info', 'FrontendController@company_details');
     Route::get('/{slug}/page-info', 'FrontendController@page_details');
 });
+
+Route::middleware('auth:api')->group(function (){
+    Route::get('buyer/dashboard', 'HomeController@index')->name('buyer.home');
+});
+
 //Route::get('/admin/{any}', 'Auth\AdminLoginController@show_login_page');
 Route::get('/{any}', 'HomeController@index')->where('any', '.*');
 

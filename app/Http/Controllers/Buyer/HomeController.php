@@ -2,12 +2,6 @@
 
 namespace App\Http\Controllers\Buyer;
 
-use App\Models\Buyer;
-use App\User;
-use App\Helpers\TemplateHelper;
-use App\Http\Resources\Frontend\product\ProductCollection;
-use App\Models\Product;
-use App\Models\WishList;
 use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

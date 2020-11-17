@@ -9,7 +9,9 @@
         <label>Password<span class="text text-danger">*</span></label>
         <input class="form-control input" type="password" v-model="reqData.password">
 
-        <p><a href="#">Forgot your password?</a></p>
+        <p>
+            <router-link :to="{name:'password_reset_email'}">Forgot your password?</router-link>
+        </p>
         <button class="button">Login</button>
     </form>
 </template>

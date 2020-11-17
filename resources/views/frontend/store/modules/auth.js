@@ -71,6 +71,41 @@ const actions = {
         }catch (error){
             commit('updateResponse', {message: "Invalid Information", type: 'Error'});
         }
+    },
+    async sendResetPasswordEmail({commit}, reqData){
+        try {
+            return await axios.post('/password/email', reqData)
+                .then(({data}) => {
+
+                    if(typeof data.status !== "undefined" && data.status === 200){
+                        commit('updateResponse', {message: data.message, type: 'Success'});
+                    }else if(data.status === 400 || data.status === 406 || data.status === 404){
+                        commit('updateResponse', {message: data.message, type: 'Warning'});
+                    }else{
+                        commit('updateResponse', {message: "Invalid Information", type: 'Error'});
+                    }
+                    return data;
+                });
+        }catch (error){
+            commit('updateResponse', {message: "Invalid Information", type: 'Error'});
+        }
+    },
+    async resetPasswordSubmit({commit}, reqData){
+        try {
+            return await axios.post('/password/reset', reqData)
+                .then(({data}) => {
+                    if(typeof data.status !== "undefined" && data.status === 200){
+                        commit('updateResponse', {message: data.message, type: 'Success'});
+                    }else if(data.status === 400 || data.status === 406){
+                        commit('updateResponse', {message: data.message, type: 'Warning'});
+                    }else{
+                        commit('updateResponse', {message: "Invalid Information", type: 'Error'});
+                    }
+                    return data;
+                });
+        }catch (error){
+            commit('updateResponse', {message: "Invalid Information", type: 'Error'});
+        }
     }
 
 };

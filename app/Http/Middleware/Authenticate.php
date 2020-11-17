@@ -16,8 +16,6 @@ class Authenticate extends Middleware
     {
         if(auth()->guard('admin')){
             return  route('admin.login');
-        }elseif (auth()->guard('seller')){
-            return route('seller.login');
         }else{
             return  route('login');
         }

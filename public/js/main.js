@@ -60388,7 +60388,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('mainApp', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(89), __webpack_require__.e(74)]).then(__webpack_require__.bind(null, /*! ./MainApp */ "./resources/views/frontend/MainApp.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(91), __webpack_require__.e(74)]).then(__webpack_require__.bind(null, /*! ./MainApp */ "./resources/views/frontend/MainApp.vue"));
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#main',
@@ -60547,6 +60547,20 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     name: "auth",
     component: function component() {
       return __webpack_require__.e(/*! import() */ 75).then(__webpack_require__.bind(null, /*! ../pages/AuthPage.vue */ "./resources/views/frontend/pages/AuthPage.vue"));
+    },
+    beforeEnter: _middleware__WEBPACK_IMPORTED_MODULE_2__["default"].ifNotAuthenticated
+  }, {
+    path: "/password/reset",
+    name: "password_reset_email",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 89).then(__webpack_require__.bind(null, /*! ../pages/passwords/PasswordResetEmailPage.vue */ "./resources/views/frontend/pages/passwords/PasswordResetEmailPage.vue"));
+    },
+    beforeEnter: _middleware__WEBPACK_IMPORTED_MODULE_2__["default"].ifNotAuthenticated
+  }, {
+    path: "/password/reset/:token",
+    name: "password_reset",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 90).then(__webpack_require__.bind(null, /*! ../pages/passwords/PasswordResetPage.vue */ "./resources/views/frontend/pages/passwords/PasswordResetPage.vue"));
     },
     beforeEnter: _middleware__WEBPACK_IMPORTED_MODULE_2__["default"].ifNotAuthenticated
   }, {
@@ -61344,6 +61358,126 @@ var actions = {
     }
 
     return logout;
+  }(),
+  sendResetPasswordEmail: function () {
+    var _sendResetPasswordEmail = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref8, reqData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref8.commit;
+              _context4.prev = 1;
+              _context4.next = 4;
+              return axios.post('/password/email', reqData).then(function (_ref9) {
+                var data = _ref9.data;
+
+                if (typeof data.status !== "undefined" && data.status === 200) {
+                  commit('updateResponse', {
+                    message: data.message,
+                    type: 'Success'
+                  });
+                } else if (data.status === 400 || data.status === 406 || data.status === 404) {
+                  commit('updateResponse', {
+                    message: data.message,
+                    type: 'Warning'
+                  });
+                } else {
+                  commit('updateResponse', {
+                    message: "Invalid Information",
+                    type: 'Error'
+                  });
+                }
+
+                return data;
+              });
+
+            case 4:
+              return _context4.abrupt("return", _context4.sent);
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](1);
+              commit('updateResponse', {
+                message: "Invalid Information",
+                type: 'Error'
+              });
+
+            case 10:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 7]]);
+    }));
+
+    function sendResetPasswordEmail(_x6, _x7) {
+      return _sendResetPasswordEmail.apply(this, arguments);
+    }
+
+    return sendResetPasswordEmail;
+  }(),
+  resetPasswordSubmit: function () {
+    var _resetPasswordSubmit = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref10, reqData) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref10.commit;
+              _context5.prev = 1;
+              _context5.next = 4;
+              return axios.post('/password/reset', reqData).then(function (_ref11) {
+                var data = _ref11.data;
+
+                if (typeof data.status !== "undefined" && data.status === 200) {
+                  commit('updateResponse', {
+                    message: data.message,
+                    type: 'Success'
+                  });
+                } else if (data.status === 400 || data.status === 406) {
+                  commit('updateResponse', {
+                    message: data.message,
+                    type: 'Warning'
+                  });
+                } else {
+                  commit('updateResponse', {
+                    message: "Invalid Information",
+                    type: 'Error'
+                  });
+                }
+
+                return data;
+              });
+
+            case 4:
+              return _context5.abrupt("return", _context5.sent);
+
+            case 7:
+              _context5.prev = 7;
+              _context5.t0 = _context5["catch"](1);
+              commit('updateResponse', {
+                message: "Invalid Information",
+                type: 'Error'
+              });
+
+            case 10:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[1, 7]]);
+    }));
+
+    function resetPasswordSubmit(_x8, _x9) {
+      return _resetPasswordSubmit.apply(this, arguments);
+    }
+
+    return resetPasswordSubmit;
   }()
 };
 var mutations = {

@@ -60,6 +60,18 @@ export default new Router({
             beforeEnter: middleware.ifNotAuthenticated,
         },
         {
+            path: "/password/reset",
+            name: "password_reset_email",
+            component: ()=> import("../pages/passwords/PasswordResetEmailPage.vue"),
+            beforeEnter: middleware.ifNotAuthenticated,
+        },
+        {
+            path: "/password/reset/:token",
+            name: "password_reset",
+            component: ()=> import("../pages/passwords/PasswordResetPage.vue"),
+            beforeEnter: middleware.ifNotAuthenticated,
+        },
+        {
             path: "/checkout",
             name: "checkout",
             component: ()=> import("../pages/CheckoutPage.vue"),

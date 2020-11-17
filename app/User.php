@@ -5,9 +5,12 @@ namespace App;
 use App\Models\Order;
 use App\Models\SocialProvider;
 use App\Notifications\CustomerVerifyEmail;
+use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -70,5 +73,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function orders()
     {
         return $this->hasMany(Order::class, 'user_id', 'user_id');
+    }
+
+    /**
+    * Send the password reset notification.
+    *
+    * @param  string  $token
+    * @return void
+    */
+    public function sendPasswordResetNotification($token)
+    {
+
+        $this->notify(new ResetPasswordNotification($token));
     }
 }
