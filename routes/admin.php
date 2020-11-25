@@ -5,13 +5,6 @@ use Illuminate\Mail\Markdown;
 Route::get('admin/login', 'Auth\AdminLoginController@show_login_page')->name('admin.login');
 Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin.login');
 Route::get('admin/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
-Route::get('admin/mail', function (){
-    return new App\Mail\TemplateDesign();
-
-    \Illuminate\Support\Facades\Notification::send('adaf@asfs.dfsadf', new \App\Notifications\CustomerVerifyEmail());
-//    return \Illuminate\Support\Facades\Mail::to('abcd@gm.com')->send();
-    dd('mail send');
-});
 
 Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.')->group(function (){
 
@@ -177,6 +170,3 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
 });
 
 Route::get('/admin/newsletters', 'NewsLetterController@index')->middleware('auth:admin')->name('admin.newsletters');
-Route::prefix('api/admin')->namespace('Admin')->group(function (){
-
-});
