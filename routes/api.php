@@ -14,6 +14,7 @@ Route::middleware('auth:api')->namespace('Api')->group(function (){
 });
 
 Route::middleware('auth:api')->namespace('Buyer')->group(function (){
+    Route::get('/user', 'HomeController@get_user');
     Route::get('get/delivery-methods', 'CheckoutController@get_delivery_info');
     Route::post('/coupon-apply', 'CheckoutController@check_coupon_code');
 
@@ -41,6 +42,4 @@ Route::middleware('auth:api')->namespace('Buyer')->group(function (){
 
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+

@@ -66,4 +66,9 @@ class HomeController extends Controller
         }
 
     }
+
+    public function get_user(Request $request)
+    {
+        return $request->user();
+    }
 }
