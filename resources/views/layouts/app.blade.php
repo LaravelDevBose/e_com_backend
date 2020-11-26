@@ -35,7 +35,6 @@
     <script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/pnotify.min.js') }}"></script>
 
     @yield('ThemeJs')
-    <script type="text/javascript" src="{{ asset('assets/js/pages/components_notifications_pnotify.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('assets/js/pages/animations_css3.js') }}"></script>
     <style>

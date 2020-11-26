@@ -4,7 +4,7 @@
             <div class="panel-body no-padding-bottom">
 
                 <div class="row">
-                    <div class="col-md-4 col-lg-4">
+                    <div class="col-md-6 col-lg-6">
                         <div v-if="orderInfo.shipping !== null" class="content-group">
                             <span class="text-muted">Shipping To:</span>
                             <ul class="list-condensed list-unstyled">
@@ -17,20 +17,7 @@
                             </ul>
                         </div>
                     </div>
-                    <!--<div class="col-md-4 col-lg-4 ">
-                        <div v-if="orderInfo.billing !== null" class="content-group">
-                            <span class="text-muted">Billing To:</span>
-                            <ul class="list-condensed list-unstyled">
-                                <li><h5>{{ orderInfo.billing.full_name }}</h5></li>
-                                <li><span class="text-semibold">{{ orderInfo.billing.phone_no }}</span></li>
-                                <li>{{ orderInfo.billing.address }}</li>
-                                <li>{{ orderInfo.billing.city }},{{orderInfo.billing.district }}</li>
-                                <li>{{ orderInfo.billing.region }} <span v-if="orderInfo.billing.postal_code" class="text-semibold">- {{ orderInfo.billing.postal_code }}</span></li>
-                                <li>{{ orderInfo.billing.country }}</li>
-                            </ul>
-                        </div>
-                    </div>-->
-                    <div class="col-md-4 content-group">
+                    <div class="col-md-6 content-group">
                         <div class="invoice-details text-right">
                             <h5 class="text-uppercase text-semibold">Order No #{{ orderInfo.order_no }}</h5>
                             <ul class="list-condensed list-unstyled">

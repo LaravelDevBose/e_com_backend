@@ -46,7 +46,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
 Vue.component('index', require('./components/IndexPage').default);
 
-const crocus_v2 = new Vue({
+new Vue({
     el: '#kuteshop_v2',
     store:store,
     i18n,

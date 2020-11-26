@@ -28,7 +28,10 @@
                 </div>
                 <div class="col-md-6 col-md-offset-1">
                     <div class="text-right">
-                        <button type="button" @click.prevent="proceedToOrder" class="button btn-block">{{ $t('checkout.place_order')}}</button>
+                        <button type="button" v-if="!loading && !btnDisabled" @click.prevent="proceedToOrder" class="button btn-block">{{ $t('checkout.place_order')}}</button>
+                    </div>
+                    <div class="alert alert-info" style="margin-top: .5rem;" v-if="loading">
+                        <i class="fas fa-spinner fa-pulse"></i> Order Processing. Please Wait ....
                     </div>
                 </div>
             </div>
@@ -39,6 +42,7 @@
 </template>
 
 <script>
+
     import {mapState,mapGetters, mapActions} from 'vuex';
     import BillingForm from "./BillingForm";
     import ShippingForm from "./ShippingForm";
@@ -60,7 +64,9 @@
                     payment_method:'',
                     payment_method_id:'',
                     delivery_charge:'',
-                }
+                },
+                loading: false,
+                btnDisabled: false,
             }
         },
         created() {
@@ -116,6 +122,8 @@
                 this.tabChange(data);
             },
             proceedToOrder(){
+                this.loading =true;
+                this.btnDisabled = false;
                 this.formData.billing_address = this.billingAddress;
                 this.formData.billing_address_id = this.billingAddressId;
                 this.formData.shipping_address = this.shippingAddress;
@@ -129,11 +137,12 @@
                 //TODO Form Validation
                 this.orderProceed(this.formData)
                     .then(response=>{
+                        this.loading =false;
                         if(typeof response.code !== "undefined" && response.code === 201){
                             this.$noty.success(response.message);
                             setTimeout(function () {
                                 location.href = response.url;
-                            },2000);
+                            },1500);
                         }else if(response.status === 'validation'){
                             this.$noty.warning(response.message);
                         }else {
@@ -160,6 +169,18 @@
                 'paymentTab',
                 'cartTab'
             ]),
+            checkFormData(){
+                return JSON.parse(JSON.stringify(this.formData))
+            }
+        },
+        watch:{
+            checkFormData:{
+                handler(newVal, oldVal){
+                    if (newVal !== oldVal){
+                        this.btnDisabled = false;
+                    }
+                }
+            }
         }
     }
 </script>

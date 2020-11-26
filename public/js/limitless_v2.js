@@ -98479,9 +98479,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/views/seller_panel/limitless_v2/vue/store/index.js");
 /* harmony import */ var _js_helper_pNotify__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../js/helper/pNotify */ "./resources/js/helper/pNotify.js");
 /* harmony import */ var _js_helper_AppStorage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../js/helper/AppStorage */ "./resources/js/helper/AppStorage.js");
-/* harmony import */ var _components_product_ProductList__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/product/ProductList */ "./resources/views/seller_panel/limitless_v2/vue/components/product/ProductList.vue");
-/* harmony import */ var _components_product_CreateProduct__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/product/CreateProduct */ "./resources/views/seller_panel/limitless_v2/vue/components/product/CreateProduct.vue");
-/* harmony import */ var _components_product_ShowProduct__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/product/ShowProduct */ "./resources/views/seller_panel/limitless_v2/vue/components/product/ShowProduct.vue");
 
 
 __webpack_require__(/*! ../../../../js/bootstrap */ "./resources/js/bootstrap.js");
@@ -98509,65 +98506,10 @@ var files = __webpack_require__("./resources/views/seller_panel/limitless_v2/vue
 files.keys().map(function (key) {
   return vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(key.split('/').pop().split('.')[0], files(key)["default"]);
 });
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('dashboard', __webpack_require__(/*! ./components/home/Dashboard */ "./resources/views/seller_panel/limitless_v2/vue/components/home/Dashboard.vue")["default"]); //
-// import AdminLogin from './components/auth/AdminLogin';
-// import Category from './components/category/Category';
-// import Color from './components/color/Color';
-// import Tag from './components/tag/Tag';
-// import SizeGroup from './components/size/SizeGroup';
-// import DeliveryCost from './components/deliveryCost/DeliveryCost';
-// import CreateCampaign from './components/campaign/CreateCampaign';
-// import Campaign from './components/campaign/Campaign';
-// import ShowCampaign from  './components/campaign/ShowCampaign';
-// import ManageCampaignProduct from './components/campaign/ManageCampaignProduct';
-// import Voucher from  './components/voucher/Voucher';
-// import CreateVoucher from './components/voucher/CreateVoucher';
-// import Attachment from './components/attachment/Attachment';
-
-
-
- // import ImportData from "./components/helper/ImportData";
-// import Brand from './components/brand/Brand';
-// import SkinType from './components/skin_type/SkinType';
-// import SliderPage from './components/cms/slider/SliderPage';
-// import SliderCreatePage from "./components/cms/slider/SliderCreatePage";
-// import CreateGeneralPages from "./components/cms/pages/CreateGeneralPages";
-// import GeneralPagesList from "./components/cms/pages/GeneralPagesList";
-// import ShowGeneralPages from "./components/cms/pages/ShowGeneralPages";
-// import EditGeneralPages from "./components/cms/pages/EditGeneralPages";
-// import SettingPage from "./components/cms/setting/SettingPage";
-
-var limitless_v2 = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('dashboard', __webpack_require__(/*! ./components/home/Dashboard */ "./resources/views/seller_panel/limitless_v2/vue/components/home/Dashboard.vue")["default"]);
+new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#limitless_v2',
-  store: _store__WEBPACK_IMPORTED_MODULE_5__["default"],
-  components: {
-    // AdminLogin,
-    // 'attachment':Attachment,
-    // 'import-date':ImportData,
-    // Category,
-    // Color,
-    // 'brand':Brand,
-    // 'tag':Tag,
-    // 'size-group':SizeGroup,
-    // 'delivery-cost':DeliveryCost,
-    // 'create-campaign':CreateCampaign,
-    // 'campaign':Campaign,
-    // 'show-campaign':ShowCampaign,
-    // 'manage-campaign-product':ManageCampaignProduct,
-    // 'voucher':Voucher,
-    // 'create-voucher':CreateVoucher,
-    'product-list': _components_product_ProductList__WEBPACK_IMPORTED_MODULE_8__["default"],
-    'create-product': _components_product_CreateProduct__WEBPACK_IMPORTED_MODULE_9__["default"],
-    'show-product': _components_product_ShowProduct__WEBPACK_IMPORTED_MODULE_10__["default"] // 'skin-type':SkinType,
-    // 'slider-page':SliderPage,
-    // 'slider-create-page':SliderCreatePage,
-    // 'create-general-pages':CreateGeneralPages,
-    // 'general-pages-list':GeneralPagesList,
-    // 'show-general-pages':ShowGeneralPages,
-    // 'edit-general-pages':EditGeneralPages,
-    // 'setting-page':SettingPage,
-
-  }
+  store: _store__WEBPACK_IMPORTED_MODULE_5__["default"]
 });
 
 /***/ }),
@@ -100743,7 +100685,7 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tokin\Videos\Captures\lara_ex\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\saliim_app\resources\views\seller_panel\limitless_v2\vue\limitless_v2.js */"./resources/views/seller_panel/limitless_v2/vue/limitless_v2.js");
 
 
 /***/ })

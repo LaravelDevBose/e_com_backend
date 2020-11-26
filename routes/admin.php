@@ -180,6 +180,3 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
 });
 
 Route::get('/admin/newsletters', 'NewsLetterController@index')->middleware('auth:admin')->name('admin.newsletters');
-Route::prefix('api/admin')->namespace('Admin')->group(function (){
-
-});

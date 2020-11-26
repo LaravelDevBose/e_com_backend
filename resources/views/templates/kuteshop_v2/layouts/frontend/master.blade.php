@@ -97,6 +97,7 @@
 <!-- Main -->
 <script type="text/javascript" src="{{ asset('kuteshop_v2/js/main.js') }}"></script>
 
+
 <!-- Scripts -->
 @yield('PageJs')
 

@@ -25967,7 +25967,7 @@ img.alignright {
     padding-bottom: 0;
     border-bottom: 1px solid #e6e6e6;
     margin-bottom: 20px;
-    padding-right: 80px
+    padding-right: 110px
 }
 
 .block-deals-of-opt2 .block-title:after,
@@ -26001,7 +26001,7 @@ img.alignright {
 
 .block-deals-of-opt2 .deals-of-countdown {
     float: right;
-    margin-bottom: 10px
+    margin-bottom: 0px
 }
 
 .block-deals-of-opt2 .deals-of-countdown .title {
@@ -26101,15 +26101,16 @@ img.alignright {
 
 .block-deals-of-opt2 .owl-nav .owl-next,
 .block-deals-of-opt2 .owl-nav .owl-prev {
-    width: 24px;
-    line-height: 24px;
+    width: 40px;
+    line-height: 17px;
     text-align: center;
     display: block;
     margin-left: 5px;
     float: left;
     color: #fff;
-    font-size: 16px;
-    background-color: #a3a3a3
+    font-size: 13px;
+    background-color: #a3a3a3;
+    padding: 3px;
 }
 
 .block-deals-of-opt2 .owl-nav .owl-next:before,
@@ -26124,11 +26125,12 @@ img.alignright {
 }
 
 .block-deals-of-opt2 .owl-nav .owl-prev:before {
-    content: "\f104"
+    content: "\f104";
+    padding-right: 3px;
 }
 
 .block-deals-of-opt2 .owl-nav .owl-next:before {
-    content: "\f105"
+    content: "\f105";padding-right: 3px;
 }
 
 .block-deals-of-opt2 .product-item {

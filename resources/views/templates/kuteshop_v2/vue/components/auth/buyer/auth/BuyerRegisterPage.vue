@@ -25,7 +25,10 @@
                     <input type="password" v-model="formData.password_confirmation" minlength="8" required :placeholder="$t('form.confirm_pass')" class="form-control" id="password_con">
                 </div>
                 <div class="col-md-10">
-                    <button type="submit" class="button"><i class="fa fa-user"></i> {{ $t('auth.buyer.reg_title') }}</button>
+                    <button type="submit" :disabled="btnDisabled" class="button"><i class="fa fa-user"></i> {{ $t('auth.buyer.reg_title') }}</button>
+                    <div class="alert alert-info" style="margin-top: .5rem;" v-if="loading">
+                        <i class="fas fa-spinner fa-pulse"></i> Loading ....
+                    </div>
                 </div>
             </div>
         </form>
@@ -46,7 +49,9 @@
                     // user_name:'',
                     password:'',
                     password_confirmation:'',
-                }
+                },
+                btnDisabled: false,
+                loading: false,
             }
         },
         methods:{
@@ -54,9 +59,10 @@
                 'registerBuyer'
             ]),
             buyerRegister(){
-
+                this.loading = true;
                 this.registerBuyer(this.formData)
                     .then(response=>{
+                        this.loading = false;
                         if(typeof  response.code === "undefined"){
                             this.$noty.error('Some Thing Wrong');
                         }else if(response.status === 'validation'){
