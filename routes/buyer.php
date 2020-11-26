@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('buyer/logout', 'Auth\LoginController@logout')->name('buyer.logout');
-Route::prefix('buyer')->middleware('auth')->namespace('Buyer')->as('buyer.')->group(function (){
+Route::prefix('buyer')->middleware(['auth', 'pagespeed'])->namespace('Buyer')->as('buyer.')->group(function (){
 
     Route::get('/user/info', 'HomeController@userInfo');
     Route::get('/info', 'HomeController@buyer_info')->name('info');

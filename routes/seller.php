@@ -8,7 +8,7 @@ Route::get('seller/logout', 'Auth\SellerLoginController@logout')->name('seller.l
 
 Route::post('seller/register', 'Auth\SellerRegisterController@register')->name('seller.register');
 
-Route::prefix('seller')->middleware('auth:seller')->namespace('Seller')->as('seller.')->group(function (){
+Route::prefix('seller')->middleware(['auth:seller', 'pagespeed'])->namespace('Seller')->as('seller.')->group(function (){
 
     Route::get('home', 'HomeController@index')->name('home');
 

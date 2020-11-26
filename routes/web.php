@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 
-Route::namespace('Frontend')->as('front.')->group(function () {
+Route::namespace('Frontend')->as('front.')->middleware('pagespeed')->group(function () {
     Route::get('/set/language/{lang}','FrontendController@set_lang')->name('set.lang');
 
     Route::get('/', 'FrontendController@index')->name('index');
