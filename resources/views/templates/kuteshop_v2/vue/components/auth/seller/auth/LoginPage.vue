@@ -13,7 +13,10 @@
                 </div>
                 <div class="col-md-10">
                     <p class="forgot-pass"><a href="/password/reset">{{ $t('auth.forgot_pass') }}</a></p>
-                    <button type="submit" class="button text-right"><i class="fa fa-lock"></i> {{ $t('auth.sign_in') }}</button>
+                    <button type="submit" v-if="!loading" :disabled="btnDisabled" class="button text-right"><i class="fa fa-lock"></i> {{ $t('auth.sign_in') }}</button>
+                    <div class="alert alert-info" style="margin-top: .5rem;" v-if="loading">
+                        <i class="fas fa-spinner fa-pulse"></i> Login account. Please Wait....
+                    </div>
                 </div>
             </div>
         </form>
@@ -30,7 +33,9 @@
                 formData:{
                     identity:'',
                     password:''
-                }
+                },
+                btnDisabled: false,
+                loading: false,
             }
         },
         methods:{
@@ -38,6 +43,8 @@
                 'loginSeller'
             ]),
             sellerLogin(){
+                this.loading = true;
+                this.btnDisabled = true;
                 if(this.formData.identity === null || this.formData.identity === ''){
                     this.$noty.warning('Email Or Username is Required');
                     return false;
@@ -54,6 +61,7 @@
 
                 this.loginSeller(this.formData)
                     .then(response=>{
+                        this.loading = false;
                         if(typeof  response.code === "undefined"){
                             this.$noty.error('Some Thing Wrong!');
                         }else if(response.status === 'validation'){
@@ -67,6 +75,21 @@
                             this.$noty.error(response.message);
                         }
                     })
+            }
+        },
+        computed:{
+
+            checkFormData(){
+                return JSON.parse(JSON.stringify(this.formData))
+            }
+        },
+        watch:{
+            checkFormData:{
+                handler(newVal, oldVal){
+                    if (newVal !== oldVal){
+                        this.btnDisabled = false;
+                    }
+                }
             }
         }
     }

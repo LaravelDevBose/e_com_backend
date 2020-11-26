@@ -29,7 +29,10 @@
                     <input type="password" v-model="formData.password_confirmation" minlength="8" required :placeholder="$t('form.confirm_pass')" class="form-control" id="password_con">
                 </div>
                 <div class="col-md-10">
-                    <button type="submit" class="button"><i class="fa fa-user"></i> {{ $t('auth.seller.create_shop') }}</button>
+                    <button type="submit" v-if="!loading" :disabled="btnDisabled" class="button"><i class="fa fa-user"></i> {{ $t('auth.seller.create_shop') }}</button>
+                    <div class="alert alert-info" style="margin-top: .5rem;" v-if="loading">
+                        <i class="fas fa-spinner fa-pulse"></i> Creating Shop account. Please Wait....
+                    </div>
                 </div>
             </div>
         </form>
@@ -50,7 +53,9 @@
                     email:'',
                     password:'',
                     password_confirmation:'',
-                }
+                },
+                btnDisabled: false,
+                loading: false,
             }
         },
         methods:{
@@ -58,10 +63,11 @@
                 'registerSeller'
             ]),
             sellerRegister(){
-
+                this.loading = true;
+                this.btnDisabled = true;
                 this.registerSeller(this.formData)
                     .then(response=>{
-                        console.log(response);
+                        this.loading=false;
                         if(typeof  response.code !== "undefined" && response.code === 200){
                             this.$noty.success(response.message);
                             setTimeout(function () {
@@ -77,6 +83,21 @@
                         }
                     })
 
+            }
+        },
+        computed:{
+
+            checkFormData(){
+                return JSON.parse(JSON.stringify(this.formData))
+            }
+        },
+        watch:{
+            checkFormData:{
+                handler(newVal, oldVal){
+                    if (newVal !== oldVal){
+                        this.btnDisabled = false;
+                    }
+                }
             }
         }
     }

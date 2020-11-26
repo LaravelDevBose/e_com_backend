@@ -25,9 +25,9 @@
                     <input type="password" v-model="formData.password_confirmation" minlength="8" required :placeholder="$t('form.confirm_pass')" class="form-control" id="password_con">
                 </div>
                 <div class="col-md-10">
-                    <button type="submit" :disabled="btnDisabled" class="button"><i class="fa fa-user"></i> {{ $t('auth.buyer.reg_title') }}</button>
+                    <button type="submit" v-if="!loading" :disabled="btnDisabled" class="button"><i class="fa fa-user"></i> {{ $t('auth.buyer.reg_title') }}</button>
                     <div class="alert alert-info" style="margin-top: .5rem;" v-if="loading">
-                        <i class="fas fa-spinner fa-pulse"></i> Loading ....
+                        <i class="fas fa-spinner fa-pulse"></i> Creating account. Please Wait....
                     </div>
                 </div>
             </div>
@@ -77,6 +77,21 @@
                         }
                     })
 
+            }
+        },
+        computed:{
+
+            checkFormData(){
+                return JSON.parse(JSON.stringify(this.formData))
+            }
+        },
+        watch:{
+            checkFormData:{
+                handler(newVal, oldVal){
+                    if (newVal !== oldVal){
+                        this.btnDisabled = false;
+                    }
+                }
             }
         }
     }

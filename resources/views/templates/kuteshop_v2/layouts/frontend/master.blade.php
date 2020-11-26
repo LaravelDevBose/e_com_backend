@@ -68,8 +68,6 @@
 <!-- Boostrap -->
 <script type="text/javascript" src="{{ asset('kuteshop_v2/js/bootstrap.min.js') }}"></script>
 
-<!-- Countdown -->
-<script type="text/javascript" src="{{ asset('kuteshop_v2/js/jquery.countdown.min.js') }}"></script>
 
 <!--jquery Bxslider  -->
 <script type="text/javascript" src="{{ asset('kuteshop_v2/js/jquery.bxslider.min.js') }}"></script>

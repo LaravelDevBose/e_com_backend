@@ -2,7 +2,7 @@ import  Vue from 'vue'
 require('../../../../js/bootstrap');
 
 window.Vue = require('vue');
-
+Vue.config.productionTip = true;
 //Vue Date Time
 import Datetime from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'

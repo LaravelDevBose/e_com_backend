@@ -2,7 +2,7 @@ import  Vue from 'vue'
 require('../../../../js/bootstrap');
 
 window.Vue = require('vue');
-Vue.config.productionTip = false;
+Vue.config.productionTip = true;
 
 
 import store from './store'
