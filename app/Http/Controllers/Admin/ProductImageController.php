@@ -77,7 +77,7 @@ class ProductImageController extends Controller
 
                     $publicId = md5(rand(1111, 9999). time());
 
-                    $name =  $publicId .'.'.$ext;
+                    $name =  $publicId .'.jpeg';
                     $folderPath = $folder.'/'.$max_number;
                     $name_full = $this->attachmentFolder . $folderPath . '/' . $name;
                     Storage::disk('local')->put( $name_full, File::get($attachment));

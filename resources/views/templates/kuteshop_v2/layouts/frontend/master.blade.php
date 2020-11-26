@@ -20,10 +20,10 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="{{ asset('/assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('/assets/css/colors.css') }}" rel="stylesheet" type="text/css">
+    {{--<link href="{{ asset('/assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('/assets/css/colors.css') }}" rel="stylesheet" type="text/css">--}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('kuteshop_v2/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('kuteshop_v2/css/style.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('custom/css/custom_style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" />
     @yield('PageCss')
@@ -93,7 +93,7 @@
 <script src="{{ asset('kuteshop_v2/js/arcticmodal/jquery.arcticmodal.js') }}"></script>
 
 <!-- Main -->
-<script type="text/javascript" src="{{ asset('kuteshop_v2/js/main.js') }}"></script>
+<script type="text/javascript" src="{{ asset('kuteshop_v2/js/main.min.js') }}"></script>
 
 
 <!-- Scripts -->

@@ -73,7 +73,7 @@ class ProductImageController extends Controller
                     $original_name = $attachment->getClientOriginalName();
                     $file_size = AttachmentHelper::byteToHuman( $attachment->getClientSize() );
 
-                    $name =  md5(rand(1111, 9999). time()) .'.'.$ext;
+                    $name =  md5(rand(1111, 9999). time()) .'.jpeg';
 
                     $name_full = $this->attachmentFolder . $folder . '/' . $name;
                     Storage::disk('local')->put( $name_full, File::get($attachment) );
