@@ -49,9 +49,9 @@ return [
         'redirect' => 'https://saliim.com/social/login/twitter/callback',
     ],
     'google' => [
-        'client_id' => '13140998938-okavjflpvpas3aait4f4iaa5macp8dup.apps.googleusercontent.com',
-        'client_secret' => 'PMi1sMJsS9PuDc9ObrZIi5rf',
-        'redirect' => 'http://saliim.com/social/login/google/callback',
+        'client_id' => '990785996515-o1mebl8hjle48dn66p6a2bhotsacdp1u.apps.googleusercontent.com',
+        'client_secret' => 'cY7arioEIkogzL6uGRNYAiDs',
+        'redirect' => 'https://saliim.com/social/login/google/callback',
     ],
     'facebook' => [
         'client_id' => "181781272904510",
