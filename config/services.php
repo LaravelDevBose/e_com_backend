@@ -54,8 +54,8 @@ return [
         'redirect' => 'https://saliim.com/social/login/google/callback',
     ],
     'facebook' => [
-        'client_id' => "181781272904510",
-        'client_secret' => "e4750811f49dee2480b16908c32faf61",
+        'client_id' => "365597777845776",
+        'client_secret' => "6287314f220eeba6603dcbbe54846f8f",
         'redirect' => 'https://saliim.com/social/login/facebook/callback',
     ],
 
