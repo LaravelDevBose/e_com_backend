@@ -13,4 +13,5 @@ return [
     'new_address'=>'New Address',
     'add_new_address'=>'Add New Address',
     'edit_address'=>'Edit Address',
+    'review_list'=>'Review List'
 ];

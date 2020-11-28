@@ -3,19 +3,10 @@
 
 <h2 style=" background-color: #00c0ef;    color: #fff;">Email Verification</h2>
 <div class="content">
-    <div style="width: 100%; clear: both;">
-        <table class="table table-striped">
-            <tr>
-                <td style="border-top: none;">Please click the button below to verify your email address.</td>
-            </tr>
-            <tr>
-                <td style="text-align: center; "><a style="color: #fff !important;" href="{{ $url }}"  class="btn-info">Verify Your Account</a></td>
-            </tr>
-            <tr>
-                <td>If you did not create an account, no further action is required.</td>
-            </tr>
-        </table>
+    <p>Please click the button below to verify your email address.</p>
+    <div class="action" style="width: 100%; clear: both;">
+        <a style="color: #fff !important;" href="{{ $url }}"  class="button button-primary">Verify Your Account</a>
     </div>
-
+    <p>If you did not create an account, no further action is required.</p>
 </div>
 @include('mail.v1.include.footer')

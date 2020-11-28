@@ -1,6 +1,9 @@
-<!doctype html>
-<html>
-    <head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-xVVam1KS4+Qt2OrFa+VdRUoXygyKIuNWUUUBZYv+n27STsJ7oDOHJgfF0bNKLMJF" crossorigin="anonymous">
         <meta charset="utf-8">
         <style>
             .invoice-box{
@@ -29,10 +32,6 @@
                 font-size: 12px;
                 margin-top: 10px;
                 border-top: 1px solid #87c940;
-
-            }
-
-            .invoice-box .footerLeft{
 
             }
 

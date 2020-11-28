@@ -267,12 +267,12 @@ class OrderController extends Controller
                             Product::where('product_id', $productInfo['id'])->update($updateArray);
                         }
                         $user = User::where('user_id', auth()->id())->with('buyer')->first();
-                        event(new NewOrderStoreEvent($user,$order));
-                        $order = $order->update([
+                        $orderU = $order->update([
                             'sub_total'=>$orderTotal,
                             'total'=>$orderTotal+$request->delivery_charge
                         ]);
-                        if(!empty($order)){
+                        if(!empty($orderU)){
+                            event(new NewOrderStoreEvent($user,$order->fresh()));
                             DB::commit();
                             Cart::destroy();
                             //TODO Change to Invoice Page url

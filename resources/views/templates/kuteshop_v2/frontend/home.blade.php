@@ -78,17 +78,7 @@
                                 @endif
                             </div>
                             <div class="actions">
-                                @if($key == 0)
-                                    <a href="" class="action action-up"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
-                                @else
-                                    <a href="#floor0-{{ $key-1 }}" class="action action-up"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
-                                @endif
-
-                                @if((count($categorySection)-1) == $key)
-                                    <a href="" class="action action-down"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                @else
-                                    <a href="#floor0-{{$key+1}}" class="action action-down"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                @endif
+                                <a href="{{ route('front.category.product', $section['category']->category_slug) }}" class="">See All</a>
                             </div>
                         </div>
 
@@ -149,7 +139,6 @@
                                 </div>
                             @endif
                         </div>
-
                     </div>
                 </div><!-- block -floor -products / floor :Fashion-->
                 @endforeach

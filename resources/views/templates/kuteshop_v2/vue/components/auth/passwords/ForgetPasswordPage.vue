@@ -18,7 +18,10 @@
                                         <input type="email" v-model="formData.email" name="email" autocomplete="off" placeholder="email" required class="form-control" id="emmail_login">
                                     </div>
                                     <div class="col-md-10">
-                                        <button type="submit" class="button text-right"><i class="fa fa-lock"></i> Send Password Reset Link</button>
+                                        <button type="submit" :disabled="btnDisabled" class="button text-right"><i class="fa fa-lock"></i> Send Password Reset Link</button>
+                                        <div class="alert alert-info" style="margin-top: .5rem;" v-if="loading">
+                                            <i class="fas fa-spinner fa-pulse"></i> Sending Reset Link. Please Wait....
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -38,7 +41,9 @@
             return{
                 formData:{
                     email:''
-                }
+                },
+                btnDisabled: false,
+                loading: false,
             }
         },
         methods:{
@@ -46,14 +51,32 @@
                 'sendPasswordResetLink'
             ]),
             sentResetLink(){
+                this.btnDisabled = true;
+                this.loading=true;
                 this.sendPasswordResetLink(this.formData)
                 .then(response=>{
+                    this.loading=false;
                     if(typeof response.code !== "undefined" && response.code === 200){
                         this.$noty.success(response.message);
                     }else{
                         this.$noty.error(response.message);
                     }
                 })
+            }
+        },
+        computed:{
+
+            heckFormData(){
+                return JSON.parse(JSON.stringify(this.formData))
+            }
+        },
+        watch:{
+            checkFormData:{
+                handler(newVal, oldVal){
+                    if (newVal !== oldVal){
+                        this.btnDisabled = false;
+                    }
+                }
             }
         }
     }

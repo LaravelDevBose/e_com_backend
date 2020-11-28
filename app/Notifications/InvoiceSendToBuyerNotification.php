@@ -3,10 +3,12 @@
 namespace App\Notifications;
 
 use App\Models\Order;
+use App\Models\Setting;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Log;
 
 class InvoiceSendToBuyerNotification extends Notification implements ShouldQueue
 {
@@ -42,11 +44,13 @@ class InvoiceSendToBuyerNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $orderInfo = Order::where('order_id', $this->order->order_id)->with('buyer.user', 'orderItems.product','orderItems.seller', 'billing', 'shipping', 'payment')->first();
+        $orderInfo = Order::where('order_id', $this->order->order_id)->with('shipping')->first();
+        Log::info($orderInfo);
         return (new MailMessage)
-            ->from(env('MAIL_FROM_ADDRESS', 'admin@info.com'), env('MAIL_FROM_NAME', 'Shop'))
-            ->view('mail.v1.invoice.invoice_mail',[
+            ->from(\config('mail.from.address', 'sale@saliim.com'), config('mail.from.name', 'Sallim'))
+            ->markdown('mail.v1.invoice.invoice_mail',[
                 'orderInfo'=>$orderInfo,
+                'url'=> route('buyer.order.show', $this->order->order_id)
             ]);
     }
 

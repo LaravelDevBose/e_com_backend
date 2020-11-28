@@ -8,25 +8,6 @@
             <ul class=" nav-left" >
                 <li ><span><i class="fa fa-phone" aria-hidden="true"></i>{{ (!empty($contactInfos['contact_phone'])) ? $contactInfos['contact_phone'] : '' }}</span></li>
                 <li ><span><i class="fa fa-envelope" aria-hidden="true"></i> @lang('header.contact_us_today') !</span></li>
-                <li class="dropdown switcher  switcher-language">
-                    <a data-toggle="dropdown" role="button" href="#" class="dropdown-toggle switcher-trigger" aria-expanded="false">
-                        <?php
-                            if(app()->getLocale() == 'so'){
-                                $flag = '/kuteshop_v2/images/flags/flag_somalia.png';
-                                $name = 'Somalia';
-                            }else{
-                                $flag = '/kuteshop_v2/images/flags/flag_english.png';
-                                $name = 'English';
-                            }
-                        ?>
-                        <img class="switcher-flag" alt="flag" src="{{ asset($flag) }}">
-                        <span>{{ $name }}</span>
-                        <i aria-hidden="true" class="fa fa-angle-down"></i>
-                    </a>
-                    <div class="dropdown-menu switcher-options ">
-                        <language-switcher></language-switcher>
-                    </div>
-                </li>
             </ul>
             <!-- hotline -->
 
@@ -73,30 +54,10 @@
     <div class="header-content">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 nav-left">
-                    <!-- logo -->
-                    <strong class="logo" style="display: inline-block;">
-                        <a href="{{ route('front.index') }}">
-                            <img src="{{ asset('saliim.png') }}" alt="logo" style="height: 80px;">
-                        </a>
-                    </strong><!-- logo -->
+                <div class="nav-left">
                     @if(!empty($siteTitle))
                         <a href="{{ route('front.index') }}" class="desktop-svg">
-                            <svg viewBox="50 0 600 200" >
-                                <!-- Symbol-->
-                                <symbol id="s-text">
-                                    <text text-anchor="middle" x="50%" y="50%" dy=".35em">{{ $siteTitle }}</text>
-                                </symbol>
-                                <!-- Duplicate symbols-->
-                                <use class="a-text" xlink:href="#s-text"></use>
-                                <use class="a-text" xlink:href="#s-text"></use>
-                                <use class="a-text" xlink:href="#s-text"></use>
-                                <use class="a-text" xlink:href="#s-text"></use>
-                                <use class="a-text" xlink:href="#s-text"></use>
-                            </svg>
-                        </a>
-                        <a href="{{ route('front.index') }}" class="mobile-svg">
-                            <svg viewBox="0 0 200 60" >
+                            <svg viewBox="0 0 700 200" >
                                 <!-- Symbol-->
                                 <symbol id="s-text">
                                     <text text-anchor="middle" x="50%" y="50%" dy=".35em">{{ $siteTitle }}</text>
@@ -110,6 +71,13 @@
                             </svg>
                         </a>
                     @endif
+                    <!-- logo -->
+                    <strong class="logo">
+                        <a href="{{ route('front.index') }}">
+                            <img src="{{ config('app.logo') }}" alt="logo">
+                        </a>
+                    </strong>
+                    <!-- logo -->
                 </div>
                 <div class=" nav-right">
                     <!-- link  wishlish-->
@@ -163,12 +131,12 @@
                 <div class="dropdown setting">
                     <a data-toggle="dropdown" role="button" href="#" class="dropdown-toggle "><span>{{ trans_choice('header.setting',2) }}</span> <i aria-hidden="true" class="fa fa-user"></i></a>
                     <div class="dropdown-menu  ">
-                        <div class="switcher  switcher-language">
+                        {{--<div class="switcher  switcher-language">
                             <strong class="title">@lang('header.select_lang')</strong>
                             <div class="switcher-options ">
                                 <language-switcher></language-switcher>
                             </div>
-                        </div>
+                        </div>--}}
                         @if(auth()->guest())
                             <ul class="account">
                                 <li><a href="{{ route('login') }}" >{{ __('header.login')  }}</a></li>

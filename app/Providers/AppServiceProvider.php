@@ -26,7 +26,10 @@ class AppServiceProvider extends ServiceProvider
         if (!session()->has('lang')) {
             session()->put('lang', config('app.locale'));
         }
-
+        View::composer(['mail.*', 'vendor.*'], function ($v) {
+            $contactInfos = Setting::where('type', Setting::Setting_Type['contact'])->pluck('value', 'key');
+            $v->with('contactInfos', $contactInfos);
+        });
         View::composer('templates.'.config('app.default_template').'.*', function ($v) {
             $categoryTree = CommonData::category_tree_list();
             /*$headerPageMenus = CommonData::pages_menu_list(Page::MENU_SHOW_IN['Footer']);

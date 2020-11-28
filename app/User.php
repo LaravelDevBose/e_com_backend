@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Buyer;
 use App\Models\Seller;
 use App\Models\SocialProvider;
+use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -81,5 +82,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function social_provider()
     {
         return $this->hasOne(SocialProvider::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+
+        $this->notify(new ResetPasswordNotification($token));
     }
 }
