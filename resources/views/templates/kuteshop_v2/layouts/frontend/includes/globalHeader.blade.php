@@ -54,7 +54,7 @@
     <div class="header-content">
         <div class="container">
             <div class="row">
-                <div class="nav-left">
+                <div class="nav-left col-md-6">
                     @if(!empty($siteTitle))
                         <a href="{{ route('front.index') }}" class="desktop-svg">
                             <svg viewBox="0 0 700 200" >
