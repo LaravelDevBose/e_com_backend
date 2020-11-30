@@ -4079,9 +4079,6 @@ select.input-sm {
 }
 .header-opt-2 .header-content .logo {
     display: inline-block;
-    /*position: absolute;
-    top: 10px;*/
-    margin-left: 2.5rem;
 }
 
 .header-opt-2 .header-content .logo img {

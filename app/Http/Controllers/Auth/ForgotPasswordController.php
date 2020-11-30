@@ -59,7 +59,7 @@ class ForgotPasswordController extends Controller
         );
 
         if($response == Password::RESET_LINK_SENT){
-            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Reset Email Send On Your Account');
+            return ResponserTrait::allResponse('success', Response::HTTP_OK, 'Reset Email Send On Your Email');
         }else{
             return ResponserTrait::allResponse('error', Response::HTTP_NOT_FOUND, 'Invalid Email Address. Account Not Found.');
         }
