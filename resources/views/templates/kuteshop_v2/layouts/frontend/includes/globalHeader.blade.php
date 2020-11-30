@@ -54,10 +54,16 @@
     <div class="header-content">
         <div class="container">
             <div class="row">
-                <div class="nav-left col-md-3">
+                <div class="col-md-4 nav-left">
+                    <!-- logo -->
+                    <strong class="logo" style="display: inline-block;">
+                        <a href="{{ route('front.index') }}">
+                            <img src="{{ config('app.logo') }}" alt="logo" style="height: 80px;">
+                        </a>
+                    </strong><!-- logo -->
                     @if(!empty($siteTitle))
-                        {{--<a href="{{ route('front.index') }}" class="desktop-svg">
-                            <svg viewBox="0 0 700 200" >
+                        <a href="{{ route('front.index') }}" class="desktop-svg">
+                            <svg viewBox="0 0 600 200" >
                                 <!-- Symbol-->
                                 <symbol id="s-text">
                                     <text text-anchor="middle" x="50%" y="50%" dy=".35em">{{ $siteTitle }}</text>
@@ -69,15 +75,22 @@
                                 <use class="a-text" xlink:href="#s-text"></use>
                                 <use class="a-text" xlink:href="#s-text"></use>
                             </svg>
-                        </a>--}}
-                    @endif
-                    <!-- logo -->
-                    <strong class="logo">
-                        <a href="{{ route('front.index') }}">
-                            <img src="{{ config('app.logo') }}" alt="logo">
                         </a>
-                    </strong>
-                    <!-- logo -->
+                        <a href="{{ route('front.index') }}" class="mobile-svg">
+                            <svg viewBox="0 0 200 60" >
+                                <!-- Symbol-->
+                                <symbol id="s-text">
+                                    <text text-anchor="middle" x="50%" y="50%" dy=".35em">{{ $siteTitle }}</text>
+                                </symbol>
+                                <!-- Duplicate symbols-->
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                                <use class="a-text" xlink:href="#s-text"></use>
+                            </svg>
+                        </a>
+                    @endif
                 </div>
                 <div class=" nav-right">
                     <!-- link  wishlish-->

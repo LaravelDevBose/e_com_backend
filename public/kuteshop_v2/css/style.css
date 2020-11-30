@@ -3706,7 +3706,6 @@ select.input-sm {
 }
 .desktop-svg{
     display: inline-block;
-    max-width: 300px;
 }
 .header-opt-2 .header-content .logo {
     display: block
@@ -4074,41 +4073,23 @@ select.input-sm {
     background-color: #E80000
 }
 
-.header-opt-2 .header-content .nav-left{
-    display: inline-block;
-}
-.header-opt-2 .header-content .logo {
-    display: inline-block;
-}
-
-.header-opt-2 .header-content .logo img {
-    height: 85px;
-    width: 150px;
-}
 @media (max-width:1199px) {
     .header-opt-2 .header-content .block-search .categori-search {
         display: none
-    }
-
-    .desktop-svg{
-        width: 230px;
-    }
-
-    .header-opt-2 .header-content .logo img {
-        width: 100%;
-    }
-    .header-opt-2 .header-content .nav-mind {
-        margin-right: 20px;
-    }
-    .header-opt-2 .header-content .block-search .form-search {
-        width: 350px;
-        position: static;
     }
 }
 
 @media (max-width:991px) {
     .header-opt-2 .header-content {
         padding-top: 5px;
+        padding-bottom: 5px
+    }
+    .header-opt-2 .header-content .nav-left {
+        float: none;
+        clear: both;
+        text-align: left;
+        margin-bottom: 0px;
+        display: inline-block;
     }
     .a-text {
         fill: none;
@@ -4121,7 +4102,7 @@ select.input-sm {
         font-size: 4em;
     }
     .mobile-svg{
-        display: inline-block;
+        display: none;
         width: 100%;
     }
     .desktop-svg{
@@ -4134,48 +4115,45 @@ select.input-sm {
         height: 100%;
         left: 90px;
     }
-    .header-opt-2 .header-content .logo img {
-        height: 80px;
-        width: 100%;
-    }
     .header-opt-2 .header-content .nav-mind {
         float: right;
         padding-left: 15px;
-        margin: 0;
+        margin: 0
     }
     .header-opt-2 .header-content .nav-mind .block-search {
         float: left;
         margin-left: 0;
-        width: 390px
+        width: 275px;
+        padding-right: 10px;
     }
     .header-opt-2 .header-content .nav-mind .block-search .form-search {
         position: relative;
         width: 100%
     }
     .header-opt-2 .header-content .nav-right {
-        float: right;
+        float: right
+    }
+    .header-opt-2 .header-content .logo img{
+        width: 120px;
+        height: 65px;
     }
 }
 
 @media (max-width:479px) {
-    .header-opt-2 .header-content {
-
-        padding-bottom: 15px;
-    }
     .header-opt-2 .header-content .nav-right {
-        margin-bottom: 10px;
+        float: right;
+        margin-bottom: 10px
     }
-    .header-opt-2 .header-content .logo{
-        padding-top: 15px;
-    }
-    .header-opt-2 .header-content .logo img {
-        height: 55px;
+    .header-opt-2 .header-content .nav-right:after,
+    .header-opt-2 .header-content .nav-right:before {
+        content: "";
+        display: table
     }
     .header-opt-2 .header-content .nav-right:after {
         clear: both
     }
     .header-opt-2 .header-content .nav-mind {
-        padding: 10px 15px 0;
+        padding: 0 15px;
         float: none;
         clear: both;
         width: 100%
@@ -4184,20 +4162,13 @@ select.input-sm {
         float: none;
         width: 100%;
         max-width: 100%;
-        padding: 0;
-        margin-top: 10px;
+        padding: 0
     }
     .header-opt-2 .header-content .nav-mind .block-search .form-search {
         float: none
     }
-    .site-header .block-nav-categori {
-        width: 140px!important;
-    }
-    .block-nav-categori .block-title,
-    .site-header .nav-toggle-menu{
-        font-size: 13px;
-    }
 }
+
 .header-opt-3 .header-top {
     background-color: #e1e1e1;
     padding: 0
@@ -26710,13 +26681,9 @@ img.alignright {
 .block-floor-products-opt2 .block-title .actions {
     position: absolute;
     right: 18px;
-    top: 15px;
+    top: 4px
 }
-.block-floor-products-opt2 .block-title .actions a{
-    color: rgb(247 128 49);
-    font-weight: bold;
-    text-decoration: underline;
-}
+
 .block-floor-products-opt2 .block-title .actions .action {
     width: 22px;
     text-align: center;
@@ -26789,11 +26756,11 @@ img.alignright {
     }
     .block-floor-products-opt2 .block-title .links .dropdown-menu {
         left: 0;
-        width: 100%;
+        width: auto;
         right: 0
     }
     .block-floor-products-opt2 .block-title .actions {
-        top: 62px;
+        top: 55px;
         right: 10px
     }
 }
@@ -41422,6 +41389,8 @@ img.alignright {
 }*/
 
 .desktop-svg svg , .mobile-svg svg{
+    position: absolute;
     width: 100%;
     height: 100%;
+    top: 0px;
 }
