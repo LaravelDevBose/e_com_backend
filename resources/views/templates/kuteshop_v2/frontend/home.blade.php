@@ -26,7 +26,37 @@
 
         <div class="container">
             @if(!empty($latestDeals) && !empty($latestDeals->deal_products))
-                <hot-deal-grid-section :latest-deals="{{$latestDeals}}" :mall-title="{{ json_encode($mallTitle) }}"></hot-deal-grid-section>
+                <div class="block-deals-of-opt2">
+                    <div class="block-title ">
+                        <span class="title">Latest Deals</span>
+                        <div class="deals-of-countdown">
+                            <span class="title">End In</span>
+                            <div class="count-down-time" data-countdown="{{ $latestDeals->end_time }}"></div>
+                        </div>
+                    </div>
+                    <div class="block-content">
+                        <div class="owl-carousel"
+                             data-nav="true"
+                             data-dots="false"
+                             data-margin="8"
+                             data-responsive='{
+                            "0":{"items":1},
+                            "480":{"items":2},
+                            "640":{"items":3},
+                            "992":{"items":4},
+                            "1200":{"items":5}
+                            }'>
+                            @foreach($latestDeals->deal_products as $dealProduct)
+                                @if(!empty($dealProduct->product))
+                                    <section-product-grid :product="{{ $dealProduct->product }}" :mallname="{{ json_encode($mallTitle) }}"></section-product-grid>
+                                @endif
+                            @endforeach
+                        </div>
+
+                    </div>
+                </div>
+
+{{--                <hot-deal-grid-section :latest-deals="{{$latestDeals}}" :mall-title="{{ json_encode($mallTitle) }}"></hot-deal-grid-section>--}}
             @endif
 
             @if(!empty($adminLatestProducts))

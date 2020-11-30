@@ -54,9 +54,9 @@
     <div class="header-content">
         <div class="container">
             <div class="row">
-                <div class="nav-left col-md-6">
+                <div class="nav-left col-md-3">
                     @if(!empty($siteTitle))
-                        <a href="{{ route('front.index') }}" class="desktop-svg">
+                        {{--<a href="{{ route('front.index') }}" class="desktop-svg">
                             <svg viewBox="0 0 700 200" >
                                 <!-- Symbol-->
                                 <symbol id="s-text">
@@ -69,7 +69,7 @@
                                 <use class="a-text" xlink:href="#s-text"></use>
                                 <use class="a-text" xlink:href="#s-text"></use>
                             </svg>
-                        </a>
+                        </a>--}}
                     @endif
                     <!-- logo -->
                     <strong class="logo">
