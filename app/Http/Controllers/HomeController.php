@@ -52,4 +52,9 @@ class HomeController extends Controller
             'slug'=>$slug
         ]);
     }
+
+    public function cors_option_req()
+    {
+        return response(['status' => 'success']);
+    }
 }

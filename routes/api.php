@@ -17,13 +17,5 @@ use Illuminate\Support\Facades\Route;
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });*/
-Route::options(
-    '/{any:.*}',
-    [
-        'middleware' => ['cors'],
-        function (){
-            return response(['status' => 'success']);
-        }
-    ]
-);
+Route::middleware(['cors'])->options('/{any:.*}','HomeController@cors_option_req');
 Route::middleware('cors')->post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
