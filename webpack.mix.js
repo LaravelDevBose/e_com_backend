@@ -16,8 +16,8 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/views/frontend/main.js', 'public/js/main.js')
     .sass('resources/sass/app.scss', 'public/css');
 
-mix.webpackConfig({
+/*mix.webpackConfig({
     output:{
         chunkFilename:'js/vuejs_code_split/[name].js',
     }
-});
+});*/

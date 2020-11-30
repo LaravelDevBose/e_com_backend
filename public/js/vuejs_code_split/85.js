@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[85],{433:function(e,n,t){"use strict";t.r(n);var a={name:"PageNotFound"},s=t(2),o=Object(s.a)(a,(function(){var e=this.$createElement;return(this._self._c||e)("h3",[this._v("404 Page")])}),[],!1,null,"3ebf4ea0",null);n.default=o.exports}}]);
