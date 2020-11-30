@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
-Route::middleware('cors')->post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
+Route::middleware('cors')->post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
