@@ -6,6 +6,7 @@ use App\Events\OnCancelOrderItem;
 use App\Helpers\OrderHelper;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Setting;
 use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -44,12 +45,14 @@ class OrderController extends Controller
     }
 
     public function show($orderId){
+        $contactInfos = Setting::where('type', Setting::Setting_Type['contact'])->pluck('value', 'key');
         $order = Order::where('order_id', $orderId)->first();
         if(empty($order)){
             abort(Response::HTTP_NOT_FOUND);
         }
         return view('order.show',[
             'orderId'=>$orderId,
+            'contactInfos'=>$contactInfos
         ]);
     }
     public function order_details($orderId){
@@ -63,8 +66,10 @@ class OrderController extends Controller
 
     public function invoice_print($orderId){
         $order = Order::where('order_id', $orderId)->with('buyer.user', 'orderItems.product','orderItems.seller.shop', 'billing', 'shipping', 'payment', 'orderItems.image')->first();
+        $contactInfos = Setting::where('type', Setting::Setting_Type['contact'])->pluck('value', 'key');
         return view('order.invoice_print', [
-            'order'=>$order
+            'order'=>$order,
+            'contactInfos'=>$contactInfos
         ]);
     }
 

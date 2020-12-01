@@ -16,7 +16,7 @@
             <li class="dropdown dropdown-user">
 
                 <a class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="/saliim.png" style="width: 40px; max-height: 40px!important;" alt="{{ auth()->guard('admin')->user()->user_name }}">{{ ucwords(auth()->guard('admin')->user()->full_name)  }}
+                    <img src="{{ config('app.logo') }}" style="width: 40px; max-height: 40px!important;" alt="{{ auth()->guard('admin')->user()->user_name }}">{{ ucwords(auth()->guard('admin')->user()->full_name)  }}
 {{--                    <img src="" style="width: 40px; max-height: 40px!important;" alt="{{ auth()->guard('admin')->user()->user_name }}">{{ ucwords(auth()->guard('admin')->user()->full_name)  }}--}}
                     <i class="caret"></i>
                 </a>

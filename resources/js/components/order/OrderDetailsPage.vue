@@ -10,13 +10,13 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-10 col-md-6 content-group">
-                        <img src="/saliim.png" alt="logo" style="max-width:100px; max-height: 80px;">
+                        <img src="/saliim.jpg" alt="logo" style="max-width:100px; max-height: 80px;">
                         <ul class="list-condensed list-unstyled">
                             <!--                                TODO add Company Address Dynamic-->
                             <li><h5 class="text-uppercase text-semibold">Saliim</h5></li>
-                            <li>Address: Bakaaro,  Mogadishu, Somalia</li>
-                            <li>Phone: 00252617500005</li>
-                            <li>Email: info@saliim.com</li>
+                            <li>Address: {{ contactInfos.contact_address }}</li>
+                            <li>Phone: {{ contactInfos.contact_phone }}</li>
+                            <li>Email: {{ contactInfos.contact_email }}</li>
                         </ul>
                     </div>
 
@@ -214,7 +214,7 @@
 
     export default {
         name: "OrderDetailsPage",
-        props:['orderid'],
+        props:['orderid', 'contactInfos'],
         data(){
             return{
 

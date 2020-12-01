@@ -27,18 +27,17 @@
 <body>
 <div class="content" >
     <div class="panel">
-
         <div class="panel-body no-padding-bottom">
             <div class="row" style="border-bottom: 2px solid #ddd; margin-bottom: 15px;">
                 <div class="col-sm-10 col-md-6 content-group" style="float:left; width: 10%">
-                    <img src="/saliim.png" alt="logo" style="max-width:100px; max-height: 80px;">
+                    <img src="{{ config('app.logo') }}" alt="logo" style="max-width:100px; max-height: 80px;">
                 </div>
                 <div class="col-sm-10 col-md-6 content-group" style="float:left; width: 80%">
                     <ul class="list-condensed list-unstyled">
                         <li style="margin: 0;"><h5 class="text-uppercase text-semibold" style="margin: 0;">Saliim</h5></li>
-                        <li style="margin: 0;">Address: Bakaaro,  Mogadishu, Somalia</li>
-                        <li style="margin: 0;">Phone: 00252617500005</li>
-                        <li style="margin: 0;">Email: info@saliim.com</li>
+                        <li style="margin: 0;">Address: {{ $contactInfos['contact_address'] }}</li>
+                        <li style="margin: 0;">Phone: {{ $contactInfos['contact_phone'] }}</li>
+                        <li style="margin: 0;">Email: {{ $contactInfos['contact_email'] }}</li>
                     </ul>
                 </div>
             </div>
