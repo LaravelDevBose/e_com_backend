@@ -11,6 +11,7 @@
     <meta name="author" content="">
     <meta name="base-url" content="{{ url('/') }}">
     <meta name="lang" content="en">
+    <base href="/" />
 
     <!-- Favicons Icon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
