@@ -43,15 +43,15 @@ class Order extends Model
     protected $appends = array('status_label', 'order_total');
 
     public static function order_no_generate(){
-        $sku = '';
+        /*$sku = '';
         for ($i=1; $i<=4; $i++){
             $sku.= Str::random(4);
             if($i != 4){
                 $sku .= '-';
             }
-        }
+        }*/
 
-        return $sku;
+        return 'PKR-'.Carbon::now()->timestamp;
     }
 
     public function scopeOrderStatus($query, $status){
