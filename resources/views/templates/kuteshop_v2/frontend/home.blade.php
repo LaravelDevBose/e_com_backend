@@ -231,7 +231,7 @@
                         <span class="title">Shop On-The-Go</span>
                     </div>
                     <div class="des">
-                        Download the app and get the world of AliExpress at your fingertips.
+                        Download the app and get the world of Saliim at your fingertips.
                     </div>
                 </div>
             </div>
