@@ -28,6 +28,7 @@ class Order extends Model
         'total_qty',
         'sub_total',
         'discount',
+        'cancel_total',
         'total',
         'order_date',
         'order_status',

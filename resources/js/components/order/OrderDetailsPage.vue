@@ -10,13 +10,13 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-10 col-md-6 content-group">
-                        <img src="/saliim.png" alt="logo" style="max-width:100px; max-height: 80px;">
+                        <img src="/logo.jpg" alt="logo" style="max-width:100px; max-height: 80px;">
                         <ul class="list-condensed list-unstyled">
-                            <!--                                TODO add Company Address Dynamic-->
+                            <!--TODO add Company Address Dynamic-->
                             <li><h5 class="text-uppercase text-semibold">Saliim</h5></li>
-                            <li>Address: Bakaaro,  Mogadishu, Somalia</li>
-                            <li>Phone: 00252617500005</li>
-                            <li>Email: info@saliim.com</li>
+                            <li>Address: {{ contactInfos.contact_address }}</li>
+                            <li>Phone: {{ contactInfos.contact_phone }}</li>
+                            <li>Email: {{ contactInfos.contact_email }}</li>
                         </ul>
                     </div>
 
@@ -44,7 +44,7 @@
                                 <li>Status:
                                     <div class="btn-group">
                                         <span  class="label  dropdown-toggle"
-                                               :class="{'bg-info':order.order_status == 1, 'bg-danger':order.order_status == 2, 'bg-warning':order.order_status == 3, 'bg-primary':order.order_status == 4, 'bg-indigo-400':order.order_status == 5, 'bg-teal':order.order_status == 6 }"
+                                               :class="bgClass"
                                                data-toggle="dropdown" aria-expanded="false">
                                             {{ order.status_label }}
                                             <span v-if="order.order_status != 2  && order.order_status != 6" class="caret"></span>
@@ -55,24 +55,17 @@
                                                     <a href="#" @click.prevent="changeOrderStatus(order.order_no, index)">
                                                         <span
                                                             class="status-mark position-left"
-                                                            :class="{'bg-info':index == 1, 'bg-danger':index == 2, 'bg-warning':index == 3, 'bg-primary':index == 4, 'bg-indigo-400':index == 5, 'bg-teal':index == 6 }"
+                                                            :class="{'bg-info':index == 1,
+                                                             'bg-danger':index == 2 || index == 7,
+                                                              'bg-warning':index == 3,
+                                                               'bg-primary':index == 4,
+                                                                'bg-indigo-400':index == 5,
+                                                                 'bg-teal':index == 6 }"
                                                         ></span> {{ status }}
                                                     </a>
                                                 </li>
                                             </ul>
                                         </div>
-                                    </div>
-                                    <div v-if="order.order_status != 2 && order.order_status != 6" >
-                                        <ul v-if="statusList" class="dropdown-menu dropdown-menu-right">
-                                            <li v-for="(status, index) in statusList" v-if="order.order_status != index">
-                                                <a href="#" @click.prevent="changeOrderStatus(order.order_no, index)">
-                                                <span
-                                                    class="status-mark position-left"
-                                                    :class="{'bg-info':index == 1, 'bg-danger':index == 2, 'bg-warning':index == 3, 'bg-primary':index == 4, 'bg-indigo-400':index == 5, 'bg-teal':index == 6 }"
-                                                ></span> {{ status }}
-                                                </a>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </li>
                             </ul>
@@ -114,8 +107,12 @@
                             </div>
                         </td>
                         <td>
-                            <span class="text-teal" style="margin-right:.5rem; " v-if="item.seller">
-                                <i class="icon-store2"></i> {{ item.seller.seller_name }}</span>
+                            <p class="text-teal" style="margin-right:.5rem; margin-bottom: 0 " v-if="item.seller">
+                                <i class="icon-store2"></i> {{ item.seller.seller_name }}
+                            </p>
+                            <span class="text-muted">
+                                <span class="text-slate"> <i class="icon-barcode2"></i> {{ (item.seller_sku !== '')? item.seller_sku : '' }}</span>
+                            </span>
                         </td>
                         <td class="text-center">
                             <div class="btn-group">
@@ -174,7 +171,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-5 " :class="{'col-sm-offset-7': !order.payment}">
+                    <div class="col-sm-5 " :class="{'col-sm-offset-7': !order.payment}" >
                         <div class="content-group">
                             <h6>Summary</h6>
                             <div class="table-responsive ">
@@ -191,6 +188,10 @@
                                     <tr>
                                         <th>Discount:</th>
                                         <td class="text-right"> {{ order.discount}}</td>
+                                    </tr>
+                                    <tr v-if="order.cancel_total > 0" style="background: #ffd2d2;">
+                                        <th>Canceled:</th>
+                                        <td class="text-right"> {{ order.cancel_total  }}</td>
                                     </tr>
                                     <tr>
                                         <th>Total:</th>
@@ -215,10 +216,10 @@
 
     export default {
         name: "OrderDetailsPage",
-        props:['orderid'],
+        props:['orderid', 'contactInfos'],
         data(){
             return{
-
+                bgClass: 'bg-info'
             }
         },
         created() {
@@ -292,8 +293,45 @@
             ...mapGetters([
                 'order',
                 'statusList'
-            ])
+            ]),
+            checkOrder(){
+                return JSON.parse(JSON.stringify(this.order));
+            }
         },
+        watch:{
+            checkOrder:{
+                handler(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        switch (this.order.order_status) {
+                            case 1:
+                                this.bgClass = 'bg-info';
+                                break;
+                            case 2:
+                                this.bgClass = 'bg-danger';
+                                break;
+                            case 3:
+                                this.bgClass = 'bg-warning';
+                                break;
+                            case 4:
+                                this.bgClass = 'bg-primary';
+                                break;
+                            case 5:
+                                this.bgClass = 'bg-indigo-400';
+                                break;
+                            case 6:
+                                this.bgClass = 'bg-teal';
+                                break;
+                            case 7:
+                                this.bgClass = 'bg-danger';
+                                break;
+                            default:
+                                this.bgClass = 'bg-info';
+                                break;
+                        }
+                    }
+                }
+            }
+        }
     }
 </script>
 

@@ -136,9 +136,11 @@ class OrderController extends Controller
                                 ->where('size_id', $cart->options->colorId)->first();
                             $currentQty = $variationProduct->quantity;
                             $variation_id = $variationProduct->variation_id;
+                            $sellerSku = $variationProduct->seller_sku;
                         }else{
                             $currentQty = $product->variation->quantity;
                             $variation_id= $product->variation->variation_id;
+                            $sellerSku = $product->variation->seller_sku;
                         }
 
                         array_push($productUpdateArray,[
@@ -152,6 +154,7 @@ class OrderController extends Controller
                             'order_id'=>$order->order_id,
                             'user_id'=>$request->user()->user_id,
                             'seller_id'=>$product->seller_id,
+                            'seller_sku'=>$sellerSku??null,
                             'product_id'=>$product->product_id,
                             'product_name'=>$product->product_name,
                             'size_id'=>$cart->options->sizeId??null,

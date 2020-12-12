@@ -104,12 +104,16 @@
                         <td colspan="1"><strong>{{ orderInfo.subtotal }}</strong></td>
                     </tr>
                     <tr>
+                        <td colspan="4"><strong>Delivery Charge</strong></td>
+                        <td colspan="1"><strong>{{ orderInfo.delivery_charge }}</strong></td>
+                    </tr>
+                    <tr>
                         <td colspan="4"><strong>Discount</strong></td>
                         <td colspan="1"><strong>{{ orderInfo.discount }}</strong></td>
                     </tr>
-                    <tr>
-                        <td colspan="4"><strong>Delivery Charge</strong></td>
-                        <td colspan="1"><strong>{{ orderInfo.delivery_charge }}</strong></td>
+                    <tr v-if="order.cancel_total > 0" style="background: #ffd2d2;">
+                        <th>Canceled:</th>
+                        <td class="text-right"> {{ order.cancel_total  }}</td>
                     </tr>
                     <tr>
                         <td colspan="4"><strong>Total</strong></td>

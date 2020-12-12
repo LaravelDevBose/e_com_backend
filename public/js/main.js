@@ -8831,6 +8831,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OrderDetailPage",
@@ -15917,7 +15921,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\np[data-v-6b8654a3]{\r\n    margin: 0;\n}\n.cart_product[data-v-6b8654a3]{\r\n    text-align: center!important;\r\n    padding: 0px!important;\n}\n.cart_product img[data-v-6b8654a3]{\r\n    width: 50px!important;\r\n    height: 50px!important;\n}\r\n", ""]);
+exports.push([module.i, "\np[data-v-6b8654a3]{\n    margin: 0;\n}\n.cart_product[data-v-6b8654a3]{\n    text-align: center!important;\n    padding: 0px!important;\n}\n.cart_product img[data-v-6b8654a3]{\n    width: 50px!important;\n    height: 50px!important;\n}\n", ""]);
 
 // exports
 
@@ -69572,7 +69576,9 @@ var render = function() {
                       _vm._m(2),
                       _vm._v(" "),
                       _c("td", { attrs: { colspan: "1" } }, [
-                        _c("strong", [_vm._v(_vm._s(_vm.orderInfo.discount))])
+                        _c("strong", [
+                          _vm._v(_vm._s(_vm.orderInfo.delivery_charge))
+                        ])
                       ])
                     ]),
                     _vm._v(" "),
@@ -69580,11 +69586,19 @@ var render = function() {
                       _vm._m(3),
                       _vm._v(" "),
                       _c("td", { attrs: { colspan: "1" } }, [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.orderInfo.delivery_charge))
-                        ])
+                        _c("strong", [_vm._v(_vm._s(_vm.orderInfo.discount))])
                       ])
                     ]),
+                    _vm._v(" "),
+                    _vm.order.cancel_total > 0
+                      ? _c("tr", { staticStyle: { background: "#ffd2d2" } }, [
+                          _c("th", [_vm._v("Canceled:")]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-right" }, [
+                            _vm._v(" " + _vm._s(_vm.order.cancel_total))
+                          ])
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
                     _c("tr", [
                       _vm._m(4),
@@ -69635,7 +69649,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", { attrs: { colspan: "4" } }, [
-      _c("strong", [_vm._v("Discount")])
+      _c("strong", [_vm._v("Delivery Charge")])
     ])
   },
   function() {
@@ -69643,7 +69657,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", { attrs: { colspan: "4" } }, [
-      _c("strong", [_vm._v("Delivery Charge")])
+      _c("strong", [_vm._v("Discount")])
     ])
   },
   function() {
