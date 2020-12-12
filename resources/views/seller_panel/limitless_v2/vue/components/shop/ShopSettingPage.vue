@@ -122,6 +122,7 @@
                             Notify.error(response.message);
                         }else if(response.code === 200 ){
                             Notify.success(response.message);
+                            window.location.reload();
                         }else if(response.status === "validation" && response.code === 400){
                             Notify.validation(response.message);
                         }else {

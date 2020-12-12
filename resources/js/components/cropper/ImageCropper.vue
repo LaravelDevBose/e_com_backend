@@ -7,10 +7,10 @@
                 </div>
             </div>
             <div
-                v-if="!removeImage"
-
+                v-if="!removeImage && cropImages.length >= 0"
                 class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
                 v-for="(cropImageData,index) in cropImages"
+                :key="index"
             >
                 <div class="form-group" v-if="cropImageData.serial === serial">
                     <img  :src="cropImageData.img" class="img-thumbnail img-responsive" style="max-height: 250px;" alt="">
@@ -18,10 +18,10 @@
                 </div>
             </div>
             <div
-                v-if="cropperData.init_image !== '' && cropImages.length === 0"
+                v-if="cropperData.init_image !== ''"
                 class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
             >
-                <div class="form-group" v-if="cropperData.serial === serial">
+                <div class="form-group" v-if="cropImages.length <=0 || (cropImages.length> 0 && cropImages[0].serial !== serial)">
                     <img  :src="cropperData.init_image" class="img-thumbnail img-responsive" style="max-height: 250px;" alt="">
                 </div>
             </div>

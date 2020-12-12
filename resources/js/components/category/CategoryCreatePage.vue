@@ -31,20 +31,20 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Category Banner:</label>
-                                <image-cropper :cropperData="cropperData" :removeImage="removeImage"></image-cropper>
+                                <image-cropper :cropperData="cropperData" :removeImage="removeImage1"></image-cropper>
                             </div>
                         </div>
                         <div class="col-md-4" v-if="!formValue.parent_id">
                             <div class="form-group">
                                 <label>Homepage Section:</label>
-                                <image-cropper :cropperData="SectionCropperData" :removeImage="removeImage"></image-cropper>
+                                <image-cropper :cropperData="SectionCropperData" :removeImage="removeImage2"></image-cropper>
                             </div>
                         </div>
 
                         <div class="col-md-4" v-if="!formValue.parent_id">
                             <div class="form-group">
                                 <label>Icon:</label>
-                                <image-cropper :cropperData="iconCropperData" :removeImage="removeImage"></image-cropper>
+                                <image-cropper :cropperData="iconCropperData" :removeImage="removeImage3"></image-cropper>
                             </div>
                         </div>
 
@@ -158,7 +158,9 @@
                     modal_id:'icon_image',
                     serial:3,
                 },
-                removeImage:false,
+                removeImage1:false,
+                removeImage2:false,
+                removeImage3:false,
                 btnDisabled:false,
             }
         },
@@ -232,7 +234,9 @@
                 this.formValue.banner_id = '';
                 this.formValue.sect_banner_id = '';
                 this.formValue.icon_id = '';
-                this.removeImage = true;
+                this.removeImage1 = true;
+                this.removeImage2 = true;
+                this.removeImage3 = true;
             }
         },
         computed:{
