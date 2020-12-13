@@ -26323,7 +26323,11 @@ img.alignright {
 }
 
 .block-floor-products-opt2 .block-title .title .icon {
-    width: 25px
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    padding: 4px;
+    text-align: center;
 }
 
 .block-floor-products-opt2 .block-title .title .icon,

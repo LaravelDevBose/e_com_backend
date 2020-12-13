@@ -88,8 +88,8 @@ class FrontendController extends Controller
             ->with('thumbImage', 'singleVariation', 'reviews', 'brand.attachment', 'mallLogo')
             ->latest()->take(20)->get();
 
-        $categories = Category::isParent()->isActive()->select('category_id', 'category_name', 'category_slug', 'sect_banner_id')
-            ->with(['sectionBanner', 'iconImage', 'children' => function ($query) {
+        $categories = Category::isParent()->isActive()->select('category_id', 'category_name', 'category_slug', 'sect_banner_id', 'icon_id')
+            ->with(['iconImage','sectionBanner', 'children' => function ($query) {
                 return $query->isActive();
             }])->get();
 
