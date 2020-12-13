@@ -72,7 +72,14 @@
                     <div class="container">
                         <div class="block-title ">
                             <span class="title">
-                                <span class="icon"><img alt="img"  src="kuteshop_v2/images/floor1.png"></span>
+                                <span class="icon">
+
+                                    @if(!empty($section['category']->iconImage))
+                                    <img alt="img"  src="{{ $section['category']->iconImage->image_path }}">
+                                    @else
+                                        <img src="{{ asset('kuteshop_v2/images/icon/index3/nav-cat1.png')}}" alt="nav-cat">
+                                    @endif
+                                </span>
                                 <span class="text">{{ $section['category']->category_name }}</span>
                             </span>
                             <div class="links dropdown">
