@@ -71,7 +71,7 @@ class BrandController extends Controller
 
                 $brand = Brand::create([
                     'brand_name'=>$request->brand_name,
-                    'brand_slug'=>Str::slug($request->brnad_name),
+                    'brand_slug'=> Str::slug($request->brand_name),
                     'attachment_id'=>(!empty($request->attachment_id))? $request->attachment_id:null,
                     'brand_status'=>(!empty($request->brand_status) && $request->brand_status == 1) ? $request->brand_status : 2,
                 ]);

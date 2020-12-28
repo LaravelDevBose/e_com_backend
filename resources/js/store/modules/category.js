@@ -18,7 +18,7 @@ const getters = {
 const actions = {
     async allCategory({commit}){
         try{
-            await axios.get('/admin/category')
+            await axios.get('/admin/category/list')
                 .then(response=>{
                     if(typeof response.data.code !== "undefined" && response.data.code === 200){
                         commit('setCategory', response.data.data.data);

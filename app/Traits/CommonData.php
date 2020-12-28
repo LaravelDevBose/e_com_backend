@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 trait CommonData
 {
     public static function category_tree_list($request=null){
-        $categories = Category::isActive()->isParent()->with(['iconImage','children'=>function($query){
+        $categories = Category::isActive()->isParent()->with(['icon','children'=>function($query){
             return $query->isActive()->with(['children'=>function($q){
                 return $q->isActive();
             }]);

@@ -11,6 +11,7 @@ Route::prefix('admin')->middleware('auth:admin')->namespace('Admin')->as('admin.
     Route::get('home','HomeController@dashboard')->name('home');
 
     Route::get('/category', 'CategoryController@index')->name('category');
+    Route::get('/category/list', 'CategoryController@category_list')->name('category.list');
     Route::post('/category/tree_list', 'CategoryController@category_tree')->name('category.tree_list');
     Route::post('/all_category/tree_list', 'CategoryController@all_category_tree')->name('all_category.tree_list');
     Route::get('/category/create', 'CategoryController@create')->name('category.create');
