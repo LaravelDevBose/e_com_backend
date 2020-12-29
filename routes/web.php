@@ -4,8 +4,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'HomeController@index')->name('index');
 Auth::routes(['verify' => true]);
+Route::get('/', 'HomeController@index')->name('index');
 
 Route::namespace('Frontend')->prefix('front')->group(function () {
     Route::get('/get-categories', 'FrontendController@category_list');

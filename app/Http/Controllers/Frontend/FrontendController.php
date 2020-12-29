@@ -275,7 +275,7 @@ class FrontendController extends Controller
     public function get_product_details($slug)
     {
         $product = Product::where('product_slug', $slug)
-            ->where('product_status', config('app.active'))
+            ->whereIn('product_status', [Product::ProductStatus['Active'], Product::ProductStatus['Out of Stock'] ])
             ->with(['brand', 'category', 'productDetails','variation','variations', 'productImages', 'thumbImage', 'tags.tag', 'reviews.user', 'discount'])
             ->first();
         if(!empty($product)){

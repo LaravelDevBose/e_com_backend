@@ -123,6 +123,12 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
+        subscribeNewsletter({commit},formData){
+            return axios.post('/subscribe', formData)
+                .then(response=>{
+                    return response.data;
+                });
+        }
 
     },
     mutations:{

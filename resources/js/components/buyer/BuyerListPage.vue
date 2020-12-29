@@ -130,8 +130,7 @@
                     { label: 'Full Name', field: 'full_name', sortable: true},
                     { label: 'Email', field: 'email', sortable: false},
                     { label: 'Contact No', field: 'phone_no', sortable: false },
-                    { label: 'address', field: 'address', sortable: false},
-                    { label: 'Total Order', field: 'totalOrder',},
+                    { label: 'Total Order', field: 'total_order', align: 'center', sortable: true},
                     { label: 'Status', component: 'statusLevel', align: 'center', sortable: true },
                     { label: 'Action', component: 'buyer-action', align: 'center', sortable: false },
 

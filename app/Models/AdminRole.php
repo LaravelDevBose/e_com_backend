@@ -89,7 +89,8 @@ class AdminRole extends Model
         'manage_admin_account',
         'coupon_create',
         'coupon_manage',
-        'report'
+        'report',
+        'product_discount'
     ];
 
     const adminRoles = [

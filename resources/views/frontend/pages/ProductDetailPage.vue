@@ -116,7 +116,9 @@
                                 </div>
                                 <div class="product-info-stock">
                                     <div class="stock available">
-                                        <span class="label">Availability: </span>In stock
+                                        <span class="label">Availability: </span>
+                                        <span v-if="productData.status === 5" class="text-danger">Out of stock</span>
+                                        <span v-else>In stock</span>
                                     </div>
                                 </div>
                                 <div class="product-condition" v-if="productData.brand">
@@ -126,11 +128,11 @@
                                     <div class="overview-content" v-html="productData.highlight"></div>
                                 </div>
 
-                                <div class="product-add-form">
+                                <div class="product-add-form" >
                                     <p>Available Options:</p>
 
 
-                                    <div class="product-options-wrapper">
+                                    <div class="product-options-wrapper" v-if="productData.status === 1">
 
                                         <div class="swatch-opt"
                                              v-if="productData.product_type === 2 && variations.colors.length >0">
@@ -198,18 +200,21 @@
                                     <div class="product-options-bottom clearfix">
 
                                         <div class="actions">
-                                            <p class="alert alert-warning" v-if="disableBtn">This combination is not availabel</p>
+                                            <p class="alert alert-warning" v-if="disableBtn">This combination is not available</p>
                                             <button type="button"
                                                     title="Add to Cart"
                                                     class="action btn-cart"
-                                                    :disabled="disableBtn"
+                                                    :disabled="disableBtn || productData.status !== 1"
                                                     @click.prevent="addToCart()"
                                             >
                                                 <span>Add to Cart</span>
                                             </button>
                                             <div class="product-addto-links">
 
-                                                <a href="#" class="action btn-wishlist" title="Wish List">
+                                                <a href="#" class="action btn-wishlist" v-if="wishlisted"  @click.prevent="wishlistRemove()" title="Wish List">
+                                                    <span>Wishlist</span>
+                                                </a>
+                                                <a href="#" class="action btn-wishlist" v-else @click.prevent="wishlistAdd()" title="Wish List">
                                                     <span>Wishlist</span>
                                                 </a>
                                             </div>
@@ -383,6 +388,7 @@ export default {
             },
             max_qty: 0,
             disableBtn: false,
+            wishlisted: false,
         }
     },
     beforeRouteEnter(to, from, next) {
@@ -424,7 +430,9 @@ export default {
     methods: {
         ...mapActions([
             'getProductDetails',
-            'addToCartProduct'
+            'addToCartProduct',
+            'addToWishlist',
+            'removeFromWishlist'
         ]),
         installOwlCarousel: function () {
             this.owl_carousel = true;
@@ -524,15 +532,25 @@ export default {
             this.cartData.name = this.productData.name;
             this.addToCartProduct(this.cartData);
         },
+        wishlistAdd(){
+            this.addToWishlist(this.productData.slug);
+        },
+        wishlistRemove(){
+            this.removeFromWishlist(this.productData.slug);
+        }
     },
     computed: {
         ...mapGetters([
             'productData',
             'variations',
+            'wishlistProducts',
         ]),
 
         checkProductData() {
             return JSON.parse(JSON.stringify(this.productData));
+        },
+        checkWishlistProducts(){
+            this.wishlisted = !!this.wishlistProducts.includes(this.product.id);
         }
 
     },

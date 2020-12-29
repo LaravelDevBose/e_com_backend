@@ -27,9 +27,7 @@ class BuyerController extends Controller
 
     public function user_list()
     {
-        $users = User::notDelete()->with(['orders'=>function($query){
-            return $query->where('order_status', Order::OrderStatus['Cancel']);
-        }])->latest()->paginate(20);
+        $users = User::notDelete()->latest()->get();
 
         if(!empty($users)){
             return ResponserTrait::collectionResponse('success', Response::HTTP_OK, $users);
