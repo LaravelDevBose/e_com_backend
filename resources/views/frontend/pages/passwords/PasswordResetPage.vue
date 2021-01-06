@@ -20,21 +20,27 @@
                             <form action="" @submit.prevent="submit()">
                                 <h4>Reset Password</h4>
                                 <p>Enter your email address and your new password:</p>
-
-                                <label>Email address<span class="text text-danger">*</span></label>
-                                <input class="form-control input" type="text" required v-model="reqData.email">
-
-                                <label>New Password<span class="text text-danger">*</span></label>
-                                <input class="form-control input" type="password" required v-model="reqData.password">
-
-                                <label>Confirm Password<span class="text text-danger">*</span></label>
-                                <input class="form-control input" type="password" required v-model="reqData.password_confirmation">
-
-                                <br>
-                                <p>
-                                    <router-link :to="{name:'password_reset_email'}">Send forgot password mail?</router-link>
-                                </p>
-                                <button class="submit" :disabled="btnDisable">Reset Password</button>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label>Email address<span class="text text-danger">*</span></label>
+                                        <input class="form-control input" type="email" required v-model="reqData.email">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label>New Password<span class="text text-danger">*</span></label>
+                                        <input class="form-control input" type="password" required v-model="reqData.password">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label>Confirm Password<span class="text text-danger">*</span></label>
+                                        <input class="form-control input" type="password" required v-model="reqData.password_confirmation">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p> <router-link :to="{name:'password_reset_email'}">Send forgot password mail?</router-link> </p>
+                                        <button type="submit" :disabled="btnDisabled" class="button text-right"><i class="fa fa-lock"></i> Reset Password</button>
+                                        <div class="alert alert-info" style="margin-top: .5rem;" v-if="loading">
+                                            <i class="fas fa-spinner fa-pulse"></i> Updating Password. Please Wait....
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

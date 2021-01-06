@@ -9081,6 +9081,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PasswordResetEmailPage",
@@ -9131,6 +9139,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -70080,40 +70094,65 @@ var render = function() {
                     _vm._v("Enter your email address for reset your password:")
                   ]),
                   _vm._v(" "),
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.reqData.email,
-                        expression: "reqData.email"
-                      }
-                    ],
-                    staticClass: "form-control input",
-                    attrs: { type: "text", required: "" },
-                    domProps: { value: _vm.reqData.email },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-10" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.reqData.email,
+                            expression: "reqData.email"
+                          }
+                        ],
+                        staticClass: "form-control input",
+                        attrs: { type: "email", required: "" },
+                        domProps: { value: _vm.reqData.email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.reqData, "email", $event.target.value)
+                          }
                         }
-                        _vm.$set(_vm.reqData, "email", $event.target.value)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "submit",
-                      attrs: { disabled: _vm.btnDisable }
-                    },
-                    [_vm._v("Send Password Reset Link")]
-                  )
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-10" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "button text-right",
+                          attrs: { type: "submit", disabled: _vm.btnDisabled }
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-lock" }),
+                          _vm._v(" Send Password Reset Link")
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.loading
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "alert alert-info",
+                              staticStyle: { "margin-top": ".5rem" }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-spinner fa-pulse"
+                              }),
+                              _vm._v(
+                                " Sending Reset Link. Please Wait....\n                                    "
+                              )
+                            ]
+                          )
+                        : _vm._e()
+                    ])
+                  ])
                 ]
               )
             ])
@@ -70193,104 +70232,137 @@ var render = function() {
                     _vm._v("Enter your email address and your new password:")
                   ]),
                   _vm._v(" "),
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.reqData.email,
-                        expression: "reqData.email"
-                      }
-                    ],
-                    staticClass: "form-control input",
-                    attrs: { type: "text", required: "" },
-                    domProps: { value: _vm.reqData.email },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-10" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.reqData.email,
+                            expression: "reqData.email"
+                          }
+                        ],
+                        staticClass: "form-control input",
+                        attrs: { type: "email", required: "" },
+                        domProps: { value: _vm.reqData.email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.reqData, "email", $event.target.value)
+                          }
                         }
-                        _vm.$set(_vm.reqData, "email", $event.target.value)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.reqData.password,
-                        expression: "reqData.password"
-                      }
-                    ],
-                    staticClass: "form-control input",
-                    attrs: { type: "password", required: "" },
-                    domProps: { value: _vm.reqData.password },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-10" }, [
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.reqData.password,
+                            expression: "reqData.password"
+                          }
+                        ],
+                        staticClass: "form-control input",
+                        attrs: { type: "password", required: "" },
+                        domProps: { value: _vm.reqData.password },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.reqData,
+                              "password",
+                              $event.target.value
+                            )
+                          }
                         }
-                        _vm.$set(_vm.reqData, "password", $event.target.value)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.reqData.password_confirmation,
-                        expression: "reqData.password_confirmation"
-                      }
-                    ],
-                    staticClass: "form-control input",
-                    attrs: { type: "password", required: "" },
-                    domProps: { value: _vm.reqData.password_confirmation },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-10" }, [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.reqData.password_confirmation,
+                            expression: "reqData.password_confirmation"
+                          }
+                        ],
+                        staticClass: "form-control input",
+                        attrs: { type: "password", required: "" },
+                        domProps: { value: _vm.reqData.password_confirmation },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.reqData,
+                              "password_confirmation",
+                              $event.target.value
+                            )
+                          }
                         }
-                        _vm.$set(
-                          _vm.reqData,
-                          "password_confirmation",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c(
-                    "p",
-                    [
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-10" }, [
                       _c(
-                        "router-link",
-                        { attrs: { to: { name: "password_reset_email" } } },
-                        [_vm._v("Send forgot password mail?")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "submit",
-                      attrs: { disabled: _vm.btnDisable }
-                    },
-                    [_vm._v("Reset Password")]
-                  )
+                        "p",
+                        [
+                          _c(
+                            "router-link",
+                            { attrs: { to: { name: "password_reset_email" } } },
+                            [_vm._v("Send forgot password mail?")]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "button text-right",
+                          attrs: { type: "submit", disabled: _vm.btnDisabled }
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-lock" }),
+                          _vm._v(" Reset Password")
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.loading
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "alert alert-info",
+                              staticStyle: { "margin-top": ".5rem" }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-spinner fa-pulse"
+                              }),
+                              _vm._v(
+                                " Updating Password. Please Wait....\n                                    "
+                              )
+                            ]
+                          )
+                        : _vm._e()
+                    ])
+                  ])
                 ]
               )
             ])
