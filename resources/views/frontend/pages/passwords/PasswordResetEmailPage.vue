@@ -54,7 +54,8 @@ export default {
             reqData:{
                 email:''
             },
-            btnDisable:false
+            btnDisabled: false,
+            loading: false,
         }
     },
     methods:{

@@ -9097,7 +9097,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       reqData: {
         email: ''
       },
-      btnDisable: false
+      btnDisabled: false,
+      loading: false
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['sendResetPasswordEmail']), {
@@ -9205,7 +9206,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         password: '',
         password_confirmation: ''
       },
-      btnDisable: false
+      btnDisabled: false,
+      loading: false
     };
   },
   beforeRouteEnter: function beforeRouteEnter(to, form, next) {

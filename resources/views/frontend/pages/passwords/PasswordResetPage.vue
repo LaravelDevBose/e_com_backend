@@ -65,7 +65,8 @@ export default {
                 password: '',
                 password_confirmation: '',
             },
-            btnDisable:false,
+            btnDisabled: false,
+            loading: false,
         }
     },
     beforeRouteEnter(to, form, next){
