@@ -118,9 +118,6 @@ class AdminRole extends Model
         'manage_slider',
         'newsletter',
         'manage_newsletter',
-        'coupon_create',
-        'coupon_manage',
-        'report'
     ];
 
     const subAdminRoles = [

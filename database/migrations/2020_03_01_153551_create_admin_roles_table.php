@@ -59,6 +59,8 @@ class CreateAdminRolesTable extends Migration
             $table->boolean('manage_admin_account')->default(0)->nullable();
             $table->boolean('coupon_create')->default(0)->nullable();
             $table->boolean('coupon_manage')->default(0)->nullable();
+            $table->boolean('product_discount')->default(0)->nullable();
+            $table->boolean('report')->default(0)->nullable();
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
             $table->unsignedInteger('deleted_by')->nullable();

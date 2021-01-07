@@ -24,6 +24,7 @@ use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductTag;
 use App\Models\ProductVariation;
+use App\Models\Review;
 use App\Models\Setting;
 use App\Models\Size;
 use App\Models\Slider;
@@ -98,6 +99,17 @@ class FrontendController extends Controller
             return ApiResponser::AllResponse('Not Found', Response::HTTP_NOT_FOUND, false);
         }
     }
+    public function most_rated_products_list()
+    {
+        $newArrivals = Product::isActive()->mostRated()->with(['variation', 'thumbImage', 'discount'])->take(8)->get();
+        if(!empty($newArrivals)){
+            $coll = new ProductCollection($newArrivals);
+            return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
+        }else{
+            return ApiResponser::AllResponse('Not Found', Response::HTTP_NOT_FOUND, false);
+        }
+    }
+
 
     public function new_arrival_products()
     {
@@ -524,11 +536,18 @@ class FrontendController extends Controller
         if (!empty($tagPorIds)){
             $products = array_merge($products, $tagPorIds);
         }
+        $ratedItems = Review::select(DB::raw('sum(rating)/count(*) as item_rating ,product_id'))
+            ->groupBy('product_id')
+            ->orderBy('item_rating', 'desc')
+            ->pluck('product_id')
+            ->toArray();
+        if (!empty($ratedItems)){
+            $products = array_merge($products, $ratedItems);
+        }
         $productIds = array_unique($products);
 
         return Product::query()
             ->trendingProducts()
-            ->mostRated()
             ->orWhereIn('category_id', array_unique($categories))
             ->orWhereIn('brand_id', array_unique($brands))
             ->orWhereIn('product_id', $productIds)

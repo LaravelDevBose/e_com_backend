@@ -153,7 +153,7 @@ class Product extends Model
             ->orderBy('item_rating', 'desc')
             ->pluck('product_id')
             ->toArray();
-        $query->orWhereIn('product_id', $orderItems);
+        $query->whereIn('product_id', $orderItems);
         return $query;
     }
 

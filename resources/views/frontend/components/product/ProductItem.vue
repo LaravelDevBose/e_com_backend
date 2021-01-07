@@ -85,11 +85,12 @@
                     </router-link>
                 </strong>
                 <div class="product-reviews-summary" style="display: block; width: 100%; margin-bottom: 5px;">
-                <div class="rating-summary">
-                    <div class="rating-result" :title="product.rating">
-                         <span :style="{width: (product.rating * 100)/5 +'%'}">
-                            <span><span>{{ product.rating }}</span>% of <span>100</span></span>
-                        </span>
+                    <div class="rating-summary">
+                        <div class="rating-result" :title="product.rating">
+                             <span :style="{width: (product.rating * 100)/5 +'%'}">
+                                <span><span>{{ product.rating }}</span>% of <span>100</span></span>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
