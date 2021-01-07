@@ -61,10 +61,12 @@ export default {
     methods:{
         ...mapActions(['sendResetPasswordEmail']),
         submit(){
-            this.btnDisable = true;
+            this.btnDisabled = true;
+            this.loading=true;
             this.sendResetPasswordEmail(this.reqData)
                 .then(response=>{
-                    this.btnDisable = false;
+                    this.loading=false;
+                    this.btnDisabled = false;
                 });
         }
     },
@@ -72,7 +74,7 @@ export default {
         reqData:{
             handler(newVal, oldVal){
                 if (newVal !== oldVal){
-                    this.btnDisable = false;
+                    this.btnDisabled = false;
                 }
             }
         }

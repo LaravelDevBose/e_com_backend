@@ -19,6 +19,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\DiscountProduct;
+use App\Models\OrderItem;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductTag;
@@ -28,17 +29,24 @@ use App\Models\Size;
 use App\Models\Slider;
 use App\Models\Tag;
 use App\Traits\ApiResponser;
-use App\Traits\CommonData;
 use App\Traits\ResponserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class FrontendController extends Controller
 {
-    use CommonData;
+    public $activities = [
+        'categories'=>[],
+        'brands'=>[],
+        'tags'=>[],
+        'products'=>[],
+        'search'=>[]
+    ];
 
     public function category_list(Request $request)
     {
@@ -105,7 +113,10 @@ class FrontendController extends Controller
     public function trending_products()
     {
         ## TODO Update Trending Product Method
-        $newArrivals = Product::isActive()->with(['variation', 'thumbImage', 'discount'])->take(8)->get();
+        $newArrivals = Product::isActive()->trendingProducts()
+            ->with(['variation', 'thumbImage', 'discount'])
+            ->orderBy('last_visited_at', 'desc')
+            ->take(8)->get();
         if(!empty($newArrivals)){
             $coll = new ProductCollection($newArrivals);
             return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
@@ -116,8 +127,9 @@ class FrontendController extends Controller
 
     public function recommended_products()
     {
+        $recommendedPorIds = $this->recommended_product_ids();
         ## TODO Update Recommended Product Method
-        $newArrivals = Product::isActive()->with(['variation', 'thumbImage', 'discount'])->take(8)->get();
+        $newArrivals = Product::isActive()->whereIn('product_id', $recommendedPorIds)->with(['variation', 'thumbImage', 'discount'])->take(8)->get();
         if(!empty($newArrivals)){
             $coll = new ProductCollection($newArrivals);
             return ApiResponser::CollectionResponse('success', Response::HTTP_OK, $coll);
@@ -213,14 +225,18 @@ class FrontendController extends Controller
                 }
             }
             $products = $products->whereIn('category_id', $categoriesID);
+            Log::info('category');
+            $this->user_session_activities('categories', $catId);
         }
         if (!empty($request->brand_slug)){
             $brandId = Brand::where('brand_slug', $request->brand_slug)->value('brand_id');
             $products = $products->where('brand_id', $brandId);
+            $this->user_session_activities('brands', $brandId);
         }
         if (!empty($request->tag_slug)){
             $tag = Tag::where('tag_slug', $request->tag_slug)->with('products')->first();
             $products = $products->whereIn('product_id', $tag->products->pluck('product_id'));
+            $this->user_session_activities('tags', $tag->tag_id);
         }
 
         if (!empty($request->section_slug)){
@@ -228,11 +244,13 @@ class FrontendController extends Controller
                 $productIds = DiscountProduct::live()->orderBy('discount_percent', 'desc')->pluck('product_id');
                 $products = $products->whereIn('product_id', $productIds);
 
-            }else if($request->section_slug == 'new_arrival'){
-                $products = $products->latest();
+            }else if($request->section_slug == 'recommendation'){
+                $recommendedPorIds = $this->recommended_product_ids();
+                $products = $products->whereIn('product_id', $recommendedPorIds);
+            }else if($request->section_slug == 'trending'){
+                $products = $products->trendingProducts();
             }else{
-                ## TODO Update Trending product query and recomm
-
+                $products = $products->latest();
             }
         }
 
@@ -302,6 +320,10 @@ class FrontendController extends Controller
                     'sizes'=> SizeResource::collection($sizes)
                 ]
             ];
+            $product->update([
+                'last_visited_at'=> now()
+            ]);
+            $this->user_session_activities('products', $product->product_id);
             return ApiResponser::SingleResponse($data, 'success', Response::HTTP_OK);
         }
         return ApiResponser::AllResponse('Not Found', Response::HTTP_NOT_FOUND, false, 'Product Not found');
@@ -345,7 +367,7 @@ class FrontendController extends Controller
             if (!empty($brands)) {
                 $result['brands'] = new BrandCollection($brands);
             }
-
+            $this->user_session_activities('search', $request->search_key);
             if (!empty($result)) {
                 return ApiResponser::AllResponse('success', Response::HTTP_OK, true,'Search Result Found', $result);
             } else {
@@ -409,4 +431,108 @@ class FrontendController extends Controller
         }
     }
 
+
+    private function user_session_activities($key, $value){
+        if (\session()->has('activities')){
+            Log::info('array exist');
+            $this->activities = \session()->get('activities');
+            Log::Info(json_encode($this->activities));
+        }
+        switch ($key){
+            case 'products':
+                array_push($this->activities['products'], $value);
+                array_unique($this->activities['products']);
+                session()->forget('activities');
+                \session()->put('activities', $this->activities);
+                break;
+            case 'categories':
+                array_push($this->activities['categories'], $value);
+                array_unique($this->activities['categories']);
+                session()->forget('activities');
+                \session()->put('activities', $this->activities);
+                Log::Info(json_encode(\session()->get('activities')));
+                break;
+            case 'brands':
+                array_push($this->activities['brands'], $value);
+                array_unique($this->activities['brands']);
+                session()->forget('activities');
+                \session()->put('activities', $this->activities);
+                break;
+            case 'tags':
+                array_push($this->activities['tags'], $value);
+                array_unique($this->activities['tags']);
+                session()->forget('activities');
+                \session()->put('activities', $this->activities);
+                break;
+            case 'search':
+                array_push($this->activities['search'], $value);
+                array_unique($this->activities['search']);
+                session()->forget('activities');
+                \session()->put('activities', $this->activities);
+                break;
+
+        }
+
+
+    }
+
+    public function recommended_product_ids()
+    {
+        $categories = [];
+        $brands = [];
+        $tags = [];
+        $products = [];
+        $search = [];
+
+        if ($this->activities['categories']){
+            $categories = $this->activities['categories'];
+        }
+        if ($this->activities['brands']){
+            $brands = $this->activities['brands'];
+        }
+        if ($this->activities['tags']){
+            $tags = $this->activities['tags'];
+            $tagPorIds = ProductTag::whereIn('tag_id', $tags)->pluck('product_id')->toArray();
+            $products = array_merge($products, $tagPorIds);
+        }
+        if ($this->activities['products']){
+            $products = $this->activities['products'];
+        }
+        if ($this->activities['search']){
+            $search = $this->activities['search'];
+        }
+        $categorySearch = Category::query();
+        $brandSearch = Brand::query();
+        $tagSearch = Tag::query();
+        $productSearch = Product::query();
+        foreach($search as $key=> $value){
+            $categorySearch->orWhere('category_name', 'LIKE', '%'.$value.'%');
+            $brandSearch->orWhere('brand_name', 'LIKE', '%'.$value.'%');
+            $tagSearch->orWhere('tag_title', 'LIKE', '%'.$value.'%');
+            $productSearch->orWhere('product_name', 'like', '%'.$value.'%');
+        }
+        $categoryIds = $categorySearch->pluck('category_id')->toArray();
+        if (!empty($categoryIds)){
+            $categories = array_merge($categories, $categoryIds);
+        }
+        $brandIds = $brandSearch->pluck('brand_id')->toArray();
+        if (!empty($brandIds)){
+            $brands = array_merge($brands, $brandIds);
+        }
+        $tagIds = $tagSearch->pluck('tag_id')->toArray();
+        $tagPorIds = ProductTag::whereIn('tag_id', $tagIds)->pluck('product_id')->toArray();
+        if (!empty($tagPorIds)){
+            $products = array_merge($products, $tagPorIds);
+        }
+        $productIds = array_unique($products);
+
+        return Product::query()
+            ->trendingProducts()
+            ->mostRated()
+            ->orWhereIn('category_id', array_unique($categories))
+            ->orWhereIn('brand_id', array_unique($brands))
+            ->orWhereIn('product_id', $productIds)
+            ->orderBy('last_visited_at', 'desc')
+            ->pluck('product_id')->toArray();
+    }
 }

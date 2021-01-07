@@ -91,11 +91,13 @@ export default {
     methods:{
         ...mapActions(['resetPasswordSubmit']),
         submit(){
-            this.btnDisable = true;
+            this.btnDisabled = true;
+            this.loading=true;
             this.resetPasswordSubmit(this.reqData)
             .then(response=>{
-                this.btnDisable = false;
+                this.loading=false;
                 if(typeof response.status !== "undefined" && response.status === 200){
+                    this.btnDisabled = false;
                     this.$router.push({name:'auth'});
                 }
             })
@@ -105,7 +107,7 @@ export default {
         reqData:{
             handler(newVal, oldVal){
                 if (newVal !== oldVal){
-                    this.btnDisable = false;
+                    this.btnDisabled = false;
                 }
             }
         }

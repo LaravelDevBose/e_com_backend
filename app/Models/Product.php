@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\ManipulateBy;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class Product extends Model
@@ -40,6 +41,7 @@ class Product extends Model
         'video_url',
         'product_type',
         'product_status',
+        'last_visited_at',
         'created_by',
         'updated_by',
         'deleted_by',
@@ -130,6 +132,28 @@ class Product extends Model
                 ->whereDate('created_at','<=', Carbon::parse($request->end_date)->format('Y-m-d'));
         }
 
+        return $query;
+    }
+
+    public function scopeTrendingProducts($query)
+    {
+        $orderItems = OrderItem::select(DB::raw('count(*) as total ,product_id'))
+            ->groupBy('product_id')
+            ->orderBy('total', 'desc')
+            ->pluck('product_id')
+            ->toArray();
+        $query->orWhereIn('product_id', $orderItems);
+        return $query;
+    }
+
+    public function scopeMostRated($query)
+    {
+        $orderItems = Review::select(DB::raw('sum(rating)/count(*) as item_rating ,product_id'))
+            ->groupBy('product_id')
+            ->orderBy('item_rating', 'desc')
+            ->pluck('product_id')
+            ->toArray();
+        $query->orWhereIn('product_id', $orderItems);
         return $query;
     }
 

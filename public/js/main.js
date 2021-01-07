@@ -3124,6 +3124,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "RegisterComponent",
@@ -3136,15 +3148,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         password: '',
         password_confirmation: ''
       },
-      btnDisable: false
+      btnDisabled: false,
+      loading: false
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['register']), {
     registerNewUser: function registerNewUser() {
       var _this = this;
 
-      this.btnDisable = true;
+      this.btnDisabled = true;
+      this.loading = true;
       this.register(this.reqData).then(function (response) {
+        _this.loading = false;
+
         if (typeof response.status !== "undefined" && response.status === 200) {
           if (_this.cartTotal && _this.cartTotal > 0) {
             _this.$router.push('/checkout');
@@ -3166,7 +3182,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     checkFormData: {
       handler: function handler(newValue, oldValue) {
         if (newValue !== oldValue) {
-          this.btnDisable = false;
+          this.btnDisabled = false;
         }
       },
       deep: true
@@ -9105,9 +9121,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     submit: function submit() {
       var _this = this;
 
-      this.btnDisable = true;
+      this.btnDisabled = true;
+      this.loading = true;
       this.sendResetPasswordEmail(this.reqData).then(function (response) {
-        _this.btnDisable = false;
+        _this.loading = false;
+        _this.btnDisabled = false;
       });
     }
   }),
@@ -9115,7 +9133,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     reqData: {
       handler: function handler(newVal, oldVal) {
         if (newVal !== oldVal) {
-          this.btnDisable = false;
+          this.btnDisabled = false;
         }
       }
     }
@@ -9235,11 +9253,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     submit: function submit() {
       var _this = this;
 
-      this.btnDisable = true;
+      this.btnDisabled = true;
+      this.loading = true;
       this.resetPasswordSubmit(this.reqData).then(function (response) {
-        _this.btnDisable = false;
+        _this.loading = false;
 
         if (typeof response.status !== "undefined" && response.status === 200) {
+          _this.btnDisabled = false;
+
           _this.$router.push({
             name: 'auth'
           });
@@ -9251,7 +9272,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     reqData: {
       handler: function handler(newVal, oldVal) {
         if (newVal !== oldVal) {
-          this.btnDisable = false;
+          this.btnDisabled = false;
         }
       }
     }
@@ -15721,7 +15742,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.button[data-v-5e9919b0]:disabled,\r\n.button[data-v-5e9919b0]:disabled:hover{\r\n    background: #adadad;\r\n    border: 1px solid #eaeaea;\n}\r\n", ""]);
+exports.push([module.i, "\n.button[data-v-5e9919b0]:disabled,\n.button[data-v-5e9919b0]:disabled:hover{\n    background: #adadad;\n    border: 1px solid #eaeaea;\n}\n", ""]);
 
 // exports
 
@@ -61282,134 +61303,166 @@ var render = function() {
       _vm._v(" "),
       _c("p", [_vm._v("Register with us for future convenience:")]),
       _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.reqData.name,
-            expression: "reqData.name"
-          }
-        ],
-        staticClass: "form-control input",
-        attrs: { type: "text", required: "" },
-        domProps: { value: _vm.reqData.name },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-10" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.reqData.name,
+                expression: "reqData.name"
+              }
+            ],
+            staticClass: "form-control input",
+            attrs: { type: "text", required: "" },
+            domProps: { value: _vm.reqData.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.reqData, "name", $event.target.value)
+              }
             }
-            _vm.$set(_vm.reqData, "name", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.reqData.email,
-            expression: "reqData.email"
-          }
-        ],
-        staticClass: "form-control input",
-        attrs: { type: "text", required: "" },
-        domProps: { value: _vm.reqData.email },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-10" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.reqData.email,
+                expression: "reqData.email"
+              }
+            ],
+            staticClass: "form-control input",
+            attrs: { type: "text", required: "" },
+            domProps: { value: _vm.reqData.email },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.reqData, "email", $event.target.value)
+              }
             }
-            _vm.$set(_vm.reqData, "email", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.reqData.phone,
-            expression: "reqData.phone"
-          }
-        ],
-        staticClass: "form-control input",
-        attrs: { type: "text", required: "" },
-        domProps: { value: _vm.reqData.phone },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-10" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.reqData.phone,
+                expression: "reqData.phone"
+              }
+            ],
+            staticClass: "form-control input",
+            attrs: { type: "text", required: "" },
+            domProps: { value: _vm.reqData.phone },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.reqData, "phone", $event.target.value)
+              }
             }
-            _vm.$set(_vm.reqData, "phone", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _vm._m(3),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.reqData.password,
-            expression: "reqData.password"
-          }
-        ],
-        staticClass: "form-control input",
-        attrs: { type: "password", required: "", min: "8" },
-        domProps: { value: _vm.reqData.password },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-10" }, [
+          _vm._m(3),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.reqData.password,
+                expression: "reqData.password"
+              }
+            ],
+            staticClass: "form-control input",
+            attrs: { type: "password", required: "", min: "8" },
+            domProps: { value: _vm.reqData.password },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.reqData, "password", $event.target.value)
+              }
             }
-            _vm.$set(_vm.reqData, "password", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _vm._m(4),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.reqData.password_confirmation,
-            expression: "reqData.password_confirmation"
-          }
-        ],
-        staticClass: "form-control input",
-        attrs: { type: "password", required: "", min: "8" },
-        domProps: { value: _vm.reqData.password_confirmation },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-10" }, [
+          _vm._m(4),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.reqData.password_confirmation,
+                expression: "reqData.password_confirmation"
+              }
+            ],
+            staticClass: "form-control input",
+            attrs: { type: "password", required: "", min: "8" },
+            domProps: { value: _vm.reqData.password_confirmation },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.reqData,
+                  "password_confirmation",
+                  $event.target.value
+                )
+              }
             }
-            _vm.$set(_vm.reqData, "password_confirmation", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "button",
-          attrs: { type: "submit", disabled: _vm.btnDisable }
-        },
-        [_vm._v("Register")]
-      )
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-10" }, [
+          _c(
+            "button",
+            {
+              staticClass: "button",
+              attrs: { type: "submit", disabled: _vm.btnDisabled }
+            },
+            [_vm._v("Register")]
+          ),
+          _vm._v(" "),
+          _vm.loading
+            ? _c(
+                "div",
+                {
+                  staticClass: "alert alert-info",
+                  staticStyle: { "margin-top": ".5rem" }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-spinner fa-pulse" }),
+                  _vm._v(" Updating Password. Please Wait....\n            ")
+                ]
+              )
+            : _vm._e()
+        ])
+      ])
     ]
   )
 }
