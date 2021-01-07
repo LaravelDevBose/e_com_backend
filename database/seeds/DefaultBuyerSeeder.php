@@ -15,7 +15,7 @@ class DefaultBuyerSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create([
+        User::create([
             'full_name'=>'Default Buyer',
             'email'=>'buyer@demo.com',
             'phone_no'=>'123456',
