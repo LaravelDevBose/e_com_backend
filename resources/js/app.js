@@ -18,7 +18,7 @@ Vue.use(Croppa);
 
 Vue.use(require('vuejs-datatable'));
 import store from './store'
-import Notify from './helper/pNotify'
+import Notify from './helper/pNotify';
 window.Notify = Notify;
 
 import AppStorage from "./helper/AppStorage";
