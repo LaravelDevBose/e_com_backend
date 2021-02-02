@@ -19,7 +19,9 @@
                 <a href="https://www.facebook.com/SaliimOnline" target="_blank" class="sh-facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
                 <a href="https://www.instagram.com/saliimonline" target="_blank" class="sh-pinterest"><i class="fab fa-instagram" aria-hidden="true"></i></a>
                 <a href="https://twitter.com/SaliimOnline" target="_blank" class="sh-twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-                <a href="https://www.youtube.com/channel/UCtcvZOgC2qRmRYzGV_MuR2w?fbclid=IwAR1FnyR-OQOvlFdV0hFU_S_8At-1Q5jbxHCvwXUrWvZ_GWQTtVedKXlvd7Q" class="sh-pinterest" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.youtube.com/channel/UCtcvZOgC2qRmRYzGV_MuR2w?fbclid=IwAR1FnyR-OQOvlFdV0hFU_S_8At-1Q5jbxHCvwXUrWvZ_GWQTtVedKXlvd7Q" class="sh-pinterest" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
             </div>
         </div>
     </div>
