@@ -259,7 +259,7 @@ class FrontendController extends Controller
 
     public function sorting_product(Request $request)
     {
-        $products = Product::isActive();
+        $products = Product::query()->isActive();
         if (!empty($request->category_id)) {
             $categoriesID = array();
 
@@ -275,6 +275,7 @@ class FrontendController extends Controller
                     $categoriesID = array_merge($categoriesID, $childId);
                 }
             }
+
             $products = $products->whereIn('category_id', $categoriesID);
         }
 
@@ -287,10 +288,10 @@ class FrontendController extends Controller
 
 
         // Variation Product Filter
-         $productIds = $varProds->where('product_type', Product::ProductType['Variation'])->pluck('product_id');
+        $productIds = $varProds->where('product_type', Product::ProductType['Variation'])->pluck('product_id');
         $varProIds = ProductVariation::whereIn('product_id', $productIds)
-                        ->whereIn('pri_id',$request->colorIds)
-                        ->whereIn('sec_id', $request->sizeIds)
+                        ->orWhereIn('pri_id',$request->colorIds)
+                        ->orWhereIn('sec_id', $request->sizeIds)
                         ->where('price', '>=', $request->range[0])
                         ->where('price', '<=', $request->range[1])
                         ->pluck('product_id')->toArray();
