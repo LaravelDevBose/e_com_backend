@@ -286,7 +286,6 @@ class FrontendController extends Controller
         $varProds = $products->get();
         $simProds = $products->get();
 
-
         // Variation Product Filter
         $productIds = $varProds->where('product_type', Product::ProductType['Variation'])->pluck('product_id');
         $varProIds = ProductVariation::whereIn('product_id', $productIds)
