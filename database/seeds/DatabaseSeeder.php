@@ -12,10 +12,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
          $this->call([
-             /*AdminsTableSeeder::class,
+             AdminsTableSeeder::class,
              SettingTableSeeder::class,
              DefaultSellerSeeder::class,
-             DefaultBuyerSeeder::class,*/
+             DefaultBuyerSeeder::class,
              LatestDealSeeder::class,
          ]);
     }
