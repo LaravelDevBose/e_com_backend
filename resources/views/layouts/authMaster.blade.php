@@ -10,7 +10,6 @@
 
     <title>@yield('PageTitle') | {{ env('APP_NAME', 'Saliim') }}</title>
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Global stylesheets -->
@@ -21,13 +20,6 @@
     <link href="{{ asset('assets/css/components.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/colors.css') }}" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
-
-    <!-- Core JS files -->
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/pace.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/core/libraries/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/core/libraries/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/blockui.min.js') }}"></script>
-    <!-- /core JS files -->
     <style>
         .has-feedback-left .form-control{
             padding-left: 20px;
@@ -67,5 +59,19 @@
         r -->
     </div>
 @yield('PageJs')
+
+    <!-- Core JS files -->
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/pace.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/core/libraries/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/core/libraries/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/blockui.min.js') }}"></script>
+    <!-- /core JS files -->
+
+
+    <script src="{{ asset('js/crocus_v2.js') }}"></script>
+    <script src="{{ asset('js/limitless_v1.js') }}"></script>
+    <script src="{{ asset('js/manifest.js') }}"></script>
+    <script src="{{ asset('js/vendor.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

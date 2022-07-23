@@ -84,6 +84,10 @@
 
 <script type="text/javascript" src="{{ asset('assets/js/pages/animations_css3.js') }}"></script>
 
+<script src="{{ asset('js/crocus_v2.js') }}"></script>
+<script src="{{ asset('js/limitless_v1.js') }}"></script>
+<script src="{{ asset('js/manifest.js') }}"></script>
+<script src="{{ asset('js/vendor.js') }}"></script>
 <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>
