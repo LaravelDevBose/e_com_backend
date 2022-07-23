@@ -16,9 +16,9 @@ class SkinTypeProductDetailsTable extends Migration
         /*Schema::table('product_details', function (Blueprint $table){
             $table->renameColumn('skin_type', 'skin_type_id');
         });*/
-        Schema::table('product_details', function (Blueprint $table){
+        /*Schema::table('product_details', function (Blueprint $table){
             $table->unsignedBigInteger('skin_type_id')->change();
-        });
+        });*/
     }
 
     /**
@@ -31,8 +31,8 @@ class SkinTypeProductDetailsTable extends Migration
         /*Schema::table('product_details', function (Blueprint $table){
             $table->renameColumn('skin_type_id', 'skin_type');
         });*/
-        Schema::table('product_details', function (Blueprint $table){
+        /*Schema::table('product_details', function (Blueprint $table){
             $table->string('skin_type')->change();
-        });
+        });*/
     }
 }
