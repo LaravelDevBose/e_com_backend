@@ -30,32 +30,32 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 Vue.component('dashboard', require('./components/home/Dashboard').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
 
-import AdminLogin from './components/auth/AdminLogin';
-import Category from './components/category/Category';
-import Color from './components/color/Color';
-import Tag from './components/tag/Tag';
-import SizeGroup from './components/size/SizeGroup';
-import DeliveryCost from './components/deliveryCost/DeliveryCost';
-import CreateCampaign from './components/campaign/CreateCampaign';
-import Campaign from './components/campaign/Campaign';
-import ShowCampaign from  './components/campaign/ShowCampaign';
-import ManageCampaignProduct from './components/campaign/ManageCampaignProduct';
-import Voucher from  './components/voucher/Voucher';
-import CreateVoucher from './components/voucher/CreateVoucher';
-import Attachment from './components/attachment/Attachment';
-import ProductList from './components/product/ProductList';
-import CreateProduct from './components/product/CreateProduct';
-import ShowProduct from './components/product/ShowProduct';
-import ImportData from "./components/helper/ImportData";
-import Brand from './components/brand/Brand';
-import SkinType from './components/skin_type/SkinType';
-import SliderPage from './components/cms/slider/SliderPage';
-import SliderCreatePage from "./components/cms/slider/SliderCreatePage";
-import CreateGeneralPages from "./components/cms/pages/CreateGeneralPages";
-import GeneralPagesList from "./components/cms/pages/GeneralPagesList";
-import ShowGeneralPages from "./components/cms/pages/ShowGeneralPages";
-import EditGeneralPages from "./components/cms/pages/EditGeneralPages";
-import SettingPage from "./components/cms/setting/SettingPage";
+const AdminLogin = ()=> import('./components/auth/AdminLogin');
+const Category = () => import( './components/category/Category');
+const Color = () => import( './components/color/Color');
+const Tag = () => import( './components/tag/Tag');
+const SizeGroup = () => import( './components/size/SizeGroup');
+const DeliveryCost = () => import( './components/deliveryCost/DeliveryCost');
+const CreateCampaign = () => import( './components/campaign/CreateCampaign');
+const Campaign = () => import( './components/campaign/Campaign');
+const ShowCampaign = () => import(  './components/campaign/ShowCampaign');
+const ManageCampaignProduct = () => import( './components/campaign/ManageCampaignProduct');
+const Voucher = () => import(  './components/voucher/Voucher');
+const CreateVoucher = () => import( './components/voucher/CreateVoucher');
+const Attachment = () => import( './components/attachment/Attachment');
+const ProductList = () => import( './components/product/ProductList');
+const CreateProduct = () => import( './components/product/CreateProduct');
+const ShowProduct = () => import( './components/product/ShowProduct');
+const ImportData = () => import( "./components/helper/ImportData");
+const Brand = () => import( './components/brand/Brand');
+const SkinType = () => import( './components/skin_type/SkinType');
+const SliderPage = () => import( './components/cms/slider/SliderPage');
+const SliderCreatePage = () => import( "./components/cms/slider/SliderCreatePage");
+const CreateGeneralPages = () => import( "./components/cms/pages/CreateGeneralPages");
+const GeneralPagesList = () => import( "./components/cms/pages/GeneralPagesList");
+const ShowGeneralPages = () => import( "./components/cms/pages/ShowGeneralPages");
+const EditGeneralPages = () => import( "./components/cms/pages/EditGeneralPages");
+const SettingPage = () => import( "./components/cms/setting/SettingPage");
 
 
 const app = new Vue({

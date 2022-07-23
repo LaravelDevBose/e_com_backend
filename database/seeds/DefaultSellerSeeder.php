@@ -29,11 +29,12 @@ class DefaultSellerSeeder extends Seeder
         if(!empty($user)){
             $seller = Seller::create([
                 'user_id'=>$user->user_id,
-                'shop_name'=>'Brainchild Shop',
-                'shop_address'=>'Samoliy, Dhaka',
-                'shop_phone'=>'01714711730',
-                'shop_email'=>'myshop@demo.com',
-                'shop_status'=>Seller::ShopStatus['Active'],
+                'seller_name'=>'Brainchild Shop',
+                'seller_email'=>'shop@brainchildsoft.com',
+                'seller_phone'=>'01571721910',
+                'seller_type'=>1,
+                'seller_address'=>'Samoliy, Dhaka',
+                'seller_status'=>Seller::ShopStatus['Active'],
             ]);
             if(!empty($seller)){
                 Shop::create([

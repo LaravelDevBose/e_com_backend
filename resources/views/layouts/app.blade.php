@@ -10,7 +10,6 @@
 
     <title>@yield('PageTitle') | {{ env('APP_NAME') }}</title>
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Global stylesheets -->
@@ -148,6 +147,6 @@
 
 </div>
 @yield('PageJs')
-
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>
