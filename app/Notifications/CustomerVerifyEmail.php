@@ -31,7 +31,7 @@ class CustomerVerifyEmail extends VerifyEmail implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['mail'];
     }
 
     /**

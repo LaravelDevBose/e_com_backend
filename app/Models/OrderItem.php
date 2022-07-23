@@ -39,6 +39,7 @@ class OrderItem extends Model
         'order_id',
         'user_id',
         'seller_id',
+        'seller_sku',
         'product_id',
         'product_name',
         'size_id',
@@ -54,7 +55,6 @@ class OrderItem extends Model
         'created_by',
         'updated_by',
         'deleted_by',
-
     ];
 
     protected $appends = [

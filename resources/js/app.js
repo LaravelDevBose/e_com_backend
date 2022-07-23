@@ -29,10 +29,8 @@ window.AppStorage = AppStorage;
 import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
 
-const files = require.context('./', true, /\.vue$/i, 'lazy').keys();
-files.forEach(file => {
-    Vue.component(file.split('/').pop().split('.')[0], () => import(`${file}`));
-});
+const files = require.context('./', true, /\.vue$/i);
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 Vue.component('dashboard', ()=>import('./components/home/Dashboard'));
 
 

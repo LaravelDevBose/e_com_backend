@@ -26,6 +26,11 @@ class AppServiceProvider extends ServiceProvider
         if (!session()->has('lang')) {
             session()->put('lang', config('app.locale'));
         }
+
+        View::composer(['emails.*', 'vendor.*'], function ($v) {
+            $contactInfos = Setting::where('type', Setting::Setting_Type['contact'])->pluck('value', 'key');
+            $v->with('contactInfos', $contactInfos);
+        });
     }
 
     /**

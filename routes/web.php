@@ -4,14 +4,15 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'HomeController@index')->name('index');
 Auth::routes(['verify' => true]);
+Route::get('/', 'HomeController@index')->name('index');
 
 Route::namespace('Frontend')->prefix('front')->group(function () {
     Route::get('/get-categories', 'FrontendController@category_list');
     Route::get('/get-brands', 'FrontendController@brand_list');
     Route::get('/get-sliders', 'FrontendController@slider_list');
     Route::get('/get-discount/products', 'FrontendController@discount_products_list');
+    Route::get('/get-most_rated/products', 'FrontendController@most_rated_products_list');
     Route::get('/get-new-arrival/products', 'FrontendController@new_arrival_products');
     Route::get('/get-trending/products', 'FrontendController@trending_products');
     Route::get('/get-recommended/products', 'FrontendController@recommended_products');

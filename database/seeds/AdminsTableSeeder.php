@@ -66,6 +66,10 @@ class AdminsTableSeeder extends Seeder
                 'account_setting'=>1,
                 'admin_account'=>1,
                 'manage_admin_account'=>1,
+                'coupon_create'=>1,
+                'coupon_manage'=>1,
+                'report'=>1,
+                'product_discount'=>1
             ]);
         }
     }

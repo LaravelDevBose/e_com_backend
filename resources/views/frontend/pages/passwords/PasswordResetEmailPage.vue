@@ -21,10 +21,18 @@
                                 <h4>Reset Password</h4>
                                 <p>Enter your email address for reset your password:</p>
 
-                                <label>Email address<span class="text text-danger">*</span></label>
-                                <input class="form-control input" type="text" required v-model="reqData.email">
-                                <br>
-                                <button class="submit" :disabled="btnDisable">Send Password Reset Link</button>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label>Email address<span class="text text-danger">*</span></label>
+                                        <input class="form-control input" type="email" required v-model="reqData.email">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <button type="submit" :disabled="btnDisabled" class="button text-right"><i class="fa fa-lock"></i> Send Password Reset Link</button>
+                                        <div class="alert alert-info" style="margin-top: .5rem;" v-if="loading">
+                                            <i class="fas fa-spinner fa-pulse"></i> Sending Reset Link. Please Wait....
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -46,16 +54,19 @@ export default {
             reqData:{
                 email:''
             },
-            btnDisable:false
+            btnDisabled: false,
+            loading: false,
         }
     },
     methods:{
         ...mapActions(['sendResetPasswordEmail']),
         submit(){
-            this.btnDisable = true;
+            this.btnDisabled = true;
+            this.loading=true;
             this.sendResetPasswordEmail(this.reqData)
                 .then(response=>{
-                    this.btnDisable = false;
+                    this.loading=false;
+                    this.btnDisabled = false;
                 });
         }
     },
@@ -63,7 +74,7 @@ export default {
         reqData:{
             handler(newVal, oldVal){
                 if (newVal !== oldVal){
-                    this.btnDisable = false;
+                    this.btnDisabled = false;
                 }
             }
         }

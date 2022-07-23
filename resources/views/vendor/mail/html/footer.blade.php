@@ -11,10 +11,10 @@
                             <a href="{{ config('app.url') }}"> {{ config('app.name') }}</a>
                         </h6>
                         <p>
-                            <i class="fad fa-envelope"></i> <span>info@domail.com</span>
-                            <i class="fad fa-phone"></i> <span>+000 00000000</span>
+                            <i class="fad fa-envelope"></i> <span>info@saliim.com</span>
+                            <i class="fad fa-phone"></i> <span>{{ (!empty($contactInfos['contact_phone']))? $contactInfos['contact_phone'] : '' }}</span>
                         </p>
-                        <p><i class="fad fa-map-marker-alt"></i> <span>this is your company full address</span></p>
+                        <p><i class="fad fa-map-marker-alt"></i> <span>{!!  (!empty($contactInfos['contact_address']))? $contactInfos['contact_address'] : ''  !!}</span></p>
                     </div>
                 </td>
 

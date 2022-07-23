@@ -23,7 +23,7 @@
 @endsection
 
 @section('content')
-    <order-details-page :orderid="{{$orderId}}"></order-details-page>
+    <order-details-page :orderid="{{$orderId}}" :contact-infos="{{ $contactInfos }}"></order-details-page>
 @endsection
 @section('PageJs')
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterAdminRolesTable extends Migration
+class UpdateWarrantyPolicyPorudctDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AlterAdminRolesTable extends Migration
      */
     public function up()
     {
-        Schema::table('admin_roles', function (Blueprint $table) {
-            $table->boolean('report')->default(1)->nullable();
+        Schema::table('product_details', function (Blueprint $table) {
+            $table->longText('warranty_policy')->nullable()->change();
         });
     }
 
@@ -25,8 +25,8 @@ class AlterAdminRolesTable extends Migration
      */
     public function down()
     {
-        Schema::table('admin_roles', function (Blueprint $table) {
-            $table->dropColumn(['report']);
+        Schema::table('product_details', function (Blueprint $table) {
+            $table->string('warranty_policy')->nullable();
         });
     }
 }

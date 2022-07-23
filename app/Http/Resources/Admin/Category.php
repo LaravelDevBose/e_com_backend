@@ -27,7 +27,7 @@ class Category extends JsonResource
             'children'=>CategoryResource::collection($this->whenLoaded('children')),
             'parent'=>new CategoryResource($this->whenLoaded('parent')),
             'attachment'=> new AttachmentResource($this->whenLoaded('attachment')),
-            'iconImage'=> new AttachmentResource($this->whenLoaded('iconImage')),
+            'iconImage'=> new AttachmentResource($this->whenLoaded('icon')),
         ];
     }
 }

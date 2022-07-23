@@ -60,6 +60,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = ['total_order'];
+
+
+    public function getTotalOrderAttribute()
+    {
+        return $this->orders()->count();
+    }
     public function social_provider()
     {
         return $this->hasOne(SocialProvider::class, 'user_id', 'user_id');
@@ -83,7 +90,6 @@ class User extends Authenticatable implements MustVerifyEmail
     */
     public function sendPasswordResetNotification($token)
     {
-
         $this->notify(new ResetPasswordNotification($token));
     }
 }

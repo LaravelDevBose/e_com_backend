@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AltrOrderItemsTable extends Migration
+class AddSellerSkuOrderItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AltrOrderItemsTable extends Migration
     public function up()
     {
         Schema::table('order_items', function (Blueprint $table) {
-            $table->dropColumn(['color', 'size', 'brand_id', 'brand']);
+            $table->string('seller_sku')->nullable()->after('seller_id');
         });
     }
 
@@ -26,10 +26,7 @@ class AltrOrderItemsTable extends Migration
     public function down()
     {
         Schema::table('order_items', function (Blueprint $table) {
-            $table->string('color')->nullable();
-            $table->string('size')->nullable();
-            $table->unsignedBigInteger('brand_id')->nullable();
-            $table->string('brand')->nullable();
+            $table->dropColumn('seller_sku');
         });
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductVariation;
@@ -23,8 +24,8 @@ class UpdateProductQtyListener implements ShouldQueue
     {
         $item = OrderItem::where('item_id', $event->itemId)->first();
         if(!empty($item->size_id) && !empty($item->color_id)){
-            $vPro = ProductVariation::where('product_id', $item->product_id)->where('pri_id', $item->color_id)
-                ->where('sec_id', $item->size_id)->first();
+            $vPro = ProductVariation::where('product_id', $item->product_id)->where('color_id', $item->color_id)
+                ->where('size_id', $item->size_id)->first();
             $uQty = $vPro->quantity + $item->qty;
             $productQtyUpdate = $vPro->update([
                 'quantity'=>$uQty,
@@ -36,6 +37,10 @@ class UpdateProductQtyListener implements ShouldQueue
                 'product_qty'=>$uQty,
             ]);
         }
+
+        $item->order()->update([
+            'cancel_total'=>$item->order->cancel_total + $item->total_price,
+        ]);
 
         if(empty($productQtyUpdate)){
            Log::error('Product Qty Not Update. Item Id'.$event->item->item_id);

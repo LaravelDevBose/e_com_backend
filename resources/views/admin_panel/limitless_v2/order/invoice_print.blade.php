@@ -31,14 +31,14 @@
         <div class="panel-body no-padding-bottom">
             <div class="row" style="border-bottom: 2px solid #ddd; margin-bottom: 15px;">
                 <div class="col-sm-10 col-md-6 content-group" style="float:left; width: 10%">
-                    <img src="/saliim.png" alt="logo" style="max-width:100px; max-height: 80px;">
+                    <img src="/logo.jpg" alt="logo" style="max-width:100px; max-height: 80px;">
                 </div>
                 <div class="col-sm-10 col-md-6 content-group" style="float:left; width: 80%">
                     <ul class="list-condensed list-unstyled">
                         <li style="margin: 0;"><h5 class="text-uppercase text-semibold" style="margin: 0;">Saliim</h5></li>
-                        <li style="margin: 0;">Address: Bakaaro,  Mogadishu, Somalia</li>
-                        <li style="margin: 0;">Phone: 00252617500005</li>
-                        <li style="margin: 0;">Email: info@saliim.com</li>
+                        <li style="margin: 0;">Address: {{ $contactInfos['contact_address'] }}</li>
+                        <li style="margin: 0;">Phone: {{ $contactInfos['contact_phone'] }}</li>
+                        <li style="margin: 0;">Email: {{ $contactInfos['contact_email'] }}</li>
                     </ul>
                 </div>
             </div>
@@ -66,6 +66,7 @@
                     <div class="invoice-details content-group">
                         <h5 class="text-uppercase text-semibold" style="margin: 0; font-size: 14px;">Order No # {{ $order->order_no }} </h5>
                         <p>Order Date: <span class="text-semibold">{{ $order->order_date }} </span></p>
+                        <p>Order Status: <span class="text-semibold">{{ $order->status_label }} </span></p>
                     </div>
                 </div>
             </div>
@@ -76,7 +77,6 @@
             <table class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                    <th style="width:70px">Image</th>
                     <th style="width: 43%; ">Product Description</th>
                     <th style="text-align: right;">Rate</th>
                     <th style="text-align: center;">QTY</th>
@@ -86,9 +86,6 @@
                 <tbody>
                 @foreach($order->orderItems as $item)
                     <tr>
-                        <td style="width: 70px">
-                            <img src="{{ $item->image->image_path }}" alt="{{ $item->product_name }}" style="width:55px; height:55px;">
-                        </td>
                         <td>
                             <h6 style="margin: 0;">{{ $item->product_name }}</h6>
                             <span class="text-muted"> SKU: {{ $item->product->product_sku }} </span>
@@ -101,7 +98,7 @@
                         </td>
                         <td class="text-right"> {{ number_format($item->price, 2) }} </td>
                         <td class="text-center"> X {{  $item->qty }} </td>
-                        <td class="text-right"><span class="text-semibold">  {{ $item->total_price }} </span></td>
+                        <td class="text-right"><span class="text-semibold"> {!!  config('app.currency') !!} {{ number_format($item->total_price, 2) }} </span></td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -115,7 +112,7 @@
                         <div class=" content-group">
                             <span class="text-muted">Payment Details:</span>
                             <ul class="list-condensed list-unstyled">
-                                <li style="margin: 0;"><h5 style="margin: 0; font-size: 14px;">Total: <span class="text-semibold">$  {{ $order->total}} </span></h5></li>
+                                <li style="margin: 0;"><h5 style="margin: 0; font-size: 14px;">Total: <span class="text-semibold">{!!  config('app.currency') !!}  {{ number_format($order->total, 2)}} </span></h5></li>
                                 <li style="margin: 0;">Paid By: <span class="text-semibold"> {{ $order->payment->paid_by }} </span></li>
                             </ul>
                         </div>
@@ -129,20 +126,26 @@
                                 <tbody>
                                 <tr>
                                     <th>Subtotal:</th>
-                                    <td class="text-right"> {{ $order->sub_total }} </td>
+                                    <td class="text-right">{!!  config('app.currency') !!}  {{ $order->sub_total }} </td>
                                 </tr>
                                 <tr>
                                     <th>Delivery:</th>
-                                    <td class="text-right"> {{ number_format($order->delivery_charge, 2) }}</td>
+                                    <td class="text-right">{!!  config('app.currency') !!}  {{ number_format($order->delivery_charge, 2) }}</td>
                                 </tr>
                                 <tr>
                                     <th>Discount:</th>
-                                    <td class="text-right"> {{ $order->discount }}</td>
+                                    <td class="text-right">{!!  config('app.currency') !!}  {{ number_format($order->discount, 2) }}</td>
                                 </tr>
+                                @if($order->cancel_total > 0)
+                                <tr style="background: #ddd">
+                                    <th style="background: #ddd">Canceled:</th>
+                                    <td class="text-right" style="background: #ddd">{!!  config('app.currency') !!}  {{ number_format($order->cancel_total, 2) }}</td>
+                                </tr>
+                                @endif
                                 <tr>
                                     <th>Total:</th>
                                     <td class="text-right text-primary">
-                                        <h5 class="text-semibold" style="margin: 0px;"> {{ $order->total }} </h5></td>
+                                        <h5 class="text-semibold" style="margin: 0px;"> {!!  config('app.currency') !!} {{ number_format($order->total, 2) }} </h5></td>
                                 </tr>
                                 </tbody>
                             </table>

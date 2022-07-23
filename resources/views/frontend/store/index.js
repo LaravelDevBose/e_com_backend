@@ -25,6 +25,7 @@ export default new Vuex.Store({
         page_list: [],
         company_info:{},
         page_info: {},
+        most_rated_products:{},
     },
     getters:{
         responseInfo: state => state.response_info,
@@ -37,6 +38,7 @@ export default new Vuex.Store({
         pages: state => state.page_list,
         companyInfo: state => state.company_info,
         pageInfo: state => state.page_info,
+        mostRatedProducts: state => state.most_rated_products,
     },
     actions:{
         async getCategories({commit}){
@@ -54,6 +56,17 @@ export default new Vuex.Store({
                 await axios.get('/front/get-brands')
                     .then(({data})=>{
                         state.brand_list = data.data;
+                    })
+            }catch (error){
+                console.log(error);
+            }
+        },
+        async getMostRatedProducts({state}){
+            try {
+                await axios.get('/front/get-most_rated/products')
+                    .then(({data})=>{
+                        const chunk = (arr, size) => arr.reduce((acc, e, i) => (i % size ? acc[acc.length - 1].push(e) : acc.push([e]), acc), []);
+                        state.most_rated_products = chunk(data.data, 2);
                     })
             }catch (error){
                 console.log(error);
@@ -123,6 +136,12 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
+        subscribeNewsletter({commit},formData){
+            return axios.post('/subscribe', formData)
+                .then(response=>{
+                    return response.data;
+                });
+        }
 
     },
     mutations:{
